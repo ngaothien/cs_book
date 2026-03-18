@@ -48,6 +48,50 @@
 | Eigenvector | Vectơ riêng | |
 | Matrix | Ma trận | |
 | Vector | Vectơ | |
+| Ensemble methods | Phương pháp kết hợp | |
+| Weak learner | Bộ học yếu | |
+| Strong learner | Bộ học mạnh | |
+| Base classifier | Bộ phân loại cơ sở | |
+| Boosting round | Vòng boosting | |
+| Edge (boosting) | Biên đạt được | |
+| Coordinate descent | Hạ tọa độ | |
+| Early stopping | Dừng sớm | |
+| Decision tree | Cây quyết định | |
+| Stump | Gốc cây | |
+| On-line learning | Học trực tuyến | |
+| Batch learning | Học theo lô | |
+| Regret | Hối tiếc | |
+| Expert advice | Lời khuyên chuyên gia | |
+| Multiplicative update | Cập nhật nhân | |
+| Multi-class classification | Phân loại đa lớp | |
+| Score function | Hàm điểm | |
+| One-vs-All (OVA) | Một-đối-tất cả | |
+| One-vs-One (OVO) | Một-đối-một | |
+| Structured prediction | Dự đoán có cấu trúc | |
+| Subgradient | Dưới gradient | |
+| Subdifferential | Dưới vi phân | |
+| Strictly convex | Lồi chặt | |
+| Strongly convex | Lồi mạnh | |
+| Lagrangian | Hàm Lagrangian | Giữ nguyên |
+| KKT conditions | Điều kiện KKT | |
+| Complementary slackness | Điều kiện bù | |
+| Fenchel conjugate | Liên hợp lồi Fenchel | |
+| Sample space | Không gian mẫu | |
+| Moment generating function | Hàm sinh moment | |
+| Concentration inequality | Bất đẳng thức tập trung | |
+| Law of Large Numbers | Luật số lớn | |
+| Central Limit Theorem | Định lý giới hạn trung tâm | |
+| Document classification | Phân loại tài liệu | |
+| Natural language processing | Xử lý ngôn ngữ tự nhiên | |
+| Ranking | Xếp hạng | |
+| Clustering | Phân cụm | |
+| Dimensionality reduction | Giảm chiều dữ liệu | |
+| Manifold learning | Học đa tạp | |
+| Unsupervised learning | Học không giám sát | |
+| Semi-supervised learning | Học bán giám sát | |
+| Transductive inference | Suy diễn chuyển nạp | |
+| Reinforcement learning | Học tăng cường | |
+| Active learning | Học chủ động | |
 
 ## Thuật ngữ giữ nguyên tiếng Anh
 

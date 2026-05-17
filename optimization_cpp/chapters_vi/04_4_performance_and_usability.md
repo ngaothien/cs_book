@@ -1,0 +1,20 @@
+# 4 Hiệu năng và khả năng sử dụng (Performance and usability)
+
+*(Tiếp theo phần 3.16)* một hoặc hai đơn vị nhân dấu phẩy động. Điều này có nghĩa là có thể thực hiện một phép cộng số nguyên, một phép cộng dấu phẩy động và một phép nhân dấu phẩy động tại cùng một thời điểm.
+
+Do đó, một đoạn mã thực hiện các tính toán dấu phẩy động tốt nhất nên có sự pha trộn cân bằng giữa các phép cộng và phép nhân. Các phép trừ sử dụng cùng đơn vị với phép cộng. Các phép chia mất nhiều thời gian hơn. Có thể thực hiện các phép toán số nguyên xen kẽ với các phép toán dấu phẩy động mà không làm giảm hiệu năng vì các phép toán số nguyên sử dụng các đơn vị thực thi khác nhau. Ví dụ, một vòng lặp thực hiện các tính toán dấu phẩy động thường sẽ sử dụng các phép toán số nguyên để tăng biến đếm vòng lặp, so sánh biến đếm vòng lặp với giới hạn của nó, v.v. Trong hầu hết các trường hợp, bạn có thể giả định rằng các phép toán số nguyên này không làm tăng tổng thời gian tính toán.
+
+## 4 Hiệu năng và khả năng sử dụng (Performance and usability)
+Một sản phẩm phần mềm có hiệu năng tốt hơn là một sản phẩm giúp tiết kiệm thời gian cho người dùng. Thời gian là một tài nguyên quý giá đối với nhiều người dùng máy tính và rất nhiều thời gian bị lãng phí vào các phần mềm chậm chạp, khó sử dụng, không tương thích hoặc dễ bị lỗi. Tất cả những vấn đề này đều là vấn đề về khả năng sử dụng (usability), và tôi tin rằng hiệu năng phần mềm nên được nhìn nhận trong khía cạnh rộng hơn về khả năng sử dụng.
+
+Đây không phải là một tài liệu hướng dẫn về khả năng sử dụng, nhưng tôi nghĩ cần thiết phải thu hút sự chú ý của các lập trình viên phần mềm vào một số trở ngại phổ biến nhất đối với việc sử dụng phần mềm hiệu quả. Để biết thêm về chủ đề này, hãy xem cuốn sách điện tử (E-book) miễn phí của tôi *Usability for Nerds* tại Wikibooks.
+
+Danh sách sau đây chỉ ra một số nguồn gốc điển hình gây ra sự thất vọng và lãng phí thời gian cho người dùng phần mềm cũng như các vấn đề quan trọng về khả năng sử dụng mà các nhà phát triển phần mềm nên nhận thức được.
+
+* **Các runtime frameworks lớn:** Các framework như .NET framework và máy ảo Java (Java virtual machine) thường chiếm nhiều tài nguyên hơn so với các chương trình chạy trên chúng. Những framework như vậy thường xuyên là nguồn gốc của các vấn đề về tài nguyên và khả năng tương thích, đồng thời chúng lãng phí rất nhiều thời gian trong quá trình cài đặt chính framework đó, cài đặt chương trình chạy dưới framework, quá trình khởi động chương trình và trong khi chương trình đang chạy. Lý do chính khiến các runtime frameworks như vậy được sử dụng nói chung là vì khả năng chuyển đổi chéo nền tảng (cross-platform portability). Đáng tiếc là khả năng tương thích chéo nền tảng không phải lúc nào cũng tốt như mong đợi. Tôi tin rằng tính di động (portability) có thể đạt được hiệu quả hơn bằng cách tiêu chuẩn hóa tốt hơn các ngôn ngữ lập trình, hệ điều hành và API.
+
+* **Tráo đổi bộ nhớ (Memory swapping):** Các nhà phát triển phần mềm thường có những chiếc máy tính mạnh mẽ hơn với nhiều RAM hơn so với người dùng cuối. Do đó, các nhà phát triển có thể không nhận thấy việc tráo đổi bộ nhớ quá mức và các vấn đề tài nguyên khác khiến các ứng dụng ngốn tài nguyên hoạt động kém đối với người dùng cuối.
+
+* **Các vấn đề về cài đặt:** Quá trình cài đặt và gỡ cài đặt các chương trình nên được tiêu chuẩn hóa và do hệ điều hành thực hiện thay vì các công cụ cài đặt riêng lẻ.
+
+* **Tự động cập nhật:** Tự động cập nhật phần mềm có thể gây ra sự cố nếu mạng không ổn định hoặc nếu phiên bản mới gây ra sự cố không có trong phiên bản cũ. Các cơ chế cập nhật thường làm phiền người dùng bằng những tin nhắn pop-up cằn nhằn yêu cầu cài đặt bản cập nhật mới quan trọng này hoặc thậm chí bảo người dùng khởi động lại máy tính trong khi họ đang bận rộn tập trung vào công việc quan trọng. Cơ chế cập nhật không bao giờ được ngắt ngang người dùng mà chỉ hiển thị một biểu tượng rời rạc báo hiệu có bản cập nhật hoặc cập nhật tự động khi máy tính dù sao cũng được khởi động lại. Các nhà phân phối phần mềm thường lạm dụng cơ chế cập nhật để quảng cáo các phiên bản mới cho phần mềm của họ.

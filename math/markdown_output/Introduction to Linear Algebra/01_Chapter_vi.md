@@ -1,0 +1,882 @@
+# **Chương 1**
+
+# **Giới thiệu về Vectơ (Introduction to Vectors)**
+
+Trái tim của đại số tuyến tính nằm ở hai phép toán - cả hai đều liên quan đến vectơ. Chúng ta cộng các vectơ để được *<sup>v</sup>*+ *w.* Chúng ta nhân chúng với các số *c* và *d* để được *cv* và *dw.* Kết hợp hai phép toán đó lại (cộng *cv* với *dw)* cho ra *tổ hợp tuyến tính (linear combination) cv* + *dw.* 
+
+| Tổ hợp tuyến tính | $cv + dw = c \begin{bmatrix} 1 \\ 1 \end{bmatrix} + d \begin{bmatrix} 2 \\ 3 \end{bmatrix} = \begin{bmatrix} c+2d \\ c+3d \end{bmatrix}$ |
+|--------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+|--------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+
+**Ví dụ**    
+$$v + w = \begin{bmatrix} 1 \\ 1 \end{bmatrix} + \begin{bmatrix} 2 \\ 3 \end{bmatrix} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}$$
+ là tổ hợp với  $c = d = 1$ 
+
+Các tổ hợp tuyến tính là cực kỳ quan trọng trong môn học này! Đôi khi chúng ta muốn một tổ hợp cụ thể, lựa chọn cụ thể *c* = 2 và *d* = **l** tạo ra *cv* + *dw* = ( 4, **5).** Những lúc khác, chúng ta muốn *tất cả các tổ hợp* của *v* và *w* (đến từ mọi *c* và *d).* 
+
+Các vectơ *cv* nằm dọc theo một đường thẳng. Khi *w* không nằm trên đường thẳng đó, **các tổ hợp** *cv* + *dw* **lấp đầy toàn bộ mặt phẳng hai chiều.** Bắt đầu từ bốn vectơ *u, v, w, z* trong không gian bốn chiều, các tổ hợp *cu* + *dv* + *ew* + *f z* của chúng rất có thể sẽ lấp đầy không gian - nhưng không phải lúc nào cũng vậy. Các vectơ và tổ hợp của chúng có thể nằm trong một mặt phẳng hoặc trên một đường thẳng.
+
+Chương 1 giải thích những ý tưởng trung tâm này, nền tảng để xây dựng mọi thứ. Chúng ta bắt đầu với các vectơ hai chiều và vectơ ba chiều, những thứ có thể vẽ được một cách hợp lý. Sau đó chúng ta chuyển sang các không gian nhiều chiều hơn. Đặc điểm thực sự ấn tượng của đại số tuyến tính là sự trơn tru khi bước vào không gian n chiều. Bức tranh trong tâm trí của bạn vẫn hoàn toàn chính xác, ngay cả khi việc vẽ một vectơ mười chiều là bất khả thi.
+
+Đây là hướng đi của cuốn sách (tiến vào không gian n chiều). Những bước đầu tiên là các phép toán trong Phần 1.1 và 1.2. Sau đó Phần 1.3 phác thảo ba ý tưởng cơ bản.
+
+**1.1** *Phép cộng vectơ v + w và tổ hợp tuyến tính cv + dw.* **1.2** *Tích vô hướng (dot product) v \cdot w của hai vectơ và độ dài* ||v||. **1.3** *Ma trận A, phương trình tuyến tính Ax* = *b, nghiệm x* = *A*^{-1} *b.* 
+
+### **1.1 Vectơ và Tổ hợp Tuyến tính**
+
+**1** *3v* + *5w* là một **tổ hợp tuyến tính** *cv* + *dw* điển hình của các vectơ *v* và *w.* 
+
+2 Đối với v = [  ] và w = [  ] tổ hợp đó là 3 [  ] + 5 [  ] = [  !  ] = [   ] . 3 Vectơ [  ] = [  ] + [  ] đi ngang đến x = 2 và đi lên y = 3 trong mặt phẳng xy. **<sup>4</sup>**Các tổ hợp c [  ] + d [  ] lấp đầy toàn bộ mặt phẳng xy. Chúng tạo ra mọi [ : ] . **<sup>5</sup>**Các tổ hợp **c [** t ] **+d [** ! ] lấp đầy một **mặt phẳng** trong không gian **xyz**. Cùng một mặt phẳng đó chứa c [ t l · [ ! ] · <sup>C</sup>+ 2d = 1 6 Nhưng c+ *3d* = 0 *c+4d* = 0 **vô nghiệm vì vế phải [  ] của nó không nằm trên mặt phẳng đó.** 
+
+"Bạn không thể cộng táo và cam." Theo một cách kỳ lạ, đây là lý do cho sự tồn tại của các vectơ. Chúng ta có hai số riêng biệt v1 và v2. Cặp số đó tạo ra một *vectơ hai chiều* v:
+
+| Vectơ cột $v$ | $v = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix}$ | $v_1 = \text{thành phần thứ nhất của } v$ | $v_2 = \text{thành phần thứ hai của } v$ |
+|-------------------|------------------------------------------------|--------------------------------------|---------------------------------------|
+|                   |                                                |                                      |                                       |
+
+Chúng ta viết v dưới dạng *cột (column),* không phải là dạng hàng (row). Điểm chính cho đến nay là dùng một chữ cái duy nhất v (in *đậm nghiêng)* cho cặp số v1 và v2 (in *nghiêng bình thường).*
+
+Ngay cả khi chúng ta không cộng v1 với v2, chúng ta *cộng các vectơ.* Các thành phần thứ nhất của v và w tách biệt với các thành phần thứ hai:
+
+| PHÉP CỘNG VECTƠ | $v = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix}$ | và | $w = \begin{bmatrix} w_1 \\ w_2 \end{bmatrix}$ | cộng thành | $v + w = \begin{bmatrix} v_1 + w_1 \\ v_2 + w_2 \end{bmatrix}$ |
+|-----------------|------------------------------------------------|-----|------------------------------------------------|--------|----------------------------------------------------------------|
+|-----------------|------------------------------------------------|-----|------------------------------------------------|--------|----------------------------------------------------------------|
+
+Phép trừ tuân theo cùng một ý tưởng: *Các thành phần của v* -*w là* v1 - w1 *và* v2 - w2.
+
+Phép toán cơ bản khác là *phép nhân vô hướng (scalar multiplication).* Các vectơ có thể được nhân với 2 hoặc với -1 hoặc với bất kỳ số c nào. Để tìm 2v, hãy nhân từng thành phần của v với 2:
+
+| <b>PHÉP NHÂN VÔ HƯỚNG</b> | $2v = \begin{bmatrix} 2v_1 \\ 2v_2 \end{bmatrix} = v + v - v = \begin{bmatrix} -v_1 \\ -v_2 \end{bmatrix}$ |
+|------------------------------|------------------------------------------------------------------------------------------------------------|
+|------------------------------|------------------------------------------------------------------------------------------------------------|
+
+Các thành phần của *cv* là cv1 và cv2. Số c được gọi là một "vô hướng" (scalar).
+
+Chú ý rằng tổng của *-v* và v là vectơ không (zero vector). Đây là 0, điều này không giống với số không! Vectơ 0 có các thành phần 0 và 0. Xin thứ lỗi vì tôi cứ nhấn mạnh sự khác biệt giữa một vectơ và các thành phần của nó. Đại số tuyến tính được xây dựng dựa trên các phép toán *v* + w và *cv* và *dw - cộng các vectơ và nhân với các vô hướng.*
+
+#### **Tổ hợp Tuyến tính**
+
+Bây giờ chúng ta kết hợp phép cộng với phép nhân vô hướng để tạo ra một **"tổ hợp tuyến tính"** của *v* và *w.* Nhân *v* với c và nhân *w* với *d.* Sau đó cộng *cv* + *dw.* 
+
+*Tổng của cv và dw là một tổ hợp tuyến tính cv* + *dw.* 
+
+Bốn tổ hợp tuyến tính đặc biệt là: tổng, hiệu, không, và một bội số vô hướng cv:
+
+lv <sup>+</sup> lw lv- lw *0v+0w*  tổng của các vectơ trong Hình 1.1 một hiệu của các vectơ trong Hình 1.1 b *vectơ không* 
+
+**$$cv + 0w$$
+  $=$**       vectơ  $cv$  theo hướng của  $v$ 
+
+Vectơ không luôn là một tổ hợp có thể (các hệ số của nó bằng không). Mỗi khi chúng ta thấy một "không gian" các vectơ, vectơ không đó sẽ được bao gồm trong đó. Góc nhìn rộng lớn này, lấy *tất cả* các tổ hợp của v và *w,* là cách đại số tuyến tính hoạt động.
+
+Các hình vẽ cho thấy cách bạn có thể hình dung các vectơ. Về mặt đại số, chúng ta chỉ cần các thành phần (như 4 và 2). Vectơ v đó được biểu diễn bằng một mũi tên. Mũi tên đi v1 = 4 đơn vị sang phải và *<sup>v</sup>2* = 2 đơn vị lên trên. Nó kết thúc tại điểm có tọa độ *x, y* là 4, 2. Điểm này là một cách biểu diễn khác của vectơ - do đó chúng ta có ba cách để mô tả v:
+
+**Biểu diễn vectơ v** Hai con số Mũi tên từ (0, 0) Điểm trên mặt phẳng
+
+Chúng ta cộng bằng cách sử dụng các con số. Chúng ta hình dung v + *<sup>w</sup>* bằng cách sử dụng các mũi tên:
+
+*Phép cộng vectơ* (đầu nối đuôi) *Tại điểm cuối của v, đặt điểm bắt đầu của w.*
+
+![](images/_page_12_Figure_13.jpeg)
+
+Hình 1.1: Phép cộng vectơ v + *<sup>w</sup>*= (3, 4) tạo ra đường chéo của một hình bình hành. Chiều ngược lại của *w* là *-w.* Tổ hợp tuyến tính ở bên phải là *v* - *<sup>w</sup>*= (5, 0).
+
+Chúng ta di chuyển dọc theo *v* rồi dọc theo *w.* Hoặc chúng ta đi đường tắt theo đường chéo dọc theo *<sup>v</sup>*+ *w.* Chúng ta cũng có thể đi dọc theo w rồi đến *v.* Nói cách khác, w + *v* **cho cùng một kết quả như** v + *w.* Đây là những con đường khác nhau dọc theo hình bình hành (trong ví dụ này nó là một hình chữ nhật).
+
+#### **Vectơ trong Không gian Ba chiều**
+
+Một vectơ có hai thành phần tương ứng với một điểm trong mặt phẳng *xy*. Các thành phần của *v* là tọa độ của điểm: x = v1 và y = v2. Mũi tên kết thúc tại điểm này (v1, v2), khi nó bắt đầu từ (0,0). Bây giờ chúng ta cho phép các vectơ có ba thành phần (v1,v2,v3).
+
+Mặt phẳng *xy* được thay thế bằng không gian ba chiều *xyz*. Dưới đây là các vectơ điển hình (vẫn là vectơ cột nhưng có ba thành phần):
+
+$$\mathbf{v} = \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix} \quad \text{và} \quad \mathbf{w} = \begin{bmatrix} 2 \\ 3 \\ 4 \end{bmatrix} \quad \text{và} \quad \mathbf{v} + \mathbf{w} = \begin{bmatrix} 3 \\ 4 \\ 3 \end{bmatrix}.$$
+
+Vectơ *v* tương ứng với một mũi tên trong không gian 3 chiều. Thông thường mũi tên bắt đầu tại "gốc tọa độ", nơi các trục *xyz* gặp nhau và tọa độ là (0, 0, 0). Mũi tên kết thúc tại điểm có tọa độ v1, v2, *v3•* Có một sự khớp nối hoàn hảo giữa *vectơ cột* và *mũi tên từ gốc tọa độ* và *điểm nơi mũi tên kết thúc.* 
+
+Vectơ (x, *y)* trong mặt phẳng khác với (x, *y,* 0) trong không gian 3 chiều !
+
+![](images/_page_13_Figure_8.jpeg)
+
+Hình 1.2, Vectơ [;] và [;] tương ứng với các điểm (x, *y)* và (x, *y,* z).
+
+Từ nay về sau 
+$$v = \begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}$$
+ cũng được viết thành  $v = (1, 1, -1)$ .
+
+Lý do cho dạng hàng (trong ngoặc đơn) là để tiết kiệm không gian. Nhưng *v* = (1, 1, -1) không phải là một vectơ hàng! Nó thực chất là một vectơ cột, chỉ tạm thời nằm ngang. Vectơ hàng [ 1 1 -1] hoàn toàn khác, mặc dù nó có cùng ba thành phần đó. Vectơ hàng 1x3 đó là ma trận "chuyển vị" (transpose) của vectơ cột 3x1 *v.*
+
+Trong không gian ba chiều, *v* + *w* vẫn được tìm theo từng thành phần một. Tổng có các thành phần V1 + w1 và v2 + w2 và *V3* + *W3.* Bạn đã thấy cách cộng các vectơ trong không gian 4, 5 hoặc *n* chiều. Khi *w* bắt đầu tại điểm cuối của *v,* cạnh thứ ba là *v* + *w.* Cách đi ngược lại hình bình hành là *w* + *v.* Câu hỏi: Bốn cạnh có nằm trên cùng một mặt phẳng không? *Có.* Và tổng *v* + *w* - *v* - *w* đi một vòng hoàn chỉnh để tạo ra vectơ \_\_ .
+
+Một tổ hợp tuyến tính điển hình của ba vectơ trong không gian ba chiều là *u* + *4v* - 2w:
+
+| Tổ hợp tuyến tính   | $\begin{bmatrix} 1 \\ 0 \\ 3 \end{bmatrix} + 4 \begin{bmatrix} 2 \\ 3 \\ -1 \end{bmatrix} = \begin{bmatrix} 1 \\ 2 \\ 9 \end{bmatrix}$ |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| Nhân với 1, 4, -2 |                                                                                                                                        |
+| Sau đó cộng             |                                                                                                                                        |
+
+# **Những Câu hỏi Quan trọng**
+
+Đối với một vectơ *u,* các tổ hợp tuyến tính duy nhất là các bội số *cu.* Đối với hai vectơ, các tổ hợp là *cu+ dv.* Đối với ba vectơ, các tổ hợp là *cu* + *dv* + *ew.* Bạn sẽ thực hiện bước tiến lớn từ *một* tổ hợp đến **tất cả các tổ hợp** chứ? Mọi c và *d* và *e* đều được phép. Giả sử các vectơ *u, v,* w nằm trong không gian ba chiều:
+
+- 1. Bức tranh của *tất cả* các tổ hợp *cu* là gì?
+- 2. Bức tranh của *tất cả* các tổ hợp *cu* + *dv* là gì?
+- 3. Bức tranh của *tất cả* các tổ hợp *cu+ dv* + *ew* là gì?
+
+Các câu trả lời phụ thuộc vào các vectơ cụ thể *u, v,* và *w.* Nếu chúng là các vectơ không (một trường hợp rất cực đoan), thì mọi tổ hợp sẽ bằng không. Nếu chúng là các vectơ khác không điển hình (các thành phần được chọn ngẫu nhiên), dưới đây là ba câu trả lời. Đây là cốt lõi của môn học của chúng ta:
+
+- 1. Các tổ hợp *cu* lấp đầy một *đường thẳng đi qua* (0, 0, 0).
+- 2. Các tổ hợp *cu+ dv* lấp đầy một *mặt phẳng đi qua* (0, 0, 0).
+- 3. Các tổ hợp *cu+ dv* + *ew* lấp đầy *không gian ba chiều.*
+
+Vectơ không (0, 0, 0) nằm trên đường thẳng vì c có thể bằng không. Nó nằm trên mặt phẳng vì c và *d* đều có thể bằng không. Đường thẳng của các vectơ *cu* dài vô hạn (hướng tới và lùi lại). Chính mặt phẳng của tất cả các tổ hợp *cu* + *dv* (kết hợp hai vectơ trong không gian ba chiều) là điều tôi đặc biệt muốn bạn suy nghĩ.
+
+#### *Cộng tất cả cu trên một đường thẳng với tất cả dv trên đường thẳng khác sẽ lấp đầy mặt phẳng trong Hình* 1.3.
+
+Khi chúng ta thêm một vectơ thứ ba *w,* các bội số *ew* cho ra một đường thẳng thứ ba. **Giả sử đường thẳng thứ ba đó không nằm trong mặt phẳng của** *u* **và** *v.* Khi đó việc kết hợp tất cả các *ew* với tất cả *cu+ dv* sẽ lấp đầy toàn bộ không gian ba chiều.
+
+Đây là tình huống điển hình! **Đường thẳng,** sau đó là **mặt phẳng,** rồi đến **không gian.** Nhưng có những khả năng khác tồn tại. Khi *w* tình cờ là *cu* + *dv,* thì vectơ thứ ba *w* đó nằm trong mặt phẳng của hai vectơ đầu. Các tổ hợp của *u, v, w* sẽ không ra ngoài mặt phẳng *uv* đó. Chúng ta không có được toàn bộ không gian ba chiều. Hãy suy nghĩ về các trường hợp đặc biệt trong Bài toán 1.
+
+![](images/_page_15_Picture_2.jpeg)
+
+Hình 1.3: (a) Đường thẳng đi qua *u.* (b) Mặt phẳng chứa các đường thẳng đi qua *u* và *v.* 
+
+#### **• ÔN TẬP CÁC Ý TƯỞNG CHÍNH •**
+
+- 1. Một vectơ *v* trong không gian hai chiều có hai thành phần v1 và v2.
+- **2.** *v* + *w* = ( v1 + w1, v2 + w2) và *cv* = ( cv1, cv2) được tìm theo từng thành phần một.
+- **3.** Một tổ hợp tuyến tính của ba vectơ *u* và *v* và *w* là *cu+ dv* + *ew.*
+- **4.** Lấy *tất cả* các tổ hợp tuyến tính của *u,* hoặc *u* và *v,* hoặc *u, v, w.* Trong không gian ba chiều, những tổ hợp đó điển hình sẽ lấp đầy một đường thẳng, rồi đến một mặt phẳng, sau đó là toàn bộ không gian R**<sup>3</sup>**
+
+#### **• CÁC VÍ DỤ ĐÃ GIẢI •**
+
+**1.1 A** Các tổ hợp tuyến tính của *v* = (1, 1, 0) và *w* = (0, 1, 1) lấp đầy một mặt phẳng trong không gian **R<sup>3</sup>.** *Hãy mô tả mặt phẳng đó.* Tìm một vectơ *không* phải là tổ hợp của *v* và *w - không* nằm trên mặt phẳng.
+
+**Lời giải** Mặt phẳng của *v* và *w* chứa tất cả các tổ hợp *cv* + *dw.* Các vectơ trong mặt phẳng đó cho phép bất kỳ số c và *d* nào. Mặt phẳng ở Hình 1.3 lấp đầy khoảng trống giữa hai đường thẳng.
+
+| Các tổ hợp | $cv + dw = c \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix} + d \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} c \\ c+d \\ d \end{bmatrix}$ lấp đầy một mặt phẳng. |
+|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+Bốn vectơ nằm trong mặt phẳng đó là (0,0,0) và (2,3,1) và (5,7,2) và (7r,27r,7r). Thành phần thứ hai *c* + *d* luôn là tổng của thành phần thứ nhất và thứ ba. Giống như hầu hết các vectơ, (1, 2, 3) *không nằm trong mặt phẳng, bởi vì* $2 \neq 1 + 3$.
+
+Một mô tả khác của mặt phẳng đi qua (0, 0, 0) này là việc biết rằng *n* = (1, -1, 1) **vuông góc** (perpendicular) với mặt phẳng. Phần 1.2 sẽ xác nhận góc 90° đó bằng cách thử các tích vô hướng: *v* · *n* = 0 và *w* · *n* = 0. Các vectơ vuông góc có tích vô hướng bằng không.
+
+**1.1 B** Cho *v* = (1, 0) và w = (0, 1), hãy mô tả tất cả các điểm *cv* với (1) *các số nguyên* c (2) *các số không âm* $c \ge 0$. Sau đó cộng tất cả các vectơ *dw* và mô tả tất cả *cv* + *dw.*
+
+#### **Lời giải**
+
+- (1) Các vectơ *cv* = (c, 0) với c là các số nguyên là **những điểm cách đều nhau** dọc theo trục x (hướng của v). Chúng bao gồm (-2, 0), (-1, 0), (0, 0), (1, 0), (2, 0).
+- (2) Các vectơ *cv* với $c \ge 0$ lấp đầy một *nửa đường thẳng.* Đó là phần dương của trục *x.* Nửa đường thẳng này bắt đầu tại (0, 0) nơi c = 0. Nó bao gồm (100, 0) và (1r, 0) nhưng không bao gồm (-100, 0). **(1')** Cộng tất cả các vectơ *dw* = (0, d) tạo ra một đường thẳng đứng đi qua những điểm cách đều nhau *cv.* Chúng ta có vô số *các đường thẳng song song* từ *(c là số nguyên,* d là số *bất kỳ).* (2') Cộng tất cả các vectơ *dw* tạo ra một đường thẳng đứng đi qua mọi *cv* trên nửa đường thẳng đó. Bây giờ chúng ta có một *nửa mặt phẳng.* Nửa bên phải của mặt phẳng *xy* có giá trị $x \ge 0$ bất kỳ và *y* bất kỳ.
+
+**1.1 C** Tìm hai phương trình cho c và *d* sao cho **tổ hợp tuyến tính** *cv* + *dw* **bằng** b:
+
+$$\mathbf{v} = \begin{bmatrix} 2 \\ -1 \end{bmatrix} \quad \mathbf{w} = \begin{bmatrix} -1 \\ 2 \end{bmatrix} \quad \mathbf{b} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}.$$
+
+**Lời giải** Trong toán học ứng dụng, nhiều bài toán có hai phần:
+
+1 *Phần mô hình hóa (Modeling part)* Thể hiện bài toán bằng một hệ phương trình. 2 *Phần tính toán (Computational part)* Giải các phương trình đó bằng một thuật toán nhanh và chính xác.
+
+Ở đây chúng ta chỉ được yêu cầu phần thứ nhất (các phương trình). Chương 2 được dành riêng cho phần thứ hai (nghiệm số). Ví dụ của chúng ta phù hợp với một mô hình cơ bản cho đại số tuyến tính:
+
+Tìm 
+$$n$$
+ số  $c_1, \dots, c_n$  sao cho  $c_1 v_1 + \dots + c_n v_n = b$ .
+
+Đối với *n* = 2, chúng ta sẽ tìm ra công thức cho các số c. "Phương pháp khử" trong Chương 2 thành công vượt xa mức *n* = 1000. Đối với *n* lớn hơn 1 tỷ, xem Chương 11. Ở đây *n* = 2:
+
+**Phương trình vectơ** 
+$$c \begin{bmatrix} 2 \\ -1 \end{bmatrix} + d \begin{bmatrix} -1 \\ 2 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$$
+
+Các phương trình cần thiết cho c và *d* chỉ đến từ hai thành phần một cách riêng biệt:
+
+|                               | $2c - d = 1$ $-c + 2d = 0$ |
+|-------------------------------|----------------------------|
+| <b>Hai phương trình thông thường</b> |                            |
+
+2 1 Mỗi phương trình tạo ra một đường thẳng. Hai đường thẳng cắt nhau tại nghiệm $c = 2/3, d = 1/3$. Tại sao không xem điều này cũng như một **phương trình ma trận (matrix equation),** vì đó là đích đến của chúng ta:
+
+| Ma trận 2 x 2 | $\begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}$ | $\begin{bmatrix} c \\ d \end{bmatrix}$ | $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ |
+|---------------|--------------------------------------------------|----------------------------------------|----------------------------------------|
+|---------------|--------------------------------------------------|----------------------------------------|----------------------------------------|
+
+### **Bài tập 1.1**
+
+**Các bài từ 1-9 nói về phép cộng vectơ và tổ hợp tuyến tính.** 
+
+**<sup>1</sup>** Hãy mô tả về mặt hình học (đường thẳng, mặt phẳng, hoặc toàn bộ không gian **R**3) tất cả các tổ hợp tuyến tính của
+
+| (a) | $\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$ và $\begin{bmatrix} 3 \\ 6 \\ 9 \end{bmatrix}$ | (b) | $\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$ và $\begin{bmatrix} 0 \\ 2 \\ 3 \end{bmatrix}$ | (c) | $\begin{bmatrix} 2 \\ 0 \\ 0 \end{bmatrix}$ và $\begin{bmatrix} 0 \\ 2 \\ 2 \end{bmatrix}$ | (d) | $\begin{bmatrix} 2 \\ 0 \\ 3 \end{bmatrix}$ |
+|-----|---------------------------------------------------------------------------------------------|-----|---------------------------------------------------------------------------------------------|-----|---------------------------------------------------------------------------------------------|-----|---------------------------------------------|
+|     |                                                                                             |     |                                                                                             |     |                                                                                             |     |                                             |
+
+Vẽ *v* = [ 1] và *w* = [ -] và *v+w* và *v-w* trên cùng một mặt phẳng *xy*. Nếu *v* + *w* = [ ] và *v* - *<sup>w</sup>*= [!], tính và vẽ các vectơ *v* và *w.* Từ *v* = [ ] và *w* = [;], hãy tìm các thành phần của *3v* +w và *cv* + *dw.* Tính *u* + *v* +w và *2u* + *2v* + *w.* Làm thế nào bạn biết *u, v, w* cùng nằm trên một mặt phẳng?
+
+| Những vectơ này nằm trên cùng mặt phẳng vì     | $u = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$ , | $v = \begin{bmatrix} -3 \\ 1 \\ -2 \end{bmatrix}$ , | $w = \begin{bmatrix} 2 \\ -3 \\ -1 \end{bmatrix}$ |
+|----------------------------------|---------------------------------------------------|-----------------------------------------------------|---------------------------------------------------|
+| $w = cu + dv$ . Tìm $c$ và $d$ |                                                   |                                                     |                                                   |
+
+**<sup>6</sup>** Mọi tổ hợp của *v* = (1, -2, 1) và *w* = (0, 1, -1) có tổng các thành phần bằng \_\_ . Tìm *c* và *d* sao cho *cv* + *dw* = (3, 3, -6). Tại sao (3, 3, 6) là điều không thể? **<sup>7</sup>** Trong mặt phẳng *xy*, hãy đánh dấu cả chín tổ hợp tuyến tính này:
+
+| $c \begin{bmatrix} 2 \\ 1 \end{bmatrix} + d \begin{bmatrix} 0 \\ 1 \end{bmatrix}$ | với | $c = 0, 1, 2$ | và | $d = 0, 1, 2$ |
+|-----------------------------------------------------------------------------------|------|---------------|-----|---------------|
+|-----------------------------------------------------------------------------------|------|---------------|-----|---------------|
+
+8 Hình bình hành trong Hình 1.1 có đường chéo *v* + *w.* Đường chéo kia của nó là gì? Tổng của hai đường chéo bằng bao nhiêu? Vẽ vectơ tổng đó. **<sup>9</sup>** Nếu ba đỉnh của một hình bình hành là (1, 1), (4, 2), và (1, 3), tất cả ba đỉnh thứ tư có thể có là những đỉnh nào? Vẽ hai trong số chúng.
+
+**Các Bài toán 10-14 nói về các vectơ đặc biệt trên hình khối lập phương và đồng hồ trong Hình 1.4.** 
+
+**<sup>10</sup>** Điểm nào của khối lập phương là i + *j?* Điểm nào là tổng vectơ của i = (1, 0, 0) và *<sup>j</sup>*= (0, 1, 0) và k = (0, 0, 1)? Mô tả tất cả các điểm *(x, y,* z) trong khối lập phương. **<sup>11</sup>** Bốn đỉnh của khối lập phương đơn vị này là (0, 0, 0), (1, 0, 0), (0, 1, 0), (0, 0, 1). Bốn đỉnh còn lại là gì? Tìm tọa độ điểm trung tâm của khối lập phương. Các điểm trung tâm của sáu mặt là \_\_ . Khối lập phương có bao nhiêu cạnh? **<sup>12</sup>** *Câu hỏi Ôn tập.* Trong không gian *xyz*, mặt phẳng của tất cả các tổ hợp tuyến tính của i = (1, 0, 0) và i + *j* = (1, 1, 0) nằm ở đâu?
+
+![](images/_page_18_Figure_2.jpeg)
+
+Hình 1.4: Khối lập phương đơn vị từ *i, j, k* và mười hai vectơ đồng hồ.
+
+- 13 (a) Tổng *V* của mười hai vectơ đi từ tâm của đồng hồ đến các giờ 1:00, 2:00, ... , 12:00 là gì?
+- (b) Nếu bỏ đi vectơ 2:00, tại sao 11 vectơ còn lại lại cộng thành 8:00? (c) Các thành phần *x, y* của vectơ 2:00 *v* = (cos 0, sin 0) đó là gì? 14 Giả sử mười hai vectơ bắt đầu từ lúc 6:00 ở phía dưới thay vì (0, 0) ở giữa. Vectơ tới 12:00 được nhân đôi thành (0, 2). Mười hai vectơ mới cộng lại bằng \_\_ .
+
+## Các Bài toán 15-19 đi xa hơn với các tổ hợp tuyến tính của *v* và *w* (Hình 1.Sa).
+
+15 Hình I.Sa cho thấy ½ *v* + ½ *w.* Hãy đánh dấu các điểm ¾ *v* + ¼w và ¼ *v* + ¼w và *v* + *w.* 16 Đánh dấu điểm *v* + 2w và bất kỳ tổ hợp nào khác *cv* + *dw* có *c* + *d* = 1. Vẽ đường thẳng của tất cả các tổ hợp có *c* + *d* = 1. 17 Định vị ½ *v* + ½w và  *v* +  *w.* Các tổ hợp *cv* + *cw* lấp đầy đường thẳng nào? 18 Bị giới hạn bởi $0 \le c \le 1$ và $0 \le d \le 1$, hãy tô bóng tất cả các tổ hợp *cv* + *dw.* 19 Chỉ bị giới hạn bởi $c \ge 0$ và $d \ge 0$ hãy vẽ "hình nón" của tất cả các tổ hợp *cv* + *dw.*
+
+![](images/_page_18_Figure_7.jpeg)
+
+Hình 1.5: Các Bài toán 15-19 trong một mặt phẳng Các Bài toán **20-25** trong không gian 3 chiều
+
+**Các Bài toán 20-25 liên quan đến** *u, v,* **w trong không gian ba chiều {xem Hình L5b).** 
+
+20 Định vị ½ *u* **+** ½ *<sup>v</sup>*+ ½ *w* và ½ *u* **+** ½ *<sup>w</sup>* trong Hình 1.5b. Bài toán thử thách: Dưới những giới hạn nào đối với *c, d, e,* các tổ hợp *cu* + *dv* + *ew* sẽ lấp đầy tam giác nét đứt? Để duy trì bên trong tam giác, một yêu cầu là $c \ge 0$, $d \ge 0$, $e \ge 0$. 21 Ba cạnh của tam giác nét đứt là *v* - *<sup>u</sup>* và *w* - *<sup>v</sup>* và *u* - *w.* Tổng của chúng là \_\_ . Vẽ phép cộng đầu nối đuôi xung quanh một tam giác phẳng của (3, 1) cộng với (-1, 1) cộng với (-2, -2). 22 Tô bóng hình chóp của các tổ hợp *cu* + *dv* + *ew* với $c \ge 0, d \ge 0, e \ge 0$ và $c + d + e \le 1$. Đánh dấu vectơ ½ (*<sup>u</sup>*+ *v* + *w)* nằm bên trong hay bên ngoài hình chóp này. 23 Nếu bạn nhìn vào *tất cả* các tổ hợp của những *u, v,* và *w* đó, có vectơ nào không thể được tạo ra từ *cu+ dv* + *ew* không? Câu trả lời sẽ khác nếu *u, v,* w đều nằm trong \_\_ . 24 Những vectơ nào là tổ hợp của *u* và *v,* và *cũng* là tổ hợp của *v* và *w?* 25 Vẽ các vectơ *u, v, w* sao cho các tổ hợp *cu* + *dv* + *ew* của chúng chỉ lấp đầy một đường thẳng. Tìm các vectơ *u, v, w* sao cho các tổ hợp *cu+ dv* + *ew* của chúng chỉ lấp đầy một mặt phẳng. <sup>26</sup> Tổ hợp *c* [ ] + d [ ] nào tạo ra [ 1 :] ? Biểu diễn câu hỏi này dưới dạng hai phương trình cho các hệ số *c* và d trong tổ hợp tuyến tính.
+
+# **Các Bài toán Thử thách (Challenge Problems)**
+
+27 Khối lập phương có bao nhiêu đỉnh trong 4 chiều? Bao nhiêu mặt 3D? Bao nhiêu cạnh? Một đỉnh điển hình là (0, 0, 1, 0). Một cạnh điển hình hướng tới (0, 1, 0, 0). 28 Tìm các vectơ *v* và *w* sao cho *<sup>v</sup>*<sup>+</sup> *<sup>w</sup>***=** (4, 5, 6) và *v* - *<sup>w</sup>***=** (2, 5, 8). Đây là một câu hỏi với \_\_ ẩn số, và một số lượng phương trình tương đương để tìm ra các số đó. 29 Tìm *hai tổ hợp khác nhau* của ba vectơ *u* **=** (1, 3) và *v* **=** (2, 7) và *<sup>w</sup>*= (1, 5) để tạo ra *b* = (0, 1). Câu hỏi hơi tế nhị: Nếu tôi lấy bất kỳ ba vectơ *u, v, w* nào trong mặt phẳng, liệu có luôn tồn tại hai tổ hợp khác nhau tạo ra *<sup>b</sup>* <sup>=</sup>(0, 1) hay không? 30 Các tổ hợp tuyến tính của *v* **= (** *a, b)* và *w* **= (** *c, d)* lấp đầy mặt phẳng trừ khi \_\_ . Tìm bốn vectơ *u, v, w, z* với bốn thành phần mỗi vectơ sao cho các tổ hợp *cu+ dv* + *ew* + *f z* của chúng tạo ra mọi vectơ (b1, *b2, b3, b4)* trong không gian bốn chiều. 31 Viết xuống ba phương trình cho *c, d, e* sao cho *cu+ dv* + *ew* **=** *b.* Bạn có thể bằng cách nào đó tìm được *c, d, e* cho *b* này không?
+
+| $u = \begin{bmatrix} 2 \\ -1 \\ 0 \end{bmatrix}$ | $v = \begin{bmatrix} -1 \\ 2 \\ -1 \end{bmatrix}$ | $w = \begin{bmatrix} 0 \\ -1 \\ 2 \end{bmatrix}$ | $b = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$ |
+|--------------------------------------------------|---------------------------------------------------|--------------------------------------------------|-------------------------------------------------|
+| <hr/>                                            |                                                   |                                                  |                                                 |
+
+# **1.2 Độ dài và Tích vô hướng (Lengths and Dot Products)**
+
+1 "Tích vô hướng" của 
+$$\mathbf{v} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$$
+ và  $\mathbf{w} = \begin{bmatrix} 4 \\ 5 \end{bmatrix}$  là  $\mathbf{v} \cdot \mathbf{w} = (1)(4) + (2)(5) = 4 + 10 = 14$ .
+
+1 "Tích vô hướng" củav= [ ] vàw= [:] làv·w=(1)(4) +(2)(5)=4+ 10=14. <sup>2</sup>*v* = [ ! ] và *w* = [ -! ] vuông góc với nhau bởi vì *v* · *w* bằng không: 2 4 (1)(4) + (3)(-4) + (2)(4) = 0. 3 Bình phương độ dài của *v* = [ ! ] là *v* · *v* = 1 + 9 + 4 = 14. **Độ dài** là ||*v*|| = căn(v.v). 4 Vậy u = v / căn(14) có độ dài ||u|| = 1. Kiểm tra 1/14 + 9/14 + 4/14 = 1. *V•W* **5** Góc 0 giữa v và w có cos 0 = (v.w) / (||v|| ||w||). 6 Góc giữa [ ] và [ ] có cos 0 = (1)/căn(2) . Góc đó là 0 = 45°. 7 Tất cả các góc đều có | cos 0| :::; 1. Vậy tất cả các vectơ đều có | v · w | :::; ||v|| ||w||.
+
+Phần đầu tiên đã tránh việc nhân các vectơ. Bây giờ chúng ta tiến lên để định nghĩa *"tích vô hướng" (dot product)* của v và *w.* Phép nhân này liên quan đến các tích riêng biệt vt w1 và *<sup>v</sup>2w2,* nhưng nó không dừng lại ở đó. Hai số đó được cộng lại để tạo ra một số duy nhất *v* · *w.*
+
+*Đây là phần hình học (độ dài của các vectơ và cosin của các góc giữa chúng).* 
+
+*Tích vô hướng (dot product) hay tích trong (inner product) củav* = (v1,v2) vàw = (w1,w2) là số v.w:
+
+**Ví dụ 1** Các vectơ *v* = (4, 2) và w = (-1, 2) có một tích vô hướng bằng *không (zero)*:
+
+| Tích vô hướng bằng không   | $\begin{bmatrix} 4 \\ 2 \end{bmatrix} \cdot \begin{bmatrix} -1 \\ 2 \end{bmatrix} = -4 + 4 = 0$ |
+|-----------------------|-------------------------------------------------------------------------------------------------|
+| Các vectơ vuông góc |                                                                                                 |
+
+| $\mathbf{v} \cdot \mathbf{w} = v_1 w_1 + v_2 w_2$ | (1) |
+|---------------------------------------------------|-----|
+|---------------------------------------------------|-----|
+
+Trong toán học, số không luôn là một con số đặc biệt. Đối với tích vô hướng, điều đó có nghĩa là *hai vectơ này vuông góc với nhau.* Góc giữa chúng là 90°. Khi chúng ta vẽ chúng ở Hình 1.1, chúng ta đã thấy một hình chữ nhật (không chỉ là một hình bình hành bất kỳ). Ví dụ rõ ràng nhất về các vectơ vuông góc là i = (1, 0) dọc theo trục x và j = (0, 1) dọc theo trục y. Một lần nữa tích vô hướng là i · *j* = 0 + 0 = 0. Các vectơ i và *j* đó tạo thành một góc vuông.
+
+Tích vô hướng của *v* = (1, 2) và *w* = (3, 1) là 5. Chẳng bao lâu nữa *v* · *w* sẽ tiết lộ góc giữa *v* và *w* (không phải 90°). Xin hãy kiểm tra rằng *w · v cũng* bằng 5.
+
+*Tích vô hướng w* · *v bằng v* · *w.* Thứ tự của *v* và *w* không tạo ra sự khác biệt.
+
+**Ví dụ 2** Đặt một quả cân có trọng lượng 4 ở điểm x = -1 (bên trái số không) và một quả cân trọng lượng 2 ở điểm x = 2 (bên phải số không). Trục x sẽ cân bằng trên điểm trung tâm (giống như bập bênh). Các quả cân cân bằng vì tích vô hướng là (4) (-1) + (2) (2) = 0.
+
+Ví dụ này rất điển hình trong kỹ thuật và khoa học. Vectơ trọng lượng là (w1, w*2)* = (4, 2). Vectơ khoảng cách từ tâm là (v1, v*2)* = (-1, 2). Trọng lượng nhân với khoảng cách, w1v1 và *w2*v*2,* tạo ra các "mô men" (moments). Phương trình để bập bênh cân bằng là W1V1 + *W2V2* = 0.
+
+**Ví dụ 3** Các tích vô hướng xuất hiện trong kinh tế và kinh doanh. Chúng ta có ba hàng hóa để mua và bán. Giá của chúng là (p1, P2, p3) cho mỗi đơn vị - đây là "vectơ giá" p. Số lượng chúng ta mua hoặc bán là (q1,q2,q3) - dương khi chúng ta bán, âm khi chúng ta mua. *Bán* q1 *đơn vị với giá* p1 *sẽ mang lại* q1p1. Tổng thu nhập (số lượng *q* nhân giá p) là *tích vô hướng q · p trong không gian ba chiều:*
+
+**Thu nhập (Income)** = 
+$$(q_1, q_2, q_3) \cdot (p_1, p_2, p_3) = q_1 p_1 + q_2 p_2 + q_3 p_3 =$$
+ *tích vô hướng*.
+
+Một tích vô hướng bằng không có nghĩa là "sổ sách cân bằng". Tổng doanh thu bằng tổng mua vào nếu *q* · p = 0. Khi đó p vuông góc với q (trong không gian ba chiều). Một siêu thị với hàng nghìn hàng hóa sẽ nhanh chóng đi vào không gian đa chiều.
+
+Lưu ý nhỏ: Các bảng tính (Spreadsheets) đã trở nên thiết yếu trong quản lý. Chúng tính toán các tổ hợp tuyến tính và tích vô hướng. Những gì bạn thấy trên màn hình là một ma trận.
+
+**Điểm chính (Main point)** Đối với *v* · *w,* nhân mỗi *Vi* với *Wi.* Sau đó *v* · *w* = v1w1+ · · · + *VnWn.* 
+
+# **Độ dài và Vectơ Đơn vị (Lengths and Unit Vectors)**
+
+Một trường hợp quan trọng là tích vô hướng của một vectơ *với chính nó.* Trong trường hợp này *v* bằng w. Khi vectơ là *v* = (1, 2, 3), tích vô hướng với chính nó là *v* · *v* = ||v||<sup>2</sup> = 14:
+
+| Tích vô hướng $v \cdot v$ | $\ v\ ^2 = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} \cdot \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} = 1 + 4 + 9 = 14.$ |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Bình phương độ dài          |                                                                                                                         |
+
+Thay vì một góc 90° giữa các vectơ, chúng ta có góc 0°. Câu trả lời không phải là không bởi vì v không vuông góc với chính nó. Tích vô hướng *v* · *v* cho ta *bình phương độ dài của v.* 
+
+**ĐỊNH NGHĨA** *Độ dài (length)* ||v|| của một vectơ *v* là căn bậc hai của *v* · *v:* 
+
+$$\text{độ dài} = \|\mathbf{v}\| = \sqrt{\mathbf{v} \cdot \mathbf{v}} = (v_1^2 + v_2^2 + \cdots + v_n^2)^{1/2}.$$
+
+Trong hai chiều độ dài là căn(v1^2 + *v2^2).* Trong ba chiều nó là căn(v1^2 + *v2^2* + v3^2). Theo tính toán ở trên, độ dài của v = (1, 2, 3) là ||v|| = căn(14).
+
+Ở đây ||v|| = căn(v.v) chỉ đơn giản là độ dài thông thường của mũi tên biểu diễn vectơ. Nếu các thành phần là 1 và 2, mũi tên là cạnh thứ ba của một tam giác vuông (Hình 1.6). Công thức Pythagoras a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup> kết nối ba cạnh: 1<sup>2</sup> + 2<sup>2</sup> = ||v||<sup>2</sup> .
+
+Đối với độ dài của v = (1, 2, 3), chúng ta đã sử dụng công thức tam giác vuông hai lần. Vectơ (1, 2, 0) ở đáy có độ dài căn(5). Vectơ đáy này vuông góc với (0, 0, 3) đi thẳng lên. Vì vậy đường chéo của hộp có độ dài ||v|| = căn(5+9) = căn(14).
+
+Độ dài của một vectơ bốn chiều sẽ là căn(v1^2 + *v2^2* + v3^2 + v4^2). Như vậy vectơ (1, 1, 1, 1) có độ dài căn(1^2 + 1<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup>) = 2. Đây là đường chéo xuyên qua một khối lập phương đơn vị trong không gian bốn chiều. Đường chéo đó trong n chiều có độ dài căn(n).
+
+![](images/_page_22_Figure_6.jpeg)
+
+Hình 1.6: Độ dài căn(v.v) của các vectơ hai chiều và ba chiều.
+
+Từ **"đơn vị" (unit)** luôn chỉ ra rằng một phép đo nào đó bằng "một". Giá đơn vị (unit price) là giá cho một mặt hàng. Một khối lập phương đơn vị có các cạnh dài bằng một. Một hình tròn đơn vị là hình tròn có bán kính bằng một. Bây giờ chúng ta sẽ xem ý nghĩa của một "vectơ đơn vị".
+
+**ĐỊNH NGHĨA** *Một vectơ đơn vị u là một vectơ có độ dài bằng một.* Khi đó *u* · *u* = 1.
+
+Một ví dụ trong bốn chiều là *u* = ( ½, ½, ½, ½) . Khi đó *u* · *u* là ¼ + ¼ + ¼ + ¼ = 1. Chúng ta đã chia v = (1, 1, 1, 1) cho độ dài của nó ||v|| = 2 để có được vectơ đơn vị này.
+
+**Ví dụ 4** Các vectơ đơn vị tiêu chuẩn dọc theo các trục x và y được viết là i và *j.* Trong mặt phẳng *xy*, vectơ đơn vị tạo một góc $\theta$ với trục *x* là $(\cos \theta, \sin \theta)$:
+
+| Các vectơ đơn vị | $i = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ | và | $j = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$ | và | $u = \begin{bmatrix} \cos \theta \\ \sin \theta \end{bmatrix}$ |
+|--------------|--------------------------------------------|-----|--------------------------------------------|-----|----------------------------------------------------------------|
+|--------------|--------------------------------------------|-----|--------------------------------------------|-----|----------------------------------------------------------------|
+
+Khi $\theta = 0$, vectơ ngang *u* là i. Khi $\theta = 90^\circ$ (hoặc $\pi/2$ radian), vectơ dọc là *j.* Ở bất kỳ góc nào, các thành phần $\cos \theta$ và $\sin \theta$ tạo ra u · u = 1 bởi vì $\cos^2 \theta + \sin^2 \theta = 1$. Các vectơ này vươn ra tới vòng tròn đơn vị trong Hình 1.7. Do đó $\cos \theta$ và $\sin \theta$ đơn giản là tọa độ của điểm đó tại góc $\theta$ trên vòng tròn đơn vị.
+
+Vì (2, 2, 1) có độ dài 3, vectơ (2/3, 2/3, 1/3) có độ dài 1. Kiểm tra xem *u* · *<sup>u</sup>* = 4/9 + 4/9 + 1/9 = 1. Đối với một vectơ đơn vị, **hãy chia bất kỳ vectơ khác không** *v* **nào cho độ dài của nó** ||v||.
+
+**Vectơ đơn vị** *u* **=** *v /* || *v* || **là một vectơ đơn vị có cùng hướng với** *v.*
+
+![](images/_page_23_Figure_5.jpeg)
+
+Hình 1.7: Các vectơ tọa độ i và *j.* Vectơ đơn vị *u* tại góc 45° (bên trái) chia *<sup>v</sup>*= (1, 1) cho độ dài của nó ||v|| = căn(2). Vectơ đơn vị *u* = $(\cos \theta, \sin \theta)$ ở góc $\theta$.
+
+### **Góc Giữa Hai Vectơ (The Angle Between Two Vectors)**
+
+Chúng ta đã tuyên bố rằng các vectơ vuông góc có *v* · *w* = 0. Tích vô hướng bằng không khi góc là 90°. Để giải thích điều này, chúng ta phải kết nối các góc với các tích vô hướng. Sau đó chúng ta cho thấy cách *v* · *w* tìm ra góc giữa hai vectơ khác không bất kỳ *v* và *w.* 
+
+**Các góc vuông** *Tích vô hướng là v* · *w* = 0 *khi v vuông góc với w.*
+
+*Chứng minh* Khi *v* và *w* vuông góc, chúng tạo thành hai cạnh của một tam giác vuông. Cạnh thứ ba là *v* - *w* (cạnh huyền đi ngang qua trong Hình 1.8). *Định lý Pythagoras* cho các cạnh của một tam giác vuông là a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup> :
+
+| Các vectơ vuông góc | $\|v\|^2 + \|w\|^2 = \|v - w\|^2$ | (2) |
+|-----------------------|-----------------------------------|-----|
+|-----------------------|-----------------------------------|-----|
+
+Viết ra các công thức cho những độ dài đó trong hai chiều, phương trình này là
+
+| <b>Pythagoras</b> | $(v_1^2 + v_2^2) + (w_1^2 + w_2^2) = (v_1 - w_1)^2 + (v_2 - w_2)^2$ . | (3) |
+|-------------------|-----------------------------------------------------------------------|-----|
+|-------------------|-----------------------------------------------------------------------|-----|
+
+Vế phải bắt đầu bằng *v1^2* - 2v1 w1 + *w1^2.* Khi đó *v1^2* và *w1^2* nằm ở cả hai vế của phương trình và chúng triệt tiêu nhau, để lại -2v1 w1. Tương tự *v2^2* và w2^2 cũng triệt tiêu, để lại -2v2w2. (Trong không gian ba chiều sẽ có thêm *-2v3*w*3.)* Bây giờ chia cho -2 để thấy *v* $\cdot$ *w* = 0:
+
+| $0 = -2v_1w_1 - 2v_2w_2$ | dẫn đến | $v_1w_1 + v_2w_2 = 0$ . | (4) |
+|--------------------------|----------------|-------------------------|-----|
+|--------------------------|----------------|-------------------------|-----|
+
+**Kết luận** Các góc vuông tạo ra v · *w* = 0. Tích vô hướng bằng không khi góc là $\theta = 90^\circ$. Khi đó $\cos \theta = 0$. Vectơ không v = 0 vuông góc với mọi vectơ *w* bởi vì 0 · *w* luôn luôn bằng không.
+
+Bây giờ giả sử v · w **khác không.** Nó có thể dương, nó có thể âm. Dấu của v · *w* ngay lập tức cho biết chúng ta đang ở dưới hay trên một góc vuông. Góc nhỏ hơn 90° khi v · *w* dương. Góc lớn hơn 90° khi v · *w* âm. Phía bên phải của Hình 1.8 cho thấy một vectơ điển hình v = (3, 1). Góc với w = (1, 3) nhỏ hơn 90° vì v · w = 6 là số dương.
+
+![](images/_page_24_Figure_3.jpeg)
+
+Hình 1.8: Các vectơ vuông góc có v · *w* = 0. Khi đó ||v||<sup>2</sup> + ||w||<sup>2</sup> = ||v - w||<sup>2</sup> .
+
+Đường ranh giới là nơi các vectơ vuông góc với v. Trên đường ranh giới giữa dấu cộng và dấu trừ đó, (1, -3) vuông góc với (3, 1). Tích vô hướng bằng không.
+
+**Tích vô hướng tiết lộ góc chính xác** $\theta$. Đối với các vectơ đơn vị *u* và *U,* dấu của *u* · *U* cho biết $\theta < 90^\circ$ hay $\theta > 90^\circ$. Hơn thế nữa, *tích vô hướng* u · *U chính là cosin của $\theta$.* Điều này vẫn đúng trong n chiều.
+
+**Các vectơ đơn vị** u **và** *U* **ở góc** $\theta$ **có** u · *U* = $\cos \theta$. **Chắc chắn** |u · U| $\le$ 1.
+
+Các vectơ đơn vị 
+$$u$$
+ và  $U$  ở góc  $\theta$  có  $|u \cdot U| = \cos \theta$ . Chắc chắn  $|u \cdot U| \leq 1$ .
+
+Hãy nhớ rằng $\cos \theta$ không bao giờ lớn hơn 1. Nó cũng không bao giờ nhỏ hơn -1. *Tích vô hướng của các vectơ đơn vị nằm trong khoảng từ* -1 *đến* 1. **Cosin của** $\theta$ **được tiết lộ bởi** u · *U.* 
+
+Hình 1.9 cho thấy điều này rõ ràng khi các vectơ là u = $(\cos \theta, \sin \theta)$ và i = (1, 0). Tích vô hướng là u · i = $\cos \theta$. Đó là cosin của góc giữa chúng.
+
+Sau khi quay qua một góc $\alpha$ bất kỳ, chúng vẫn là các vectơ đơn vị. Vectơ i = (1, 0) quay thành $(\cos \alpha, \sin \alpha)$. Vectơ u quay thành $(\cos \beta, \sin \beta)$ với $\beta = \alpha + \theta$. Tích vô hướng của chúng là $\cos \alpha \cos \beta + \sin \alpha \sin \beta$. Từ lượng giác học, biểu thức này là $\cos(\beta - \alpha) = \cos \theta$. 
+
+![](images/_page_24_Figure_12.jpeg)
+
+Hình 1.9: Các vectơ đơn vị: u · *U* là cosin của $\theta$ (góc giữa).
+
+*Điều gì xảy ra nếu v và w không phải là các vectơ đơn vị?* Hãy chia cho độ dài của chúng để có *u* = *v/||v||* và *<sup>U</sup>*= *w/||w||.* Khi đó tích vô hướng của các vectơ đơn vị *u* và *U* đó cho ta $\cos \theta$. 
+
+**CÔNG THỨC COSIN (COSINE FORMULA)** Nếu 
+$$v$$
+ và  $w$  là các vectơ khác không thì  $\frac{v \cdot w}{\|v\| \|w\|} = \cos \theta$ . (5)
+
+Bất kể góc nào, tích vô hướng của *v/||v||* với w/||w|| này không bao giờ vượt quá một. Đó là *"Bất đẳng thức Schwarz" |v·* w| ::::; ||v|| *||w||* cho các tích vô hướng - hoặc chính xác hơn là bất đẳng thức Cauchy-Schwarz-Buniakowsky. Nó được tìm thấy ở Pháp, Đức và Nga (và có thể ở nơi khác - nó là bất đẳng thức quan trọng nhất trong toán học).
+
+Vì $|\cos \theta|$ không bao giờ vượt quá 1, công thức cosin đưa ra hai bất đẳng thức tuyệt vời:
+
+**BẤT ĐẲNG THỨC SCHWARZ** 
+
+**BẤT ĐẲNG THỨC TAM GIÁC (TRIANGLE INEQUALITY)** 
+
+*|v·w|* s:; *||v||* ||w||
+
+||v + w|| ::::; ||v|| + *||w||*
+
+**Ví dụ 5** Tìm $\cos \theta$ cho v = [ 2 1 ]' và *w* = [ 1 2 ]' và kiểm tra cả hai bất đẳng thức.
+
+**Lời giải** Tích vô hướng là *v* · *w* = 4. Cả *v* và *w* đều có độ dài căn(5). Cosin là 4/5.
+
+$$\cos \theta = \frac{v \cdot w}{\|v\| \|w\|} = \frac{4}{\sqrt{5}\sqrt{5}} = \frac{4}{5}.$$
+
+Theo bất đẳng thức Schwarz, v · *w* = 4 nhỏ hơn ||v|| ||w|| = 5. Theo bất đẳng thức tam giác, cạnh 3 = ||v + w|| nhỏ hơn cạnh 1 + cạnh 2. Đối với v + *w* = (3, 3) ba cạnh là căn(18) < căn(5) + căn(5). Bình phương bất đẳng thức tam giác này để được 18 < 20.
+
+**Ví dụ 6** Tích vô hướng của *v* = *(a, b)* và *w* = *(b, a)* là *2ab.* Cả hai độ dài đều là căn(a<sup>2</sup>+b<sup>2</sup>). Bất đẳng thức Schwarz *v* · *w* s:; ||v|| ||w|| nói rằng *2ab* s:; a<sup>2</sup> + b<sup>2</sup>
+
+Điều này sẽ nổi tiếng hơn nếu chúng ta viết x = a^2 và y = b<sup>2</sup> . "Trung bình nhân" (geometric mean) căn(xy) không lớn hơn "trung bình cộng" (arithmetic mean) = trung bình ½ (x + *y).*
+
+| Trung bình nhân | Trung bình cộng | $ab \leq \frac{a^2 + b^2}{2}$ | trở thành | $\sqrt{xy} \leq \frac{x + y}{2}$ |
+|----------------|-----------------|-------------------------------|---------|----------------------------------|
+|                |                 |                               |         |                                  |
+
+Ví dụ 5 có a = 2 và b = 1. Vì vậy x = 4 và y = 1. Trung bình nhân căn(4*1) = 2 thấp hơn trung bình cộng ½ (1 + 4) = 2.5.
+
+### **Lưu ý về Tính toán (Notes on Computing)**
+
+MATLAB, Python *và* Julia *làm việc trực tiếp với toàn bộ các vectơ, không phải với các thành phần của chúng.* Khi *v* và *w* đã được định nghĩa, *v* + *w* được hiểu ngay lập tức. Nhập *v* và *w* dưới dạng các hàng - dấu phẩy trên (prime) ' sẽ chuyển vị chúng thành các cột. 2v + *3w* trở thành 2 \* v + 3 \* *w.* Kết quả sẽ được in ra trừ khi dòng lệnh kết thúc bằng dấu chấm phẩy.
+
+| MATLAB | $v = [2 \ 1 \ 4]'$ | $v = [1 \ 1 \ 1]'$ | $v = [2 \ 1 \ 3]'$ |
+|--------|--------------------|--------------------|--------------------|
+|        |                    |                    |                    |
+
+Tích vô hướng *v* · *w* là *một vectơ hàng nhân với một vectơ cột (sử dụng* \* *thay vì ·)* :
+
+chúng ta thường thấy hơn là $\begin{bmatrix} 1 & 2 \end{bmatrix} \begin{bmatrix} 3 \\ 4 \end{bmatrix}$ hoặc $v' * w$
+
+Độ dài của *v* được MATLAB nhận biết là norm(*v*). Cái này là sqrt(*v'* \* *v*). Sau đó tìm cosin từ tích vô hướng *v <sup>1</sup>*\* *w* và góc (tính bằng radian) có cosin đó:
+
+| <b>Công thức cosin</b> | $\cos i = v' * w' / (\text{norm}(v) * \text{norm}(w))$ |
+|-----------------------|--------------------------------------------------------|
+| <b>Arc cosin</b> | $\text{góc} = \text{acos}(\text{cosin})$            |
+
+Một M-file sẽ tạo ra một hàm mới **cosine** ( *v, w* ). Python và Julia là mã nguồn mở.
+
+#### **• ÔN TẬP CÁC Ý TƯỞNG CHÍNH •**
+
+- **1.** Tích vô hướng *<sup>v</sup> w* nhân mỗi thành phần *Vi* với *wi* và cộng tất cả *viwi.*
+- **2.** Độ dài || *v* || là căn bậc hai của *v* · *v.* Khi đó *u* = *v* / || *v* || là một *vectơ đơn vị* : độ dài bằng 1.
+- 3. Tích vô hướng là *v* · *w* = 0 khi các vectơ *v* và *w* vuông góc với nhau.
+- **4.** Cosin của $\theta$ (góc giữa bất kỳ *v* và *w* khác không nào) không bao giờ vượt quá 1:
+
+| Cosin | $\cos \theta = \frac{v \cdot w}{\|v\| \|w\|}$ | Bất đẳng thức Schwarz | $\|v \cdot w\| \leq \|v\| \|w\|$ |
+|--------|-----------------------------------------------|--------------------|--------------------------------|
+|--------|-----------------------------------------------|--------------------|--------------------------------|
+
+#### **• CÁC VÍ DỤ ĐÃ GIẢI •**
+
+**1.2 A** Đối với các vectơ *v* = (3, 4) và *w* = (4, 3), hãy kiểm tra bất đẳng thức Schwarz trên *v* · *w* và bất đẳng thức tam giác trên ||v + w||. Tìm $\cos \theta$ cho góc giữa *v* và *w.* Những *v* và *w* nào cho dấu *bằng* |v· w|=||v|| ||w|| và ||v + w||=||v|| + ||w||?
+
+**Lời giải** Tích vô hướng là *v* · *w* = (3)(4) + (4)(3) = 24. Độ dài của *v* là ||v|| = căn(9 + 16) = 5 và tương tự ||w|| = 5. Tổng *<sup>v</sup>*+ *w* = (7, 7) có độ dài 7 căn(2) < 10.
+
+**Bất đẳng thức Schwarz** |v· w| ::; ||v|| ||w|| là 24 < 25.
+
+| Bất đẳng thức tam giác | $\|v + w\| \leq \|v\| + \|w\|$ | là | $7\sqrt{2} < 5 + 5$ |
+|---------------------|--------------------------------|----|---------------------|
+|                     |                                |    |                     |
+
+| Cosin của góc | $\cos \theta = \frac{24}{25}$ | Góc mỏng từ $v = (3, 4)$ đến $w = (4, 3)$ |
+|-----------------|---------------------------------|----------------------------------------------|
+|                 |                                 |                                              |
+
+*Dấu bằng:* Một vectơ là bội số của vectơ kia như trong *w* = *cv.* Khi đó góc là 0° hoặc 180°. Trong trường hợp này $|\cos \theta| = 1$ và |v· w| *bằng* ||v|| ||w||. Nếu góc là $0^\circ$, như trong w = *2v,* thì ||v + w||=||v|| + ||w|| (cả hai vế đều cho 3||v||). Tam giác *v, 2v, 3v* này là một đường thẳng (phẳng)!
+
+**1.2 B** Tìm một vectơ đơn vị *u* theo hướng của *v* = (3, 4). Tìm một vectơ đơn vị *U* vuông góc với *u.* Có bao nhiêu khả năng cho *U?* 
+
+**Lời giải** Đối với một vectơ đơn vị *u,* chia *v* cho độ dài của nó ||v|| = 5. Đối với một vectơ vuông góc *<sup>V</sup>* chúng ta có thể chọn (-4, 3) vì tích vô hướng *v* · V là (3)(-4) + (4)(3) = 0. Đối với một vectơ *đơn vị* vuông góc với *u,* chia *V* cho độ dài của nó ||V||:
+
+$$\mathbf{u} = \frac{\mathbf{v}}{\|\mathbf{v}\|} = \begin{pmatrix} 3/5 \\ 4/5 \end{pmatrix} \quad \mathbf{U} = \frac{\mathbf{V}}{\|\mathbf{V}\|} = \begin{pmatrix} -4/5 \\ 3/5 \end{pmatrix} \quad \mathbf{u} \cdot \mathbf{U} = 0$$
+
+Vectơ đơn vị vuông góc duy nhất khác sẽ là *-U* = (4/5, -3/5).
+
+**1.2 C** Tìm một vectơ *x* = (c, *d)* có các tích vô hướng *x* · *r* = 1 và *x* · *s* = 0 với hai vectơ cho trước *r* = (2, -1) và s = (-1, 2).
+
+**Lời giải** Hai tích vô hướng đó đưa ra các phương trình tuyến tính cho *c* và *d.* Sau đó *x* = (c, *d).* 
+
+| $\mathbf{x} \cdot \mathbf{r} = 1$ | là | $2c - d = 1$  | Giống với các phương trình |
+|-----------------------------------|----|---------------|-----------------------|
+| $\mathbf{x} \cdot \mathbf{s} = 0$ | là | $-c + 2d = 0$ | trong Ví dụ đã giải 1.1 |
+
+*Bình luận về n phương trình cho x* = (x1, ... , *Xn) trong không gian n chiều* 
+
+Phần 1.1 sẽ bắt đầu với các cột *v <sup>j</sup>*. Mục tiêu là tạo ra x1 v1 + · · · + *Xn Vn* = *b.* Phần này sẽ bắt đầu từ các hàng *r<sup>i</sup> .* Bây giờ mục tiêu là tìm *x* với *x* · *Ti* <sup>=</sup>*b<sup>i</sup> .* 
+
+Chẳng mấy chốc các *v* sẽ là các cột của một ma trận *A,* và các *r* sẽ là các hàng của *A.* Khi đó bài toán (duy nhất và một) sẽ là giải *Ax* = *b.*
+
+#### **Bài tập 1.2**
+
+**<sup>1</sup>** Tính các tích vô hướng *u* · *v* và *u* · *w* và *u* · (*v* +*w)* và *w* · *v:* 
+
+$$\mathbf{u} = \begin{bmatrix} -0.6 \\ 0.8 \end{bmatrix}, \quad \mathbf{v} = \begin{bmatrix} 4 \\ 3 \end{bmatrix}, \quad \mathbf{w} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}.$$
+
+- **<sup>2</sup>** Tính độ dài ||u|| và ||v|| và ||w|| của các vectơ đó. Kiểm tra các bất đẳng thức Schwarz |u ·v|::::; ||u|| ||v|| và |v· w| ::::; ||v|| ||w||. **<sup>3</sup>** Tìm các vectơ đơn vị theo hướng của *v* và *w* trong Bài toán 1, và cosin của góc $\theta$. Chọn các vectơ *a, b, c* tạo thành các góc 0, 90° , và 180° với *w.*  4 Đối với bất kỳ các vectơ *đơn vị* *v* và *w,* tìm các tích vô hướng (các con số thực tế) của
+- (a) *v* và *-v* (b) *v* +*w* và *v w* (c) *v*  2w và *v* +2w 5 Tìm các vectơ đơn vị u1 và u2 theo hướng của *v* =(1, 3) và *w* =(2, 1, 2). Tìm các vectơ đơn vị *U* 1 và *U* 2 vuông góc với u1 và u2.
+
+- 6 ( a ) Mô tả mọi vectơ w = ( w1, w2) vuông góc với v = ( 2, -1).
+  - (b) Tất cả các vectơ vuông góc với V = (1, 1, 1) nằm trên một \_\_ trong 3 chiều.
+- (c) Các vectơ vuông góc với cả (1, 1, 1) và (1, 2, 3) nằm trên một \_\_ . **<sup>7</sup>** Tìm góc $\theta$ (từ cosin của nó) giữa các cặp vectơ này:
+  - (a) *<sup>V</sup>*<sup>=</sup>[ ] và w = [ ] (b) *V* [ ] và w = [ ]
+- (c) *<sup>V</sup>*<sup>=</sup>[ ] và w = [ ] (d) *V* = [ ] và w = [ ] 8 Đúng hay sai (đưa ra lý do nếu đúng hoặc tìm một phản ví dụ nếu sai):
+  - (a) Nếu u = (1, 1, 1) vuông góc với v và w, thì v song song với w.
+  - (b) Nếu u vuông góc với v và w, thì u vuông góc với v + 2w.
+- (c) Nếu *u* và *v* là các vectơ đơn vị vuông góc thì ||u - v|| = căn(2). *Đúng!* 9 Độ dốc của các mũi tên từ (0, 0) đến (v1, v*<sup>2</sup> )* và (w1, w*<sup>2</sup> )* là v*2*/v*1* và w*2*/w*1.* Giả sử tích v*2*w*2* / v1 w1 của các độ dốc đó là -1. Chứng minh rằng v · w = 0 và các vectơ này vuông góc với nhau. (Đường thẳng y = 4x vuông góc với y = -¼ x.) 10 Vẽ các mũi tên từ (0, 0) đến các điểm v = (1, 2) và w = (-2, 1). Nhân các độ dốc của chúng. Kết quả đó là một tín hiệu cho thấy v · w = 0 và các mũi tên \_\_ . 11 Nếu v · w là âm, điều này nói gì về góc giữa v và w? Vẽ một vectơ 3 chiều v (một mũi tên), và chỉ ra nơi tìm tất cả các w có v · w < 0. 12 Với v = (1, 1) và w = (1, 5) chọn một số c sao cho w - cv vuông góc với *v.* Sau đó tìm công thức cho *c* bắt đầu từ *bất kỳ* v và w khác không nào. 13 Tìm các vectơ khác không v và w vuông góc với (1, 0, 1) và vuông góc với nhau. 14 Tìm các vectơ khác không u, v, w vuông góc với (1, 1, 1, 1) và vuông góc với nhau. 15 Trung bình nhân của x = 2 và y = 8 là *căn(xy)* = 4. Trung bình cộng lớn hơn: ½ ( x + *y)* = \_\_ . Điều này sẽ đến từ Ví dụ 6 từ bất đẳng thức Schwarz cho v = (căn(2), căn(8)) và w = (căn(8), căn(2)). Tìm $\cos \theta$ cho v và w này. 16 Vectơ v = (1, 1, ... , 1) trong 9 chiều dài bao nhiêu? Tìm một vectơ đơn vị u cùng hướng với v và một vectơ đơn vị w vuông góc với v. 17 Cosin của các góc $\alpha, \beta, \theta$ giữa vectơ (1, 0, -1) và các vectơ đơn vị i, *j, k* dọc theo các trục là bao nhiêu? Kiểm tra công thức $\cos^2 \alpha + \cos^2 \beta + \cos^2 \theta = 1$.
+
+| (a) $v = \begin{bmatrix} 1 \\ \sqrt{3} \end{bmatrix}$ | và $w = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$         | (b) $v = \begin{bmatrix} 2 \\ 2 \\ -1 \end{bmatrix}$ | và $w = \begin{bmatrix} 2 \\ -1 \\ 2 \end{bmatrix}$ |
+|-------------------------------------------------------|--------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|
+| (c) $v = \begin{bmatrix} 1 \\ \sqrt{3} \end{bmatrix}$ | và $w = \begin{bmatrix} -1 \\ \sqrt{3} \end{bmatrix}$ | (d) $v = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$       | và $w = \begin{bmatrix} -1 \\ -2 \end{bmatrix}$     |
+
+**Các Bài toán 18-28 dẫn đến những sự thật chính về độ dài và góc trong tam giác.** 
+
+**<sup>18</sup>** Hình bình hành có các cạnh *v* = (4, 2) và *w* = (-1, 2) là một hình chữ nhật. Kiểm tra công thức Pythagoras a <sup>2</sup>+ b <sup>2</sup>= c <sup>2</sup> mà *chỉ dành cho các tam giác vuông:*
+
+(độ dài của 
+$$v$$
+)<sup>2</sup> + (độ dài của  $w$ )<sup>2</sup> = (độ dài của  $v + w$ )<sup>2</sup>.
+
+- **<sup>19</sup>**(Quy tắc cho tích vô hướng) Các phương trình này đơn giản nhưng hữu ích:
+- **(1)** *<sup>V</sup> W* = *W V* **(2)** *U* ( *V*+ *W)* = *U V* + *U W* **(3)** *(CV) W* = c( *V W)*  Sử dụng **(2)** với *u* = *v* + *w* để chứng minh ||v + w|| <sup>2</sup>= *v* · *v* <sup>+</sup>2v · *w* + *w* · *w.* **<sup>20</sup>** "Định lý Cosin" (Law of Cosines) xuất phát từ *(v* - *w)* · *(v* - *w)* = *v* · *v* - 2v · *w*+ *w* · w:
+
+| Định lý Cosin | $\|v - w\|^2 = \|v\|^2 - 2\|v\| \|w\| \cos \theta + \|w\|^2$ |
+|------------|--------------------------------------------------------------|
+|            |                                                              |
+
+Vẽ một tam giác có các cạnh *v* và *w* và *v* - *w.* Góc nào trong số đó là $\theta$?
+
+21 *Bất đẳng thức tam giác* phát biểu rằng: (độ dài của *v* + *w)* :::; (độ dài của *v)* + (độ dài của *w* ). Bài toán 19 đã tìm thấy ||v + w|| <sup>2</sup>= ||v|| <sup>2</sup>+2v · *w*+ ||w|| <sup>2</sup> . Hãy tăng v · *w* đó lên thành ||v|| ||w|| để cho thấy rằng || **cạnh** 3 || không thể vượt quá || **cạnh** 1 || + || **cạnh** 2 ||:
+
+| Bất đẳng thức tam giác | $\|v + w\|^2 \leq (\|v\| + \|w\|)^2$ | hoặc | $\|v + w\| \leq \|v\| + \|w\|$ . |
+|---------------------|--------------------------------------|----|----------------------------------|
+|                     |                                      |    |                                  |
+
+![](images/_page_29_Diagram_10.jpeg)
+
+- **<sup>22</sup>** Bất đẳng thức Schwarz |v · w| :::; ||v|| ||w|| bằng đại số thay vì lượng giác:
+  - (a) Nhân tung cả hai vế của (V1 W1 + V2W2) <sup>2</sup>:::; (Vi^2+ V2^2) ( Wi^2 + W2^2).
+- (b) Chứng minh rằng hiệu số giữa hai vế đó bằng (v1w2 - v2w1)^2. Điều này không thể âm vì nó là một bình phương - do đó bất đẳng thức là đúng. **<sup>23</sup>** Hình vẽ cho thấy cosa = v1/||v|| và sina = v2/||v||
+  - Tương tự $\cos \beta$ là \_\_ và $\sin \beta$ là \_\_ . Góc $\theta$ là $\beta - \alpha$. Thay thế vào công thức lượng giác $\cos \beta \cos \alpha + \sin \beta \sin \alpha$ cho $\cos(\beta - \alpha)$ để tìm $\cos \theta = v \cdot w / (||v|| ||w||)$.
+
+24 Chứng minh một dòng cho bất đẳng thức |u · U| \$ 1 đối với các vectơ đơn vị (u1, u2) và (U1, U2) :
+
+$$|\mathbf{u} \cdot \mathbf{U}| \leq |u_1| |U_1| + |u_2| |U_2| \leq \frac{u_1^2 + U_1^2}{2} + \frac{u_2^2 + U_2^2}{2} = 1.$$
+
+Đặt ( u1, u2) **= (** .6, .8) và (U1, U2) **= (** .8, .6) vào toàn bộ dòng đó và tìm $\cos \theta$.
+
+25 Ngay từ đầu, tại sao $|\cos \theta|$ không bao giờ lớn hơn 1? 26 *(Khuyến nghị)* Vẽ một hình bình hành 27 Hình bình hành có hai cạnh *v* và *w.* Chứng minh rằng tổng bình phương độ dài hai đường chéo ||v + w|| <sup>2</sup>+ ||v - w|| <sup>2</sup> cộng lại bằng tổng bình phương độ dài bốn cạnh 2||v|| <sup>2</sup>+ 2||w|| <sup>2</sup> . 28 Nếu *v* **=** (1, 2) hãy vẽ tất cả các vectơ *w* **=** (x, y) trong mặt phẳng *xy* với *v* · *w* **=** *x* + 2y **=** 5. Tại sao các *w* đó lại nằm dọc theo một đường thẳng? Cái nào là *w* ngắn nhất? 29 *(Khuyến nghị)* Nếu *||v||* = 5 và ||w|| = 3, giá trị nhỏ nhất và lớn nhất có thể có của ||v - *w||* là gì? Giá trị nhỏ nhất và lớn nhất có thể có của v · *w* là gì? 
+
+### **Các Bài toán Thử thách**
+
+30 Có thể ba vectơ trong mặt phẳng *xy* có *u* · *v* < 0 và *v* · *w* < 0 và *u* · *w* < 0 không? Tôi không biết có bao nhiêu vectơ trong không gian *xyz* có thể có tất cả các tích vô hướng đều âm. (Bốn vectơ như vậy trong mặt phẳng chắc chắn là không thể ... ). 31 Chọn bất kỳ số nào cộng lại có x + *y* + z = 0. Tìm góc giữa vectơ của bạn *v* **=** (x, *y,* z) và vectơ *w* **=** (z, *x,* y). Câu hỏi thử thách: Giải thích tại sao v · w/||v|| ||w|| luôn luôn bằng -½. **<sup>32</sup>** Làm thế nào bạn có thể chứng minh *căn bậc ba(xyz)* \$ 1/3 ( *x* + *y* + z) (trung bình nhân \$ trung bình cộng) ? 33 Tìm 4 vectơ đơn vị vuông góc có dạng ( ± ½, ± ½, ± ½, ± ½): Chọn + hoặc -. **<sup>34</sup>** Sử dụng v **=** randn(3, 1) trong MATLAB, tạo ra một vectơ đơn vị ngẫu nhiên u **=** v/||v||. Sử dụng V **=** randn (3, 30) tạo ra 30 vectơ đơn vị ngẫu nhiên khác U<sup>J</sup> . Kích thước trung bình của các tích vô hướng | *u* · *Uj* | là bao nhiêu? Trong giải tích, trung bình là tích phân từ 0 đến $\pi$ của $|\cos \theta| \, d\theta / \pi = 2 / \pi$.
+
+### **1.3 Ma trận (Matrices)**
+
+[ 1 4 ] 
+[ 2 5 ] 
+[ 3 6 ] A là một ma trận 3 x 2: *m* = 3 hàng và *n* = 2 cột.
+
+| $2 Ax = \begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix}$ | $\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$ | là một <b>tổ hợp của các cột</b> | $Ax = x_1 \begin{bmatrix} 1 \\ 3 \\ 5 \end{bmatrix} + x_2 \begin{bmatrix} 2 \\ 4 \\ 6 \end{bmatrix}$ |
+|----------------------------------------------------------------|--------------------------------------------|----------------------------------------|------------------------------------------------------------------------------------------------------|
+|----------------------------------------------------------------|--------------------------------------------|----------------------------------------|------------------------------------------------------------------------------------------------------|
+
+3 3 thành phần của *Ax* là các tích vô hướng của 3 hàng của *A* với vectơ *x :* 
+
+| Từng hàng một | $\begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix}$ | $\begin{bmatrix} 7 \\ 8 \end{bmatrix} = \begin{bmatrix} 1 \cdot 7 + 2 \cdot 8 \\ 3 \cdot 7 + 4 \cdot 8 \\ 5 \cdot 7 + 6 \cdot 8 \end{bmatrix} = \begin{bmatrix} 23 \\ 53 \\ 83 \end{bmatrix}$ |
+|---------------|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|---------------|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+| 4 | Phương trình dạng ma trận $Ax = b$ : | $\begin{bmatrix} 2 & 5 \\ 3 & 7 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \end{bmatrix}$ thay thế | $2x_1 + 5x_2 = b_1$<br>$3x_1 + 7x_2 = b_2$ |
+|---|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|
+|---|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|
+
+**<sup>5</sup>** Nghiệm của *Ax* = *b* có thể được viết là *x* = *A -*<sup>1</sup>*b.* Nhưng một số ma trận không cho phép có *A -*<sup>1</sup> .
+
+Phần này bắt đầu với ba vectơ *u, v, w.* Tôi sẽ kết hợp chúng bằng cách sử dụng *ma trận.* 
+
+| Ba vectơ | $u = \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix}$ | $v = \begin{bmatrix} 0 \\ 1 \\ -1 \end{bmatrix}$ | $w = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}$ |
+|---------------|--------------------------------------------------|--------------------------------------------------|-------------------------------------------------|
+|               |                                                  |                                                  |                                                 |
+
+Các tổ hợp tuyến tính của chúng trong không gian ba chiều là x1*u* + *x2v* + *x3w:* 
+
+| Tổ hợp của các vectơ | $x_1 \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix} + x_2 \begin{bmatrix} 0 \\ 1 \\ -1 \end{bmatrix} + x_3 \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} = \begin{bmatrix} x_1 \\ x_2 - x_1 \\ x_3 - x_2 \end{bmatrix}$ | $\bullet$ | (1) |
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|-----|
+|                            |                                                                                                                                                                                                                                 |           |     |
+
+Bây giờ là một điều quan trọng: *Viết lại tổ hợp đó bằng cách sử dụng một ma trận.* Các vectơ *u, v, w*  đi vào các cột của ma trận *A.* Ma trận đó *"nhân"* với vectơ ( x1, *x2, x3)* :
+
+| Ma trận nhân với vectơ    | $Ax = \begin{bmatrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix}$ | $\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} x_1 \\ x_2 - x_1 \\ x_3 - x_2 \end{bmatrix}$ | (2) |
+|------------------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----|
+| Tổ hợp của các cột |                                                                            |                                                                                                                 |     |
+
+Các số x1, x*2,* x*3* là các thành phần của một vectơ x. Ma trận *A* nhân với vectơ x **giống hệt** như tổ hợp x1*u* + *x2v* + *x3w* của ba cột trong phương trình (1).
+
+Đây không chỉ là một định nghĩa của *Ax,* bởi vì việc viết lại mang đến một sự thay đổi quan trọng trong quan điểm. Lúc đầu, các số x1, x2, *x3* đang nhân với các vectơ. Bây giờ ma trận đang nhân với các số đó. **Ma trận** *A* **tác động lên vectơ** *x.* Đầu ra *Ax* là một **tổ hợp** b **của các cột của** *A.* 
+
+Để thấy tác động đó, tôi sẽ viết b1, b2, *b3* cho các thành phần của *Ax* :
+
+| $Ax = \begin{bmatrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} x_1 \\ x_2 - x_1 \\ x_3 - x_2 \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix} = b. \tag{3}$ |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+Đầu vào là *x* và đầu ra là b = *Ax.* *A* này là một **"ma trận sai phân" (difference matrix)** vì b chứa các sai phân của vectơ đầu vào x. Sai phân trên cùng là x1 - x*0* = x1 - 0.
+
+Đây là một ví dụ để thấy các sai phân của *x* = (1, 4, 9): các bình phương trong *x,* các số lẻ trong b.
+
+| $x = \begin{bmatrix} 1 \\ 4 \\ 9 \end{bmatrix} = \text{bình phương}$ | $Ax = \begin{bmatrix} 1 - 0 \\ 4 - 1 \\ 9 - 4 \end{bmatrix} = \begin{bmatrix} 1 \\ 3 \\ 5 \end{bmatrix} = b.$ | (4) |
+|------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|-----|
+|------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|-----|
+
+Quy luật đó sẽ tiếp tục cho một ma trận sai phân 4 x 4. Bình phương tiếp theo sẽ là x*4* = 16. Sai phân tiếp theo sẽ là x*4* - x*3* = 16 - 9 = 7 (số lẻ tiếp theo). Ma trận tìm tất cả các sai phân 1, 3, 5, 7 cùng một lúc.
+
+**Lưu ý quan trọng: Phép nhân từng hàng một.** Bạn có thể đã học về cách nhân *Ax,* một ma trận nhân với một vectơ. Có lẽ nó được giải thích một cách khác, sử dụng các hàng thay vì các cột. Cách thông thường lấy tích vô hướng của mỗi hàng với x:
+
+**A** ***x*** cũng là 
+$$\begin{bmatrix} 1 & 0 & 0 & 0 \\ \text{các tích vô hướng} & -1 & 1 & 0 \\ \text{với các hàng} & 0 & -1 & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} (1, 0, 0) \cdot (x_1, x_2, x_3) \\ (-1, 1, 0) \cdot (x_1, x_2, x_3) \\ (0, -1, 1) \cdot (x_1, x_2, x_3) \end{bmatrix} \cdot (5)$$
+
+Những tích vô hướng đó chính là x1 và x2 - x1 và *X<sup>3</sup>*- x2 mà chúng ta đã viết trong phương trình (3). Cách mới là làm việc với *Ax từng cột một.* Tổ hợp tuyến tính là chìa khóa cho đại số tuyến tính, và đầu ra *Ax* là một tổ hợp tuyến tính của các **cột** của *A.*
+
+Với các con số, bạn có thể nhân *Ax* theo các hàng. Với các chữ cái, các cột là cách tốt. Chương 2 sẽ lặp lại các quy tắc nhân ma trận này, và giải thích các ý tưởng.
+
+### **Phương trình Tuyến tính (Linear Equations)**
+
+Một thay đổi quan điểm nữa là rất quan trọng. Cho đến nay, các số x1, x2, *x3* đã được biết. Vế phải b chưa được biết. Chúng ta đã tìm ra vectơ các sai phân đó bằng cách nhân *<sup>A</sup>* với *x.* **Bây giờ chúng quy b là đã biết và chúng ta tìm kiếm** *x.* 
+
+*Câu hỏi cũ:* Tính tổ hợp tuyến tính x1*u* + *x2v* + *X3W* để tìm b.
+
+*Câu hỏi mới:* Tổ hợp nào của *u, v, w* tạo ra một vectơ *b* cụ thể? 
+
+Đây là *bài toán ngược (inverse problem)* - tìm đầu vào *x* mang lại đầu ra mong muốn *b* = *Ax.* Bạn đã thấy điều này trước đây, dưới dạng một hệ phương trình tuyến tính cho x1, x2, *x<sup>3</sup> .* Vế phải của các phương trình là b1, b2, *b<sup>3</sup> .* Bây giờ tôi sẽ giải hệ *Ax= b* đó để tìm x1, x2, *x<sup>3</sup> :* 
+
+|  | $x_1 = b_1$ $-x_1 + x_2 = b_2$ $-x_2 + x_3 = b_3$ |  | <b>Lời giải</b> $x = A^{-1}b$ | $x_1 = b_1$ $x_2 = b_1 + b_2$ $x_3 = b_1 + b_2 + b_3.$ | (6) |
+|--|---------------------------------------------------|--|-------------------------------|--------------------------------------------------------|-----|
+|--|---------------------------------------------------|--|-------------------------------|--------------------------------------------------------|-----|
+
+Hãy để tôi thừa nhận ngay lập tức - hầu hết các hệ tuyến tính không dễ giải như vậy. Trong ví dụ này, phương trình đầu tiên đã quyết định x1 = b<sup>1</sup> . Sau đó phương trình thứ hai tạo ra x2 = b1 + b2. *Các phương trình có thể được giải theo thứ tự* (từ trên xuống dưới) *bởi vì A là một ma trận tam giác.* 
+
+Hãy xem hai lựa chọn cụ thể 0, 0, 0 và 1, 3, 5 của các vế phải b1, b2, b3:
+
+| $b = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$ | cho $x = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$ | $b = \begin{bmatrix} 1 \\ 3 \\ 5 \end{bmatrix}$ | cho $x = \begin{bmatrix} 1 \\ 1+3 \\ 1+3+5 \end{bmatrix} = \begin{bmatrix} 1 \\ 4 \\ 9 \end{bmatrix}$ |
+|-------------------------------------------------|-------------------------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+|-------------------------------------------------|-------------------------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+
+Nghiệm đầu tiên (tất cả là số không) quan trọng hơn vẻ ngoài của nó. Nói bằng lời: *Nếu đầu ra là <sup>b</sup>*= 0, *thì đầu vào phải là x* = 0. Tuyên bố đó đúng cho ma trận *A* này. Nó không đúng cho mọi ma trận. Ví dụ thứ hai của chúng ta sẽ cho thấy (đối với một ma trận khác *C)* làm thế nào chúng ta có thể có *Cx* = 0 khi *C khác* 0 và *x khác* 0.
+
+Ma trận *A* này là **"khả nghịch" (invertible).** Từ *b* chúng ta có thể khôi phục lại *x.* Chúng ta viết *x* dưới dạng $A^{-1}b$.
+
+#### **Ma trận Nghịch đảo (The Inverse Matrix)**
+
+Hãy để tôi lặp lại nghiệm *x* trong phương trình (6). Một ma trận tổng sẽ xuất hiện!
+
+| $Ax = b$ được giải bởi | $\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} b_1 \\ b_1 + b_2 \\ b_1 + b_2 + b_3 \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 0 \\ 1 & 1 & 1 \end{bmatrix} \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix} \cdot (7)$ |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+Nếu các sai phân của *x* là các *b,* thì tổng của các *b* là các *x.* Điều đó đúng cho các số lẻ *b* = (1, 3, 5) và các bình phương *x* = (1, 4, 9). Nó đúng cho tất cả các vectơ. **Ma trận tổng trong phương trình** (7) **là nghịch đảo** $A^{-1}$ **của ma trận sai phân** *A.*
+
+Ví dụ: Các sai phân của *x* = (1, 2, 3) là *b* = (1, 1, 1). *Vì vậy b= Ax* và *x* = $A^{-1}b$:
+
+| $Ax = \begin{bmatrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix}$ | $\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$ | $= \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ | $A^{-1}b = \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 0 \\ 1 & 1 & 1 \end{bmatrix}$ | $\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ | $= \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$ |
+|----------------------------------------------------------------------------|---------------------------------------------|-----------------------------------------------|-------------------------------------------------------------------------------|---------------------------------------------|-----------------------------------------------|
+|                                                                            |                                             |                                               |                                                                               |                                             |                                               |
+
+Phương trình (7) cho vectơ nghiệm *x* = (x1, x2, x3) cho chúng ta biết hai sự thật quan trọng:
+
+1. Đối với mọi *b* có một nghiệm duy nhất cho *Ax* = *b.* 2. Ma trận $A^{-1}$ tạo ra *x* = $A^{-1}b$.
+
+Các chương tiếp theo sẽ hỏi về các phương trình khác *Ax* = *b.* Có nghiệm hay không? Làm thế nào để tìm ra nó?
+
+*Lưu ý về giải tích (Note on calculus).* Hãy để tôi kết nối những ma trận đặc biệt này với giải tích. Vectơ *x* thay đổi thành một hàm *x(t).* Các sai phân *Ax* trở thành *đạo hàm dx/dt* = *b(t).* Theo hướng ngược lại, các tổng $A^{-1}b$ trở thành *tích phân* của *b(* t). **Tổng của các sai phân giống như tích phân của các đạo hàm.** 
+
+Định lý Cơ bản của Giải tích (The Fundamental Theorem of Calculus) phát biểu : *tích phân là phép toán ngược của đạo hàm*.
+
+| $Ax = b$ và $x = A^{-1}b$ | $\frac{dx}{dt} = b$ và $x(t) = \int_0^t b dt.$ | (8) |
+|----------------------------|-------------------------------------------------|-----|
+|----------------------------|-------------------------------------------------|-----|
+
+Các sai phân của các bình phương 0, 1, 4, 9 là các số lẻ 1, 3, 5. Đạo hàm của *x(t)* = t<sup>2</sup> là 2t. Một sự tương tự hoàn hảo lẽ ra đã tạo ra các số chẵn *b* = 2, 4, 6 tại các thời điểm *t* = 1, 2, 3. Nhưng các sai phân không giống như các đạo hàm, và ma trận *A* của chúng ta không tạo ra 2t mà là 2t - 1:
+
+| Hướng lùi | $x(t) - x(t-1) = t^2 - (t-1)^2 = t^2 - (t^2 - 2t + 1) = 2t - 1$ | (9) |
+|----------|-----------------------------------------------------------------|-----|
+|          |                                                                 |     |
+
+Phần Bài tập sẽ tiếp tục để chỉ ra rằng các "sai phân hướng tới" (forward differences) tạo ra 2t + 1. Lựa chọn tốt nhất (không phải lúc nào cũng được thấy trong các khóa học giải tích) là một **sai phân trung tâm (centered difference)** sử dụng *x(t* + 1) - *x(t* - 1). Chia sai phân $\Delta x$ đó cho khoảng cách $\Delta t$ từ *t* - 1 đến t+ 1, đó là 2:
+
+| Sai phân trung tâm của $x(t) = t^2$ | $\frac{(t+1)^2 - (t-1)^2}{2} = 2t$ | chính xác. | (10) |
+|-------------------------------------|------------------------------------|----------|------|
+|-------------------------------------|------------------------------------|----------|------|
+
+Các ma trận sai phân thật tuyệt vời. Trung tâm là tốt nhất. Ví dụ thứ hai của chúng ta là *không khả nghịch.*
+
+# **Các Sai phân Vòng (Cyclic Differences)**
+
+Ví dụ này giữ nguyên các cột u và v nhưng thay đổi *w* thành một vectơ mới *w\*:*
+
+| Ví dụ thứ hai | $u = \begin{bmatrix} 1 \\ -1 \\ 0 \end{bmatrix}$ | $v = \begin{bmatrix} 0 \\ 1 \\ -1 \end{bmatrix}$ | $w^* = \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix}$ |
+|----------------|--------------------------------------------------|--------------------------------------------------|----------------------------------------------------|
+|                |                                                  |                                                  |                                                    |
+
+Bây giờ các tổ hợp tuyến tính của *u, v, w\** dẫn đến một **ma trận sai phân vòng (cyclic difference matrix)** C:
+
+| Vòng | $Cx = \begin{bmatrix} 1 & 0 & -1 \\ -1 & 1 & 0 \\ 0 & -1 & 1 \end{bmatrix}$ | $\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} x_1 - x_3 \\ x_2 - x_1 \\ x_3 - x_2 \end{bmatrix} = \mathbf{b}$ | (11) |  |
+|--------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|------|--|
+|        |                                                                             |                                                                                                                                    |      |  |
+
+Ma trận *C* này không phải là tam giác. Nó không quá đơn giản để giải tìm **x** khi chúng ta được cho *b.* Thực ra là không thể tìm thấy *một* nghiệm duy nhất cho *Cx* = *b,* bởi vì ba phương trình này hoặc có **vô số nghiệm** (đôi khi) hoặc không có **nghiệm nào** (thường xuyên):
+
+| $Cx = 0$                   | $\begin{bmatrix} x_1 - x_3 \\ x_2 - x_1 \\ x_3 - x_2 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$ | được giải bởi tất cả các vectơ | $\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} c \\ c \\ c \end{bmatrix}$ | $($ |
+|----------------------------|-----------------------------------------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------------------------|-----|
+| <b>Vô số</b>          |                                                                                                                 |                          |                                                                                               |     |
+| <b>nghiệm <math>x</math></b> |                                                                                                                 |                          |                                                                                               |     |
+
+Mỗi vectơ hằng số như *x* = (3, 3, 3) có các sai phân bằng không khi chúng ta đi theo vòng. Hằng số chưa xác định c hoàn toàn giống như + *C* mà chúng ta cộng vào các tích phân. Các sai phân vòng quay vòng đến x1- *x3* ở thành phần đầu tiên, thay vì bắt đầu từ *x0*= 0. Khả năng có thể xảy ra hơn cho *Cx* = b là **không có nghiệm** *<sup>x</sup>* nào cả:
+
+| $Cx = b$ | $\begin{bmatrix} x_1 - x_3 \\ x_2 - x_1 \\ x_3 - x_2 \end{bmatrix} = \begin{bmatrix} 1 \\ 3 \\ 5 \end{bmatrix}$ | Vế trái cộng lại bằng 0<br>Vế phải cộng lại bằng 9<br><i>Không có nghiệm</i> $x_1, x_2, x_3$ | (13) |
+|----------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|------|
+|----------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|------|
+
+Hãy nhìn ví dụ này một cách hình học. Không có tổ hợp nào của *u, v,* và *w\** sẽ tạo ra vectơ b = (1, 3, 5). Các tổ hợp không lấp đầy toàn bộ không gian ba chiều. Các vế phải phải có b1<sup>+</sup>b*2*<sup>+</sup>b*<sup>3</sup>*= 0 để cho phép có một nghiệm cho *Cx* = *b,* bởi vì các vế trái x1 -*X3, x2* - x1, và *X3* - *x2* luôn luôn cộng lại bằng không. Nói theo một cách khác:
+
+**Tất cả các tổ hợp tuyến tính** x1 u + x*2*v + x3*w\** **nằm trên mặt phẳng được cho bởi** b1<sup>+</sup>b*2*<sup>+</sup>b3 = 0.
+
+**Tất cả các tổ hợp tuyến tính 
+$$x_1u + x_2v + x_3w^*$$
+ nằm trên mặt phẳng được cho bởi  $b_1 + b_2 + b_3 = 0$ .**
+
+Chủ đề này đột nhiên kết nối đại số với hình học. Các tổ hợp tuyến tính có thể lấp đầy toàn bộ không gian, hoặc chỉ một mặt phẳng. Chúng ta cần một bức tranh để cho thấy sự khác biệt quan trọng giữa *u, v, w* (ví dụ đầu tiên) và *u, v, w\** (tất cả đều nằm trong cùng một mặt phẳng).
+
+![](images/_page_35_Diagram_8.jpeg)
+Hình 1.10: Các vectơ độc lập *u, v, w.* Các vectơ phụ thuộc *u, v, w\** trong một mặt phẳng.
+
+# **Độc lập và Phụ thuộc (Independence and Dependence)**
+
+Hình 1.10 cho thấy các vectơ cột đó, đầu tiên là của ma trận *A* và sau đó là của *C.* Hai cột đầu tiên *u* và *v* là giống nhau trong cả hai bức tranh. Nếu chúng ta chỉ nhìn vào các tổ hợp của hai vectơ đó, chúng ta sẽ có một mặt phẳng hai chiều. **Câu hỏi mấu chốt là liệu vectơ thứ ba có nằm trong mặt phẳng đó hay không:** 
+
+**Độc lập** *<sup>w</sup>* không nằm trong mặt phẳng của *u* và *v.*
+
+**Phụ thuộc** *w\** nằm trong mặt phẳng của *u* và *v.*
+
+Điểm quan trọng là vectơ mới *w\** là một tổ hợp tuyến tính của *u* và v:
+
+$$\mathbf{u} + \mathbf{v} + \mathbf{w}^* = 0 \quad \mathbf{w}^* = \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} = -\mathbf{u} - \mathbf{v}. \quad (14)$$
+
+Cả ba vectơ *u, v,* w\* đều có các thành phần cộng lại bằng không. Khi đó tất cả các tổ hợp của chúng sẽ có b <sup>1</sup><sup>+</sup>b2<sup>+</sup>b*3* = 0 (như chúng ta đã thấy ở trên, bằng cách cộng ba phương trình). Đây là phương trình cho mặt phẳng chứa tất cả các tổ hợp của *u* và *v.* Bằng cách đưa thêm w\* vào, chúng ta *không nhận được vectơ mới nào* bởi vì w\* đã nằm trên mặt phẳng đó rồi.
+
+*w* = (0, 0, 1) ban đầu không nằm trên mặt phẳng: 0 + 0 + 1 khác 0. Các tổ hợp của *u, v, w* lấp đầy toàn bộ không gian ba chiều. Chúng ta đã biết điều này, bởi vì nghiệm *x* = $A^{-1}b$ trong phương trình (6) đã đưa ra tổ hợp đúng để tạo ra bất kỳ *b* nào. 
+
+Hai ma trận *A* và *C,* với các cột thứ ba là w và w\*, cho phép tôi đề cập đến hai từ khóa của đại số tuyến tính: độc lập và phụ thuộc. Nửa đầu của khóa học sẽ phát triển những ý tưởng này xa hơn nhiều - tôi rất vui nếu bạn thấy chúng sớm trong hai ví dụ này:
+
+*u, v,* w là **độc lập (independent).** Không có tổ hợp nào ngoại trừ *Ou+ Ov +Ow=* **0** tạo ra *b* = **0.** 
+
+*u, v, w\** là **phụ thuộc (dependent).** Các tổ hợp khác như *u* + *v* + *w\** tạo ra *b* = **0.** 
+
+Bạn có thể hình dung điều này trong không gian ba chiều. Ba vectơ nằm trong một mặt phẳng hoặc không. Chương 2 có *n* vectơ trong không gian n chiều. *Độc lập hoặc phụ thuộc* là điểm mấu chốt. Các vectơ đi vào các cột của một ma trận n x n:
+
+Các cột độc lập: *Ax* = **0** có một nghiệm duy nhất. *A* là một **ma trận khả nghịch.** 
+
+Các cột phụ thuộc: *Cx* = **0** có nhiều nghiệm. *C* là một **ma trận suy biến (singular matrix).** 
+
+Cuối cùng chúng ta sẽ có *n* vectơ trong không gian m chiều. Ma trận *A* với *n* cột đó bây giờ là một ma trận *chữ nhật* (m x *n).* Việc hiểu *Ax =b* là bài toán của Chương 3.
+
+#### **• ÔN TẬP CÁC Ý TƯỞNG CHÍNH •**
+
+- **1. Ma trận nhân với vectơ:** *Ax* = **tổ hợp của các cột của** *A.*
+- **2.** Nghiệm của *Ax* = *b* là *x* = $A^{-1}b$, khi *A* là một ma trận khả nghịch.
+- **3.** Ma trận vòng *C* không có nghịch đảo. Ba cột của nó nằm trong cùng một mặt phẳng. Những cột phụ thuộc đó cộng lại thành vectơ không. *Cx* = 0 có nhiều nghiệm.
+- 4. Phần này đang hướng tới những ý tưởng chính, chưa được giải thích đầy đủ.
+
+#### **• CÁC VÍ DỤ ĐÃ GIẢI •**
+
+**1.3 A** Thay đổi phần tử phía tây nam a31 của *A* (hàng 3, cột 1) thành a31 = **1:**
+
+| $Ax = b$ | $\begin{bmatrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ -1 & -1 & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} x_1 \\ -x_1 + x_2 \\ x_1 - x_2 + x_3 \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix}$ |
+|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|          |                                                                                                                                                                                                                                               |
+
+**Lời giải** Giải hệ (tam giác tuyến tính) $A\mathbf{x} = \mathbf{b}$ từ trên xuống dưới:
+
+$$\begin{aligned} \text{đầu tiên } x_1 &= b_1 \\ \text{sau đó } x_2 &= b_1 + b_2 && \text{Điều này nói rằng } \mathbf{x} = A^{-1}\mathbf{b} = \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix} \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix} \\ \text{sau đó } x_3 &= b_2 + b_3 \end{aligned}$$
+
+Đây là một thực hành tốt để thấy các cột của ma trận nghịch đảo nhân với $b_1, b_2$, và $b_3$. Cột đầu tiên của $A^{-1}$ là nghiệm cho $\mathbf{b} = (1, 0, 0)$. Cột thứ hai là nghiệm cho $\mathbf{b} = (0, 1, 0)$. Cột thứ ba của $A^{-1}$ là nghiệm cho $A\mathbf{x} = \mathbf{b} = (0, 0, 1)$.
+
+Ba cột của $A$ vẫn độc lập. Chúng không nằm trong cùng một mặt phẳng. Các tổ hợp của ba cột đó, sử dụng đúng các trọng số $x_1, x_2, x_3$, có thể tạo ra bất kỳ vectơ ba chiều $\mathbf{b} = (b_1, b_2, b_3)$ nào. Các trọng số đó đến từ $\mathbf{x} = A^{-1}\mathbf{b}$.
+
+**1.3 B** $E$ này là một **ma trận khử (elimination matrix)**. $E$ có phép trừ và $E^{-1}$ có phép cộng.
+
+$$\mathbf{b} = E\mathbf{x} \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} = \begin{bmatrix} x_1 \\ x_2 - \ell x_1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ -\ell & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \quad E = \begin{bmatrix} 1 & 0 \\ -\ell & 1 \end{bmatrix}$$
+
+Phương trình đầu tiên là $x_1 = b_1$. Phương trình thứ hai là $x_2 - \ell x_1 = b_2$. Ma trận nghịch đảo sẽ cộng $\ell b_1$ vào $b_2$, bởi vì ma trận khử đã thực hiện phép trừ:
+
+$$\mathbf{x} = E^{-1}\mathbf{b} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = \begin{bmatrix} b_1 \\ \ell b_1 + b_2 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ \ell & 1 \end{bmatrix} \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} \quad E^{-1} = \begin{bmatrix} 1 & 0 \\ \ell & 1 \end{bmatrix}$$
+
+**1.3 C** Thay đổi $C$ từ một sai phân vòng thành một **sai phân trung tâm** tạo ra $x_3 - x_1$:
+
+$$C\mathbf{x} = \mathbf{b} \begin{bmatrix} 0 & 1 & 0 \\ -1 & 0 & 1 \\ 0 & -1 & 0 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} x_2 - 0 \\ x_3 - x_1 \\ 0 - x_2 \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix}. \quad (15)$$
+
+$C\mathbf{x} = \mathbf{b}$ chỉ có thể được giải khi $b_1 + b_3 = x_2 - x_1 = 0$. Đó là một mặt phẳng của các vectơ $\mathbf{b}$ trong không gian ba chiều. Mỗi cột của $C$ đều nằm trong mặt phẳng đó, ma trận không có nghịch đảo. Vì vậy, mặt phẳng này chứa tất cả các tổ hợp của các cột đó (chính là tất cả các vectơ $C\mathbf{x}$).
+
+Tôi đã bao gồm các số 0 để bạn có thể thấy rằng $C$ này tạo ra "các sai phân trung tâm". Hàng $i$ của $C\mathbf{x}$ là $x_{i+1}$ (bên phải trung tâm) trừ đi $x_{i-1}$ (bên trái trung tâm). Đây là ví dụ 4 x 4:
+
+$$\begin{aligned} C\mathbf{x} = \mathbf{b} \\ \text{Sai phân trung tâm} \quad \begin{bmatrix} 0 & 1 & 0 & 0 \\ -1 & 0 & 1 & 0 \\ 0 & -1 & 0 & 1 \\ 0 & 0 & -1 & 0 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \end{bmatrix} = \begin{bmatrix} x_2 - 0 \\ x_3 - x_1 \\ x_4 - x_2 \\ 0 - x_3 \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ b_3 \\ b_4 \end{bmatrix} \end{aligned} \quad (16)$$
+
+Đáng ngạc nhiên là ma trận này bây giờ lại khả nghịch! Hàng đầu tiên và hàng cuối cùng cho bạn biết $x_2$ và $x_3$. Sau đó, các hàng ở giữa cho biết $x_1$ và $x_4$. Có thể viết ra ma trận nghịch đảo $C^{-1}$. Nhưng ma trận 5 x 5 sẽ lại là ma trận suy biến (không khả nghịch) ...
+
+## Bài tập 1.3
+
+1 Tìm tổ hợp tuyến tính $3s_1 + 4s_2 + 5s_3 = b$. Sau đó viết $b$ dưới dạng một phép nhân ma trận-vectơ $Sx$, với 3, 4, 5 trong $x$. Tính ba tích vô hướng (hàng của $S$) $\cdot x$:
+
+$$s_1 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} \quad s_2 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} \quad s_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \text{ đi vào các cột của } S.$$
+
+2 Giải các phương trình $Sy = b$ với $s_1, s_2, s_3$ trong các cột của $S$:
+
+$$\begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 0 \\ 1 & 1 & 1 \end{bmatrix} \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} \text{ và } \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 0 \\ 1 & 1 & 1 \end{bmatrix} \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} 1 \\ 4 \\ 9 \end{bmatrix}.$$
+
+$S$ là một ma trận tổng. Tổng của 5 số lẻ đầu tiên là \_\_\_\_\_.
+
+3 Giải ba phương trình này để tìm $y_1, y_2, y_3$ theo $c_1, c_2, c_3$:
+
+$$Sy = c \quad \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 0 \\ 1 & 1 & 1 \end{bmatrix} \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} c_1 \\ c_2 \\ c_3 \end{bmatrix}.$$
+
+Viết nghiệm $y$ dưới dạng một ma trận $A = S^{-1}$ nhân với vectơ $c$. Các cột của $S$ là độc lập hay phụ thuộc?
+
+4 Tìm một tổ hợp $x_1w_1 + x_2w_2 + x_3w_3$ tạo ra vectơ không với $x_1 = 1$:
+
+$$w_1 = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} \quad w_2 = \begin{bmatrix} 4 \\ 5 \\ 6 \end{bmatrix} \quad w_3 = \begin{bmatrix} 7 \\ 8 \\ 9 \end{bmatrix}.$$
+
+Những vectơ đó là (độc lập) (phụ thuộc). Ba vectơ đó nằm trong một \_\_\_\_\_. Ma trận $W$ với ba cột đó *không khả nghịch*.
+
+5 Các hàng của ma trận $W$ đó tạo ra ba vectơ (*Tôi viết chúng dưới dạng các cột*):
+
+$$r_1 = \begin{bmatrix} 1 \\ 4 \\ 7 \end{bmatrix} \quad r_2 = \begin{bmatrix} 2 \\ 5 \\ 8 \end{bmatrix} \quad r_3 = \begin{bmatrix} 3 \\ 6 \\ 9 \end{bmatrix}.$$
+
+Đại số tuyến tính nói rằng các vectơ này cũng phải nằm trong một mặt phẳng. Phải có nhiều tổ hợp với $y_1r_1 + y_2r_2 + y_3r_3 = 0$. Tìm hai bộ các số $y$.
+
+6 Những số $c$ nào cho các cột phụ thuộc để một tổ hợp các cột bằng không?
+
+$$\begin{bmatrix} 1 & 1 & 0 \\ 3 & 2 & 1 \\ 7 & 4 & c \end{bmatrix} \quad \begin{bmatrix} 1 & 0 & c \\ 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix} \quad \begin{bmatrix} c & c & c \\ 2 & 1 & 5 \\ 3 & 3 & 6 \end{bmatrix} \text{ có thể luôn độc lập với } c \neq 0?$$
+
+7 Nếu các cột kết hợp thành *Ax* = 0 thì mỗi hàng có *r* · *x* = 0:
+
+| $\begin{bmatrix} a_1 & a_2 & a_3 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$ | Theo hàng | $\begin{bmatrix} r_1 \cdot x \\ r_2 \cdot x \\ r_3 \cdot x \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$ |
+|---------------------------------------------------------------------------------------------------------------------------------------------|---------|-----------------------------------------------------------------------------------------------------------------------|
+|---------------------------------------------------------------------------------------------------------------------------------------------|---------|-----------------------------------------------------------------------------------------------------------------------|
+
+Ba hàng cũng nằm trong một mặt phẳng. Tại sao mặt phẳng đó lại vuông góc với x?
+
+8 Chuyển sang một phương trình sai phân 4 x 4 *Ax* = b, tìm bốn thành phần x1, x*2,* x3, *x4.* Sau đó viết nghiệm này dưới dạng $x = A^{-1}b$ để tìm ma trận nghịch đảo:
+
+$$Ax = \begin{bmatrix} 1 & 0 & 0 & 0 \\ -1 & 1 & 0 & 0 \\ 0 & -1 & 1 & 0 \\ 0 & 0 & -1 & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ b_3 \\ b_4 \end{bmatrix}.$$
+
+9 Ma trận sai phân *vòng* 4 x 4 *C* là gì? Nó sẽ có 1 và -1 ở mỗi hàng và mỗi cột. Tìm tất cả các nghiệm *x* = (x1, x*<sup>2</sup> ,* x*<sup>3</sup> ,* x*4)* cho *Cx* = 0. Bốn cột của *C* nằm trong một "siêu phẳng ba chiều" (three-dimensional hyperplane) bên trong không gian bốn chiều. **<sup>10</sup>** Một ma trận sai phân *hướng tới* $\Delta$ là tam giác *trên*:
+
+$$\Delta z = \begin{bmatrix} -1 & 1 & 0 \\ 0 & -1 & 1 \\ 0 & 0 & -1 \end{bmatrix} \begin{bmatrix} z_1 \\ z_2 \\ z_3 \end{bmatrix} = \begin{bmatrix} z_2 - z_1 \\ z_3 - z_2 \\ 0 - z_3 \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix} = b.$$
+
+Tìm z1, z2, z3 từ b1, *<sup>b</sup>2, b3.* Ma trận nghịch đảo trong $z = \Delta^{-1}b$ là gì?
+
+11 Hãy chứng minh rằng các sai phân hướng tới (*t* <sup>+</sup> 1)<sup>2</sup> - t<sup>2</sup> là 2t + 1 = *các số lẻ.* Tương tự như trong giải tích, sai phân (t + 1)<sup>n</sup> - t<sup>n</sup> sẽ bắt đầu bằng đạo hàm của t<sup>n</sup>, đó là \_\_\_\_\_ **<sup>12</sup>** Những dòng cuối cùng của Ví dụ đã giải nói rằng ma trận sai phân trung tâm 4 x 4 trong (16) *là* khả nghịch. Giải *Cx* = (b1, *b2,* b3, *b4)* để tìm nghịch đảo của nó trong $x = C^{-1}b$.
+
+# Các Bài toán Thử thách
+
+**<sup>13</sup>** Những từ cuối cùng nói rằng ma trận sai phân trung tâm 5 x 5 *không* khả nghịch. Viết ra 5 phương trình *Cx* = *b.* Tìm một tổ hợp của các vế trái mang lại giá trị 0. Tổ hợp nào của b1, *b<sup>2</sup>, b3, b4, b5* phải bằng 0? (5 cột nằm trên một "siêu phẳng 4 chiều" trong không gian 5 chiều. *Rất khó hình dung.*)  **<sup>14</sup>** Nếu (*a, b)* là một bội số của (*c, d)* với $abcd \neq 0$, *hãy chứng minh rằng* (*a,* c) *là một bội số của (b,* d). Điều này quan trọng một cách đáng ngạc nhiên; hai cột đang nằm trên một đường thẳng. Bạn có thể sử dụng các con số trước để xem a, *b,* c, *d* liên quan với nhau như thế nào. Câu hỏi sẽ dẫn đến: Nếu $\begin{bmatrix} a & b \\ c & d \end{bmatrix}$ có các hàng phụ thuộc, thì nó cũng có các cột phụ thuộc.

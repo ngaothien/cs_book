@@ -106,8 +106,8 @@ Nếu không sở hữu GPU, trên thị trường có vài nhà cung cấp dị
 > **PyTorch trên Apple Silicon**
 > Nếu bạn sở hữu máy Mac dùng chip Apple Silicon (như M1, M2, M3 hoặc cao hơn), bạn có thể khai thác nó để tăng tốc cho PyTorch. Đầu tiên bạn cứ cài PyTorch như bình thường. Rồi kiểm tra tính năng bằng đoạn code sau:
 > ```python
-> print(torch.backends.mps.is_available())
-> ```
+print(torch.backends.mps.is_available())
+```
 > Nếu kết quả về `True`, Mac của bạn hoàn toàn đủ tính năng dùng Apple Silicon để boot tốc độ cho PyTorch.
 
 > **Bài tập A.1**
@@ -587,9 +587,9 @@ class ToyDataset(Dataset):
         one_y = self.labels[index]      
         return one_x, one_y             
 
-    # Chỉ thị báo cáo chiều dài dữ liệu
-    def def __len__(self):
-        return self.labels.shape[0]     
+    # Phương thức trả về số lượng mẫu trong tập dữ liệu
+    def __len__(self):
+        return self.labels.shape[0]
 
 train_ds = ToyDataset(X_train, y_train)
 test_ds = ToyDataset(X_test, y_test)
@@ -657,12 +657,12 @@ Batch 2: tensor([[ 2.3000, -1.1000],
 Batch 3: tensor([[ 2.7000, -1.5000]]) tensor([1])
 ```
 
-Dựa trên thứ in ra ở bảng hiển thị, ta thấy cỗ máy vòng lặp train_loader chạy một nháy xuyên thủng bộ danh sách đồ chơi dataset, điểm mặt không chừa một khuôn mẫu train nào (nó thăm viếng đúng 1 lần). Cuộc càn quét vô biên này được định danh là một `kỷ nguyên huấn luyện` (training epoch). Hơn nữa do thuật gán số seed ngẫu nhiên bằng `torch.manual_seed(123)` ở khâu tạo dựng ban đầu, cỗ máy sẽ in ra thứ tự tráo đổi vị trí hệt như ở màn hình của bạn. Chứ nếu bạn thử chạy lại vòng hai xem, thứ tự trộn bị đảo lộn không nhận ra ngay. Lý do là để cỗ máy deep neural network không bao giờ bị ù lì vướng vào một con hẻm lặp đi lặp lại nhạt nhẽo đâm ra phán đoán sai lệch rập khuôn sáo rỗng.
+Dựa trên kết quả hiển thị, ta thấy `train_loader` đã lặp qua toàn bộ tập dữ liệu mẫu một lần, duyệt qua tất cả các mẫu huấn luyện mà không bỏ sót mẫu nào. Quá trình duyệt qua toàn bộ tập dữ liệu một lần như vậy được gọi là một **epoch huấn luyện** (training epoch). Hơn nữa, do chúng ta đã cố định seed ngẫu nhiên bằng `torch.manual_seed(123)` từ trước, thứ tự xáo trộn sẽ hoàn toàn nhất quán. Nếu bạn chạy lại một epoch khác với thiết lập xáo trộn (`shuffle=True`), thứ tự các mẫu trong batch sẽ được hoán đổi ngẫu nhiên. Việc xáo trộn dữ liệu sau mỗi epoch giúp mạng nơ-ron sâu tránh học thuộc thứ tự dữ liệu hoặc bị kẹt trong các cực tiểu cục bộ không mong muốn.
 
-Trong ví dụ ở trên, ta yêu cầu mỗi nhóm là 2 mẫu, nhưng ở mâm thứ ba chỉ có duy nhất một đối tượng mẫu mã. Lý do là có tổng 5 phần tử mẫu, 5 làm sao chia hết cho 2!
-Trong thực tiễn môi trường lớn, một nhóm batch bé xíu bị lẻ còi cọc đu bám ở đuôi nhóm sẽ cản trở quá trình mượt mà của hệ thống đào tạo. Cách thanh trừng tốt nhất là tiễn nó ra rìa bằng nhãn `drop_last=True` ở khâu khai báo, như ở Listing A.8.
+Trong ví dụ trên, chúng ta đặt kích thước lô `batch_size=2`, nhưng ở batch thứ 3 chỉ có 1 mẫu duy nhất. Lý do là tập dữ liệu mẫu của chúng ta có 5 phần tử, và 5 không chia hết cho 2.
+Trong thực tế, một batch kích thước nhỏ bất thường ở cuối cùng đôi khi có thể gây bất ổn định khi huấn luyện mô hình lớn. Ta có thể dễ dàng loại bỏ batch lẻ này bằng cách thiết lập `drop_last=True` khi khởi tạo DataLoader, như minh họa trong Listing A.8.
 
-**Listing A.8: Một băng chuyền train vứt bỏ cụm bị mẻ ở đít nhóm**
+**Listing A.8: DataLoader loại bỏ batch lẻ cuối cùng với drop_last=True**
 
 ```python
 train_loader = DataLoader(
@@ -673,7 +673,8 @@ train_loader = DataLoader(
     drop_last=True
 )
 ```
-Giờ hãy ngắm băng chuyền chạy xem cái cụm cuối bị tiễn đi đâu nào:
+
+Bây giờ nếu lặp lại qua `train_loader`:
 ```python
 for idx, (x, y) in enumerate(train_loader):
     print(f"Batch {idx+1}:", x, y)
@@ -686,33 +687,31 @@ Batch 2: tensor([[ 2.7000, -1.5000],
         [-0.5000,  2.6000]]) tensor([1, 0])
 ```
 
-Vấn đề cuối cùng, tôi và bạn hãy bàn nốt về tham số `num_workers=0` trong hàm DataLoader. Thông số này thực sự giữ vị thế sống còn cho quá trình ép xử lý đồng loạt đa quy trình giữa nạp file và phân tách nén file. Việc khai báo bằng 0 báo cho hệ thống ngưng làm trò tải file bằng các quy trình luồng độc lập, mà tập trung sức mạnh dồn lực xử lý trên hệ thống trung tâm. Nghe có vẻ hoàn toàn chẳng dính lỗi logic tẹo nào phải không? Tuy nhiên nó sẽ làm ngẽn đường băng hệ thống huấn luyện đối với mô hình khổng lồ dùng sức cày GPU. Chẳng những tài nguyên GPU không tập trung vào cái công việc vĩ đại học hỏi hệ thống của mô hình mạng nơ ron, mà CPU còn làm trì trệ quá trình bằng cách tranh thủ lúc rảnh rỗi dọn dẹp nhồi và nạp data. CPU lúc ấy làm kẹt hệ thống GPU ở chế độ nghỉ đông. 
-Ngược lại, khi nhích `num_workers` lên một hệ số lớn hơn 0, một loạt đàn lính thợ phân chia nhau ôm luồng quy trình (process) dọn nạp vào bộ nhớ RAM ở background. Việc đó nhường ngõ và không gian để cái CPU dồn hết sức mạnh lo cho chuyện học hành mô hình (hình A.11).
+Vấn đề cuối cùng cần lưu ý là tham số `num_workers=0` trong `DataLoader`. Tham số này xác định số lượng tiến trình con (sub-processes) được sử dụng để tải dữ liệu song song. Khi đặt `num_workers=0`, dữ liệu sẽ được tải tuần tự trong tiến trình chính. Việc tải dữ liệu trong tiến trình chính là hoàn toàn phù hợp với các tập dữ liệu nhỏ. Tuy nhiên, khi huấn luyện các mô hình lớn trên GPU, việc chuẩn bị dữ liệu trên CPU có thể trở thành nút thắt cổ chai (bottleneck). Khi đó, GPU phải chờ đợi CPU nạp dữ liệu xong mới có thể tiếp tục tính toán.
 
-Tuy nhiên, với mớ bộ đồ chơi nhỏ lặt vặt như mẫu trên, cái tham số chỉnh lên cao không có quá nhiều ý nghĩa do thời lượng train chưa bằng một phần nghìn giây đồng hồ. Vì thế nếu test trên hệ Jupyter notebook hay các bộ mini, tăng thông số không giúp cải tiến thêm tẹo nào mà còn gây hệ lụy. Hệ lụy to nhất chính là gánh nặng khởi động đàn kiến thợ quy trình quá đông cho công việc không xứng tầm. Một khi thời gian kêu gọi lính thợ lấp đầy lâu hơn cả thời gian tải của dữ liệu thì lúc đó hệ thống bị ì ạch cực kì phiền phức.
+Ngược lại, khi đặt `num_workers > 0`, nhiều tiến trình con sẽ tiền xử lý và nạp trước các batch dữ liệu vào bộ nhớ ở chế độ nền (background). Nhờ vậy, dữ liệu luôn sẵn sàng ngay khi GPU hoàn tất bước tính toán của batch hiện tại (hình A.11).
 
-Thêm vào đó, ở môi trường Jupyter notebooks, chỉnh số `num_workers` vượt biên số 0 lắm khi phá nát hệ sinh thái vì xung đột tài nguyên giữa các tiến trình hệ thống, dẫn đến hiện tượng văng màn hình xanh crash hoặc ngưng báo lỗi rầm rộ. Khôn ngoan nhất chính là phải nắm bắt cán cân thỏa hiệp trong thông số thiết lập `num_workers`. Đặt giá trị đúng, chạy nhẹ tựa lông hồng. Nhưng bắt buộc phải ước lượng dựa theo lượng dung lượng và phần cứng máy móc của từng bên.
+Tuy nhiên, đối với các tập dữ liệu đồ chơi hoặc khi thử nghiệm nhanh trên Jupyter Notebook, việc tăng `num_workers` có thể không mang lại lợi ích về tốc độ, thậm chí còn chậm hơn do chi phí khởi tạo và quản lý đa tiến trình (multiprocessing overhead). Ngoài ra, trên một số hệ điều hành hoặc môi trường notebook, đa tiến trình có thể gây xung đột nếu không được xử lý cẩn thận. Do đó, bạn nên điều chỉnh `num_workers` tùy theo phần cứng và kích thước tập dữ liệu cụ thể.
 
-Với tư cách là một kẻ lăn lộn chiến trường, tôi hay đặt biến cờ `num_workers=4`. Số 4 thường tỏ ra là hệ số bùa hộ mệnh phù hợp nhất cho mọi bộ máy, nhưng quyết định cuối cùng vẫn thuộc quyền định đoạt vào phần cứng của bạn và tính chất khối lượng mẫu nạp của file Dataset.
+Thông thường, giá trị `num_workers=4` là điểm khởi đầu phổ biến cho các bài toán thực tế, nhưng bạn nên đo lường thực nghiệm để tìm giá trị tối ưu cho hệ thống của mình.
 
-[Hình A.11: Tải dữ liệu mà không bật chạy đa luồng thợ (num_workers=0) sẽ tạo thành cục nghẽn tải kẹt cổ chai dữ liệu nơi mà model cứ ngồi không ăn bám chờ nạp batch kế tiếp. Nhưng khi phân luồng, lính thợ tải data loader chuẩn bị nhét đầy các cụm kế tiếp ngay ở hàng đợi (bên phải).]
+[Hình A.11: Tải dữ liệu tuần tự với num_workers=0 có thể gây ra nút thắt cổ chai khi mô hình phải nhàn rỗi chờ nạp batch kế tiếp (bên trái). Khi bật tải dữ liệu đa tiến trình (num_workers > 0), các batch tiếp theo được chuẩn bị sẵn trong hàng đợi bộ nhớ để GPU tính toán liên tục (bên phải).]
 
-## A.7 Một vòng lặp đào tạo (training loop) điển hình
+## A.7 Vòng lặp huấn luyện (training loop) điển hình
 
-Tới giờ nạp dữ liệu train cho mô hình thần thánh rồi. Dưới đây liệt kê bộ khung source code.
+Bây giờ, chúng ta sẽ kết hợp mô hình mạng nơ-ron, bộ nạp dữ liệu và thuật toán tối ưu hóa vào một vòng lặp huấn luyện hoàn chỉnh.
 
-**Listing A.9: Huấn luyện Neural network trên PyTorch**
+**Listing A.9: Huấn luyện mạng nơ-ron trong PyTorch**
 
 ```python
 import torch.nn.functional as F
 
 torch.manual_seed(123)
 
-# Do mẫu có 2 tính năng input và 2 ngõ ra phân lớp
+# Khởi tạo mô hình với 2 đặc trưng đầu vào và 2 lớp đầu ra
 model = NeuralNetwork(num_inputs=2, num_outputs=2)   
 
-# Cỗ máy nén (Optimizer) cần phải ngắm xem bộ nào bị đào tạo để điều 
-# hướng (tinh chỉnh tốc độ bằng lr)
+# Sử dụng thuật toán tối ưu hóa SGD với tốc độ học lr = 0.5
 optimizer = torch.optim.SGD(
     model.parameters(), lr=0.5
 )           
@@ -727,46 +726,46 @@ for epoch in range(num_epochs):
        
         loss = F.cross_entropy(logits, labels)
         
-        # Bắt buộc xóa bộ đếm gradient của hệ đợt trước về 0 để tránh cặn dồn cục 
+        # Đặt lại gradient về 0 để tránh tích lũy gradient không mong muốn
         optimizer.zero_grad()           
         
-        # Thiết bị cỗ máy ngầm kích hoạt tính gradient cho các mảng
+        # Lan truyền ngược tính toán đạo hàm của hàm mất mát theo các tham số
         loss.backward()        
         
-        # Cỗ máy Optimizer nhận số liệu và chà lướt model parameters
+        # Cập nhật trọng số của mô hình dựa trên gradient
         optimizer.step()       
     
-        ### LOGGING IN KẾT QUẢ ĐÀO TẠO
+        ### LOG KẾT QUẢ HUẤN LUYỆN
         print(f"Epoch: {epoch+1:03d}/{num_epochs:03d}"
               f" | Batch {batch_idx:03d}/{len(train_loader):03d}"
               f" | Train Loss: {loss:.2f}")
 
     model.eval()
-    # Khu vực nhét thêm code đánh giá hiệu suất mô hình (tùy ý)
+    # Khu vực chèn thêm mã đánh giá mô hình trên tập validation (tùy chọn)
 ```
 
-Chạy cái bọc nilon đó sẽ in ra nguyên si thành quả sau:
+Chạy đoạn mã trên sẽ in ra kết quả như sau:
 ```
 Epoch: 001/003 | Batch 000/002 | Train Loss: 0.75
 Epoch: 001/003 | Batch 001/002 | Train Loss: 0.65
 Epoch: 002/003 | Batch 000/002 | Train Loss: 0.44
-Epoch: 002/003 | Batch 001/002 | Trainl Loss: 0.13
+Epoch: 002/003 | Batch 001/002 | Train Loss: 0.13
 Epoch: 003/003 | Batch 000/002 | Train Loss: 0.03
 Epoch: 003/003 | Batch 001/002 | Train Loss: 0.00
 ```
 
-Như ta ngắm nhìn từ bảng số, độ sai số tụt tuốt về số 0 chẵn tròn ở kỷ nguyên thứ 3, một điềm báo tốt lành là mô hình đã hội tụ và đạt cảnh giới thấu hiểu tập train. Ở đây, ta dựng model gồm có hai luồng ngõ vô và hai đầu ngõ xuất. Ta sử dụng bộ cỗ máy tối ưu hóa số đạo hàm chập cheng mang tên stochastic gradient descent (SGD) nạp thêm tỉ lệ số tốc độ học thuật (lr - learning rate) đặt ở mức 0.5. Siêu tham số (hyperparameter - biến cài đặt ngoài model) có khả năng định độ dốc hội tụ ở mức tinh chỉnh tùy hứng khi ta thấy loss có biểu hiện trồi sụt. Ta rất khát khao ước ao mỏi mòn dò tìm con số thần chú cho tỉ lệ tốc độ học thuật để sai số vọt tụt xuống ở một chặng đường đào tạo epoch hợp lý — số epoch cũng lại là một thứ siêu tham số. 
+Như chúng ta có thể thấy, giá trị mất mát (loss) giảm dần và đạt mức 0.00 sau 3 epoch, dấu hiệu cho thấy mô hình đã hội tụ trên tập huấn luyện. Ở đây, chúng ta khởi tạo mô hình với hai đầu vào và hai đầu ra vì tập dữ liệu mẫu có hai đặc trưng đầu vào và hai nhãn phân loại cần dự đoán. Chúng ta sử dụng bộ tối ưu hóa hạ độ dốc ngẫu nhiên (SGD) với tốc độ học (learning rate - lr) là 0.5. Tốc độ học là một siêu tham số (hyperparameter), nghĩa là một thiết lập do người dùng cấu hình mà chúng ta cần tinh chỉnh dựa trên quan sát hàm mất mát. Lý tưởng nhất là ta chọn tốc độ học sao cho loss hội tụ sau một số lượng epoch hợp lý — số lượng epoch cũng là một siêu tham số khác cần lựa chọn.
 
-Thực tế sương gió cho thấy, ta thường cần chi viện từ viện binh bộ tập dữ liệu thứ 3, cái tên giang hồ phong cho là "tập kiểm thử chéo xác thực" (validation dataset), hòng moi ra giá trị tốt đẹp của cái bầy thông số hyperparameter mệt mỏi này. Cái cục kiểm thử chéo này sinh đôi với cục test set, nhưng do mâm đồ cúng "test set" chỉ được giở nắp đúng 1 lần phòng bệnh ảo tưởng ăn gian trong hệ thống, cái tập kiểm thử này có thể mượn đi xài lại băm vằm hàng trăm lần đặng nặn chỉnh ra các setting siêu ngầu cho model.
+Trong thực tế, chúng ta thường sử dụng tập dữ liệu thứ ba, gọi là tập xác thực (validation dataset), để tìm các thiết lập siêu tham số tối ưu. Tập xác thực tương tự như tập kiểm thử (test set). Tuy nhiên, trong khi chúng ta chỉ muốn sử dụng tập kiểm thử đúng một lần vào cuối cùng để tránh làm sai lệch việc đánh giá, chúng ta có thể sử dụng tập xác thực nhiều lần trong quá trình thử nghiệm và tinh chỉnh mô hình.
 
-Chúng ta cũng chèn thử các lệnh chỉ thị `model.train()` và `model.eval()`. Như lời kêu réo trong câu lệnh, những lệnh này chỉ nhằm ném cái mô hình model vào chế độ học sinh hoặc chế độ nhà phê bình đánh giá. Đây lại là đòi hỏi sinh tử với những cấu thành bộ phận hành vi thay đổi lúc train hoặc lúc soi như là các lớp rơi rụng (dropout layer) hoặc các lớp hàm điều biến theo cụm batch (batch normalization). Mạng nơ ron của chúng ta vốn làm bằng nilon chẳng bao giờ có mấy bộ áo xịn xò phức tạp ấy nên thật thừa thãi và chẳng làm gì, nhưng nếp sống gia giáo lập trình buộc ta vẫn phải cấy sẵn vào trước phòng trừ khi rảnh tay thay cái mạng xương quai xanh kiến trúc mô hình to tướng hoặc tải mã về chèn mô hình đồ cổ đem tái sử dụng thì đỡ bị hành.
+Chúng ta cũng sử dụng hai phương thức `model.train()` và `model.eval()`. Như tên gọi của chúng, các phương thức này dùng để chuyển mô hình sang chế độ huấn luyện (training mode) hoặc chế độ đánh giá (evaluation mode). Điều này rất cần thiết đối với các tầng có hành vi khác nhau giữa lúc huấn luyện và lúc suy luận, chẳng hạn như tầng dropout hoặc batch normalization. Mặc dù mạng `NeuralNetwork` đơn giản của chúng ta không chứa các tầng này (nên việc gọi hai lệnh trên không làm thay đổi kết quả), nhưng việc luôn đưa chúng vào code là một thói quen lập trình tốt (best practice) để tránh các hành vi bất ngờ khi thay đổi kiến trúc hoặc tái sử dụng code.
 
-Và như đàm phán sương sương từ trước đó, chúng ta bơm bộ đồ thị số `logits` phi thẳng luôn vào hàm phán quyết lỗi đạo hàm `cross_entropy`, để cái thuật hàm softmax tự thân vận động làm âm ỉ bên trong nội tạng máy đo vì lý trí năng suất và ổn định độ tính toán. Kế đó, hò nốt cái hàm `loss.backward()` tính giùm hệ số dốc số lượng ở cái mạng sơ đồ ẩn mà thằng PyTorch âm thầm đóng phía hậu đài. Cái chiêu `optimizer.step()` mượn đà xài tiếp mấy thông số này sửa cái đống tham số trọng lượng với hy vọng diệt gọn hệ số lỗi suy hao. Xét về bộ phận tối ưu hóa SGD của PyTorch, nó chỉ là con toán lấy tốc độ học (learning rate) nhân đạo hàm dốc trừ âm vào thông số trọng lượng mà thôi.
+Như đã thảo luận trước đó, chúng ta truyền trực tiếp các giá trị `logits` vào hàm mất mát `cross_entropy`, hàm này sẽ tự động áp dụng hàm softmax bên trong nhằm tối ưu hiệu năng tính toán và độ ổn định số học. Sau đó, việc gọi lệnh `loss.backward()` sẽ tính toán các gradient trên đồ thị tính toán mà PyTorch đã âm thầm xây dựng trong suốt lượt lan truyền tiến. Lệnh `optimizer.step()` sau đó sử dụng các gradient này để cập nhật trọng số của mô hình nhằm cực tiểu hóa hàm mất mát. Đối với bộ tối ưu hóa SGD, điều này tương ứng với việc lấy tốc độ học nhân với gradient rồi trừ đi từ các trọng số hiện tại: $w := w - \eta \cdot \nabla_w L$.
 
-> **LƯU Ý**
-> Để phòng cái họa gradient của kiếp luân hồi trước lưu manh cộng dồn với kiếp luân hồi sau tạo ra cục nghiệp chướng sai số rác rưởi, người dùng bắt buộc gài hàm `optimizer.zero_grad()` ở cuối lặp khai sinh mỗi đợt diệt dọn luân chuyển. Còn nếu không dọn rác, đống đạo hàm sẽ tích lũy sình ứ và mọi chuyện sẽ chẳng có gì để bàn sau đó.
+> **LƯU Ý:** Để tránh việc tích lũy gradient không mong muốn qua các vòng lặp, điều tối quan trọng là phải gọi `optimizer.zero_grad()` ở đầu mỗi bước cập nhật để đặt lại gradient về 0. Nếu không, PyTorch sẽ cộng dồn các gradient mới vào gradient cũ từ bước trước.
 
-Sau một đợt tu luyện đẫm máu cho cái mô hình chập choạng này, ta lôi nó ra xem trò phán đoán:
+Sau khi đã huấn luyện xong mô hình, chúng ta có thể sử dụng nó để đưa ra dự đoán:
+
 ```python
 model.eval()
 with torch.no_grad():
@@ -774,7 +773,8 @@ with torch.no_grad():
 
 print(outputs)
 ```
-Kết quả trào ra là: 
+
+Kết quả in ra là các giá trị logits:
 ```
 tensor([[ 2.8569, -4.1618],
         [ 2.5382, -3.7548],
@@ -783,13 +783,15 @@ tensor([[ 2.8569, -4.1618],
         [-1.7176,  1.7342]])
 ```
 
-Nhằm moi ra bằng được tỉ lệ trăm phần trăm định dạng thuộc tính mác hạng, ta gọi nốt lão già hàm `softmax` thuộc thư viện PyTorch ra:
+Để chuyển đổi các logits này thành xác suất dự đoán cho từng lớp, chúng ta sử dụng hàm `softmax` của PyTorch:
+
 ```python
 torch.set_printoptions(sci_mode=False)
 probas = torch.softmax(outputs, dim=1)
 print(probas)
 ```
-Cái này ói ra:
+
+Đoạn code in ra:
 ```
 tensor([[    0.9991,     0.0009],
         [    0.9982,     0.0018],
@@ -798,43 +800,99 @@ tensor([[    0.9991,     0.0009],
         [    0.0307,     0.9693]])
 ```
 
-Hé mắt dòm hàng đầu tiên của bộ số này coi. Cột đầu tiên ám chỉ đối tượng 0 có 99,91% khả năng đúng dòng họ class 0, và chỉ ngắc ngoải 0.09% cơ hội nhập dòng họ class 1. (Lệnh `set_printoptions` chỉ nhằm khóa mồm hệ máy tính phun toán học hàn lâm giúp người đọc cho bớt lác mắt).
+Xem xét hàng đầu tiên của kết quả trên, giá trị cột đầu tiên cho thấy mẫu huấn luyện thứ nhất có 99.91% xác suất thuộc về lớp 0 và chỉ có 0.09% xác suất thuộc về lớp 1. (Lệnh `torch.set_printoptions` giúp tắt hiển thị dạng ký hiệu khoa học để kết quả dễ đọc hơn).
 
-Còn có trò đùn cái bảng chỉ số lên chức thành con mác chính thống thông qua lệnh `argmax`, lệnh này trả về giá trị chỉ số dòng tối đa trên trục dòng `dim=1` (nếu đặt `dim=0` sẽ tìm dòng lớn nhất ở mỗi cột).
+Chúng ta có thể chuyển đổi các xác suất này thành nhãn dự đoán bằng hàm `argmax` của PyTorch. Hàm này trả về chỉ số của giá trị lớn nhất trong mỗi hàng khi thiết lập `dim=1` (nếu đặt `dim=0`, nó sẽ tìm giá trị lớn nhất theo từng cột):
+
 ```python
 predictions = torch.argmax(probas, dim=1)
 print(predictions)
 ```
-Băng in cho kết quả:
+
+Kết quả in ra:
 ```
 tensor([0, 0, 0, 1, 1])
 ```
-Khổ, việc chạy softmax vốn cũng chả cần thiết cho lắm khi chỉ muốn lấy nhãn label. Đắp nốt con `argmax` dập lên hàm `outputs` (tức là cái `logits` nãy ấy) vẫn ra đúng bài.
+
+Lưu ý rằng chúng ta không bắt buộc phải tính xác suất softmax nếu chỉ cần lấy nhãn dự đoán. Ta hoàn toàn có thể áp dụng trực tiếp hàm `argmax` lên các logits đầu ra:
+
 ```python
 predictions = torch.argmax(outputs, dim=1)
 print(predictions)
 ```
-In i chang rứa:
+
+Kết quả hoàn toàn tương đương:
 ```
 tensor([0, 0, 0, 1, 1])
 ```
 
-Vậy là chúng ta đã đoạt được nhãn dự đoán cho kho dữ liệu đào tạo. Do cái file train này có bé bằng mắt muỗi nên có thể đem lên soi đối chiếu mắt bằng tay cũng nhận ra lão mô hình máy tính đánh đúng 100%. Xác minh chuẩn nốt qua lệnh so trùng `==`:
+Ở đây, chúng ta đã tính toán các nhãn dự đoán cho tập huấn luyện. Do tập dữ liệu huấn luyện mẫu khá nhỏ, chúng ta có thể đối chiếu trực quan bằng mắt với nhãn thực tế (`y_train`) và thấy rằng mô hình đã dự đoán chính xác 100%. Ta có thể kiểm tra lại bằng toán tử so sánh `==`:
+
 ```python
 predictions == y_train
 ```
-Cho cái vé:
+
+Kết quả:
 ```
 tensor([True, True, True, True, True])
 ```
-Giờ gọi nốt toán tổng `torch.sum` là đếm ra số lượng phán đoán bách phát bách trúng.
+
+Sử dụng hàm `torch.sum`, chúng ta có thể đếm số lượng mẫu dự đoán chính xác:
+
 ```python
 torch.sum(predictions == y_train)
 ```
-Lão về là:
+
+Kết quả:
 ```
 5
 ```
-Vì cái mâm dataset có vỏn vẹn 5 mẫu tập tành, mà trúng xổ số cả 5, suy ra: 5/5 x 100% = 100% độ chính xác cho bài học làm quen (prediction accuracy).
 
-Để rập khuôn công thức tính ra cái bài toán tỉ lệ % này vô chương trình cho nó đa dụng tiện lợi, hãy ráp lại vào một mô tơ hàm lệnh `compute_accuracy`, mà nó sẽ được vẽ ra ở phần listing tiếp sau đây.
+Vì tập dữ liệu gồm 5 mẫu huấn luyện và cả 5 mẫu đều được dự đoán đúng, ta có độ chính xác dự đoán (prediction accuracy) là 5/5 × 100% = 100%.
+
+Để tổng quát hóa việc tính toán độ chính xác cho mô hình, chúng ta triển khai hàm `compute_accuracy` như trong listing sau:
+
+**Listing A.10: Hàm tính toán độ chính xác dự đoán**
+
+```python
+def compute_accuracy(model, dataloader):
+    model.eval()
+    correct = 0.0
+    total_examples = 0
+    
+    for idx, (features, labels) in enumerate(dataloader):
+        with torch.no_grad():
+            logits = model(features)
+        
+        predictions = torch.argmax(logits, dim=1)
+        compare = labels == predictions
+        correct += torch.sum(compare)
+        total_examples += len(compare)
+
+    return (correct / total_examples).item()
+```
+
+Áp dụng hàm này cho `train_loader`:
+```python
+print(compute_accuracy(model, train_loader))
+```
+Kết quả trả về:
+```
+1.0
+```
+Tương ứng với 100% độ chính xác.
+
+> **Bài tập A.3: Tính số lượng tham số của mạng nơ-ron**
+> Mạng nơ-ron được giới thiệu trong Listing A.9 (dựa trên class `NeuralNetwork` từ Listing A.5) có tổng cộng bao nhiêu tham số (parameters)?
+> 
+> *Hướng dẫn giải:*
+> - Lớp Linear thứ nhất (`2` đầu vào, `30` đầu ra): $2 \times 30 = 60$ trọng số (weights) + $30$ hệ số điều chỉnh (biases) = **90 tham số**.
+> - Lớp Linear thứ hai (`30` đầu vào, `20` đầu ra): $30 \times 20 = 600$ trọng số + $20$ biases = **620 tham số**.
+> - Lớp Linear thứ ba (`20` đầu vào, `2` đầu ra): $20 \times 2 = 40$ trọng số + $2$ biases = **42 tham số**.
+> - **Tổng cộng:** $90 + 620 + 42 = \mathbf{752}$ tham số.
+> 
+> Bạn có thể kiểm tra lại bằng Python:
+> ```python
+> total_params = sum(p.numel() for p in model.parameters())
+> print(total_params)  # In ra: 752
+> ```

@@ -425,6 +425,10 @@ Module FeedForward đóng vai trò quan trọng trong việc nâng cao khả nă
 
 Hơn nữa, sự đồng nhất trong chiều đầu vào và đầu ra đơn giản hóa kiến trúc bằng cách cho phép xếp chồng nhiều lớp, như chúng ta sẽ làm sau, mà không cần điều chỉnh chiều giữa chúng, do đó làm cho mô hình dễ mở rộng hơn.
 
+Như minh họa trong hình 4.11, chúng ta đã triển khai các khối xây dựng từ 2 đến 4 (LayerNorm, GELU, và FeedForward module). Tiếp theo, chúng ta sẽ tìm hiểu về kết nối tắt (khối 5) để có thể lắp ráp hoàn chỉnh khối transformer block.
+
+[Hình 4.11: Các khối xây dựng cần thiết để hoàn thiện kiến trúc GPT. Các dấu tích màu đen biểu thị những thành phần chúng ta đã hoàn thành (GPT backbone, LayerNorm, GELU FeedForward) trước khi chuyển sang xây dựng kết nối tắt (Shortcut connections) và ráp khối Transformer block.]
+
 ## 4.4 Thêm kết nối tắt
 
 Hãy thảo luận khái niệm đằng sau kết nối tắt (shortcut connection), còn được gọi là kết nối bỏ qua (skip connection) hoặc kết nối dư (residual connection). Ban đầu, kết nối tắt được đề xuất cho mạng sâu trong thị giác máy tính (cụ thể, trong mạng dư — residual network) để giảm thiểu thách thức gradient biến mất. Vấn đề gradient biến mất đề cập đến vấn đề nơi gradient (hướng dẫn cập nhật trọng số trong quá trình huấn luyện) trở nên nhỏ dần khi chúng lan truyền ngược qua các lớp, gây khó khăn cho việc huấn luyện hiệu quả các lớp trước đó.

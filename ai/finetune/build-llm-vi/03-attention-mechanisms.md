@@ -120,12 +120,12 @@ tensor([0.9544, 1.4950, 1.4754, 0.8434, 0.7070, 1.0865])
 > Tích vô hướng (dot product) về cơ bản là cách ngắn gọn để nhân hai vector theo từng phần tử và sau đó cộng các tích lại, có thể được minh họa như sau:
 >
 > ```python
-> res = 0.
-> for idx, element in enumerate(inputs[0]):
->     res += inputs[0][idx] * query[idx]
-> print(res)
-> print(torch.dot(inputs[0], query))
-> ```
+res = 0.
+for idx, element in enumerate(inputs[0]):
+    res += inputs[0][idx] * query[idx]
+print(res)
+print(torch.dot(inputs[0], query))
+```
 >
 > Đầu ra xác nhận rằng tổng phép nhân theo phần tử cho kết quả giống tích vô hướng:
 >

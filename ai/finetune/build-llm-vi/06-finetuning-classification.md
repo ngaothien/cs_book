@@ -437,13 +437,13 @@ Dựa trên đầu ra này, có thể thấy rõ rằng mô hình đang gặp kh
 Chúng ta phải sửa đổi LLM đã tiền huấn luyện để chuẩn bị cho tinh chỉnh phân loại. Để làm điều này, chúng ta thay thế lớp đầu ra gốc, vốn ánh xạ biểu diễn ẩn tới một từ vựng gồm 50.257 token, bằng một lớp đầu ra nhỏ hơn ánh xạ tới hai lớp: 0 ("not spam") và 1 ("spam"), như thể hiện ở hình 6.9. Ta giữ nguyên kiến trúc mô hình trước đó, ngoại trừ việc thay thế lớp đầu ra.
 
 > **Số nút (node) ở lớp đầu ra**
-> Về mặt kỹ thuật, chúng ta có thể sử dụng một nút đầu ra duy nhất vì ta đang giải quyết một bài toán phân loại nhị phân (binary classification). Tuy nhiên, làm vậy sẽ yêu cầu thay đổi hàm suy hao (loss function), như tôi đã thảo luận trong bài "Losses Learned—Optimizing Negative Log-Likelihood and Cross-Entropy in PyTorch" (https://mng.bz/NRZ2). Do đó, chúng ta chọn một cách tiếp cận tổng quát hơn, trong đó số lượng nút đầu ra khớp với số lượng lớp (class). Ví dụ, đối với bài toán ba lớp, chẳng hạn như phân loại các bài báo thành "Technology", "Sports", hoặc "Politics", ta sẽ sử dụng ba nút đầu ra, v.v.
+> Về mặt kỹ thuật, chúng ta có thể sử dụng một nút đầu ra duy nhất vì ta đang giải quyết một bài toán phân loại nhị phân (binary classification). Tuy nhiên, làm vậy sẽ yêu cầu thay đổi hàm mất mát (loss function), như tôi đã thảo luận trong bài "Losses Learned—Optimizing Negative Log-Likelihood and Cross-Entropy in PyTorch" (https://mng.bz/NRZ2). Do đó, chúng ta chọn một cách tiếp cận tổng quát hơn, trong đó số lượng nút đầu ra khớp với số lượng lớp (class). Ví dụ, đối với bài toán ba lớp, chẳng hạn như phân loại các bài báo thành "Technology", "Sports", hoặc "Politics", ta sẽ sử dụng ba nút đầu ra, v.v.
 
 [Hình 6.9: Chuyển đổi mô hình GPT cho phân loại spam bằng cách thay đổi kiến trúc của nó. Lớp tuyến tính đầu ra mapping từ 768 nút xuống 50.257, giờ đổi thành mapping từ 768 nút xuống chỉ 2 lớp.]
 
 Trước khi thực hiện sửa đổi như hình 6.9, hãy in kiến trúc mô hình ra xem sao (`print(model)`):
 
-```python
+```text
 GPTModel(
   (tok_emb): Embedding(50257, 768)
   (pos_emb): Embedding(1024, 768)
@@ -514,6 +514,9 @@ for param in model.final_norm.parameters():
     param.requires_grad = True
 ```
 
+> **Bài tập 6.2: Tinh chỉnh toàn bộ mô hình (Fine-tuning the whole model)**
+> Thay vì chỉ tinh chỉnh khối transformer cuối cùng và lớp phân loại đầu ra, hãy cấu hình để tinh chỉnh toàn bộ các tham số của mô hình (`requires_grad = True` cho tất cả các tầng) và đánh giá sự ảnh hưởng đến hiệu năng dự đoán cũng như thời gian huấn luyện.
+
 Mặc dù ta vừa thay thế lớp đầu ra và làm vài lớp thành có-thể-huấn-luyện, ta vẫn có thể đưa input vào theo cách bình thường:
 
 ```python
@@ -575,7 +578,7 @@ Chúng ta vẫn cần chuyển đổi các giá trị này thành dự đoán cl
 
 Giờ ta sẵn sàng chuyển đổi token cuối cùng này thành dự đoán phân loại nhãn và tính toán độ chính xác khởi tạo. 
 
-## 6.6 Tính toán hàm suy hao phân loại và độ chính xác
+## 6.6 Tính toán hàm mất mát phân loại và độ chính xác
 
 Chỉ còn một nhiệm vụ nhỏ trước khi tinh chỉnh: triển khai các hàm đánh giá trong khi tinh chỉnh, theo hình 6.13.
 
@@ -583,6 +586,9 @@ Trước khi viết hàm đánh giá, hãy bàn về cách chuyển mô hình đ
 
 [Hình 6.13: Giai đoạn 2 của fine-tuning classifier. Triển khai Evaluation utilities.]
 [Hình 6.14: Đầu ra cuối biến đổi thành xác suất. Lấy chỉ mục chứa điểm cao nhất thành label dự đoán.]
+
+> **Bài tập 6.3: Tinh chỉnh token đầu tiên so với token cuối cùng (Fine-tuning the first vs. last token)**
+> Trong kiến trúc decoder-only với cơ chế causal attention, token cuối cùng là token duy nhất có attention weight liên kết tới tất cả các token đứng trước nó. Hãy thử nghiệm tinh chỉnh trên token đầu ra đầu tiên (`outputs[:, 0, :]`) thay vì token cuối cùng (`outputs[:, -1, :]`) và quan sát sự thay đổi về độ chính xác dự đoán.
 
 Ví dụ, đầu ra cuối cùng:
 `Last output token: tensor([[-3.5983,  3.9902]])`
@@ -658,9 +664,9 @@ Training accuracy: 46.25%
 Validation accuracy: 45.00%
 Test accuracy: 48.75%
 ```
-Kết quả dao động 50% giống hệt dự đoán ngẫu nhiên. Để tăng độ chính xác, ta cần tính hàm suy hao.
+Kết quả dao động 50% giống hệt dự đoán ngẫu nhiên. Để tăng độ chính xác, ta cần tính hàm mất mát.
 
-Độ chính xác phân loại không phải hàm khả vi (differentiable), vì thế ta dùng **cross-entropy loss** (suy hao entropy chéo). 
+Độ chính xác phân loại không phải hàm khả vi (differentiable), vì thế ta dùng **cross-entropy loss** (mất mát entropy chéo). 
 
 **Listing 6.9: Tính classification loss**
 
@@ -713,7 +719,7 @@ Validation loss: 2.583
 Test loss: 2.322
 ```
 
-Mục tiêu giờ là giảm các chỉ số Suy hao (Loss) xuống thấp nhất có thể.
+Mục tiêu giờ là giảm các chỉ số Mất mát (Loss) xuống thấp nhất có thể.
 
 ## 6.7 Tinh chỉnh mô hình trên dữ liệu có nhãn (Supervised Data)
 
@@ -820,7 +826,7 @@ Training completed in 5.65 minutes.
 
 Tiếp theo, ta vẽ biểu đồ Training/Validation loss bằng matplotlib.
 
-**Listing 6.11: Vẽ đồ thị độ suy hao của tập phân loại**
+**Listing 6.11: Vẽ đồ thị độ mất mát của tập phân loại**
 
 ```python
 import matplotlib.pyplot as plt
@@ -855,7 +861,7 @@ plot_values(epochs_tensor, examples_seen_tensor, train_losses, val_losses)
 
 Hình 6.16 hiển thị các đường cong tổn thất. Sự dốc xuống mạnh mẽ ở kỷ nguyên đầu chứng tỏ tiến trình huấn luyện nhanh. Chênh lệch giữa loss training và validation vô cùng nhỏ (ít xảy ra hiện tượng overfitting). Tương tự, gọi hàm đồ thị cho Accuracy (Hình 6.17).
 
-[Hình 6.16: Loss quá trình huấn luyện và tập kiểm định trên 5 epoch. Suy hao giảm mạnh xuống mức 0 sau vòng 5.]
+[Hình 6.16: Loss quá trình huấn luyện và tập kiểm định trên 5 epoch. Hàm mất mát giảm mạnh xuống gần mức 0 sau vòng 5.]
 [Hình 6.17: Độ chính xác accuracy của quá trình training và validation tịnh tiến về mức 1 (100%).]
 
 Tính toán tổng cho tất cả bộ dữ liệu, ta thấy:
@@ -952,4 +958,4 @@ torch.save(model.state_dict(), "review_classifier.pth")
 - Đầu vào model là một dãy token ID được mã hóa, y hệt như tiền huấn luyện (pretraining).
 - Trước khi tinh chỉnh, nạp model weight gốc.
 - Đánh giá phân loại bao gồm tính Accuracy (độ chính xác dự đoán).
-- Tinh chỉnh phân loại cũng sử dụng chung hàm suy hao (Cross entropy loss) giống như giai đoạn tiền huấn luyện.
+- Tinh chỉnh phân loại cũng sử dụng chung hàm mất mát (Cross entropy loss) giống như giai đoạn tiền huấn luyện.

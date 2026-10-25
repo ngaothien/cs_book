@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 10 Financial Reporting Quality - Part 6: Solutions — Volume 4: Financial Statement Analysis | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 4: Phân Tích Báo Cáo Tài Chính
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 10 Financial Reporting Quality - Part 6: Solutions</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM10_Full_Financial_Reporting_Quality.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (4 trang)...</option>
+          <option value="389">PDF Page 389</option>
+<option value="390">PDF Page 390</option>
+<option value="391">PDF Page 391</option>
+<option value="392">PDF Page 392</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 4</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Phân Tích Báo Cáo Tài Chính</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 4</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Introduction_to_Financial_Statement_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Introduction to Financial Statement Analysis</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Regulated_Sources_of_Information.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Regulated Sources of Information</a>
+<a href="LM01_Part3_Comparison_of_IFRS_with_Alternative_Financial.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Comparison of IFRS with Alternative Financial Reporting Systems</a>
+<a href="LM02_Full_Analyzing_Income_Statements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Analyzing Income Statements</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Expense_Recognition.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Expense Recognition</a>
+<a href="LM02_Part3_Non_Recurring_Items.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Non-Recurring Items</a>
+<a href="LM02_Part4_Income_Statement_Ratios_and_Common_Size_Analy.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Income Statement Ratios and Common-Size Analysis</a>
+<a href="LM03_Full_Analyzing_Balance_Sheets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Analyzing Balance Sheets</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Ratios_and_Common_Size_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Ratios and Common-Size Analysis</a>
+<a href="LM04_Full_Analyzing_Statements_of_Cash_Flows_I.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Analyzing Statements of Cash Flows I</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_The_Indirect_Method_for_Cash_Flows_from_Opera.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Indirect Method for Cash Flows from Operating Activities</a>
+<a href="LM04_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM05_Full_Analyzing_Statements_of_Cash_Flows_II.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Analyzing Statements of Cash Flows II</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM06_Full_Analysis_of_Inventories.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Analysis of Inventories</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Presentation_and_Disclosure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Presentation and Disclosure</a>
+<a href="LM06_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM06_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM07_Full_Analysis_of_Long_Term_Assets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Analysis of Long-Term Assets</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Presentation_and_Disclosure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Presentation and Disclosure</a>
+<a href="LM07_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM08_Full_Topics_in_Long_Term_Liabilities_and_Equity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Topics in Long-Term Liabilities and Equity</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Financial_Reporting_for_Postemployment_and_Sh.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Reporting for Postemployment and Share-Based Compensation Plans</a>
+<a href="LM08_Part3_Presentation_and_Disclosure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Presentation and Disclosure</a>
+<a href="LM09_Full_Analysis_of_Income_Taxes.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Analysis of Income Taxes</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Corporate_Income_Tax_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Corporate Income Tax Rates</a>
+<a href="LM09_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM10_Full_Financial_Reporting_Quality.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Financial Reporting Quality</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Differentiate_between_Conservative_and_Aggres.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Differentiate between Conservative and Aggressive Accounting</a>
+<a href="LM10_Part3_Detection_of_Financial_Reporting_Quality_Issu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Detection of Financial Reporting Quality Issues: Introduction and Presentation Choices</a>
+<a href="LM10_Part4_Accounting_Choices_and_Estimates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Accounting Choices and Estimates</a>
+<a href="LM10_Part5_Accounting_Choices_that_Affect_Financial_Repo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Accounting Choices that Affect Financial Reporting</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 6: Solutions</a>
+<a href="LM11_Full_Financial_Analysis_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Financial Analysis Techniques</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Cross_Sectional_Trend_Analysis_and_Relationsh.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Cross-Sectional, Trend Analysis, and Relationships in Financial Statements</a>
+<a href="LM11_Part3_Liquidity_Ratios.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Liquidity Ratios</a>
+<a href="LM11_Part4_DuPont_Analysis_The_Decomposition_of_ROE.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: DuPont Analysis—The Decomposition of ROE</a>
+<a href="LM11_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM12_Full_Introduction_to_Financial_Statement_Modeling.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Introduction to Financial Statement Modeling</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Behavioral_Finance_and_Analyst_Forecasts.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Behavioral Finance and Analyst Forecasts</a>
+<a href="LM12_Part3_Modeling_Inflation_and_Deflation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Modeling Inflation and Deflation</a>
+<a href="LM12_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 4 • Financial Statement Analysis (Phân Tích Báo Cáo Tài Chính)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 10 Financial Reporting Quality - Part 6: Solutions</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('04_Financial_Statement_Analysis/LM10_Part6_Solutions.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 4: Financial Statement Analysis</h1>
+<h2>Learning Module 10 Financial Reporting Quality</h2>
+<h3>Part 6/6: Solutions (PDF Pages 389–392)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 4: Phân tích Báo cáo Tài chính (Volume 4: Financial Statement Analysis)</h1>
+<h2>Học phần 10: Chất lượng Báo cáo Tài chính (Learning Module 10: Financial Reporting Quality)</h2>
+<h3>Phần 6/6: Lời giải (Solutions) (Trang PDF 389–392)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-389" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 389 / Trang PDF 389
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~SOLUTIONS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>LỜI GIẢI (SOLUTIONS)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>B is correct. Financial reporting quality pertains to the quality of information in financial reports. High-quality financial reporting provides decision-useful information, which is relevant and faithfully represents the economic reality of the company’s activities. Earnings of high quality are sustainable and provide an adequate level of return. Highest-quality financial reports reflect both high financial reporting quality and high earnings quality.</p>
+</li>
+<li>
+<p>C is correct. Financial reporting quality pertains to the quality of the information contained in financial reports. High-quality financial reports provide decision-useful information that faithfully represents the economic reality of the company. Low-quality financial reports impede assessment of earnings quality. Financial reporting quality is distinguishable from earnings quality, which pertains to the earnings and cash generated by the company’s actual economic activities and the resulting financial condition. Low-quality earnings are not sustainable and decrease company value.</p>
+</li>
+<li>
+<p>B is correct. Financial reporting quality pertains to the quality of the information contained in financial reports. If financial reporting quality is low, the information provided is of little use in assessing the company’s performance. Financial reporting quality is distinguishable from earnings quality, which pertains to the earnings and cash generated by the company’s actual economic activities and the resulting financial condition.</p>
+</li>
+<li>
+<p>B is correct. Earnings quality pertains to the earnings and cash generated by the company’s actual economic activities and the resulting financial condition. Low-quality earnings are likely not sustainable over time because the company does not expect to generate the same level of earnings in the future or because earnings will not generate sufficient return on investment to sustain the company. Earnings that are not sustainable decrease company value. Earnings quality is distinguishable from financial reporting quality, which pertains to the quality of the information contained in financial reports.</p>
+</li>
+<li>
+<p>A is correct. Earnings that result from non-recurring activities are unsustainable. Unsustainable earnings are an example of lower-quality earnings. Recognizing earnings that result from non-recurring activities is neither a biased accounting choice nor indicative of lower quality financial reporting because it faithfully represents economic events.</p>
+</li>
+<li>
+<p>B is correct. At the top of the quality spectrum of financial reports are reports that conform to GAAP, are decision useful, and have earnings that are sustainable and offer adequate returns. In other words, these reports have both high financial reporting quality and high earnings quality.</p>
+</li>
+<li>
+<p>A is correct. Financial reports span a quality continuum from high to low based on decision-usefulness and earnings quality (see Exhibit 2). The lowest-quality reports portray fictitious events, which may misrepresent the company’s performance or obscure fraudulent misappropriation of the company’s assets.</p>
+</li>
+<li>
+<p>B is correct. Deferring R&amp;D investments into the next reporting period is an example of earnings management by taking a <em>real</em> action.</p>
+</li>
+<li>
+<p>B is correct. High-quality financial reports offer useful information, meaning information that is relevant and faithfully represents actual performance. Although</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p><strong>B là đáp án đúng.</strong> Chất lượng báo cáo tài chính (<em>financial reporting quality</em>) đề cập đến chất lượng của thông tin trong các báo cáo tài chính. Báo cáo tài chính chất lượng cao cung cấp thông tin hữu ích cho việc ra quyết định (<em>decision-useful information</em>), vừa thích hợp (<em>relevant</em>) vừa trình bày trung thực thực tế kinh tế của các hoạt động của công ty. Lợi nhuận có chất lượng cao là lợi nhuận bền vững và mang lại một mức tỷ suất sinh lợi thỏa đáng. Các báo cáo tài chính có chất lượng cao nhất phản ánh cả chất lượng báo cáo tài chính cao và chất lượng lợi nhuận cao.</p>
+</li>
+<li>
+<p><strong>C là đáp án đúng.</strong> Chất lượng báo cáo tài chính đề cập đến chất lượng của thông tin có trong các báo cáo tài chính. Các báo cáo tài chính chất lượng cao cung cấp thông tin hữu ích cho việc ra quyết định giúp trình bày trung thực thực tế kinh tế của công ty. Các báo cáo tài chính chất lượng thấp cản trở việc đánh giá chất lượng lợi nhuận (<em>impede assessment of earnings quality</em>). Chất lượng báo cáo tài chính có thể phân biệt được với chất lượng lợi nhuận, vốn đề cập đến lợi nhuận và tiền mặt được tạo ra từ các hoạt động kinh tế thực tế của công ty và tình hình tài chính dẫn đến từ đó. Lợi nhuận chất lượng thấp không bền vững và làm giảm giá trị công ty.</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Chất lượng báo cáo tài chính đề cập đến chất lượng của thông tin có trong các báo cáo tài chính. Nếu chất lượng báo cáo tài chính thấp, thông tin được cung cấp sẽ có rất ít giá trị sử dụng trong việc đánh giá kết quả hoạt động của công ty. Chất lượng báo cáo tài chính có thể phân biệt được với chất lượng lợi nhuận, vốn đề cập đến lợi nhuận và tiền mặt được tạo ra từ các hoạt động kinh tế thực tế của công ty và tình hình tài chính dẫn đến từ đó.</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Chất lượng lợi nhuận đề cập đến lợi nhuận và tiền mặt được tạo ra từ các hoạt động kinh tế thực tế của công ty và tình hình tài chính dẫn đến từ đó. Lợi nhuận chất lượng thấp có khả năng không bền vững theo thời gian bởi vì công ty không kỳ vọng tạo ra cùng một mức lợi nhuận trong tương lai hoặc bởi vì lợi nhuận sẽ không tạo ra đủ tỷ suất sinh lợi trên vốn đầu tư để duy trì công ty. Lợi nhuận không bền vững làm giảm giá trị công ty. Chất lượng lợi nhuận có thể phân biệt được với chất lượng báo cáo tài chính, vốn đề cập đến chất lượng của thông tin có trong các báo cáo tài chính.</p>
+</li>
+<li>
+<p><strong>A là đáp án đúng.</strong> Lợi nhuận bắt nguồn từ các hoạt động không thường xuyên (<em>non-recurring activities</em>) là không bền vững. Lợi nhuận không bền vững là một ví dụ về lợi nhuận có chất lượng thấp hơn. Việc ghi nhận lợi nhuận bắt nguồn từ các hoạt động không thường xuyên vừa không phải là một lựa chọn kế toán thiên lệch vừa không chỉ ra chất lượng báo cáo tài chính thấp hơn bởi vì nó trình bày trung thực các sự kiện kinh tế.</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Ở phía trên cùng của dải phổ chất lượng của các báo cáo tài chính là các báo cáo tuân thủ GAAP, hữu ích cho việc ra quyết định, và có lợi nhuận bền vững cũng như mang lại tỷ suất sinh lợi thỏa đáng. Nói cách khác, các báo cáo này có cả chất lượng báo cáo tài chính cao và chất lượng lợi nhuận cao.</p>
+</li>
+<li>
+<p><strong>A là đáp án đúng.</strong> Các báo cáo tài chính trải dài trên một dải liên tục về chất lượng từ cao đến thấp dựa trên tính hữu ích cho việc ra quyết định và chất lượng lợi nhuận (xem Bảng minh họa 2). Các báo cáo có chất lượng thấp nhất mô tả các sự kiện hư cấu (<em>fictitious events</em>), có thể trình bày sai lệch kết quả hoạt động của công ty hoặc che giấu hành vi biển thủ gian lận tài sản của công ty.</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Việc trì hoãn các khoản đầu tư R&amp;D sang kỳ báo cáo tiếp theo là một ví dụ về quản trị lợi nhuận bằng cách thực hiện một hành động <em>thực tế</em> (<em>real action</em>).</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Các báo cáo tài chính chất lượng cao cung cấp thông tin hữu ích, nghĩa là thông tin thích hợp và trình bày trung thực kết quả hoạt động thực tế. Mặc dù</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-390" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 390 / Trang PDF 390
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>low earnings quality may not be desirable, if the reported earnings are representative of actual performance, they are consistent with high-quality financial reporting. Highest-quality financial reports reflect both high financial reporting quality and high earnings quality.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>chất lượng lợi nhuận thấp có thể không được mong muốn, nhưng nếu lợi nhuận được báo cáo phản ánh đúng kết quả hoạt động thực tế, chúng vẫn nhất quán với báo cáo tài chính chất lượng cao. Các báo cáo tài chính có chất lượng cao nhất phản ánh cả chất lượng báo cáo tài chính cao và chất lượng lợi nhuận cao.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="10">
+<li>
+<p>B is correct. Aggressive accounting choices aim to enhance the company’s reported performance by inflating the amount of revenues, earnings, or operating cash flow reported in the period. Consequently, the financial performance for that period would most likely exhibit an upward bias.</p>
+</li>
+<li>
+<p>C is correct. Accounting choices are considered conservative if they decrease the company’s reported performance and financial position in the current period under review. Conservative choices may increase the amount of debt reported on the balance sheet. They may decrease the revenues, earnings, or operating cash flow reported for the period and increase those amounts in later periods.</p>
+</li>
+<li>
+<p>A is correct. Conservatism reduces the possibility of litigation and, by extension, litigation costs. Rarely, if ever, is a company sued because it understated good news or overstated bad news. Accounting conservatism is a type of bias in financial reporting that decreases a company’s reported performance. Conservatism directly conflicts with the characteristic of neutrality.</p>
+</li>
+<li>
+<p>B is correct. Managers often have incentives to meet or beat market expectations, particularly if management compensation is linked to increases in share prices or to reported earnings.</p>
+</li>
+<li>
+<p>C is correct. Managers may be motivated to understate earnings in a period with unexpected strong performance by delaying revenue recognition or accelerating expense recognition to increase the probability of exceeding expectations in a subsequent period (referred to as “banking” some earnings for the next period.)</p>
+</li>
+<li>
+<p>C is correct. Typically, conditions of opportunity, motivation, and rationalization exist when individuals issue low-quality financial reports. Rationalization occurs when an individual is concerned about a choice and needs to be able to justify it to herself or himself. If the manager is concerned about a choice in a financial report, the manager may ask for other opinions to convince herself or himself that it is okay.</p>
+</li>
+<li>
+<p>C is correct. In a period of strong financial performance, managers may pursue accounting choices that increase the probability of exceeding earnings forecasts for the next period. By accelerating expense recognition or delaying revenue recognition, managers may reduce financial performance in the current period in order to inflate earnings in the next period and increase the likelihood of exceeding targets.</p>
+</li>
+<li>
+<p>B is correct. Motivation can result from pressure to meet some criteria for personal reasons, such as a bonus, or corporate reasons, such as concern about future financing. Poor internal controls and an inattentive board of directors offer opportunities to issue low-quality financial reports.</p>
+</li>
+<li>
+<p>A is correct. The possibility of bond covenant violations may motivate managers to inflate earnings in the reporting period. In so doing, the company may be able to avoid the consequences associated with violating bond covenants.</p>
+</li>
+<li>
+<p>A is correct. Opportunities to issue low-quality financial reports include internal conditions, such as an ineffective board of directors, and external conditions, such as accounting standards that provide scope for divergent choices. Pressure</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="10">
+<li>
+<p><strong>B là đáp án đúng.</strong> Các lựa chọn kế toán tích cực/hiếu chiến (<em>aggressive accounting choices</em>) nhằm mục đích nâng cao kết quả hoạt động được báo cáo của công ty bằng cách thổi phồng mức doanh thu, lợi nhuận, hoặc dòng tiền từ hoạt động kinh doanh được báo cáo trong kỳ. Do đó, kết quả hoạt động tài chính cho kỳ đó sẽ có nhiều khả năng nhất thể hiện sự thiên lệch đi lên (<em>upward bias</em>).</p>
+</li>
+<li>
+<p><strong>C là đáp án đúng.</strong> Các lựa chọn kế toán được coi là thận trọng (<em>conservative</em>) nếu chúng làm giảm kết quả hoạt động và vị thế tài chính được báo cáo của công ty trong kỳ hiện tại đang xem xét. Các lựa chọn thận trọng có thể làm tăng mức nợ được báo cáo trên bảng cân đối kế toán. Chúng có thể làm giảm doanh thu, lợi nhuận, hoặc dòng tiền từ hoạt động kinh doanh được báo cáo cho kỳ đó và làm tăng các số liệu đó trong các kỳ sau.</p>
+</li>
+<li>
+<p><strong>A là đáp án đúng.</strong> Sự thận trọng làm giảm khả năng xảy ra kiện tụng và, theo đó, làm giảm chi phí kiện tụng. Hiếm khi, nếu có, một công ty bị kiện vì đã báo cáo thấp tin tốt hoặc phóng đại tin xấu. Sự thận trọng trong kế toán là một loại thiên lệch trong báo cáo tài chính làm giảm kết quả hoạt động được báo cáo của một công ty. Sự thận trọng mâu thuẫn trực tiếp với đặc điểm trung lập (<em>neutrality</em>).</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Các nhà quản lý thường có các động lực để đạt hoặc vượt kỳ vọng của thị trường, đặc biệt nếu thù lao của ban giám đốc được gắn với sự gia tăng giá cổ phiếu hoặc với lợi nhuận được báo cáo.</p>
+</li>
+<li>
+<p><strong>C là đáp án đúng.</strong> Các nhà quản lý có thể có động cơ báo cáo thấp lợi nhuận trong một kỳ có kết quả hoạt động mạnh mẽ ngoài dự kiến bằng cách trì hoãn ghi nhận doanh thu hoặc đẩy nhanh ghi nhận chi phí nhằm làm tăng xác suất vượt kỳ vọng trong một kỳ tiếp theo (được gọi là “để dành” (<em>“banking”</em>) một phần lợi nhuận cho kỳ tiếp theo).</p>
+</li>
+<li>
+<p><strong>C là đáp án đúng.</strong> Thông thường, các điều kiện về cơ hội, động cơ, và sự hợp thức hóa (<em>rationalization</em>) tồn tại khi các cá nhân phát hành báo cáo tài chính chất lượng thấp. Sự hợp thức hóa xảy ra khi một cá nhân lo ngại về một lựa chọn và cần phải có khả năng tự biện minh cho lựa chọn đó với chính bản thân mình. Nếu nhà quản lý lo ngại về một lựa chọn trong báo cáo tài chính, nhà quản lý có thể hỏi xin các ý kiến khác để tự thuyết phục bản thân rằng điều đó là ổn.</p>
+</li>
+<li>
+<p><strong>C là đáp án đúng.</strong> Trong một giai đoạn có kết quả hoạt động tài chính mạnh mẽ, các nhà quản lý có thể theo đuổi các lựa chọn kế toán làm tăng xác suất vượt dự báo lợi nhuận cho kỳ tiếp theo. Bằng cách đẩy nhanh việc ghi nhận chi phí (<em>accelerating expense recognition</em>) hoặc trì hoãn việc ghi nhận doanh thu, các nhà quản lý có thể làm giảm kết quả hoạt động tài chính trong kỳ hiện tại nhằm thổi phồng lợi nhuận trong kỳ tiếp theo và làm tăng khả năng vượt các mục tiêu.</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Động cơ (<em>motivation</em>) có thể xuất phát từ áp lực phải đáp ứng một số tiêu chí vì lý do cá nhân, chẳng hạn như một khoản tiền thưởng, hoặc lý do doanh nghiệp, chẳng hạn như mối lo ngại về việc huy động vốn trong tương lai. Hệ thống kiểm soát nội bộ yếu kém và một hội đồng quản trị thiếu sát sao mang lại các cơ hội (<em>opportunities</em>) để phát hành báo cáo tài chính chất lượng thấp.</p>
+</li>
+<li>
+<p><strong>A là đáp án đúng.</strong> Khả năng vi phạm giao ước trái phiếu (<em>bond covenant violations</em>) có thể thúc đẩy các nhà quản lý thổi phồng lợi nhuận trong kỳ báo cáo. Bằng cách làm như vậy, công ty có thể tránh được các hậu quả gắn liền với việc vi phạm các giao ước trái phiếu.</p>
+</li>
+<li>
+<p><strong>A là đáp án đúng.</strong> Các cơ hội để phát hành báo cáo tài chính chất lượng thấp bao gồm các điều kiện nội bộ, chẳng hạn như một hội đồng quản trị không hiệu quả (<em>ineffective board of directors</em>), và các điều kiện bên ngoài, chẳng hạn như các chuẩn mực kế toán tạo phạm vi cho các lựa chọn khác biệt. Áp lực</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-391" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 391 / Trang PDF 391
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>to achieve a certain level of performance and corporate concerns about future financing are examples of motivations to issue low-quality financial reports. Typically, three conditions exist when low-quality financial reports are issued: opportunity, motivation, and rationalization.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>phải đạt được một mức kết quả hoạt động nhất định và những lo ngại của doanh nghiệp về việc huy động vốn trong tương lai là những ví dụ về các động cơ (<em>motivations</em>) để phát hành báo cáo tài chính chất lượng thấp. Thông thường, có ba điều kiện tồn tại khi các báo cáo tài chính chất lượng thấp được phát hành: cơ hội, động cơ, và sự hợp thức hóa.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="20">
+<li>
+<p>C is correct. An audit is intended to provide assurance that the company’s financial reports are presented fairly, thus providing discipline regarding financial reporting quality. Regulatory agencies usually require that the financial statements of publicly traded companies be audited by an independent auditor to provide assurance that the financial statements conform to accounting standards. Privately held companies may also choose to obtain audit opinions either voluntarily or because an outside party requires it. An audit is not typically intended to detect fraud. An audit is based on sampling and it is possible that the sample might not reveal misstatements.</p>
+</li>
+<li>
+<p>B is correct. If a company uses a non-GAAP financial measure in an SEC filing, it is required to provide the most directly comparable GAAP measure with equivalent prominence in the filing. In addition, the company is required to provide a reconciliation between the non-GAAP measure and the equivalent GAAP measure. Similarly, IFRS requires that any non-IFRS measures included in financial reports must be defined and their potential relevance explained. The non-IFRS measures must be reconciled with IFRS measures.</p>
+</li>
+<li>
+<p>B is correct. If a company wants to increase reported earnings, the company’s managers may reduce the allowance for uncollected accounts and the related expense reported for the period. Decreasing the useful life of depreciable assets would increase depreciation expense and decrease earnings in the reporting period. Classifying a purchase as an expense, rather than capital expenditure, would decrease earnings in the reporting period. The use of accrual accounting may result in estimates in financial reports, because all facts associated with events may not be known at the time of recognition. These estimates can be grounded in reality or managed by the company to present a desired financial picture.</p>
+</li>
+<li>
+<p>A is correct. Managers can temporarily show a higher cash flow from operations by stretching the accounts payable credit period. In other words, the managers delay payments until the next accounting period. Applying all non-cash discount amortization against interest capitalized causes reported interest expenses and operating cash outflow to be higher, resulting in a lower cash flow provided by operations. Shifting the classification of interest paid from financing to operating cash flows lowers the cash flow provided by operations.</p>
+</li>
+<li>
+<p>B is correct. Bias in revenue recognition can lead to manipulation of information presented in financial reports. Addressing the question as to whether revenue is higher or lower than the previous period is insufficient to determine if there is bias in revenue recognition. Additional analytical procedures must be performed to identify warning signals of accounting malfeasance. Barter transactions are difficult to value properly and may result in bias in revenue recognition. Policies that make it easier to prematurely recognize revenue, such as before goods are shipped to customers, may be a warning sign of accounting malfeasance.</p>
+</li>
+<li>
+<p>C is correct. If a company’s days sales outstanding (DSO) is increasing relative to competitors, this may be a signal that revenues are being recorded prematurely or are even fictitious. Numerous analytical procedures can be performed to provide evidence of manipulation of information in financial reporting. These warning signs are often linked to bias associated with revenue recognition and expense recognition policies.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="20">
+<li>
+<p><strong>C là đáp án đúng.</strong> Một cuộc kiểm toán nhằm mục đích cung cấp sự đảm bảo rằng các báo cáo tài chính của công ty được trình bày hợp lý (<em>presented fairly</em>), qua đó tạo ra tính kỷ luật đối với chất lượng báo cáo tài chính. Các cơ quan quản lý thường yêu cầu báo cáo tài chính của các công ty giao dịch đại chúng phải được kiểm toán bởi một kiểm toán viên độc lập nhằm cung cấp sự đảm bảo rằng các báo cáo tài chính tuân thủ các chuẩn mực kế toán. Các công ty tư nhân cũng có thể chọn xin ý kiến kiểm toán một cách tự nguyện hoặc bởi vì một bên bên ngoài yêu cầu điều đó. Một cuộc kiểm toán thường không nhằm mục đích phát hiện gian lận. Một cuộc kiểm toán dựa trên việc lấy mẫu và có khả năng mẫu được chọn không tiết lộ các sai sót.</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Nếu một công ty sử dụng một thước đo tài chính phi GAAP trong hồ sơ nộp cho SEC, công ty đó bắt buộc phải cung cấp thước đo GAAP có thể so sánh trực tiếp nhất với mức độ nổi bật tương đương trong hồ sơ nộp. Ngoài ra, công ty bắt buộc phải cung cấp một bảng đối chiếu (<em>reconciliation</em>) giữa thước đo phi GAAP và thước đo GAAP tương đương. Tương tự, IFRS yêu cầu rằng bất kỳ thước đo phi IFRS nào được đưa vào báo cáo tài chính đều phải được định nghĩa và giải thích sự thích hợp tiềm tàng của chúng. Các thước đo phi IFRS phải được đối chiếu với các thước đo IFRS.</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Nếu một công ty muốn làm tăng lợi nhuận được báo cáo, các nhà quản lý của công ty có thể cắt giảm khoản dự phòng phải thu khó đòi và chi phí liên quan được báo cáo cho kỳ đó. Việc giảm thời gian sử dụng hữu ích của các tài sản khấu hao sẽ làm tăng chi phí khấu hao và làm giảm lợi nhuận trong kỳ báo cáo. Việc phân loại một giao dịch mua thành chi phí trong kỳ, thay vì chi tiêu vốn, sẽ làm giảm lợi nhuận trong kỳ báo cáo. Việc sử dụng kế toán dồn tích có thể dẫn đến các ước tính trong báo cáo tài chính, bởi vì tất cả các sự thật gắn liền với các sự kiện có thể chưa được biết rõ tại thời điểm ghi nhận. Các ước tính này có thể dựa trên cơ sở thực tế hoặc bị công ty điều chỉnh nhằm trình bày một bức tranh tài chính mong muốn.</p>
+</li>
+<li>
+<p><strong>A là đáp án đúng.</strong> Các nhà quản lý có thể tạm thời thể hiện dòng tiền từ hoạt động kinh doanh cao hơn bằng cách kéo dài thời hạn tín dụng của các khoản phải trả người bán (<em>stretching the accounts payable credit period</em>). Nói cách khác, các nhà quản lý trì hoãn các khoản thanh toán sang kỳ kế toán tiếp theo. Việc áp dụng toàn bộ khoản phân bổ chiết khấu không bằng tiền vào lãi vay được vốn hóa khiến cho chi phí lãi vay được báo cáo và dòng tiền chi ra từ hoạt động kinh doanh cao hơn, dẫn đến dòng tiền thu được từ hoạt động kinh doanh thấp hơn. Việc chuyển phân loại tiền lãi đã trả từ dòng tiền tài trợ sang dòng tiền hoạt động kinh doanh làm giảm dòng tiền thu được từ hoạt động kinh doanh.</p>
+</li>
+<li>
+<p><strong>B là đáp án đúng.</strong> Sự thiên lệch trong ghi nhận doanh thu có thể dẫn đến sự thao túng thông tin được trình bày trong các báo cáo tài chính. Việc giải quyết câu hỏi liệu doanh thu cao hơn hay thấp hơn so với kỳ trước là không đủ để xác định xem có sự thiên lệch trong ghi nhận doanh thu hay không. Các thủ tục phân tích bổ sung phải được thực hiện để xác định các tín hiệu cảnh báo về hành vi sai trái trong kế toán. Các giao dịch hàng đổi hàng rất khó để định giá một cách đúng đắn và có thể dẫn đến sự thiên lệch trong ghi nhận doanh thu. Các chính sách tạo điều kiện dễ dàng hơn cho việc ghi nhận doanh thu sớm, chẳng hạn như trước khi hàng hóa được vận chuyển cho khách hàng, có thể là một dấu hiệu cảnh báo về hành vi sai trái trong kế toán.</p>
+</li>
+<li>
+<p><strong>C là đáp án đúng.</strong> Nếu số ngày thu tiền bán hàng (<em>days sales outstanding</em> – DSO) của một công ty đang tăng lên so với các đối thủ cạnh tranh, điều này có thể là một tín hiệu cho thấy doanh thu đang được ghi nhận sớm hoặc thậm chí là hư cấu. Nhiều thủ tục phân tích có thể được thực hiện nhằm cung cấp bằng chứng về sự thao túng thông tin trong báo cáo tài chính. Những dấu hiệu cảnh báo này thường gắn liền với sự thiên lệch liên quan đến các chính sách ghi nhận doanh thu và ghi nhận chi phí.</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-392" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 392 / Trang PDF 392
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="26">
+<li>
+<p>B is correct. If the ratio of cash flow to net income for a company is consistently below 1 or has declined repeatedly over time, this may be a signal of manipulation of information in financial reports through aggressive accrual accounting policies. When net income is consistently higher than cash provided by operations, one possible explanation is that the company may be using aggressive accrual accounting policies to shift current expenses to later periods.</p>
+</li>
+<li>
+<p>C is correct. To extrapolate historical earnings trends, an analyst should consider making pro forma analytical adjustments of prior years’ earnings to reflect in those prior years a reasonable share of the current period’s restructuring and impairment charges.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="26">
+<li>
+<p><strong>B là đáp án đúng.</strong> Nếu tỷ số giữa dòng tiền trên thu nhập ròng của một công ty liên tục nằm dưới 1 hoặc đã sụt giảm lặp đi lặp lại theo thời gian, điều này có thể là một tín hiệu của sự thao túng thông tin trong các báo cáo tài chính thông qua các chính sách kế toán dồn tích tích cực/hiếu chiến. Khi thu nhập ròng liên tục cao hơn lượng tiền thu được từ hoạt động kinh doanh, một lời giải thích khả dĩ là công ty có thể đang sử dụng các chính sách kế toán dồn tích tích cực/hiếu chiến để dịch chuyển các chi phí hiện tại sang các kỳ sau đó.</p>
+</li>
+<li>
+<p><strong>C là đáp án đúng.</strong> Để ngoại suy các xu hướng lợi nhuận lịch sử, nhà phân tích nên xem xét việc thực hiện các điều chỉnh phân tích chiếu lệ (<em>pro forma analytical adjustments</em>) đối với lợi nhuận của những năm trước nhằm phản ánh vào những năm trước đó một phần phân bổ hợp lý từ các chi phí tái cấu trúc và suy giảm giá trị của kỳ hiện tại.</p>
+</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM10_Part5_Accounting_Choices_that_Affect_Financial_Repo.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM10_Part5_Accounting_Choices_that_Affect_Financial_Repo</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 4</a>
+      <a href="LM11_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM11_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('04_Financial_Statement_Analysis/LM10_Part6_Solutions.html');
+    });
+  </script>
+</body>
+</html>

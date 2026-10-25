@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 3 Statistical Measures of Asset Returns - Part 1: Introduction — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 3 Statistical Measures of Asset Returns - Part 1: Introduction</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (13 trang)...</option>
+          <option value="95">PDF Page 95</option>
+<option value="96">PDF Page 96</option>
+<option value="97">PDF Page 97</option>
+<option value="98">PDF Page 98</option>
+<option value="99">PDF Page 99</option>
+<option value="100">PDF Page 100</option>
+<option value="101">PDF Page 101</option>
+<option value="102">PDF Page 102</option>
+<option value="103">PDF Page 103</option>
+<option value="104">PDF Page 104</option>
+<option value="105">PDF Page 105</option>
+<option value="106">PDF Page 106</option>
+<option value="107">PDF Page 107</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 3 Statistical Measures of Asset Returns - Part 1: Introduction</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM03_Part1_Introduction.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 3 Statistical Measures of Asset Returns</h2>
+<h3>Part 1/4: Introduction (PDF Pages 95–107)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 3: Các thước đo Thống kê về Tỷ suất sinh lợi Tài sản (<em>Statistical Measures of Asset Returns</em>)</h2>
+<h3>Phần 1/4: Giới thiệu (Trang PDF 95–107)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-95" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 95 / Trang PDF 95
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>L E A R N I N G M O D U L E <strong><mark>3</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>H Ọ C P H Ầ N <strong><mark>3</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Statistical Measures of Asset Returns</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Các thước đo Thống kê về Tỷ suất sinh lợi Tài sản (<em>Statistical Measures of Asset Returns</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>by Pamela Peterson Drake, PhD, CFA, and Wu Jian, PhD.</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Tác giả: Pamela Peterson Drake, PhD, CFA, và Wu Jian, PhD.</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Pamela Peterson Drake, PhD, CFA, is at James Madison University (USA). Jian Wu, PhD, is at State Street (USA).</em></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Pamela Peterson Drake, PhD, CFA, công tác tại Đại học James Madison (Hoa Kỳ). Jian Wu, PhD, công tác tại State Street (Hoa Kỳ).</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>LEARNIN</strong><br></th>
+<th><strong>G OUTCOMES</strong><br></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><em>Mastery</em></strong></td>
+<td><strong><em>The candidate should be able to:</em></strong></td>
+</tr>
+<tr>
+<td></td>
+<td>calculate, interpret, and evaluate measures of central tendency and<br>location to address an investment problem</td>
+</tr>
+<tr>
+<td></td>
+<td>calculate, interpret, and evaluate measures of dispersion to address<br>an investment problem</td>
+</tr>
+<tr>
+<td></td>
+<td>interpret and evaluate measures of skewness and kurtosis to address<br>an investment problem</td>
+</tr>
+<tr>
+<td></td>
+<td>interpret correlation between two variables to address an investment<br>problem</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>MỤC TIÊU HỌC TẬP (<em>LEARNING OUTCOMES</em>)</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><em>Mức độ thành thạo</em></strong></td>
+<td><strong><em>Ứng viên cần có khả năng:</em></strong></td>
+</tr>
+<tr>
+<td></td>
+<td>tính toán, diễn giải và đánh giá các thước đo xu hướng trung tâm (<em>measures of central tendency</em>) và vị trí (<em>location</em>) để giải quyết một bài toán đầu tư</td>
+</tr>
+<tr>
+<td></td>
+<td>tính toán, diễn giải và đánh giá các thước đo độ phân tán (<em>measures of dispersion</em>) để giải quyết một bài toán đầu tư</td>
+</tr>
+<tr>
+<td></td>
+<td>diễn giải và đánh giá các thước đo độ lệch (<em>skewness</em>) và độ nhọn (<em>kurtosis</em>) để giải quyết một bài toán đầu tư</td>
+</tr>
+<tr>
+<td></td>
+<td>diễn giải hệ số tương quan (<em>correlation</em>) giữa hai biến số để giải quyết một bài toán đầu tư</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>INTRODUCTION</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>GIỚI THIỆU (<em>INTRODUCTION</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><mark>1</mark></strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong><mark>1</mark></strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Data have always been a key input for securities analysis and investment management, allowing investors to explore and exploit an abundance of information for their investment strategies. While this data-rich environment offers potentially tremendous opportunities for investors, turning data into useful information is not so straightforward.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dữ liệu luôn là yếu tố đầu vào then chốt cho việc phân tích chứng khoán và quản lý đầu tư, cho phép các nhà đầu tư khám phá và khai thác nguồn thông tin dồi dào cho các chiến lược đầu tư của mình. Mặc dù môi trường giàu dữ liệu này mang lại những cơ hội tiềm năng to lớn cho các nhà đầu tư, nhưng việc biến dữ liệu thành thông tin hữu ích lại không hề đơn giản.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This module provides a foundation for understanding important concepts that are an indispensable part of the analytical tool kit needed by investment practitioners, from junior analysts to senior portfolio managers. These basic concepts pave the way for more sophisticated tools that will be developed as the quantitative methods topic unfolds, which are integral to gaining competencies in the investment management techniques and asset classes that are presented later in the CFA curriculum.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Học phần này cung cấp nền tảng để hiểu các khái niệm quan trọng, vốn là một phần không thể thiếu trong bộ công cụ phân tích cần thiết cho những người hành nghề đầu tư, từ các chuyên viên phân tích cấp thấp đến các nhà quản lý danh mục đầu tư cấp cao. Những khái niệm cơ bản này mở đường cho các công cụ phức tạp hơn sẽ được phát triển xuyên suốt chủ đề phương pháp định lượng, đóng vai trò thiết yếu để đạt được năng lực trong các kỹ thuật quản lý đầu tư và các loại tài sản được trình bày ở phần sau của chương trình CFA.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This learning module focuses on how to summarize and analyze important aspects of financial returns, including key measures of central tendency, dispersion, and the shape of return distributions—specifically, skewness and kurtosis. The learning module finishes with a graphical introduction to covariance and correlation between two variables, a key concept in constructing investment portfolios to achieve diversification across assets within a portfolio.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Học phần này tập trung vào cách tóm tắt và phân tích các khía cạnh quan trọng của tỷ suất sinh lợi tài chính, bao gồm các thước đo chính về xu hướng trung tâm (<em>central tendency</em>), độ phân tán (<em>dispersion</em>), và hình dạng của phân phối tỷ suất sinh lợi—cụ thể là độ lệch (<em>skewness</em>) và độ nhọn (<em>kurtosis</em>). Học phần kết thúc bằng phần giới thiệu trực quan bằng đồ thị về hiệp phương sai (<em>covariance</em>) và hệ số tương quan (<em>correlation</em>) giữa hai biến số, một khái niệm then chốt trong việc xây dựng danh mục đầu tư nhằm đạt được sự đa dạng hóa giữa các tài sản trong danh mục.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-96" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 96 / Trang PDF 96
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE OVERVIEW</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỔNG QUAN HỌC PHẦN (<em>LEARNING MODULE OVERVIEW</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Sample statistics—such as measures of central tendency, dispersion, skewness, and kurtosis—help with investment analysis, particularly in making probabilistic statements about returns.</p>
+</li>
+<li>
+<p>Measures of central tendency include the mean, the median and the mode, and specify where data are centered.</p>
+</li>
+<li>
+<p>The arithmetic mean is the sum of the observations divided by the number of observations. It is the most frequently used measure of central tendency.</p>
+</li>
+<li>
+<p>The median is the value of the middle item of observations, or the mean of the values of the two middle items, when the items in a set are sorted into ascending or descending order. Since the median is not influenced by extreme values, it is most useful in the case of skewed distributions.</p>
+</li>
+<li>
+<p>The mode is the most frequently observed value and is the only measure of central tendency that can be used with nominal or categorical data. A distribution may be unimodal (one mode), bimodal (two modes), trimodal (three modes), or have even more modes.</p>
+</li>
+<li>
+<p>Quantiles, as the median, quartiles, quintiles, deciles, and percentiles, are location parameters that divide a distribution into halves, quarters, fifths, tenths, and hundredths, respectively.</p>
+</li>
+<li>
+<p>A box and whiskers plot illustrates the distribution of a set of observations. The “box” depicts the interquartile range, the difference between the first and the third quartile. The “whiskers” outside of the “box” indicate the others measures of dispersion.</p>
+</li>
+<li>
+<p>Dispersion measures, such as the range, mean absolute deviation (MAD), variance, standard deviation, target downside deviation, and coefficient of variation, describe the variability of outcomes around the arithmetic mean.</p>
+</li>
+<li>
+<p>The range is the difference between the maximum value and the minimum value of the dataset. The range has only a limited usefulness because it uses information from only two observations.</p>
+</li>
+<li>
+<p>The MAD for a sample is the average of the absolute deviations of observations from the mean.</p>
+</li>
+<li>
+<p>The variance is the average of the squared deviations around the mean, and the standard deviation is the positive square root of variance. In computing sample variance, <em>s</em><sup><em>2</em></sup> , and sample standard deviation, <em>s</em> , the average squared deviation is computed using a divisor equal to the sample size minus 1.</p>
+</li>
+<li>
+<p>The target downside deviation, or target semideviation, is a measure of the risk of being below a given target.</p>
+</li>
+<li>
+<p>The coefficient of variation (CV) is the ratio of the standard deviation of a set of observations to their mean value. By expressing the magnitude of variation among observations relative to their average size, the CV allows for the direct comparisons of dispersion across different datasets. Reflecting the correction for scale, the CV is a scale-free measure, that is, it has no units of measurement.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Các thống kê mẫu (<em>sample statistics</em>)—chẳng hạn như các thước đo xu hướng trung tâm, độ phân tán, độ lệch và độ nhọn—hỗ trợ việc phân tích đầu tư, đặc biệt là trong việc đưa ra các nhận định xác suất về tỷ suất sinh lợi.</p>
+</li>
+<li>
+<p>Các thước đo xu hướng trung tâm bao gồm giá trị trung bình (<em>mean</em>), trung vị (<em>median</em>) và yếu vị (<em>mode</em>), giúp chỉ ra vị trí trung tâm của dữ liệu.</p>
+</li>
+<li>
+<p>Trung bình cộng (<em>arithmetic mean</em>) là tổng các quan sát chia cho số lượng quan sát. Đây là thước đo xu hướng trung tâm được sử dụng thường xuyên nhất.</p>
+</li>
+<li>
+<p>Trung vị (<em>median</em>) là giá trị của phần tử nằm ở chính giữa tập hợp các quan sát, hoặc là trung bình cộng của hai phần tử nằm ở giữa, khi các phần tử trong tập hợp được sắp xếp theo thứ tự tăng dần hoặc giảm dần. Vì trung vị không bị ảnh hưởng bởi các giá trị cực đoan (<em>extreme values</em>), nên nó hữu ích nhất trong trường hợp các phân phối bị lệch (<em>skewed distributions</em>).</p>
+</li>
+<li>
+<p>Yếu vị (<em>mode</em>) là giá trị được quan sát thường xuyên nhất và là thước đo xu hướng trung tâm duy nhất có thể sử dụng với dữ liệu định danh (<em>nominal data</em>) hoặc dữ liệu phân loại (<em>categorical data</em>). Một phân phối có thể có một đỉnh (<em>unimodal</em> – một yếu vị), hai đỉnh (<em>bimodal</em> – hai yếu vị), ba đỉnh (<em>trimodal</em> – ba yếu vị), hoặc thậm chí nhiều yếu vị hơn.</p>
+</li>
+<li>
+<p>Các phân vị (<em>quantiles</em>), chẳng hạn như trung vị (<em>median</em>), tứ phân vị (<em>quartiles</em>), ngũ phân vị (<em>quintiles</em>), thập phân vị (<em>deciles</em>) và bách phân vị (<em>percentiles</em>), là các tham số vị trí chia một phân phối thành các phần bằng nhau tương ứng là hai phần, bốn phần, năm phần, mười phần và một trăm phần.</p>
+</li>
+<li>
+<p>Biểu đồ hộp và râu (<em>box and whiskers plot</em>) minh họa sự phân phối của một tập hợp các quan sát. Phần “hộp” (<em>box</em>) biểu thị khoảng tứ phân vị (<em>interquartile range</em>), tức là chênh lệch giữa tứ phân vị thứ nhất và tứ phân vị thứ ba. Phần “râu” (<em>whiskers</em>) bên ngoài “hộp” cho biết các thước đo độ phân tán khác.</p>
+</li>
+<li>
+<p>Các thước đo độ phân tán (<em>dispersion measures</em>), chẳng hạn như khoảng biến thiên (<em>range</em>), độ lệch tuyệt đối trung bình (<em>mean absolute deviation</em> – MAD), phương sai (<em>variance</em>), độ lệch chuẩn (<em>standard deviation</em>), độ lệch dưới mục tiêu (<em>target downside deviation</em>), và hệ số biến thiên (<em>coefficient of variation</em>), mô tả mức độ biến thiên của các kết quả xung quanh giá trị trung bình cộng.</p>
+</li>
+<li>
+<p>Khoảng biến thiên (<em>range</em>) là chênh lệch giữa giá trị lớn nhất và giá trị nhỏ nhất của tập dữ liệu. Khoảng biến thiên chỉ có tính hữu ích hạn chế vì nó chỉ sử dụng thông tin từ hai quan sát.</p>
+</li>
+<li>
+<p>Độ lệch tuyệt đối trung bình (MAD) của một mẫu là trung bình cộng của các độ lệch tuyệt đối của các quan sát so với giá trị trung bình.</p>
+</li>
+<li>
+<p>Phương sai (<em>variance</em>) là trung bình của các bình phương độ lệch xung quanh giá trị trung bình, và độ lệch chuẩn (<em>standard deviation</em>) là căn bậc hai dương của phương sai. Khi tính phương sai mẫu, <span class="math-inline">$s^2$</span>, và độ lệch chuẩn mẫu, <span class="math-inline">$s$</span>, bình phương độ lệch trung bình được tính bằng cách sử dụng mẫu số bằng kích thước mẫu trừ đi 1 (<span class="math-inline">$n - 1$</span>).</p>
+</li>
+<li>
+<p>Độ lệch dưới mục tiêu (<em>target downside deviation</em>), hay bán độ lệch mục tiêu (<em>target semideviation</em>), là thước đo rủi ro khi kết quả thấp hơn một mức mục tiêu nhất định.</p>
+</li>
+<li>
+<p>Hệ số biến thiên (<em>coefficient of variation</em> – CV) là tỷ số giữa độ lệch chuẩn của một tập hợp các quan sát với giá trị trung bình của chúng. Bằng cách biểu thị độ lớn của sự biến thiên giữa các quan sát tương ứng với quy mô trung bình của chúng, CV cho phép so sánh trực tiếp độ phân tán giữa các tập dữ liệu khác nhau. Phản ánh việc điều chỉnh theo quy mô, CV là một thước đo không phụ thuộc vào quy mô (<em>scale-free measure</em>), nghĩa là nó không có đơn vị đo lường.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-97" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 97 / Trang PDF 97
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Skewness describes the degree to which a distribution is asymmetric about its mean. An asset return distribution with positive skewness has frequent small losses and a few extreme gains compared to a normal distribution. An asset return distribution with negative skewness has frequent small gains and a few extreme losses compared to a normal distribution. Zero skewness indicates a symmetric distribution of returns.</p>
+</li>
+<li>
+<p>Kurtosis measures the combined weight of the tails of a distribution relative to the rest of the distribution. A distribution with fatter tails than the normal distribution is referred to as fat-tailed (leptokurtic); a distribution with thinner tails than the normal distribution is referred to as thin-tailed (platykurtic). The kurtosis of a normal distribution is 3.</p>
+</li>
+<li>
+<p>The correlation coefficient measures the association between two variables. It is the ratio of covariance to the product of the two variables’ standard deviations. A positive correlation coefficient indicates that the two variables tend to move together, whereas a negative coefficient indicates that the two variables tend to move in opposite directions. Correlation does not imply causation, simply association. Issues that arise in evaluating correlation include the presence of outliers and spurious correlation.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Độ lệch (<em>skewness</em>) mô tả mức độ bất đối xứng của một phân phối xung quanh giá trị trung bình của nó. Một phân phối tỷ suất sinh lợi tài sản có độ lệch dương (<em>positive skewness</em>) có nhiều khoản lỗ nhỏ thường xuyên và một vài khoản lãi cực lớn so với phân phối chuẩn (<em>normal distribution</em>). Một phân phối tỷ suất sinh lợi tài sản có độ lệch âm (<em>negative skewness</em>) có nhiều khoản lãi nhỏ thường xuyên và một vài khoản lỗ cực lớn so với phân phối chuẩn. Độ lệch bằng không cho thấy một phân phối tỷ suất sinh lợi đối xứng.</p>
+</li>
+<li>
+<p>Độ nhọn (<em>kurtosis</em>) đo lường trọng lượng kết hợp của hai phần đuôi của một phân phối so với phần còn lại của phân phối đó. Một phân phối có đuôi dày hơn phân phối chuẩn được gọi là phân phối đuôi dày hay nhọn (<em>fat-tailed / leptokurtic</em>); một phân phối có đuôi mỏng hơn phân phối chuẩn được gọi là phân phối đuôi mỏng hay bẹt (<em>thin-tailed / platykurtic</em>). Độ nhọn của phân phối chuẩn bằng 3.</p>
+</li>
+<li>
+<p>Hệ số tương quan (<em>correlation coefficient</em>) đo lường mối liên hệ giữa hai biến số. Đó là tỷ số giữa hiệp phương sai (<em>covariance</em>) với tích độ lệch chuẩn của hai biến số đó. Hệ số tương quan dương cho biết hai biến số có xu hướng biến động cùng chiều, trong khi hệ số âm cho biết hai biến số có xu hướng biến động ngược chiều. Tương quan không hàm ý quan hệ nhân quả (<em>causation</em>), mà chỉ đơn thuần là sự liên kết (<em>association</em>). Các vấn đề phát sinh khi đánh giá tương quan bao gồm sự hiện diện của các giá trị ngoại lai (<em>outliers</em>) và tương quan giả mạo (<em>spurious correlation</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>MEASURES OF CENTRAL TENDENCY AND LOCATION</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>CÁC THƯỚC ĐO XU HƯỚNG TRUNG TÂM VÀ VỊ TRÍ (<em>MEASURES OF CENTRAL TENDENCY AND LOCATION</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>2</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>2</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>calculate, interpret, and evaluate measures of central tendency and location to address an investment problem</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>tính toán, diễn giải và đánh giá các thước đo xu hướng trung tâm và vị trí để giải quyết một bài toán đầu tư</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In this lesson, our focus is on measures of central tendency and other measures of location. A <strong>measure of central tendency</strong> specifies where the data are centered. For a return series, a measure of central tendency shows where the empirical distribution of returns is centered, essentially a measure of the “expected” return based on the observed sample. <strong>Measures of location</strong> , mean, the <strong>median</strong> , and the <strong>mode</strong> include not only measures of central tendency but also other measures that illustrate other aspects of the location or distribution of the data.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong bài học này, trọng tâm của chúng ta là các thước đo xu hướng trung tâm và các thước đo vị trí khác. Một <strong>thước đo xu hướng trung tâm (<em>measure of central tendency</em>)</strong> chỉ ra nơi dữ liệu tập trung. Đối với một chuỗi tỷ suất sinh lợi, thước đo xu hướng trung tâm cho thấy nơi phân phối thực nghiệm của tỷ suất sinh lợi tập trung, về bản chất là một thước đo tỷ suất sinh lợi “kỳ vọng” dựa trên mẫu quan sát được. <strong>Các thước đo vị trí (<em>measures of location</em>)</strong>, bao gồm giá trị trung bình (<em>mean</em>), <strong>trung vị (<em>median</em>)</strong>, và <strong>yếu vị (<em>mode</em>)</strong>, không chỉ bao gồm các thước đo xu hướng trung tâm mà còn cả các thước đo khác minh họa những khía cạnh khác về vị trí hoặc sự phân phối của dữ liệu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Frequency distributions, histograms, and contingency tables provide a convenient way to summarize a series of observations on an asset’s returns as a first step toward describing the data. For example, a histogram for the frequency distribution of the daily returns for the fictitious EAA Equity Index over the past five years is shown in Exhibit 1.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phân phối tần số (<em>frequency distributions</em>), biểu đồ tần số (<em>histograms</em>), và bảng ngẫu nhiên (<em>contingency tables</em>) cung cấp một cách thuận tiện để tóm tắt một chuỗi các quan sát về tỷ suất sinh lợi của một tài sản như một bước đầu tiên hướng tới việc mô tả dữ liệu. Ví dụ, biểu đồ tần số cho phân phối tần số của tỷ suất sinh lợi hàng ngày đối với Chỉ số Cổ phiếu EAA (EAA Equity Index) giả định trong năm năm qua được thể hiện trong Bảng minh họa 1 (Exhibit 1).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-98" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 98 / Trang PDF 98
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Histogram of Daily Returns on the EAA Equity Index</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 1: Biểu đồ tần số Tỷ suất sinh lợi Hàng ngày của Chỉ số Cổ phiếu EAA (<em>Histogram of Daily Returns on the EAA Equity Index</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0098-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0098-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Trục tung:</strong> Số lượng quan sát (<em>Number of Observations</em>) từ 0 đến 600.
+- <strong>Trục hoành:</strong> Khoảng tỷ suất sinh lợi hàng ngày (<em>Daily Return Range (%)</em>) từ –4.1 đến 5.0.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Measures of Central Tendency</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Các thước đo Xu hướng Trung tâm (<em>Measures of Central Tendency</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>The Arithmetic Mean</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>_Trung bình cộng (<em>The Arithmetic Mean</em>)_</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Analysts and portfolio managers often want one number that describes a representative possible outcome of an investment decision. The arithmetic mean is one of the most frequently used measures of central tendency.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các chuyên viên phân tích và nhà quản lý danh mục đầu tư thường muốn có một con số duy nhất mô tả kết quả đại diện có thể xảy ra của một quyết định đầu tư. Trung bình cộng là một trong những thước đo xu hướng trung tâm được sử dụng thường xuyên nhất.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Arithmetic Mean.</strong> The <strong>arithmetic mean</strong> is the sum of the values of the observations in a dataset divided by the number of observations.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Trung bình cộng (<em>Arithmetic Mean</em>).</strong> <strong>Trung bình cộng (<em>arithmetic mean</em>)</strong> là tổng giá trị của các quan sát trong một tập dữ liệu chia cho số lượng các quan sát.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>The Sample Mean</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>_Trung bình mẫu (<em>The Sample Mean</em>)_</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The sample mean is the arithmetic mean, or arithmetic average, computed for a sample.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trung bình mẫu là trung bình cộng được tính cho một mẫu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0098-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0098-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\bar{X} = \frac{\sum_{i=1}^{n} X_i}{n} \tag{1}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where <em>n</em> is the number of observations in the sample.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó <span class="math-inline">$\bar{X}$</span> (đọc là “X-ngang” / <em>“X-bar”</em>) là giá trị trung bình cộng của một mẫu, và <span class="math-inline">$n$</span> là số lượng quan sát trong mẫu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A property and potential drawback of the arithmetic mean is its sensitivity to extreme values, or outliers. Because all observations are used to compute the mean and are given equal weight (i.e., importance), the arithmetic mean can be pulled sharply upward or downward by extremely large or small observations, respectively. The most common approach in this situation is to report the median, or middle value, in place of or in addition to the mean.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một đặc tính và cũng là nhược điểm tiềm ẩn của trung bình cộng là sự nhạy cảm của nó với các giá trị cực đoan, hay các giá trị ngoại lai (<em>outliers</em>). Bởi vì tất cả các quan sát đều được sử dụng để tính giá trị trung bình và được gán trọng số (tức mức độ quan trọng) bằng nhau, nên trung bình cộng có thể bị kéo tăng vọt lên hoặc giảm mạnh xuống bởi các quan sát cực lớn hoặc cực nhỏ tương ứng. Cách tiếp cận phổ biến nhất trong tình huống này là báo cáo giá trị trung vị (<em>median</em>), hay giá trị ở giữa, để thay thế hoặc bổ sung cho giá trị trung bình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>The Median</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>_Trung vị (<em>The Median</em>)_</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A second important measure of central tendency is the median.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một thước đo quan trọng thứ hai của xu hướng trung tâm là trung vị.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Definition of Median.</strong> The median is the value of the middle item of a dataset that has been sorted into ascending or descending order. In an odd-numbered sample of <em>n</em> observations, the median is the value of the</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Định nghĩa Trung vị (<em>Definition of Median</em>).</strong> Trung vị là giá trị của phần tử nằm ở chính giữa của một tập dữ liệu đã được sắp xếp theo thứ tự tăng dần hoặc giảm dần. Trong một mẫu có số lượng quan sát <span class="math-inline">$n$</span> là số lẻ, trung vị là giá trị của</p></div>
+                </div>
+                
+
+                <div id="pdf-page-99" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 99 / Trang PDF 99
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>observation that occupies the ( <em>n</em> + 1)/2 position. In an even-numbered sample, we define the median as the mean of the values of the observations occupying the <em>n</em> /2 and ( <em>n</em> + 2)/2 positions (the two middle observations).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>quan sát chiếm vị trí thứ <span class="math-inline">$(n + 1)/2$</span>. Trong một mẫu có số lượng quan sát là số chẵn, chúng ta định nghĩa trung vị là trung bình cộng của giá trị các quan sát chiếm vị trí thứ <span class="math-inline">$n/2$</span> và <span class="math-inline">$(n + 2)/2$</span> (hai quan sát nằm ở chính giữa).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Whether we use the calculation for an even- or odd-numbered sample, an equal number of observations lie above and below the median. A distribution has only one median. A potential advantage of the median is that, unlike the mean, outliers do not affect it.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cho dù chúng ta sử dụng phép tính cho mẫu có số lượng chẵn hay lẻ, luôn có một số lượng quan sát bằng nhau nằm phía trên và phía dưới trung vị. Một phân phối chỉ có duy nhất một trung vị. Một ưu điểm tiềm năng của trung vị là, không giống như trung bình cộng, các giá trị ngoại lai không làm ảnh hưởng đến nó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The median, however, does not use all the information about the size of the observations; it focuses only on the relative position of the ranked observations. Calculating the median may also be more complex. Mathematicians express this disadvantage by saying that the median is less mathematically tractable than the mean.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tuy nhiên, trung vị không sử dụng toàn bộ thông tin về độ lớn của các quan sát; nó chỉ tập trung vào vị trí tương đối của các quan sát đã được xếp hạng. Việc tính toán trung vị cũng có thể phức tạp hơn. Các nhà toán học diễn đạt nhược điểm này bằng cách nói rằng trung vị khó xử lý về mặt toán học (<em>less mathematically tractable</em>) hơn so với giá trị trung bình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>The Mode</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>_Yếu vị (<em>The Mode</em>)_</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A third important measure of central tendency is the mode.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một thước đo quan trọng thứ ba của xu hướng trung tâm là yếu vị.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Definition of Mode.</strong> The mode is the most frequently occurring value in a dataset. A dataset can have more than one mode, or even no mode. When a dataset has a single value that is observed most frequently, its distribution is said to be <strong>unimodal</strong> . If a dataset has two most frequently occurring values, then it has two modes and its distribution is referred to as <strong>bimodal</strong> . When all the values in a dataset are different, the distribution has no mode because no value occurs more frequently than any other value.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Định nghĩa Yếu vị (<em>Definition of Mode</em>).</strong> Yếu vị là giá trị xuất hiện thường xuyên nhất trong một tập dữ liệu. Một tập dữ liệu có thể có nhiều hơn một yếu vị, hoặc thậm chí không có yếu vị nào. Khi một tập dữ liệu có một giá trị duy nhất được quan sát thường xuyên nhất, phân phối của nó được gọi là <strong>phân phối một đỉnh (<em>unimodal</em>)</strong>. Nếu một tập dữ liệu có hai giá trị xuất hiện thường xuyên nhất ngang nhau, thì nó có hai yếu vị và phân phối của nó được gọi là <strong>phân phối hai đỉnh (<em>bimodal</em>)</strong>. Khi tất cả các giá trị trong một tập dữ liệu đều khác nhau, phân phối đó không có yếu vị vì không có giá trị nào xuất hiện thường xuyên hơn bất kỳ giá trị nào khác.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Stock return data and other data from continuous distributions may not have a modal outcome. Exhibit 2 presents the frequency distribution of the daily returns for the EAA Equity Index over the past five years.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dữ liệu tỷ suất sinh lợi cổ phiếu và các dữ liệu khác từ các phân phối liên tục (<em>continuous distributions</em>) có thể không có một kết quả yếu vị riêng lẻ. Bảng minh họa 2 trình bày phân phối tần số của tỷ suất sinh lợi hàng ngày đối với Chỉ số Cổ phiếu EAA trong năm năm qua.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Frequency Distribution for Daily Returns of EAA Equity Index</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 2: Phân phối Tần số cho Tỷ suất sinh lợi Hàng ngày của Chỉ số Cổ phiếu EAA (<em>Frequency Distribution for Daily Returns of EAA Equity Index</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Return Bin (%)</strong></th>
+<th><strong>Absolute</strong><br><strong>Frequency</strong></th>
+<th><strong>Relative</strong><br><strong>Frequency</strong><br><strong>(%)</strong></th>
+<th><strong>Cumulative</strong><br><strong>Absolute</strong><br><strong>Frequency</strong></th>
+<th><strong>Cumulative</strong><br><strong>Relative</strong><br><strong>Frequency</strong><br><strong>(%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>−5.0 to −4.0</td>
+<td>1</td>
+<td>0.08</td>
+<td>1</td>
+<td>0.08</td>
+</tr>
+<tr>
+<td>−4.0 to −3.0</td>
+<td>7</td>
+<td>0.56</td>
+<td>8</td>
+<td>0.64</td>
+</tr>
+<tr>
+<td>−3.0 to −2.0</td>
+<td>23</td>
+<td>1.83</td>
+<td>31</td>
+<td>2.46</td>
+</tr>
+<tr>
+<td>−2.0 to −1.0</td>
+<td>77</td>
+<td>6.12</td>
+<td>108</td>
+<td>8.59</td>
+</tr>
+<tr>
+<td>−1.0 to 0.0</td>
+<td>470</td>
+<td>37.36</td>
+<td>578</td>
+<td>45.95</td>
+</tr>
+<tr>
+<td>0.0 to 1.0</td>
+<td>555</td>
+<td>44.12</td>
+<td>1,133</td>
+<td>90.06</td>
+</tr>
+<tr>
+<td>1.0 to 2.0</td>
+<td>110</td>
+<td>8.74</td>
+<td>1,243</td>
+<td>98.81</td>
+</tr>
+<tr>
+<td>2.0 to 3.0</td>
+<td>13</td>
+<td>1.03</td>
+<td>1,256</td>
+<td>99.84</td>
+</tr>
+<tr>
+<td>3.0 to 4.0</td>
+<td>1</td>
+<td>0.08</td>
+<td>1,257</td>
+<td>99.92</td>
+</tr>
+<tr>
+<td>4.0 to 5.0</td>
+<td>1</td>
+<td>0.08</td>
+<td>1,258</td>
+<td>100.00</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Khoảng tỷ suất sinh lợi (<em>Return Bin</em>) (%)</strong></th>
+<th><strong>Tần số tuyệt đối (<em>Absolute Frequency</em>)</strong></th>
+<th><strong>Tần số tương đối (<em>Relative Frequency</em>) (%)</strong></th>
+<th><strong>Tần số tuyệt đối tích lũy (<em>Cumulative Absolute Frequency</em>)</strong></th>
+<th><strong>Tần số tương đối tích lũy (<em>Cumulative Relative Frequency</em>) (%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>−5.0 đến −4.0</td>
+<td>1</td>
+<td>0.08</td>
+<td>1</td>
+<td>0.08</td>
+</tr>
+<tr>
+<td>−4.0 đến −3.0</td>
+<td>7</td>
+<td>0.56</td>
+<td>8</td>
+<td>0.64</td>
+</tr>
+<tr>
+<td>−3.0 đến −2.0</td>
+<td>23</td>
+<td>1.83</td>
+<td>31</td>
+<td>2.46</td>
+</tr>
+<tr>
+<td>−2.0 đến −1.0</td>
+<td>77</td>
+<td>6.12</td>
+<td>108</td>
+<td>8.59</td>
+</tr>
+<tr>
+<td>−1.0 đến 0.0</td>
+<td>470</td>
+<td>37.36</td>
+<td>578</td>
+<td>45.95</td>
+</tr>
+<tr>
+<td>0.0 đến 1.0</td>
+<td>555</td>
+<td>44.12</td>
+<td>1,133</td>
+<td>90.06</td>
+</tr>
+<tr>
+<td>1.0 đến 2.0</td>
+<td>110</td>
+<td>8.74</td>
+<td>1,243</td>
+<td>98.81</td>
+</tr>
+<tr>
+<td>2.0 đến 3.0</td>
+<td>13</td>
+<td>1.03</td>
+<td>1,256</td>
+<td>99.84</td>
+</tr>
+<tr>
+<td>3.0 đến 4.0</td>
+<td>1</td>
+<td>0.08</td>
+<td>1,257</td>
+<td>99.92</td>
+</tr>
+<tr>
+<td>4.0 đến 5.0</td>
+<td>1</td>
+<td>0.08</td>
+<td>1,258</td>
+<td>100.00</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A histogram for the frequency distribution of these daily returns was shown in Exhibit 1. The modal interval always has the highest bar in the histogram; in this case, the modal interval is 0.0 to 1.0 percent, and this interval has 555 observations out of a total of 1,258 observations.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Biểu đồ tần số cho phân phối tần số của các tỷ suất sinh lợi hàng ngày này đã được thể hiện trong Bảng minh họa 1. Khoảng yếu vị (<em>modal interval</em>) luôn có cột cao nhất trong biểu đồ tần số; trong trường hợp này, khoảng yếu vị là từ 0.0 đến 1.0 phần trăm, và khoảng này có 555 quan sát trên tổng số 1,258 quan sát.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-100" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 100 / Trang PDF 100
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Dealing with Outliers</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Xử lý các Giá trị Ngoại lai (<em>Dealing with Outliers</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In practice, although an extreme value or outlier in a financial dataset may represent a rare value in the population, it may also reflect an error in recording the value of an observation or an observation generated from a different population. After having checked and eliminated errors, we can address what to do with extreme values in the sample.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong thực tế, mặc dù một giá trị cực đoan hay giá trị ngoại lai (<em>outlier</em>) trong một tập dữ liệu tài chính có thể đại diện cho một giá trị hiếm gặp trong tổng thể, nhưng nó cũng có thể phản ánh một sai sót trong việc ghi chép giá trị của một quan sát hoặc một quan sát được tạo ra từ một tổng thể khác. Sau khi đã kiểm tra và loại bỏ các sai sót, chúng ta có thể giải quyết vấn đề cần làm gì với các giá trị cực đoan trong mẫu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>When dealing with a sample that has extreme values, there may be a possibility of transforming the variable (e.g., a log transformation) or of selecting another variable that achieves the same purpose. If, however, alternative model specifications or variable transformations are not possible, then three options exist for dealing with extreme values:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi xử lý một mẫu có các giá trị cực đoan, có thể có khả năng biến đổi biến số (ví dụ: biến đổi logarit) hoặc chọn một biến số khác đạt được cùng mục đích. Tuy nhiên, nếu các dạng thức mô hình thay thế hoặc việc biến đổi biến số là không khả thi, thì có ba lựa chọn để xử lý các giá trị cực đoan:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Option 1 Do nothing; use the data without any adjustment.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lựa chọn 1 Không làm gì cả; sử dụng dữ liệu mà không có bất kỳ sự điều chỉnh nào.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Option 2 Delete all the outliers.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lựa chọn 2 Xóa bỏ tất cả các giá trị ngoại lai.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Option 3 Replace the outliers with another value.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lựa chọn 3 Thay thế các giá trị ngoại lai bằng một giá trị khác.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The first option is appropriate if the values are legitimate, correct observations, and it is important to reflect the whole of the sample distribution. Because outliers may contain meaningful information, excluding or altering these values may reduce valuable information. Further, because identifying a data point as extreme leaves it up to the judgment of the analyst, leaving in all observations eliminates that need to judge a value as extreme.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lựa chọn đầu tiên là phù hợp nếu các giá trị đó là những quan sát hợp lệ, chính xác, và việc phản ánh toàn bộ phân phối mẫu là rất quan trọng. Bởi vì các giá trị ngoại lai có thể chứa đựng thông tin có ý nghĩa, việc loại trừ hoặc thay đổi các giá trị này có thể làm giảm bớt thông tin có giá trị. Hơn nữa, vì việc xác định một điểm dữ liệu là cực đoan phụ thuộc vào phán đoán của chuyên viên phân tích, nên việc giữ lại tất cả các quan sát sẽ loại bỏ nhu cầu phải phán đoán xem một giá trị có phải là cực đoan hay không.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The second option excludes the extreme observations. One measure of central tendency in this case is the <strong>trimmed mean</strong> , which is computing an arithmetic mean after excluding a stated small percentage of the lowest and highest values. For example, a 5 percent trimmed mean discards the lowest 2.5 percent and the highest 2.5 percent of values and computes the mean of the remaining 95 percent of values. A trimmed mean is used in sports competitions when judges’ lowest and highest scores are discarded in computing a contestant’s score.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lựa chọn thứ hai loại trừ các quan sát cực đoan. Một thước đo xu hướng trung tâm trong trường hợp này là <strong>trung bình cắt bỏ (<em>trimmed mean</em>)</strong>, tức là tính trung bình cộng sau khi đã loại trừ một tỷ lệ phần trăm nhỏ nhất định các giá trị thấp nhất và cao nhất. Ví dụ, một trung bình cắt bỏ 5 phần trăm sẽ loại bỏ 2.5 phần trăm giá trị thấp nhất và 2.5 phần trăm giá trị cao nhất, rồi tính trung bình của 95 phần trăm giá trị còn lại. Trung bình cắt bỏ được sử dụng trong các cuộc thi đấu thể thao khi điểm số thấp nhất và cao nhất của các giám khảo bị loại bỏ khi tính điểm cho một thí sinh.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The third option involves substituting values for the extreme values. A measure of central tendency in this case is the <strong>winsorized mean</strong> . It is calculated after assigning one specified low value to a stated percentage of the lowest values in the dataset and one specified high value to a stated percentage of the highest values in the dataset. For example, a 95 percent winsorized mean sets the bottom 2.5 percent of values in the dataset equal to the value at or below which 2.5 percent of all the values lie (as will be seen shortly, this is called the “2.5th percentile” value) and the top 2.5 percent of values in the dataset equal to the value at or below which 97.5 percent of all the values lie (the “97.5th percentile” value).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lựa chọn thứ ba liên quan đến việc thay thế các giá trị khác cho các giá trị cực đoan. Một thước đo xu hướng trung tâm trong trường hợp này là <strong>trung bình Winsor (<em>winsorized mean</em>)</strong>. Nó được tính sau khi gán một giá trị thấp xác định cho một tỷ lệ phần trăm nhất định các giá trị thấp nhất trong tập dữ liệu và một giá trị cao xác định cho một tỷ lệ phần trăm nhất định các giá trị cao nhất trong tập dữ liệu. Ví dụ, trung bình Winsor 95 phần trăm sẽ đặt 2.5 phần trăm giá trị thấp nhất trong tập dữ liệu bằng với giá trị mà tại đó hoặc thấp hơn đó có 2.5 phần trăm tổng số các giá trị nằm (như sẽ thấy ngay sau đây, giá trị này được gọi là giá trị “bách phân vị thứ 2.5” – <em>“2.5th percentile”</em>), và đặt 2.5 phần trăm giá trị cao nhất trong tập dữ liệu bằng với giá trị mà tại đó hoặc thấp hơn đó có 97.5 phần trăm tổng số các giá trị nằm (giá trị “bách phân vị thứ 97.5” – <em>“97.5th percentile”</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Often comparing the statistical measures of datasets with outliers included and with outliers excluded can reveal important insights about the dataset. Such comparison can be particularly helpful when investors analyze the behavior of asset returns and rate, price, spread and volume changes.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thông thường, việc so sánh các thước đo thống kê của các tập dữ liệu khi bao gồm các giá trị ngoại lai và khi loại trừ các giá trị ngoại lai có thể hé lộ những hiểu biết quan trọng về tập dữ liệu đó. Sự so sánh như vậy có thể đặc biệt hữu ích khi các nhà đầu tư phân tích hành vi của tỷ suất sinh lợi tài sản cũng như những thay đổi về lãi suất, giá cả, chênh lệch (<em>spread</em>) và khối lượng giao dịch.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In Example 1, we show the differences among these options for handling outliers using daily returns for the fictitious Euro-Asia-Africa (EAA) Equity Index in Exhibit 2.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong Ví dụ 1, chúng ta chỉ ra sự khác biệt giữa các lựa chọn xử lý giá trị ngoại lai này bằng cách sử dụng tỷ suất sinh lợi hàng ngày của Chỉ số Cổ phiếu Âu-Á-Phi (Euro-Asia-Africa – EAA) giả định trong Bảng minh họa 2.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 1</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 1</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Handling Outliers: Daily Returns to an Index</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Xử lý các Giá trị Ngoại lai: Tỷ suất sinh lợi Hàng ngày của một Chỉ số (<em>Handling Outliers: Daily Returns to an Index</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using daily returns on the EAA Equity Index for the past five years, consisting of 1,258 trading days, we can see the effect of trimming and winsorizing the data:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng tỷ suất sinh lợi hàng ngày của Chỉ số Cổ phiếu EAA trong năm năm qua, bao gồm 1,258 ngày giao dịch, chúng ta có thể thấy tác động của việc cắt bỏ (<em>trimming</em>) và chuẩn hóa Winsor (<em>winsorizing</em>) dữ liệu:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-101" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 101 / Trang PDF 101
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 3: Effect of Trimming and Winsorizing</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 3: Tác động của việc Cắt bỏ và Chuẩn hóa Winsor (<em>Effect of Trimming and Winsorizing</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th><strong>Trimmed Mean</strong></th>
+<th><strong>Winsorized Mean</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><strong>Arithmetic Mean</strong></td>
+<td><strong>(Trimmed 5%)</strong></td>
+<td><strong>(95%)</strong></td>
+</tr>
+<tr>
+<td>Mean</td>
+<td>0.035%</td>
+<td>0.048%</td>
+<td>0.038%</td>
+</tr>
+<tr>
+<td>Number of</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Observations</td>
+<td>1,258</td>
+<td>1,194</td>
+<td>1,258</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Trung bình cộng (<em>Arithmetic Mean</em>)</strong></th>
+<th><strong>Trung bình cắt bỏ (<em>Trimmed Mean</em>) (Cắt bỏ 5%)</strong></th>
+<th><strong>Trung bình Winsor (<em>Winsorized Mean</em>) (95%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Giá trị trung bình (<em>Mean</em>)</td>
+<td>0.035%</td>
+<td>0.048%</td>
+<td>0.038%</td>
+</tr>
+<tr>
+<td>Số lượng quan sát (<em>Number of Observations</em>)</td>
+<td>1,258</td>
+<td>1,194</td>
+<td>1,258</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The trimmed mean eliminates the lowest 2.5 percent of returns, which in this sample is any daily return less than −1.934 percent, and it eliminates the highest 2.5 percent, which in this sample is any daily return greater than 1.671 percent. The result of this trimming is that the mean is calculated using 1,194 observations instead of the original sample’s 1,258 observations.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trung bình cắt bỏ loại bỏ 2.5 phần trăm tỷ suất sinh lợi thấp nhất, trong mẫu này là bất kỳ tỷ suất sinh lợi hàng ngày nào nhỏ hơn −1.934 phần trăm, và loại bỏ 2.5 phần trăm cao nhất, trong mẫu này là bất kỳ tỷ suất sinh lợi hàng ngày nào lớn hơn 1.671 phần trăm. Kết quả của việc cắt bỏ này là giá trị trung bình được tính bằng cách sử dụng 1,194 quan sát thay vì 1,258 quan sát của mẫu ban đầu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The winsorized mean substitutes a return of −1.934 percent (the 2.5 percentile value) for any observation below −1.934 and substitutes a return of 1.671 percent (the 97.5 percentile value) for any observation above 1.671. The result in this case is that the trimmed and winsorized means are higher than the arithmetic mean, suggesting the potential evidence of significant negative returns in the observed daily return distribution.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trung bình Winsor thay thế mức tỷ suất sinh lợi −1.934 phần trăm (giá trị bách phân vị thứ 2.5) cho bất kỳ quan sát nào dưới −1.934 và thay thế mức tỷ suất sinh lợi 1.671 phần trăm (giá trị bách phân vị thứ 97.5) cho bất kỳ quan sát nào trên 1.671. Kết quả trong trường hợp này là trung bình cắt bỏ và trung bình Winsor đều cao hơn trung bình cộng, cho thấy bằng chứng tiềm năng về sự xuất hiện của các mức tỷ suất sinh lợi âm đáng kể trong phân phối tỷ suất sinh lợi hàng ngày quan sát được.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Measures of Location</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Các thước đo Vị trí (<em>Measures of Location</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Having discussed measures of central tendency, we now examine an approach to describing the location of data that involves identifying values at or below which specified proportions of the data lie. For example, establishing that 25 percent, 50 percent, and 75 percent of the annual returns on a portfolio provides concise information about the distribution of portfolio returns. Statisticians use the word <strong>quantile</strong> as the most general term for a value at or below which a stated fraction of the data lies. In the following section, we describe the most commonly used quantiles—quartiles, quintiles, deciles, and percentiles—and their application in investments.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sau khi đã thảo luận về các thước đo xu hướng trung tâm, bây giờ chúng ta xem xét một cách tiếp cận để mô tả vị trí của dữ liệu liên quan đến việc xác định các giá trị mà tại đó hoặc thấp hơn đó có những tỷ lệ xác định của dữ liệu nằm. Ví dụ, việc xác định các mức mà dưới đó có 25 phần trăm, 50 phần trăm, và 75 phần trăm tỷ suất sinh lợi hàng năm của một danh mục đầu tư sẽ cung cấp thông tin ngắn gọn, súc tích về sự phân phối tỷ suất sinh lợi của danh mục. Các nhà thống kê sử dụng từ <strong>phân vị (<em>quantile</em>)</strong> làm thuật ngữ chung nhất cho một giá trị mà tại đó hoặc thấp hơn đó có một tỷ lệ xác định của dữ liệu nằm. Trong phần tiếp theo, chúng ta mô tả các phân vị được sử dụng phổ biến nhất—tứ phân vị (<em>quartiles</em>), ngũ phân vị (<em>quintiles</em>), thập phân vị (<em>deciles</em>), và bách phân vị (<em>percentiles</em>)—cùng ứng dụng của chúng trong đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>Quartiles, Quintiles, Deciles, and Percentiles</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>_Tứ phân vị, Ngũ phân vị, Thập phân vị và Bách phân vị (<em>Quartiles, Quintiles, Deciles, and Percentiles</em>)_</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We know that the median divides a distribution of data in half. We can define other dividing lines that split the distribution into smaller sizes. <strong>Quartiles</strong> divide the distribution into quarters, <strong>quintiles</strong> into fifths, <strong>deciles</strong> into tenths, and <strong>percentiles</strong> into hundredths. The <strong>interquartile range</strong> (IQR) is the difference between the third quartile and the first quartile, or IQR = <em>Q</em> 3 − <em>Q</em> 1.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta biết rằng trung vị chia một phân phối dữ liệu thành hai nửa. Chúng ta có thể định nghĩa các đường phân chia khác để tách phân phối thành các kích thước nhỏ hơn. <strong>Tứ phân vị (<em>Quartiles</em>)</strong> chia phân phối thành bốn phần bằng nhau, <strong>ngũ phân vị (<em>quintiles</em>)</strong> thành năm phần, <strong>thập phân vị (<em>deciles</em>)</strong> thành mười phần, và <strong>bách phân vị (<em>percentiles</em>)</strong> thành một trăm phần. <strong>Khoảng tứ phân vị (<em>interquartile range</em> – IQR)</strong> là chênh lệch giữa tứ phân vị thứ ba và tứ phân vị thứ nhất, hay <span class="math-inline">$\text{IQR} = Q_3 - Q_1$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Example 2 illustrates the calculation of various quantiles for the daily return on the EAA Equity Index.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ 2 minh họa cách tính các phân vị khác nhau đối với tỷ suất sinh lợi hàng ngày của Chỉ số Cổ phiếu EAA.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 2</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 2</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Percentiles, Quintiles, and Quartiles for the EAA Equity Index</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Bách phân vị, Ngũ phân vị và Tứ phân vị cho Chỉ số Cổ phiếu EAA (<em>Percentiles, Quintiles, and Quartiles for the EAA Equity Index</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using the daily returns on the EAA Equity Index over the past five years and ranking them from lowest to highest daily return, we show the return bins from 1 (the lowest 5 percent) to 20 (the highest 5 percent) as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng tỷ suất sinh lợi hàng ngày của Chỉ số Cổ phiếu EAA trong năm năm qua và xếp hạng chúng từ tỷ suất sinh lợi hàng ngày thấp nhất đến cao nhất, chúng ta thể hiện các khoảng tỷ suất sinh lợi (<em>return bins</em>) từ 1 (5 phần trăm thấp nhất) đến 20 (5 phần trăm cao nhất) như sau:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-102" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 102 / Trang PDF 102
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 4: EAA Equity Index Daily Returns Grouped by Size of Return</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 4: Tỷ suất sinh lợi Hàng ngày của Chỉ số Cổ phiếu EAA được Nhóm theo Độ lớn của Tỷ suất sinh lợi (<em>EAA Equity Index Daily Returns Grouped by Size of Return</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Cumulative Percent-</strong><br></th>
+<th><strong>Daily Retur</strong><br></th>
+<th><strong>n (%) between</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bin</strong></td>
+<td><strong>age of Sample Trading</strong><br><strong>Days (%)</strong></td>
+<td><strong>Lower</strong><br><strong>Bound</strong></td>
+<td><strong>Upper Bound</strong></td>
+<td><strong>Number of</strong><br><strong>Observations</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>5</td>
+<td>−4.108</td>
+<td>−1.416</td>
+<td>63</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10</td>
+<td>−1.416</td>
+<td>−0.876</td>
+<td>63</td>
+</tr>
+<tr>
+<td>3</td>
+<td>15</td>
+<td>−0.876</td>
+<td>−0.629</td>
+<td>63</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td>−0.629</td>
+<td>−0.432</td>
+<td>63</td>
+</tr>
+<tr>
+<td>5</td>
+<td>25</td>
+<td>−0.432</td>
+<td>−0.293</td>
+<td>63</td>
+</tr>
+<tr>
+<td>6</td>
+<td>30</td>
+<td>−0.293</td>
+<td>−0.193</td>
+<td>63</td>
+</tr>
+<tr>
+<td>7</td>
+<td>35</td>
+<td>−0.193</td>
+<td>−0.124</td>
+<td>62</td>
+</tr>
+<tr>
+<td>8</td>
+<td>40</td>
+<td>−0.124</td>
+<td>−0.070</td>
+<td>63</td>
+</tr>
+<tr>
+<td>9</td>
+<td>45</td>
+<td>−0.070</td>
+<td>−0.007</td>
+<td>63</td>
+</tr>
+<tr>
+<td>10</td>
+<td>50</td>
+<td>−0.007</td>
+<td>0.044</td>
+<td>63</td>
+</tr>
+<tr>
+<td>11</td>
+<td>55</td>
+<td>0.044</td>
+<td>0.108</td>
+<td>63</td>
+</tr>
+<tr>
+<td>12</td>
+<td>60</td>
+<td>0.108</td>
+<td>0.173</td>
+<td>63</td>
+</tr>
+<tr>
+<td>13</td>
+<td>65</td>
+<td>0.173</td>
+<td>0.247</td>
+<td>63</td>
+</tr>
+<tr>
+<td>14</td>
+<td>70</td>
+<td>0.247</td>
+<td>0.343</td>
+<td>62</td>
+</tr>
+<tr>
+<td>15</td>
+<td>75</td>
+<td>0.343</td>
+<td>0.460</td>
+<td>63</td>
+</tr>
+<tr>
+<td>16</td>
+<td>80</td>
+<td>0.460</td>
+<td>0.575</td>
+<td>63</td>
+</tr>
+<tr>
+<td>17</td>
+<td>85</td>
+<td>0.575</td>
+<td>0.738</td>
+<td>63</td>
+</tr>
+<tr>
+<td>18</td>
+<td>90</td>
+<td>0.738</td>
+<td>0.991</td>
+<td>63</td>
+</tr>
+<tr>
+<td>19</td>
+<td>95</td>
+<td>0.991</td>
+<td>1.304</td>
+<td>63</td>
+</tr>
+<tr>
+<td>20</td>
+<td>100</td>
+<td>1.304</td>
+<td>5.001</td>
+<td>63</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Khoảng (<em>Bin</em>)</strong></th>
+<th><strong>Tỷ lệ phần trăm tích lũy của số ngày giao dịch mẫu (<em>Cumulative Percentage of Sample Trading Days</em>) (%)</strong></th>
+<th><strong>Tỷ suất sinh lợi hàng ngày (%) Cận dưới (<em>Lower Bound</em>)</strong></th>
+<th><strong>Tỷ suất sinh lợi hàng ngày (%) Cận trên (<em>Upper Bound</em>)</strong></th>
+<th><strong>Số lượng quan sát (<em>Number of Observations</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5</td>
+<td>−4.108</td>
+<td>−1.416</td>
+<td>63</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10</td>
+<td>−1.416</td>
+<td>−0.876</td>
+<td>63</td>
+</tr>
+<tr>
+<td>3</td>
+<td>15</td>
+<td>−0.876</td>
+<td>−0.629</td>
+<td>63</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td>−0.629</td>
+<td>−0.432</td>
+<td>63</td>
+</tr>
+<tr>
+<td>5</td>
+<td>25</td>
+<td>−0.432</td>
+<td>−0.293</td>
+<td>63</td>
+</tr>
+<tr>
+<td>6</td>
+<td>30</td>
+<td>−0.293</td>
+<td>−0.193</td>
+<td>63</td>
+</tr>
+<tr>
+<td>7</td>
+<td>35</td>
+<td>−0.193</td>
+<td>−0.124</td>
+<td>62</td>
+</tr>
+<tr>
+<td>8</td>
+<td>40</td>
+<td>−0.124</td>
+<td>−0.070</td>
+<td>63</td>
+</tr>
+<tr>
+<td>9</td>
+<td>45</td>
+<td>−0.070</td>
+<td>−0.007</td>
+<td>63</td>
+</tr>
+<tr>
+<td>10</td>
+<td>50</td>
+<td>−0.007</td>
+<td>0.044</td>
+<td>63</td>
+</tr>
+<tr>
+<td>11</td>
+<td>55</td>
+<td>0.044</td>
+<td>0.108</td>
+<td>63</td>
+</tr>
+<tr>
+<td>12</td>
+<td>60</td>
+<td>0.108</td>
+<td>0.173</td>
+<td>63</td>
+</tr>
+<tr>
+<td>13</td>
+<td>65</td>
+<td>0.173</td>
+<td>0.247</td>
+<td>63</td>
+</tr>
+<tr>
+<td>14</td>
+<td>70</td>
+<td>0.247</td>
+<td>0.343</td>
+<td>62</td>
+</tr>
+<tr>
+<td>15</td>
+<td>75</td>
+<td>0.343</td>
+<td>0.460</td>
+<td>63</td>
+</tr>
+<tr>
+<td>16</td>
+<td>80</td>
+<td>0.460</td>
+<td>0.575</td>
+<td>63</td>
+</tr>
+<tr>
+<td>17</td>
+<td>85</td>
+<td>0.575</td>
+<td>0.738</td>
+<td>63</td>
+</tr>
+<tr>
+<td>18</td>
+<td>90</td>
+<td>0.738</td>
+<td>0.991</td>
+<td>63</td>
+</tr>
+<tr>
+<td>19</td>
+<td>95</td>
+<td>0.991</td>
+<td>1.304</td>
+<td>63</td>
+</tr>
+<tr>
+<td>20</td>
+<td>100</td>
+<td>1.304</td>
+<td>5.001</td>
+<td>63</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Because of the continuous nature of returns, it is not likely for a return to fall on the boundary for any bin other than the minimum (Bin = 1) and maximum (Bin = 20).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do bản chất liên tục của tỷ suất sinh lợi, rất ít khả năng một mức tỷ suất sinh lợi rơi đúng vào ranh giới của bất kỳ khoảng (<em>bin</em>) nào ngoài mức tối thiểu (Bin = 1) và mức tối đa (Bin = 20).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using the data in Exhibit 4, complete the following tasks:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng dữ liệu trong Bảng minh họa 4, hãy hoàn thành các yêu cầu sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Identify the 10th and 90th percentiles.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Xác định bách phân vị thứ 10 và thứ 90 (<em>10th and 90th percentiles</em>).</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The 10th and 90th percentiles correspond to the bins or ranked returns that include 10 percent and 90 percent of the daily returns, respectively. The 10<sup>th</sup> percentile corresponds to the return of −0.876 percent (and includes returns of that much and lower), and the 90<sup>th</sup> percentile corresponds to the return of 0.991 percent (and lower).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bách phân vị thứ 10 và thứ 90 tương ứng với các khoảng hoặc các mức tỷ suất sinh lợi đã xếp hạng bao gồm lần lượt 10 phần trăm và 90 phần trăm tỷ suất sinh lợi hàng ngày. Bách phân vị thứ 10 tương ứng với mức tỷ suất sinh lợi −0.876 phần trăm (và bao gồm các mức tỷ suất sinh lợi bằng hoặc thấp hơn mức đó), và bách phân vị thứ 90 tương ứng với mức tỷ suất sinh lợi 0.991 phần trăm (và thấp hơn).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Identify the first, second, and third quintiles.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Xác định ngũ phân vị thứ nhất, thứ hai và thứ ba (<em>first, second, and third quintiles</em>).</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The first quintile corresponds to the lowest 20 percent of the ranked data, or −0.432 percent (and lower). The second quintile corresponds to the lowest 40 percent of the ranked data, or −0.070 percent (and lower).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ngũ phân vị thứ nhất tương ứng với 20 phần trăm thấp nhất của dữ liệu đã xếp hạng, tức là −0.432 phần trăm (và thấp hơn). Ngũ phân vị thứ hai tương ứng với 40 phần trăm thấp nhất của dữ liệu đã xếp hạng, tức là −0.070 phần trăm (và thấp hơn).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The third quintile corresponds to the lowest 60 percent of the ranked data, or 0.173 percent (and lower).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ngũ phân vị thứ ba tương ứng với 60 phần trăm thấp nhất của dữ liệu đã xếp hạng, tức là 0.173 phần trăm (và thấp hơn).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-103" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 103 / Trang PDF 103
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Identify the first and third quartiles.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Xác định tứ phân vị thứ nhất và thứ ba (<em>first and third quartiles</em>).</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The first quartile corresponds to the lowest 25 percent of the ranked data, or −0.293 percent (and lower). The third quartile corresponds to the lowest 75 percent of the ranked data, or 0.460 percent (and lower).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tứ phân vị thứ nhất tương ứng với 25 phần trăm thấp nhất của dữ liệu đã xếp hạng, tức là −0.293 phần trăm (và thấp hơn). Tứ phân vị thứ ba tương ứng với 75 phần trăm thấp nhất của dữ liệu đã xếp hạng, tức là 0.460 phần trăm (và thấp hơn).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Identify the median.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Xác định trung vị (<em>median</em>).</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The median is the return for which 50 percent of the data lies on either side, which is 0.044 percent, the highest daily return in the 10th bin out of 20.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trung vị là mức tỷ suất sinh lợi mà có 50 phần trăm dữ liệu nằm ở mỗi phía, tức là 0.044 phần trăm, mức tỷ suất sinh lợi hàng ngày cao nhất trong khoảng thứ 10 trên tổng số 20 khoảng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="5">
+<li>Calculate the interquartile range.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li>Tính khoảng tứ phân vị (<em>interquartile range</em>).</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The interquartile range is the difference between the third and first quartiles, 0.460 percent and −0.293 percent, or 0.753 percent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khoảng tứ phân vị là chênh lệch giữa tứ phân vị thứ ba và tứ phân vị thứ nhất, tức 0.460 phần trăm và −0.293 phần trăm, bằng 0.753 phần trăm (<span class="math-inline">$0.460\% - (-0.293\%) = 0.753\%$</span>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>One way to visualize the dispersion of data across quartiles is to use a diagram, such as a box and whisker chart. A <strong>box and whisker plot</strong> is shown in Exhibit 5. The “box” represents the lower bound of the second quartile and the upper bound of the third quartile, with the median or arithmetic average noted as a measure of central tendency of the entire distribution. The whiskers are the lines that run from the box and are bounded by the “fences,” which represent the lowest and highest values of the distribution.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một cách để trực quan hóa độ phân tán của dữ liệu qua các tứ phân vị là sử dụng sơ đồ, chẳng hạn như biểu đồ hộp và râu. Một <strong>biểu đồ hộp và râu (<em>box and whisker plot</em>)</strong> được thể hiện trong Bảng minh họa 5. Phần “hộp” (<em>box</em>) đại diện cho cận dưới của tứ phân vị thứ hai và cận trên của tứ phân vị thứ ba, với trung vị hoặc trung bình cộng được đánh dấu như một thước đo xu hướng trung tâm của toàn bộ phân phối. Phần “râu” (<em>whiskers</em>) là các đường thẳng chạy ra từ hộp và được giới hạn bởi các “hàng rào” (<em>fences</em>), đại diện cho các giá trị thấp nhất và cao nhất của phân phối.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 5: Box and Whisker Plot</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 5: Biểu đồ Hộp và Râu (<em>Box and Whisker Plot</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0103-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0103-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Highest Value:</strong> Giá trị cao nhất
+- <strong>Upper Boundary for <span class="math-inline">$Q_3$</span>:</strong> Cận trên của <span class="math-inline">$Q_3$</span>
+- <strong>Interquartile Range:</strong> Khoảng tứ phân vị
+- <strong>Median:</strong> Trung vị
+- <strong><span class="math-inline">$\times$</span> Arithmetic Average:</strong> Trung bình cộng
+- <strong>Lowest Boundary for <span class="math-inline">$Q_2$</span>:</strong> Cận dưới của <span class="math-inline">$Q_2$</span> (tức <span class="math-inline">$Q_1$</span>)
+- <strong>Lowest Value:</strong> Giá trị thấp nhất</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>There are several variations for box and whisker displays. For example, for ease in detecting potential outliers, the fences of the whiskers may be a function of the interquartile range instead of the highest and lowest values like that in Exhibit 5.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Có một số biến thể đối với cách hiển thị biểu đồ hộp và râu. Ví dụ, để dễ dàng phát hiện các giá trị ngoại lai tiềm ẩn, các hàng rào (<em>fences</em>) của phần râu có thể là một hàm số của khoảng tứ phân vị thay vì các giá trị cao nhất và thấp nhất như trong Bảng minh họa 5.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In Exhibit 5, visually, the interquartile range is the height of the box and the fences are set at extremes. But another form of box and whisker plot typically uses 1.5 times the interquartile range for the fences. Thus, the upper fence is 1.5 times the interquartile range added to the upper bound of <em>Q</em> 3, and the lower fence is 1.5 times the interquartile range subtracted from the lower bound of <em>Q</em> 2. Observations beyond the fences (i.e., outliers) may also be displayed.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong Bảng minh họa 5, xét về mặt trực quan, khoảng tứ phân vị là chiều cao của hộp và các hàng rào được đặt ở các giá trị cực trị. Nhưng một dạng khác của biểu đồ hộp và râu thường sử dụng 1.5 lần khoảng tứ phân vị cho các hàng rào. Do đó, hàng rào trên (<em>upper fence</em>) bằng 1.5 lần khoảng tứ phân vị cộng vào cận trên của <span class="math-inline">$Q_3$</span>, và hàng rào dưới (<em>lower fence</em>) bằng 1.5 lần khoảng tứ phân vị trừ đi khỏi cận dưới của <span class="math-inline">$Q_2$</span>. Các quan sát nằm ngoài các hàng rào (tức là các giá trị ngoại lai) cũng có thể được hiển thị.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can see the role of outliers in such a box and whisker plot using the EAA Equity Index daily returns, as shown in Exhibit 6.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể thấy vai trò của các giá trị ngoại lai trong một biểu đồ hộp và râu như vậy khi sử dụng tỷ suất sinh lợi hàng ngày của Chỉ số Cổ phiếu EAA, như được thể hiện trong Bảng minh họa 6.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-104" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 104 / Trang PDF 104
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 6: Box and Whisker Chart for EAA Equity Index Daily Returns</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Bảng minh họa 6: Biểu đồ Hộp và Râu cho Tỷ suất sinh lợi Hàng ngày của Chỉ số Cổ phiếu EAA (<em>Box and Whisker Chart for EAA Equity Index Daily Returns</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0104-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0104-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Daily Return (%):</strong> Tỷ suất sinh lợi hàng ngày (%)
+- <strong>Maximum of 5.001%:</strong> Giá trị tối đa 5.001%
+- <strong>1.589% (Upper Fence):</strong> 1.589% (Hàng rào trên)
+- <strong>(<span class="math-inline">$Q_3$</span> Upper Bound) 0.460%:</strong> (Cận trên <span class="math-inline">$Q_3$</span>) 0.460%
+- <strong>Median of 0.044%:</strong> Trung vị 0.044%
+- <strong>(<span class="math-inline">$Q_2$</span> Lower Bound) –0.293%:</strong> (Cận dưới <span class="math-inline">$Q_2$</span>) –0.293%
+- <strong>–1.422% (Lower Fence):</strong> –1.422% (Hàng rào dưới)
+- <strong>Minimum of –4.108%:</strong> Giá trị tối thiểu –4.108%</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 6 reveals the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng minh họa 6 cho thấy những điều sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>The maximum and minimum values of the distribution are 5.001 and −4.108, respectively, while the median (50th percentile) value is 0.044.</p>
+</li>
+<li>
+<p>The interquartile range is 0.753 [= 0.460 − (−0.293)], and when multiplied by 1.5 and added to the <em>Q</em> 3 upper bound of 0.460 gives an upper fence of 1.589 [= (1.5 × 0.753) + 0.460].</p>
+</li>
+<li>
+<p>The lower fence is determined in a similar manner, using the <em>Q</em> 2 lower bound, to be −1.422 [= −(1.5 × 0.753) + (−0.293)].</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Giá trị tối đa và tối thiểu của phân phối lần lượt là 5.001 và −4.108, trong khi giá trị trung vị (bách phân vị thứ 50) là 0.044.</p>
+</li>
+<li>
+<p>Khoảng tứ phân vị là <span class="math-inline">$0.753$</span> [<span class="math-inline">$= 0.460 - (-0.293)$</span>], và khi nhân với 1.5 rồi cộng vào cận trên <span class="math-inline">$Q_3$</span> là 0.460 sẽ cho ra hàng rào trên là <span class="math-inline">$1.589$</span> [<span class="math-inline">$= (1.5 \times 0.753) + 0.460$</span>].</p>
+</li>
+<li>
+<p>Hàng rào dưới được xác định theo cách tương tự, sử dụng cận dưới <span class="math-inline">$Q_2$</span>, là <span class="math-inline">$-1.422$</span> [<span class="math-inline">$= -(1.5 \times 0.753) + (-0.293)$</span>].</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As noted, any observation above (below) the upper (lower) fence is deemed to be an outlier.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Như đã lưu ý, bất kỳ quan sát nào nằm trên (dưới) hàng rào trên (hàng rào dưới) đều được coi là một giá trị ngoại lai (<em>outlier</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>Quantiles in Investment Practice</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>_Các Phân vị trong Thực tiễn Đầu tư (<em>Quantiles in Investment Practice</em>)_</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Quantiles are used in portfolio performance evaluation as well as in investment strategy development and research.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các phân vị được sử dụng trong việc đánh giá hiệu quả hoạt động của danh mục đầu tư cũng như trong việc phát triển và nghiên cứu chiến lược đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Investment analysts use quantiles to rank performance, such as the performance of assets, indexes, and portfolios. The performance of investment managers is often characterized in terms of the percentile in which their performance falls relative to the performance of their peer group of managers. The widely used Morningstar investment fund star rankings, for example, associate the number of stars with percentiles of performance metrics relative to similar-style investment funds.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các chuyên viên phân tích đầu tư sử dụng các phân vị để xếp hạng hiệu quả hoạt động, chẳng hạn như hiệu quả của các tài sản, chỉ số và danh mục đầu tư. Hiệu quả hoạt động của các nhà quản lý đầu tư thường được mô tả theo bách phân vị mà hiệu quả của họ rơi vào so với hiệu quả của nhóm các nhà quản lý đồng cấp (<em>peer group</em>). Ví dụ, hệ thống xếp hạng sao quỹ đầu tư của Morningstar được sử dụng rộng rãi đã gắn số lượng sao với các bách phân vị của các chỉ số đo lường hiệu quả so với các quỹ đầu tư có cùng phong cách.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Another key use of quantiles is in investment research. Dividing data into quantiles based on a specific objectively quantifiable characteristic, such as sales, market capitalization, or asset size allows analysts to evaluate the impact of that specific characteristic on a quantity of interest, such as asset returns, sales, growth, or valuation metrics. For instance, quantitatively driven investors often rank companies based on the market value of their equity, or their market capitalization, before sorting them into deciles. The first decile contains the portfolio of those companies with the smallest market values, usually called small capitalization companies. The tenth decile contains those companies with the largest market values, usually called large capitalization companies. Ranking companies by decile allows analysts to compare the absolute and relative performance of small market capitalization companies with large ones.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một ứng dụng quan trọng khác của các phân vị là trong nghiên cứu đầu tư. Việc chia dữ liệu thành các phân vị dựa trên một đặc tính cụ thể có thể định lượng khách quan—chẳng hạn như doanh thu, giá trị vốn hóa thị trường (<em>market capitalization</em>), hoặc quy mô tài sản—cho phép các chuyên viên phân tích đánh giá tác động của đặc tính cụ thể đó lên một đại lượng quan tâm, chẳng hạn như tỷ suất sinh lợi tài sản, doanh thu, tăng trưởng, hoặc các chỉ số định giá. Chẳng hạn, các nhà đầu tư định lượng thường xếp hạng các công ty dựa trên giá trị thị trường của vốn chủ sở hữu, hay giá trị vốn hóa thị trường của chúng, trước khi phân loại chúng thành các thập phân vị (<em>deciles</em>). Thập phân vị thứ nhất chứa danh mục các công ty có giá trị thị trường nhỏ nhất, thường được gọi là các công ty vốn hóa nhỏ (<em>small capitalization companies</em>). Thập phân vị thứ mười chứa các công ty có giá trị thị trường lớn nhất, thường được gọi là các công ty vốn hóa lớn (<em>large capitalization companies</em>). Việc xếp hạng các công ty theo thập phân vị cho phép các chuyên viên phân tích so sánh hiệu quả hoạt động tuyệt đối và tương đối của các công ty vốn hóa nhỏ so với các công ty vốn hóa lớn.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-105" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 105 / Trang PDF 105
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The histogram in Exhibit 7 shows a distribution of the annual returns for the S&amp;P 500 Index for a 50-year period.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Biểu đồ tần số trong Bảng minh họa 7 cho thấy phân phối tỷ suất sinh lợi hàng năm của Chỉ số S&amp;P 500 trong giai đoạn 50 năm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 7: Annual Returns for the S&amp;P 50 Index</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Bảng minh họa 7: Tỷ suất sinh lợi Hàng năm của Chỉ số S&amp;P 500 (<em>Annual Returns for the S&amp;P 500 Index</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0105-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0105-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Trục tung:</strong> Tần số (<em>Frequency</em>) từ 0 đến 8.
+- <strong>Trục hoành:</strong> Các khoảng tỷ suất sinh lợi (<em>Return Intervals (%)</em>) từ –37 đến 38.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>The bin containing the median return is:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> 3 percent to 8 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> 8 percent to 13 percent.</p>
+</li>
+<li>
+<p><strong>C.</strong> 13 percent to 18 percent.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Khoảng (<em>bin</em>) chứa tỷ suất sinh lợi trung vị (<em>median return</em>) là:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> 3 phần trăm đến 8 phần trăm.</p>
+</li>
+<li>
+<p><strong>B.</strong> 8 phần trăm đến 13 phần trăm.</p>
+</li>
+<li>
+<p><strong>C.</strong> 13 phần trăm đến 18 phần trăm.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. Because 50 data points are in the histogram, the median return would be the mean of the 50/2 = 25th and (50 + 2)/2 = 26th positions. The sum of the return bin frequencies to the left of the 13 percent to 18 percent interval is 24. As a result, the 25th and 26th returns will fall in the 13 percent to 18 percent interval.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Bởi vì có 50 điểm dữ liệu trong biểu đồ tần số, tỷ suất sinh lợi trung vị sẽ là trung bình cộng của vị trí thứ <span class="math-inline">$50/2 = 25$</span> và vị trí thứ <span class="math-inline">$(50 + 2)/2 = 26$</span>. Tổng tần số của các khoảng tỷ suất sinh lợi nằm bên trái khoảng từ 13 phần trăm đến 18 phần trăm là 24. Do đó, mức tỷ suất sinh lợi thứ 25 và 26 sẽ rơi vào khoảng từ 13 phần trăm đến 18 phần trăm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Based on Exhibit 7, the distribution would be <em>best</em> described as being:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> unimodal.</p>
+</li>
+<li>
+<p><strong>B.</strong> bimodal.</p>
+</li>
+<li>
+<p><strong>C.</strong> trimodal.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Dựa vào Bảng minh họa 7, phân phối này được mô tả <em>đúng nhất</em> là:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> một đỉnh (<em>unimodal</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> hai đỉnh (<em>bimodal</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> ba đỉnh (<em>trimodal</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. The mode of a distribution with data grouped in intervals is the interval with the highest frequency. The three intervals of 3 percent to 8</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Yếu vị (<em>mode</em>) của một phân phối có dữ liệu được nhóm theo các khoảng là khoảng có tần số cao nhất. Cả ba khoảng từ 3 phần trăm đến 8</p></div>
+                </div>
+                
+
+                <div id="pdf-page-106" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 106 / Trang PDF 106
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>percent, 18 percent to 23 percent, and 28 percent to 33 percent all have the highest frequency of 7.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>phần trăm, 18 phần trăm đến 23 phần trăm, và 28 phần trăm đến 33 phần trăm đều có tần số cao nhất là 7.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Consider the annual returns in Exhibit 8 for three portfolios for Portfolios P, Q and R. Portfolios P and R were created in Year 1, Portfolio Q was created in Year 2.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy xem xét tỷ suất sinh lợi hàng năm trong Bảng minh họa 8 của ba danh mục đầu tư P, Q và R. Danh mục P và R được tạo ra vào Năm 1, Danh mục Q được tạo ra vào Năm 2.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 8: Annual Portfolio Returns</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 8: Tỷ suất sinh lợi Hàng năm của Danh mục đầu tư (<em>Annual Portfolio Returns</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Year 1 (%)</strong></th>
+<th><strong>Year 2 (%)</strong></th>
+<th><strong>Year 3 (%)</strong></th>
+<th><strong>Year 4 (%)</strong></th>
+<th><strong>Year 5 (%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Portfolio P</td>
+<td>−3.0</td>
+<td>4.0</td>
+<td>5.0</td>
+<td>3.0</td>
+<td>7.0</td>
+</tr>
+<tr>
+<td>Portfolio Q</td>
+<td>NA</td>
+<td>−3.0</td>
+<td>6.0</td>
+<td>4.0</td>
+<td>8.0</td>
+</tr>
+<tr>
+<td>Portfolio R</td>
+<td>1.0</td>
+<td>−1.0</td>
+<td>4.0</td>
+<td>4.0</td>
+<td>3.0</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Năm 1 (%)</strong></th>
+<th><strong>Năm 2 (%)</strong></th>
+<th><strong>Năm 3 (%)</strong></th>
+<th><strong>Năm 4 (%)</strong></th>
+<th><strong>Năm 5 (%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Danh mục P</td>
+<td>−3.0</td>
+<td>4.0</td>
+<td>5.0</td>
+<td>3.0</td>
+<td>7.0</td>
+</tr>
+<tr>
+<td>Danh mục Q</td>
+<td>NA</td>
+<td>−3.0</td>
+<td>6.0</td>
+<td>4.0</td>
+<td>8.0</td>
+</tr>
+<tr>
+<td>Danh mục R</td>
+<td>1.0</td>
+<td>−1.0</td>
+<td>4.0</td>
+<td>4.0</td>
+<td>3.0</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>The median annual return for:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Portfolio P is 4.5 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> Portfolio Q is 4.0 percent.</p>
+</li>
+<li>
+<p><strong>C.</strong> Portfolio R is higher than its arithmetic mean annual return.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Tỷ suất sinh lợi hàng năm trung vị (<em>median annual return</em>) của:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Danh mục P là 4.5 phần trăm.</p>
+</li>
+<li>
+<p><strong>B.</strong> Danh mục Q là 4.0 phần trăm.</p>
+</li>
+<li>
+<p><strong>C.</strong> Danh mục R cao hơn tỷ suất sinh lợi trung bình cộng hàng năm của nó.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. The median of Portfolio R is 0.8 percent higher than the mean for Portfolio R. A is incorrect because the median annual return for Portfolio P is 4.0 percent. B is incorrect because the median annual return for Portfolio Q is 5.0 percent (midpoint of 4 percent and 6 percent).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Trung vị của Danh mục R (3.0%) cao hơn 0.8 phần trăm so với trung bình cộng của Danh mục R (2.2%). A sai vì tỷ suất sinh lợi hàng năm trung vị của Danh mục P là 4.0 phần trăm. B sai vì tỷ suất sinh lợi hàng năm trung vị của Danh mục Q là 5.0 phần trăm (điểm giữa của 4 phần trăm và 6 phần trăm).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>The mode for Portfolio R is:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> 1.0 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> 3.0 percent.</p>
+</li>
+<li>
+<p><strong>C.</strong> 4.0 percent.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Yếu vị (<em>mode</em>) của Danh mục R là:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> 1.0 phần trăm.</p>
+</li>
+<li>
+<p><strong>B.</strong> 3.0 phần trăm.</p>
+</li>
+<li>
+<p><strong>C.</strong> 4.0 phần trăm.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. The mode is the most frequently occurring value in a dataset, which for Portfolio R is 4.0 percent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Yếu vị là giá trị xuất hiện thường xuyên nhất trong một tập dữ liệu, đối với Danh mục R là 4.0 phần trăm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A fund had the following returns over the past 10 years:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một quỹ đầu tư có các mức tỷ suất sinh lợi sau đây trong 10 năm qua:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 9: Fund Returns for 10 Years</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 9: Tỷ suất sinh lợi của Quỹ trong 10 năm (<em>Fund Returns for 10 Years</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Year</strong></th>
+<th><strong>Return</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.0%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−2.0%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.0%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.5%</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2.5%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Năm (<em>Year</em>)</strong></th>
+<th><strong>Tỷ suất sinh lợi (<em>Return</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.0%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−2.0%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.0%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.5%</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2.5%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-107" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 107 / Trang PDF 107
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0107-02.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0107-02.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>(Tiếp theo Bảng minh họa 9)</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Năm (<em>Year</em>)</strong></th>
+<th><strong>Tỷ suất sinh lợi (<em>Return</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9</td>
+<td>5.5%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>4.0%</td>
+</tr>
+</tbody>
+</table></div>
+<ol start="5">
+<li>Tỷ suất sinh lợi trung bình cộng (<em>arithmetic mean return</em>) của quỹ trong 10 năm <em>gần nhất</em> với:
+   - <strong>A.</strong> 2.97 phần trăm.
+   - <strong>B.</strong> 3.00 phần trăm.
+   - <strong>C.</strong> 3.33 phần trăm.</li>
+</ol>
+<ul>
+<li><strong>Lời giải:</strong></li>
+</ul>
+<p>B là đáp án đúng. Tổng các mức tỷ suất sinh lợi là 30.0 phần trăm, do đó trung bình cộng là <span class="math-inline">$30.0\% / 10 = 3.0\%$</span>.</p>
+<ol start="6">
+<li>Tỷ suất sinh lợi trung bình nhân (<em>geometric mean return</em>) của quỹ trong 10 năm <em>gần nhất</em> với:
+   - <strong>A.</strong> 2.94 phần trăm.
+   - <strong>B.</strong> 2.97 phần trăm.
+   - <strong>C.</strong> 3.00 phần trăm.</li>
+</ol>
+<ul>
+<li><strong>Lời giải:</strong></li>
+</ul>
+<p>B là đáp án đúng. Tỷ suất sinh lợi trung bình nhân được tính như sau:</p>
+<div class="math-display my-3 overflow-x-auto">$$\bar{R}_G = \sqrt[10]{(1 + 0.045) \times (1 + 0.06) \times \dots \times (1 + 0.055) \times (1 + 0.04)} - 1$$</div>
+<div class="math-display my-3 overflow-x-auto">$$\bar{R}_G = \sqrt[10]{1.3402338} - 1 = 2.9717\%$$</div>
+<ol start="7">
+<li>Tỷ suất sinh lợi trung bình điều hòa (<em>harmonic mean return</em>) trong 10 năm <em>gần nhất</em> với:
+   - <strong>A.</strong> 2.94 phần trăm.
+   - <strong>B.</strong> 2.97 phần trăm.
+   - <strong>C.</strong> 3.00 phần trăm.</li>
+</ol>
+<ul>
+<li><strong>Lời giải:</strong></li>
+</ul>
+<p>A là đáp án đúng. Trung bình điều hòa được tính như sau:</p>
+<div class="math-display my-3 overflow-x-auto">$$\bar{X}_H = \frac{n}{\sum_{i=1}^{n} \left(\frac{1}{1 + r_i}\right)} - 1$$</div>
+<div class="math-display my-3 overflow-x-auto">$$\bar{X}_H = \frac{10}{\left(\frac{1}{1.045}\right) + \left(\frac{1}{1.06}\right) + \dots + \left(\frac{1}{1.055}\right) + \left(\frac{1}{1.04}\right)} - 1$$</div>
+<div class="math-display my-3 overflow-x-auto">$$\bar{X}_H = \left(\frac{10}{9.714}\right) - 1 = 2.9442\%$$</div>
+<p>Hãy xem xét biểu đồ hộp và râu trong Bảng minh họa 10:</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM02_Part4_Solutions.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM02_Part4_Solutions</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM03_Part2_Measures_of_Dispersion.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM03_Part2_Measures_of_Dispersion →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM03_Part1_Introduction.html');
+    });
+  </script>
+</body>
+</html>

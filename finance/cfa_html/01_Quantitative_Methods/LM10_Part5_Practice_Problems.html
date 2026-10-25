@@ -1,0 +1,2946 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 10 Simple Linear Regression - Part 5: Practice Problems — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 10 Simple Linear Regression - Part 5: Practice Problems</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM10_Full_Simple_Linear_Regression.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (12 trang)...</option>
+          <option value="318">PDF Page 318</option>
+<option value="319">PDF Page 319</option>
+<option value="320">PDF Page 320</option>
+<option value="321">PDF Page 321</option>
+<option value="322">PDF Page 322</option>
+<option value="323">PDF Page 323</option>
+<option value="324">PDF Page 324</option>
+<option value="325">PDF Page 325</option>
+<option value="326">PDF Page 326</option>
+<option value="327">PDF Page 327</option>
+<option value="328">PDF Page 328</option>
+<option value="329">PDF Page 329</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 10 Simple Linear Regression - Part 5: Practice Problems</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM10_Part5_Practice_Problems.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 10 Simple Linear Regression</h2>
+<h3>Part 5/6: Practice Problems (PDF Pages 318–329)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Các Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 10: Hồi quy Tuyến tính Đơn (<em>Simple Linear Regression</em>)</h2>
+<h3>Phần 5/6: Bài tập Thực hành (Trang PDF 318–329)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-318" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 318 / Trang PDF 318
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~PRACTICE PROBLEMS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 1-3</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 1–3</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An analyst has estimated a model that regresses a company’s return on equity (ROE) against its growth opportunities (GO), defined as the company’s three-year compounded annual growth rate in sales, over 20 years, and produces the following estimated simple linear regression:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một nhà phân tích đã ước lượng một mô hình hồi quy tỷ suất sinh lợi trên vốn chủ sở hữu (ROE) của một công ty theo cơ hội tăng trưởng (GO) của công ty đó, được định nghĩa là tốc độ tăng trưởng kép hàng năm (<em>compounded annual growth rate</em> – CAGR) trong ba năm của doanh số bán hàng, trong giai đoạn 20 năm, và đưa ra hồi quy tuyến tính đơn ước lượng sau đây:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>ROEi = 4 + 1.8 GOi + εi.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\text{ROE}_i = 4 + 1.8 \text{GO}_i + \varepsilon_i$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Both variables are stated in percentages, so a GO observation of 5 percent is included as 5.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cả hai biến số đều được tính bằng phần trăm, vì vậy một quan sát GO bằng 5% được đưa vào mô hình là 5.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> The predicted value of the company’s ROE if its GO is 10 percent is closest to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Giá trị dự báo của ROE của công ty nếu GO của công ty là 10% <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 1.8 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> 15.8 percent.</p>
+</li>
+<li>
+<p><strong>C.</strong> 22.0 percent.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 1,8%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 15,8%.</p>
+</li>
+<li>
+<p><strong>C.</strong> 22,0%.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> The change in ROE for a change in GO from 5 percent to 6 percent is closest to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Mức thay đổi trong ROE khi GO thay đổi từ 5% lên 6% <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 1.8 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> 4.0 percent.</p>
+</li>
+<li>
+<p><strong>C.</strong> 5.8 percent.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 1,8%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 4,0%.</p>
+</li>
+<li>
+<p><strong>C.</strong> 5,8%.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> The residual in the case of a <em>GO</em> of 8 percent and an observed <em>ROE</em> of 21 percent is closest to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Phần dư (<em>residual</em>) trong trường hợp <span class="math-inline">$\text{GO}$</span> bằng 8% và <span class="math-inline">$\text{ROE}$</span> quan sát được bằng 21% <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> −1.8 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> 2.6 percent.</p>
+</li>
+<li>
+<p><strong>C.</strong> 12.0 percent.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> −1,8%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 2,6%.</p>
+</li>
+<li>
+<p><strong>C.</strong> 12,0%.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>4.</strong> Homoskedasticity is best described as the situation in which the variance of the residuals of a regression is:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>4.</strong> Phương sai sai số không đổi (<em>Homoskedasticity</em>) được mô tả đúng nhất là tình huống trong đó phương sai của phần dư của một hồi quy:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> zero.</p>
+</li>
+<li>
+<p><strong>B.</strong> normally distributed.</p>
+</li>
+<li>
+<p><strong>C.</strong> constant across observations.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> bằng 0.</p>
+</li>
+<li>
+<p><strong>B.</strong> có phân phối chuẩn.</p>
+</li>
+<li>
+<p><strong>C.</strong> không đổi qua các quan sát.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-319" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 319 / Trang PDF 319
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 5-8</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 5–8</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An analyst is examining the annual growth of the money supply for a country over the past 30 years. This country experienced a central bank policy shift 15 years ago, which altered the approach to the management of the money supply. The analyst estimated a model using the annual growth rate in the money supply regressed on the variable (SHIFT) that takes on a value of 0 before the policy shift and 1 after. She estimated the values in Exhibit 1:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một nhà phân tích đang kiểm tra tốc độ tăng trưởng cung tiền hàng năm của một quốc gia trong 30 năm qua. Quốc gia này đã trải qua một sự thay đổi chính sách của ngân hàng trung ương cách đây 15 năm, làm thay đổi cách tiếp cận quản lý cung tiền. Nhà phân tích đã ước lượng một mô hình sử dụng tốc độ tăng trưởng hàng năm của cung tiền được hồi quy theo biến số (<span class="math-inline">$\text{SHIFT}$</span>) nhận giá trị bằng 0 trước khi thay đổi chính sách và bằng 1 sau khi thay đổi chính sách. Cô ấy đã ước lượng các giá trị trong Bảng 1:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: SHIFT Estimates</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 1: Các Ước lượng với Biến SHIFT</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Coefficients</strong></th>
+<th><strong>Standard Error</strong></th>
+<th><strong><em>t</em>-Stat.</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intercept</td>
+<td>5.767264</td>
+<td>0.445229</td>
+<td>12.95348</td>
+</tr>
+<tr>
+<td>SHIFT</td>
+<td>−5.13912</td>
+<td>0.629649</td>
+<td>−8.16188</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Các hệ số (<em>Coefficients</em>)</strong></th>
+<th><strong>Sai số chuẩn (<em>Standard Error</em>)</strong></th>
+<th><strong>Thống kê <span class="math-inline">$t$</span> (<em><span class="math-inline">$t$</span>-Stat.</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hệ số chặn (<em>Intercept</em>)</td>
+<td>5.767264</td>
+<td>0.445229</td>
+<td>12.95348</td>
+</tr>
+<tr>
+<td>SHIFT</td>
+<td>−5.13912</td>
+<td>0.629649</td>
+<td>−8.16188</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Critical t-values, level of significance of 0.05: eOne-sided, left side:</em> −1.701 <em>fOne-sided, right side:</em> +1.701 <em>gTwo-sided:</em> ±2.048</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Giá trị <span class="math-inline">$t$</span> tới hạn, mức ý nghĩa 0,05:</em>
+<em>Một phía, bên trái: <span class="math-inline">$-1.701$</span> | Một phía, bên phải: <span class="math-inline">$+1.701$</span> | Hai phía: <span class="math-inline">$\pm 2.048$</span></em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>5.</strong> The variable SHIFT is best described as:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>5.</strong> Biến số <span class="math-inline">$\text{SHIFT}$</span> được mô tả đúng nhất là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> an indicator variable.</p>
+</li>
+<li>
+<p><strong>B.</strong> a dependent variable.</p>
+</li>
+<li>
+<p><strong>C.</strong> a continuous variable.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> một biến chỉ báo (<em>indicator variable</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> một biến phụ thuộc (<em>dependent variable</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> một biến liên tục (<em>continuous variable</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>6.</strong> The interpretation of the intercept is the mean of the annual growth rate of the money supply:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>6.</strong> Ý nghĩa giải thích của hệ số chặn (<em>intercept</em>) là giá trị trung bình của tốc độ tăng trưởng cung tiền hàng năm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> before the shift in policy.</p>
+</li>
+<li>
+<p><strong>B.</strong> over the entire period.</p>
+</li>
+<li>
+<p><strong>C.</strong> after the shift in policy.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> trước khi thay đổi chính sách.</p>
+</li>
+<li>
+<p><strong>B.</strong> trong toàn bộ giai đoạn.</p>
+</li>
+<li>
+<p><strong>C.</strong> sau khi thay đổi chính sách.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>7.</strong> The interpretation of the slope is the:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>7.</strong> Ý nghĩa giải thích của hệ số góc (<em>slope</em>) là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> change in the annual growth rate of the money supply per year.</p>
+</li>
+<li>
+<p><strong>B.</strong> average annual growth rate of the money supply after the shift in policy.</p>
+</li>
+<li>
+<p><strong>C.</strong> difference in the average annual growth rate of the money supply from before to after the shift in policy.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> mức thay đổi trong tốc độ tăng trưởng cung tiền hàng năm qua mỗi năm.</p>
+</li>
+<li>
+<p><strong>B.</strong> tốc độ tăng trưởng cung tiền trung bình hàng năm sau khi thay đổi chính sách.</p>
+</li>
+<li>
+<p><strong>C.</strong> sự chênh lệch trong tốc độ tăng trưởng cung tiền trung bình hàng năm từ trước sang sau khi thay đổi chính sách.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>8.</strong> Testing whether there is a change in the money supply growth after the shift in policy, using a 0.05 level of significance, we conclude that there is:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>8.</strong> Kiểm định xem liệu có sự thay đổi trong tăng trưởng cung tiền sau khi thay đổi chính sách hay không, sử dụng mức ý nghĩa <span class="math-inline">$0.05$</span>, chúng ta kết luận rằng:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> sufficient evidence that the money supply growth changed.</p>
+</li>
+<li>
+<p><strong>B.</strong> not enough evidence that the money supply growth is different from zero.</p>
+</li>
+<li>
+<p><strong>C.</strong> not enough evidence to indicate that the money supply growth changed.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> có đủ bằng chứng cho thấy tăng trưởng cung tiền đã thay đổi.</p>
+</li>
+<li>
+<p><strong>B.</strong> không có đủ bằng chứng cho thấy tăng trưởng cung tiền khác 0.</p>
+</li>
+<li>
+<p><strong>C.</strong> không có đủ bằng chứng để chỉ ra rằng tăng trưởng cung tiền đã thay đổi.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-320" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 320 / Trang PDF 320
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 9-12</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 9–12</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Kenneth McCoin, CFA, is a challenging interviewer. Last year, he handed each job applicant a sheet of paper with the information in Exhibit 1, and he then asked several questions about regression analysis. Some of McCoin’s questions, along with a sample of the answers he received to each, are given below. McCoin told the applicants that the independent variable is the ratio of net income to sales for restaurants with a market cap of more than $100 million and the dependent variable is the ratio of cash flow from operations to sales for those restaurants. Which of the choices provided is the best answer to each of McCoin’s questions?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Kenneth McCoin, CFA, là một người phỏng vấn đầy thử thách. Năm ngoái, ông đã đưa cho mỗi ứng viên xin việc một tờ giấy có thông tin trong Bảng 1, và sau đó ông hỏi một số câu hỏi về phân tích hồi quy. Một số câu hỏi của McCoin, cùng với một mẫu các câu trả lời mà ông nhận được cho từng câu hỏi, được đưa ra dưới đây. McCoin nói với các ứng viên rằng biến độc lập là tỷ lệ lợi nhuận ròng trên doanh thu (<em>ratio of net income to sales</em>) của các nhà hàng có vốn hóa thị trường trên 100 triệu đô la và biến phụ thuộc là tỷ lệ dòng tiền từ hoạt động kinh doanh trên doanh thu (<em>ratio of cash flow from operations to sales</em>) của các nhà hàng đó. Lựa chọn nào được cung cấp dưới đây là câu trả lời đúng nhất cho từng câu hỏi của McCoin?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Regression Analysis</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 1: Phân tích Hồi quy (<em>Regression Analysis</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Regression Statistics</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>R</em><sup>2</sup></td>
+<td>0.7436</td>
+</tr>
+<tr>
+<td>Standard error</td>
+<td>0.0213</td>
+</tr>
+<tr>
+<td>Observations</td>
+<td>24</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Thống kê Hồi quy (<em>Regression Statistics</em>)</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math-inline">$R^2$</span></td>
+<td>0.7436</td>
+</tr>
+<tr>
+<td>Sai số chuẩn (<em>Standard error</em>)</td>
+<td>0.0213</td>
+</tr>
+<tr>
+<td>Số quan sát (<em>Observations</em>)</td>
+<td>24</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0320-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0320-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th><strong>Sum of</strong></th>
+<th><strong>Mean</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td><strong>df</strong></td>
+<td><strong>Squares</strong></td>
+<td><strong>Square</strong></td>
+<td><strong><em>F</em></strong></td>
+<td><strong><em>p</em>-Value</strong></td>
+</tr>
+<tr>
+<td>Regression</td>
+<td>1</td>
+<td>0.029</td>
+<td>0.029000</td>
+<td>63.81</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Residual</td>
+<td>22</td>
+<td>0.010</td>
+<td>0.000455</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Total</td>
+<td>23</td>
+<td>0.040</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nguồn (<em>Source</em>)</strong></th>
+<th><strong>Bậc tự do (<em>df</em>)</strong></th>
+<th><strong>Tổng bình phương (<em>Sum of Squares</em>)</strong></th>
+<th><strong>Trung bình bình phương (<em>Mean Square</em>)</strong></th>
+<th><strong><span class="math-inline">$F$</span></strong></th>
+<th><strong>Trị số <span class="math-inline">$p$</span> (<em><span class="math-inline">$p$</span>-Value</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hồi quy (<em>Regression</em>)</td>
+<td>1</td>
+<td>0.029</td>
+<td>0.029000</td>
+<td>63.81</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Phần dư (<em>Residual</em>)</td>
+<td>22</td>
+<td>0.010</td>
+<td>0.000455</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td>23</td>
+<td>0.040</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Coefficients</strong></th>
+<th><strong>Standard</strong><br><strong>Error</strong></th>
+<th><strong><em>t</em>-Statistic</strong></th>
+<th><strong><em>p</em>-Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intercept</td>
+<td>0.077</td>
+<td>0.007</td>
+<td>11.328</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Net income to</td>
+<td>0.826</td>
+<td>0.103</td>
+<td>7.988</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sales (%)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Các hệ số (<em>Coefficients</em>)</strong></th>
+<th><strong>Sai số chuẩn (<em>Standard Error</em>)</strong></th>
+<th><strong>Thống kê <span class="math-inline">$t$</span> (<em><span class="math-inline">$t$</span>-Statistic</em>)</strong></th>
+<th><strong>Trị số <span class="math-inline">$p$</span> (<em><span class="math-inline">$p$</span>-Value</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hệ số chặn (<em>Intercept</em>)</td>
+<td>0.077</td>
+<td>0.007</td>
+<td>11.328</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Lợi nhuận ròng trên doanh thu (%)</td>
+<td>0.826</td>
+<td>0.103</td>
+<td>7.988</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>9.</strong> The coefficient of determination is <em>closest</em> to:</p>
+<ul>
+<li><strong>A.</strong> 0.7436.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>9.</strong> Hệ số xác định (<em>coefficient of determination</em>) <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>B.</strong> 0.8261.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 0,7436.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0,8261.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0,8623.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> 0.8623.</p>
+<p><strong>10.</strong> The correlation between <em>X</em> and <em>Y</em> is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>10.</strong> Hệ số tương quan giữa <span class="math-inline">$X$</span> và <span class="math-inline">$Y$</span> <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>A.</strong> −0.7436.</li>
+</ul>
+<p><strong>B.</strong> 0.7436.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> −0,7436.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0,7436.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0,8623.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> 0.8623.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>11.</strong> Nếu tỷ lệ lợi nhuận ròng trên doanh thu của một nhà hàng là 5%, tỷ lệ dòng tiền từ hoạt động kinh doanh (CFO) trên doanh thu dự báo <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>11.</strong> If the ratio of net income to sales for a restaurant is 5 percent, the predicted ratio of cash flow from operations (CFO) to sales is <em>closest</em> to:</p>
+<ul>
+<li><strong>A.</strong> −4.054.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> −4,054.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-321" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 321 / Trang PDF 321
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>B.</strong> 0.524.</p>
+</li>
+<li>
+<p><strong>C.</strong> 4.207.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>B.</strong> 0,524.</p>
+</li>
+<li>
+<p><strong>C.</strong> 4,207.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>12.</strong> Is the relationship between the ratio of cash flow to operations and the ratio of net income to sales significant at the 0.05 level?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>12.</strong> Mối quan hệ giữa tỷ lệ dòng tiền từ hoạt động kinh doanh trên doanh thu và tỷ lệ lợi nhuận ròng trên doanh thu có ý nghĩa thống kê tại mức 0,05 hay không?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> No, because the <em>R</em><sup>2</sup> is greater than 0.05</p>
+</li>
+<li>
+<p><strong>B.</strong> No, because the <em>p</em> -values of the intercept and slope are less than 0.05</p>
+</li>
+<li>
+<p><strong>C.</strong> Yes, because the <em>p</em> -values for <em>F</em> and <em>t</em> for the slope coefficient are less than 0.05</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Không, bởi vì <span class="math-inline">$R^2$</span> lớn hơn 0,05.</p>
+</li>
+<li>
+<p><strong>B.</strong> Không, bởi vì trị số <span class="math-inline">$p$</span> của hệ số chặn và hệ số góc nhỏ hơn 0,05.</p>
+</li>
+<li>
+<p><strong>C.</strong> Có, bởi vì các trị số <span class="math-inline">$p$</span> cho <span class="math-inline">$F$</span> và <span class="math-inline">$t$</span> của hệ số góc nhỏ hơn 0,05.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 13-17</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 13–17</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Howard Golub, CFA, is preparing to write a research report on Stellar Energy Corp. common stock. One of the world’s largest companies, Stellar is in the business of refining and marketing oil. As part of his analysis, Golub wants to evaluate the sensitivity of the stock’s returns to various economic factors. For example, a client recently asked Golub whether the price of Stellar Energy Corp. stock has tended to rise following increases in retail energy prices. Golub believes the association between the two variables is negative, but he does not know the strength of the association.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Howard Golub, CFA, đang chuẩn bị viết một báo cáo nghiên cứu về cổ phiếu phổ thông của Stellar Energy Corp. Là một trong những công ty lớn nhất thế giới, Stellar hoạt động trong lĩnh vực lọc dầu và tiếp thị dầu mỏ. Như một phần trong phân tích của mình, Golub muốn đánh giá độ nhạy cảm của tỷ suất sinh lợi cổ phiếu đối với các yếu tố kinh tế khác nhau. Ví dụ, một khách hàng gần đây đã hỏi Golub liệu giá cổ phiếu của Stellar Energy Corp. có xu hướng tăng sau các đợt tăng giá năng lượng bán lẻ hay không. Golub tin rằng mối liên hệ giữa hai biến số là âm (ngược chiều), nhưng ông không biết độ mạnh của mối liên hệ này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Golub directs his assistant, Jill Batten, to study the relationships between (1) Stellar monthly common stock returns and the previous month’s percentage change in the US Consumer Price Index for Energy (CPIENG) and (2) Stellar monthly common stock returns and the previous month’s percentage change in the US Producer Price Index for Crude Energy Materials (PPICEM). Golub wants Batten to run both a correlation and a linear regression analysis. In response, Batten compiles the summary statistics shown in Exhibit 1 for 248 months. All the data are in decimal form, where 0.01 indicates a 1 percent return. Batten also runs a regression analysis using Stellar monthly returns as the dependent variable and the monthly change in CPIENG as the independent variable. Exhibit 2 displays the results of this regression model.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Golub chỉ đạo trợ lý của mình, Jill Batten, nghiên cứu mối quan hệ giữa (1) tỷ suất sinh lợi cổ phiếu phổ thông hàng tháng của Stellar và mức thay đổi phần trăm của tháng trước trong Chỉ số Giá Tiêu dùng Năng lượng Hoa Kỳ (CPIENG) và (2) tỷ suất sinh lợi cổ phiếu phổ thông hàng tháng của Stellar và mức thay đổi phần trăm của tháng trước trong Chỉ số Giá Sản xuất Vật liệu Năng lượng Thô Hoa Kỳ (PPICEM). Golub muốn Batten chạy cả phân tích tương quan và phân tích hồi quy tuyến tính. Để đáp lại, Batten tổng hợp các thống kê tóm tắt được trình bày trong Bảng 1 cho 248 tháng. Tất cả dữ liệu đều ở dạng thập phân, trong đó <span class="math-inline">$0.01$</span> biểu thị mức tỷ suất sinh lợi 1%. Batten cũng chạy phân tích hồi quy sử dụng tỷ suất sinh lợi hàng tháng của Stellar làm biến phụ thuộc và mức thay đổi hàng tháng trong CPIENG làm biến độc lập. Bảng 2 hiển thị kết quả của mô hình hồi quy này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Exhibit 1: Descriptive Statistics</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Bảng 1: Thống kê Mô tả (<em>Descriptive Statistics</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Stellar Common</strong><br><strong>Stock Monthly</strong><br><strong>Return</strong></th>
+<th><strong>Lagged Mon</strong><br><strong>CPIENG</strong></th>
+<th><strong>thly Change</strong><br><strong>PPICEM</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean</td>
+<td>0.0123</td>
+<td>0.0023</td>
+<td>0.0042</td>
+</tr>
+<tr>
+<td>Standard deviation</td>
+<td>0.0717</td>
+<td>0.0160</td>
+<td>0.0534</td>
+</tr>
+<tr>
+<td>Covariance, Stellar vs. CPIENG</td>
+<td>−0.00017</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Covariance, Stellar vs. PPICEM</td>
+<td>−0.00048</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Covariance, CPIENG vs. PPICEM</td>
+<td>0.00044</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Correlation, Stellar vs. CPIENG</td>
+<td>−0.1452</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Tỷ suất sinh lợi hàng tháng cổ phiếu phổ thông Stellar</strong></th>
+<th><strong>Thay đổi hàng tháng có độ trễ: CPIENG</strong></th>
+<th><strong>Thay đổi hàng tháng có độ trễ: PPICEM</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trung bình (<em>Mean</em>)</td>
+<td>0.0123</td>
+<td>0.0023</td>
+<td>0.0042</td>
+</tr>
+<tr>
+<td>Độ lệch chuẩn (<em>Standard deviation</em>)</td>
+<td>0.0717</td>
+<td>0.0160</td>
+<td>0.0534</td>
+</tr>
+<tr>
+<td>Hiệp phương sai (<em>Covariance</em>), Stellar vs. CPIENG</td>
+<td>−0.00017</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Hiệp phương sai (<em>Covariance</em>), Stellar vs. PPICEM</td>
+<td>−0.00048</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Hiệp phương sai (<em>Covariance</em>), CPIENG vs. PPICEM</td>
+<td>0.00044</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Hệ số tương quan (<em>Correlation</em>), Stellar vs. CPIENG</td>
+<td>−0.1452</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-322" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 322 / Trang PDF 322
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Exhibit 2: Regression Analysis with CPIENG</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Bảng 2: Phân tích Hồi quy với CPIENG</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Regression Statistics</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>R</em><sup>2</sup></td>
+<td>0.0211</td>
+<td></td>
+</tr>
+<tr>
+<td>Standard error of the estimate</td>
+<td>0.0710</td>
+<td></td>
+</tr>
+<tr>
+<td>Observations</td>
+<td>248</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Coefficients</strong><br><strong>Standard</strong><br><strong>Error</strong></td>
+<td><strong><em>t</em>-Statistic</strong></td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>0.0138<br>0.0046</td>
+<td>3.0275</td>
+</tr>
+<tr>
+<td>CPIENG (%)</td>
+<td>−0.6486<br>0.2818</td>
+<td>−2.3014</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Thống kê Hồi quy (<em>Regression Statistics</em>)</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math-inline">$R^2$</span></td>
+<td>0.0211</td>
+<td></td>
+</tr>
+<tr>
+<td>Sai số chuẩn của ước lượng (<em>Standard error of the estimate</em>)</td>
+<td>0.0710</td>
+<td></td>
+</tr>
+<tr>
+<td>Số quan sát (<em>Observations</em>)</td>
+<td>248</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Các hệ số (<em>Coefficients</em>)</strong></td>
+<td><strong>Sai số chuẩn (<em>Standard Error</em>)</strong></td>
+</tr>
+<tr>
+<td>Hệ số chặn (<em>Intercept</em>)</td>
+<td>0.0138</td>
+<td>0.0046</td>
+</tr>
+<tr>
+<td>CPIENG (%)</td>
+<td>−0.6486</td>
+<td>0.2818</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Critical t-values One-sided, left side:</em> −1.651 <em>One-sided, right side:</em> +1.651 <em>Two-sided:</em> ±1.967</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Giá trị <span class="math-inline">$t$</span> tới hạn: Một phía, bên trái: <span class="math-inline">$-1.651$</span> | Một phía, bên phải: <span class="math-inline">$+1.651$</span> | Hai phía: <span class="math-inline">$\pm 1.967$</span></em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>13.</strong> Which of the following best describes Batten’s regression?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>13.</strong> Câu nào sau đây mô tả đúng nhất hồi quy của Batten?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Time-series regression</p>
+</li>
+<li>
+<p><strong>B.</strong> Cross-sectional regression</p>
+</li>
+<li>
+<p><strong>C.</strong> Time-series and cross-sectional regression</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Hồi quy chuỗi thời gian (<em>Time-series regression</em>)</p>
+</li>
+<li>
+<p><strong>B.</strong> Hồi quy dữ liệu chéo (<em>Cross-sectional regression</em>)</p>
+</li>
+<li>
+<p><strong>C.</strong> Hồi quy chuỗi thời gian và dữ liệu chéo (<em>Time-series and cross-sectional regression</em>)</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>14.</strong> Based on the regression, if the CPIENG <em>decreases</em> by 1.0 percent, the expected return on Stellar common stock during the next period is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>14.</strong> Dựa trên hồi quy, nếu CPIENG <em>giảm</em> 1,0%, tỷ suất sinh lợi kỳ vọng trên cổ phiếu phổ thông của Stellar trong kỳ tiếp theo <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 0.0073 (0.73 percent).</p>
+</li>
+<li>
+<p><strong>B.</strong> 0.0138 (1.38 percent).</p>
+</li>
+<li>
+<p><strong>C.</strong> 0.0203 (2.03 percent).</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 0,0073 (0,73%).</p>
+</li>
+<li>
+<p><strong>B.</strong> 0,0138 (1,38%).</p>
+</li>
+<li>
+<p><strong>C.</strong> 0,0203 (2,03%).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>15.</strong> Based on Batten’s regression model, the coefficient of determination indicates that:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>15.</strong> Dựa trên mô hình hồi quy của Batten, hệ số xác định chỉ ra rằng:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Stellar’s returns explain 2.11 percent of the variability in CPIENG.</p>
+</li>
+<li>
+<p><strong>B.</strong> Stellar’s returns explain 14.52 percent of the variability in CPIENG.</p>
+</li>
+<li>
+<p><strong>C.</strong> changes in CPIENG explain 2.11 percent of the variability in Stellar’s returns.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> tỷ suất sinh lợi của Stellar giải thích 2,11% sự biến thiên trong CPIENG.</p>
+</li>
+<li>
+<p><strong>B.</strong> tỷ suất sinh lợi của Stellar giải thích 14,52% sự biến thiên trong CPIENG.</p>
+</li>
+<li>
+<p><strong>C.</strong> những thay đổi trong CPIENG giải thích 2,11% sự biến thiên trong tỷ suất sinh lợi của Stellar.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>16.</strong> For Batten’s regression model, 0.0710 is the standard deviation of:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>16.</strong> Đối với mô hình hồi quy của Batten, <span class="math-inline">$0.0710$</span> là độ lệch chuẩn của:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> the dependent variable.</p>
+</li>
+<li>
+<p><strong>B.</strong> the residuals from the regression.</p>
+</li>
+<li>
+<p><strong>C.</strong> the predicted dependent variable from the regression.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> biến phụ thuộc.</p>
+</li>
+<li>
+<p><strong>B.</strong> phần dư từ hồi quy.</p>
+</li>
+<li>
+<p><strong>C.</strong> biến phụ thuộc dự báo từ hồi quy.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>17.</strong> For the analysis run by Batten, which of the following is an <em>incorrect</em> conclusion from the regression output?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>17.</strong> Đối với phân tích được thực hiện bởi Batten, câu nào sau đây là một kết luận <em>không chính xác</em> từ kết quả đầu ra của hồi quy?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>A.</strong> The estimated intercept from Batten’s regression is statistically different from zero at the 0.05 level of significance.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Hệ số chặn ước lượng từ hồi quy của Batten khác 0 một cách có ý nghĩa thống kê tại mức ý nghĩa 0,05.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-323" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 323 / Trang PDF 323
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>B.</strong> In the month after the CPIENG declines, Stellar’s common stock is expected to exhibit a positive return.</p>
+</li>
+<li>
+<p><strong>C.</strong> Viewed in combination, the slope and intercept coefficients from Batten’s regression are not statistically different from zero at the 0.05 level of significance.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>B.</strong> Trong tháng sau khi CPIENG giảm, cổ phiếu phổ thông của Stellar được kỳ vọng sẽ mang lại tỷ suất sinh lợi dương.</p>
+</li>
+<li>
+<p><strong>C.</strong> Khi xem xét kết hợp, hệ số góc và hệ số chặn từ hồi quy của Batten không khác 0 một cách có ý nghĩa thống kê tại mức ý nghĩa 0,05.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 18-26</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 18–26</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Anh Liu is an analyst researching whether a company’s debt burden affects investors’ decision to short the company’s stock. She calculates the short interest ratio (the ratio of short interest to average daily share volume, expressed in days) for 50 companies as of the end of the year and compares this ratio with the companies’ debt ratio (the ratio of total liabilities to total assets, expressed in decimal form). Liu provides a number of statistics in Exhibit 1. She also estimates a simple regression to investigate the effect of the debt ratio on a company’s short interest ratio. The results of this simple regression, including the analysis of variance (ANOVA), are shown in Exhibit 2.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Anh Liu là một nhà phân tích đang nghiên cứu xem liệu gánh nặng nợ của một công ty có ảnh hưởng đến quyết định bán khống (<em>short</em>) cổ phiếu công ty đó của các nhà đầu tư hay không. Cô tính toán tỷ lệ bán khống (<em>short interest ratio</em> – tỷ lệ giữa khối lượng cổ phiếu bán khống chưa đóng vị thế trên khối lượng giao dịch cổ phiếu trung bình hàng ngày, tính bằng số ngày) cho 50 công ty tính đến cuối năm và so sánh tỷ lệ này với tỷ lệ nợ của các công ty (<em>debt ratio</em> – tỷ lệ tổng nợ phải trả trên tổng tài sản, biểu diễn dưới dạng thập phân). Liu cung cấp một số thống kê trong Bảng 1. Cô cũng ước lượng một hồi quy đơn để điều tra tác động của tỷ lệ nợ lên tỷ lệ bán khống của công ty. Kết quả của hồi quy đơn này, bao gồm phân tích phương sai (ANOVA), được trình bày trong Bảng 2.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In addition to estimating a regression equation, Liu graphs the 50 observations using a scatter plot, with the short interest ratio on the vertical axis and the debt ratio on the horizontal axis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ngoài việc ước lượng phương trình hồi quy, Liu vẽ đồ thị 50 quan sát bằng biểu đồ phân tán, với tỷ lệ bán khống trên trục tung và tỷ lệ nợ trên trục hoành.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Summary Statistics</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 1: Thống kê Tóm tắt (<em>Summary Statistics</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Statistic</strong></th>
+<th><strong>Debt Ratio (</strong><strong><em>Xi</em>)</strong><br><strong>Short Interest Ratio (</strong><strong><em>Yi</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sum</td>
+<td>19.8550<br>192.3000</td>
+</tr>
+<tr>
+<td>Sum of squared deviations<br>from the mean</td>
+<td>∑ <em>i</em>=1<br><em>n</em><br>  ( <em>X</em> <em>i</em>−<sup><em></sup><br>_X</em>) <sup>2</sup>= 2.2225.<br> ∑ <em>i</em>=1<br><em>n</em><br>  ( <em>Y</em> <em>i</em>−<sup><em></sup><br>_Y</em>) <sup>2</sup>= 412.2042.</td>
+</tr>
+<tr>
+<td>Sum of cross-products of devi-<br>ations from the mean</td>
+<td>∑ <em>i</em>=1<br><em>n</em><br> ( <em>X</em> <em>i</em>−<sup><em></sup><br>_X</em>) ( <em>Y</em> <em>i</em>−<sup><em></sup><br>_Y</em>)= − 9.2430.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Thống kê (<em>Statistic</em>)</strong></th>
+<th><strong>Tỷ lệ nợ (<em>Debt Ratio</em>, <span class="math-inline">$X_i$</span>)</strong></th>
+<th><strong>Tỷ lệ bán khống (<em>Short Interest Ratio</em>, <span class="math-inline">$Y_i$</span>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tổng (<em>Sum</em>)</td>
+<td><span class="math-inline">$19.8550$</span></td>
+<td><span class="math-inline">$192.3000$</span></td>
+</tr>
+<tr>
+<td>Tổng bình phương các độ lệch so với giá trị trung bình</td>
+<td><span class="math-inline">$\sum_{i=1}^{n} (X_i - \bar{X})^2 = 2.2225$</span></td>
+<td><span class="math-inline">$\sum_{i=1}^{n} (Y_i - \bar{Y})^2 = 412.2042$</span></td>
+</tr>
+<tr>
+<td>Tổng tích chéo của các độ lệch so với giá trị trung bình</td>
+<td><span class="math-inline">$\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y}) = -9.2430$</span></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Regression of the Short Interest Ratio on the Debt Ratio</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 2: Hồi quy của Tỷ lệ Bán khống theo Tỷ lệ Nợ</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>ANOVA</strong></th>
+<th><strong>Degrees of Free-</strong><br><strong>dom (df)</strong></th>
+<th><strong>Sum of Squares</strong></th>
+<th><strong>Mean Square</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regression</td>
+<td>1</td>
+<td>38.4404</td>
+<td>38.4404</td>
+</tr>
+<tr>
+<td>Residual</td>
+<td>48</td>
+<td>373.7638</td>
+<td>7.7867</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>49</td>
+<td>412.2042</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Regression Statistics</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em>R</em><sup>2</sup></td>
+<td>0.0933</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Standard error of estimate</td>
+<td>2.7905</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>ANOVA</strong></th>
+<th><strong>Bậc tự do (<em>df</em>)</strong></th>
+<th><strong>Tổng bình phương (<em>Sum of Squares</em>)</strong></th>
+<th><strong>Trung bình bình phương (<em>Mean Square</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hồi quy (<em>Regression</em>)</td>
+<td>1</td>
+<td>38.4404</td>
+<td>38.4404</td>
+</tr>
+<tr>
+<td>Phần dư (<em>Residual</em>)</td>
+<td>48</td>
+<td>373.7638</td>
+<td>7.7867</td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td>49</td>
+<td>412.2042</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Thống kê Hồi quy (<em>Regression Statistics</em>)</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="math-inline">$R^2$</span></td>
+<td>0.0933</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Sai số chuẩn của ước lượng (<em>Standard error of estimate</em>)</td>
+<td>2.7905</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-324" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 324 / Trang PDF 324
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>ANOVA</strong></th>
+<th><strong>Degrees of Free-</strong><br><strong>dom (df)</strong></th>
+<th><strong>Sum of Squares</strong></th>
+<th><strong>Mean Square</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Observations</td>
+<td>50</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Coefficients</strong></td>
+<td><strong>Standard Error</strong></td>
+<td><strong><em>t</em>-Statistic</strong></td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>5.4975</td>
+<td>0.8416</td>
+<td>6.5322</td>
+</tr>
+<tr>
+<td>Debt ratio (%)</td>
+<td>−4.1589</td>
+<td>1.8718</td>
+<td>−2.2219</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>ANOVA</strong></th>
+<th><strong>Bậc tự do (<em>df</em>)</strong></th>
+<th><strong>Tổng bình phương (<em>Sum of Squares</em>)</strong></th>
+<th><strong>Trung bình bình phương (<em>Mean Square</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Số quan sát (<em>Observations</em>)</td>
+<td>50</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Các hệ số (<em>Coefficients</em>)</strong></td>
+<td><strong>Sai số chuẩn (<em>Standard Error</em>)</strong></td>
+<td><strong>Thống kê <span class="math-inline">$t$</span> (<em><span class="math-inline">$t$</span>-Statistic</em>)</strong></td>
+</tr>
+<tr>
+<td>Hệ số chặn (<em>Intercept</em>)</td>
+<td>5.4975</td>
+<td>0.8416</td>
+<td>6.5322</td>
+</tr>
+<tr>
+<td>Tỷ lệ nợ (<em>Debt ratio</em>, %)</td>
+<td>−4.1589</td>
+<td>1.8718</td>
+<td>−2.2219</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Critical t-values for a 0.05 level of significance: One-sided, left side:</em> −1.677 <em>One-sided, right side:</em> +1.677 <em>Two-sided:</em> ±2.011</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Giá trị <span class="math-inline">$t$</span> tới hạn cho mức ý nghĩa 0,05: Một phía, bên trái: <span class="math-inline">$-1.677$</span> | Một phía, bên phải: <span class="math-inline">$+1.677$</span> | Hai phía: <span class="math-inline">$\pm 2.011$</span></em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Liu is considering three interpretations of these results for her report on the relationship between debt ratios and short interest ratios:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Liu đang xem xét ba cách diễn giải các kết quả này cho báo cáo của cô về mối quan hệ giữa tỷ lệ nợ và tỷ lệ bán khống:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Interpretation 1 Companies’ higher debt ratios cause lower short interest ratios.</p>
+</li>
+<li>
+<p>Interpretation 2 Companies’ higher short interest ratios cause higher debt ratios.</p>
+</li>
+<li>
+<p>Interpretation 3 Companies with higher debt ratios tend to have lower short interest ratios.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Cách diễn giải 1: Tỷ lệ nợ cao hơn của các công ty gây ra (<em>cause</em>) tỷ lệ bán khống thấp hơn.</p>
+</li>
+<li>
+<p>Cách diễn giải 2: Tỷ lệ bán khống cao hơn của các công ty gây ra (<em>cause</em>) tỷ lệ nợ cao hơn.</p>
+</li>
+<li>
+<p>Cách diễn giải 3: Các công ty có tỷ lệ nợ cao hơn có xu hướng (<em>tend to</em>) có tỷ lệ bán khống thấp hơn.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>She is especially interested in using her estimation results to predict the short interest ratio for MQD Corporation, which has a debt ratio of 0.40.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cô đặc biệt quan tâm đến việc sử dụng kết quả ước lượng của mình để dự báo tỷ lệ bán khống cho Tập đoàn MQD, công ty có tỷ lệ nợ là <span class="math-inline">$0.40$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>18.</strong> Based on Exhibit 1 and Exhibit 2, if Liu were to graph the 50 observations, the scatter plot summarizing this relation would be <em>best</em> described as:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>18.</strong> Dựa trên Bảng 1 và Bảng 2, nếu Liu vẽ đồ thị 50 quan sát, biểu đồ phân tán tóm tắt mối quan hệ này sẽ được mô tả <em>đúng nhất</em> là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> horizontal.</p>
+</li>
+<li>
+<p><strong>B.</strong> upward sloping.</p>
+</li>
+<li>
+<p><strong>C.</strong> downward sloping.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> nằm ngang (<em>horizontal</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> dốc lên (<em>upward sloping</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> dốc xuống (<em>downward sloping</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>19.</strong> Based on Exhibit 1, the sample covariance is <em>closest to</em> :</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>19.</strong> Dựa trên Bảng 1, hiệp phương sai mẫu (<em>sample covariance</em>) <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> −9.2430.</p>
+</li>
+<li>
+<p><strong>B.</strong> −0.1886.</p>
+</li>
+<li>
+<p><strong>C.</strong> 8.4123.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> −9,2430.</p>
+</li>
+<li>
+<p><strong>B.</strong> −0,1886.</p>
+</li>
+<li>
+<p><strong>C.</strong> 8,4123.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>20.</strong> Based on Exhibit 1 and Exhibit 2, the correlation between the debt ratio and the short interest ratio is <em>closest to</em> :</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>20.</strong> Dựa trên Bảng 1 và Bảng 2, hệ số tương quan giữa tỷ lệ nợ và tỷ lệ bán khống <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> −0.3054.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0.0933.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0.3054.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> −0,3054.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0,0933.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0,3054.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>21.</strong> Which of the interpretations <em>best</em> describes Liu’s findings?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>21.</strong> Cách diễn giải nào mô tả <em>đúng nhất</em> những phát hiện của Liu?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>A.</strong> Interpretation 1</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Cách diễn giải 1</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-325" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 325 / Trang PDF 325
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>B.</strong> Interpretation 2</p>
+</li>
+<li>
+<p><strong>C.</strong> Interpretation 3</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>B.</strong> Cách diễn giải 2</p>
+</li>
+<li>
+<p><strong>C.</strong> Cách diễn giải 3</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>22.</strong> The dependent variable in Liu’s regression analysis is the:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>22.</strong> Biến phụ thuộc trong phân tích hồi quy của Liu là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> intercept.</p>
+</li>
+<li>
+<p><strong>B.</strong> debt ratio.</p>
+</li>
+<li>
+<p><strong>C.</strong> short interest ratio.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> hệ số chặn.</p>
+</li>
+<li>
+<p><strong>B.</strong> tỷ lệ nợ.</p>
+</li>
+<li>
+<p><strong>C.</strong> tỷ lệ bán khống.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>23.</strong> Based on Exhibit 2, the number of degrees of freedom for the <em>t</em> -test of the slope coefficient in this regression is:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>23.</strong> Dựa trên Bảng 2, số bậc tự do cho kiểm định <span class="math-inline">$t$</span> của hệ số góc trong hồi quy này là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 48.</p>
+</li>
+<li>
+<p><strong>B.</strong> 49.</p>
+</li>
+<li>
+<p><strong>C.</strong> 50.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 48.</p>
+</li>
+<li>
+<p><strong>B.</strong> 49.</p>
+</li>
+<li>
+<p><strong>C.</strong> 50.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>24.</strong> Which of the following should Liu conclude from the results shown in Exhibit 2?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>24.</strong> Liu nên rút ra kết luận nào sau đây từ các kết quả được trình bày trong Bảng 2?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> The average short interest ratio is 5.4975.</p>
+</li>
+<li>
+<p><strong>B.</strong> The estimated slope coefficient is different from zero at the 0.05 level of significance.</p>
+</li>
+<li>
+<p><strong>C.</strong> The debt ratio explains 30.54 percent of the variation in the short interest ratio.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Tỷ lệ bán khống trung bình là 5,4975.</p>
+</li>
+<li>
+<p><strong>B.</strong> Hệ số góc ước lượng khác 0 tại mức ý nghĩa 0,05.</p>
+</li>
+<li>
+<p><strong>C.</strong> Tỷ lệ nợ giải thích 30,54% sự biến thiên trong tỷ lệ bán khống.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>25.</strong> Based on Exhibit 2, the short interest ratio expected for MQD Corporation is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>25.</strong> Dựa trên Bảng 2, tỷ lệ bán khống kỳ vọng cho Tập đoàn MQD <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 3.8339.</p>
+</li>
+<li>
+<p><strong>B.</strong> 5.4975.</p>
+</li>
+<li>
+<p><strong>C.</strong> 6.2462.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 3,8339.</p>
+</li>
+<li>
+<p><strong>B.</strong> 5,4975.</p>
+</li>
+<li>
+<p><strong>C.</strong> 6,2462.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>26.</strong> Based on Liu’s regression results in Exhibit 2, the <em>F</em> -statistic for testing whether the slope coefficient is equal to zero is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>26.</strong> Dựa trên kết quả hồi quy của Liu trong Bảng 2, thống kê <span class="math-inline">$F$</span> để kiểm định xem hệ số góc có bằng 0 hay không <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> −2.2219.</p>
+</li>
+<li>
+<p><strong>B.</strong> 3.5036.</p>
+</li>
+<li>
+<p><strong>C.</strong> 4.9367.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> −2,2219.</p>
+</li>
+<li>
+<p><strong>B.</strong> 3,5036.</p>
+</li>
+<li>
+<p><strong>C.</strong> 4,9367.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 27-29</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 27–29</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Doug Abitbol is a portfolio manager for Polyi Investments, a hedge fund that trades in the United States. Abitbol manages the hedge fund with the help of Robert Olabudo, a junior portfolio manager. Abitbol looks at economists’ inflation forecasts and would like to examine the</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Doug Abitbol là người quản lý danh mục đầu tư cho Polyi Investments, một quỹ phòng hộ giao dịch tại Hoa Kỳ. Abitbol quản lý quỹ phòng hộ với sự giúp đỡ của Robert Olabudo, một người quản lý danh mục đầu tư cấp dưới. Abitbol xem xét các dự báo lạm phát của các nhà kinh tế học và muốn kiểm tra</p></div>
+                </div>
+                
+
+                <div id="pdf-page-326" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 326 / Trang PDF 326
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>relationship between the US Consumer Price Index (US CPI) consensus forecast and the actual US CPI using regression analysis. Olabudo estimates regression coefficients to test whether the consensus forecast is unbiased. If the consensus forecasts are unbiased, the intercept should be 0.0 and the slope will be equal to 1.0. Regression results are presented in Exhibit 1. Additionally, Olabudo calculates the 95 percent prediction interval of the actual CPI using a US CPI consensus forecast of 2.8.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>mối quan hệ giữa dự báo đồng thuận về Chỉ số Giá Tiêu dùng Hoa Kỳ (US CPI) và US CPI thực tế bằng cách sử dụng phân tích hồi quy. Olabudo ước lượng các hệ số hồi quy để kiểm định xem liệu dự báo đồng thuận có phải là không chệch (<em>unbiased</em>) hay không. Nếu các dự báo đồng thuận là không chệch, hệ số chặn phải bằng <span class="math-inline">$0.0$</span> và hệ số góc sẽ bằng <span class="math-inline">$1.0$</span>. Kết quả hồi quy được trình bày trong Bảng 1. Ngoài ra, Olabudo tính khoảng dự báo 95% của CPI thực tế bằng cách sử dụng dự báo đồng thuận US CPI là <span class="math-inline">$2.8$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Regression Output: Estimating US CPI</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 1: Kết quả Đầu ra Hồi quy: Ước lượng US CPI</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Regression Statistics</strong></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>R</em><sup>2</sup></td>
+<td>0.9859</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Standard error of estimate</td>
+<td>0.0009</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Observations</td>
+<td>60</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Coefficients</strong></td>
+<td><strong>Standard Error</strong></td>
+<td><strong><em>t</em>-Statistic</strong></td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>0.0001</td>
+<td>0.0002</td>
+<td>0.5000</td>
+</tr>
+<tr>
+<td>US CPI consensus forecast</td>
+<td>0.9830</td>
+<td>0.0155</td>
+<td>63.4194</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Thống kê Hồi quy (<em>Regression Statistics</em>)</strong></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math-inline">$R^2$</span></td>
+<td>0.9859</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Sai số chuẩn của ước lượng (<em>Standard error of estimate</em>)</td>
+<td>0.0009</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Số quan sát (<em>Observations</em>)</td>
+<td>60</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Các hệ số (<em>Coefficients</em>)</strong></td>
+<td><strong>Sai số chuẩn (<em>Standard Error</em>)</strong></td>
+<td><strong>Thống kê <span class="math-inline">$t$</span> (<em><span class="math-inline">$t$</span>-Statistic</em>)</strong></td>
+</tr>
+<tr>
+<td>Hệ số chặn (<em>Intercept</em>)</td>
+<td>0.0001</td>
+<td>0.0002</td>
+<td>0.5000</td>
+</tr>
+<tr>
+<td>Dự báo đồng thuận US CPI</td>
+<td>0.9830</td>
+<td>0.0155</td>
+<td>63.4194</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Notes:</em></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Ghi chú:</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> The absolute value of the critical value for the <em>t</em> -statistic is 2.002 at the 5 percent level of significance.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Giá trị tuyệt đối của giá trị tới hạn cho thống kê <span class="math-inline">$t$</span> là <span class="math-inline">$2.002$</span> tại mức ý nghĩa 5%.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> The standard deviation of the US CPI consensus forecast is <em>sx</em> = 0.7539.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Độ lệch chuẩn của dự báo đồng thuận US CPI là <span class="math-inline">$s_X = 0.7539$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> The mean of the US CPI consensus forecast is <em>X</em><sup>_</sup> = 1.3350.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Giá trị trung bình của dự báo đồng thuận US CPI là <span class="math-inline">$\bar{X} = 1.3350$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Finally, Abitbol and Olabudo discuss the forecast and forecast interval:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cuối cùng, Abitbol và Olabudo thảo luận về dự báo và khoảng dự báo:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Observation 1. For a given confidence level, the forecast interval is the same no matter the US CPI consensus forecast.</p>
+</li>
+<li>
+<p>Observation 2. A larger standard error of the estimate will result in a wider confidence interval.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Nhận xét 1: Đối với một mức độ tin cậy cho trước, khoảng dự báo là như nhau bất kể dự báo đồng thuận US CPI là bao nhiêu.</p>
+</li>
+<li>
+<p>Nhận xét 2: Sai số chuẩn của ước lượng lớn hơn sẽ dẫn đến khoảng tin cậy (dự báo) rộng hơn.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>27.</strong> Based on Exhibit 1, Olabudo should:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>27.</strong> Dựa trên Bảng 1, Olabudo nên:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> conclude that the inflation predictions are unbiased.</p>
+</li>
+<li>
+<p><strong>B.</strong> reject the null hypothesis that the slope coefficient equals one.</p>
+</li>
+<li>
+<p><strong>C.</strong> reject the null hypothesis that the intercept coefficient equals zero.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> kết luận rằng các dự báo lạm phát là không chệch.</p>
+</li>
+<li>
+<p><strong>B.</strong> bác bỏ giả thuyết không cho rằng hệ số góc bằng 1.</p>
+</li>
+<li>
+<p><strong>C.</strong> bác bỏ giả thuyết không cho rằng hệ số chặn bằng 0.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>28.</strong> Based on Exhibit 1, Olabudo should calculate a prediction interval for the actual US CPI <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>28.</strong> Dựa trên Bảng 1, Olabudo nên tính khoảng dự báo cho US CPI thực tế <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 2.7506 to 2.7544.</p>
+</li>
+<li>
+<p><strong>B.</strong> 2.7521 to 2.7529.</p>
+</li>
+<li>
+<p><strong>C.</strong> 2.7981 to 2.8019.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 2,7506 đến 2,7544.</p>
+</li>
+<li>
+<p><strong>B.</strong> 2,7521 đến 2,7529.</p>
+</li>
+<li>
+<p><strong>C.</strong> 2,7981 đến 2,8019.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>29.</strong> Which of Olabudo’s observations of forecasting is correct?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>29.</strong> Nhận xét nào của Olabudo về việc dự báo là đúng?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>A.</strong> Only Observation 1</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Chỉ Nhận xét 1</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-327" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 327 / Trang PDF 327
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>B.</strong> Only Observation 2</p>
+</li>
+<li>
+<p><strong>C.</strong> Both Observation 1 and Observations 2</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>B.</strong> Chỉ Nhận xét 2</p>
+</li>
+<li>
+<p><strong>C.</strong> Cả Nhận xét 1 và Nhận xét 2</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 30-34</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 30–34</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Elena Vasileva recently joined EnergyInvest as a junior portfolio analyst. Vasileva’s supervisor asks her to evaluate a potential investment opportunity in Amtex, a multinational oil and gas corporation based in the United States. Vasileva’s supervisor suggests using regression analysis to examine the relation between Amtex shares and returns on crude oil.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Elena Vasileva gần đây đã gia nhập EnergyInvest với tư cách là chuyên viên phân tích danh mục đầu tư cấp dưới. Người giám sát của Vasileva yêu cầu cô đánh giá một cơ hội đầu tư tiềm năng vào Amtex, một tập đoàn dầu khí đa quốc gia có trụ sở tại Hoa Kỳ. Người giám sát của Vasileva gợi ý sử dụng phân tích hồi quy để kiểm tra mối quan hệ giữa cổ phiếu Amtex và tỷ suất sinh lợi trên dầu thô.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Vasileva notes the following assumptions of regression analysis:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Vasileva ghi chú các giả định sau đây của phân tích hồi quy:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Assumption 1. The error term is uncorrelated across observations.</p>
+</li>
+<li>
+<p>Assumption 2. The variance of the error term is the same for all observations.</p>
+</li>
+<li>
+<p>Assumption 3. The dependent variable is normally distributed.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Giả định 1: Hạng tử sai số không tương quan qua các quan sát.</p>
+</li>
+<li>
+<p>Giả định 2: Phương sai của hạng tử sai số là như nhau đối với tất cả các quan sát.</p>
+</li>
+<li>
+<p>Giả định 3: Biến phụ thuộc có phân phối chuẩn.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Vasileva runs a regression of Amtex share returns on crude oil returns using the monthly data she collected. Selected data used in the regression are presented in Exhibit 1, and selected regression output is presented in Exhibit 2. She uses a 1 percent level of significance in all her tests.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Vasileva chạy một hồi quy của tỷ suất sinh lợi cổ phiếu Amtex theo tỷ suất sinh lợi dầu thô bằng cách sử dụng dữ liệu hàng tháng mà cô thu thập được. Dữ liệu chọn lọc được sử dụng trong hồi quy được trình bày trong Bảng 1, và kết quả đầu ra hồi quy chọn lọc được trình bày trong Bảng 2. Cô sử dụng mức ý nghĩa 1% trong tất cả các kiểm định của mình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Selected Data for Crude Oil Returns and Amtex Share Returns</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 1: Dữ liệu Chọn lọc cho Tỷ suất sinh lợi Dầu thô và Tỷ suất sinh lợi Cổ phiếu Amtex</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Oil Return</strong><br><strong>(</strong><strong><em>Xi</em>)</strong></th>
+<th><strong>Amtex Return</strong><br><strong>(</strong><strong><em>Yi</em>)</strong></th>
+<th><strong>Cross-Product</strong><br> ( <em>X</em> <em>i</em><strong>−</strong><br><strong>_</strong><br><em>X</em>) ( <em>Y</em> <em>i</em><strong>−</strong><br><strong>_</strong><br><em>Y</em>)</th>
+<th><strong>Predicted</strong><br><strong>Amtex Return</strong><br><strong>(</strong><sup>ˆ</sup><br><em>Yi</em><strong>)</strong></th>
+<th><strong>Regression</strong><br><strong>Residual</strong><br><strong>(</strong><em>Y</em> <em>i</em><strong>−</strong>ˆ<br><em>Yi</em> <sup><strong>)</strong></sup></th>
+<th><strong>Squared</strong><br><strong>Residual</strong><br> ( <em>Y</em> <em>i</em><strong>−</strong><sup>ˆ</sup><br><em>Yi</em> )<br><strong>2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Month 1</td>
+<td>−0.032000</td>
+<td>0.033145</td>
+<td>−0.000388</td>
+<td>0.002011</td>
+<td>−0.031134</td>
+<td>0.000969</td>
+</tr>
+<tr>
+<td>⁝</td>
+<td>⁝</td>
+<td>⁝</td>
+<td>⁝</td>
+<td>⁝</td>
+<td>⁝</td>
+<td>⁝</td>
+</tr>
+<tr>
+<td>Month 36</td>
+<td>0.028636</td>
+<td>0.062334</td>
+<td>0.002663</td>
+<td>0.016282</td>
+<td>−0.046053</td>
+<td>0.002121</td>
+</tr>
+<tr>
+<td>Sum</td>
+<td></td>
+<td></td>
+<td>0.085598</td>
+<td></td>
+<td></td>
+<td>0.071475</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>−0.018056</td>
+<td>0.005293</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Tỷ suất sinh lợi Dầu (<span class="math-inline">$X_i$</span>)</strong></th>
+<th><strong>Tỷ suất sinh lợi Amtex (<span class="math-inline">$Y_i$</span>)</strong></th>
+<th><strong>Tích chéo <span class="math-inline">$(X_i - \bar{X})(Y_i - \bar{Y})$</span></strong></th>
+<th><strong>Tỷ suất sinh lợi Amtex dự báo (<span class="math-inline">$\hat{Y}_i$</span>)</strong></th>
+<th><strong>Phần dư hồi quy <span class="math-inline">$(Y_i - \hat{Y}_i)$</span></strong></th>
+<th><strong>Bình phương phần dư <span class="math-inline">$(Y_i - \hat{Y}_i)^2$</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tháng 1</td>
+<td>−0.032000</td>
+<td>0.033145</td>
+<td>−0.000388</td>
+<td>0.002011</td>
+<td>−0.031134</td>
+<td>0.000969</td>
+</tr>
+<tr>
+<td><span class="math-inline">$\vdots$</span></td>
+<td><span class="math-inline">$\vdots$</span></td>
+<td><span class="math-inline">$\vdots$</span></td>
+<td><span class="math-inline">$\vdots$</span></td>
+<td><span class="math-inline">$\vdots$</span></td>
+<td><span class="math-inline">$\vdots$</span></td>
+<td><span class="math-inline">$\vdots$</span></td>
+</tr>
+<tr>
+<td>Tháng 36</td>
+<td>0.028636</td>
+<td>0.062334</td>
+<td>0.002663</td>
+<td>0.016282</td>
+<td>−0.046053</td>
+<td>0.002121</td>
+</tr>
+<tr>
+<td>Tổng (<em>Sum</em>)</td>
+<td></td>
+<td></td>
+<td>0.085598</td>
+<td></td>
+<td></td>
+<td>0.071475</td>
+</tr>
+<tr>
+<td>Trung bình (<em>Average</em>)</td>
+<td>−0.018056</td>
+<td>0.005293</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Selected Regression Output, Dependent Variable: Amtex Share Return</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 2: Kết quả Đầu ra Hồi quy Chọn lọc, Biến phụ thuộc: Tỷ suất sinh lợi Cổ phiếu Amtex</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Coefficient</strong></th>
+<th><strong>Standard Error</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intercept</td>
+<td>0.0095</td>
+<td>0.0078</td>
+</tr>
+<tr>
+<td>Oil return</td>
+<td>0.2354</td>
+<td>0.0760</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Hệ số (<em>Coefficient</em>)</strong></th>
+<th><strong>Sai số chuẩn (<em>Standard Error</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hệ số chặn (<em>Intercept</em>)</td>
+<td>0.0095</td>
+<td>0.0078</td>
+</tr>
+<tr>
+<td>Tỷ suất sinh lợi dầu (<em>Oil return</em>)</td>
+<td>0.2354</td>
+<td>0.0760</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Critical <em>t</em> -values for a 1 percent level of significance:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá trị <span class="math-inline">$t$</span> tới hạn cho mức ý nghĩa 1%:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>One-sided, left side: −2.441</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một phía, bên trái: <span class="math-inline">$-2.441$</span></p></div>
+                </div>
+                
+
+                <div id="pdf-page-328" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 328 / Trang PDF 328
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>One-sided, right side: +2.441 Two-sided: ±2.728</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một phía, bên phải: <span class="math-inline">$+2.441$</span> | Hai phía: <span class="math-inline">$\pm 2.728$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Vasileva expects the crude oil return next month, Month 37, to be −0.01. She computes the standard error of the forecast to be 0.0469.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Vasileva kỳ vọng tỷ suất sinh lợi dầu thô vào tháng tới, Tháng 37, sẽ là <span class="math-inline">$-0.01$</span>. Cô tính toán sai số chuẩn của dự báo là <span class="math-inline">$0.0469$</span>.</p>
+<p><strong>30.</strong> Giả định nào của Vasileva liên quan đến phân tích hồi quy là <em>không chính xác</em>?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>30.</strong> Which of Vasileva’s assumptions regarding regression analysis is <em>incorrect</em> ? <strong>A.</strong> Assumption 1 <strong>B.</strong> Assumption 2 <strong>C.</strong> Assumption 3</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Giả định 1</p>
+</li>
+<li>
+<p><strong>B.</strong> Giả định 2</p>
+</li>
+<li>
+<p><strong>C.</strong> Giả định 3</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>31.</strong> Based on Exhibit 1, the standard error of the estimate is <em>closest</em> to: <strong>A.</strong> 0.04456. <strong>B.</strong> 0.04585. <strong>C.</strong> 0.05018.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>31.</strong> Dựa trên Bảng 1, sai số chuẩn của ước lượng (<em>standard error of the estimate</em>) <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>32.</strong> Based on Exhibit 2, Vasileva should reject the null hypothesis that: <strong>A.</strong> the slope is less than or equal to 0.15.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 0,04456.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0,04585.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0,05018.</p>
+</li>
+</ul>
+<p><strong>32.</strong> Dựa trên Bảng 2, Vasileva nên bác bỏ giả thuyết không cho rằng:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>B.</strong> the intercept is less than or equal to zero.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> hệ số góc nhỏ hơn hoặc bằng 0,15.</p>
+</li>
+<li>
+<p><strong>B.</strong> hệ số chặn nhỏ hơn hoặc bằng 0.</p>
+</li>
+<li>
+<p><strong>C.</strong> tỷ suất sinh lợi dầu thô không giải thích được tỷ suất sinh lợi cổ phiếu Amtex.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> crude oil returns do not explain Amtex share returns.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>33.</strong> Dựa trên Bảng 2 và dự báo của Vasileva về tỷ suất sinh lợi dầu thô cho Tháng 37, ước lượng tỷ suất sinh lợi cổ phiếu Amtex cho Tháng 37 <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>33.</strong> Based on Exhibit 2 and Vasileva’s prediction of the crude oil return for Month 37, the estimate of Amtex share return for Month 37 is <em>closest</em> to: <strong>A.</strong> −0.0024. <strong>B.</strong> 0.0071. <strong>C.</strong> 0.0119.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> −0,0024.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0,0071.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0,0119.</p>
+</li>
+</ul>
+<p><strong>34.</strong> Sử dụng thông tin từ Bảng 2, khoảng dự báo 99% cho tỷ suất sinh lợi cổ phiếu Amtex vào Tháng 37 được mô tả <em>đúng nhất</em> là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>34.</strong> Using information from Exhibit 2, the 99 percent prediction interval for Amtex share return for Month 37 is <em>best</em> described as: <strong>A.</strong> <em>Y</em><sup>ˆ</sup> <em>f</em> ± 0.0053 . <strong>B.</strong> <em>Y</em><sup>ˆ</sup> <em>f</em> ± 0.0469 . <strong>C.</strong> <em>Y</em><sup>ˆ</sup> <em>f</em> ± 0.1279 .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> <span class="math-inline">$\hat{Y}_f \pm 0.0053$</span>.</p>
+</li>
+<li>
+<p><strong>B.</strong> <span class="math-inline">$\hat{Y}_f \pm 0.0469$</span>.</p>
+</li>
+<li>
+<p><strong>C.</strong> <span class="math-inline">$\hat{Y}_f \pm 0.1279$</span>.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 35-38</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 35–38</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Espey Jones is examining the relation between the net profit margin (NPM) of companies, in percent, and their fixed asset turnover (FATO). He collected a sample of 35 companies for the most recent fiscal year and fit several different functional forms, settling on the following model:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Espey Jones đang kiểm tra mối quan hệ giữa biên lợi nhuận ròng (NPM) của các công ty, tính bằng phần trăm, và vòng quay tài sản cố định (<em>fixed asset turnover</em> – FATO) của chúng. Anh ấy đã thu thập một mẫu gồm 35 công ty cho năm tài chính gần nhất và khớp một số dạng hàm khác nhau, cuối cùng chọn mô hình sau đây:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-329" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 329 / Trang PDF 329
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3>ln(NPM <em>i</em> ) = <em>b</em> 0 + <em>b</em> 1  FATO <em>i</em> .</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\ln(\text{NPM}_i) = b_0 + b_1 \text{FATO}_i$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The results of this estimation are provided in Exhibit 1.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Kết quả của ước lượng này được cung cấp trong Bảng 1.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Results of Regressing NPM on FATO</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 1: Kết quả Hồi quy NPM theo FATO</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Source</strong></th>
+<th><strong>df</strong></th>
+<th><strong>Sum of</strong><br><strong>Squares</strong></th>
+<th><strong>Mean</strong><br><strong>Square</strong></th>
+<th><strong><em>F</em></strong></th>
+<th><strong><em>p</em>-Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regression</td>
+<td>1</td>
+<td>102.9152</td>
+<td>102.9152</td>
+<td>1,486.7079</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>Residual</td>
+<td>32</td>
+<td>2.2152</td>
+<td>0.0692</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Total</td>
+<td>33</td>
+<td>105.1303</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nguồn (<em>Source</em>)</strong></th>
+<th><strong>Bậc tự do (<em>df</em>)</strong></th>
+<th><strong>Tổng bình phương (<em>Sum of Squares</em>)</strong></th>
+<th><strong>Trung bình bình phương (<em>Mean Square</em>)</strong></th>
+<th><strong><span class="math-inline">$F$</span></strong></th>
+<th><strong>Trị số <span class="math-inline">$p$</span> (<em><span class="math-inline">$p$</span>-Value</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hồi quy (<em>Regression</em>)</td>
+<td>1</td>
+<td>102.9152</td>
+<td>102.9152</td>
+<td>1,486.7079</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>Phần dư (<em>Residual</em>)</td>
+<td>32</td>
+<td>2.2152</td>
+<td>0.0692</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td>33</td>
+<td>105.1303</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>fi</strong></th>
+<th><strong>Standard</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><strong>Coefficients</strong></td>
+<td><strong>Error</strong></td>
+<td><strong><em>t</em>- Statistic</strong></td>
+<td><strong><em>p</em>-Value</strong></td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>0.5987</td>
+<td>0.0561</td>
+<td>10.6749</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>FATO</td>
+<td>0.2951</td>
+<td>0.0077</td>
+<td>38.5579</td>
+<td>0.0000</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Các hệ số (<em>Coefficients</em>)</strong></th>
+<th><strong>Sai số chuẩn (<em>Standard Error</em>)</strong></th>
+<th><strong>Thống kê <span class="math-inline">$t$</span> (<em><span class="math-inline">$t$</span>-Statistic</em>)</strong></th>
+<th><strong>Trị số <span class="math-inline">$p$</span> (<em><span class="math-inline">$p$</span>-Value</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hệ số chặn (<em>Intercept</em>)</td>
+<td>0.5987</td>
+<td>0.0561</td>
+<td>10.6749</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>FATO</td>
+<td>0.2951</td>
+<td>0.0077</td>
+<td>38.5579</td>
+<td>0.0000</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>35.</strong> The coefficient of determination is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>35.</strong> Hệ số xác định (<em>coefficient of determination</em>) <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 0.0211.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0.9789.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0.9894.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 0,0211.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0,9789.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0,9894.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>36.</strong> The standard error of the estimate is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>36.</strong> Sai số chuẩn của ước lượng (<em>standard error of the estimate</em>) <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 0.2631.</p>
+</li>
+<li>
+<p><strong>B.</strong> 1.7849.</p>
+</li>
+<li>
+<p><strong>C.</strong> 38.5579.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 0,2631.</p>
+</li>
+<li>
+<p><strong>B.</strong> 1,7849.</p>
+</li>
+<li>
+<p><strong>C.</strong> 38,5579.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>37.</strong> At a 0.01 level of significance, Jones should conclude that:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>37.</strong> Tại mức ý nghĩa <span class="math-inline">$0.01$</span>, Jones nên kết luận rằng:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> the mean net profit margin is 0.5987 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> the variation of the fixed asset turnover explains the variation of the natural log of the net profit margin.</p>
+</li>
+<li>
+<p><strong>C.</strong> a change in the fixed asset turnover from three to four times is likely to result in a change in the net profit margin of 0.5987 percent.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> biên lợi nhuận ròng trung bình là 0,5987%.</p>
+</li>
+<li>
+<p><strong>B.</strong> sự biến thiên của vòng quay tài sản cố định giải thích sự biến thiên của logarit tự nhiên của biên lợi nhuận ròng.</p>
+</li>
+<li>
+<p><strong>C.</strong> sự thay đổi trong vòng quay tài sản cố định từ 3 lên 4 lần có khả năng dẫn đến sự thay đổi trong biên lợi nhuận ròng là 0,5987%.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>38.</strong> The predicted net profit margin for a company with a fixed asset turnover of 2 times is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>38.</strong> Biên lợi nhuận ròng dự báo cho một công ty có vòng quay tài sản cố định là 2 lần <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 1.1889 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> 1.8043 percent.</p>
+</li>
+<li>
+<p><strong>C.</strong> 3.2835 percent</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 1,1889%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 1,8043%.</p>
+</li>
+<li>
+<p><strong>C.</strong> 3,2835%.</p>
+</li>
+</ul></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM10_Part6_Solutions.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM10_Part6_Solutions →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM10_Part5_Practice_Problems.html');
+    });
+  </script>
+</body>
+</html>

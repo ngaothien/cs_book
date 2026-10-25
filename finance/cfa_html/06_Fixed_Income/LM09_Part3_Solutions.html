@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves - Part 3: Solutions — Volume 6: Fixed Income | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 6: Thu Nhập Cố Định
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves - Part 3: Solutions</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (2 trang)...</option>
+          <option value="247">PDF Page 247</option>
+<option value="248">PDF Page 248</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 6</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Thu Nhập Cố Định</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 6</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Fixed_Income_Instrument_Features.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Fixed-Income Instrument Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Bond_Indentures_and_Covenants.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bond Indentures and Covenants</a>
+<a href="LM02_Full_Fixed_Income_Cash_Flows_and_Types.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Fixed-Income Cash Flows and Types</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Fixed_Income_Contingency_Provisions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Fixed-Income Contingency Provisions</a>
+<a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Fixed-Income Issuance and Trading</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Primary and Secondary Fixed-Income Markets</a>
+<a href="LM04_Full_Fixed_Income_Markets_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Fixed-Income Markets for Corporate Issuers</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Repurchase_Agreements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Repurchase Agreements</a>
+<a href="LM04_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM05_Full_Fixed_Income_Markets_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Fixed-Income Markets for Government Issuers</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Non_Sovereign_Quasi_Government_and_Supranatio.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign, Quasi-Government, and Supranational Agency Debt</a>
+<a href="LM06_Full_Fixed_Income_Bond_Valuation_Prices_and_Yields.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Fixed-Income Bond Valuation: Prices and Yields</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Relationships_between_Bond_Prices_and_Bond_Fe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Relationships between Bond Prices and Bond Features</a>
+<a href="LM07_Full_Yield_and_Yield_Spread_Measures_for_Fixed_Rat.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Yield and Yield Spread Measures for Fixed-Rate Bonds</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Spread Measures for Fixed-Rate Bonds and Matrix Pricing</a>
+<a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Measures for Money Market Instruments</a>
+<a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Par_and_Forward_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Par and Forward Rates</a>
+<a href="LM09_Part3_Solutions.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 3: Solutions</a>
+<a href="LM10_Full_Interest_Rate_Risk_and_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Interest Rate Risk and Return</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Macaulay_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Macaulay Duration</a>
+<a href="LM11_Full_Yield_Based_Bond_Duration_Measures_and_Proper.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Yield-Based Bond Duration Measures and Properties</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Money_Duration_and_Price_Value_of_a_Basis_Poi.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money Duration and Price Value of a Basis Point</a>
+<a href="LM12_Full_Yield_Based_Bond_Convexity_and_Portfolio_Prop.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Yield-Based Bond Convexity and Portfolio Properties</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Portfolio_Duration_and_Convexity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Duration and Convexity</a>
+<a href="LM13_Full_Curve_Based_and_Empirical_Fixed_Income_Risk_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 13 Curve-Based and Empirical Fixed-Income Risk Measures</a>
+<a href="LM13_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM13_Part2_Empirical_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Empirical Duration</a>
+<a href="LM14_Full_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 14 Credit Risk</a>
+<a href="LM14_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Credit Rating Agencies and Credit Ratings</a>
+<a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Factors Impacting Yield Spreads</a>
+<a href="LM14_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM15_Full_Credit_Analysis_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 15 Credit Analysis for Government Issuers</a>
+<a href="LM15_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM15_Part2_Non_Sovereign_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign Credit Risk</a>
+<a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 16 Credit Analysis for Corporate Issuers</a>
+<a href="LM16_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Ratios in Corporate Credit Analysis</a>
+<a href="LM16_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM17_Full_Fixed_Income_Securitization.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 17 Fixed-Income Securitization</a>
+<a href="LM17_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM17_Part2_The_Securitization_Process.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Securitization Process</a>
+<a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</a>
+<a href="LM18_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Mortgage Asset-Backed Securities</a>
+<a href="LM18_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM19_Full_Mortgage_Backed_Security_MBS_Instrument_and_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 19 Mortgage-Backed Security (MBS) Instrument and Market Features</a>
+<a href="LM19_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM19_Part2_Residential_Mortgage_Backed_Securities_RMBS.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Residential Mortgage-Backed Securities (RMBS)</a>
+<a href="LM19_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 6 • Fixed Income (Thu Nhập Cố Định)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves - Part 3: Solutions</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('06_Fixed_Income/LM09_Part3_Solutions.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 6: Fixed Income</h1>
+<h2>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</h2>
+<h3>Part 3/3: Solutions (PDF Pages 247–248)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 6: Thu nhập Cố định (Fixed Income)</h1>
+<h2>Học phần 9: Cấu trúc Kỳ hạn của Lãi suất: Đường cong Lãi suất Giao ngay, Đường cong Lãi suất Ngang giá và Đường cong Lãi suất Kỳ hạn (The Term Structure of Interest Rates: Spot, Par, and Forward Curves)</h2>
+<h3>Phần 3/3: Lời giải (Trang PDF 247–248)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-247" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 247 / Trang PDF 247
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~SOLUTIONS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>C is correct. Given that Switzerland’s current five-year spot (and par) rate is negative, any non-negative coupon will cause the Swiss government to issue debt at a premium to par. Issuance of debt without a coupon will minimize the size of the premium.</p>
+</li>
+<li>
+<p>B is correct.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>C là đáp án đúng. Với việc lãi suất giao ngay (và lãi suất ngang giá) kỳ hạn 5 năm hiện tại của Thụy Sĩ là âm, bất kỳ mức coupon không âm nào cũng sẽ khiến chính phủ Thụy Sĩ phát hành nợ ở mức phần trội (<em>at a premium</em>) so với mệnh giá. Việc phát hành nợ không có coupon (0,0%) sẽ tối thiểu hóa quy mô của khoản phần trội đó.</p>
+</li>
+<li>
+<p>B là đáp án đúng.</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0247-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0247-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + Z_1)^1} + \frac{PMT}{(1 + Z_2)^2} + \dots + \frac{PMT + FV}{(1 + Z_N)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{3}{(1 + 0.000272)^1} + \frac{3}{(1 + 0.000675)^2} + \frac{103}{(1 + 0.003003)^3}$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>PV</em> = 108.07.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$PV = 108.07$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>
+<p>C is correct. In Example 2, we calculated the three-year Canadian par rate. The par rate of 0.7952% approximates the spot rate of 0.7977%, so the most important change affecting the three-year par rate is the change in the three-year spot rate. Because it does not change, the only change will be a slight move in the par rate toward the spot rate (to approximately 0.7968%).</p>
+</li>
+<li>
+<ol>
+<li>B. By using two-year and five-year rates, the difference represents the tenor of the implied forward rate of three years, and the shorter tenor rate reflects the beginning of the forward in two years.</li>
+</ol>
+</li>
+<li>
+<p>C. By using two-year and seven-year rates, the difference represents the tenor of the implied forward rate of five years, and the shorter tenor rate reflects the beginning of the forward in two years.</p>
+</li>
+<li>
+<p>A. By using five-year and seven-year rates, the difference represents the tenor of the implied forward rate of two years, and the shorter tenor rate reflects the beginning of the forward in five years.</p>
+</li>
+<li>
+<p>The correct answer is A. The implied five-year forward rate in two years is the 2y5y rate. To calculate, we use the seven-year Swiss government rate and the two-year Swiss government rate, as follows:</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>
+<p>C là đáp án đúng. Trong Ví dụ 2, chúng ta đã tính lãi suất ngang giá 3 năm của Canada. Lãi suất ngang giá 0,7952% xấp xỉ lãi suất giao ngay 0,7977%, vì vậy sự thay đổi quan trọng nhất ảnh hưởng đến lãi suất ngang giá 3 năm là sự thay đổi trong lãi suất giao ngay 3 năm. Bởi vì nó không thay đổi, sự thay đổi duy nhất sẽ là một sự dịch chuyển nhỏ trong lãi suất ngang giá về phía lãi suất giao ngay (lên mức xấp xỉ 0,7968%, tức tăng khoảng 0,16 bps).</p>
+</li>
+<li></li>
+<li>
+<p>B. Bằng cách sử dụng lãi suất 2 năm và 5 năm, phần chênh lệch đại diện cho kỳ hạn (<em>tenor</em>) của lãi suất kỳ hạn hàm ý là 3 năm, và lãi suất có kỳ hạn ngắn hơn phản ánh thời điểm bắt đầu của giai đoạn kỳ hạn là sau 2 năm.</p>
+</li>
+<li>
+<p>C. Bằng cách sử dụng lãi suất 2 năm và 7 năm, phần chênh lệch đại diện cho kỳ hạn của lãi suất kỳ hạn hàm ý là 5 năm, và lãi suất có kỳ hạn ngắn hơn phản ánh thời điểm bắt đầu của giai đoạn kỳ hạn là sau 2 năm.</p>
+</li>
+<li>
+<p>A. Bằng cách sử dụng lãi suất 5 năm và 7 năm, phần chênh lệch đại diện cho kỳ hạn của lãi suất kỳ hạn hàm ý là 2 năm, và lãi suất có kỳ hạn ngắn hơn phản ánh thời điểm bắt đầu của giai đoạn kỳ hạn là sau 5 năm.</p>
+</li>
+<li>
+<p>Đáp án đúng là A. Lãi suất kỳ hạn 5 năm hàm ý tại thời điểm sau 2 năm là lãi suất 2y5y. Để tính toán, chúng ta sử dụng lãi suất chính phủ Thụy Sĩ 7 năm và lãi suất chính phủ Thụy Sĩ 2 năm, như sau:</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>2y5y IFR = [(1 – 0.003402)<sup>7</sup> /(1 – 0.007133)<sup>2</sup> ]<sup>(1/5)</sup> – 1 = 0.191%.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\text{2y5y IFR} = \left[\frac{(1 - 0.003402)^7}{(1 - 0.007133)^2}\right]^{(1/5)} - 1 = -0.191\% \text{ (bản gốc thiếu dấu trừ trước } 0.191\% \text{ ở dòng công thức)}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Choice B represents the 5y2y implied forward rate, and Choice C represents the 2y3y implied forward rate.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lựa chọn B đại diện cho lãi suất kỳ hạn hàm ý 5y2y, và Lựa chọn C đại diện cho lãi suất kỳ hạn hàm ý 2y3y.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="6">
+<li>
+<ol>
+<li>B. This is a series of three one-year forwards, thus providing the information for a three-year spot rate.</li>
+</ol>
+</li>
+<li>
+<p>C. This sequence is a one-year spot rate, followed by a two-year forward rate in one year, followed by a three-year forward rate in three years.</p>
+</li>
+<li>
+<p>A. This sequence is a series of four one-year forwards.</p>
+</li>
+<li>
+<p>The correct answer is C. The forward rates used to construct forward curves are derived from spot rates. Statement A is not true, because par rates are derived from spot rates. Statement B is not true, because par curves are derived from spot rates.</p>
+</li>
+<li>
+<ol>
+<li>B. In a normal interest rate environment with an upward-sloping yield curve, forward interest rates will be greater than their corresponding spot rates across</li>
+</ol>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="6">
+<li></li>
+<li>
+<p>B. Đây là một chuỗi gồm ba lãi suất kỳ hạn 1 năm, do đó cung cấp thông tin cho lãi suất giao ngay 3 năm.</p>
+</li>
+<li>
+<p>C. Chuỗi này là một lãi suất giao ngay 1 năm, tiếp theo là một lãi suất kỳ hạn 2 năm tại thời điểm sau 1 năm, tiếp theo là một lãi suất kỳ hạn 3 năm tại thời điểm sau 3 năm (tổng cộng 6 năm).</p>
+</li>
+<li>
+<p>A. Chuỗi này là một chuỗi gồm bốn lãi suất kỳ hạn 1 năm (tổng cộng 4 năm).</p>
+</li>
+<li>
+<p>Đáp án đúng là C. Các mức lãi suất kỳ hạn được sử dụng để xây dựng đường cong lãi suất kỳ hạn được suy ra từ lãi suất giao ngay. Phát biểu A không đúng, bởi vì lãi suất ngang giá được suy ra từ lãi suất giao ngay. Phát biểu B không đúng, bởi vì đường cong lãi suất ngang giá được suy ra từ lãi suất giao ngay.</p>
+</li>
+<li></li>
+<li>B. Trong môi trường lãi suất bình thường với đường cong lợi suất dốc lên, lãi suất kỳ hạn sẽ lớn hơn lãi suất giao ngay tương ứng của chúng qua</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-248" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 248 / Trang PDF 248
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>all maturities.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>tất cả các kỳ hạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>
+<p>A. In an inverted spot rate environment, forward interest rates will be below their corresponding spot rates.</p>
+</li>
+<li>
+<p>C. A flat maturity structure of interest rates is sometimes assumed. In such an environment in which spot rates are constant, this implies that future expectations are for interest rates to remain at a constant level. Thus, forward rates equal spot rates in a flat term structure environment.</p>
+</li>
+<li>
+<ol>
+<li>A. This situation is illustrated in the German and Swiss government interest rate data in which spot rates are negative while the spot rate curve is upward sloping. In such instances, par rates lie above spot rates.</li>
+</ol>
+</li>
+<li>
+<p>B. This situation is illustrated in the Canadian and Australian government interest rate data in which spot rates are positive and the spot curve is normal.</p>
+</li>
+<li>
+<p>C. This is a hypothetical case but can be seen by creating a flat spot rate curve.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>
+<p>A. Trong môi trường lãi suất giao ngay đảo ngược (<em>inverted</em>), lãi suất kỳ hạn sẽ nằm bên dưới lãi suất giao ngay tương ứng của chúng.</p>
+</li>
+<li>
+<p>C. Cấu trúc đáo hạn nằm ngang của lãi suất đôi khi được giả định. Trong một môi trường như vậy, khi lãi suất giao ngay không đổi, điều này ngụ ý rằng kỳ vọng trong tương lai là lãi suất sẽ duy trì ở một mức không đổi. Do đó, lãi suất kỳ hạn bằng lãi suất giao ngay trong môi trường cấu trúc kỳ hạn nằm ngang.</p>
+</li>
+<li></li>
+<li>
+<p>A. Tình huống này được minh họa trong dữ liệu lãi suất chính phủ Đức và Thụy Sĩ, trong đó lãi suất giao ngay mang giá trị âm trong khi đường cong lãi suất giao ngay dốc lên. Trong những trường hợp như vậy (hoặc khi đường cong lãi suất giao ngay dương và dốc xuống), lãi suất ngang giá nằm trên lãi suất giao ngay.</p>
+</li>
+<li>
+<p>B. Tình huống này được minh họa trong dữ liệu lãi suất chính phủ Canada và Úc, trong đó lãi suất giao ngay mang giá trị dương và đường cong lãi suất giao ngay có dạng bình thường (dốc lên).</p>
+</li>
+<li>
+<p>C. Đây là một trường hợp giả định nhưng có thể được nhìn thấy bằng cách tạo ra một đường cong lãi suất giao ngay nằm ngang.</p>
+</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM09_Part2_Par_and_Forward_Rates.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM09_Part2_Par_and_Forward_Rates</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 6</a>
+      <a href="LM10_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM10_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('06_Fixed_Income/LM09_Part3_Solutions.html');
+    });
+  </script>
+</body>
+</html>

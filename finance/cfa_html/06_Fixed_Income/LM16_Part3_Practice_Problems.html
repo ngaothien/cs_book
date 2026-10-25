@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 16 Credit Analysis for Corporate Issuers - Part 3: Practice Problems — Volume 6: Fixed Income | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 6: Thu Nhập Cố Định
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 16 Credit Analysis for Corporate Issuers - Part 3: Practice Problems</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (5 trang)...</option>
+          <option value="447">PDF Page 447</option>
+<option value="448">PDF Page 448</option>
+<option value="449">PDF Page 449</option>
+<option value="450">PDF Page 450</option>
+<option value="451">PDF Page 451</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 6</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Thu Nhập Cố Định</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 6</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Fixed_Income_Instrument_Features.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Fixed-Income Instrument Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Bond_Indentures_and_Covenants.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bond Indentures and Covenants</a>
+<a href="LM02_Full_Fixed_Income_Cash_Flows_and_Types.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Fixed-Income Cash Flows and Types</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Fixed_Income_Contingency_Provisions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Fixed-Income Contingency Provisions</a>
+<a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Fixed-Income Issuance and Trading</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Primary and Secondary Fixed-Income Markets</a>
+<a href="LM04_Full_Fixed_Income_Markets_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Fixed-Income Markets for Corporate Issuers</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Repurchase_Agreements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Repurchase Agreements</a>
+<a href="LM04_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM05_Full_Fixed_Income_Markets_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Fixed-Income Markets for Government Issuers</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Non_Sovereign_Quasi_Government_and_Supranatio.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign, Quasi-Government, and Supranational Agency Debt</a>
+<a href="LM06_Full_Fixed_Income_Bond_Valuation_Prices_and_Yields.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Fixed-Income Bond Valuation: Prices and Yields</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Relationships_between_Bond_Prices_and_Bond_Fe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Relationships between Bond Prices and Bond Features</a>
+<a href="LM07_Full_Yield_and_Yield_Spread_Measures_for_Fixed_Rat.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Yield and Yield Spread Measures for Fixed-Rate Bonds</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Spread Measures for Fixed-Rate Bonds and Matrix Pricing</a>
+<a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Measures for Money Market Instruments</a>
+<a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Par_and_Forward_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Par and Forward Rates</a>
+<a href="LM09_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM10_Full_Interest_Rate_Risk_and_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Interest Rate Risk and Return</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Macaulay_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Macaulay Duration</a>
+<a href="LM11_Full_Yield_Based_Bond_Duration_Measures_and_Proper.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Yield-Based Bond Duration Measures and Properties</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Money_Duration_and_Price_Value_of_a_Basis_Poi.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money Duration and Price Value of a Basis Point</a>
+<a href="LM12_Full_Yield_Based_Bond_Convexity_and_Portfolio_Prop.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Yield-Based Bond Convexity and Portfolio Properties</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Portfolio_Duration_and_Convexity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Duration and Convexity</a>
+<a href="LM13_Full_Curve_Based_and_Empirical_Fixed_Income_Risk_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 13 Curve-Based and Empirical Fixed-Income Risk Measures</a>
+<a href="LM13_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM13_Part2_Empirical_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Empirical Duration</a>
+<a href="LM14_Full_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 14 Credit Risk</a>
+<a href="LM14_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Credit Rating Agencies and Credit Ratings</a>
+<a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Factors Impacting Yield Spreads</a>
+<a href="LM14_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM15_Full_Credit_Analysis_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 15 Credit Analysis for Government Issuers</a>
+<a href="LM15_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM15_Part2_Non_Sovereign_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign Credit Risk</a>
+<a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 16 Credit Analysis for Corporate Issuers</a>
+<a href="LM16_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Ratios in Corporate Credit Analysis</a>
+<a href="LM16_Part3_Practice_Problems.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 3: Practice Problems</a>
+<a href="LM17_Full_Fixed_Income_Securitization.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 17 Fixed-Income Securitization</a>
+<a href="LM17_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM17_Part2_The_Securitization_Process.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Securitization Process</a>
+<a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</a>
+<a href="LM18_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Mortgage Asset-Backed Securities</a>
+<a href="LM18_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM19_Full_Mortgage_Backed_Security_MBS_Instrument_and_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 19 Mortgage-Backed Security (MBS) Instrument and Market Features</a>
+<a href="LM19_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM19_Part2_Residential_Mortgage_Backed_Securities_RMBS.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Residential Mortgage-Backed Securities (RMBS)</a>
+<a href="LM19_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 6 • Fixed Income (Thu Nhập Cố Định)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 16 Credit Analysis for Corporate Issuers - Part 3: Practice Problems</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('06_Fixed_Income/LM16_Part3_Practice_Problems.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 6: Fixed Income</h1>
+<h2>Learning Module 16 Credit Analysis for Corporate Issuers</h2>
+<h3>Part 3/3: Practice Problems (PDF Pages 447–452)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 6: Thu nhập Cố định (Fixed Income)</h1>
+<h2>Học phần 16: Phân tích Tín dụng đối với Tổ chức Phát hành Doanh nghiệp (Credit Analysis for Corporate Issuers)</h2>
+<h3>Phần 3/3: Bài tập Thực hành (Trang PDF 447–452)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-447" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 447 / Trang PDF 447
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~PRACTICE PROBLEMS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>BÀI TẬP THỰC HÀNH (PRACTICE PROBLEMS)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 1-9</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 1–9</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The following questions are related to Mojofon Holdings: Mojofon Holdings specializes in the design, manufacturing, and marketing of its own branded smartphones. An evolving sector, the smartphone market is dominated by few large firms who together have close to 70% of the global market. Mojofon’s global market share is consistently around 3%, and it is positioned as a niche player.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các câu hỏi sau đây liên quan đến Mojofon Holdings: Mojofon Holdings chuyên thiết kế, sản xuất và tiếp thị điện thoại thông minh (<em>smartphones</em>) mang thương hiệu riêng của mình. Là một lĩnh vực đang phát triển, thị trường điện thoại thông minh bị thống trị bởi một số ít các doanh nghiệp lớn, những đơn vị cộng lại nắm giữ gần 70% thị phần toàn cầu. Thị phần toàn cầu của Mojofon luôn duy trì ở mức khoảng 3%, và công ty được định vị là một doanh nghiệp ngách (<em>niche player</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An industry assessment leads to the following observations:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đánh giá ngành đưa đến những quan sát sau đây:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Competition of the smartphone industry is intense, driven by consistent technology upgrades and new models with short product life cycles. The large investment and marketing budgets of dominant players have sustained high industry concentration.</p>
+</li>
+<li>
+<p>New entrants positioned as niche producers of “cult” models like Mojofon consistently compete for market share.</p>
+</li>
+<li>
+<p>Customers are “price-takers,” as smartphones are seen as a necessity. Pricing is usually set by the top three producers, and small firms have little pricing power. Surveys show that customers defer new phone purchases unless they have damaged their phones or there is a leap in technology.</p>
+</li>
+<li>
+<p>Core mobile phone technology, such as semiconductor chips and mobile operating licenses, are concentrated among few key suppliers that command large profit margins at the expense of phone manufacturers.</p>
+</li>
+<li>
+<p>Smartphone shipment has seen low growth in recent years due to market saturation and high penetration, limited technological advancement, and an economic slowdown. There are signs the sector is maturing. Industry concentration is increasing, with the top five firms accounting for 60–70% of global shipment and industry profit.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Cạnh tranh trong ngành điện thoại thông minh rất khốc liệt, được thúc đẩy bởi việc nâng cấp công nghệ liên tục và các mẫu máy mới có vòng đời sản phẩm ngắn. Ngân sách đầu tư và tiếp thị khổng lồ của những doanh nghiệp thống lĩnh đã duy trì mức độ tập trung cao của ngành.</p>
+</li>
+<li>
+<p>Các đối thủ mới gia nhập được định vị là những nhà sản xuất ngách với các mẫu máy có lượng người hâm mộ riêng (<em>“cult” models</em>) như Mojofon liên tục cạnh tranh để giành thị phần.</p>
+</li>
+<li>
+<p>Khách hàng là những “người chấp nhận giá” (<em>“price-takers”</em>), vì điện thoại thông minh được xem là một mặt hàng thiết yếu. Giá cả thường được ấn định bởi ba nhà sản xuất hàng đầu, và các doanh nghiệp nhỏ có rất ít quyền năng định giá (<em>pricing power</em>). Các cuộc khảo sát cho thấy khách hàng trì hoãn việc mua điện thoại mới trừ khi điện thoại của họ bị hỏng hoặc có một bước nhảy vọt về công nghệ.</p>
+</li>
+<li>
+<p>Công nghệ điện thoại di động cốt lõi, chẳng hạn như chip bán dẫn và bản quyền hệ điều hành di động, tập trung ở một số ít các nhà cung cấp chủ chốt vốn đòi hỏi biên lợi nhuận lớn gây bất lợi cho các nhà sản xuất điện thoại.</p>
+</li>
+<li>
+<p>Lượng xuất xưởng điện thoại thông minh chứng kiến mức tăng trưởng thấp trong những năm gần đây do sự bão hòa của thị trường và tỷ lệ thâm nhập cao, những tiến bộ công nghệ hạn chế, và sự chững lại của nền kinh tế. Có những dấu hiệu cho thấy lĩnh vực này đang bước vào giai đoạn bão hòa/trưởng thành (<em>maturing</em>). Mức độ tập trung của ngành đang gia tăng, với năm doanh nghiệp hàng đầu chiếm 60–70% lượng xuất xưởng toàn cầu và lợi nhuận toàn ngành.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> Based on her smartphone industry assessment, the credit analyst concludes that Mojofon’s debt service capacity is low because:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Dựa trên đánh giá ngành điện thoại thông minh của mình, nhà phân tích tín dụng kết luận rằng năng lực trả nợ (<em>debt service capacity</em>) của Mojofon ở mức thấp bởi vì:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> the threat of substitutes is low.</p>
+</li>
+<li>
+<p><strong>B.</strong> the threat of new entrants and bargaining power of customers are low.</p>
+</li>
+<li>
+<p><strong>C.</strong> the industry rivalry and the bargaining power of suppliers are high.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> mối đe dọa từ các sản phẩm thay thế thấp.</p>
+</li>
+<li>
+<p><strong>B.</strong> mối đe dọa từ các đối thủ mới gia nhập và quyền lực thương lượng của khách hàng thấp.</p>
+</li>
+<li>
+<p><strong>C.</strong> mức độ cạnh tranh nội ngành (<em>industry rivalry</em>) và quyền lực thương lượng của các nhà cung cấp (<em>bargaining power of suppliers</em>) cao.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> Based on the overall industry assessment, the credit analyst concludes that the credit conditions for Mojofon will <em>most likely</em> :</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Dựa trên đánh giá tổng thể về ngành, nhà phân tích tín dụng kết luận rằng các điều kiện tín dụng đối với Mojofon <em>nhiều khả năng nhất</em> sẽ:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> tighten because the sector is maturing, and industry concentration is increasing.</p>
+</li>
+<li>
+<p><strong>B.</strong> remain unchanged because Mojofon’s market share is constant despite low industry growth.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> thắt chặt (<em>tighten</em>) bởi vì lĩnh vực này đang bước vào giai đoạn trưởng thành/bão hòa, và mức độ tập trung của ngành đang gia tăng.</p>
+</li>
+<li>
+<p><strong>B.</strong> giữ nguyên không đổi bởi vì thị phần của Mojofon ổn định bất chấp mức tăng trưởng thấp của ngành.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-448" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 448 / Trang PDF 448
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>C.</strong> expand since niche market entrants are consistently seizing market share from dominant firms.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>C.</strong> mở rộng (<em>expand</em>) vì các đối thủ mới gia nhập thị trường ngách đang liên tục chiếm lấy thị phần từ các doanh nghiệp thống lĩnh.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> Which of the following will <em>most likely</em> reduce Mojofon’s near-term default risk?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Hành động nào sau đây <em>nhiều khả năng nhất</em> sẽ làm giảm rủi ro vỡ nợ trong ngắn hạn của Mojofon?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> A new policy to increase dividends on a steady basis</p>
+</li>
+<li>
+<p><strong>B.</strong> A three-year strategy to pursue acquisitions funded by debt</p>
+</li>
+<li>
+<p><strong>C.</strong> Proactive management of debt maturity by issuing longer-term bonds</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Một chính sách mới nhằm tăng cổ tức trên cơ sở đều đặn</p>
+</li>
+<li>
+<p><strong>B.</strong> Một chiến lược kéo dài ba năm nhằm theo đuổi các thương vụ mua lại được tài trợ bằng nợ vay</p>
+</li>
+<li>
+<p><strong>C.</strong> Quản lý chủ động kỳ hạn nợ bằng cách phát hành các trái phiếu có kỳ hạn dài hơn</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>4.</strong> The credit analyst studies the key financial information of Mojofon and that of its peers below:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>4.</strong> Nhà phân tích tín dụng nghiên cứu thông tin tài chính chính của Mojofon và của các công ty cùng ngành (<em>peers</em>) dưới đây:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Key Credit Metrics</strong></th>
+<th><strong>Mo</strong><br><strong>Prior Year</strong></th>
+<th><strong>jofon</strong><br><strong>Current Year</strong></th>
+<th><strong>Peer Average</strong><br><strong>Current Year</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EBITDA</td>
+<td>27</td>
+<td>20</td>
+<td>55</td>
+</tr>
+<tr>
+<td>Revenue</td>
+<td>121</td>
+<td>100</td>
+<td>305</td>
+</tr>
+<tr>
+<td>FCF</td>
+<td>9</td>
+<td>−5</td>
+<td>40</td>
+</tr>
+<tr>
+<td>FCF after dividends</td>
+<td>5</td>
+<td>−7</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Interest expense</td>
+<td>5</td>
+<td>8</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Total debt</td>
+<td>100</td>
+<td>100</td>
+<td>150</td>
+</tr>
+<tr>
+<td>Total equity</td>
+<td>120</td>
+<td>100</td>
+<td>250</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Các Thước đo Tín dụng Chính (Key Credit Metrics)</strong></th>
+<th><strong>Mojofon – Năm Trước (Prior Year)</strong></th>
+<th><strong>Mojofon – Năm Hiện tại (Current Year)</strong></th>
+<th><strong>Trung bình Nhóm cùng ngành – Năm Hiện tại (Peer Average Current Year)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EBITDA</td>
+<td>27</td>
+<td>20</td>
+<td>55</td>
+</tr>
+<tr>
+<td>Doanh thu (<em>Revenue</em>)</td>
+<td>121</td>
+<td>100</td>
+<td>305</td>
+</tr>
+<tr>
+<td>FCF</td>
+<td>9</td>
+<td>−5</td>
+<td>40</td>
+</tr>
+<tr>
+<td>FCF sau cổ tức (<em>FCF after dividends</em>)</td>
+<td>5</td>
+<td>−7</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Chi phí lãi vay (<em>Interest expense</em>)</td>
+<td>5</td>
+<td>8</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Tổng nợ (<em>Total debt</em>)</td>
+<td>100</td>
+<td>100</td>
+<td>150</td>
+</tr>
+<tr>
+<td>Tổng vốn chủ sở hữu (<em>Total equity</em>)</td>
+<td>120</td>
+<td>100</td>
+<td>250</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Debt/capital for Mojofon for the current year is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tỷ số Nợ/vốn (<em>Debt/capital</em>) của Mojofon trong năm hiện tại <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 37.5%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 50.0%.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 37.5%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 50.0%.</p>
+</li>
+<li>
+<p><strong>C.</strong> 100.0%.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> 100.0%.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>5.</strong> Các trái phiếu đang lưu hành của Mojofon có chứa một điều khoản ràng buộc (<em>covenant</em>) yêu cầu tỷ số trang trải lãi vay <span class="math-inline">$\text{EBITDA/Interest}$</span> của công ty phải cao hơn 3.0. Dựa trên phân tích tỷ số trang trải nợ, Mojofon <em>nhiều khả năng nhất</em>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>5.</strong> The outstanding bonds of Mojofon contain a covenant that requires its EBITDA/ Interest coverage ratio to be above 3.0. Based on coverage ratio analysis, Mojofon <em>most likely</em> :</p>
+<ul>
+<li>
+<p><strong>A.</strong> has improved its coverage ratio.</p>
+</li>
+<li>
+<p><strong>B.</strong> is in breach of this bond covenant.</p>
+</li>
+<li>
+<p><strong>C.</strong> has lower credit risk than its peers.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> đã cải thiện tỷ số trang trải nợ của mình.</p>
+</li>
+<li>
+<p><strong>B.</strong> đang vi phạm điều khoản ràng buộc trái phiếu này (<em>in breach of this bond covenant</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> có rủi ro tín dụng thấp hơn các công ty cùng ngành.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>6.</strong> Based on the financial information, Mojofon’s credit risk is:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>6.</strong> Dựa trên thông tin tài chính đã cho, rủi ro tín dụng của Mojofon ở mức:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> below that of its peers.</p>
+</li>
+<li>
+<p><strong>B.</strong> similar to that of its peers.</p>
+</li>
+<li>
+<p><strong>C.</strong> above that of its peers.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> thấp hơn so với các công ty cùng ngành.</p>
+</li>
+<li>
+<p><strong>B.</strong> tương tự như các công ty cùng ngành.</p>
+</li>
+<li>
+<p><strong>C.</strong> cao hơn so với các công ty cùng ngành.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>7.</strong> Mojofon’s capital structure consists of the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>7.</strong> Cấu trúc vốn của Mojofon bao gồm các khoản mục sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>Amount</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Senior secured bonds</td>
+<td>50</td>
+</tr>
+<tr>
+<td>(pledged by collateral valued at 60)</td>
+<td></td>
+</tr>
+<tr>
+<td>Senior unsecured bonds</td>
+<td>35</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Loại vốn (Type)</strong></th>
+<th><strong>Giá trị (Amount)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trái phiếu cấp cao có bảo đảm (<em>Senior secured bonds</em>) (được cầm cố bằng tài sản thế chấp định giá ở mức 60)</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Trái phiếu cấp cao không có bảo đảm (<em>Senior unsecured bonds</em>)</td>
+<td>35</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-449" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 449 / Trang PDF 449
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>Amount</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subordinated bonds</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Common equity</td>
+<td>100</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Loại vốn (Type)</strong></th>
+<th><strong>Giá trị (Amount)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trái phiếu thứ cấp (<em>Subordinated bonds</em>)</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Vốn cổ phần phổ thông (<em>Common equity</em>)</td>
+<td>100</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Mojofon’s bonds all contain a cross-default provision. If the company is to default on one of its senior unsecured bonds:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tất cả các trái phiếu của Mojofon đều có điều khoản vỡ nợ chéo (<em>cross-default provision</em>). Nếu công ty bị vỡ nợ đối với một trong các trái phiếu cấp cao không có bảo đảm của mình:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> the secured bonds are likely to have full recovery.</p>
+</li>
+<li>
+<p><strong>B.</strong> the credit loss on senior unsecured bonds will be the same as that on subordinated bonds.</p>
+</li>
+<li>
+<p><strong>C.</strong> the subordinated bonds will rank below shareholders, who may dictate how recovery is to be distributed.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> các trái phiếu có bảo đảm nhiều khả năng sẽ được thu hồi đầy đủ (<em>full recovery</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> mức tổn thất tín dụng trên trái phiếu cấp cao không có bảo đảm sẽ giống như trên trái phiếu thứ cấp.</p>
+</li>
+<li>
+<p><strong>C.</strong> các trái phiếu thứ cấp sẽ xếp sau các cổ đông, những người có thể quyết định cách thức phân phối giá trị thu hồi.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>8.</strong> Half of Mojofon’s senior unsecured bonds are issued by its major operating subsidiary, which contributes over 90% of the group’s cash flow and assets, and the remainder of the group’s senior unsecured bonds are issued by the holding company that relies on dividend upstreamed by its subsidiaries. There is no cross-guarantee between the holding company and the subsidiary. In an event of default, it is <em>most likely</em> that:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>8.</strong> Một nửa số trái phiếu cấp cao không có bảo đảm của Mojofon được phát hành bởi công ty con hoạt động chính (<em>major operating subsidiary</em>), đơn vị đóng góp hơn 90% dòng tiền và tài sản của tập đoàn, và phần còn lại của trái phiếu cấp cao không có bảo đảm của tập đoàn được phát hành bởi công ty mẹ (<em>holding company</em>) vốn dựa vào cổ tức chuyển lên (<em>upstreamed</em>) từ các công ty con. Không có bảo lãnh chéo (<em>cross-guarantee</em>) giữa công ty mẹ và công ty con. Trong trường hợp xảy ra vỡ nợ, điều <em>nhiều khả năng nhất</em> là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> the unsecured bonds issued by the holding company will have a higher recovery rate.</p>
+</li>
+<li>
+<p><strong>B.</strong> the unsecured bonds issued by the operating subsidiary will have a higher recovery rate.</p>
+</li>
+<li>
+<p><strong>C.</strong> the recovery rate will be the same for all senior unsecured bonds since they rank pari passu with each other.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> các trái phiếu không có bảo đảm do công ty mẹ phát hành sẽ có tỷ lệ thu hồi cao hơn.</p>
+</li>
+<li>
+<p><strong>B.</strong> các trái phiếu không có bảo đảm do công ty con hoạt động phát hành sẽ có tỷ lệ thu hồi cao hơn.</p>
+</li>
+<li>
+<p><strong>C.</strong> tỷ lệ thu hồi sẽ giống nhau đối với tất cả các trái phiếu cấp cao không có bảo đảm vì chúng xếp ngang hàng (<em>pari passu</em>) với nhau.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>9.</strong> Mojofon’s S&amp;P issuer credit rating is B+. Its S&amp;P subordinated bond issue rating is <em>most likely</em> :</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>9.</strong> Xếp hạng tín nhiệm tổ chức phát hành (<em>issuer credit rating</em>) của S&amp;P dành cho Mojofon là B+. Xếp hạng đợt phát hành trái phiếu thứ cấp (<em>subordinated bond issue rating</em>) của S&amp;P dành cho công ty <em>nhiều khả năng nhất</em> là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> BB –.</p>
+</li>
+<li>
+<p><strong>B.</strong> B+.</p>
+</li>
+<li>
+<p><strong>C.</strong> B –.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> BB–.</p>
+</li>
+<li>
+<p><strong>B.</strong> B+.</p>
+</li>
+<li>
+<p><strong>C.</strong> B–.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-450" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 450 / Trang PDF 450
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~SOLUTIONS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>LỜI GIẢI (SOLUTIONS)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>The correct answer is C. Based on the industry assessment:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Đáp án đúng là C. Dựa trên đánh giá ngành:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Competitive Forces</strong></th>
+<th><strong>Intensity</strong></th>
+<th><strong>Capacity to Support Debt</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Threat of new entrants</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>h<br>Bargaining power of suppliers</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Bargaining power of customers</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Threat of substitutes</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>h<br>Industry rivalry</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Các Áp lực Cạnh tranh (Competitive Forces)</strong></th>
+<th><strong>Cường độ (Intensity)</strong></th>
+<th><strong>Năng lực Hỗ trợ Nợ (Capacity to Support Debt)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mối đe dọa từ các đối thủ mới gia nhập (<em>Threat of new entrants</em>)</td>
+<td>Thấp (<em>Low</em>)</td>
+<td>Cao (<em>High</em>)</td>
+</tr>
+<tr>
+<td>Quyền lực thương lượng của nhà cung cấp (<em>Bargaining power of suppliers</em>)</td>
+<td>Cao (<em>High</em>)</td>
+<td>Thấp (<em>Low</em>)</td>
+</tr>
+<tr>
+<td>Quyền lực thương lượng của khách hàng (<em>Bargaining power of customers</em>)</td>
+<td>Thấp (<em>Low</em>)</td>
+<td>Cao (<em>High</em>)</td>
+</tr>
+<tr>
+<td>Mối đe dọa từ sản phẩm thay thế (<em>Threat of substitutes</em>)</td>
+<td>Thấp (<em>Low</em>)</td>
+<td>Cao (<em>High</em>)</td>
+</tr>
+<tr>
+<td>Mức độ cạnh tranh nội ngành (<em>Industry rivalry</em>)</td>
+<td>Cao (<em>High</em>)</td>
+<td>Thấp (<em>Low</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Industry rivalry and bargaining power of suppliers are all high intensity, implying low capacity to support debt.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cạnh tranh nội ngành và quyền lực thương lượng của các nhà cung cấp đều có cường độ cao, hàm ý năng lực hỗ trợ nợ ở mức thấp.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>
+<p>The correct answer is A. If the industry is maturing with low growth and the market becomes further concentrated among a few dominant firms, credit conditions for smaller smartphone producers will most likely tighten.</p>
+</li>
+<li>
+<p>The correct answer is C. Extending debt maturity proactively will help extend Mojofon’s debt maturity profile and reduce near-term default risk. B is incorrect, as debt-funded acquisitions reduce future cash flow certainty and increase credit risk. A is incorrect since increasing the dividend is a shareholder-friendly action that increases leverage and credit risk.</p>
+</li>
+<li>
+<p>The correct answer is B. Debt/capital = Debt / (Debt + Equity) = 100/(100 + 100) = 0.5 or 50% for Mojofon for the current year.</p>
+</li>
+<li>
+<p>The correct answer is B. EBITDA/Interest coverage for Mojofon for the current year = 20/8 = 2.5. The corresponding ratio for the prior year = 27/5 = 5.4. Therefore, Mojofon’s coverage ratio has deteriorated, and the company has breached its coverage ratio covenant (&gt;= 3.0). On the other hand, EBITDA/Interest among its peers = 55/10 = 5.5, which is much better than that of Mojofon. Based on coverage ratio analysis, Mojofon has higher, not lower, credit risk than its peers.</p>
+</li>
+<li>
+<p>The correct answer is C. Despite the better profit measure, EBITDA margin, versus its peers, Mojofon’s cash flow measures, leverage, and coverage ratios are all considerably worse than its peers. Therefore, it has higher credit risk.</p>
+</li>
+<li>
+<p>The correct answer is A. Senior secured bonds rank the highest in the priority of claims, and their recovery depends on the value of the asset collateral. Since the value of asset collateral (60) exceeds the amount of secured bonds outstanding (50), the secured bonds are likely to have full recovery in an event of default. Senior unsecured bonds have higher priority over subordinated bonds, which in turn have higher priority over common equity in insolvency.</p>
+</li>
+<li>
+<p>The correct answer is B. Senior unsecured bonds issued by the holding company are said to be structurally subordinated to those issued by the major operating subsidiary. Debt at the operating subsidiary will be serviced by the cash flow and assets of the subsidiary first before any funds can be upstreamed to the holding company to service debt at that level.</p>
+</li>
+</ol>
+<ul>
+<li>Since the operating subsidiary accounts for over 90% of the group’s cash flow and assets but only half of the group’s senior unsecured debt, the holding company debt can only be serviced after the operating subsidiary debt is paid in full. The unsecured bonds issued by the subsidiary will most likely have higher recovery.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>
+<p>Đáp án đúng là A. Nếu ngành đang bước vào giai đoạn trưởng thành/bão hòa với mức tăng trưởng thấp và thị trường ngày càng tập trung hơn vào một số ít các doanh nghiệp thống lĩnh, các điều kiện tín dụng đối với những nhà sản xuất điện thoại thông minh nhỏ hơn nhiều khả năng sẽ thắt chặt lại.</p>
+</li>
+<li>
+<p>Đáp án đúng là C. Việc chủ động kéo dài kỳ hạn nợ sẽ giúp kéo dài hồ sơ đáo hạn nợ của Mojofon và làm giảm rủi ro vỡ nợ trong ngắn hạn. B sai, vì các thương vụ mua lại được tài trợ bằng nợ làm giảm sự chắc chắn của dòng tiền tương lai và làm tăng rủi ro tín dụng. A sai vì việc tăng cổ tức là một hành động thân thiện với cổ đông nhưng làm tăng đòn bẩy và rủi ro tín dụng.</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Tỷ số Nợ/vốn (<span class="math-inline">$\text{Debt/capital}$</span>) <span class="math-inline">$= \frac{\text{Debt}}{\text{Debt} + \text{Equity}} = \frac{100}{100 + 100} = 0.5$</span> hay <span class="math-inline">$50\%$</span> đối với Mojofon trong năm hiện tại.</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Tỷ số trang trải lãi vay <span class="math-inline">$\text{EBITDA/Interest}$</span> của Mojofon trong năm hiện tại <span class="math-inline">$= 20/8 = 2.5$</span>. Tỷ số tương ứng của năm trước <span class="math-inline">$= 27/5 = 5.4$</span>. Do đó, tỷ số trang trải nợ của Mojofon đã suy giảm, và công ty đã vi phạm điều khoản ràng buộc về tỷ số trang trải nợ (<span class="math-inline">$\ge 3.0$</span>). Mặt khác, tỷ số <span class="math-inline">$\text{EBITDA/Interest}$</span> của nhóm công ty cùng ngành <span class="math-inline">$= 55/10 = 5.5$</span>, tốt hơn nhiều so với Mojofon. Dựa trên phân tích tỷ số trang trải nợ, Mojofon có rủi ro tín dụng cao hơn, chứ không phải thấp hơn, so với các công ty cùng ngành.</p>
+</li>
+<li>
+<p>Đáp án đúng là C. Bất chấp thước đo lợi nhuận là biên EBITDA tốt hơn so với các công ty cùng ngành (<span class="math-inline">$20/100 = 20\%$</span> so với <span class="math-inline">$55/305 = 18.03\%$</span>), các thước đo dòng tiền, đòn bẩy và tỷ số trang trải nợ của Mojofon đều kém hơn đáng kể so với các công ty cùng ngành. Do đó, công ty có rủi ro tín dụng cao hơn.</p>
+</li>
+<li>
+<p>Đáp án đúng là A. Trái phiếu cấp cao có bảo đảm xếp cao nhất trong thứ tự ưu tiên của các quyền đòi nợ, và khả năng thu hồi của chúng phụ thuộc vào giá trị của tài sản thế chấp. Vì giá trị của tài sản thế chấp (60) vượt quá giá trị trái phiếu có bảo đảm đang lưu hành (50), các trái phiếu có bảo đảm nhiều khả năng sẽ được thu hồi đầy đủ khi xảy ra sự kiện vỡ nợ. Trái phiếu cấp cao không có bảo đảm có thứ tự ưu tiên cao hơn trái phiếu thứ cấp, và đến lượt trái phiếu thứ cấp lại có thứ tự ưu tiên cao hơn vốn cổ phần phổ thông khi mất khả năng thanh toán.</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Các trái phiếu cấp cao không có bảo đảm do công ty mẹ phát hành được gọi là chịu sự phân tầng thứ cấp về mặt cấu trúc (<em>structurally subordinated</em>) so với những trái phiếu được phát hành bởi công ty con hoạt động chính. Khoản nợ tại công ty con hoạt động sẽ được thanh toán bởi dòng tiền và tài sản của công ty con đó trước tiên trước khi bất kỳ nguồn tiền nào có thể được chuyển lên (<em>upstreamed</em>) cho công ty mẹ để trả nợ ở cấp độ đó.</p>
+</li>
+</ol>
+<ul>
+<li>Vì công ty con hoạt động chiếm hơn 90% dòng tiền và tài sản của tập đoàn nhưng chỉ chiếm một nửa số nợ cấp cao không có bảo đảm của tập đoàn, khoản nợ của công ty mẹ chỉ có thể được thanh toán sau khi khoản nợ của công ty con hoạt động đã được trả đầy đủ. Các trái phiếu không có bảo đảm do công ty con phát hành nhiều khả năng sẽ có tỷ lệ thu hồi cao hơn.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-451" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 451 / Trang PDF 451
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="9">
+<li>The correct answer is C. An issuer credit rating is the rating applied to a company’s senior unsecured debt. The rating agency will usually apply a notching adjustment to the lower-ranked subordinated debt, whose rating should therefore be lower than that of the senior unsecured debt.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="9">
+<li>Đáp án đúng là C. Xếp hạng tín nhiệm tổ chức phát hành (<em>issuer credit rating</em>) là mức xếp hạng được áp dụng cho nợ cấp cao không có bảo đảm của một công ty. Tổ chức xếp hạng tín nhiệm thường sẽ áp dụng việc điều chỉnh bậc xếp hạng (<em>notching adjustment</em>) đối với khoản nợ thứ cấp có thứ hạng thấp hơn, do đó mức xếp hạng của nó phải thấp hơn mức xếp hạng của nợ cấp cao không có bảo đảm (tức thấp hơn B+, nên là B–).</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 6</a>
+      <a href="LM17_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM17_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('06_Fixed_Income/LM16_Part3_Practice_Problems.html');
+    });
+  </script>
+</body>
+</html>

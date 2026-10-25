@@ -1,0 +1,13 @@
+# Tập 2: Kinh tế học (Economics)
+
+| Mã Chương | Tên Chương (Learning Module) | Trang PDF | File Nguyên Chương (Full) | Các File Tách Phần (Parts) | Số Từ (VI) |
+| :---: | :--- | :---: | :--- | :--- | :---: |
+| **LM01** | The Firm and Market Structures | tr. 11–56 | [LM01_Full_The_Firm_and_Market_Structures.md](LM01_Full_The_Firm_and_Market_Structures.md) | [Part 1](LM01_Part1_Introduction.md), [Part 2](LM01_Part2_Profit_Maximization_Production_Breakeven_Shut.md), [Part 3](LM01_Part3_Introduction_to_Market_Structures.md), [Part 4](LM01_Part4_Oligopoly.md), [Part 5](LM01_Part5_Practice_Problems.md) | 31,052 |
+| **LM02** | Understanding Business Cycles | tr. 57–86 | [LM02_Full_Understanding_Business_Cycles.md](LM02_Full_Understanding_Business_Cycles.md) | [Part 1](LM02_Part1_Introduction.md), [Part 2](LM02_Part2_Economic_Indicators_over_the_Business_Cycle.md), [Part 3](LM02_Part3_Practice_Problems.md) | 20,096 |
+| **LM03** | Fiscal Policy | tr. 87–112 | [LM03_Full_Fiscal_Policy.md](LM03_Full_Fiscal_Policy.md) | [Part 1](LM03_Part1_Introduction.md), [Part 2](LM03_Part2_Fiscal_Policy_Tools.md) | 16,282 |
+| **LM04** | Monetary Policy | tr. 113–148 | [LM04_Full_Monetary_Policy.md](LM04_Full_Monetary_Policy.md) | [Part 1](LM04_Part1_Introduction.md), [Part 2](LM04_Part2_Monetary_Policy_Objectives.md), [Part 3](LM04_Part3_Interaction_of_Monetary_and_Fiscal_Policy.md) | 25,187 |
+| **LM05** | Introduction to Geopolitics | tr. 149–202 | [LM05_Full_Introduction_to_Geopolitics.md](LM05_Full_Introduction_to_Geopolitics.md) | [Part 1](LM05_Part1_Introduction.md), [Part 2](LM05_Part2_Forces_of_Globalization.md), [Part 3](LM05_Part3_Assessing_Geopolitical_Actors_and_Risk.md), [Part 4](LM05_Part4_Geopolitical_Risk_and_the_Investment_Process.md) | 41,442 |
+| **LM06** | International Trade | tr. 203–222 | [LM06_Full_International_Trade.md](LM06_Full_International_Trade.md) | [Part 1](LM06_Part1_Introduction.md), [Part 2](LM06_Part2_Practice_Problems.md) | 13,233 |
+| **LM07** | Capital Flows and the FX Market | tr. 223–260 | [LM07_Full_Capital_Flows_and_the_FX_Market.md](LM07_Full_Capital_Flows_and_the_FX_Market.md) | [Part 1](LM07_Part1_Introduction.md), [Part 2](LM07_Part2_The_Foreign_Exchange_Market_and_Exchange_Rate.md), [Part 3](LM07_Part3_Exchange_Rate_Regimes_Ideals_and_Historical_P.md), [Part 4](LM07_Part4_Capital_Restrictions.md) | 28,860 |
+| **LM08** | Exchange Rate Calculations | tr. 261–276 | [LM08_Exchange_Rate_Calculations.md](LM08_Exchange_Rate_Calculations.md) | [Part 1](LM08_Exchange_Rate_Calculations.md) | 10,110 |
+| **Glossary** | Glossary | tr. 277–280 | [Glossary_Glossary.md](Glossary_Glossary.md) | [Part 1](Glossary_Glossary.md) | 6,182 |

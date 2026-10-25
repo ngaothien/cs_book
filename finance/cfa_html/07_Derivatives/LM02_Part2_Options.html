@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 2 Forward Commitment and Contingent Claim Features and Instruments - Part 2: Options — Volume 7: Derivatives | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 7: Công Cụ Phái Sinh
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 2 Forward Commitment and Contingent Claim Features and Instruments - Part 2: Options</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM02_Full_Forward_Commitment_and_Contingent_Claim_Featu.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (15 trang)...</option>
+          <option value="46">PDF Page 46</option>
+<option value="47">PDF Page 47</option>
+<option value="48">PDF Page 48</option>
+<option value="49">PDF Page 49</option>
+<option value="50">PDF Page 50</option>
+<option value="51">PDF Page 51</option>
+<option value="52">PDF Page 52</option>
+<option value="53">PDF Page 53</option>
+<option value="54">PDF Page 54</option>
+<option value="55">PDF Page 55</option>
+<option value="56">PDF Page 56</option>
+<option value="57">PDF Page 57</option>
+<option value="58">PDF Page 58</option>
+<option value="59">PDF Page 59</option>
+<option value="60">PDF Page 60</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 7</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Công Cụ Phái Sinh</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 7</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Derivative_Instrument_and_Derivative_Market_F.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Derivative Instrument and Derivative Market Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM02_Full_Forward_Commitment_and_Contingent_Claim_Featu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Forward Commitment and Contingent Claim Features and Instruments</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Options.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Options</a>
+<a href="LM03_Full_Derivative_Benefits_Risks_and_Issuer_and_Inve.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Derivative Benefits, Risks, and Issuer and Investor Uses</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Issuer_Use_of_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Issuer Use of Derivatives</a>
+<a href="LM04_Full_Arbitrage_Replication_and_the_Cost_of_Carry_i.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Arbitrage, Replication, and the Cost of Carry in Pricing Derivatives</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Costs_and_Benefits_Associated_with_Owning_the.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Costs and Benefits Associated with Owning the Underlying</a>
+<a href="LM05_Full_Pricing_and_Valuation_of_Forward_Contracts_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Pricing and Valuation of Forward Contracts and for an Underlying with Varying Maturities</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Pricing_and_Valuation_of_Interest_Rate_Forwar.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Pricing and Valuation of Interest Rate Forward Contracts</a>
+<a href="LM06_Full_Pricing_and_Valuation_of_Futures_Contracts.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Pricing and Valuation of Futures Contracts</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Effect_of_Central_Clearing_of_OTC_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Effect of Central Clearing of OTC Derivatives</a>
+<a href="LM07_Full_Pricing_and_Valuation_of_Interest_Rates_and_O.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Pricing and Valuation of Interest Rates and Other Swaps</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Swap_Values_and_Prices.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Swap Values and Prices</a>
+<a href="LM08_Full_Pricing_and_Valuation_of_Options.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Pricing and Valuation of Options</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Factors_Affecting_Option_Value.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Factors Affecting Option Value</a>
+<a href="LM09_Full_Option_Replication_Using_Put_Call_Parity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Option Replication Using Put–Call Parity</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Option_Put_Call_Parity_Applications_Firm_Valu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Option Put–Call Parity Applications: Firm Value</a>
+<a href="LM10_Full_Valuing_a_Derivative_Using_a_One_Period_Binom.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Valuing a Derivative Using a One-Period Binomial Model</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 7 • Derivatives (Công Cụ Phái Sinh)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 2 Forward Commitment and Contingent Claim Features and Instruments - Part 2: Options</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('07_Derivatives/LM02_Part2_Options.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 7: Derivatives</h1>
+<h2>Learning Module 2 Forward Commitment and Contingent Claim Features and Instruments</h2>
+<h3>Part 2/2: Options (PDF Pages 46–60)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 7: Công cụ Phái sinh (<em>Derivatives</em>)</h1>
+<h2>Học phần 2: Đặc điểm và Công cụ của Cam kết Kỳ hạn và Quyền đòi hỏi Có điều kiện (<em>Forward Commitment and Contingent Claim Features and Instruments</em>)</h2>
+<h3>Phần 2/2: Quyền chọn (<em>Options</em>) (Trang PDF 46–60)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-46" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 46 / Trang PDF 46
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>The correct answer is A. A fixed-rate payer (also known as the floating-rate receiver) receives a net payment if the market reference rate exceeds the fixed rate for a given period.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Đáp án đúng là A. Bên trả lãi suất cố định (còn được gọi là bên nhận lãi suất thả nổi) nhận được một khoản thanh toán ròng nếu lãi suất tham chiếu thị trường vượt quá lãi suất cố định trong một kỳ nhất định.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>5</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>5</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>OPTIONS</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>QUYỀN CHỌN (<em>OPTIONS</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>define forward contracts, futures contracts, swaps, options (calls and puts), and credit derivatives and compare their basic characteristics determine the value at expiration and profit from a long or a short position in a call or put option contrast forward commitments with contingent claims</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>định nghĩa hợp đồng kỳ hạn, hợp đồng tương lai, hợp đồng hoán đổi, quyền chọn (quyền chọn mua và quyền chọn bán), và công cụ phái sinh tín dụng cũng như so sánh các đặc điểm cơ bản của chúng</p>
+<p>xác định giá trị khi đáo hạn và lợi nhuận từ một vị thế mua hoặc vị thế bán đối với quyền chọn mua hoặc quyền chọn bán</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Contingent claims are a type of ETD or OTC derivative contract in which one of the counterparties has the right to determine whether a trade will settle based on the underlying value. Option contracts are the most common contingent claim. Similar to forwards and futures, options are derivative contracts between a buyer and a seller that specify an underlying, contract size, a pre-agreed execution price, and a maturity date. The option buyer has the right but not the obligation to transact the trade, and the option seller has the obligation to fulfill the transaction as chosen by the option buyer. As a consequence, the payoff to an option buyer is always zero or positive. It can never be negative.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>đối chiếu giữa các cam kết kỳ hạn với các quyền đòi hỏi có điều kiện</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Assume an option buyer pays a premium ( <em>c</em> 0) of <span class="math-inline">$5 at _t_ = 0 for the right—but not the obligation—to buy stock _S_ at time _T_ at a pre-agreed price ( _X_ ) of $</span>30. The option buyer’s decision at maturity depends on the stock price at maturity ( <em>ST</em> ), as shown in the following two scenarios:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Quyền đòi hỏi có điều kiện (<em>contingent claims</em>) là một loại hợp đồng phái sinh ETD hoặc OTC trong đó một trong các đối tác có quyền quyết định liệu một giao dịch có được thanh toán hay không dựa trên giá trị của tài sản cơ sở. Hợp đồng quyền chọn (<em>option contracts</em>) là quyền đòi hỏi có điều kiện phổ biến nhất. Tương tự như hợp đồng kỳ hạn và hợp đồng tương lai, quyền chọn là các hợp đồng phái sinh giữa người mua và người bán quy định rõ một tài sản cơ sở, quy mô hợp đồng, một mức giá thực hiện thỏa thuận trước, và một ngày đáo hạn. Người mua quyền chọn có quyền nhưng không có nghĩa vụ (<em>right but not the obligation</em>) thực hiện giao dịch, và người bán quyền chọn có nghĩa vụ phải thực hiện giao dịch theo sự lựa chọn của người mua quyền chọn. Hệ quả là, giá trị nhận được khi đáo hạn (<em>payoff</em>) của người mua quyền chọn luôn bằng không hoặc là một số dương. Giá trị này không bao giờ có thể âm.</p>
+<p>Giả sử người mua quyền chọn trả một khoản phí quyền chọn (<span class="math-inline">$c_0$</span>) là $\$5<span class="math-inline">$ tại thời điểm $</span>t = 0<span class="math-inline">$ để có quyền — nhưng không phải nghĩa vụ — mua cổ phiếu $</span>S<span class="math-inline">$ tại thời điểm $</span>T<span class="math-inline">$ ở một mức giá đã thỏa thuận trước ($</span>X<span class="math-inline">$) là $</span>\$30<span class="math-inline">$. Quyết định của người mua quyền chọn khi đáo hạn phụ thuộc vào giá cổ phiếu khi đáo hạn ($</span>S_T$), như được thể hiện trong hai kịch bản sau đây:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Scenario 1: Transact (</strong> <strong><em>ST</em> &gt;</strong> <strong><em>X</em> )</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Kịch bản 1: Thực hiện giao dịch (<span class="math-inline">$S_T &gt; X$</span>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>If <em>ST</em> = <span class="math-inline">$40, the option buyer chooses to exercise the option and buy the stock for _X_ = $</span>30.</p>
+</li>
+<li>
+<p>The option buyer gains <span class="math-inline">$10 [( _ST_ – _X_ ) = $</span>40 – $30] on the transaction.</p>
+</li>
+<li>
+<p>The option buyer realizes a <span class="math-inline">$5 profit [( _ST_ – _X_ ) – _c_ 0 = ($</span>40 – <span class="math-inline">$30) – $</span>5].</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Nếu $S_T = \$40<span class="math-inline">$, người mua quyền chọn lựa chọn thực hiện quyền chọn (*exercise the option*) và mua cổ phiếu với giá $</span>X = \$30$.</p>
+</li>
+<li>
+<p>Người mua quyền chọn thu được $\$10<span class="math-inline">$ $</span>[(S_T - X) = \$40 - \$30]$ trên giao dịch này.</p>
+</li>
+<li>
+<p>Người mua quyền chọn thực hiện được khoản lợi nhuận là $\$5<span class="math-inline">$ $</span>[(S_T - X) - c_0 = (\$40 - \$30) - \$5]$.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Scenario 2: Do Not Transact (</strong> <strong><em>ST</em> &lt;</strong> <strong><em>X</em> )</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Kịch bản 2: Không thực hiện giao dịch (<span class="math-inline">$S_T &lt; X$</span>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>If <em>ST</em> = <span class="math-inline">$25, the option buyer chooses not to exercise the option and buy the stock for _X_ = $</span>30.</p>
+</li>
+<li>
+<p>The option buyer realizes a <span class="math-inline">$5 loss ( _c_ 0 = $</span>5).</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Nếu $S_T = \$25<span class="math-inline">$, người mua quyền chọn lựa chọn không thực hiện quyền chọn để mua cổ phiếu với giá $</span>X = \$30$.</p>
+</li>
+<li>
+<p>Người mua quyền chọn chịu một khoản lỗ là $\$5<span class="math-inline">$ ($</span>c_0 = \$5$).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 6 shows the option mechanics for the case where the option buyer pays for the right to purchase an underlying stock <em>S</em> at a pre-agreed execution price of <em>X</em> in the future ( <em>t</em> = <em>T</em> ).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng minh họa 6 cho thấy cơ chế hoạt động của quyền chọn đối với trường hợp người mua quyền chọn trả tiền để có quyền mua một cổ phiếu cơ sở <span class="math-inline">$S$</span> tại mức giá thực hiện thỏa thuận trước là <span class="math-inline">$X$</span> trong tương lai (<span class="math-inline">$t = T$</span>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-47" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 47 / Trang PDF 47
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 6: Call Option Mechanics</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 6: Cơ chế Hoạt động của Quyền chọn Mua (<em>Exhibit 6: Call Option Mechanics</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0047-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0047-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Tại thời điểm <span class="math-inline">$t = 0$</span>:</strong> <strong>Người mua quyền chọn (<em>Option buyer</em>)</strong> (có quyền mua tài sản cơ sở tại giá <span class="math-inline">$X$</span>) trả <strong>Phí quyền chọn trả trước (<em>Upfront premium</em>)</strong> cho <strong>Người bán quyền chọn (<em>Option seller</em>)</strong> (có nghĩa vụ bán tài sản cơ sở tại giá <span class="math-inline">$X$</span>).
+- <strong>Tại thời điểm <span class="math-inline">$t = T$</span>:</strong>
+  - Nếu giá tài sản cơ sở <span class="math-inline">$S_T \le X$</span>: Người mua không mua tài sản cơ sở (không có giao dịch giữa Người mua và Người bán).
+  - Nếu giá tài sản cơ sở <span class="math-inline">$S_T &gt; X$</span>: Người mua mua tài sản cơ sở — trả tiền <span class="math-inline">$X$</span> cho Người bán và nhận về Tài sản cơ sở (<span class="math-inline">$S_T$</span>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The decision to transact the underlying is referred to as an <strong>exercise</strong> , and the pre-agreed execution price is called the <strong>exercise price</strong> (or strike price). Option buyers may transact the underlying in the future at their sole discretion at the exercise price, a pre-agreed future spot price that may be above, at, or below the forward price, as shown in an earlier lesson. This right to exercise in the future has a value that is paid upfront to the option seller in the form of an <strong>option premium</strong> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Quyết định giao dịch tài sản cơ sở được gọi là <strong>thực hiện quyền (<em>exercise</em>)</strong>, và mức giá thực hiện đã thỏa thuận trước được gọi là <strong>giá thực hiện (<em>exercise price</em> hoặc <em>strike price</em>)</strong>. Người mua quyền chọn có thể giao dịch tài sản cơ sở trong tương lai hoàn toàn theo quyết định riêng của họ tại mức giá thực hiện — một mức giá giao ngay tương lai thỏa thuận trước có thể cao hơn, bằng, hoặc thấp hơn giá kỳ hạn, như đã trình bày trong một bài học trước. Quyền được thực hiện giao dịch trong tương lai này có một giá trị được trả trước cho người bán quyền chọn dưới hình thức một khoản <strong>phí quyền chọn (<em>option premium</em>)</strong>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Option contract terms, such as the right to buy or sell, exercise price, maturity, and size, may either be agreed on between the counterparties in an over-the-counter transaction or executed on an exchange based on standardized terms. This lesson focuses on <strong>European options</strong> , or options that may be exercised only at maturity, although other option styles exist. <strong>American options</strong> , for example, may be exercised at any time from contract inception until maturity. Note the labels “European” and “American” refer not to where these options are used but, rather, to the difference in when they can be exercised.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các điều khoản của hợp đồng quyền chọn, chẳng hạn như quyền mua hoặc quyền bán, giá thực hiện, kỳ hạn, và quy mô, có thể được thỏa thuận giữa các đối tác trong một giao dịch phi tập trung (OTC) hoặc được thực hiện trên một sở giao dịch dựa trên các điều khoản được tiêu chuẩn hóa. Bài học này tập trung vào <strong>quyền chọn kiểu châu Âu (<em>European options</em>)</strong>, hay các quyền chọn chỉ có thể được thực hiện vào ngày đáo hạn, mặc dù vẫn tồn tại các kiểu quyền chọn khác. Ví dụ, <strong>quyền chọn kiểu Mỹ (<em>American options</em>)</strong> có thể được thực hiện vào bất kỳ thời điểm nào kể từ khi khởi tạo hợp đồng cho đến khi đáo hạn. Lưu ý rằng tên gọi “châu Âu” và “Mỹ” không đề cập đến nơi các quyền chọn này được sử dụng, mà đề cập đến sự khác biệt về thời điểm chúng có thể được thực hiện.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Two primary option types exist—namely, (1) the right to buy an underlying known as a <strong>call option</strong> and (2) the right to sell the underlying, or a <strong>put option</strong> . An option buyer will exercise a call or put option only if it returns a positive payoff. If not exercised, the option expires worthless, and the option buyer’s loss equals the premium paid.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tồn tại hai loại quyền chọn chính — cụ thể là, (1) quyền mua một tài sản cơ sở được gọi là <strong>quyền chọn mua (<em>call option</em>)</strong> và (2) quyền bán tài sản cơ sở, hay <strong>quyền chọn bán (<em>put option</em>)</strong>. Người mua quyền chọn sẽ chỉ thực hiện quyền chọn mua hoặc quyền chọn bán nếu nó mang lại một giá trị nhận được (<em>payoff</em>) dương. Nếu không được thực hiện, quyền chọn sẽ hết hạn mà không có giá trị (<em>expires worthless</em>), và khoản lỗ của người mua quyền chọn bằng đúng khoản phí quyền chọn đã trả.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>One factor in an option’s value prior to maturity ( <em>t</em> &lt; <em>T</em> ) is the option’s exercise value at time <em>t</em> , which is referred to as an option’s <strong>intrinsic value</strong> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một yếu tố cấu thành giá trị của quyền chọn trước khi đáo hạn (<span class="math-inline">$t &lt; T$</span>) là giá trị thực hiện của quyền chọn tại thời điểm <span class="math-inline">$t$</span>, được gọi là <strong>giá trị nội tại (<em>intrinsic value</em>)</strong> của quyền chọn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can say a call option is <strong>in-the-money</strong> at time <em>t</em> if the spot price, <em>St</em> , exceeds <em>X</em> , with an intrinsic value equal to ( <em>St</em> – <em>X</em> ). Both <strong>out-of-the-money</strong> options (where <em>St</em> &lt; <em>X</em> ) and <strong>at-the-money</strong> options ( <em>St</em> = <em>X</em> ) have zero intrinsic value, so their price, <em>ct</em> , consists solely of time value.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể nói một quyền chọn mua đang ở trạng thái <strong>cao giá / có lời (<em>in-the-money</em>)</strong> tại thời điểm <span class="math-inline">$t$</span> nếu giá giao ngay, <span class="math-inline">$S_t$</span>, vượt quá <span class="math-inline">$X$</span>, với giá trị nội tại bằng <span class="math-inline">$(S_t - X)$</span>. Cả quyền chọn ở trạng thái <strong>kiệt giá / lỗ (<em>out-of-the-money</em>)</strong> (khi <span class="math-inline">$S_t &lt; X$</span>) và quyền chọn ở trạng thái <strong>ngang giá (<em>at-the-money</em>)</strong> (<span class="math-inline">$S_t = X$</span>) đều có giá trị nội tại bằng không, do đó giá của chúng, <span class="math-inline">$c_t$</span>, chỉ bao gồm toàn bộ giá trị thời gian (<em>time value</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Call option buyers will gain from a rise in the price of the underlying. Exhibit 7 shows the payoff and profit at maturity for a call option buyer.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Người mua quyền chọn mua sẽ hưởng lợi từ sự gia tăng trong giá của tài sản cơ sở. Bảng minh họa 7 cho thấy giá trị nhận được (<em>payoff</em>) và lợi nhuận (<em>profit</em>) khi đáo hạn đối với người mua quyền chọn mua.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-48" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 48 / Trang PDF 48
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 7: Long Call Payoff Profile</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 7: Cấu trúc Giá trị nhận được của Vị thế Mua Quyền chọn Mua (<em>Exhibit 7: Long Call Payoff Profile</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0048-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0048-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Trục tung:</strong> Giá trị nhận được / Lợi nhuận (<em>Payoff / Profit</em>).
+- <strong>Trục hoành:</strong> Giá giao ngay khi đáo hạn <span class="math-inline">$S_T$</span>.
+- Đường <strong>Giá trị nhận được (<em>Payoff</em>)</strong> nằm ngang ở mức <span class="math-inline">$0$</span> khi <span class="math-inline">$S_T \le X$</span> và dốc lên tuyến tính khi <span class="math-inline">$S_T &gt; X$</span>.
+- Đường <strong>Lợi nhuận (<em>Profit</em>)</strong> nằm ngang ở mức <span class="math-inline">$-c_0$</span> khi <span class="math-inline">$S_T \le X$</span>, bắt đầu đi lên từ <span class="math-inline">$X$</span>, cắt trục hoành (hòa vốn) tại <span class="math-inline">$X + c_0$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The option buyer pays a call option premium, <em>c</em> 0, at time <em>t</em> = 0 to the option seller and has the right to purchase the underlying, <em>ST</em> , at an exercise price of <em>X</em> at time <em>t</em> = <em>T</em> . The exercise <em>payoff</em> ( <em>ST</em> – <em>X</em> ) is positive if <em>ST</em> &gt; <em>X</em> and zero if <em>ST</em> ≤ <em>X</em> . The call option value at maturity, <em>cT</em> , may be expressed as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Người mua quyền chọn trả một khoản phí quyền chọn mua, <span class="math-inline">$c_0$</span>, tại thời điểm <span class="math-inline">$t = 0$</span> cho người bán quyền chọn và có quyền mua tài sản cơ sở, <span class="math-inline">$S_T$</span>, tại mức giá thực hiện <span class="math-inline">$X$</span> vào thời điểm <span class="math-inline">$t = T$</span>. <em>Giá trị nhận được khi thực hiện quyền (exercise payoff)</em> <span class="math-inline">$(S_T - X)$</span> là số dương nếu <span class="math-inline">$S_T &gt; X$</span> và bằng không nếu <span class="math-inline">$S_T \le X$</span>. Giá trị của quyền chọn mua khi đáo hạn, <span class="math-inline">$c_T$</span>, có thể được biểu diễn như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0048-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0048-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$c_T = \max(0, S_T - X) \tag{1}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The call option buyer’s <em>profit</em> equals the <em>payoff</em> minus the call premium, <em>c</em> 0 (ignoring the time value of money in this lesson):</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Lợi nhuận (profit)</em> của người mua quyền chọn mua bằng <em>giá trị nhận được khi đáo hạn (payoff)</em> trừ đi phí quyền chọn mua, <span class="math-inline">$c_0$</span> (bỏ qua giá trị thời gian của tiền tệ trong bài học này):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0048-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0048-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\Pi = \max(0, S_T - X) - c_0 \tag{2}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This asymmetric payoff profile is a common feature of contingent claims, which are sometimes referred to as <strong>non-linear derivatives</strong> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cấu trúc giá trị nhận được bất đối xứng (<em>asymmetric payoff profile</em>) này là một đặc điểm chung của các quyền đòi hỏi có điều kiện, đôi khi được gọi là các <strong>công cụ phái sinh phi tuyến tính (<em>non-linear derivatives</em>)</strong>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 5</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 5 (<em>EXAMPLE 5</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Hightest Capital—Call Option Purchase</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Hightest Capital — Giao dịch Mua Quyền chọn Mua (<em>Call Option Purchase</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Hightest Capital purchases a call option on the S&amp;P 500 Health Care Select Sector Index (SIXV). This six-month exchange-traded option contract has a size of 100 index units and an exercise price of <span class="math-inline">$1,240 per unit versus the initial SIXV spot price of $</span>1,180.95. The option premium paid upfront is <span class="math-inline">$24.85 per unit, or $</span>2,485 (= $24.85 × 100). As the option nears maturity, a Hightest analyst is asked to determine the expected option payoff and profit per unit at maturity under different scenarios for the SIXV spot price on the exercise date. She compiles the following table:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hightest Capital mua một quyền chọn mua trên Chỉ số Ngành Chăm sóc Sức khỏe Chọn lọc S&amp;P 500 (<em>S&amp;P 500 Health Care Select Sector Index</em> – SIXV). Hợp đồng quyền chọn giao dịch trên sở giao dịch có kỳ hạn sáu tháng này có quy mô là 100 đơn vị chỉ số và mức giá thực hiện là $\$1.240<span class="math-inline">$ mỗi đơn vị so với mức giá giao ngay ban đầu của SIXV là $</span>\$1.180,95<span class="math-inline">$. Khoản phí quyền chọn trả trước là $</span>\$24,85<span class="math-inline">$ mỗi đơn vị, hay $</span>\$2.485<span class="math-inline">$ ($</span>= \$24,85 \times 100$). Khi quyền chọn gần đến ngày đáo hạn, một chuyên viên phân tích của Hightest được yêu cầu xác định giá trị nhận được và lợi nhuận kỳ vọng của quyền chọn trên mỗi đơn vị khi đáo hạn theo các kịch bản khác nhau của giá giao ngay SIXV vào ngày thực hiện quyền. Cô lập bảng sau đây:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><em>c</em> 0 = Call option premium = $24.85 per unit.</p>
+</li>
+<li>
+<p>= Exercise price at time <em>T</em> = $1,240 per unit.</p>
+</li>
+<li>
+<p><em>ST</em> = Spot price per unit at time <em>T</em> .</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><span class="math-inline">$c_0 =$</span> Phí quyền chọn mua $= \$24,85$ mỗi đơn vị.</p>
+</li>
+<li>
+<p><span class="math-inline">$X =$</span> Giá thực hiện tại thời điểm $T = \$1.240$ mỗi đơn vị.</p>
+</li>
+<li>
+<p><span class="math-inline">$S_T =$</span> Giá giao ngay trên mỗi đơn vị tại thời điểm <span class="math-inline">$T$</span>.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>SIXV Spot</strong></th>
+<th><strong>Exercise</strong></th>
+<th><strong>Payoff</strong></th>
+<th><strong>Profit</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Price (</strong><strong><em>ST</em>)</strong></td>
+<td><strong>Price (</strong><strong><em>X</em>)</strong></td>
+<td><strong>max(0,</strong><strong><em>ST</em> –</strong><strong><em>X</em>)</strong></td>
+<td><strong>max(0,</strong><strong><em>ST</em> –</strong><strong><em>X</em>) –</strong><strong>_c_0</strong></td>
+</tr>
+<tr>
+<td><span class="math-inline">$1,280|$</span>1,240</td>
+<td><span class="math-inline">$40|$</span>15.15</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="math-inline">$1,260|$</span>1,240</td>
+<td><span class="math-inline">$20|−$</span>4.85</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Giá giao ngay SIXV (<span class="math-inline">$S_T$</span>)</strong></th>
+<th><strong>Giá thực hiện (<span class="math-inline">$X$</span>)</strong></th>
+<th><strong>Giá trị nhận được (<em>Payoff</em>) <span class="math-inline">$\max(0, S_T - X)$</span></strong></th>
+<th><strong>Lợi nhuận (<em>Profit</em>) <span class="math-inline">$\max(0, S_T - X) - c_0$</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\$1.280<span class="math-inline">$|$</span>\$1.240<span class="math-inline">$|$</span>\$40<span class="math-inline">$|$</span>\$15,15$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\$1.260<span class="math-inline">$|$</span>\$1.240<span class="math-inline">$|$</span>\$20<span class="math-inline">$|$</span>-\$4,85$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-49" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 49 / Trang PDF 49
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>SIXV Spot</strong></th>
+<th><strong>Exercise</strong></th>
+<th><strong>Payoff</strong></th>
+<th><strong>Profit</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Price (</strong><strong><em>ST</em>)</strong></td>
+<td><strong>Price (</strong><strong><em>X</em>)</strong></td>
+<td><strong>max(0,</strong><strong><em>ST</em> –</strong><strong><em>X</em>)</strong></td>
+<td><strong>max(0,</strong><strong><em>ST</em> –</strong><strong><em>X</em>) –</strong><strong>_c_0</strong></td>
+</tr>
+<tr>
+<td><span class="math-inline">$1,240|$</span>1,240</td>
+<td><span class="math-inline">$0|−$</span>24.85</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span class="math-inline">$1,220|$</span>1,240</td>
+<td><span class="math-inline">$0|−$</span>24.85</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Giá giao ngay SIXV (<span class="math-inline">$S_T$</span>)</strong></th>
+<th><strong>Giá thực hiện (<span class="math-inline">$X$</span>)</strong></th>
+<th><strong>Giá trị nhận được (<em>Payoff</em>) <span class="math-inline">$\max(0, S_T - X)$</span></strong></th>
+<th><strong>Lợi nhuận (<em>Profit</em>) <span class="math-inline">$\max(0, S_T - X) - c_0$</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\$1.240<span class="math-inline">$|$</span>\$1.240<span class="math-inline">$|$</span>\$0<span class="math-inline">$|$</span>-\$24,85$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\$1.220<span class="math-inline">$|$</span>\$1.240<span class="math-inline">$|$</span>\$0<span class="math-inline">$|$</span>-\$24,85$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Example 5 raises another question regarding an option’s value prior to maturity ( <em>t</em> &lt; <em>T</em> ). The longer the time to option maturity, the more likely it is that a favorable change in the underlying price will increase both the likelihood and profitability of exercise. This <strong>time value</strong> of an option is always positive and declines to zero as an option reaches maturity.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ 5 đặt ra một câu hỏi khác liên quan đến giá trị của một quyền chọn trước khi đáo hạn (<span class="math-inline">$t &lt; T$</span>). Thời gian cho đến khi quyền chọn đáo hạn càng dài, khả năng xảy ra một biến động có lợi trong giá tài sản cơ sở làm tăng cả xác suất lẫn khả năng sinh lời của việc thực hiện quyền càng cao. <strong>Giá trị thời gian (<em>time value</em>)</strong> này của một quyền chọn luôn dương và giảm dần về không khi quyền chọn tiến đến ngày đáo hạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In contrast to the call option buyer with unlimited upside potential and a loss limited to the premium paid, the call option seller receives a maximum of the premium and faces unlimited downside risk as the underlying appreciates above the exercise price. The short call payoff profile in Exhibit 8 is a mirror image of Exhibit 7.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trái ngược với người mua quyền chọn mua có tiềm năng sinh lời không giới hạn khi giá tăng và mức lỗ được giới hạn ở khoản phí quyền chọn đã trả, người bán quyền chọn mua nhận được mức lợi nhuận tối đa bằng khoản phí quyền chọn và phải đối mặt với rủi ro thua lỗ không giới hạn khi tài sản cơ sở tăng giá vượt lên trên mức giá thực hiện. Cấu trúc giá trị nhận được của vị thế bán quyền chọn mua (<em>short call</em>) trong Bảng minh họa 8 là hình ảnh phản chiếu qua gương của Bảng minh họa 7.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 8: Short Call Payoff Profile</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Bảng minh họa 8: Cấu trúc Giá trị nhận được của Vị thế Bán Quyền chọn Mua (<em>Exhibit 8: Short Call Payoff Profile</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0049-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0049-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Trục tung:</strong> Giá trị nhận được / Lợi nhuận (<em>Payoff / Profit</em>).
+- <strong>Trục hoành:</strong> Giá giao ngay khi đáo hạn <span class="math-inline">$S_T$</span>.
+- Đường <strong>Giá trị nhận được (<em>Payoff</em>)</strong> nằm ngang ở mức <span class="math-inline">$0$</span> khi <span class="math-inline">$S_T \le X$</span> và dốc xuống âm khi <span class="math-inline">$S_T &gt; X$</span>.
+- Đường <strong>Lợi nhuận (<em>Profit</em>)</strong> nằm ngang ở mức <span class="math-inline">$+c_0$</span> khi <span class="math-inline">$S_T \le X$</span>, đi xuống cắt trục hoành tại <span class="math-inline">$X + c_0$</span>, và lỗ không giới hạn khi <span class="math-inline">$S_T$</span> tiếp tục tăng.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The option buyer and seller payoff profiles demonstrate the one-sided nature of counterparty credit risk for contingent claims. That is, the option seller has no credit exposure to the option buyer once the premium is paid. However, the option buyer faces the counterparty credit risk of the option seller equal to the option payoff at maturity.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cấu trúc giá trị nhận được của người mua và người bán quyền chọn minh họa cho bản chất một chiều (<em>one-sided nature</em>) của rủi ro tín dụng đối tác đối với các quyền đòi hỏi có điều kiện. Nghĩa là, người bán quyền chọn không có mức độ tiếp xúc rủi ro tín dụng nào đối với người mua quyền chọn một khi phí quyền chọn đã được thanh toán. Tuy nhiên, người mua quyền chọn phải đối mặt với rủi ro tín dụng đối tác từ phía người bán quyền chọn bằng đúng giá trị nhận được của quyền chọn khi đáo hạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Put option buyers benefit from a lower underlying price by selling the underlying at a pre-agreed exercise price. A put option buyer exercises when the underlying price is below the exercise price ( <em>ST</em> &lt; <em>X</em> ), as shown in Exhibit 9.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Người mua quyền chọn bán (<em>put option buyers</em>) hưởng lợi từ mức giá tài sản cơ sở thấp hơn bằng cách bán tài sản cơ sở tại mức giá thực hiện đã thỏa thuận trước. Người mua quyền chọn bán sẽ thực hiện quyền khi giá tài sản cơ sở thấp hơn giá thực hiện (<span class="math-inline">$S_T &lt; X$</span>), như được thể hiện trong Bảng minh họa 9.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-50" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 50 / Trang PDF 50
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 9: Long Put Payoff Profile</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 9: Cấu trúc Giá trị nhận được của Vị thế Mua Quyền chọn Bán (<em>Exhibit 9: Long Put Payoff Profile</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0050-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0050-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Trục tung:</strong> Giá trị nhận được / Lợi nhuận (<em>Payoff / Profit</em>).
+- <strong>Trục hoành:</strong> Giá giao ngay khi đáo hạn <span class="math-inline">$S_T$</span>.
+- Đường <strong>Giá trị nhận được (<em>Payoff</em>)</strong> dốc xuống từ trái sang phải khi <span class="math-inline">$S_T &lt; X$</span> và nằm ngang ở mức <span class="math-inline">$0$</span> khi <span class="math-inline">$S_T \ge X$</span>.
+- Đường <strong>Lợi nhuận (<em>Profit</em>)</strong> cắt trục hoành (hòa vốn) tại <span class="math-inline">$X - p_0$</span> và nằm ngang ở mức lỗ tối đa <span class="math-inline">$-p_0$</span> khi <span class="math-inline">$S_T \ge X$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The put option buyer pays a premium of <em>p</em> 0 at inception to the option seller and will exercise the option only if ( <em>X</em> – <em>ST</em> ) &gt; 0. As in Equations 1 and 2, we may show the long put option <em>payoff</em> and <em>profit</em> , Π, as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Người mua quyền chọn bán trả một khoản phí quyền chọn là <span class="math-inline">$p_0$</span> khi khởi tạo cho người bán quyền chọn và sẽ chỉ thực hiện quyền chọn nếu <span class="math-inline">$(X - S_T) &gt; 0$</span>. Giống như trong Phương trình 1 và 2, chúng ta có thể biểu diễn <em>giá trị nhận được (payoff)</em> và <em>lợi nhuận (profit)</em>, <span class="math-inline">$\Pi$</span>, của vị thế mua quyền chọn bán như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0050-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0050-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$p_T = \max(0, X - S_T) \tag{3}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0050-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0050-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\Pi = \max(0, X - S_T) - p_0 \tag{4}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The payoff or profit from a put option seller’s perspective is the opposite of the put option buyer’s gain or loss for a given underlying price at expiration. As in the case of the call option seller, the put option seller has a maximum gain equal to the premium. However, although a call option seller faces unlimited potential loss as the underlying appreciates beyond the exercise price, the put option seller’s loss is usually limited because the underlying price cannot fall below zero. The short put option <em>payoff</em> and <em>profit</em> are as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá trị nhận được hoặc lợi nhuận từ góc độ của người bán quyền chọn bán là ngược dấu với khoản lãi hoặc lỗ của người mua quyền chọn bán tại một mức giá tài sản cơ sở nhất định khi đáo hạn. Giống như trường hợp của người bán quyền chọn mua, người bán quyền chọn bán có mức lãi tối đa bằng khoản phí quyền chọn. Tuy nhiên, mặc dù người bán quyền chọn mua phải đối mặt với khoản lỗ tiềm tàng không giới hạn khi tài sản cơ sở tăng giá vượt quá giá thực hiện, khoản lỗ của người bán quyền chọn bán thường có giới hạn bởi vì giá tài sản cơ sở không thể giảm xuống dưới mức không (<span class="math-inline">$0$</span>). <em>Giá trị nhận được (payoff)</em> và <em>lợi nhuận (profit)</em> của vị thế bán quyền chọn bán (<em>short put</em>) như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><em>pT</em> = –max(0, <em>X</em> – <em>ST</em> ). ~~(5)~~</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$-p_T = -\max(0, X - S_T) \tag{5}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0050-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0050-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\Pi = -\max(0, X - S_T) + p_0 \tag{6}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Options</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Quyền chọn (<em>Options</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Calculate the SIXV spot price at maturity from Example 5 at which Hightest Capital will reach a breakeven point and earn zero profit.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Hãy tính mức giá giao ngay SIXV khi đáo hạn từ Ví dụ 5 mà tại đó Hightest Capital sẽ đạt điểm hòa vốn (<em>breakeven point</em>) và có lợi nhuận bằng không.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The call purchaser has a profit equal to max(0, <em>ST</em> – <em>X</em> ) – <em>c</em> 0. In the case of Hightest in Example 5, the SIXV exercise price is <span class="math-inline">$1,240 and the initial call premium is $</span>24.85. The breakeven or zero profit point is therefore equal to <span class="math-inline">$1,240 + $</span>24.85, or $1,264.85.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bên mua quyền chọn mua có mức lợi nhuận bằng <span class="math-inline">$\max(0, S_T - X) - c_0$</span>. Trong trường hợp của Hightest ở Ví dụ 5, giá thực hiện SIXV là $\$1.240<span class="math-inline">$ và phí quyền chọn mua ban đầu là $</span>\$24,85<span class="math-inline">$. Do đó, điểm hòa vốn hay điểm có lợi nhuận bằng không sẽ bằng $</span>\$1.240 + \$24,85<span class="math-inline">$, hay $</span>\$1.264,85$.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-51" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 51 / Trang PDF 51
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>A put option seller receives a <span class="math-inline">$5 premium for a put option sold on an underlying with an exercise price of $</span>30. What is the option seller’s maximum profit under the contract? What is the maximum loss under the contract?</li>
+</ol>
+<ul>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+<li>
+<p>A put option seller receives a <span class="math-inline">$5 premium ( _p_ 0) for a put option sold on an underlying with an exercise price ( _X_ ) of $</span>30. The put option seller’s profit is Π = –max(0, <em>X</em> – <em>ST</em> ) + <em>p</em> 0. If the option is unexercised, –max(0, <em>X</em> – <em>ST</em> ) = 0 and the put seller earns <em>p</em> 0 = <span class="math-inline">$5. If the option is exercised and _ST_ = 0, then Π = –max(0, 30 – 0) + 5 = –$</span>25. Therefore, the option seller’s maximum profit under the contract is <span class="math-inline">$ _5_ and the maximum loss under the contract is $</span> <em>25</em> .</p>
+</li>
+</ul>
+<ol start="3">
+<li>Identify the option contract participants that correspond to the following statements:</li>
+</ol>
+<ul>
+<li>
+<p>A. Put option seller 1. Has no counterparty credit risk to the option buyer once the upfront premium has been paid</p>
+</li>
+<li>
+<p>B. Call option seller 2. Earns a profit equal to the premium if the underlying price at maturity is less than the exercise price</p>
+</li>
+<li>
+<p>C. Both a put option seller and a call 3. Earns a profit equal to the premium if option seller the underlying price at maturity exceeds the exercise price</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Một người bán quyền chọn bán nhận được khoản phí quyền chọn $\$5<span class="math-inline">$ cho một quyền chọn bán được bán trên một tài sản cơ sở có giá thực hiện là $</span>\$30$. Lợi nhuận tối đa của người bán quyền chọn theo hợp đồng này là bao nhiêu? Mức lỗ tối đa theo hợp đồng là bao nhiêu?</li>
+</ol>
+<h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một người bán quyền chọn bán nhận được khoản phí quyền chọn $\$5<span class="math-inline">$ ($</span>p_0<span class="math-inline">$) cho một quyền chọn bán được bán trên một tài sản cơ sở có giá thực hiện ($</span>X<span class="math-inline">$) là $</span>\$30<span class="math-inline">$. Lợi nhuận của người bán quyền chọn bán là $</span>\Pi = -\max(0, X - S_T) + p_0<span class="math-inline">$. Nếu quyền chọn không được thực hiện, $</span>-\max(0, X - S_T) = 0<span class="math-inline">$ và người bán quyền chọn bán thu được $</span>p_0 = \$5<span class="math-inline">$. Nếu quyền chọn được thực hiện và $</span>S_T = 0<span class="math-inline">$, khi đó $</span>\Pi = -\max(0, 30 - 0) + 5 = -\$25<span class="math-inline">$. Do đó, lợi nhuận tối đa của người bán quyền chọn theo hợp đồng là _$</span>\$5<span class="math-inline">$_ và mức lỗ tối đa theo hợp đồng là _$</span>\$25$_.</p>
+<ol start="3">
+<li>Xác định những bên tham gia hợp đồng quyền chọn tương ứng với các phát biểu sau đây:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>The correct answer is C. An option seller has no counterparty credit risk to the option buyer once the upfront premium has been paid.</p>
+</li>
+<li>
+<p>The correct answer is B. A call option seller earns a profit equal to the premium if the underlying price at maturity is less than the exercise price.</p>
+</li>
+<li>
+<p>The correct answer is A. A put option seller earns a profit equal to the premium if the underlying price at maturity is greater than the exercise price.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bên tham gia</strong></th>
+<th><strong>Đặc điểm mô tả</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. Bên bán quyền chọn bán (<em>Put option seller</em>)</td>
+<td>1. Không có rủi ro tín dụng đối tác đối với người mua quyền chọn một khi phí quyền chọn trả trước đã được thanh toán</td>
+</tr>
+<tr>
+<td>B. Bên bán quyền chọn mua (<em>Call option seller</em>)</td>
+<td>2. Thu được khoản lợi nhuận bằng với phí quyền chọn nếu giá tài sản cơ sở khi đáo hạn thấp hơn giá thực hiện</td>
+</tr>
+<tr>
+<td>C. Cả bên bán quyền chọn bán và bên bán quyền chọn mua</td>
+<td>3. Thu được khoản lợi nhuận bằng với phí quyền chọn nếu giá tài sản cơ sở khi đáo hạn vượt quá giá thực hiện</td>
+</tr>
+</tbody>
+</table></div>
+<h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>CREDIT DERIVATIVES</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>Đáp án đúng là C. Người bán quyền chọn không có rủi ro tín dụng đối tác đối với người mua quyền chọn một khi phí quyền chọn trả trước đã được thanh toán.</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Người bán quyền chọn mua thu được khoản lợi nhuận bằng với phí quyền chọn nếu giá tài sản cơ sở khi đáo hạn thấp hơn giá thực hiện.</p>
+</li>
+<li>
+<p>Đáp án đúng là A. Người bán quyền chọn bán thu được khoản lợi nhuận bằng với phí quyền chọn nếu giá tài sản cơ sở khi đáo hạn lớn hơn giá thực hiện.</p>
+</li>
+</ol>
+<h4><strong>CÔNG CỤ PHÁI SINH TÍN DỤNG (<em>CREDIT DERIVATIVES</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0051-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0051-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>define forward contracts, futures contracts, swaps, options (calls and puts), and credit derivatives and compare their basic characteristics</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>định nghĩa hợp đồng kỳ hạn, hợp đồng tương lai, hợp đồng hoán đổi, quyền chọn (quyền chọn mua và quyền chọn bán), và công cụ phái sinh tín dụng cũng như so sánh các đặc điểm cơ bản của chúng</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Credit derivative contracts are based on a credit underlying, or the default risk of a single debt issuer or a group of debt issuers in an index. The most common credit derivative contract is a credit default swap. CDS contracts allow an investor to manage the risk of loss from issuer default separately from a cash bond. CDS contracts trade based on a credit spread ( <strong>CDS credit spread</strong> ) similar to that of a cash bond. Credit spreads depend on the probability of default (POD) and the loss given default (LGD), as shown in an earlier lesson. A <em>higher</em> credit spread (or higher likelihood of issuer financial distress) corresponds to a <em>lower</em> cash bond price, and vice versa.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các hợp đồng phái sinh tín dụng (<em>credit derivative contracts</em>) dựa trên một biến số cơ sở tín dụng, hay rủi ro vỡ nợ (<em>default risk</em>) của một tổ chức phát hành nợ đơn lẻ hoặc một nhóm các tổ chức phát hành nợ trong một chỉ số. Hợp đồng phái sinh tín dụng phổ biến nhất là hợp đồng hoán đổi rủi ro tín dụng (<em>credit default swap</em> – CDS). Các hợp đồng CDS cho phép nhà đầu tư quản lý rủi ro tổn thất từ việc tổ chức phát hành vỡ nợ một cách tách biệt khỏi trái phiếu giao ngay (<em>cash bond</em>). Hợp đồng CDS được giao dịch dựa trên một mức chênh lệch tín dụng (<strong>chênh lệch tín dụng CDS – <em>CDS credit spread</em></strong>) tương tự như chênh lệch tín dụng của một trái phiếu giao ngay. Mức chênh lệch tín dụng phụ thuộc vào xác suất vỡ nợ (<em>probability of default</em> – POD) và mức tổn thất khi vỡ nợ (<em>loss given default</em> – LGD), như đã trình bày trong một bài học trước. Một mức chênh lệch tín dụng <em>cao hơn</em> (hay khả năng kiệt quệ tài chính của tổ chức phát hành cao hơn) tương ứng với một mức giá trái phiếu giao ngay <em>thấp hơn</em>, và ngược lại.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-52" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 52 / Trang PDF 52
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Despite their name, CDS contracts are contingent claims that share some features of firm commitments. Unlike the call and put options discussed earlier, both the timing of exercise and payment upon exercise under a CDS contract vary depending on the underlying issuer(s). As in the case of a standard interest rate swap, a CDS contract priced at a par spread has a zero net present value, and the notional amount is not exchanged but, rather, serves as a basis for spread and settlement calculations.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù có tên gọi là hoán đổi (<em>swap</em>), các hợp đồng CDS thực chất là các quyền đòi hỏi có điều kiện (<em>contingent claims</em>) nhưng mang một số đặc điểm của các cam kết chắc chắn (<em>firm commitments</em>). Không giống như các quyền chọn mua và quyền chọn bán đã thảo luận trước đó, cả thời điểm thực hiện quyền lẫn khoản thanh toán khi thực hiện quyền theo một hợp đồng CDS đều thay đổi tùy thuộc vào (các) tổ chức phát hành cơ sở. Giống như trường hợp của một hợp đồng hoán đổi lãi suất tiêu chuẩn, một hợp đồng CDS được định giá tại mức chênh lệch ngang giá (<em>par spread</em>) có giá trị hiện tại ròng bằng không, và giá trị danh nghĩa (<em>notional amount</em>) không được trao đổi mà thay vào đó đóng vai trò làm cơ sở để tính toán mức phí chênh lệch (<em>spread</em>) và số tiền thanh toán.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In a CDS contract, the credit protection buyer pays the credit protection seller to assume the risk of loss from the default of an underlying third-party issuer. If an issuer <strong>credit event</strong> occurs—usually defined as bankruptcy, failure to pay an obligation, or an involuntary debt restructuring—the credit protection seller pays the credit protection buyer to settle the contract. This contingent payment equals the issuer loss given default for the CDS contract notional amount. Exhibit 10 shows the periodic cash flows under a CDS contract.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong một hợp đồng CDS, bên mua bảo vệ tín dụng (<em>credit protection buyer</em>) trả phí cho bên bán bảo vệ tín dụng (<em>credit protection seller</em>) để bên bán gánh chịu rủi ro tổn thất từ việc vỡ nợ của một tổ chức phát hành thứ ba cơ sở. Nếu một <strong>sự kiện tín dụng (<em>credit event</em>)</strong> của tổ chức phát hành xảy ra — thường được định nghĩa là phá sản (<em>bankruptcy</em>), không thanh toán được một nghĩa vụ nợ (<em>failure to pay an obligation</em>), hoặc tái cơ cấu nợ bắt buộc (<em>involuntary debt restructuring</em>) — bên bán bảo vệ tín dụng sẽ chi trả cho bên mua bảo vệ tín dụng để thanh toán hợp đồng. Khoản thanh toán có điều kiện (<em>contingent payment</em>) này bằng đúng mức tổn thất khi vỡ nợ (LGD) của tổ chức phát hành tính trên giá trị danh nghĩa của hợp đồng CDS. Bảng minh họa 10 cho thấy các dòng tiền định kỳ theo một hợp đồng CDS.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 10: Periodic Payments under a Credit Default Swap</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 10: Các Khoản Thanh toán Định kỳ theo Hợp đồng Hoán đổi Rủi ro Tín dụng (<em>Exhibit 10: Periodic Payments under a Credit Default Swap</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0052-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0052-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Bên mua bảo vệ / Vị thế bán rủi ro (<em>Protection Buyer / Short Risk</em>)</strong> trả <strong>Mức phí chênh lệch CDS cố định (<em>Fixed CDS Spread</em>)</strong> định kỳ cho <strong>Bên bán bảo vệ / Vị thế mua rủi ro (<em>Protection Seller / Long Risk</em>)</strong>.
+- Ngược lại, <strong>Bên bán bảo vệ</strong> thực hiện <strong>Khoản thanh toán có điều kiện khi xảy ra Sự kiện Tín dụng (<em>Contingent Payment Upon Credit Event</em>)</strong> cho <strong>Bên mua bảo vệ</strong>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The underlying may be a corporate or sovereign issuer, an index of issuers, or a special purpose entity with a portfolio of loans, mortgages, or bonds.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tài sản cơ sở có thể là một tổ chức phát hành doanh nghiệp hoặc chính phủ, một chỉ số gồm các tổ chức phát hành, hoặc một thực thể có mục đích đặc biệt (<em>special purpose entity</em> – SPE) nắm giữ một danh mục các khoản vay, khoản thế chấp, hoặc trái phiếu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A buyer can use a CDS contract as a hedge of existing credit exposure to the underlying issuer. The credit protection afforded by a CDS is similar to insurance for a buyer with an existing fixed-income exposure to the third-party issuer. The buyer may suffer a loss in value on its fixed-income exposure from the credit event but will receive a payment from the CDS contract that will offset that loss.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Người mua có thể sử dụng hợp đồng CDS làm công cụ phòng vệ (<em>hedge</em>) cho mức độ tiếp xúc rủi ro tín dụng hiện có đối với tổ chức phát hành cơ sở. Sự bảo vệ tín dụng mà một hợp đồng CDS mang lại tương tự như một hợp đồng bảo hiểm đối với một người mua đang có sẵn vị thế tiếp xúc thu nhập cố định đối với tổ chức phát hành thứ ba đó. Người mua có thể chịu một khoản lỗ về giá trị trên vị thế thu nhập cố định của mình do sự kiện tín dụng gây ra nhưng sẽ nhận được một khoản thanh toán từ hợp đồng CDS giúp bù đắp khoản lỗ đó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A credit protection buyer without the corresponding fixed-income exposure who buys a CDS is seeking to gain from higher credit spreads (which correspond to lower cash bond prices) for an underlying issuer and is therefore short credit risk.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một người mua bảo vệ tín dụng không nắm giữ vị thế thu nhập cố định tương ứng nhưng vẫn mua một hợp đồng CDS là đang tìm cách thu lợi từ mức chênh lệch tín dụng cao hơn (vốn tương ứng với giá trái phiếu giao ngay thấp hơn) của một tổ chức phát hành cơ sở, và do đó đang ở vị thế bán khống rủi ro tín dụng (<em>short credit risk</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The credit protection seller receives a periodic fixed spread payment in exchange for assuming the contingent risk of paying the credit protection buyer to offset the loss under a credit event. The contract structure is similar to insurance, with the periodic premium over the life of the contract agreed to upfront and with the timing and size of the loss under the credit event being unknown. The seller’s position is therefore similar to that of a long risk position in the issuer’s underlying bond.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bên bán bảo vệ tín dụng nhận được một khoản thanh toán phí chênh lệch cố định định kỳ để đổi lấy việc gánh chịu rủi ro có điều kiện là phải chi trả cho bên mua bảo vệ tín dụng nhằm bù đắp tổn thất khi xảy ra một sự kiện tín dụng. Cấu trúc hợp đồng này tương tự như bảo hiểm, với khoản phí bảo hiểm định kỳ trong suốt vòng đời của hợp đồng được thỏa thuận trước và thời điểm cũng như quy mô của khoản tổn thất khi xảy ra sự kiện tín dụng là chưa biết trước. Do đó, vị thế của người bán bảo vệ tương tự như một vị thế mua rủi ro (<em>long risk position</em>) đối với trái phiếu cơ sở của tổ chức phát hành.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For example, Exhibit 11 shows the CDS contract for an underlying issuer that experiences credit migration ( <em>t</em> = 1) followed by a credit event ( <em>t</em> = 2).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ, Bảng minh họa 11 cho thấy hợp đồng CDS đối với một tổ chức phát hành cơ sở trải qua sự dịch chuyển chất lượng tín dụng (<em>credit migration</em>) tại <span class="math-inline">$t = 1$</span>, tiếp nối bởi một sự kiện tín dụng (<em>credit event</em>) tại <span class="math-inline">$t = 2$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-53" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 53 / Trang PDF 53
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 11: CDS Contract with Credit Migration and Credit Event</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 11: Hợp đồng CDS với Sự dịch chuyển Tín dụng và Sự kiện Tín dụng (<em>Exhibit 11: CDS Contract with Credit Migration and Credit Event</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0053-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0053-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Tại <span class="math-inline">$t = 0$</span>:</strong> Bên mua bảo vệ (<em>Protection Buyer</em>) trả phí <span class="math-inline">$\text{CDS Spread}_0 = 100\text{ bps/năm}$</span> cho Bên bán bảo vệ (<em>Protection Seller</em>).
+- <strong>Tại <span class="math-inline">$t = 1$</span> (Sự dịch chuyển tín dụng – <em>Credit Migration</em>):</strong> Chênh lệch tín dụng tăng lên <span class="math-inline">$\text{CDS Spread}_1 = 250\text{ bps}$</span>. Bên mua bảo vệ vẫn chỉ trả <span class="math-inline">$100\text{ bps/năm}$</span> nên có Lãi định giá theo thị trường (<em>MTM Gain to buyer</em>), còn Bên bán bảo vệ chịu Lỗ định giá theo thị trường (<em>MTM Loss to seller</em>). Mức thay đổi MTM của CDS: <span class="math-inline">$\text{CDS MTM Change} \approx \Delta\text{CDS Spread} \times \text{Notional} \times \text{EffDur}_{\text{CDS}}$</span>.
+- <strong>Tại <span class="math-inline">$t = 2$</span> (Sự kiện tín dụng – <em>Credit Event</em>):</strong> Tổ chức phát hành vỡ nợ / Không có khả năng thanh toán (<em>Issuer default/Failure to pay</em>). Hợp đồng CDS chấm dứt (<em>CDS Contract terminates</em>). Khoản thanh toán từ bên bán cho bên mua <span class="math-inline">$\approx \text{LGD (\%)} \times \text{Notional}$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The protection buyer agrees to pay a fixed spread of 100 bps p.a. at <em>t</em> = 0 for the contract term. As the issuer’s CDS spread widens to 250 bps p.a. at <em>t</em> = 1, the buyer gains on the CDS contract due to the low fixed spread paid while the seller loses due to the low fixed spread received relative to the current higher CDS market spread. As for any fixed-income instrument, the effective duration of the remaining contract may be used to approximate the MTM change. An issuer credit event at <em>t</em> = 2 causes the contract to terminate, and the seller must make a payment to the buyer equal to the percentage of loss (LGD) multiplied by the CDS contract notional.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bên mua bảo vệ đồng ý trả một mức phí chênh lệch cố định là 100 bps/năm tại thời điểm <span class="math-inline">$t = 0$</span> cho suốt thời hạn hợp đồng. Khi mức chênh lệch CDS của tổ chức phát hành nới rộng ra thành 250 bps/năm tại thời điểm <span class="math-inline">$t = 1$</span>, người mua có lãi trên hợp đồng CDS nhờ mức phí chênh lệch cố định thấp đang trả, trong khi người bán bị lỗ do mức phí chênh lệch cố định nhận được thấp hơn so với mức chênh lệch CDS thị trường hiện hành đang cao hơn. Giống như bất kỳ công cụ thu nhập cố định nào, thời lượng hiệu dụng (<em>effective duration</em> – <span class="math-inline">$\text{EffDur}_{\text{CDS}}$</span>) của thời hạn hợp đồng còn lại có thể được sử dụng để ước tính xấp xỉ mức thay đổi giá trị MTM. Một sự kiện tín dụng của tổ chức phát hành tại thời điểm <span class="math-inline">$t = 2$</span> khiến hợp đồng chấm dứt, và người bán phải thực hiện một khoản thanh toán cho người mua bằng tỷ lệ phần trăm tổn thất khi vỡ nợ (<span class="math-inline">$\text{LGD}$</span>) nhân với giá trị danh nghĩa của hợp đồng CDS.</p>
+<h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Công cụ Phái sinh Tín dụng (<em>Credit Derivatives</em>)</strong></h5>
+<ol>
+<li>Xác định câu trả lời đúng để điền vào chỗ trống: Khoản thanh toán có điều kiện theo một hợp đồng hoán đổi rủi ro tín dụng bằng với <strong><em>_</em></strong>_____ tính trên giá trị danh nghĩa CDS được quy định trong hợp đồng.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Credit Derivatives</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>Determine the correct answer to fill in the blanks: The contingent payment under a credit default swap equals the <strong><em>_ </em></strong><em> ____ for the CDS notional amount specified in the contract. <strong>Solution:</strong> The contingent payment under a credit default swap equals the _loss given default</em> for the CDS notional amount specified in the contract.</p>
+</li>
+<li>
+<p>Describe how a credit protection seller’s position is similar to that of an underlying cash bond investment. <strong>Solution:</strong></p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khoản thanh toán có điều kiện theo một hợp đồng hoán đổi rủi ro tín dụng bằng với <em>mức tổn thất khi vỡ nợ (loss given default – LGD)</em> tính trên giá trị danh nghĩa CDS được quy định trong hợp đồng.</p>
+<ol start="2">
+<li>Mô tả tại sao vị thế của người bán bảo vệ tín dụng lại tương tự như vị thế của một khoản đầu tư trái phiếu giao ngay cơ sở.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A credit protection seller receives a periodic CDS spread payment in exchange for the contingent risk of payment to the buyer under an issuer credit event. A cash bond investor receives a periodic coupon that incorporates</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6>
+<p>Người bán bảo vệ tín dụng nhận được một khoản thanh toán phí chênh lệch CDS định kỳ để đổi lấy rủi ro có điều kiện phải thanh toán cho người mua khi xảy ra một sự kiện tín dụng của tổ chức phát hành. Nhà đầu tư trái phiếu giao ngay nhận được một khoản lãi coupon định kỳ có kết hợp</p></div>
+                </div>
+                
+
+                <div id="pdf-page-54" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 54 / Trang PDF 54
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>an issuer’s credit spread in exchange for a potential loss if the issuer defaults. Under the CDS contract and the cash bond, this potential payment or loss equals the LGD. The credit protection seller’s position is therefore similar to that of a long risk position in the issuer’s underlying bond.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>mức chênh lệch tín dụng của tổ chức phát hành để đổi lấy một khoản tổn thất tiềm tàng nếu tổ chức phát hành vỡ nợ. Theo cả hợp đồng CDS và trái phiếu giao ngay, khoản thanh toán hoặc tổn thất tiềm tàng này đều bằng mức tổn thất khi vỡ nợ (LGD). Do đó, vị thế của người bán bảo vệ tín dụng tương tự như một vị thế mua rủi ro (<em>long risk position</em>) đối với trái phiếu cơ sở của tổ chức phát hành.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Identify the CDS contract participants that correspond to the following statements:</li>
+</ol>
+<ul>
+<li>
+<p>A. Credit protection buyer 1. Seeks to gain from higher issuer credit spreads</p>
+</li>
+<li>
+<p>B. Credit protection seller 2. Enters into a derivative contract that transfers the risk of loss from a credit event of an underlying third-party issuer</p>
+</li>
+<li>
+<p>C. Both a credit protection buyer and a 3. Faces an MTM gain on the CDS credit protection seller contract if the CDS spread of the underlying issuer falls</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Xác định những bên tham gia hợp đồng CDS tương ứng với các phát biểu sau đây:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bên tham gia</strong></th>
+<th><strong>Đặc điểm mô tả</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. Bên mua bảo vệ tín dụng (<em>Credit protection buyer</em>)</td>
+<td>1. Tìm cách thu lợi từ mức chênh lệch tín dụng cao hơn của tổ chức phát hành</td>
+</tr>
+<tr>
+<td>B. Bên bán bảo vệ tín dụng (<em>Credit protection seller</em>)</td>
+<td>2. Tham gia vào một hợp đồng phái sinh giúp chuyển giao rủi ro tổn thất từ một sự kiện tín dụng của một tổ chức phát hành thứ ba cơ sở</td>
+</tr>
+<tr>
+<td>C. Cả bên mua bảo vệ tín dụng và bên bán bảo vệ tín dụng</td>
+<td>3. Đạt được một khoản lãi MTM trên hợp đồng CDS nếu mức chênh lệch CDS của tổ chức phát hành cơ sở giảm xuống</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>The correct answer is A. A credit protection buyer seeks to gain from higher issuer credit spreads.</p>
+</li>
+<li>
+<p>The correct answer is C. Both the credit protection buyer and credit protection seller enter into a derivative contract that transfers the risk of loss from a credit event of an underlying third-party issuer.</p>
+</li>
+<li>
+<p>The correct answer is B. A credit protection seller faces an MTM gain on the CDS contract if the CDS spread of the underlying issuer falls. The decline in the issuer’s CDS spread versus the original fixed spread on the CDS contract means that the protection seller is receiving an above-market spread. This above-market CDS spread more than compensates the seller for the new, lower level of credit risk and results in an MTM gain.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>7</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>Đáp án đúng là A. Bên mua bảo vệ tín dụng tìm cách thu lợi từ mức chênh lệch tín dụng cao hơn của tổ chức phát hành.</p>
+</li>
+<li>
+<p>Đáp án đúng là C. Cả bên mua bảo vệ tín dụng và bên bán bảo vệ tín dụng đều tham gia vào một hợp đồng phái sinh giúp chuyển giao rủi ro tổn thất từ một sự kiện tín dụng của một tổ chức phát hành thứ ba cơ sở.</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Bên bán bảo vệ tín dụng đạt được một khoản lãi MTM trên hợp đồng CDS nếu mức chênh lệch CDS của tổ chức phát hành cơ sở giảm xuống. Sự sụt giảm trong mức chênh lệch CDS của tổ chức phát hành so với mức phí chênh lệch cố định ban đầu trên hợp đồng CDS có nghĩa là bên bán bảo vệ đang nhận được một mức phí chênh lệch cao hơn thị trường (<em>above-market spread</em>). Mức phí chênh lệch CDS cao hơn thị trường này bù đắp nhiều hơn mức cần thiết cho người bán trước mức rủi ro tín dụng mới thấp hơn và dẫn đến một khoản lãi MTM.</p>
+</li>
+</ol>
+<h1><strong><mark>7</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>FORWARD COMMITMENTS VS. CONTINGENT CLAIMS</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>CAM KẾT KỲ HẠN SO VỚI QUYỀN ĐÒI HỎI CÓ ĐIỀU KIỆN (<em>FORWARD COMMITMENTS VS. CONTINGENT CLAIMS</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>contrast forward commitments with contingent claims</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>đối chiếu giữa các cam kết kỳ hạn với các quyền đòi hỏi có điều kiện</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A firm commitment requires both counterparties to perform under a derivative contract, while an option buyer can decide whether to perform under the contract at maturity depending on the underlying price relative to the exercise price. Market participants often create similar exposures to an underlying using these different derivative instrument types. For example, both a long forward position and a long call option position will gain from an increase in the underlying price. Exhibit 12 contrasts the payoff and profit of these two derivative contracts, where the exercise price, <em>X</em> , equals the forward price, <em>F</em> 0( <em>T</em> ).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một cam kết chắc chắn (<em>firm commitment</em>) yêu cầu cả hai đối tác phải thực hiện nghĩa vụ theo hợp đồng phái sinh, trong khi người mua quyền chọn có thể quyết định có thực hiện hợp đồng khi đáo hạn hay không tùy thuộc vào giá tài sản cơ sở so với giá thực hiện. Những người tham gia thị trường thường tạo ra các mức độ tiếp xúc rủi ro tương tự nhau đối với một tài sản cơ sở bằng cách sử dụng các loại công cụ phái sinh khác nhau này. Ví dụ, cả vị thế mua hợp đồng kỳ hạn (<em>long forward position</em>) và vị thế mua quyền chọn mua (<em>long call option position</em>) đều sẽ hưởng lợi từ sự gia tăng trong giá của tài sản cơ sở. Bảng minh họa 12 đối chiếu giá trị nhận được (<em>payoff</em>) và lợi nhuận (<em>profit</em>) của hai hợp đồng phái sinh này, trong đó giá thực hiện, <span class="math-inline">$X$</span>, bằng với giá kỳ hạn, <span class="math-inline">$F_0(T)$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-55" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 55 / Trang PDF 55
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 12: Long Forward and Long Call Option Payoff Profiles</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Bảng minh họa 12: Cấu trúc Giá trị nhận được của Vị thế Mua Kỳ hạn và Vị thế Mua Quyền chọn Mua (<em>Exhibit 12: Long Forward and Long Call Option Payoff Profiles</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0055-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0055-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- Khi <span class="math-inline">$X = F_0(T)$</span>:
+  - Đường <strong>Lợi nhuận kỳ hạn (<em>Forward profit</em>)</strong> là đường thẳng tuyến tính đi qua điểm <span class="math-inline">$X = F_0(T)$</span> trên trục hoành.
+  - Đường <strong>Giá trị nhận được của quyền chọn (<em>Option payoff</em>)</strong> bằng <span class="math-inline">$0$</span> khi <span class="math-inline">$S_T \le X$</span> và trùng với đường lợi nhuận kỳ hạn khi <span class="math-inline">$S_T &gt; X$</span>.
+  - Đường <strong>Lợi nhuận của quyền chọn (<em>Option profit</em>)</strong> nằm ngang ở mức <span class="math-inline">$-c_0$</span> khi <span class="math-inline">$S_T \le X$</span> và song song (thấp hơn một đoạn <span class="math-inline">$c_0$</span>) so với đường lợi nhuận kỳ hạn khi <span class="math-inline">$S_T &gt; X$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As shown earlier, both the long forward and the call option payoffs increase as <em>ST</em> rises. In the case of a forward, this linear relationship is equal to [ <em>ST</em> – <em>F</em> 0( <em>T</em> )], with the payoff equal to profit because no cash is exchanged at inception. For the buyer of a call option with an exercise price of <em>F</em> 0( <em>T</em> ), Equation 2 changes to</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Như đã trình bày trước đó, cả giá trị nhận được của vị thế mua kỳ hạn lẫn quyền chọn mua đều tăng lên khi <span class="math-inline">$S_T$</span> tăng. Trong trường hợp của hợp đồng kỳ hạn, mối quan hệ tuyến tính này bằng <span class="math-inline">$[S_T - F_0(T)]$</span>, với giá trị nhận được bằng đúng lợi nhuận vì không có khoản tiền mặt nào được trao đổi khi khởi tạo. Đối với người mua một quyền chọn mua có giá thực hiện là <span class="math-inline">$F_0(T)$</span>, Phương trình 2 chuyển thành:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Π = max[0, <em>ST</em> – <em>F</em> 0( <em>T</em> )] – <em>c</em> 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\Pi = \max[0, S_T - F_0(T)] - c_0$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Setting the forward payoff/profit [ <em>ST</em> – <em>F</em> 0( <em>T</em> )] equal to the call option profit, Π, gives us the following relative profit profile between the forward and option:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cho giá trị nhận được/lợi nhuận của hợp đồng kỳ hạn <span class="math-inline">$[S_T - F_0(T)]$</span> bằng với lợi nhuận của quyền chọn mua, <span class="math-inline">$\Pi$</span>, chúng ta có được cấu trúc lợi nhuận tương đối giữa hợp đồng kỳ hạn và quyền chọn như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><em>ST</em> – <em>F</em> 0( <em>T</em> ) &gt; – <em>c</em> 0 Forward profit exceeds option profit</p>
+</li>
+<li>
+<p><em>ST</em> – <em>F</em> 0( <em>T</em> ) = – <em>c</em> 0 Forward profit equals call option profit</p>
+</li>
+<li>
+<p><em>ST</em> – <em>F</em> 0( <em>T</em> ) &lt; – <em>c</em> 0 Option profit exceeds forward profit</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><span class="math-inline">$S_T - F_0(T) &gt; -c_0 \implies$</span> Lợi nhuận hợp đồng kỳ hạn vượt quá lợi nhuận quyền chọn (<em>Forward profit exceeds option profit</em>)</p>
+</li>
+<li>
+<p><span class="math-inline">$S_T - F_0(T) = -c_0 \implies$</span> Lợi nhuận hợp đồng kỳ hạn bằng lợi nhuận quyền chọn mua (<em>Forward profit equals call option profit</em>)</p>
+</li>
+<li>
+<p><span class="math-inline">$S_T - F_0(T) &lt; -c_0 \implies$</span> Lợi nhuận quyền chọn vượt quá lợi nhuận hợp đồng kỳ hạn (<em>Option profit exceeds forward profit</em>)</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The side-by-side comparison in Exhibit 12 between the forward and call option profit diagrams shows the long call option’s similarity to a long position in the underlying with downside protection in exchange for paying a premium.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sự so sánh song song trong Bảng minh họa 12 giữa đồ thị lợi nhuận của hợp đồng kỳ hạn và quyền chọn mua cho thấy sự tương đồng của vị thế mua quyền chọn mua với một vị thế mua (<em>long position</em>) tài sản cơ sở nhưng có sự bảo vệ khi giá giảm (<em>downside protection</em>) để đổi lấy việc phải trả một khoản phí quyền chọn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Another contingent claim that benefits from a rise in the underlying price is the sold put option. While the long call option and long forward payoffs both rise when the underlying price is above the exercise price, the put option seller’s profit is limited to the upfront premium. Exhibit 13 contrasts the short put payoff and profit with a long forward if the exercise price, <em>X</em> , equals <em>F</em> 0( <em>T</em> ).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một quyền đòi hỏi có điều kiện khác cũng hưởng lợi từ sự gia tăng trong giá của tài sản cơ sở là quyền chọn bán đã bán (<em>sold put option</em> / <em>short put</em>). Trong khi giá trị nhận được của vị thế mua quyền chọn mua và vị thế mua kỳ hạn đều tăng lên khi giá tài sản cơ sở vượt lên trên giá thực hiện, lợi nhuận của người bán quyền chọn bán lại bị giới hạn ở khoản phí quyền chọn trả trước. Bảng minh họa 13 đối chiếu giá trị nhận được và lợi nhuận của vị thế bán quyền chọn bán với vị thế mua kỳ hạn nếu giá thực hiện, <span class="math-inline">$X$</span>, bằng <span class="math-inline">$F_0(T)$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-56" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 56 / Trang PDF 56
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>Forward Commitment and Contingent Claim Features and Instruments</strong></li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 13: Long Forward and Short Put Option Payoff Profile</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Bảng minh họa 13: Cấu trúc Giá trị nhận được của Vị thế Mua Kỳ hạn và Vị thế Bán Quyền chọn Bán (<em>Exhibit 13: Long Forward and Short Put Option Payoff Profile</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0056-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0056-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- Khi <span class="math-inline">$X = F_0(T)$</span>:
+  - Đường <strong>Lợi nhuận kỳ hạn (<em>Forward profit</em>)</strong> tăng tuyến tính theo <span class="math-inline">$S_T$</span> và cắt trục hoành tại <span class="math-inline">$X = F_0(T)$</span>.
+  - Đường <strong>Giá trị nhận được của quyền chọn (<em>Option payoff</em>)</strong> trùng với đường lợi nhuận kỳ hạn ở miền âm khi <span class="math-inline">$S_T \le X$</span> và nằm ngang ở mức <span class="math-inline">$0$</span> khi <span class="math-inline">$S_T &gt; X$</span>.
+  - Đường <strong>Lợi nhuận của quyền chọn (<em>Option profit</em>)</strong> song song và cao hơn đường lợi nhuận kỳ hạn một đoạn <span class="math-inline">$+p_0$</span> khi <span class="math-inline">$S_T \le X$</span>, và nằm ngang ở mức lợi nhuận tối đa <span class="math-inline">$+p_0$</span> khi <span class="math-inline">$S_T &gt; X$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can compare the long forward payoff/profit of [ <em>ST</em> – <em>F</em> 0( <em>T</em> )] to a modified version of Equation 6:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể so sánh giá trị nhận được/lợi nhuận của vị thế mua kỳ hạn là <span class="math-inline">$[S_T - F_0(T)]$</span> với một phiên bản điều chỉnh của Phương trình 6:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>Π = –max[0, <em>F</em> 0( <em>T</em> ) – <em>ST</em> ] + <em>p</em> 0.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\Pi = -\max[0, F_0(T) - S_T] + p_0$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Setting the forward profit [ <em>ST</em> – <em>F</em> 0( <em>T</em> )] equal to the put option profit, Π, gives us the following relative profit profile between the forward and option:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cho lợi nhuận của hợp đồng kỳ hạn <span class="math-inline">$[S_T - F_0(T)]$</span> bằng với lợi nhuận của quyền chọn bán, <span class="math-inline">$\Pi$</span>, chúng ta có được cấu trúc lợi nhuận tương đối giữa hợp đồng kỳ hạn và quyền chọn như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><em>ST</em> – <em>F</em> 0( <em>T</em> ) &gt; <em>p</em> 0 Forward profit exceeds option profit</p>
+</li>
+<li>
+<p><em>ST</em> – <em>F</em> 0( <em>T</em> ) = <em>p</em> 0 Forward profit equals option profit)</p>
+</li>
+<li>
+<p><em>ST</em> – <em>F</em> 0( <em>T</em> ) &lt; <em>p</em> 0 Option profit exceeds forward profit</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><span class="math-inline">$S_T - F_0(T) &gt; p_0 \implies$</span> Lợi nhuận hợp đồng kỳ hạn vượt quá lợi nhuận quyền chọn (<em>Forward profit exceeds option profit</em>)</p>
+</li>
+<li>
+<p><span class="math-inline">$S_T - F_0(T) = p_0 \implies$</span> Lợi nhuận hợp đồng kỳ hạn bằng lợi nhuận quyền chọn (<em>Forward profit equals option profit</em>)</p>
+</li>
+<li>
+<p><span class="math-inline">$S_T - F_0(T) &lt; p_0 \implies$</span> Lợi nhuận quyền chọn vượt quá lợi nhuận hợp đồng kỳ hạn (<em>Option profit exceeds forward profit</em>)</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The side-by-side comparison in Exhibit 13 of the forward and sold put option profit diagrams shows the sold put option’s similarity to a long position in the underlying, with gains from price appreciation forgone in exchange for receiving a premium. The apparent symmetry between long call and short put positions and the long forward position will be examined in greater detail in a later lesson.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sự so sánh song song trong Bảng minh họa 13 giữa đồ thị lợi nhuận của hợp đồng kỳ hạn và quyền chọn bán đã bán cho thấy sự tương đồng của vị thế bán quyền chọn bán với một vị thế mua tài sản cơ sở, trong đó phần lợi nhuận từ sự tăng giá bị từ bỏ để đổi lấy việc nhận được một khoản phí quyền chọn. Tính đối xứng rõ nét giữa các vị thế mua quyền chọn mua (<em>long call</em>) và bán quyền chọn bán (<em>short put</em>) với vị thế mua kỳ hạn (<em>long forward</em>) sẽ được xem xét chi tiết hơn trong một bài học sau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Firm Commitments and Contingent Claims</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Cam kết Chắc chắn và Quyền đòi hỏi Có điều kiện (<em>Firm Commitments and Contingent Claims</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Determine the correct answers to fill in the blanks: A <strong><em>_</em> forward position, a </strong><strong><em> call option position, and a </em></strong>__ put option position will gain from a decrease in the underlying price.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Xác định các câu trả lời đúng để điền vào chỗ trống: Một vị thế <strong><em>_</em> hợp đồng kỳ hạn, một vị thế </strong><strong><em> quyền chọn mua, và một vị thế </em></strong>__ quyền chọn bán sẽ hưởng lợi từ sự sụt giảm trong giá của tài sản cơ sở.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>A <em>short</em> forward position, a <em>short</em> call option position, and a <em>long</em> put option <u>position will gain from a decrease in the underlying price.</u></li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một vị thế <em>bán (short)</em> hợp đồng kỳ hạn, một vị thế <em>bán (short)</em> quyền chọn mua, và một vị thế <em>mua (long)</em> quyền chọn bán sẽ hưởng lợi từ sự sụt giảm trong giá của tài sản cơ sở.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-57" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 57 / Trang PDF 57
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Identify the derivative positions that correspond to the following profit profiles at maturity assuming that the exercise price ( <em>X</em> ) equals <em>F</em> 0( <em>T</em> ):</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Xác định các vị thế phái sinh tương ứng với các cấu trúc lợi nhuận khi đáo hạn sau đây với giả định rằng giá thực hiện (<span class="math-inline">$X$</span>) bằng <span class="math-inline">$F_0(T)$</span>:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0057-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0057-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>A. Vị thế bán kỳ hạn (<em>Short forward position</em>)</strong> | <strong>Đồ thị 1:</strong> Lợi nhuận dương khi <span class="math-inline">$S_T$</span> thấp, giảm tuyến tính qua trục hoành trước <span class="math-inline">$F_0(T)$</span>, và nằm ngang ở mức lỗ cố định <span class="math-inline">$-p_0$</span> khi <span class="math-inline">$S_T \ge F_0(T)$</span>.
+- <strong>B. Vị thế mua quyền chọn bán (<em>Long put position</em>)</strong> | <strong>Đồ thị 2:</strong> Đường thẳng tuyến tính dốc xuống từ miền dương qua điểm <span class="math-inline">$F_0(T)$</span> trên trục hoành xuống miền âm.
+- <strong>C. Vị thế bán quyền chọn mua (<em>Short call position</em>)</strong> | <strong>Đồ thị 3:</strong> Lợi nhuận nằm ngang ở mức dương <span class="math-inline">$+c_0$</span> khi <span class="math-inline">$S_T \le F_0(T)$</span> và dốc xuống tuyến tính vào miền âm khi <span class="math-inline">$S_T &gt; F_0(T)$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>The correct answer is B.</p>
+</li>
+<li>
+<p>The correct answer is A.</p>
+</li>
+<li>
+<p>The correct answer is C.</p>
+</li>
+<li>
+<p>Describe the point at which a short forward and a long put with an exercise price ( <em>X</em> ) equal to the forward price, <em>F</em> 0( <em>T</em> ) have the same profit.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>Đáp án đúng là B (Vị thế mua quyền chọn bán – <em>Long put position</em>).</p>
+</li>
+<li>
+<p>Đáp án đúng là A (Vị thế bán kỳ hạn – <em>Short forward position</em>).</p>
+</li>
+<li>
+<p>Đáp án đúng là C (Vị thế bán quyền chọn mua – <em>Short call position</em>).</p>
+</li>
+<li>
+<p>Mô tả điểm mà tại đó một vị thế bán kỳ hạn (<em>short forward</em>) và một vị thế mua quyền chọn bán (<em>long put</em>) có giá thực hiện (<span class="math-inline">$X$</span>) bằng với giá kỳ hạn, <span class="math-inline">$F_0(T)$</span>, có cùng mức lợi nhuận.</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The short forward and long put positions will have the same profit when <em>F</em> 0( <em>T</em> ) – <em>ST</em> = – <em>p</em> 0. A short forward position gains from a decline in the underlying price with a payoff/profit of [ <em>F</em> 0( <em>T</em> ) – <em>ST</em> ], and a long put position has a profit of Π = max[0, <em>F</em> 0( <em>T</em> ) – <em>ST</em> ] – <em>p</em> 0, from Equation 4, with an exercise price equal to the forward price, <em>X</em> = <em>F</em> 0( <em>T</em> ).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Vị thế bán kỳ hạn và vị thế mua quyền chọn bán sẽ có cùng mức lợi nhuận khi <span class="math-inline">$F_0(T) - S_T = -p_0$</span> (tức là <span class="math-inline">$S_T - F_0(T) = p_0$</span>). Vị thế bán kỳ hạn hưởng lợi từ sự sụt giảm của giá tài sản cơ sở với giá trị nhận được/lợi nhuận là <span class="math-inline">$[F_0(T) - S_T]$</span>, và vị thế mua quyền chọn bán có lợi nhuận là <span class="math-inline">$\Pi = \max[0, F_0(T) - S_T] - p_0$</span>, theo Phương trình 4, với giá thực hiện bằng giá kỳ hạn, <span class="math-inline">$X = F_0(T)$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-58" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 58 / Trang PDF 58
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~PRACTICE PROBLEMS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>The following information relates to questions 1-4</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Thông tin sau đây liên quan đến các câu hỏi từ 1 đến 4</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Biomian Limited is a Mumbai-based biotech company with common stock and listed futures and options on the National Stock Exchange (NSE). The Viswan Family Office (VFO) currently owns 10,000 Biomian common shares. VFO would like to reduce its long Biomian position and diversify its equity market exposure but will delay a cash sale of shares for tax reasons for six months.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Biomian Limited là một công ty công nghệ sinh học có trụ sở tại Mumbai với cổ phiếu phổ thông cùng các hợp đồng tương lai và quyền chọn được niêm yết trên Sở Giao dịch Chứng khoán Quốc gia (<em>National Stock Exchange</em> – NSE). Văn phòng Quản lý Gia sản Viswan (<em>Viswan Family Office</em> – VFO) hiện đang sở hữu 10.000 cổ phiếu phổ thông của Biomian. VFO muốn giảm vị thế mua đối với Biomian và đa dạng hóa mức độ tiếp xúc rủi ro trên thị trường cổ phiếu của mình nhưng sẽ trì hoãn việc bán cổ phiếu thu tiền mặt trong sáu tháng vì các lý do về thuế.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> Which of the following derivative contracts available to VFO’s chief investment officer is best suited to reduce exposure to a decline in Biomian’s stock price in the next six months?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Hợp đồng phái sinh nào sau đây sẵn có cho giám đốc đầu tư (<em>CIO</em>) của VFO là phù hợp nhất để giảm mức độ tiếp xúc rủi ro trước sự sụt giảm giá cổ phiếu của Biomian trong sáu tháng tới?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> A short put position on Biomian stock that expires in six months</p>
+</li>
+<li>
+<p><strong>B.</strong> A long call position on Biomian stock that expires in six months</p>
+</li>
+<li>
+<p><strong>C.</strong> A short futures position in Biomian stock that settles in six months</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Một vị thế bán quyền chọn bán (<em>short put position</em>) trên cổ phiếu Biomian đáo hạn sau sáu tháng</p>
+</li>
+<li>
+<p><strong>B.</strong> Một vị thế mua quyền chọn mua (<em>long call position</em>) trên cổ phiếu Biomian đáo hạn sau sáu tháng</p>
+</li>
+<li>
+<p><strong>C.</strong> Một vị thế bán hợp đồng tương lai (<em>short futures position</em>) trên cổ phiếu Biomian thanh toán sau sáu tháng</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> VFO’s market strategist believes that Biomian’s share price will rise over the next six months but would like to protect against a decline in Biomian’s share price over the period. Which of the following positions is best suited for VFO to manage its existing Biomian exposure based on this view?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Chiến lược gia thị trường của VFO tin rằng giá cổ phiếu của Biomian sẽ tăng trong sáu tháng tới nhưng muốn bảo vệ trước khả năng sụt giảm giá cổ phiếu của Biomian trong giai đoạn này. Vị thế nào sau đây là phù hợp nhất để VFO quản lý mức độ tiếp xúc rủi ro hiện có đối với Biomian dựa trên quan điểm này?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> A long put position on Biomian stock that expires in six months</p>
+</li>
+<li>
+<p><strong>B.</strong> A short call position on Biomian stock that expires in six months</p>
+</li>
+<li>
+<p><strong>C.</strong> A long futures position in Biomian stock that settles in six months</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Một vị thế mua quyền chọn bán (<em>long put position</em>) trên cổ phiếu Biomian đáo hạn sau sáu tháng</p>
+</li>
+<li>
+<p><strong>B.</strong> Một vị thế bán quyền chọn mua (<em>short call position</em>) trên cổ phiếu Biomian đáo hạn sau sáu tháng</p>
+</li>
+<li>
+<p><strong>C.</strong> Một vị thế mua hợp đồng tương lai (<em>long futures position</em>) trên cổ phiếu Biomian thanh toán sau sáu tháng</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> Assume that Biomian shares rise over the next six months. Which of the following statements about VFO’s derivative strategies under this scenario is most accurate?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Giả sử rằng cổ phiếu Biomian tăng giá trong sáu tháng tới. Phát biểu nào sau đây về các chiến lược phái sinh của VFO theo kịch bản này là chính xác nhất?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> A forward sale of Biomian shares in six months would be more profitable than purchasing the right to sell Biomian shares in six months.</p>
+</li>
+<li>
+<p><strong>B.</strong> Purchasing the right to sell Biomian shares in six months would be more profitable than a forward sale of Biomian shares in six months.</p>
+</li>
+<li>
+<p><strong>C.</strong> We do not have enough information to determine whether a forward sale or the right to sell Biomian shares will be more profitable in six months.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Một giao dịch bán kỳ hạn cổ phiếu Biomian sau sáu tháng sẽ mang lại lợi nhuận cao hơn so với việc mua quyền bán cổ phiếu Biomian sau sáu tháng.</p>
+</li>
+<li>
+<p><strong>B.</strong> Việc mua quyền bán cổ phiếu Biomian sau sáu tháng sẽ mang lại lợi nhuận cao hơn so với một giao dịch bán kỳ hạn cổ phiếu Biomian sau sáu tháng.</p>
+</li>
+<li>
+<p><strong>C.</strong> Chúng ta không có đủ thông tin để xác định liệu một giao dịch bán kỳ hạn hay việc mua quyền bán cổ phiếu Biomian sẽ mang lại lợi nhuận cao hơn sau sáu tháng.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>4.</strong> VFO’s market strategist is considering a six-month call option strategy on the NIFTY 50 benchmark Indian stock market index to increase broad market equity exposure. The NIFTY 50 price today is INR15,200, and the strategist observes that a call option with a INR16,000 exercise price ( <em>X</em> ) is trading at a premium of INR1,500. Which of the following represents the payoff and profit of this strategy just prior to maturity if the NIFTY 50 is trading at INR16,500?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>4.</strong> Chiến lược gia thị trường của VFO đang cân nhắc một chiến lược quyền chọn mua kỳ hạn sáu tháng trên chỉ số chứng khoán chuẩn NIFTY 50 của Ấn Độ nhằm làm tăng mức độ tiếp xúc với thị trường cổ phiếu rộng lớn. Giá của chỉ số NIFTY 50 hôm nay là 15.200 INR, và chiến lược gia quan sát thấy rằng một quyền chọn mua có giá thực hiện (<span class="math-inline">$X$</span>) là 16.000 INR đang được giao dịch với mức phí quyền chọn là 1.500 INR. Đâu là giá trị nhận được (<em>payoff</em>) và lợi nhuận (<em>profit</em>) của chiến lược này ngay trước khi đáo hạn nếu chỉ số NIFTY 50 đang giao dịch ở mức 16.500 INR?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Payoff is INR500; profit is –INR1,000.</p>
+</li>
+<li>
+<p><strong>B.</strong> Payoff is INR1,300; profit is INR800.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Giá trị nhận được là 500 INR; lợi nhuận là <span class="math-inline">$-1.000\text{ INR}$</span>.</p>
+</li>
+<li>
+<p><strong>B.</strong> Giá trị nhận được là 1.300 INR; lợi nhuận là 800 INR.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-59" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 59 / Trang PDF 59
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> Payoff is INR1,300; profit is INR500.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>C.</strong> Giá trị nhận được là 1.300 INR; lợi nhuận là 500 INR.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-60" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 60 / Trang PDF 60
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~SOLUTIONS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>C is correct. VFO may consider either a short futures position in (or a forward sale of) Biomian shares in six months to achieve its objective. This firm commitment allows VFO to offset its long position with a short position in six months at a pre-agreed price. The futures contract is an exchange-traded derivative with standardized terms set by the exchange and requires initial margin and daily settlement. Answers A and B are contingent claims that can both potentially increase, not decrease, VFO’s exposure to Biomian stock in six months.</p>
+</li>
+<li>
+<p>A is correct. VFO should purchase a six-month put option on Biomian shares to manage its exposure based on the market strategist’s view. This contingent claim grants VFO the right but not the obligation to sell Biomian shares at a pre-agreed exercise price in exchange for a premium. A put option buyer exercises the option at maturity when the underlying price is below the exercise price. This allows VFO to continue to benefit from a rise in Biomian’s share price over the next six months with a limited downside. Neither B nor C provides VFO with downside protection if Biomian stock declines in six months.</p>
+</li>
+<li>
+<p>C is correct. Under a forward sale of Biomian shares, the profit is [ <em>F</em> 0( <em>T</em> ) – <em>ST</em> ]. If the shares rise significantly over the next six months—that is, <em>ST</em> &gt; <em>F</em> 0( <em>T</em> )—then VFO’s loss on the derivative is the difference between the Biomian forward price, <em>F</em> 0( <em>T</em> ), and the spot price, <em>ST</em> . Under the long put option on Biomian shares, VFO’s profit is max(0, <em>X</em> – <em>ST</em> ) – <em>p</em> 0. If Biomian shares rise significantly over the next six months (i.e., <em>ST</em> &gt; <em>X</em> ), then the option expires worthless and VFO’s loss is limited to the put premium paid, <em>p</em> 0. If [ <em>F</em> 0( <em>T</em> ) – <em>ST</em> ] &gt; – <em>p</em> 0, then VFO’s loss would be greater under the firm commitment than under the contingent claim.</p>
+</li>
+<li>
+<p>A is correct. The profit is equal to Π = max(0, <em>ST</em> – <em>X</em> ) – <em>c</em> 0, and the payoff is equal to max(0, <em>ST</em> – <em>X</em> ). The exercise price is INR16,000, and the spot price just prior to maturity is INR16,500, so Π = –1,000 [= (16,500 – 16,000) – 1,500], and the payoff is equal to INR500 [= (16,500 – 16,000)].</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>C là đáp án đúng. VFO có thể cân nhắc một vị thế bán hợp đồng tương lai (hoặc một giao dịch bán kỳ hạn) đối với cổ phiếu Biomian sau sáu tháng để đạt được mục tiêu của mình. Cam kết chắc chắn này cho phép VFO bù đắp vị thế mua cơ sở của mình bằng một vị thế bán sau sáu tháng tại một mức giá đã thỏa thuận trước. Hợp đồng tương lai là một công cụ phái sinh giao dịch trên sở giao dịch với các điều khoản được tiêu chuẩn hóa do sở giao dịch quy định và yêu cầu phải có ký quỹ ban đầu cùng việc thanh toán hàng ngày. Các đáp án A và B là những quyền đòi hỏi có điều kiện mà cả hai đều có khả năng làm tăng, chứ không phải làm giảm, mức độ tiếp xúc rủi ro của VFO đối với cổ phiếu Biomian sau sáu tháng.</p>
+</li>
+<li>
+<p>A là đáp án đúng. VFO nên mua một quyền chọn bán kỳ hạn sáu tháng trên cổ phiếu Biomian để quản lý mức độ tiếp xúc rủi ro của mình dựa trên quan điểm của chiến lược gia thị trường. Quyền đòi hỏi có điều kiện này cấp cho VFO quyền nhưng không phải nghĩa vụ được bán cổ phiếu Biomian tại một mức giá thực hiện thỏa thuận trước để đổi lấy một khoản phí quyền chọn. Người mua quyền chọn bán thực hiện quyền chọn khi đáo hạn khi giá tài sản cơ sở thấp hơn giá thực hiện. Điều này cho phép VFO tiếp tục hưởng lợi từ sự gia tăng trong giá cổ phiếu của Biomian trong sáu tháng tới với mức rủi ro khi giá giảm được giới hạn. Cả B lẫn C đều không cung cấp cho VFO sự bảo vệ khi giá giảm nếu cổ phiếu Biomian sụt giảm sau sáu tháng.</p>
+</li>
+<li>
+<p>C là đáp án đúng. Theo một giao dịch bán kỳ hạn cổ phiếu Biomian, lợi nhuận là <span class="math-inline">$[F_0(T) - S_T]$</span>. Nếu cổ phiếu tăng giá mạnh trong sáu tháng tới — nghĩa là <span class="math-inline">$S_T &gt; F_0(T)$</span> — thì khoản lỗ của VFO trên công cụ phái sinh là phần chênh lệch giữa giá kỳ hạn của Biomian, <span class="math-inline">$F_0(T)$</span>, và giá giao ngay, <span class="math-inline">$S_T$</span>. Theo vị thế mua quyền chọn bán trên cổ phiếu Biomian, lợi nhuận của VFO là <span class="math-inline">$\max(0, X - S_T) - p_0$</span>. Nếu cổ phiếu Biomian tăng giá mạnh trong sáu tháng tới (tức là <span class="math-inline">$S_T &gt; X$</span>), thì quyền chọn sẽ hết hạn mà không có giá trị và khoản lỗ của VFO được giới hạn ở mức phí quyền chọn bán đã trả, <span class="math-inline">$p_0$</span>. Chỉ khi biết mức độ tăng cụ thể (ví dụ, nếu <span class="math-inline">$[F_0(T) - S_T] &lt; -p_0$</span>, tức là <span class="math-inline">$S_T - F_0(T) &gt; p_0$</span>), chúng ta mới biết được khoản lỗ của VFO theo cam kết chắc chắn có lớn hơn so với theo quyền đòi hỏi có điều kiện hay không.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Lợi nhuận bằng <span class="math-inline">$\Pi = \max(0, S_T - X) - c_0$</span>, và giá trị nhận được khi đáo hạn bằng <span class="math-inline">$\max(0, S_T - X)$</span>. Giá thực hiện là 16.000 INR, và giá giao ngay ngay trước khi đáo hạn là 16.500 INR, do đó <span class="math-inline">$\Pi = -1.000\text{ INR}$</span> <span class="math-inline">$[= (16.500 - 16.000) - 1.500]$</span>, và giá trị nhận được bằng <span class="math-inline">$500\text{ INR}$</span> <span class="math-inline">$[= (16.500 - 16.000)]$</span>.</p>
+</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM02_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM02_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 7</a>
+      <a href="LM03_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM03_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('07_Derivatives/LM02_Part2_Options.html');
+    });
+  </script>
+</body>
+</html>

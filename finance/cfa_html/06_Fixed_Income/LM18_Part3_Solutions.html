@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features - Part 3: Solutions — Volume 6: Fixed Income | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 6: Thu Nhập Cố Định
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features - Part 3: Solutions</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (2 trang)...</option>
+          <option value="504">PDF Page 504</option>
+<option value="505">PDF Page 505</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 6</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Thu Nhập Cố Định</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 6</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Fixed_Income_Instrument_Features.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Fixed-Income Instrument Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Bond_Indentures_and_Covenants.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bond Indentures and Covenants</a>
+<a href="LM02_Full_Fixed_Income_Cash_Flows_and_Types.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Fixed-Income Cash Flows and Types</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Fixed_Income_Contingency_Provisions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Fixed-Income Contingency Provisions</a>
+<a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Fixed-Income Issuance and Trading</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Primary and Secondary Fixed-Income Markets</a>
+<a href="LM04_Full_Fixed_Income_Markets_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Fixed-Income Markets for Corporate Issuers</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Repurchase_Agreements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Repurchase Agreements</a>
+<a href="LM04_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM05_Full_Fixed_Income_Markets_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Fixed-Income Markets for Government Issuers</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Non_Sovereign_Quasi_Government_and_Supranatio.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign, Quasi-Government, and Supranational Agency Debt</a>
+<a href="LM06_Full_Fixed_Income_Bond_Valuation_Prices_and_Yields.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Fixed-Income Bond Valuation: Prices and Yields</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Relationships_between_Bond_Prices_and_Bond_Fe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Relationships between Bond Prices and Bond Features</a>
+<a href="LM07_Full_Yield_and_Yield_Spread_Measures_for_Fixed_Rat.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Yield and Yield Spread Measures for Fixed-Rate Bonds</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Spread Measures for Fixed-Rate Bonds and Matrix Pricing</a>
+<a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Measures for Money Market Instruments</a>
+<a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Par_and_Forward_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Par and Forward Rates</a>
+<a href="LM09_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM10_Full_Interest_Rate_Risk_and_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Interest Rate Risk and Return</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Macaulay_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Macaulay Duration</a>
+<a href="LM11_Full_Yield_Based_Bond_Duration_Measures_and_Proper.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Yield-Based Bond Duration Measures and Properties</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Money_Duration_and_Price_Value_of_a_Basis_Poi.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money Duration and Price Value of a Basis Point</a>
+<a href="LM12_Full_Yield_Based_Bond_Convexity_and_Portfolio_Prop.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Yield-Based Bond Convexity and Portfolio Properties</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Portfolio_Duration_and_Convexity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Duration and Convexity</a>
+<a href="LM13_Full_Curve_Based_and_Empirical_Fixed_Income_Risk_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 13 Curve-Based and Empirical Fixed-Income Risk Measures</a>
+<a href="LM13_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM13_Part2_Empirical_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Empirical Duration</a>
+<a href="LM14_Full_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 14 Credit Risk</a>
+<a href="LM14_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Credit Rating Agencies and Credit Ratings</a>
+<a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Factors Impacting Yield Spreads</a>
+<a href="LM14_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM15_Full_Credit_Analysis_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 15 Credit Analysis for Government Issuers</a>
+<a href="LM15_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM15_Part2_Non_Sovereign_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign Credit Risk</a>
+<a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 16 Credit Analysis for Corporate Issuers</a>
+<a href="LM16_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Ratios in Corporate Credit Analysis</a>
+<a href="LM16_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM17_Full_Fixed_Income_Securitization.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 17 Fixed-Income Securitization</a>
+<a href="LM17_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM17_Part2_The_Securitization_Process.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Securitization Process</a>
+<a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</a>
+<a href="LM18_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Mortgage Asset-Backed Securities</a>
+<a href="LM18_Part3_Solutions.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 3: Solutions</a>
+<a href="LM19_Full_Mortgage_Backed_Security_MBS_Instrument_and_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 19 Mortgage-Backed Security (MBS) Instrument and Market Features</a>
+<a href="LM19_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM19_Part2_Residential_Mortgage_Backed_Securities_RMBS.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Residential Mortgage-Backed Securities (RMBS)</a>
+<a href="LM19_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 6 • Fixed Income (Thu Nhập Cố Định)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features - Part 3: Solutions</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('06_Fixed_Income/LM18_Part3_Solutions.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 6: Fixed Income</h1>
+<h2>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</h2>
+<h3>Part 3/3: Solutions (PDF Pages 504–506)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 6: Chứng Khoán Thu Nhập Cố Định (Fixed Income)</h1>
+<h2>Học phần 18: Đặc Điểm Công Cụ và Thị Trường Chứng Khoán Đảm Bảo Bằng Tài Sản (ABS)</h2>
+<h3>Phần 3/3: Lời Giải (Trang PDF 504–506)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-504" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 504 / Trang PDF 504
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~SOLUTIONS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>LỜI GIẢI (SOLUTIONS)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>The correct answer is C. In a true securitization, the specific pool of assets is removed from the balance sheet and transferred into a separate and independent legal entity that then issues securities backed by these pooled assets. A is incorrect because credit tranching offers credit protection for the more senior bond classes in a securitization not the equity tranche. B is incorrect because covered bonds, not pass-through securities, are the simplest securitization structure, which involves the issuer retaining the underlying assets on its balance sheet.</p>
+</li>
+<li>
+<p>The correct answer is A. In the case of bankruptcy covered bond investors, they have dual recourse with the first safeguard being the ringfenced loans in the cover pool that underlie the covered bond transaction. B is incorrect because while investors also have recourse to the unencumbered assets of the issuer, those serve as a subsequent safeguard. C is incorrect because this post-transaction contribution is characteristic of the non-amortizing structure of a CDO (collateralized debt obligation).</p>
+</li>
+<li>
+<p>The correct answer is C. All three of the listed reasons explain this comparative result, which has made covered bonds a relatively stable and reliable source of funding over time.</p>
+</li>
+<li>
+<p>The correct answer is B. Overcollateralization, one of the three main types of internal credit enhancements used in securitization transactions, is a provision that the collateral underlying the transaction is larger than the face value of the issued bonds. The extra collateral provides a cushion to cover losses from defaults in the underlying pool of collateral. A and C are incorrect because both are types of external, not internal, credit enhancements.</p>
+</li>
+<li>
+<p>The correct answer is B. A credit card ABS generates additional fee income. A is incorrect because by removing the credit card debt from the balance sheet, ABS issuance improves capital efficiency and lowers the cost of funding. C is incorrect as the ABS also reduces the cost of default risk from credit card debt.</p>
+</li>
+<li>
+<p>The correct answer is C. Triggering rapid amortization provisions accelerates and alters principal cash flows. Noteholders will receive their investments earlier, which they can then reallocate to other investments offering more attractive risk/return characteristics. A is incorrect because typically during the revolving period, as credit cards are non-amortizing loans, the security holders receive only payments from the finance charges and fees the lender collects. Returned principal is reinvested in the collateral pool. B is incorrect because when floating-rate cap exceeds the rate cardholders must pay, there is no related binding limit on finance payments.</p>
+</li>
+<li>
+<p>The correct answer is B. Default risk minimization adds to investment appeal, and solar loans provide opportunities for overcollateralization. Normally, solar ABS are collateralized by the underlying debt: mortgages, loans, or receivables. These loans can be further collateralized by a lien pledged on the installed systems, on the property itself, or both. A is incorrect as solar loans are typically extended only to prime borrowers who own their homes and have good payment records. C is incorrect as the loans enable property owner purchase of installed systems instead of rental that is transacted through solar leases.</p>
+</li>
+<li>
+<p>The correct answer is B. Investors in equity tranches take on equity-like risks with the potential to earn returns comparable to equities. Moreover, these</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>Đáp án đúng là C. Trong một giao dịch chứng khoán hóa thực sự (<em>true securitization</em>), danh mục tài sản cụ thể được loại bỏ khỏi bảng cân đối kế toán và chuyển giao sang một pháp nhân độc lập và tách biệt — pháp nhân sau đó sẽ phát hành các chứng khoán được đảm bảo bằng các tài sản tập hợp này. A không đúng vì phân lớp tín dụng (<em>credit tranching</em>) mang lại sự bảo vệ tín dụng cho các hạng trái phiếu cấp cao hơn trong một giao dịch chứng khoán hóa chứ không phải cho lớp vốn cổ phần (<em>equity tranche</em>). B không đúng vì trái phiếu có bảo đảm (<em>covered bonds</em>), chứ không phải chứng khoán chuyển tiếp dòng tiền (<em>pass-through securities</em>), mới là cấu trúc chứng khoán hóa đơn giản nhất, bao gồm việc tổ chức phát hành giữ lại các tài sản cơ sở trên bảng cân đối kế toán của mình.</p>
+</li>
+<li>
+<p>Đáp án đúng là A. Trong trường hợp phá sản, các nhà đầu tư trái phiếu có bảo đảm có quyền truy đòi kép (<em>dual recourse</em>) với biện pháp bảo vệ đầu tiên là các khoản vay đã được khoanh vùng tách biệt (<em>ringfenced loans</em>) trong danh mục bảo đảm làm cơ sở cho giao dịch trái phiếu có bảo đảm. B không đúng vì mặc dù các nhà đầu tư cũng có quyền truy đòi đối với các tài sản chưa bị cầm cố/thế chấp (<em>unencumbered assets</em>) của tổ chức phát hành, nhưng những tài sản đó đóng vai trò là biện pháp bảo vệ thứ hai tiếp theo sau. C không đúng vì sự đóng góp bổ sung sau giao dịch này là đặc trưng của cấu trúc không khấu hao gốc định kỳ của một CDO (nghĩa vụ nợ có tài sản đảm bảo).</p>
+</li>
+<li>
+<p>Đáp án đúng là C. Cả ba lý do được liệt kê đều giải thích cho kết quả so sánh này, vốn đã giúp trái phiếu có bảo đảm trở thành một nguồn huy động vốn tương đối ổn định và đáng tin cậy theo thời gian.</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Thế chấp vượt mức (<em>Overcollateralization</em>), một trong ba loại hình tăng cường tín dụng nội bộ (<em>internal credit enhancements</em>) chính được sử dụng trong các giao dịch chứng khoán hóa, là một điều khoản quy định rằng tài sản thế chấp cơ sở của giao dịch lớn hơn mệnh giá của các trái phiếu được phát hành. Phần tài sản thế chấp tăng thêm này cung cấp một tấm đệm dự phòng (<em>cushion</em>) để bù đắp các khoản lỗ phát sinh từ các vụ vỡ nợ trong danh mục tài sản thế chấp cơ sở. A và C không đúng vì cả hai đều là các loại hình tăng cường tín dụng bên ngoài (<em>external</em>), chứ không phải nội bộ (<em>internal</em>).</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Một chứng khoán ABS thẻ tín dụng tạo ra thêm thu nhập từ phí (<em>additional fee income</em>). A không đúng vì bằng cách loại bỏ nợ thẻ tín dụng khỏi bảng cân đối kế toán, việc phát hành ABS cải thiện hiệu quả sử dụng vốn và làm giảm chi phí huy động vốn. C không đúng vì ABS cũng làm giảm chi phí rủi ro vỡ nợ từ nợ thẻ tín dụng.</p>
+</li>
+<li>
+<p>Đáp án đúng là C. Việc kích hoạt các điều khoản khấu hao gốc nhanh (<em>rapid amortization provisions</em>) sẽ đẩy nhanh tiến độ và làm thay đổi dòng tiền nợ gốc. Những người nắm giữ kỳ phiếu sẽ nhận lại vốn đầu tư của họ sớm hơn, để sau đó có thể tái phân bổ sang các khoản đầu tư khác mang lại đặc tính rủi ro/tỷ suất sinh lợi hấp dẫn hơn. A không đúng vì thông thường trong giai đoạn quay vòng (<em>revolving period</em>), do thẻ tín dụng là các khoản vay không khấu hao gốc định kỳ, nên những người nắm giữ chứng khoán chỉ nhận được các khoản thanh toán từ phí tài chính và các loại phí mà bên cho vay thu được. Nợ gốc hoàn trả được tái đầu tư vào danh mục tài sản thế chấp. B không đúng vì khi mức trần lãi suất thả nổi vượt quá mức lãi suất mà chủ thẻ phải trả, thì không có giới hạn ràng buộc có hiệu lực nào làm thay đổi các khoản thanh toán phí tài chính.</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Việc giảm thiểu rủi ro vỡ nợ làm tăng thêm sức hấp dẫn đầu tư, và các khoản vay điện mặt trời mang lại cơ hội thế chấp vượt mức. Thông thường, ABS điện mặt trời được thế chấp bằng khoản nợ cơ sở: các khoản thế chấp, khoản vay hoặc khoản phải thu. Các khoản vay này có thể được thế chấp bổ sung bằng quyền cầm cố/giữ tài sản (<em>lien</em>) được cam kết đối với các hệ thống được lắp đặt, đối với chính bất động sản đó, hoặc cả hai. A không đúng vì các khoản vay điện mặt trời thường chỉ được cấp cho những người đi vay chất lượng cao (<em>prime borrowers</em>) sở hữu nhà riêng và có lịch sử thanh toán tốt. C không đúng vì các khoản vay điện mặt trời cho phép chủ sở hữu bất động sản mua đứt hệ thống được lắp đặt thay vì thuê — vốn được giao dịch thông qua các hợp đồng thuê điện mặt trời (<em>solar leases</em>).</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Các nhà đầu tư vào lớp vốn cổ phần (<em>equity tranches</em>) gánh chịu những rủi ro giống như cổ phiếu với tiềm năng kiếm được tỷ suất sinh lợi tương đương với cổ phiếu. Hơn nữa, những</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-505" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 505 / Trang PDF 505
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>residual tranche investors play a key role in whether a CLO is viable or not; the CLO structure has to offer competitive returns for this tranche. Facing these risk/return possibilities puts them in the position of the marginal, price-setting investors. A and C are incorrect because they are promised fixed returns without reference to the underlying performance of the collateral pool. They are also exposed to less risk in having seniority payoff preference in case of default.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>nhà đầu tư lớp chứng khoán phần dư (<em>residual tranche</em>) này đóng vai trò then chốt quyết định liệu một CLO có khả thi hay không; cấu trúc CLO bắt buộc phải mang lại tỷ suất sinh lợi có tính cạnh tranh cho lớp chứng khoán này. Việc đối mặt với những khả năng rủi ro/tỷ suất sinh lợi này đặt họ vào vị thế của những nhà đầu tư cận biên quyết định giá (<em>marginal, price-setting investors</em>). A và C không đúng vì các lớp này được cam kết trả mức tỷ suất sinh lợi xác định mà không tham chiếu trực tiếp đến kết quả hoạt động thặng dư của danh mục tài sản thế chấp cơ sở. Họ cũng chịu ít rủi ro hơn do có quyền ưu tiên thanh toán cao hơn trong trường hợp xảy ra vỡ nợ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="9">
+<li>
+<p>The correct answer is C. After the ramp-up period but before underlying collateral pool loans mature, the collateral manager may replace loans in the portfolio as long as the new asset meets the portfolio selection criteria. A is incorrect because while additional assets are added to the collateral pool during a subsequent ramp-up period, loan replacements can still occur after the ramp-up period. B is incorrect because a typical feature of CLO transactions is that the collateral portfolio is not finalized until after the transaction closes.</p>
+</li>
+<li>
+<p>The correct answer is B. A complicating factor of a default can be the call features embedded in bonds. While exercising call options on debt would replenish the collateral pool, distributing these proceeds to the senior and mezzanine tranches would shrink the size of the collateral pool, further narrowing the earnings potential with junior tranches receiving the least cash flow. A is incorrect because senior tranches are then in danger of not receiving some or any payments, depending on the size of the default. C is incorrect because losses would first be absorbed by junior tranche investors, with remaining losses realized by the other tranches in order of repayment seniority.</p>
+</li>
+<li>
+<p>The correct answer is C. As illustrated by their respective term sheets, all three types of ABS transactions have timing milestones designating due dates for investments (settlement date) and the end of their terms (maturity date). A is incorrect because in contrast to their non-amortizing counterparts, covered bonds are backed by a segregated pool of assets that typically consist of commercial or residential mortgages, for which an LTV cutoff is applicable. B is incorrect because while other ABS often use credit tranching to create bond classes with different borrower default exposures, covered bonds usually consist of one bond class per cover pool.</p>
+</li>
+<li>
+<p>The correct answer is C. A CDO is a leveraged transaction, where equity tranche holders use borrowed funds (i.e., the bond classes issued) to generate a return above the funding cost. A is incorrect because unlike MBS, the pools in a CDO are not static; so, there is a need for a collateral manager that buys and sells debt obligations for and from the CDO’s collateral pool to generate sufficient cash flows to meet the obligations to the CDO bondholders. B is incorrect because the proceeds to pay the CDO bond classes can come from interest payments from collateral assets, maturing of collateral assets, and sale of collateral assets.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="9">
+<li>
+<p>Đáp án đúng là C. Sau giai đoạn tích lũy tăng tốc (<em>ramp-up period</em>) nhưng trước khi các khoản vay trong danh mục tài sản thế chấp cơ sở đáo hạn, nhà quản lý tài sản thế chấp có thể thay thế các khoản vay trong danh mục miễn là tài sản mới đáp ứng các tiêu chí lựa chọn danh mục. A không đúng vì mặc dù các tài sản bổ sung được đưa thêm vào danh mục tài sản thế chấp trong giai đoạn tích lũy tăng tốc tiếp theo sau đó, nhưng việc thay thế khoản vay vẫn có thể tiếp tục diễn ra sau khi giai đoạn tích lũy tăng tốc đã kết thúc. B không đúng vì một đặc điểm điển hình của các giao dịch CLO là danh mục tài sản thế chấp vẫn chưa được hoàn tất tại thời điểm đóng giao dịch.</p>
+</li>
+<li>
+<p>Đáp án đúng là B. Một yếu tố làm phức tạp thêm tình huống vỡ nợ có thể là các đặc tính quyền chọn mua lại (<em>call features</em>) gắn kèm trong các trái phiếu/khoản nợ. Mặc dù việc thực hiện quyền chọn mua lại đối với khoản nợ sẽ bổ sung tiền mặt vào danh mục tài sản thế chấp, nhưng việc phân phối số tiền thu được này để trả bớt cho các lớp cấp cao và trung gian sẽ làm thu hẹp quy mô của danh mục tài sản thế chấp, tiếp tục thu hẹp tiềm năng tạo thu nhập khiến cho các lớp thứ cấp (<em>junior tranches</em>) nhận được ít dòng tiền nhất. A không đúng vì các lớp cấp cao khi đó vẫn có nguy cơ không nhận được một phần hoặc bất kỳ khoản thanh toán nào, tùy thuộc vào quy mô của vụ vỡ nợ. C không đúng vì các khoản lỗ trước tiên sẽ được hấp thụ bởi các nhà đầu tư lớp thứ cấp, và phần lỗ còn lại mới được gánh chịu bởi các lớp chứng khoán khác theo thứ tự ưu tiên hoàn trả.</p>
+</li>
+<li>
+<p>Đáp án đúng là C. Như được minh họa qua các bản điều khoản tóm tắt (<em>term sheets</em>) tương ứng của chúng, cả ba loại giao dịch ABS này đều có các mốc thời gian chỉ định ngày đến hạn thanh toán tiền mua khoản đầu tư (ngày thanh toán giao dịch – <em>settlement date</em>) và ngày kết thúc kỳ hạn của chúng (ngày đáo hạn – <em>maturity date</em>). A không đúng vì trái ngược với các công cụ không khấu hao gốc tương ứng, trái phiếu có bảo đảm được đảm bảo bằng một danh mục tài sản tách biệt thường bao gồm các khoản vay thế chấp thương mại hoặc nhà ở, vốn áp dụng ngưỡng giới hạn LTV (<em>LTV cutoff</em>). B không đúng vì trong khi các ABS khác thường sử dụng phân lớp tín dụng (<em>credit tranching</em>) để tạo ra các hạng trái phiếu có mức độ tiếp xúc rủi ro vỡ nợ của người đi vay khác nhau, thì trái phiếu có bảo đảm thường chỉ bao gồm một hạng trái phiếu duy nhất cho mỗi danh mục bảo đảm (<em>cover pool</em>).</p>
+</li>
+<li>
+<p>Đáp án đúng là C. Một CDO là một giao dịch sử dụng đòn bẩy tài chính (<em>leveraged transaction</em>), trong đó những người nắm giữ lớp vốn cổ phần sử dụng vốn vay (tức là các hạng trái phiếu được phát hành) để tạo ra mức tỷ suất sinh lợi cao hơn chi phí huy động vốn. A không đúng vì không giống như MBS, các danh mục trong một CDO không phải là tĩnh (<em>not static</em>); do đó, cần có một nhà quản lý tài sản thế chấp thực hiện mua và bán các nghĩa vụ nợ cho và từ danh mục tài sản thế chấp của CDO nhằm tạo ra đủ dòng tiền để đáp ứng các nghĩa vụ đối với những người nắm giữ trái phiếu CDO. B không đúng vì số tiền dùng để chi trả cho các hạng trái phiếu CDO có thể đến từ các khoản thanh toán tiền lãi của tài sản thế chấp, từ sự đáo hạn của tài sản thế chấp, và từ việc bán tài sản thế chấp.</p>
+</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM18_Part2_Non_Mortgage_Asset_Backed_Securities</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 6</a>
+      <a href="LM19_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM19_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('06_Fixed_Income/LM18_Part3_Solutions.html');
+    });
+  </script>
+</body>
+</html>

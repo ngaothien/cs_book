@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 7 Estimation and Inference - Part 2: Bootstrapping and Empirical Sampling Distributions — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 7 Estimation and Inference - Part 2: Bootstrapping and Empirical Sampling Distributions</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM07_Full_Estimation_and_Inference.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (7 trang)...</option>
+          <option value="215">PDF Page 215</option>
+<option value="216">PDF Page 216</option>
+<option value="217">PDF Page 217</option>
+<option value="218">PDF Page 218</option>
+<option value="219">PDF Page 219</option>
+<option value="220">PDF Page 220</option>
+<option value="221">PDF Page 221</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 7 Estimation and Inference - Part 2: Bootstrapping and Empirical Sampling Distributions</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 7 Estimation and Inference</h2>
+<h3>Part 2/2: Bootstrapping and Empirical Sampling Distributions (PDF Pages 215–222)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 7: Ước lượng và Suy luận (<em>Estimation and Inference</em>)</h2>
+<h3>Phần 2/2: Phương pháp Bootstrapping và Phân phối Mẫu Thực nghiệm (<em>Bootstrapping and Empirical Sampling Distributions</em>) (Trang PDF 215–222)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-215" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 215 / Trang PDF 215
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>σ<sup>2</sup>, then the distribution of<sup>~~<em>~~</sup><br>_X_will be approximately normal, with a standard<br>deviation of_σ</em>/√ <sup><em></sup><br>_n</em>.”</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Solution:</strong></td>
+</tr>
+<tr>
+<td>The statement makes the following mistakes:<br>• Given the conditions in the statement, the distribution of<sup><em></sup><br>_X_will be approx-<br>imately normal only for large sample sizes.<br>• The statement omits the important element of the central limit theorem<br>that the distribution of<sup></em></sup><br><em>X_will have mean_μ</em>.</td>
+</tr>
+<tr>
+<td>5. Peter Biggs wants to know how growth managers performed last year. Biggs<br>assumes that the population cross-sectional standard deviation of growth<br>manager returns is 6 percent and that the returns are independent across<br>managers.</td>
+</tr>
+<tr>
+<td><strong>A.</strong>How large a random sample does Biggs need if he wants the standard<br>deviation of the sample means to be 1 percent?</td>
+</tr>
+<tr>
+<td><strong>B.</strong>How large a random sample does Biggs need if he wants the standard<br>deviation of the sample means to be 0.25 percent?<br><strong>Solution:</strong></td>
+</tr>
+<tr>
+<td>A. The standard deviation or standard error of the sample mean is_σ_  <sup><em></sup><br>_X</em><sup>=</sup><sup><em>σ</em> /</sup><br>√ <sup><em></sup><br>_n</em>. Substituting in the values for_σ_  <sup><em></sup><br>_X</em><sup>and σ, we have 1% =  6 %  /√ <em></sup><br>_n</em>, or√ <sup><em></sup><br>_n</em>= 6.<br>Squaring this value, we get a random sample of_n_= 36.</td>
+</tr>
+<tr>
+<td>B. As in Part A, the standard deviation of sample mean is_σ_  <sup><em></sup><br>_X</em><sup>=</sup><sup><em>σ</em> /√ <em></sup><br>_n</em>.<br>Substituting in the values for_σ_  <sup><em></sup><br>_X</em><sup>and σ, we have 0.25% =  6 %  /√ <em></sup><br>_n</em>, or√ <sup><em></sup><br>_n</em>= 24.<br>Squaring this value, we get a random sample of_n_= 576, which is substan-<br>tially larger than for Part A of this question.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><em>(Tiếp theo Câu hỏi 4 ở cuối Phần 1:)</em> “...có phương sai <span class="math-inline">$\sigma^2$</span>, thì phân phối của <span class="math-inline">$\bar{X}$</span> sẽ xấp xỉ chuẩn, với độ lệch chuẩn là <span class="math-inline">$\sigma/\sqrt{n}$</span>.”</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lời giải (<em>Solution</em>):</strong></td>
+</tr>
+<tr>
+<td>Phát biểu trên mắc phải những sai sót sau:<br>• Với các điều kiện trong phát biểu, phân phối của <span class="math-inline">$\bar{X}$</span> sẽ chỉ xấp xỉ chuẩn đối với các kích thước mẫu lớn (<em>large sample sizes</em>).<br>• Phát biểu đã bỏ sót yếu tố quan trọng của định lý giới hạn trung tâm rằng phân phối của <span class="math-inline">$\bar{X}$</span> sẽ có giá trị trung bình bằng <span class="math-inline">$\mu$</span>.</td>
+</tr>
+<tr>
+<td>5. Peter Biggs muốn biết các nhà quản lý đầu tư tăng trưởng (<em>growth managers</em>) đã hoạt động như thế nào trong năm ngoái. Biggs giả định rằng độ lệch chuẩn chéo của tổng thể (<em>population cross-sectional standard deviation</em>) đối với tỷ suất sinh lợi của các nhà quản lý tăng trưởng là 6% và tỷ suất sinh lợi là độc lập giữa các nhà quản lý.</td>
+</tr>
+<tr>
+<td><strong>A.</strong> Biggs cần một mẫu ngẫu nhiên lớn đến mức nào nếu ông muốn độ lệch chuẩn của các trung bình mẫu là 1%?</td>
+</tr>
+<tr>
+<td><strong>B.</strong> Biggs cần một mẫu ngẫu nhiên lớn đến mức nào nếu ông muốn độ lệch chuẩn của các trung bình mẫu là 0.25%?<br><strong>Lời giải (<em>Solution</em>):</strong></td>
+</tr>
+<tr>
+<td>A. Độ lệch chuẩn hay sai số chuẩn của trung bình mẫu là <span class="math-inline">$\sigma_{\bar{X}} = \sigma / \sqrt{n}$</span>. Thay các giá trị của <span class="math-inline">$\sigma_{\bar{X}}$</span> và <span class="math-inline">$\sigma$</span> vào, ta có <span class="math-inline">$1\% = 6\% / \sqrt{n}$</span>, hay <span class="math-inline">$\sqrt{n} = 6$</span>. Bình phương giá trị này, ta được mẫu ngẫu nhiên có kích thước <span class="math-inline">$n = 36$</span>.</td>
+</tr>
+<tr>
+<td>B. Giống như ở Phần A, độ lệch chuẩn của trung bình mẫu là <span class="math-inline">$\sigma_{\bar{X}} = \sigma / \sqrt{n}$</span>. Thay các giá trị của <span class="math-inline">$\sigma_{\bar{X}}$</span> và <span class="math-inline">$\sigma$</span> vào, ta có <span class="math-inline">$0.25\% = 6\% / \sqrt{n}$</span>, hay <span class="math-inline">$\sqrt{n} = 24$</span>. Bình phương giá trị này, ta được mẫu ngẫu nhiên có kích thước <span class="math-inline">$n = 576$</span>, lớn hơn đáng kể so với Phần A của câu hỏi này.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>BOOTSTRAPPING AND EMPIRICAL SAMPLING DISTRIBUTIONS</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>PHƯƠNG PHÁP BOOTSTRAPPING VÀ PHÂN PHỐI MẪU THỰC NGHIỆM (<em>BOOTSTRAPPING AND EMPIRICAL SAMPLING DISTRIBUTIONS</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>4</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>4</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe the use of resampling (bootstrap, jackknife) to estimate the sampling distribution of a statistic</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Mô tả việc sử dụng lấy mẫu lại (bootstrap, jackknife) để ước tính phân phối mẫu của một thống kê</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We demonstrated how to find the standard error of the sample mean, based on the central limit theorem. We return to the computational tool called <strong>resampling</strong> , which repeatedly draws samples from the original observed data sample for the statistical inference of population parameters. <strong>Bootstrap</strong> , one of the most popular resampling methods, uses computer simulation for statistical inference without using an analytical formula such as a <em>z</em> -statistic or <em>t</em> -statistic.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta đã minh họa cách tìm sai số chuẩn của trung bình mẫu dựa trên định lý giới hạn trung tâm. Bây giờ chúng ta quay lại công cụ tính toán gọi là <strong>lấy mẫu lại (<em>resampling</em>)</strong>, thực hiện rút mẫu lặp đi lặp lại từ mẫu dữ liệu quan sát ban đầu để suy luận thống kê về các tham số tổng thể. <strong>Phương pháp tự thân (<em>Bootstrap</em>)</strong>, một trong những phương pháp lấy mẫu lại phổ biến nhất, sử dụng mô phỏng máy tính để suy luận thống kê mà không cần sử dụng công thức giải tích chẳng hạn như thống kê <span class="math-inline">$z$</span> (<em>z-statistic</em>) hay thống kê <span class="math-inline">$t$</span> (<em>t-statistic</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In bootstrap, we repeatedly draw samples from the original sample, and each resample is of the same size as the original sample. Note that each item drawn is replaced for the next draw (i.e., the identical element is put back into the group so that it can be drawn more than once). Assuming we are looking to find the standard error of sample mean, we take many resamples and then compute the mean of each resample. Note that although some items may appear several times in the resamples, other items may not appear at all.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong phương pháp bootstrap, chúng ta liên tục rút các mẫu từ mẫu ban đầu, và mỗi mẫu lấy lại (<em>resample</em>) có cùng kích thước với mẫu ban đầu. Lưu ý rằng mỗi phần tử được rút ra sẽ được hoàn lại cho lần rút tiếp theo (tức là phần tử giống hệt đó được đưa trở lại vào nhóm để nó có thể được rút ra nhiều hơn một lần). Giả sử chúng ta đang tìm cách tính sai số chuẩn của trung bình mẫu, chúng ta lấy nhiều mẫu lấy lại và sau đó tính giá trị trung bình của mỗi mẫu lấy lại. Lưu ý rằng mặc dù một số phần tử có thể xuất hiện nhiều lần trong các mẫu lấy lại, các phần tử khác có thể không xuất hiện lần nào.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-216" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 216 / Trang PDF 216
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 5: Bootstrap Resampling</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 5: Lấy mẫu lại kiểu Tự thân (<em>Exhibit 5: Bootstrap Resampling</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0216-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0216-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Bên trái:</strong> Tổng thể thực (<em>True Population</em>) <span class="math-inline">$\rightarrow$</span> Mẫu 1, Mẫu 2, ..., Mẫu <span class="math-inline">$n$</span> <span class="math-inline">$\rightarrow$</span> Ước lượng 1, Ước lượng 2, ..., Ước lượng <span class="math-inline">$n$</span> <span class="math-inline">$\rightarrow$</span> Phân phối mẫu thực (<em>True Sampling Distribution</em>).
+- <strong>Bên phải:</strong> Mẫu (<em>Sample</em>) <span class="math-inline">$\rightarrow$</span> Tổng thể ước tính (<em>Estimated Population</em>) <span class="math-inline">$\rightarrow$</span> Mẫu Bootstrap 1, Mẫu Bootstrap 2, ..., Mẫu Bootstrap "B" <span class="math-inline">$\rightarrow$</span> Ước lượng 1, Ước lượng 2, ..., Ước lượng B <span class="math-inline">$\rightarrow$</span> Phân phối mẫu Bootstrap (<em>Bootstrap Sampling Distribution</em>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Subsequently, we construct a sampling distribution with these resamples. The bootstrap sampling distribution (right-hand side of Exhibit 5) will approximate the true sampling distribution. We estimate the standard error of the sample mean using Equation 4. Note that to distinguish the foregoing resampling process from other types of resampling, it is often called model-free resampling or non-parametric resampling.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tiếp theo, chúng ta xây dựng một phân phối mẫu với các mẫu lấy lại này. Phân phối mẫu bootstrap (phía bên phải của Minh họa 5) sẽ xấp xỉ phân phối mẫu thực sự. Chúng ta ước tính sai số chuẩn của trung bình mẫu bằng Phương trình 4. Lưu ý rằng để phân biệt quy trình lấy mẫu lại vừa nêu với các loại lấy mẫu lại khác, nó thường được gọi là lấy mẫu lại phi mô hình (<em>model-free resampling</em>) hoặc lấy mẫu lại phi tham số (<em>non-parametric resampling</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0216-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0216-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$s_{\bar{X}} = \sqrt{\frac{1}{B - 1} \sum_{b=1}^{B} (\hat{\theta}_b - \bar{\theta})^2} \tag{4}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0216-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0216-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><em>B</em> = the number of resamples drawn from the original sample,</p>
+</li>
+<li>
+<p><em>θ</em><sup>ˆ</sup> <em>b</em> = the mean of a resample, and</p>
+</li>
+<li>
+<p><em>θ</em> = the mean across all the resample means.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><span class="math-inline">$s_{\bar{X}} =$</span> ước lượng sai số chuẩn của trung bình mẫu (<em>the estimate of the standard error of the sample mean</em>),</li>
+<li><span class="math-inline">$B =$</span> số lượng mẫu lấy lại (<em>resamples</em>) được rút ra từ mẫu ban đầu, </li>
+<li><span class="math-inline">$\hat{\theta}_b =$</span> giá trị trung bình của một mẫu lấy lại thứ <span class="math-inline">$b$</span>, và </li>
+<li><span class="math-inline">$\bar{\theta} =$</span> giá trị trung bình của tất cả các trung bình mẫu lấy lại.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Bootstrap is one of the most powerful and widely used tools for statistical inference. As we have explained, it can be used to estimate the standard error of a sample mean. Similarly, bootstrap can be used to find the standard error or construct confidence intervals for the statistic of other population parameters, such as the median, which does not apply to the previously discussed methodologies. Compared with conventional statistical methods, bootstrap does not rely on an analytical formula to estimate the distribution of the estimators. It is a simple but powerful method for any complicated estimators and particularly useful when no analytical formula is available. In addition, bootstrap has potential advantages in accuracy. Given these advantages, bootstrap can be applied widely in finance, such as for historical simulations in asset allocation or in gauging an investment strategy’s performance against a benchmark.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bootstrap là một trong những công cụ mạnh mẽ nhất và được sử dụng rộng rãi nhất để suy luận thống kê. Như chúng ta đã giải thích, nó có thể được sử dụng để ước tính sai số chuẩn của một trung bình mẫu. Tương tự, bootstrap có thể được sử dụng để tìm sai số chuẩn hoặc xây dựng khoảng tin cậy cho thống kê của các tham số tổng thể khác, chẳng hạn như trung vị (<em>median</em>), vốn không áp dụng được các phương pháp luận đã thảo luận trước đó. So với các phương pháp thống kê truyền thống, bootstrap không dựa vào công thức giải tích để ước tính phân phối của các ước lượng. Đây là một phương pháp đơn giản nhưng mạnh mẽ cho bất kỳ ước lượng phức tạp nào và đặc biệt hữu ích khi không có sẵn công thức giải tích. Ngoài ra, bootstrap còn có những lợi thế tiềm năng về độ chính xác. Với những ưu điểm này, bootstrap có thể được áp dụng rộng rãi trong tài chính, chẳng hạn như cho các mô phỏng lịch sử trong phân bổ tài sản hoặc trong việc đo lường hiệu quả của một chiến lược đầu tư so với chỉ số chuẩn.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-217" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 217 / Trang PDF 217
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 4</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 4 (<em>EXAMPLE 4</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Bootstrap Resampling Illustration</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Minh họa Lấy mẫu lại kiểu Tự thân (<em>Bootstrap Resampling Illustration</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 6 displays a set of 12 monthly returns of a rarely traded stock, shown in Column A. Our aim is to calculate the standard error of the sample mean. Using the bootstrap resampling method, a series of bootstrap samples, labelled as “resamples” (with replacement) are drawn from the sample of 12 returns. Notice how some of the returns from data sample in Column A feature more than once in some of the resamples (e.g., 0.055 features twice in Resample 1).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Minh họa 6 hiển thị một tập hợp gồm 12 tỷ suất sinh lợi hàng tháng của một cổ phiếu ít được giao dịch, được trình bày trong Cột A. Mục tiêu của chúng ta là tính sai số chuẩn của trung bình mẫu. Sử dụng phương pháp lấy mẫu lại bootstrap, một chuỗi các mẫu bootstrap, được dán nhãn là “Mẫu lấy lại” (<em>Resample</em> – có hoàn lại) được rút ra từ mẫu gồm 12 tỷ suất sinh lợi. Hãy chú ý cách một số tỷ suất sinh lợi từ mẫu dữ liệu ở Cột A xuất hiện nhiều hơn một lần trong một số mẫu lấy lại (ví dụ: <span class="math-inline">$0.055$</span> xuất hiện hai lần trong Mẫu lấy lại 1).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 6: Rarely Traded Stock, 12 Monthly Returns</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 6: Cổ phiếu Ít Giao dịch, 12 Tỷ suất sinh lợi Hàng tháng (<em>Exhibit 6: Rarely Traded Stock, 12 Monthly Returns</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Column A</strong></th>
+<th><strong>Resample 1</strong></th>
+<th><strong>Resample 2</strong></th>
+<th><strong>Resample 3</strong></th>
+<th></th>
+<th><strong>Resample</strong><br><strong>1,000</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>−0.096</td>
+<td>0.055</td>
+<td>−0.096</td>
+<td>−0.033</td>
+<td>…</td>
+<td>−0.072</td>
+</tr>
+<tr>
+<td>−0.132</td>
+<td>−0.033</td>
+<td>0.055</td>
+<td>−0.132</td>
+<td>…</td>
+<td>0.255</td>
+</tr>
+<tr>
+<td>−0.191</td>
+<td>0.255</td>
+<td>0.055</td>
+<td>−0.157</td>
+<td>…</td>
+<td>0.055</td>
+</tr>
+<tr>
+<td>−0.096</td>
+<td>−0.033</td>
+<td>−0.157</td>
+<td>0.255</td>
+<td>…</td>
+<td>0.296</td>
+</tr>
+<tr>
+<td>0.055</td>
+<td>0.255</td>
+<td>−0.096</td>
+<td>−0.132</td>
+<td>…</td>
+<td>0.055</td>
+</tr>
+<tr>
+<td>−0.053</td>
+<td>−0.157</td>
+<td>−0.053</td>
+<td>−0.191</td>
+<td>…</td>
+<td>−0.096</td>
+</tr>
+<tr>
+<td>−0.033</td>
+<td>−0.053</td>
+<td>−0.096</td>
+<td>0.055</td>
+<td>…</td>
+<td>0.296</td>
+</tr>
+<tr>
+<td>0.296</td>
+<td>−0.191</td>
+<td>−0.132</td>
+<td>0.255</td>
+<td>…</td>
+<td>−0.132</td>
+</tr>
+<tr>
+<td>0.055</td>
+<td>−0.132</td>
+<td>−0.132</td>
+<td>0.296</td>
+<td>…</td>
+<td>0.055</td>
+</tr>
+<tr>
+<td>−0.072</td>
+<td>−0.096</td>
+<td>0.055</td>
+<td>−0.096</td>
+<td>…</td>
+<td>−0.096</td>
+</tr>
+<tr>
+<td>0.255</td>
+<td>0.055</td>
+<td>−0.072</td>
+<td>0.055</td>
+<td>…</td>
+<td>−0.191</td>
+</tr>
+<tr>
+<td>−0.157</td>
+<td>−0.157</td>
+<td>−0.053</td>
+<td>−0.157</td>
+<td>…</td>
+<td>0.055</td>
+</tr>
+<tr>
+<td>Sample mean</td>
+<td>−0.019</td>
+<td>−0.060</td>
+<td>0.001</td>
+<td>…</td>
+<td>0.040</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Cột A (<em>Column A</em>)</strong></th>
+<th><strong>Mẫu lấy lại 1 (<em>Resample 1</em>)</strong></th>
+<th><strong>Mẫu lấy lại 2 (<em>Resample 2</em>)</strong></th>
+<th><strong>Mẫu lấy lại 3 (<em>Resample 3</em>)</strong></th>
+<th><strong>…</strong></th>
+<th><strong>Mẫu lấy lại 1,000 (<em>Resample 1,000</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>−0.096</td>
+<td>0.055</td>
+<td>−0.096</td>
+<td>−0.033</td>
+<td>…</td>
+<td>−0.072</td>
+</tr>
+<tr>
+<td>−0.132</td>
+<td>−0.033</td>
+<td>0.055</td>
+<td>−0.132</td>
+<td>…</td>
+<td>0.255</td>
+</tr>
+<tr>
+<td>−0.191</td>
+<td>0.255</td>
+<td>0.055</td>
+<td>−0.157</td>
+<td>…</td>
+<td>0.055</td>
+</tr>
+<tr>
+<td>−0.096</td>
+<td>−0.033</td>
+<td>−0.157</td>
+<td>0.255</td>
+<td>…</td>
+<td>0.296</td>
+</tr>
+<tr>
+<td>0.055</td>
+<td>0.255</td>
+<td>−0.096</td>
+<td>−0.132</td>
+<td>…</td>
+<td>0.055</td>
+</tr>
+<tr>
+<td>−0.053</td>
+<td>−0.157</td>
+<td>−0.053</td>
+<td>−0.191</td>
+<td>…</td>
+<td>−0.096</td>
+</tr>
+<tr>
+<td>−0.033</td>
+<td>−0.053</td>
+<td>−0.096</td>
+<td>0.055</td>
+<td>…</td>
+<td>0.296</td>
+</tr>
+<tr>
+<td>0.296</td>
+<td>−0.191</td>
+<td>−0.132</td>
+<td>0.255</td>
+<td>…</td>
+<td>−0.132</td>
+</tr>
+<tr>
+<td>0.055</td>
+<td>−0.132</td>
+<td>−0.132</td>
+<td>0.296</td>
+<td>…</td>
+<td>0.055</td>
+</tr>
+<tr>
+<td>−0.072</td>
+<td>−0.096</td>
+<td>0.055</td>
+<td>−0.096</td>
+<td>…</td>
+<td>−0.096</td>
+</tr>
+<tr>
+<td>0.255</td>
+<td>0.055</td>
+<td>−0.072</td>
+<td>0.055</td>
+<td>…</td>
+<td>−0.191</td>
+</tr>
+<tr>
+<td>−0.157</td>
+<td>−0.157</td>
+<td>−0.053</td>
+<td>−0.157</td>
+<td>…</td>
+<td>0.055</td>
+</tr>
+<tr>
+<td>Trung bình mẫu (<em>Sample mean</em>)</td>
+<td>−0.019</td>
+<td>−0.060</td>
+<td>0.001</td>
+<td>…</td>
+<td>0.040</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Drawing 1,000 such samples, we obtain 1,000 sample means. The mean across all resample means is −0.01367. The sum of squares of the differences between _ each sample mean and the mean across all resample means ( ∑ <em>Bb</em> =1( <em>θ</em> ˆ <em>b</em> − <em>θ</em> )2 ) is 1.94143. Using Equation 4, we calculate an estimate of the standard error of the sample mean:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Rút 1,000 mẫu như vậy, chúng ta thu được 1,000 trung bình mẫu. Giá trị trung bình của tất cả các trung bình mẫu lấy lại là <span class="math-inline">$-0.01367$</span>. Tổng bình phương các chênh lệch giữa mỗi trung bình mẫu và giá trị trung bình của tất cả các trung bình mẫu lấy lại (<span class="math-inline">$\sum_{b=1}^{B}(\hat{\theta}_b - \bar{\theta})^2$</span>) là <span class="math-inline">$1.94143$</span>. Sử dụng Phương trình 4, chúng ta tính được ước lượng sai số chuẩn của trung bình mẫu:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0217-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0217-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$s_{\bar{X}} = \sqrt{\frac{1}{B - 1} \sum_{b=1}^{B} (\hat{\theta}_b - \bar{\theta})^2} = \sqrt{\frac{1}{999} \times 1.94143} = 0.04408$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Jackknife</strong> is another resampling technique for statistical inference of population parameters. Unlike bootstrap, which repeatedly draws samples with replacement, jackknife samples are selected by taking the original observed data sample and leaving out one observation at a time from the set (and not replacing it). Jackknife method is often used to reduce the bias of an estimator, and other applications include finding the standard error and confidence interval of an estimator. According to its computation procedure, we can conclude that jackknife produces similar results for every run, whereas bootstrap usually gives different results because bootstrap resamples are randomly drawn. For a sample of size <em>n</em> , jackknife usually requires <em>n</em> repetitions, whereas with bootstrap, we are left to determine how many repetitions are appropriate.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Jackknife</strong> là một kỹ thuật lấy mẫu lại khác để suy luận thống kê về các tham số tổng thể. Không giống như bootstrap vốn liên tục rút các mẫu có hoàn lại (<em>with replacement</em>), các mẫu jackknife được chọn bằng cách lấy mẫu dữ liệu quan sát ban đầu và loại bỏ lần lượt từng quan sát một ra khỏi tập hợp (và không hoàn lại). Phương pháp Jackknife thường được sử dụng để giảm độ chệch (<em>bias</em>) của một ước lượng, và các ứng dụng khác bao gồm tìm sai số chuẩn và khoảng tin cậy của một ước lượng. Theo thủ tục tính toán của nó, chúng ta có thể kết luận rằng jackknife tạo ra các kết quả tương tự nhau cho mỗi lần chạy, trong khi bootstrap thường cho ra các kết quả khác nhau bởi vì các mẫu lấy lại bootstrap được rút ngẫu nhiên. Đối với một mẫu có kích thước <span class="math-inline">$n$</span>, jackknife thường yêu cầu <span class="math-inline">$n$</span> lần lặp lại, trong khi với bootstrap, chúng ta phải tự xác định xem bao nhiêu lần lặp lại là phù hợp.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-218" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 218 / Trang PDF 218
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>QUESTION SET</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>An analyst in a real estate investment company is researching the housing market of the Greater Boston area. From a sample of collected house sale price data in the past year, she estimates the median house price of the area. To find the standard error of the estimated median, she is considering two options:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Một nhà phân tích tại một công ty đầu tư bất động sản đang nghiên cứu thị trường nhà ở của khu vực Greater Boston. Từ một mẫu dữ liệu giá bán nhà thu thập được trong năm qua, cô ước tính giá nhà trung vị (<em>median house price</em>) của khu vực. Để tìm sai số chuẩn của trung vị ước tính, cô đang cân nhắc hai phương án:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Option 1: The standard error of the sample median can be given by<sup><em></sup> √<sup>_s__</sup> _n</em><sup>,</sup> where <em>s</em> denotes the sample standard deviation and <em>n</em> denotes the sample size.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phương án 1: Sai số chuẩn của trung vị mẫu có thể được tính bằng <span class="math-inline">$s/\sqrt{n}$</span>, trong đó <span class="math-inline">$s$</span> ký hiệu độ lệch chuẩn mẫu và <span class="math-inline">$n$</span> ký hiệu kích thước mẫu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Option 2: Apply the bootstrap method to construct the sampling distribution of the sample median, and then compute the standard error using Equation 7.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phương án 2: Áp dụng phương pháp bootstrap để xây dựng phân phối mẫu của trung vị mẫu, và sau đó tính sai số chuẩn bằng Phương trình 4 (trong tài liệu gốc ghi Equation 7).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Which of the following statements is accurate?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phát biểu nào sau đây là chính xác?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Option 1 is suitable to find the standard error of the sample median.</p>
+</li>
+<li>
+<p><strong>B.</strong> Option 2 is suitable to find the standard error of the sample median.</p>
+</li>
+<li>
+<p><strong>C.</strong> Both options are suitable to find the standard error of the sample median.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Phương án 1 phù hợp để tìm sai số chuẩn của trung vị mẫu. </li>
+<li><strong>B.</strong> Phương án 2 phù hợp để tìm sai số chuẩn của trung vị mẫu. </li>
+<li><strong>C.</strong> Cả hai phương án đều phù hợp để tìm sai số chuẩn của trung vị mẫu.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải (<em>Solution</em>):</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is correct. Option 1 is valid for estimating the standard error of the sample mean but not for that of the sample median, which is not based on the given formula. Thus, both A and C are incorrect. The bootstrap method is a simple way to find the standard error of an estimator even if no analytical formula is available or it is too complicated.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B đúng. Phương án 1 có hiệu lực để ước tính sai số chuẩn của trung bình mẫu (<em>sample mean</em>) nhưng không áp dụng được cho sai số chuẩn của trung vị mẫu (<em>sample median</em>), vốn không dựa trên công thức đã cho. Do đó, cả A và C đều sai. Phương pháp bootstrap là một cách đơn giản để tìm sai số chuẩn của một ước lượng ngay cả khi không có sẵn công thức giải tích hoặc công thức quá phức tạp.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Having covered many of the fundamental concepts of sampling and estimation, we now focus on sampling issues of special concern to analysts. The quality of inferences depends on the quality of the data as well as on the quality of the sampling plan used. Financial data pose special problems, and sampling plans frequently reflect one or more biases. The next section examines these issues.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sau khi đã trình bày nhiều khái niệm cơ bản về lấy mẫu và ước lượng, bây giờ chúng ta tập trung vào các vấn đề lấy mẫu được các nhà phân tích đặc biệt quan tâm. Chất lượng của các suy luận phụ thuộc vào chất lượng của dữ liệu cũng như chất lượng của kế hoạch lấy mẫu được sử dụng. Dữ liệu tài chính đặt ra những vấn đề đặc biệt, và các kế hoạch lấy mẫu thường phản ánh một hoặc nhiều sự thiên lệch (<em>biases</em>). Phần tiếp theo xem xét các vấn đề này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Otema Chi has a spreadsheet with 108 monthly returns for shares in Marunou Corporation. He writes a software program that uses bootstrap resampling to create 200 resamples of this Marunou data by sampling with replacement. Each resample has 108 data points. Chi’s program calculates the mean of each of the 200 resamples, and then it calculates that the mean of these 200 resample means is 0.0261. The program subtracts 0.0261 from each of the 200 resample means, squares each of these 200 differences, and adds the squared differences together. The result is 0.835. The program then calculates an estimate of the standard error of the sample mean.</li>
+</ol>
+<p>The estimated standard error of the sample mean is closest to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Otema Chi có một bảng tính gồm 108 tỷ suất sinh lợi hàng tháng của cổ phiếu Marunou Corporation. Anh viết một chương trình phần mềm sử dụng lấy mẫu lại bootstrap để tạo ra 200 mẫu lấy lại (<em>resamples</em>) của dữ liệu Marunou này bằng cách lấy mẫu có hoàn lại. Mỗi mẫu lấy lại có 108 điểm dữ liệu. Chương trình của Chi tính giá trị trung bình của mỗi mẫu trong số 200 mẫu lấy lại, và sau đó tính ra rằng giá trị trung bình của 200 trung bình mẫu lấy lại này là <span class="math-inline">$0.0261$</span>. Chương trình lấy mỗi giá trị trong số 200 trung bình mẫu lấy lại trừ đi <span class="math-inline">$0.0261$</span>, bình phương mỗi chênh lệch trong 200 chênh lệch này, và cộng các bình phương chênh lệch lại với nhau. Kết quả là <span class="math-inline">$0.835$</span>. Chương trình sau đó tính một ước lượng cho sai số chuẩn của trung bình mẫu.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>A.</strong> 0.0115</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sai số chuẩn ước tính của trung bình mẫu gần nhất với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>B.</strong> 0.0648</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> 0.0115 </li>
+<li><strong>B.</strong> 0.0648</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-219" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 219 / Trang PDF 219
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>C.</strong> 0.0883</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0219-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0219-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải (<em>Solution</em>):</strong></h5>
+<p>B đúng. Ước lượng sai số chuẩn của trung bình mẫu bằng lấy mẫu lại bootstrap được tính như sau:</p>
+<p><div class="math-display my-3 overflow-x-auto">$$s_{\bar{X}} = \sqrt{\frac{1}{B - 1} \sum_{b=1}^{B} (\hat{\theta}_b - \bar{\theta})^2} = \sqrt{\frac{1}{200 - 1} \sum_{b=1}^{200} (\hat{\theta}_b - 0.0261)^2} = \sqrt{\frac{0.835}{199}} = \sqrt{0.004196}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$s_{\bar{X}} = 0.0648$$</div></p></div>
+                </div>
+                
+
+                <div id="pdf-page-220" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 220 / Trang PDF 220
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~PRACTICE PROBLEMS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> Which one of the following statements is true about non-probability sampling?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Phát biểu nào sau đây là đúng về lấy mẫu phi xác suất (<em>non-probability sampling</em>)?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> There is significant risk that the sample is not representative of the population.</p>
+</li>
+<li>
+<p><strong>B.</strong> Every member of the population has an equal chance of being selected for the sample.</p>
+</li>
+<li>
+<p><strong>C.</strong> Using judgment guarantees that population subdivisions of interest are represented in the sample.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Có rủi ro đáng kể là mẫu không mang tính đại diện cho tổng thể. </li>
+<li><strong>B.</strong> Mọi phần tử của tổng thể đều có cơ hội ngang nhau để được chọn vào mẫu. </li>
+<li><strong>C.</strong> Việc sử dụng phán đoán đảm bảo rằng các phân nhóm tổng thể được quan tâm đều có đại diện trong mẫu.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> The <em>best</em> approach for creating a stratified random sample of a population involves:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Cách tiếp cận <em>tốt nhất</em> để tạo ra một mẫu ngẫu nhiên phân tầng (<em>stratified random sample</em>) của một tổng thể bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> drawing an equal number of simple random samples from each subpopulation.</p>
+</li>
+<li>
+<p><strong>B.</strong> selecting every <em>k</em> th member of the population until the desired sample size is reached.</p>
+</li>
+<li>
+<p><strong>C.</strong> drawing simple random samples from each subpopulation in sizes proportional to the relative size of each subpopulation.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> rút một số lượng bằng nhau các mẫu ngẫu nhiên đơn giản từ mỗi tổng thể con. </li>
+<li><strong>B.</strong> chọn mỗi phần tử thứ <span class="math-inline">$k$</span> của tổng thể cho đến khi đạt được kích thước mẫu mong muốn. </li>
+<li><strong>C.</strong> rút các mẫu ngẫu nhiên đơn giản từ mỗi tổng thể con với kích thước tỷ lệ thuận với quy mô tương đối của mỗi tổng thể con.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> A population has a non-normal distribution with mean <em>µ</em> and variance <em>σ</em><sup>2</sup> . The sampling distribution of the sample mean computed from samples of large size from that population will have:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Một tổng thể có phân phối không chuẩn (<em>non-normal distribution</em>) với giá trị trung bình <span class="math-inline">$\mu$</span> và phương sai <span class="math-inline">$\sigma^2$</span>. Phân phối mẫu của trung bình mẫu được tính từ các mẫu có kích thước lớn từ tổng thể đó sẽ có:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> the same distribution as the population distribution.</p>
+</li>
+<li>
+<p><strong>B.</strong> its mean approximately equal to the population mean.</p>
+</li>
+<li>
+<p><strong>C.</strong> its variance approximately equal to the population variance.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> cùng phân phối với phân phối của tổng thể. </li>
+<li><strong>B.</strong> giá trị trung bình của nó xấp xỉ bằng giá trị trung bình của tổng thể. </li>
+<li><strong>C.</strong> phương sai của nó xấp xỉ bằng phương sai của tổng thể.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>4.</strong> A sample mean is computed from a population with a variance of 2.45. The sample size is 40. The standard error of the sample mean is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>4.</strong> Một trung bình mẫu được tính từ một tổng thể có phương sai là <span class="math-inline">$2.45$</span>. Kích thước mẫu là <span class="math-inline">$40$</span>. Sai số chuẩn của trung bình mẫu <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 0.039.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0.247.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0.387.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> 0.039. </li>
+<li><strong>B.</strong> 0.247. </li>
+<li><strong>C.</strong> 0.387.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>5.</strong> Compared with bootstrap resampling, jackknife resampling:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>5.</strong> So với lấy mẫu lại kiểu tự thân (<em>bootstrap resampling</em>), lấy mẫu lại kiểu <em>jackknife</em> (<em>jackknife resampling</em>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> is done with replacement.</p>
+</li>
+<li>
+<p><strong>B.</strong> usually requires that the number of repetitions is equal to the sample size.</p>
+</li>
+<li>
+<p><strong>C.</strong> produces dissimilar results for every run because resamples are randomly drawn.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> được thực hiện có hoàn lại (<em>with replacement</em>). </li>
+<li><strong>B.</strong> thường đòi hỏi số lần lặp lại bằng với kích thước mẫu. </li>
+<li><strong>C.</strong> tạo ra các kết quả khác nhau cho mỗi lần chạy bởi vì các mẫu lấy lại được rút ngẫu nhiên.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-221" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 221 / Trang PDF 221
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~SOLUTIONS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>A is correct. Because non-probability sampling is dependent on factors other than probability considerations, such as a sampler’s judgment or the convenience to access data, there is a significant risk that non-probability sampling might generate a non-representative sample.</p>
+</li>
+<li>
+<p>C is correct. Stratified random sampling involves dividing a population into subpopulations based on one or more classification criteria. Then, simple random samples are drawn from each subpopulation in sizes proportional to the relative size of each subpopulation. These samples are then pooled to form a stratified random sample.</p>
+</li>
+<li>
+<p>B is correct. Given a population described by any probability distribution (normal or non-normal) with finite variance, the central limit theorem states that the sampling distribution of the sample mean will be approximately normal, with the mean approximately equal to the population mean, when the sample size is large.</p>
+</li>
+<li>
+<p>B is correct. Taking the square root of the known population variance to determine the population standard deviation (σ) results in</p>
+</li>
+</ol>
+<ul>
+<li><em>σ</em> =  √<sup>_</sup> 2.45 = 1.565 .</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p><strong>A đúng.</strong> Bởi vì lấy mẫu phi xác suất phụ thuộc vào các yếu tố ngoài những cân nhắc về xác suất, chẳng hạn như phán đoán của người lấy mẫu hoặc sự thuận tiện trong việc tiếp cận dữ liệu, nên có một rủi ro đáng kể rằng lấy mẫu phi xác suất có thể tạo ra một mẫu không mang tính đại diện.</p>
+</li>
+<li>
+<p><strong>C đúng.</strong> Lấy mẫu ngẫu nhiên phân tầng bao gồm việc chia một tổng thể thành các tổng thể con dựa trên một hoặc nhiều tiêu chí phân loại. Sau đó, các mẫu ngẫu nhiên đơn giản được rút ra từ mỗi tổng thể con với kích thước tỷ lệ thuận với quy mô tương đối của mỗi tổng thể con. Các mẫu này sau đó được gộp lại để tạo thành một mẫu ngẫu nhiên phân tầng.</p>
+</li>
+<li>
+<p><strong>B đúng.</strong> Cho một tổng thể được mô tả bởi bất kỳ phân phối xác suất nào (chuẩn hoặc không chuẩn) với phương sai hữu hạn, định lý giới hạn trung tâm phát biểu rằng phân phối mẫu của trung bình mẫu sẽ xấp xỉ chuẩn, với giá trị trung bình xấp xỉ bằng giá trị trung bình của tổng thể, khi kích thước mẫu lớn.</p>
+</li>
+<li>
+<p><strong>B đúng.</strong> Lấy căn bậc hai của phương sai tổng thể đã biết để xác định độ lệch chuẩn tổng thể (<span class="math-inline">$\sigma$</span>) cho kết quả:</p>
+</li>
+</ol>
+<ul>
+<li><span class="math-inline">$\sigma = \sqrt{2.45} = 1.565$</span>.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The formula for the standard error of the sample mean (σX), based on a known sample size ( <em>n</em> ), is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Công thức tính sai số chuẩn của trung bình mẫu (<span class="math-inline">$\sigma_{\bar{X}}$</span>), dựa trên kích thước mẫu đã biết (<span class="math-inline">$n$</span>), là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0221-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0221-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Therefore,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó,</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0221-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0221-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\sigma_{\bar{X}} = \frac{1.565}{\sqrt{40}} = 0.247$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="5">
+<li>B is correct. For a sample of size <em>n</em> , jackknife resampling usually requires <em>n</em> repetitions. In contrast, with bootstrap resampling, we are left to determine how many repetitions are appropriate.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li><strong>B đúng.</strong> Đối với một mẫu có kích thước <span class="math-inline">$n$</span>, lấy mẫu lại jackknife thường yêu cầu <span class="math-inline">$n$</span> lần lặp lại. Ngược lại, với lấy mẫu lại bootstrap, chúng ta phải tự xác định xem bao nhiêu lần lặp lại là phù hợp.</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM07_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM07_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM08_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM08_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html');
+    });
+  </script>
+</body>
+</html>

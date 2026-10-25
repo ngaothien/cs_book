@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 14 Credit Risk - Part 2: Credit Rating Agencies and Credit Ratings — Volume 6: Fixed Income | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 6: Thu Nhập Cố Định
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 14 Credit Risk - Part 2: Credit Rating Agencies and Credit Ratings</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM14_Full_Credit_Risk.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (6 trang)...</option>
+          <option value="369">PDF Page 369</option>
+<option value="370">PDF Page 370</option>
+<option value="371">PDF Page 371</option>
+<option value="372">PDF Page 372</option>
+<option value="373">PDF Page 373</option>
+<option value="374">PDF Page 374</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 6</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Thu Nhập Cố Định</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 6</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Fixed_Income_Instrument_Features.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Fixed-Income Instrument Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Bond_Indentures_and_Covenants.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bond Indentures and Covenants</a>
+<a href="LM02_Full_Fixed_Income_Cash_Flows_and_Types.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Fixed-Income Cash Flows and Types</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Fixed_Income_Contingency_Provisions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Fixed-Income Contingency Provisions</a>
+<a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Fixed-Income Issuance and Trading</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Primary and Secondary Fixed-Income Markets</a>
+<a href="LM04_Full_Fixed_Income_Markets_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Fixed-Income Markets for Corporate Issuers</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Repurchase_Agreements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Repurchase Agreements</a>
+<a href="LM04_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM05_Full_Fixed_Income_Markets_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Fixed-Income Markets for Government Issuers</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Non_Sovereign_Quasi_Government_and_Supranatio.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign, Quasi-Government, and Supranational Agency Debt</a>
+<a href="LM06_Full_Fixed_Income_Bond_Valuation_Prices_and_Yields.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Fixed-Income Bond Valuation: Prices and Yields</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Relationships_between_Bond_Prices_and_Bond_Fe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Relationships between Bond Prices and Bond Features</a>
+<a href="LM07_Full_Yield_and_Yield_Spread_Measures_for_Fixed_Rat.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Yield and Yield Spread Measures for Fixed-Rate Bonds</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Spread Measures for Fixed-Rate Bonds and Matrix Pricing</a>
+<a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Measures for Money Market Instruments</a>
+<a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Par_and_Forward_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Par and Forward Rates</a>
+<a href="LM09_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM10_Full_Interest_Rate_Risk_and_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Interest Rate Risk and Return</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Macaulay_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Macaulay Duration</a>
+<a href="LM11_Full_Yield_Based_Bond_Duration_Measures_and_Proper.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Yield-Based Bond Duration Measures and Properties</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Money_Duration_and_Price_Value_of_a_Basis_Poi.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money Duration and Price Value of a Basis Point</a>
+<a href="LM12_Full_Yield_Based_Bond_Convexity_and_Portfolio_Prop.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Yield-Based Bond Convexity and Portfolio Properties</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Portfolio_Duration_and_Convexity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Duration and Convexity</a>
+<a href="LM13_Full_Curve_Based_and_Empirical_Fixed_Income_Risk_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 13 Curve-Based and Empirical Fixed-Income Risk Measures</a>
+<a href="LM13_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM13_Part2_Empirical_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Empirical Duration</a>
+<a href="LM14_Full_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 14 Credit Risk</a>
+<a href="LM14_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Credit Rating Agencies and Credit Ratings</a>
+<a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Factors Impacting Yield Spreads</a>
+<a href="LM14_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM15_Full_Credit_Analysis_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 15 Credit Analysis for Government Issuers</a>
+<a href="LM15_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM15_Part2_Non_Sovereign_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign Credit Risk</a>
+<a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 16 Credit Analysis for Corporate Issuers</a>
+<a href="LM16_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Ratios in Corporate Credit Analysis</a>
+<a href="LM16_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM17_Full_Fixed_Income_Securitization.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 17 Fixed-Income Securitization</a>
+<a href="LM17_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM17_Part2_The_Securitization_Process.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Securitization Process</a>
+<a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</a>
+<a href="LM18_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Mortgage Asset-Backed Securities</a>
+<a href="LM18_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM19_Full_Mortgage_Backed_Security_MBS_Instrument_and_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 19 Mortgage-Backed Security (MBS) Instrument and Market Features</a>
+<a href="LM19_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM19_Part2_Residential_Mortgage_Backed_Securities_RMBS.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Residential Mortgage-Backed Securities (RMBS)</a>
+<a href="LM19_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 6 • Fixed Income (Thu Nhập Cố Định)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 14 Credit Risk - Part 2: Credit Rating Agencies and Credit Ratings</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('06_Fixed_Income/LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 6: Fixed Income</h1>
+<h2>Learning Module 14 Credit Risk</h2>
+<h3>Part 2/4: Credit Rating Agencies and Credit Ratings (PDF Pages 369–374)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 6: Thu nhập Cố định (Fixed Income)</h1>
+<h2>Học phần 14: Rủi ro Tín dụng (Credit Risk)</h2>
+<h3>Phần 2/4: Các Tổ chức Xếp hạng Tín nhiệm và Xếp hạng Tín nhiệm (Trang PDF 369–374)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-369" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 369 / Trang PDF 369
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>debtholders have access to unpledged assets, while only secured debtholders<br>have access to specific pledged assets as an additional repayment source.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3. Which of the following factors are associated with a lower probability of<br>default and higher credit quality for a corporate issuer?</td>
+</tr>
+<tr>
+<td><strong>A.</strong>Higher profitability, higher coverage, and higher leverage</td>
+</tr>
+<tr>
+<td><strong>B.</strong>Higher profitability, lower coverage, and lower leverage</td>
+</tr>
+<tr>
+<td><strong>C.</strong>Higher profitability, higher coverage, and lower leverage<br><strong>Solution:</strong></td>
+</tr>
+<tr>
+<td>C is correct. Higher profitability, higher coverage, and lower leverage are<br>associated with a lower probability of default and higher credit quality for a<br>corporate issuer.</td>
+</tr>
+<tr>
+<td>4. A bond investor analyzing Broadvue Corporation’s unsecured debt esti-<br>mates a POD of 2% and an LGD of 80%. Using this information to approxi-<br>mate the annual credit spread and observing an actual credit spread of 200<br>bps per year, which of the following statements is correct?</td>
+</tr>
+<tr>
+<td><strong>A.</strong>An investor would be fairly compensated for assuming Broadvue’s<br>credit risk.</td>
+</tr>
+<tr>
+<td><strong>B.</strong>An investor would be less than fairly compensated for assuming<br>Broadvue’s credit risk.</td>
+</tr>
+<tr>
+<td><strong>C.</strong>An investor would be more than fairly compensated for assuming<br>Broadvue’s credit risk.<br><strong>Solution:</strong></td>
+</tr>
+<tr>
+<td>C is correct. Since POD × LGD = 1.60% and the credit spread is 2.00%,<br>Credit Spread &gt; POD × LGD and the investor would expect to be more than<br>fairly compensated for assuming Broadvue’s credit risk.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>đều có quyền tiếp cận các tài sản chưa cầm cố (<em>unpledged assets</em>), trong khi chỉ các chủ nợ có bảo đảm mới có quyền tiếp cận các tài sản cầm cố cụ thể (<em>specific pledged assets</em>) như một nguồn trả nợ bổ sung.</p>
+<ol start="3">
+<li>Những yếu tố nào sau đây gắn liền với xác suất vỡ nợ thấp hơn và chất lượng tín dụng cao hơn đối với một tổ chức phát hành doanh nghiệp?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Khả năng sinh lời cao hơn, khả năng trang trải nợ (<em>coverage</em>) cao hơn, và đòn bẩy cao hơn</p>
+</li>
+<li>
+<p><strong>B.</strong> Khả năng sinh lời cao hơn, khả năng trang trải nợ thấp hơn, và đòn bẩy thấp hơn</p>
+</li>
+<li>
+<p><strong>C.</strong> Khả năng sinh lời cao hơn, khả năng trang trải nợ cao hơn, và đòn bẩy thấp hơn</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul>
+<p>C là đáp án đúng. Khả năng sinh lời cao hơn, khả năng trang trải nợ cao hơn và đòn bẩy thấp hơn gắn liền với xác suất vỡ nợ thấp hơn và chất lượng tín dụng cao hơn đối với một tổ chức phát hành doanh nghiệp.</p>
+<ol start="4">
+<li>Một nhà đầu tư trái phiếu phân tích khoản nợ không có bảo đảm của Tập đoàn Broadvue ước tính <span class="math-inline">$\text{POD}$</span> là 2% và <span class="math-inline">$\text{LGD}$</span> là 80%. Sử dụng thông tin này để xấp xỉ phần bù tín dụng hàng năm và quan sát thấy phần bù tín dụng thực tế là 200 bps mỗi năm, phát biểu nào sau đây là đúng?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Nhà đầu tư sẽ được đền bù thỏa đáng (<em>fairly compensated</em>) khi gánh chịu rủi ro tín dụng của Broadvue.</p>
+</li>
+<li>
+<p><strong>B.</strong> Nhà đầu tư sẽ được đền bù thấp hơn mức thỏa đáng (<em>less than fairly compensated</em>) khi gánh chịu rủi ro tín dụng của Broadvue.</p>
+</li>
+<li>
+<p><strong>C.</strong> Nhà đầu tư sẽ được đền bù cao hơn mức thỏa đáng (<em>more than fairly compensated</em>) khi gánh chịu rủi ro tín dụng của Broadvue.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>CREDIT RATING AGENCIES AND CREDIT RATINGS</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Vì <span class="math-inline">$\text{POD} \times \text{LGD} = 1.60\%$</span> và phần bù tín dụng là <span class="math-inline">$2.00\%$</span>, ta có <span class="math-inline">$\text{Credit Spread} &gt; \text{POD} \times \text{LGD}$</span> và nhà đầu tư có thể kỳ vọng được đền bù cao hơn mức thỏa đáng khi gánh chịu rủi ro tín dụng của Broadvue.</p>
+<hr />
+<h1><strong>CÁC TỔ CHỨC XẾP HẠNG TÍN NHIỆM VÀ XẾP HẠNG TÍN NHIỆM (CREDIT RATING AGENCIES AND CREDIT RATINGS)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0369-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0369-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe the uses of ratings from credit rating agencies and their limitations</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>mô tả công dụng của xếp hạng tín nhiệm (<em>credit ratings</em>) từ các tổ chức xếp hạng tín nhiệm (<em>credit rating agencies</em>) và những hạn chế của chúng</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The three major credit rating agencies—Moody’s Investors Service (“Moody’s”), Standard &amp; Poor’s (“S&amp;P”), and Fitch Ratings (“Fitch”)—play a central role in the credit markets. The rating agencies independently assess issuer credit risk on a forward-looking basis using quantitative and qualitative analysis. For most outstanding corporate and sovereign bonds, at least two of the agencies provide <strong>credit ratings</strong> , a symbol-based measure of the potential risk of default of a particular bond or issuer of debt.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ba tổ chức xếp hạng tín nhiệm lớn — Moody’s Investors Service (“Moody’s”), Standard &amp; Poor’s (“S&amp;P”), và Fitch Ratings (“Fitch”) — đóng vai trò trung tâm trên các thị trường tín dụng. Các tổ chức xếp hạng độc lập đánh giá rủi ro tín dụng của tổ chức phát hành trên cơ sở hướng tới tương lai (<em>forward-looking basis</em>) bằng cách sử dụng phân tích định lượng và định tính. Đối với hầu hết các trái phiếu doanh nghiệp và trái phiếu chính phủ đang lưu hành, ít nhất hai trong số các tổ chức này cung cấp <strong>xếp hạng tín nhiệm (<em>credit ratings</em>)</strong>, một thước đo dựa trên ký hiệu về rủi ro vỡ nợ tiềm tàng của một trái phiếu hoặc một tổ chức phát hành nợ cụ thể.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Many bond investors use credit ratings to provide direct and easy comparability of the relative creditworthiness of all bond issuers, within and across industries and bond types, although there is some debate about ratings comparability across the types of bonds. Changes in credit ratings provide a broad overview of changing credit market conditions. In individual bond or issuer cases, they may trigger covenants, changes to debt pricing for step-up bonds, or other contractual clauses. <strong>Credit migration risk</strong> , or downgrade risk, is the risk that a bond issuer’s creditworthiness deteriorates, or</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nhiều nhà đầu tư trái phiếu sử dụng xếp hạng tín nhiệm để có sự so sánh trực tiếp và dễ dàng về mức độ tín nhiệm tương đối của tất cả các tổ chức phát hành trái phiếu, trong cùng một ngành và giữa các ngành cũng như các loại trái phiếu khác nhau, mặc dù vẫn có một số tranh luận về khả năng so sánh của các mức xếp hạng giữa các loại hình trái phiếu khác nhau. Những thay đổi trong xếp hạng tín nhiệm cung cấp một cái nhìn tổng quan rộng lớn về các điều kiện thị trường tín dụng đang thay đổi. Trong các trường hợp trái phiếu hoặc tổ chức phát hành riêng lẻ, chúng có thể kích hoạt các điều khoản ràng buộc (<em>covenants</em>), làm thay đổi mức định giá nợ đối với trái phiếu có lãi suất bậc thang (<em>step-up bonds</em>), hoặc các điều khoản hợp đồng khác. <strong>Rủi ro dịch chuyển tín dụng (<em>Credit migration risk</em>)</strong>, hay rủi ro bị hạ bậc tín nhiệm (<em>downgrade risk</em>), là rủi ro mức độ tín nhiệm của tổ chức phát hành trái phiếu bị suy giảm, hay</p></div>
+                </div>
+                
+
+                <div id="pdf-page-370" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 370 / Trang PDF 370
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>migrates to a lower rating, leading investors to believe the risk of default is higher. Credit ratings are also widely used to satisfy regulatory, statutory, and contractual requirements.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>dịch chuyển xuống một mức xếp hạng thấp hơn, khiến các nhà đầu tư tin rằng rủi ro vỡ nợ đã cao hơn. Xếp hạng tín nhiệm cũng được sử dụng rộng rãi để đáp ứng các yêu cầu của cơ quan quản lý, theo luật định và theo hợp đồng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Ratings are issued on behalf of the issuer. To issue a rating, the rating agencies often meet with the issuer and in some cases receive access to material non-public information, such as financial projections unavailable to public investors. Rating agencies monitor the ongoing performance of debt issuers once a rating is issued, adjusting ratings higher as credit risk decreases or lower if a default is deemed more likely. In addition, credit agencies may issue a positive or negative outlook as creditworthiness improves or deteriorates but a rating change is not yet warranted.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Xếp hạng được ban hành thay mặt cho tổ chức phát hành. Để ban hành một mức xếp hạng, các tổ chức xếp hạng thường gặp gỡ tổ chức phát hành và trong một số trường hợp được quyền tiếp cận thông tin trọng yếu chưa công bố (<em>material non-public information</em>), chẳng hạn như các dự phóng tài chính không phổ biến cho các nhà đầu tư đại chúng. Các tổ chức xếp hạng theo dõi hoạt động liên tục của các tổ chức phát hành nợ sau khi xếp hạng được ban hành, điều chỉnh tăng xếp hạng khi rủi ro tín dụng giảm xuống hoặc hạ xếp hạng nếu khả năng vỡ nợ được đánh giá là cao hơn. Ngoài ra, các tổ chức tín nhiệm có thể đưa ra triển vọng tích cực hoặc tiêu cực (<em>positive or negative outlook</em>) khi mức độ tín nhiệm cải thiện hoặc suy giảm nhưng chưa đủ cơ sở để thay đổi mức xếp hạng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A rating agency’s forward-looking analysis may overlook or underestimate key financial risks. For example, rating agencies were widely criticized for contributing to the Global Financial Crisis of 2008–2009 given what came to be seen as overly optimistic ratings on subprime mortgage-backed securities following the sharp decline in housing prices. This led to regulatory attempts to reduce the dominant role of the major credit rating agencies. As a result of these new rules, regulations, and legislation, credit rating agencies have become more transparent and reduced their conflicts of interest. Additional credit rating agencies have emerged both globally and locally. Some credit rating agencies are well-established in their home markets but are less well-known globally, such as Dominion Bond Rating Service (DBRS) in Canada and Japan Credit Rating Agency (JCR) in Japan. The market dominance of the largest credit rating agencies and the prevalence of the “issuer pay” model, however, remain largely intact and unchallenged.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phân tích hướng tới tương lai của một tổ chức xếp hạng có thể bỏ sót hoặc đánh giá thấp các rủi ro tài chính trọng yếu. Ví dụ, các tổ chức xếp hạng đã bị chỉ trích rộng rãi vì góp phần gây ra Cuộc khủng hoảng Tài chính Toàn cầu năm 2008–2009 do những gì sau đó được nhìn nhận là các mức xếp hạng quá lạc quan đối với các chứng khoán đảm bảo bằng thế chấp dưới chuẩn (<em>subprime mortgage-backed securities</em>) sau đợt sụt giảm mạnh của giá nhà đất. Điều này dẫn đến các nỗ lực từ phía cơ quan quản lý nhằm giảm bớt vai trò thống trị của các tổ chức xếp hạng tín nhiệm lớn. Kết quả của những quy tắc, quy định và đạo luật mới này là các tổ chức xếp hạng tín nhiệm đã trở nên minh bạch hơn và giảm thiểu các xung đột lợi ích (<em>conflicts of interest</em>). Nhiều tổ chức xếp hạng tín nhiệm bổ sung đã xuất hiện cả trên phạm vi toàn cầu và tại từng địa phương. Một số tổ chức xếp hạng tín nhiệm có vị thế vững chắc tại thị trường nội địa của họ nhưng ít được biết đến hơn trên toàn cầu, chẳng hạn như Dominion Bond Rating Service (DBRS) tại Canada và Japan Credit Rating Agency (JCR) tại Nhật Bản. Tuy nhiên, vị thế thống lĩnh thị trường của các tổ chức xếp hạng tín nhiệm lớn nhất và sự phổ biến của mô hình “tổ chức phát hành trả phí” (<em>“issuer pay” model</em>) nhìn chung vẫn còn nguyên vẹn và chưa bị thách thức.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>Credit Ratings</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Xếp hạng Tín nhiệm (Credit Ratings)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The three major global credit rating agencies use similar, symbol-based ratings that assess a bond issue’s risk of default and the potential loss the investor may suffer. Exhibit 7 compares their long-term rating scale ranked from highest to lowest. These are ratings for bonds with a maturity exceeding one year. Ratings on short-term debt follow a similar logic but are not shown here.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ba tổ chức xếp hạng tín nhiệm toàn cầu lớn sử dụng các mức xếp hạng dựa trên ký hiệu tương tự nhau để đánh giá rủi ro vỡ nợ của một đợt phát hành trái phiếu và khoản tổn thất tiềm tàng mà nhà đầu tư có thể phải gánh chịu. Bảng minh họa 7 so sánh thang xếp hạng dài hạn của họ được sắp xếp từ cao nhất đến thấp nhất. Đây là các mức xếp hạng dành cho trái phiếu có kỳ hạn trên một năm. Xếp hạng đối với nợ ngắn hạn cũng tuân theo một logic tương tự nhưng không được trình bày tại đây.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 7: Long-Term Rating Matrix: Investment Grade vs. Non-Investment Grade</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 7: Ma trận Xếp hạng Dài hạn: Hạng Đầu tư so với Phi Hạng Đầu tư (Long-Term Rating Matrix: Investment Grade vs. Non-Investment Grade)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th><strong>Moody’s</strong></th>
+<th><strong>S&amp;P</strong></th>
+<th><strong>Fitch</strong></th>
+<th><strong>Rating Grade Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Investment Grade</td>
+<td>High-Quality Grade</td>
+<td>Aaa</td>
+<td>AAA</td>
+<td>AAA</td>
+<td>Highest credit quality, lowest level of<br>credit risk</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Aa1</td>
+<td>AA+</td>
+<td>AA+</td>
+<td>Very high credit quality with very low<br>level of credit risk</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Aa2</td>
+<td>AA</td>
+<td>AA</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Aa3</td>
+<td>AA–</td>
+<td>AA–</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Upper-Medium Grade</td>
+<td>A1</td>
+<td>A+</td>
+<td>A+</td>
+<td>High credit quality with low level of</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>A2</td>
+<td>A</td>
+<td>A</td>
+<td>credit risk</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>A3</td>
+<td>A–</td>
+<td>A–</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Low-Medium Grade</td>
+<td>Baa1</td>
+<td>BBB+</td>
+<td>BBB+</td>
+<td>Good credit quality with moderate</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Baa2</td>
+<td>BBB</td>
+<td>BBB</td>
+<td>level of credit risk</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Baa3</td>
+<td>BBB–</td>
+<td>BBB–</td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Phân nhóm</strong></th>
+<th><strong>Cấp độ Chất lượng</strong></th>
+<th><strong>Moody’s</strong></th>
+<th><strong>S&amp;P</strong></th>
+<th><strong>Fitch</strong></th>
+<th><strong>Mô tả Bậc Xếp hạng (Rating Grade Description)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hạng Đầu tư (<em>Investment Grade</em>)</td>
+<td>Cấp chất lượng cao (<em>High-Quality Grade</em>)</td>
+<td>Aaa</td>
+<td>AAA</td>
+<td>AAA</td>
+<td>Chất lượng tín dụng cao nhất, mức rủi ro tín dụng thấp nhất (<em>Highest credit quality, lowest level of credit risk</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Aa1</td>
+<td>AA+</td>
+<td>AA+</td>
+<td>Chất lượng tín dụng rất cao với mức rủi ro tín dụng rất thấp (<em>Very high credit quality with very low level of credit risk</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Aa2</td>
+<td>AA</td>
+<td>AA</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Aa3</td>
+<td>AA–</td>
+<td>AA–</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Cấp trung bình cao (<em>Upper-Medium Grade</em>)</td>
+<td>A1</td>
+<td>A+</td>
+<td>A+</td>
+<td>Chất lượng tín dụng cao với mức rủi ro tín dụng thấp (<em>High credit quality with low level of credit risk</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>A2</td>
+<td>A</td>
+<td>A</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>A3</td>
+<td>A–</td>
+<td>A–</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Cấp trung bình thấp (<em>Low-Medium Grade</em>)</td>
+<td>Baa1</td>
+<td>BBB+</td>
+<td>BBB+</td>
+<td>Chất lượng tín dụng tốt với mức rủi ro tín dụng vừa phải (<em>Good credit quality with moderate level of credit risk</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Baa2</td>
+<td>BBB</td>
+<td>BBB</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Baa3</td>
+<td>BBB–</td>
+<td>BBB–</td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-371" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 371 / Trang PDF 371
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th><strong>Moody’s</strong></th>
+<th><strong>S&amp;P</strong></th>
+<th><strong>Fitch</strong></th>
+<th><strong>Rating Grade Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Non-Investment</td>
+<td>Low Grade or</td>
+<td>Ba1</td>
+<td>BB+</td>
+<td>BB+</td>
+<td>Speculative with substantial credit</td>
+</tr>
+<tr>
+<td>Grade</td>
+<td>Speculative Grade</td>
+<td></td>
+<td></td>
+<td></td>
+<td>risk</td>
+</tr>
+<tr>
+<td>(“Junk” or “High<br>”</td>
+<td></td>
+<td>Ba2</td>
+<td>BB</td>
+<td>BB</td>
+<td></td>
+</tr>
+<tr>
+<td>Yield)</td>
+<td></td>
+<td>Ba3</td>
+<td>BB–</td>
+<td>BB–</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>B1</td>
+<td>B+</td>
+<td>B+</td>
+<td>Highly speculative with high credit<br>risk</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>B2</td>
+<td>B</td>
+<td>B</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>B3</td>
+<td>B–</td>
+<td>B–</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Caa1</td>
+<td>CCC+</td>
+<td></td>
+<td>Substantial credit risk with default as</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Caa2</td>
+<td>CCC</td>
+<td>CCC</td>
+<td>a real possibility</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Caa3</td>
+<td>CCC–</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Ca</td>
+<td>CC</td>
+<td>CC</td>
+<td>Very high levels of credit risk with<br>default either occurring or about to</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>occur</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Ca</td>
+<td>C</td>
+<td>C</td>
+<td>Default or default-like process has<br>begun</td>
+</tr>
+<tr>
+<td></td>
+<td>Default</td>
+<td>C</td>
+<td>D</td>
+<td>D</td>
+<td>In default (entered bankruptcy filings,<br>administration, receivership, liqui-<br>dation, or other formal winding-up<br>procedure) with little prospect for<br>recovery of principal or interest</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Phân nhóm</strong></th>
+<th><strong>Cấp độ Chất lượng</strong></th>
+<th><strong>Moody’s</strong></th>
+<th><strong>S&amp;P</strong></th>
+<th><strong>Fitch</strong></th>
+<th><strong>Mô tả Bậc Xếp hạng (Rating Grade Description)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phi Hạng Đầu tư (<em>Non-Investment Grade</em> – Trái phiếu “Rác” / <em>“Junk”</em> hoặc “Lợi suất cao” / <em>“High Yield”</em>)</td>
+<td>Cấp thấp hoặc Cấp đầu cơ (<em>Low Grade or Speculative Grade</em>)</td>
+<td>Ba1</td>
+<td>BB+</td>
+<td>BB+</td>
+<td>Mang tính đầu cơ với rủi ro tín dụng đáng kể (<em>Speculative with substantial credit risk</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Ba2</td>
+<td>BB</td>
+<td>BB</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Ba3</td>
+<td>BB–</td>
+<td>BB–</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>B1</td>
+<td>B+</td>
+<td>B+</td>
+<td>Mang tính đầu cơ cao với rủi ro tín dụng cao (<em>Highly speculative with high credit risk</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>B2</td>
+<td>B</td>
+<td>B</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>B3</td>
+<td>B–</td>
+<td>B–</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Caa1</td>
+<td>CCC+</td>
+<td></td>
+<td>Rủi ro tín dụng đáng kể với khả năng thực sự xảy ra vỡ nợ (<em>Substantial credit risk with default as a real possibility</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Caa2</td>
+<td>CCC</td>
+<td>CCC</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Caa3</td>
+<td>CCC–</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Ca</td>
+<td>CC</td>
+<td>CC</td>
+<td>Mức rủi ro tín dụng rất cao với việc vỡ nợ đang xảy ra hoặc sắp xảy ra (<em>Very high levels of credit risk with default either occurring or about to occur</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Ca</td>
+<td>C</td>
+<td>C</td>
+<td>Vỡ nợ hoặc quy trình tương tự vỡ nợ đã bắt đầu (<em>Default or default-like process has begun</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td>Vỡ nợ (<em>Default</em>)</td>
+<td>C</td>
+<td>D</td>
+<td>D</td>
+<td>Đang vỡ nợ (đã nộp đơn phá sản, quản trị tài sản, tiếp quản tài sản, thanh lý, hoặc thủ tục giải thể chính thức khác) với rất ít triển vọng thu hồi gốc hoặc lãi (<em>In default with little prospect for recovery of principal or interest</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Aaa or AAA rated bonds are triple-A and are “of the highest quality, subject to the lowest level of credit risk.” Bonds rated Baa3/BBB– or higher are called “investment grade.” Bonds rated Ba1 or lower by Moody’s and BB+ or lower by S&amp;P and Fitch, respectively, are considered speculative credit and increasingly higher default risk. These types of bonds are also referenced as: “low grade,” “speculative grade,” “non-investment grade,” “below investment grade,” “high yield,” and more colloquially to specifically emphasize their inherent riskiness, “junk bonds.” The D rating is reserved for securities that are already in default in S&amp;P’s and Fitch’s scales. For Moody’s, bonds rated C are likely, but not necessarily, in default. Issuers of bonds rated investment grade are generally more consistently able to issue debt and can borrow at lower interest rates than those rated below investment grade.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các trái phiếu được xếp hạng Aaa hoặc AAA được gọi là hạng ba chữ A (<em>triple-A</em>) và “có chất lượng cao nhất, chịu mức rủi ro tín dụng thấp nhất.” Các trái phiếu được xếp hạng từ Baa3/BBB– trở lên được gọi là “hạng đầu tư” (<em>“investment grade”</em>). Các trái phiếu được Moody’s xếp hạng từ Ba1 trở xuống và được S&amp;P cùng Fitch xếp hạng từ BB+ trở xuống được coi là tín dụng mang tính đầu cơ (<em>speculative credit</em>) và có rủi ro vỡ nợ ngày càng cao hơn. Những loại trái phiếu này cũng được gọi là: “hạng thấp” (<em>“low grade”</em>), “hạng đầu cơ” (<em>“speculative grade”</em>), “phi hạng đầu tư” (<em>“non-investment grade”</em>), “dưới hạng đầu tư” (<em>“below investment grade”</em>), “lợi suất cao” (<em>“high yield”</em>), và thông tục hơn nhằm nhấn mạnh cụ thể tính rủi ro cố hữu của chúng là “trái phiếu rác” (<em>“junk bonds”</em>). Hạng D được dành riêng cho các chứng khoán đã rơi vào tình trạng vỡ nợ trong thang đo của S&amp;P và Fitch. Đối với Moody’s, các trái phiếu được xếp hạng C có nhiều khả năng, nhưng không nhất thiết, đang ở trong tình trạng vỡ nợ. Các tổ chức phát hành có trái phiếu được xếp hạng đầu tư nhìn chung có khả năng phát hành nợ đều đặn hơn và có thể vay vốn với mức lãi suất thấp hơn so với những tổ chức được xếp hạng dưới mức đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In comparison to high-yield bonds, investment-grade bonds have a lower risk profile, are less negatively affected by adverse economic and market conditions, and are more appropriate for institutional portfolios that face quality restrictions.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>So với trái phiếu lợi suất cao, trái phiếu hạng đầu tư có hồ sơ rủi ro (<em>risk profile</em>) thấp hơn, ít bị ảnh hưởng tiêu cực hơn bởi các điều kiện kinh tế và thị trường bất lợi, và phù hợp hơn cho các danh mục đầu tư của định chế tài chính vốn phải tuân thủ các hạn chế về chất lượng tín dụng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>Credit Rating Considerations</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Các Lưu ý về Xếp hạng Tín nhiệm (Credit Rating Considerations)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>While credit rating agencies perform a useful market function by classifying bonds based upon relative credit risk, market participants usually conduct their own analysis rather than exclusively relying on ratings when choosing investments. Sole reliance on credit ratings in making investment decisions includes pitfalls, such as the potential for rating agency decisions to lag market pricing of credit risk, overlook relevant financial risks, or involve miscalculations or unforeseen changes not fully captured in a rating agency’s forward-looking analysis. It is important for investors to perform their own research and draw their own conclusions regarding the credit risk of a given debt issue or issuer, particularly for investors in high-yield bonds or bonds that face a potential downgrade.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù các tổ chức xếp hạng tín nhiệm thực hiện một chức năng thị trường hữu ích bằng cách phân loại trái phiếu dựa trên rủi ro tín dụng tương đối, những người tham gia thị trường thường tự thực hiện phân tích của riêng mình thay vì chỉ phụ thuộc hoàn toàn vào xếp hạng khi lựa chọn các khoản đầu tư. Việc chỉ dựa vào xếp hạng tín nhiệm khi đưa ra quyết định đầu tư tiềm ẩn nhiều cạm bẫy, chẳng hạn như khả năng quyết định của tổ chức xếp hạng đi sau mức định giá rủi ro tín dụng của thị trường, bỏ sót các rủi ro tài chính có liên quan, hoặc bao hàm các tính toán sai lệch hay những thay đổi không lường trước chưa được phản ánh đầy đủ trong phân tích hướng tới tương lai của tổ chức xếp hạng. Điều quan trọng là các nhà đầu tư phải tự thực hiện nghiên cứu và rút ra kết luận của riêng mình về rủi ro tín dụng của một đợt phát hành nợ hoặc một tổ chức phát hành cụ thể, đặc biệt là đối với các nhà đầu tư vào trái phiếu lợi suất cao hoặc trái phiếu đứng trước khả năng bị hạ bậc tín nhiệm.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-372" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 372 / Trang PDF 372
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Credit ratings tend to be sticky and lag market pricing of credit risk.</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Xếp hạng tín nhiệm có xu hướng cứng nhắc (sticky) và đi sau mức định giá rủi ro tín dụng của thị trường.</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Bond prices and credit spreads often move faster than rating agencies change their ratings (or ratings outlook) in response to changes in perceived creditworthiness. Credit spreads change daily, whereas bond ratings, appropriately, change less frequently. Even over long time periods, however, credit ratings may lag changes in bond prices. Moreover, particularly for certain speculative-grade credits, two bonds with similar ratings may trade at very different credit spreads. This may result from the fact that credit ratings seek primarily to assess the expected loss, whereas for distressed debt, pricing is focused more on default timing and expected recovery rates.</p>
+</li>
+<li>
+<p>While ratings outlooks suggesting a possible future upgrade or downgrade are more closely aligned with market conditions, bond investors who wait for rating changes before making buy and sell decisions may underperform other investors who make portfolio decisions in advance of rating agency changes.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Giá trái phiếu và phần bù tín dụng thường biến động nhanh hơn tốc độ các tổ chức xếp hạng thay đổi mức xếp hạng (hoặc triển vọng xếp hạng) của họ để phản ứng với những thay đổi trong nhận thức về mức độ tín nhiệm. Phần bù tín dụng thay đổi hàng ngày, trong khi xếp hạng trái phiếu, một cách hợp lý, lại thay đổi ít thường xuyên hơn. Tuy nhiên, ngay cả trong những khoảng thời gian dài, xếp hạng tín nhiệm vẫn có thể đi sau những thay đổi của giá trái phiếu. Hơn nữa, đặc biệt đối với một số khoản tín dụng hạng đầu cơ nhất định, hai trái phiếu có mức xếp hạng tương tự nhau có thể giao dịch ở các mức phần bù tín dụng rất khác nhau. Điều này có thể bắt nguồn từ thực tế là xếp hạng tín nhiệm chủ yếu tìm cách đánh giá tổn thất kỳ vọng (<em>expected loss</em>), trong khi đối với các khoản nợ kiệt quệ tài chính (<em>distressed debt</em>), việc định giá lại tập trung nhiều hơn vào thời điểm vỡ nợ (<em>default timing</em>) và tỷ lệ thu hồi kỳ vọng (<em>expected recovery rates</em>).</p>
+</li>
+<li>
+<p>Mặc dù triển vọng xếp hạng (<em>ratings outlooks</em>) gợi ý về khả năng nâng hạng hoặc hạ hạng trong tương lai có sự đồng bộ chặt chẽ hơn với điều kiện thị trường, các nhà đầu tư trái phiếu chờ đợi sự thay đổi xếp hạng trước khi đưa ra quyết định mua và bán có thể đạt hiệu quả kém hơn so với các nhà đầu tư khác vốn đưa ra quyết định danh mục đầu tư trước khi có các thay đổi từ tổ chức xếp hạng.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Some risks are difficult to capture in credit ratings.</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Một số rủi ro rất khó nắm bắt trong xếp hạng tín nhiệm.</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>Examples include litigation risk, environmental risk, and natural disasters. Leveraged transactions, such as debt-financed acquisitions (i.e., changes in the capital structure through large stock buybacks), are often difficult to anticipate and thus to capture in credit ratings. Rating agencies may view complex risks very differently, resulting in divergent or <strong>split ratings</strong> between the agencies. For example, when WeWork Inc., a US-based real estate private start-up company with an asset light business model and negative cash flow, issued unsecured debt for the first time in 2018, it was rated BB– by Fitch, B+ by S&amp;P, and Caa1 by Moody’s.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Các ví dụ bao gồm rủi ro kiện tụng (<em>litigation risk</em>), rủi ro môi trường (<em>environmental risk</em>), và thiên tai. Các giao dịch sử dụng đòn bẩy (<em>leveraged transactions</em>), chẳng hạn như các thương vụ mua lại tài trợ bằng nợ (tức là những thay đổi trong cấu trúc vốn thông qua việc mua lại cổ phiếu quỹ quy mô lớn), thường rất khó dự đoán và do đó khó nắm bắt trong xếp hạng tín nhiệm. Các tổ chức xếp hạng có thể nhìn nhận các rủi ro phức tạp theo những cách rất khác nhau, dẫn đến sự bất đồng hay <strong>xếp hạng phân hóa (<em>split ratings</em>)</strong> giữa các tổ chức. Ví dụ, khi WeWork Inc., một công ty khởi nghiệp tư nhân trong lĩnh vực bất động sản có trụ sở tại Hoa Kỳ với mô hình kinh doanh ít tài sản (<em>asset-light</em>) và dòng tiền âm, phát hành nợ không có bảo đảm lần đầu tiên vào năm 2018, công ty này được Fitch xếp hạng BB–, S&amp;P xếp hạng B+, và Moody’s xếp hạng Caa1.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Ratings may involve miscalculations or unforeseen changes not fully captured in a rating agency’s forward-looking analysis.</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Xếp hạng có thể bao hàm các tính toán sai lệch hoặc những thay đổi không lường trước chưa được phản ánh đầy đủ trong phân tích hướng tới tương lai của tổ chức xếp hạng.</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>As mentioned earlier, credit rating agency analyses failed to anticipate the sharp decline in housing prices that led to the default of highly rated subprime mortgage bonds during the Global Financial Crisis of 2008–2009. Historical examples of complex accounting fraud that supported high issuer credit ratings for companies that subsequently defaulted, include Enron and WorldCom in the United States and Wirecard AG in Germany.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Như đã đề cập trước đó, phân tích của các tổ chức xếp hạng tín nhiệm đã không lường trước được đợt sụt giảm mạnh của giá nhà đất dẫn đến sự vỡ nợ của các trái phiếu thế chấp dưới chuẩn được xếp hạng cao trong Cuộc khủng hoảng Tài chính Toàn cầu năm 2008–2009. Các ví dụ lịch sử về gian lận kế toán phức tạp từng hỗ trợ cho mức xếp hạng tín nhiệm cao của tổ chức phát hành đối với các công ty mà sau đó đã vỡ nợ bao gồm Enron và WorldCom tại Hoa Kỳ và Wirecard AG tại Đức.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Example 3 highlights these considerations using the example of Wirecard AG.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ 3 làm nổi bật những lưu ý này thông qua trường hợp của Wirecard AG.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>EXAMPLE 3</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>VÍ DỤ 3</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>Wirecard AG Ratings and Bond Prices</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Xếp hạng và Giá Trái phiếu của Wirecard AG</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Wirecard AG is a German payments firm that issued unsecured debt in 2019 and was subsequently declared insolvent in June 2020 due to complex accounting fraud described in detail later in the curriculum. The price of Wirecard’s bonds from issuance until insolvency is shown below:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Wirecard AG là một công ty thanh toán của Đức đã phát hành nợ không có bảo đảm vào năm 2019 và sau đó bị tuyên bố mất khả năng thanh toán (<em>insolvent</em>) vào tháng 6 năm 2020 do gian lận kế toán phức tạp sẽ được mô tả chi tiết ở phần sau của chương trình học. Giá trái phiếu của Wirecard từ khi phát hành cho đến khi mất khả năng thanh toán được thể hiện dưới đây:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-373" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 373 / Trang PDF 373
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Wirecard 0.5% Coupon 2024 Maturity Bond Price (% of Par)</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Giá Trái phiếu Wirecard Lãi suất Coupon 0.5% Đáo hạn năm 2024 (% Mệnh giá)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0373-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0373-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><em>Nguồn:</em> Bloomberg.</p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Biểu đồ thể hiện giá trái phiếu Wirecard (0.5% Coupon, đáo hạn 2024) tính theo % mệnh giá từ tháng 9/2019 đến tháng 6/2020:
+- <strong>10/2019</strong>: Báo cáo của <em>Financial Times</em> cáo buộc gian lận kế toán (<em>FT report alleges accounting fraud</em>) <span class="math-inline">$\rightarrow$</span> giá giảm xuống dưới 85% mệnh giá.
+- <strong>04/2020</strong>: Báo cáo kiểm toán độc lập chỉ trích công ty được công bố (<em>Critical independent audit released</em>).
+- <strong>02/06/2020</strong>: Moody’s đưa xếp hạng Baa3 vào diện xem xét hạ bậc (<em>Moody’s places Baa3 rating under review</em>).
+- <strong>19/06/2020</strong>: Hạ 6 bậc xuống B3, triển vọng tiêu cực (<em>Six-notch downgrade to B3, negative outlook</em>) <span class="math-inline">$\rightarrow$</span> giá lao dốc xuống khoảng 40% rồi dưới 20% mệnh giá khi nộp đơn xin phá sản.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Source:</em> Bloomberg.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Moody’s bắt đầu đưa Wirecard AG vào diện theo dõi bằng việc ban hành mức xếp hạng tổ chức phát hành dài hạn là Baa3 vào tháng 8 năm 2019. Đợt chào bán trái phiếu ra công chúng đầu tiên của công ty trị giá 500 triệu EUR dưới dạng nợ cấp cao không có bảo đảm kỳ hạn 5 năm với lãi suất coupon cố định hàng năm là 0.5% được định giá ngay dưới mệnh giá vào đầu tháng 9 năm 2019.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Moody’s initiated its coverage of Wirecard AG by issuing a Baa3 long-term issuer rating in August 2019. The company’s debut public bond offering of EUR500 million in five-year senior unsecured debt with a fixed annual coupon of 0.5% was priced just below par in early September 2019.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Vào ngày 15 tháng 10 năm 2019, giá trái phiếu của Wirecard đã giảm xuống dưới 85% mệnh giá sau một bài báo của tờ <em>Financial Times</em> cáo buộc gian lận và các thông lệ kế toán sai trái tại công ty. Mặc dù Wirecard phủ nhận các cáo buộc và sau đó đã thuê một công ty kiểm toán độc lập, sự nghi ngờ vẫn tồn tại trong giới đầu tư nợ và cổ phiếu. Bất chấp những thay đổi tại ban kiểm soát (<em>supervisory board</em>) của công ty và các thông tin về khoản đầu tư chiến lược từ công ty đầu tư Nhật Bản Softbank, việc công bố kết quả kiểm toán độc lập mang tính chỉ trích vào tháng 4 năm 2020, sự chậm trễ trong việc báo cáo kết quả tài chính đã kiểm toán, và các sai phạm khác đã góp phần làm dấy lên mối lo ngại dai dẳng của các nhà đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>On 15 October 2019, Wirecard’s bond price fell below 85% of par following a <em>Financial Times</em> report alleging fraud and false accounting practices at the company. While Wirecard denied the claims and subsequently hired an independent auditor, doubts remained among debt and equity investors. Despite changes at the company’s supervisory board and reports of a strategic investment from Japanese investment firm Softbank, the release of a critical independent audit in April 2020, delays in reporting audited financial results, and other irregularities contributed to ongoing investor concerns.</p>
+<p>With Wirecard AG’s bonds trading at a price near 80, Moody’s placed the company on review for downgrade on 2 June 2020, citing these concerns but retaining an IG issuer rating. Two weeks later, Wirecard AG bond prices plunged to 40 as claims of fraud and missing cash balances were confirmed in mid-June. On 19 June 2020, Moody’s downgraded the issuer to a sub-investment-grade B3 rating with a negative outlook and withdrew its credit rating altogether three days later, citing insufficient information to support the maintenance of a rating. The company filed for insolvency on 25 June 2020, and its bond price fell to below 20% of par value.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi trái phiếu của Wirecard AG giao dịch ở mức giá gần 80, Moody’s đã đưa công ty vào diện xem xét hạ bậc tín nhiệm vào ngày 2 tháng 6 năm 2020, viện dẫn những lo ngại này nhưng vẫn giữ nguyên mức xếp hạng tổ chức phát hành ở hạng đầu tư (IG). Hai tuần sau, giá trái phiếu của Wirecard AG lao dốc xuống mức 40 khi các cáo buộc gian lận và số dư tiền mặt bị thất thoát được xác nhận vào giữa tháng 6. Vào ngày 19 tháng 6 năm 2020, Moody’s đã hạ bậc tín nhiệm của tổ chức phát hành xuống mức dưới hạng đầu tư là B3 với triển vọng tiêu cực và rút lại hoàn toàn xếp hạng tín nhiệm ba ngày sau đó, với lý do không đủ thông tin để hỗ trợ việc duy trì mức xếp hạng. Công ty đã nộp đơn xin phá sản do mất khả năng thanh toán vào ngày 25 tháng 6 năm 2020, và giá trái phiếu của công ty đã rơi xuống dưới 20% mệnh giá.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Investors who bought and held Wirecard AG bonds until 19 June 2020 solely on the basis of its IG credit rating suffered a substantial loss. The Wirecard example highlights the challenges faced by credit rating agencies in evaluating expected loss and adjusting credit ratings given a rapidly evolving series of events.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các nhà đầu tư mua và nắm giữ trái phiếu Wirecard AG cho đến ngày 19 tháng 6 năm 2020 chỉ dựa trên cơ sở xếp hạng tín nhiệm IG của công ty đã phải gánh chịu một khoản tổn thất nặng nề. Ví dụ về Wirecard làm nổi bật những thách thức mà các tổ chức xếp hạng tín nhiệm phải đối mặt trong việc đánh giá tổn thất kỳ vọng và điều chỉnh xếp hạng tín nhiệm trước một chuỗi các sự kiện diễn biến nhanh chóng.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-374" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 374 / Trang PDF 374
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>QUESTION SET</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>BỘ CÂU HỎI (QUESTION SET)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Which of the following choices properly ranks ratings from the three major credit rating agencies from the lowest to highest credit risk?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> B1, Ba2, Baa3</p>
+</li>
+<li>
+<p><strong>B.</strong> BBB+, Ba3, B–</p>
+</li>
+<li>
+<p><strong>C.</strong> Baa1, BB, Baa3</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Lựa chọn nào sau đây sắp xếp đúng thứ tự các mức xếp hạng từ ba tổ chức xếp hạng tín nhiệm lớn theo rủi ro tín dụng từ thấp nhất đến cao nhất?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> B1, Ba2, Baa3</p>
+</li>
+<li>
+<p><strong>B.</strong> BBB+, Ba3, B–</p>
+</li>
+<li>
+<p><strong>C.</strong> Baa1, BB, Baa3</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is correct.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B là đáp án đúng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li><em>Determine the correct answers to fill in the blanks:</em> In comparison to highyield bonds, investment-grade bonds have a <strong><em>_</em></strong><strong><em> risk profile and are </em></strong><strong><em>_</em></strong> negatively affected by adverse economic and market conditions.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li><em>Xác định các câu trả lời đúng để điền vào chỗ trống:</em> So với trái phiếu lợi suất cao, trái phiếu hạng đầu tư có hồ sơ rủi ro <strong><em>_</em></strong><strong><em> và </em></strong><strong><em>_</em></strong> bị ảnh hưởng tiêu cực hơn bởi các điều kiện kinh tế và thị trường bất lợi.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Solution:</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Lời giải:</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In comparison to high-yield bonds, investment-grade bonds have a <strong>lower</strong> risk profile and are <strong>less</strong> negatively affected by adverse economic and market conditions.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>So với trái phiếu lợi suất cao, trái phiếu hạng đầu tư có hồ sơ rủi ro <strong>thấp hơn (<em>lower</em>)</strong> và <strong>ít (<em>less</em>)</strong> bị ảnh hưởng tiêu cực hơn bởi các điều kiện kinh tế và thị trường bất lợi.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Which of the following statements most accurately characterizes best practices for the use of credit ratings among analysts?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Analysts can generally rely on credit ratings and ratings outlooks to predict the market price of credit risk.</p>
+</li>
+<li>
+<p><strong>B.</strong> Analysts must incorporate credit ratings into their analysis to meet regulatory requirements.</p>
+</li>
+<li>
+<p><strong>C.</strong> Analysts should conduct their own credit analysis, as sole reliance on credit ratings to make investment decisions has several pitfalls.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Phát biểu nào sau đây mô tả chính xác nhất các thông lệ tốt nhất (<em>best practices</em>) trong việc sử dụng xếp hạng tín nhiệm của các nhà phân tích?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Các nhà phân tích nhìn chung có thể dựa vào xếp hạng tín nhiệm và triển vọng xếp hạng để dự đoán giá thị trường của rủi ro tín dụng.</p>
+</li>
+<li>
+<p><strong>B.</strong> Các nhà phân tích phải kết hợp xếp hạng tín nhiệm vào phân tích của mình để đáp ứng các yêu cầu quản lý.</p>
+</li>
+<li>
+<p><strong>C.</strong> Các nhà phân tích nên tự thực hiện phân tích tín dụng của riêng mình, vì việc chỉ dựa vào xếp hạng tín nhiệm để đưa ra quyết định đầu tư tiềm ẩn nhiều cạm bẫy.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. A is incorrect since credit ratings tend to lag rather than predict the market price of credit risk.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. A sai vì xếp hạng tín nhiệm có xu hướng đi sau thay vì dự đoán giá thị trường của rủi ro tín dụng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Which of the following statements best describes the relationship between credit ratings and market pricing of credit risk?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Credit ratings primarily seek to assess expected loss, while market pricing of credit risk for investment-grade bonds is primarily focused on default timing and expected recovery rates.</p>
+</li>
+<li>
+<p><strong>B.</strong> Credit rating outlooks tend to be more closely aligned with market conditions than credit ratings.</p>
+</li>
+<li>
+<p><strong>C.</strong> Credit ratings usually capture the market pricing of credit risk associated with debt-financed acquisitions.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Phát biểu nào sau đây mô tả đúng nhất mối quan hệ giữa xếp hạng tín nhiệm và việc định giá rủi ro tín dụng của thị trường?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Xếp hạng tín nhiệm chủ yếu tìm cách đánh giá tổn thất kỳ vọng, trong khi việc định giá rủi ro tín dụng của thị trường đối với trái phiếu hạng đầu tư chủ yếu tập trung vào thời điểm vỡ nợ và tỷ lệ thu hồi kỳ vọng.</p>
+</li>
+<li>
+<p><strong>B.</strong> Triển vọng xếp hạng tín nhiệm có xu hướng đồng bộ chặt chẽ với các điều kiện thị trường hơn là bản thân xếp hạng tín nhiệm.</p>
+</li>
+<li>
+<p><strong>C.</strong> Xếp hạng tín nhiệm thường nắm bắt được mức định giá rủi ro tín dụng của thị trường liên quan đến các thương vụ mua lại tài trợ bằng nợ.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The correct answer is B. A is incorrect, as while credit ratings primarily seek to assess expected loss, the market pricing of credit risk for distressed bonds is primarily focused on default timing and expected recovery rates.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đáp án đúng là B. A sai, vì mặc dù xếp hạng tín nhiệm chủ yếu tìm cách đánh giá tổn thất kỳ vọng, việc định giá rủi ro tín dụng của thị trường đối với trái phiếu kiệt quệ tài chính (<em>distressed bonds</em>) mới chủ yếu tập trung vào thời điểm vỡ nợ và tỷ lệ thu hồi kỳ vọng.</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM14_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM14_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 6</a>
+      <a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM14_Part3_Factors_Impacting_Yield_Spreads →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('06_Fixed_Income/LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html');
+    });
+  </script>
+</body>
+</html>

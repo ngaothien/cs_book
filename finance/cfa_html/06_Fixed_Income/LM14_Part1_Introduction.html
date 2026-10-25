@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 14 Credit Risk - Part 1: Introduction — Volume 6: Fixed Income | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 6: Thu Nhập Cố Định
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 14 Credit Risk - Part 1: Introduction</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM14_Full_Credit_Risk.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (14 trang)...</option>
+          <option value="355">PDF Page 355</option>
+<option value="356">PDF Page 356</option>
+<option value="357">PDF Page 357</option>
+<option value="358">PDF Page 358</option>
+<option value="359">PDF Page 359</option>
+<option value="360">PDF Page 360</option>
+<option value="361">PDF Page 361</option>
+<option value="362">PDF Page 362</option>
+<option value="363">PDF Page 363</option>
+<option value="364">PDF Page 364</option>
+<option value="365">PDF Page 365</option>
+<option value="366">PDF Page 366</option>
+<option value="367">PDF Page 367</option>
+<option value="368">PDF Page 368</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 6</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Thu Nhập Cố Định</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 6</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Fixed_Income_Instrument_Features.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Fixed-Income Instrument Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Bond_Indentures_and_Covenants.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bond Indentures and Covenants</a>
+<a href="LM02_Full_Fixed_Income_Cash_Flows_and_Types.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Fixed-Income Cash Flows and Types</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Fixed_Income_Contingency_Provisions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Fixed-Income Contingency Provisions</a>
+<a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Fixed-Income Issuance and Trading</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Primary and Secondary Fixed-Income Markets</a>
+<a href="LM04_Full_Fixed_Income_Markets_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Fixed-Income Markets for Corporate Issuers</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Repurchase_Agreements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Repurchase Agreements</a>
+<a href="LM04_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM05_Full_Fixed_Income_Markets_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Fixed-Income Markets for Government Issuers</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Non_Sovereign_Quasi_Government_and_Supranatio.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign, Quasi-Government, and Supranational Agency Debt</a>
+<a href="LM06_Full_Fixed_Income_Bond_Valuation_Prices_and_Yields.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Fixed-Income Bond Valuation: Prices and Yields</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Relationships_between_Bond_Prices_and_Bond_Fe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Relationships between Bond Prices and Bond Features</a>
+<a href="LM07_Full_Yield_and_Yield_Spread_Measures_for_Fixed_Rat.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Yield and Yield Spread Measures for Fixed-Rate Bonds</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Spread Measures for Fixed-Rate Bonds and Matrix Pricing</a>
+<a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Measures for Money Market Instruments</a>
+<a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Par_and_Forward_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Par and Forward Rates</a>
+<a href="LM09_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM10_Full_Interest_Rate_Risk_and_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Interest Rate Risk and Return</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Macaulay_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Macaulay Duration</a>
+<a href="LM11_Full_Yield_Based_Bond_Duration_Measures_and_Proper.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Yield-Based Bond Duration Measures and Properties</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Money_Duration_and_Price_Value_of_a_Basis_Poi.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money Duration and Price Value of a Basis Point</a>
+<a href="LM12_Full_Yield_Based_Bond_Convexity_and_Portfolio_Prop.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Yield-Based Bond Convexity and Portfolio Properties</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Portfolio_Duration_and_Convexity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Duration and Convexity</a>
+<a href="LM13_Full_Curve_Based_and_Empirical_Fixed_Income_Risk_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 13 Curve-Based and Empirical Fixed-Income Risk Measures</a>
+<a href="LM13_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM13_Part2_Empirical_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Empirical Duration</a>
+<a href="LM14_Full_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 14 Credit Risk</a>
+<a href="LM14_Part1_Introduction.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 1: Introduction</a>
+<a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Credit Rating Agencies and Credit Ratings</a>
+<a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Factors Impacting Yield Spreads</a>
+<a href="LM14_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM15_Full_Credit_Analysis_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 15 Credit Analysis for Government Issuers</a>
+<a href="LM15_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM15_Part2_Non_Sovereign_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign Credit Risk</a>
+<a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 16 Credit Analysis for Corporate Issuers</a>
+<a href="LM16_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Ratios in Corporate Credit Analysis</a>
+<a href="LM16_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM17_Full_Fixed_Income_Securitization.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 17 Fixed-Income Securitization</a>
+<a href="LM17_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM17_Part2_The_Securitization_Process.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Securitization Process</a>
+<a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</a>
+<a href="LM18_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Mortgage Asset-Backed Securities</a>
+<a href="LM18_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM19_Full_Mortgage_Backed_Security_MBS_Instrument_and_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 19 Mortgage-Backed Security (MBS) Instrument and Market Features</a>
+<a href="LM19_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM19_Part2_Residential_Mortgage_Backed_Securities_RMBS.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Residential Mortgage-Backed Securities (RMBS)</a>
+<a href="LM19_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 6 • Fixed Income (Thu Nhập Cố Định)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 14 Credit Risk - Part 1: Introduction</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('06_Fixed_Income/LM14_Part1_Introduction.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 6: Fixed Income</h1>
+<h2>Learning Module 14 Credit Risk</h2>
+<h3>Part 1/4: Introduction (PDF Pages 355–368)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 6: Thu nhập Cố định (Fixed Income)</h1>
+<h2>Học phần 14: Rủi ro Tín dụng (Credit Risk)</h2>
+<h3>Phần 1/4: Giới thiệu (Trang PDF 355–368)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-355" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 355 / Trang PDF 355
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4>L E A R N I N G M O D U L E</h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4>H Ọ C P H Ầ N</h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>14</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>14</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Credit Risk</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Rủi ro Tín dụng (Credit Risk)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><mark>LEARNING OUTCOMES</mark></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><mark>KẾT QUẢ HỌC TẬP (LEARNING OUTCOMES)</mark></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><em>Mastery The candidate should be able to:</em></strong> describe credit risk and its components, probability of default and loss given default describe the uses of ratings from credit rating agencies and their limitations describe macroeconomic, market, and issuer-specific factors that influence the level and volatility of yield spreads</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong><em>Thành thạo – Ứng viên cần có khả năng:</em></strong>
+- mô tả rủi ro tín dụng (<em>credit risk</em>) và các cấu phần của nó, bao gồm xác suất vỡ nợ (<em>probability of default</em>) và mức tổn thất khi vỡ nợ (<em>loss given default</em>)
+- mô tả công dụng của xếp hạng tín nhiệm (<em>credit ratings</em>) từ các tổ chức xếp hạng tín nhiệm (<em>credit rating agencies</em>) và những hạn chế của chúng
+- mô tả các yếu tố kinh tế vĩ mô, thị trường và đặc thù của tổ chức phát hành có ảnh hưởng đến mức độ và sự biến động của phần bù lợi suất (<em>yield spreads</em>)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>INTRODUCTION</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>GIỚI THIỆU (INTRODUCTION)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>1</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>1</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Credit analysis plays a critical role in fixed-income markets. Proper evaluation and pricing of credit risk facilitates the efficient allocation of capital. This is a dynamic process as credit risk components are continuously re-evaluated and fixed-income instruments repriced according to market conditions. This learning module covers the basic principles of credit analysis. First, we introduce the concepts of credit risk and expected loss and interpret what credit ratings mean. We compare bond issuer creditworthiness within a given industry as well as across industries, and we explore how financial markets price credit risk. This lesson focuses primarily on the analysis of credit risk, while subsequent lessons discuss credit analysis of sovereign and non-sovereign government issuers as well as corporate debt</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phân tích tín dụng (<em>credit analysis</em>) đóng một vai trò quan trọng trên các thị trường thu nhập cố định. Việc đánh giá và định giá hợp lý rủi ro tín dụng tạo điều kiện thuận lợi cho việc phân bổ vốn hiệu quả. Đây là một quá trình năng động vì các cấu phần của rủi ro tín dụng liên tục được đánh giá lại và các công cụ thu nhập cố định được định giá lại theo điều kiện thị trường. Học phần này đề cập đến các nguyên tắc cơ bản của phân tích tín dụng. Trước hết, chúng ta giới thiệu các khái niệm về rủi ro tín dụng và tổn thất kỳ vọng (<em>expected loss</em>), đồng thời giải thích ý nghĩa của xếp hạng tín nhiệm. Chúng ta so sánh mức độ tín nhiệm (<em>creditworthiness</em>) của tổ chức phát hành trái phiếu trong cùng một ngành cũng như giữa các ngành với nhau, và khám phá cách các thị trường tài chính định giá rủi ro tín dụng. Bài học này tập trung chủ yếu vào việc phân tích rủi ro tín dụng, trong khi các bài học tiếp theo sẽ thảo luận về phân tích tín dụng đối với các tổ chức phát hành chính phủ có chủ quyền (<em>sovereign</em>) và phi chủ quyền (<em>non-sovereign</em>) cũng như nợ doanh nghiệp (<em>corporate debt</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE OVERVIEW</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỔNG QUAN HỌC PHẦN (LEARNING MODULE OVERVIEW)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Credit risk is the risk of economic loss resulting from borrower failure to make full and timely payments of interest and principal. The key components of credit risk are the probability of default and the loss given default, and their product is expected loss.</p>
+</li>
+<li>
+<p>Chief sources of credit risk include adverse macroeconomic conditions, a financing mismatch between resources and obligations, and issuer-specific factors in corporate and sovereign debt markets.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Rủi ro tín dụng (<em>credit risk</em>) là rủi ro tổn thất kinh tế phát sinh do bên đi vay không thực hiện thanh toán đầy đủ và đúng hạn tiền lãi và nợ gốc. Các cấu phần chính của rủi ro tín dụng là xác suất vỡ nợ (<em>probability of default</em>) và mức tổn thất khi vỡ nợ (<em>loss given default</em>), và tích số của chúng là tổn thất kỳ vọng (<em>expected loss</em>).</p>
+</li>
+<li>
+<p>Các nguồn phát sinh rủi ro tín dụng chính bao gồm các điều kiện kinh tế vĩ mô bất lợi, sự lệch pha tài trợ (<em>financing mismatch</em>) giữa các nguồn lực và nghĩa vụ nợ, và các yếu tố đặc thù của tổ chức phát hành trên thị trường nợ doanh nghiệp và nợ chính phủ.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-356" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 356 / Trang PDF 356
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Nearly every bond issue in developed debt markets carries credit ratings classifying creditworthiness. Credit ratings enable comparisons of the credit risk of debt issues and issuers within and across industries.</p>
+</li>
+<li>
+<p>Bonds or issuers with an investment-grade (IG) credit rating pose the lowest risk of default and are rated Baa3 by Moody’s and BBB– or higher by S&amp;P and Fitch. In contrast, non-investment-grade or highyield (HY) bonds or issuers are rated BB+ or lower by S&amp;P/Fitch and Ba1 or less by Moody’s and represent substantial to very high credit risk.</p>
+</li>
+<li>
+<p>Pitfalls of relying solely on credit ratings in making investment decisions include that rating agency decisions may lag market pricing of credit risk, overlook key financial risks, and/or involve miscalculations or unforeseen changes not fully captured in a rating agency’s forward-looking analysis.</p>
+</li>
+<li>
+<p>The premium, or yield spread, at which corporate bonds trade relative to default risk-free assets widens when credit risk rises and narrows if credit risk falls.</p>
+</li>
+<li>
+<p>Credit spread changes affect holding period returns via two primary factors: a) the basis point spread change and b) the sensitivity of price to yield as reflected by end-of-period modified duration and convexity. Spread narrowing increases holding period returns.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Hầu như mọi đợt phát hành trái phiếu tại các thị trường nợ phát triển đều có xếp hạng tín nhiệm (<em>credit ratings</em>) nhằm phân loại mức độ tín nhiệm. Xếp hạng tín nhiệm cho phép so sánh rủi ro tín dụng của các đợt phát hành nợ và các tổ chức phát hành trong cùng một ngành và giữa các ngành với nhau.</p>
+</li>
+<li>
+<p>Các trái phiếu hoặc tổ chức phát hành có xếp hạng tín nhiệm hạng đầu tư (<em>investment-grade</em> – IG) mang rủi ro vỡ nợ thấp nhất và được Moody’s xếp hạng từ Baa3 trở lên, hoặc được S&amp;P và Fitch xếp hạng từ BBB– trở lên. Ngược lại, các trái phiếu hoặc tổ chức phát hành phi hạng đầu tư (<em>non-investment-grade</em>) hay lợi suất cao (<em>high-yield</em> – HY) được S&amp;P/Fitch xếp hạng từ BB+ trở xuống và Moody’s xếp hạng từ Ba1 trở xuống, thể hiện rủi ro tín dụng từ mức đáng kể đến rất cao.</p>
+</li>
+<li>
+<p>Những cạm bẫy của việc chỉ dựa vào xếp hạng tín nhiệm khi đưa ra quyết định đầu tư bao gồm việc quyết định của tổ chức xếp hạng có thể đi sau (<em>lag</em>) mức định giá rủi ro tín dụng của thị trường, bỏ sót các rủi ro tài chính trọng yếu, và/hoặc bao hàm các tính toán sai lệch hoặc những thay đổi không lường trước chưa được phản ánh đầy đủ trong phân tích hướng tới tương lai (<em>forward-looking analysis</em>) của tổ chức xếp hạng.</p>
+</li>
+<li>
+<p>Phần bù (<em>premium</em>), hay phần bù lợi suất (<em>yield spread</em>), mà tại đó trái phiếu doanh nghiệp giao dịch so với các tài sản phi rủi ro vỡ nợ (<em>default risk-free assets</em>) sẽ nới rộng (<em>widens</em>) khi rủi ro tín dụng tăng lên và thu hẹp (<em>narrows</em>) nếu rủi ro tín dụng giảm xuống.</p>
+</li>
+<li>
+<p>Những thay đổi của phần bù tín dụng (<em>credit spread</em>) tác động đến tỷ suất sinh lợi thời kỳ nắm giữ (<em>holding period returns</em>) thông qua hai yếu tố chính: a) mức thay đổi phần bù tính bằng điểm cơ bản (<em>basis point spread change</em>) và b) độ nhạy của giá đối với lợi suất được phản ánh qua thời lượng điều chỉnh (<em>modified duration</em>) và độ lồi (<em>convexity</em>) cuối kỳ. Phần bù thu hẹp làm tăng tỷ suất sinh lợi thời kỳ nắm giữ.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE SELF-ASSESSMENT</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỰ ĐÁNH GIÁ HỌC PHẦN (LEARNING MODULE SELF-ASSESSMENT)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các câu hỏi mở đầu này nhằm giúp bạn tự đánh giá mức độ hiểu biết hiện tại của mình về học phần này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Credit risk is:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> activated upon a borrower’s default.</p>
+</li>
+<li>
+<p><strong>B.</strong> the spread an investor receives above the risk-free rate.</p>
+</li>
+<li>
+<p><strong>C.</strong> experienced in several ways by lenders.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Rủi ro tín dụng (<em>credit risk</em>) là:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> được kích hoạt khi bên đi vay vỡ nợ.</p>
+</li>
+<li>
+<p><strong>B.</strong> phần bù (<em>spread</em>) mà nhà đầu tư nhận được cao hơn lãi suất phi rủi ro.</p>
+</li>
+<li>
+<p><strong>C.</strong> được bên cho vay trải nghiệm theo nhiều cách khác nhau.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The correct answer is C. Lenders are impacted by credit risk in several ways, including failure to receive principal and interest payments in a timely manner, the inability to sell collateral at a market price sufficient to meet an issuer’s obligations in the case of secured debt, or the potential incurrence of legal or other costs to collect debt. A is incorrect because while a borrower default initiates a realized loss, expected loss exists prior to the occurrence of any actual loss. B is incorrect because it refers to the credit spread, which compensates investors for assuming credit risk.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đáp án đúng là C. Bên cho vay chịu tác động bởi rủi ro tín dụng theo nhiều cách khác nhau, bao gồm việc không nhận được các khoản thanh toán gốc và lãi đúng hạn, không có khả năng bán tài sản thế chấp (<em>collateral</em>) ở mức giá thị trường đủ để đáp ứng các nghĩa vụ của tổ chức phát hành trong trường hợp nợ có bảo đảm (<em>secured debt</em>), hoặc khả năng phát sinh các chi phí pháp lý hay chi phí khác để thu hồi nợ. A sai vì mặc dù việc bên đi vay vỡ nợ làm phát sinh khoản tổn thất thực tế (<em>realized loss</em>), nhưng tổn thất kỳ vọng (<em>expected loss</em>) đã tồn tại trước khi xảy ra bất kỳ tổn thất thực tế nào. B sai vì điều đó đề cập đến phần bù tín dụng (<em>credit spread</em>), tức phần đền bù cho nhà đầu tư khi gánh chịu rủi ro tín dụng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>A EUR500,000 loan has the following characteristics:</li>
+</ol>
+<ul>
+<li>
+<p>Probability of default 5%</p>
+</li>
+<li>
+<p>Recovery rate 90%</p>
+</li>
+<li>
+<p>Expected exposure EUR400,000</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Một khoản vay trị giá EUR500,000 có các đặc điểm sau:</li>
+</ol>
+<ul>
+<li>
+<p>Xác suất vỡ nợ (<em>Probability of default</em>): 5%</p>
+</li>
+<li>
+<p>Tỷ lệ thu hồi (<em>Recovery rate</em>): 90%</p>
+</li>
+<li>
+<p>Dư nợ rủi ro kỳ vọng (<em>Expected exposure</em>): EUR400,000</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The expected loss for this loan is:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tổn thất kỳ vọng (<em>expected loss</em>) của khoản vay này là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>A.</strong> EUR1,500</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> EUR1,500</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-357" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 357 / Trang PDF 357
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>B.</strong>EUR2,000</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>C.</strong>EUR20,000<br><strong>Solution:</strong></td>
+</tr>
+<tr>
+<td>The correct answer is B. We solve for expected loss (EL) as follows:</td>
+</tr>
+<tr>
+<td>EL = POD × LGD = POD × EE × (1 – RR).</td>
+</tr>
+<tr>
+<td>Since probability of default (POD) is 5%, expected exposure (EE) is<br>EUR400,000, and the recovery rate (RR) is 90%:</td>
+</tr>
+<tr>
+<td>EL = EUR2,000 = 0.05 × (400,000) × (1 – 0.9).</td>
+</tr>
+<tr>
+<td>A is incorrect as it fails to reduce the expected exposure by the collateral,<br>while C is incorrect as it simply multiplies EE and POD.</td>
+</tr>
+<tr>
+<td>3. Credit ratings are:</td>
+</tr>
+<tr>
+<td><strong>A.</strong>developed on behalf of investors.</td>
+</tr>
+<tr>
+<td><strong>B.</strong>a symbol-based measure of the potential default risk of a bond issue or<br>issuer.</td>
+</tr>
+<tr>
+<td><strong>C.</strong>measures of credit risk that are used to determine bond market<br>pricing.<br><strong>Solution:</strong></td>
+</tr>
+<tr>
+<td>The correct answer is B: Credit ratings are a symbol-based measure of the<br>potential default risk of a bond issue or issuer. A is incorrect because credit<br>ratings are developed on behalf of the issuer. C is incorrect because credit<br>ratings are not used to determine bond prices.</td>
+</tr>
+<tr>
+<td>4. Which of the following statements best describes risks that are difficult to<br>capture in credit ratings?</td>
+</tr>
+<tr>
+<td><strong>A.</strong>Environmental risks are captured by ESG ratings rather than credit<br>ratings.</td>
+</tr>
+<tr>
+<td><strong>B.</strong>Debt-financed acquisitions are usually captured in credit ratings.</td>
+</tr>
+<tr>
+<td>i<br><strong>C.</strong>Split ratings demonstrate that credit rating agencies may view complex<br>risks very differently.<br><strong>Solution:</strong><br>The correct answer is C. A is incorrect as environmental risks may affect<br>credit ratings. B is incorrect since debt-financed acquisitions are difficult to<br>anticipate.</td>
+</tr>
+<tr>
+<td>5._Determine the correct answers to fill in the blanks:_Spreads are <strong><em>_</em></strong><strong><em> at<br>or near the top of the credit cycle, when market participants perceive credit<br>risk to be at its lowest; they are </em></strong><strong><em>_</em></strong> at or near the bottom of the<br>credit cycle, when financial markets believe credit risk has reached its peak.<br><strong>Solution:</strong></td>
+</tr>
+<tr>
+<td>Spreads are<strong>narrowest (or lowest)</strong>at or near the top of the credit cycle,<br>when market participants perceive credit risk to be at its lowest; they are<br><strong>widest (or highest)</strong>at or near the bottom of the credit cycle, when financial<br>markets believe credit risk has reached its peak.</td>
+</tr>
+<tr>
+<td>6. A portfolio manager assessing a downside case believes that HY bond<br>spreads will rise 100 bps in a recession. If an observed HY bond has modi-</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>B.</strong> EUR2,000</p>
+</li>
+<li>
+<p><strong>C.</strong> EUR20,000</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul>
+<p>Đáp án đúng là B. Chúng ta giải tìm tổn thất kỳ vọng (<span class="math-inline">$\text{EL}$</span>) như sau:</p>
+<div class="math-display my-3 overflow-x-auto">$$\text{EL} = \text{POD} \times \text{LGD} = \text{POD} \times \text{EE} \times (1 - \text{RR})$$</div>
+<p>Vì xác suất vỡ nợ (<span class="math-inline">$\text{POD}$</span>) là 5%, dư nợ rủi ro kỳ vọng (<span class="math-inline">$\text{EE}$</span>) là EUR400,000, và tỷ lệ thu hồi (<span class="math-inline">$\text{RR}$</span>) là 90%:</p>
+<div class="math-display my-3 overflow-x-auto">$$\text{EL} = \text{EUR}2,000 = 0.05 \times (400,000) \times (1 - 0.9)$$</div>
+<p>A sai vì không giảm dư nợ rủi ro kỳ vọng theo tài sản thế chấp, trong khi C sai vì chỉ đơn thuần nhân <span class="math-inline">$\text{EE}$</span> với <span class="math-inline">$\text{POD}$</span>.</p>
+<ol start="3">
+<li>Xếp hạng tín nhiệm (<em>credit ratings</em>) là:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> được xây dựng thay mặt cho các nhà đầu tư.</p>
+</li>
+<li>
+<p><strong>B.</strong> một thước đo dựa trên ký hiệu về rủi ro vỡ nợ tiềm tàng của một đợt phát hành trái phiếu hoặc tổ chức phát hành.</p>
+</li>
+<li>
+<p><strong>C.</strong> các thước đo rủi ro tín dụng được sử dụng để xác định giá trái phiếu trên thị trường.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul>
+<p>Đáp án đúng là B: Xếp hạng tín nhiệm là một thước đo dựa trên ký hiệu về rủi ro vỡ nợ tiềm tàng của một đợt phát hành trái phiếu hoặc tổ chức phát hành. A sai vì xếp hạng tín nhiệm được xây dựng thay mặt cho tổ chức phát hành (<em>issuer</em>). C sai vì xếp hạng tín nhiệm không được sử dụng để xác định giá trái phiếu.</p>
+<ol start="4">
+<li>Phát biểu nào sau đây mô tả đúng nhất các rủi ro khó nắm bắt trong xếp hạng tín nhiệm?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Rủi ro môi trường được nắm bắt bởi xếp hạng ESG thay vì xếp hạng tín nhiệm.</p>
+</li>
+<li>
+<p><strong>B.</strong> Các thương vụ mua lại tài trợ bằng nợ (<em>debt-financed acquisitions</em>) thường được nắm bắt trong xếp hạng tín nhiệm.</p>
+</li>
+<li>
+<p><strong>C.</strong> Xếp hạng phân hóa (<em>split ratings</em>) chứng tỏ rằng các tổ chức xếp hạng tín nhiệm có thể nhìn nhận các rủi ro phức tạp theo những cách rất khác nhau.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul>
+<p>Đáp án đúng là C. A sai vì các rủi ro môi trường có thể ảnh hưởng đến xếp hạng tín nhiệm. B sai vì các thương vụ mua lại tài trợ bằng nợ rất khó lường trước.</p>
+<ol start="5">
+<li><em>Xác định các câu trả lời đúng để điền vào chỗ trống:</em> Phần bù tín dụng (<em>spreads</em>) ở mức <strong><em>_</em></strong><strong><em> tại hoặc gần đỉnh của chu kỳ tín dụng (<em>credit cycle</em>), khi những người tham gia thị trường nhận thấy rủi ro tín dụng ở mức thấp nhất; chúng ở mức </em></strong><strong><em>_</em></strong> tại hoặc gần đáy của chu kỳ tín dụng, khi các thị trường tài chính tin rằng rủi ro tín dụng đã đạt đỉnh.</li>
+</ol>
+<ul>
+<li><strong>Lời giải:</strong></li>
+</ul>
+<p>Phần bù tín dụng ở mức <strong>hẹp nhất (hoặc thấp nhất) (<em>narrowest / lowest</em>)</strong> tại hoặc gần đỉnh của chu kỳ tín dụng, khi những người tham gia thị trường nhận thấy rủi ro tín dụng ở mức thấp nhất; chúng ở mức <strong>rộng nhất (hoặc cao nhất) (<em>widest / highest</em>)</strong> tại hoặc gần đáy của chu kỳ tín dụng, khi các thị trường tài chính tin rằng rủi ro tín dụng đã đạt đỉnh.</p>
+<ol start="6">
+<li>Một nhà quản lý danh mục đầu tư đang đánh giá một kịch bản bất lợi (<em>downside case</em>) tin rằng phần bù trái phiếu lợi suất cao (HY) sẽ tăng 100 bps trong một cuộc suy thoái. Nếu một trái phiếu HY quan sát được có thời lượng điều chỉnh (<em>modified duration</em>)</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-358" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 358 / Trang PDF 358
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>fied duration of 4.5 and reported convexity of 0.23, the expected change in the HY bond’s price under this scenario would be <em>closest to</em> :</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>là 4.5 và độ lồi được báo cáo (<em>reported convexity</em>) là 0.23, mức thay đổi kỳ vọng trong giá của trái phiếu HY theo kịch bản này sẽ <em>gần nhất với</em>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>A.</strong> 4.5%.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>A.</strong> 4.5%.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>B.</strong> 4.385%.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>B.</strong> 4.385%.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> 4.615%.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>C.</strong> 4.615%.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The correct answer is B. Bond price changes based upon modified duration, convexity, and the spread change are calculated as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đáp án đúng là B. Thay đổi giá trái phiếu dựa trên thời lượng điều chỉnh, độ lồi và mức thay đổi phần bù được tính như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>%∆PV<sup>Full</sup> = −(AnnModDur × ∆Spread) + ½AnnConvexity × (∆Spread)<sup>2</sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\%\Delta\text{PV}^{\text{Full}} = -(\text{AnnModDur} \times \Delta\text{Spread}) + \frac{1}{2}\text{AnnConvexity} \times (\Delta\text{Spread})^2$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>With AnnModDur = 4.5 and reported convexity of 0.23, rescaling convexity to 23 and substituting values to solve for spread results in</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Với <span class="math-inline">$\text{AnnModDur} = 4.5$</span> và độ lồi báo cáo là 0.23, quy đổi lại thang đo (<em>rescaling</em>) độ lồi thành 23 và thay các giá trị vào để giải theo phần bù ta được:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>∆PV<sup>Full</sup> = − (4.5 × 1.00%) + ½ (23) × (1.00%)<sup>2</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\Delta\text{PV}^{\text{Full}} = -(4.5 \times 1.00\%) + \frac{1}{2}(23) \times (1.00\%)^2$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>∆PV<sup>Full</sup> = −4.385%.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\Delta\text{PV}^{\text{Full}} = -4.385\%$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>2</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>2</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>SOURCES OF CREDIT RISK</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>CÁC NGUỒN PHÁT SINH RỦI RO TÍN DỤNG (SOURCES OF CREDIT RISK)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe credit risk and its components, probability of default and loss given default</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>mô tả rủi ro tín dụng (<em>credit risk</em>) và các cấu phần của nó, bao gồm xác suất vỡ nợ (<em>probability of default</em>) và mức tổn thất khi vỡ nợ (<em>loss given default</em>)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Fixed-income investors face credit risk, a form of performance risk in a contractual relationship. A borrower that fails to meet its promised interest and/or principal payment obligations under a bond or loan contract is said to be in <strong>default</strong> . A fixed-income investor seeks compensation for the expected economic loss under a potential borrower default over the life of the contract known as <strong>credit risk</strong> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các nhà đầu tư thu nhập cố định phải đối mặt với rủi ro tín dụng (<em>credit risk</em>), một dạng rủi ro thực hiện nghĩa vụ (<em>performance risk</em>) trong mối quan hệ hợp đồng. Một bên đi vay không thực hiện được các nghĩa vụ thanh toán tiền lãi và/hoặc nợ gốc đã cam kết theo hợp đồng trái phiếu hoặc khoản vay được gọi là bị <strong>vỡ nợ (<em>default</em>)</strong>. Nhà đầu tư thu nhập cố định tìm kiếm phần đền bù cho tổn thất kinh tế kỳ vọng khi bên đi vay có khả năng vỡ nợ trong suốt vòng đời của hợp đồng, được gọi là <strong>rủi ro tín dụng (<em>credit risk</em>)</strong>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Credit risk depends upon specific factors related to the borrower itself as well as general economic conditions and is subject to change over the life of the contract. Credit risk exposes the lender or investor to potential losses and underperformance.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Rủi ro tín dụng phụ thuộc vào các yếu tố cụ thể liên quan đến chính bên đi vay cũng như các điều kiện kinh tế chung và có thể thay đổi trong suốt vòng đời của hợp đồng. Rủi ro tín dụng khiến bên cho vay hoặc nhà đầu tư phải đối mặt với các khoản tổn thất tiềm tàng và hiệu quả đầu tư kém.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Traditionally, many analysts evaluated creditworthiness based on what are often called the “Cs of credit analysis,” as shown in Exhibit 1:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Theo truyền thống, nhiều nhà phân tích đánh giá mức độ tín nhiệm dựa trên những tiêu chí thường được gọi là “Các chữ C trong phân tích tín dụng (<em>Cs of credit analysis</em>)”, như được trình bày trong Bảng minh họa 1:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-359" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 359 / Trang PDF 359
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: The Cs of Credit Analysis</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 1: Các chữ C trong Phân tích Tín dụng (The Cs of Credit Analysis)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0359-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0359-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Các chữ C của Tín dụng (<em>Cs of Credit</em>)</strong>:
+  - <strong>Các yếu tố từ trên xuống (<em>Top-Down Factors</em>)</strong>: Điều kiện môi trường (<em>Conditions</em>), Quốc gia (<em>Country</em>), Tiền tệ (<em>Currency</em>)
+  - <strong>Các yếu tố từ dưới lên (<em>Bottom-Up Factors</em>)</strong>: Năng lực trả nợ (<em>Capacity</em>), Tài sản thế chấp (<em>Collateral</em>), Nguồn vốn (<em>Capital</em>), Các điều khoản ràng buộc (<em>Covenants</em>), Tư cách/Uy tín (<em>Character</em>)</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Five of these criteria—capacity, capital, collateral, covenants, and character—are related to the specific bottom-up factors applicable to an individual borrower. <strong>Capacity</strong> refers to the ability of the borrower to make its debt payments on time. <strong>Capital</strong> addresses other company resources available that reduce reliance on debt. <strong>Collateral</strong> refers to the quality and value of the assets supporting the issuer’s indebtedness, while <strong>covenants</strong> are the legal terms of debt agreements that an issuer must comply with. <strong>Character</strong> refers to the quality of management and the willingness of repay indebtedness.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Năm trong số các tiêu chí này — năng lực trả nợ (<em>capacity</em>), nguồn vốn (<em>capital</em>), tài sản thế chấp (<em>collateral</em>), các điều khoản ràng buộc (<em>covenants</em>), và tư cách/uy tín (<em>character</em>) — liên quan đến các yếu tố đặc thù từ dưới lên (<em>bottom-up factors</em>) áp dụng cho từng bên đi vay riêng lẻ. <strong>Năng lực trả nợ (<em>Capacity</em>)</strong> đề cập đến khả năng của bên đi vay trong việc thực hiện các khoản thanh toán nợ đúng hạn. <strong>Nguồn vốn (<em>Capital</em>)</strong> đề cập đến các nguồn lực khác sẵn có của công ty giúp giảm sự phụ thuộc vào nợ vay. <strong>Tài sản thế chấp (<em>Collateral</em>)</strong> đề cập đến chất lượng và giá trị của các tài sản hỗ trợ cho khoản nợ của tổ chức phát hành, trong khi <strong>các điều khoản ràng buộc (<em>covenants</em>)</strong> là các điều khoản pháp lý của thỏa thuận nợ mà tổ chức phát hành phải tuân thủ. <strong>Tư cách/Uy tín (<em>Character</em>)</strong> đề cập đến chất lượng của ban lãnh đạo và thiện chí hoàn trả các khoản nợ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>While capacity and capital are generally quantitative metrics based on financial statements, collateral, covenants, and character are largely qualitative measures that analysts assess based on historical company performance, credit relationships and the reputation of current management.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong khi năng lực trả nợ và nguồn vốn nhìn chung là các thước đo định lượng dựa trên báo cáo tài chính, thì tài sản thế chấp, các điều khoản ràng buộc và tư cách/uy tín chủ yếu là các thước đo định tính mà các nhà phân tích đánh giá dựa trên kết quả hoạt động lịch sử của công ty, các mối quan hệ tín dụng và danh tiếng của ban lãnh đạo hiện tại.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The remaining three criteria—conditions, country, and currency—involve general top-down factors that apply to all borrowers to a greater or lesser extent. <strong>Conditions</strong> refers to the general economic, competitive, and business environment faced by all borrowers that may affect their ability to service or refinance debt. <strong>Country</strong> involves the geopolitical environment as well as the legal and political system faced by all issuers in a jurisdiction that may affect debt payment. <strong>Currency</strong> affects issuers whose cash flows are affected by exchange rate changes or who borrow in a currency outside of their jurisdiction, such as sovereign issuers with foreign currency debt.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ba tiêu chí còn lại — điều kiện môi trường (<em>conditions</em>), quốc gia (<em>country</em>), và tiền tệ (<em>currency</em>) — liên quan đến các yếu tố chung từ trên xuống (<em>top-down factors</em>) áp dụng cho tất cả các bên đi vay ở mức độ nhiều hay ít. <strong>Điều kiện môi trường (<em>Conditions</em>)</strong> đề cập đến môi trường kinh tế, cạnh tranh và kinh doanh chung mà tất cả các bên đi vay phải đối mặt, có thể ảnh hưởng đến khả năng trả nợ hoặc tái cấp vốn nợ của họ. <strong>Quốc gia (<em>Country</em>)</strong> liên quan đến môi trường địa chính trị cũng như hệ thống pháp lý và chính trị mà tất cả các tổ chức phát hành trong một khu vực tài phán phải đối mặt, có thể ảnh hưởng đến việc thanh toán nợ. <strong>Tiền tệ (<em>Currency</em>)</strong> ảnh hưởng đến các tổ chức phát hành có dòng tiền chịu tác động bởi biến động tỷ giá hối đoái hoặc những tổ chức đi vay bằng đồng tiền bên ngoài khu vực tài phán của họ, chẳng hạn như các tổ chức phát hành chính phủ có nợ bằng ngoại tệ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A borrower’s inability to make timely payments may be due to several underlying and contributing factors, but it ultimately results from a lack of sufficient cash available to make a current debt payment. Lenders, as fixed-income investors, are impacted by credit risk. They may lose some or all of the principal and interest due, suffering a capital loss or income shortfall. This disruption to their cash flows may impact their own ability to repay debt, and payment delays as well as increased legal and collection costs may further reduce their income and margins.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc bên đi vay không có khả năng thanh toán đúng hạn có thể do một số yếu tố cơ bản và góp phần gây ra, nhưng suy cho cùng là xuất phát từ việc thiếu lượng tiền mặt đủ để thực hiện khoản thanh toán nợ hiện hành. Bên cho vay, với tư cách là các nhà đầu tư thu nhập cố định, chịu tác động bởi rủi ro tín dụng. Họ có thể mất một phần hoặc toàn bộ tiền gốc và lãi đến hạn, gánh chịu lỗ vốn (<em>capital loss</em>) hoặc thiếu hụt thu nhập (<em>income shortfall</em>). Sự gián đoạn đối với dòng tiền của họ có thể ảnh hưởng đến chính khả năng trả nợ của họ, và sự chậm trễ thanh toán cũng như chi phí pháp lý và thu hồi nợ gia tăng có thể làm giảm thêm thu nhập và biên lợi nhuận của họ.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-360" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 360 / Trang PDF 360
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Sources of Credit Risk</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Các nguồn phát sinh Rủi ro Tín dụng (Sources of Credit Risk)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Changes in credit risk due to issuer-based or overall economic conditions are affected by the source of repayment, which differs among issuer types. Exhibit 2 shows the main sources of repayment for corporate and sovereign bonds.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Những thay đổi trong rủi ro tín dụng do điều kiện của tổ chức phát hành hoặc điều kiện kinh tế tổng thể đều chịu ảnh hưởng bởi nguồn trả nợ (<em>source of repayment</em>), vốn khác nhau giữa các loại hình tổ chức phát hành. Bảng minh họa 2 cho thấy các nguồn trả nợ chính đối với trái phiếu doanh nghiệp và trái phiếu chính phủ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Sovereign and Corporate Bond Sources of Repayment</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 2: Các nguồn Trả nợ của Trái phiếu Chính phủ và Trái phiếu Doanh nghiệp (Sovereign and Corporate Bond Sources of Repayment)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0360-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0360-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Nhà đầu tư Trái phiếu Doanh nghiệp có bảo đảm (<em>Secured Bond Corporate Bond Investor</em>)</strong> <span class="math-inline">$\leftarrow$</span> Dòng tiền hoạt động (<em>Operating Cash Flows</em>) + Dòng tiền hoặc tiền bán Tài sản thế chấp (<em>Collateral Cash Flows or Sale</em>)
+- <strong>Nhà đầu tư Trái phiếu Doanh nghiệp không có bảo đảm (<em>Unsecured Bond Corporate Bond Investor</em>)</strong> <span class="math-inline">$\leftarrow$</span> Dòng tiền hoạt động (<em>Operating Cash Flows</em>)
+- <strong>Nhà đầu tư Trái phiếu Chính phủ (<em>Sovereign Bond Investor</em>)</strong> <span class="math-inline">$\leftarrow$</span> Nguồn thu thuế (<em>Tax Revenues</em>)</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A corporation may not generate sufficient cash flow from its operations, financing activities, and investments to make timely payments on its debt, increasing the risk of default. Similarly, a sovereign borrower may not generate sufficient revenue through taxes, incomes, and fees to make timely payments.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một doanh nghiệp có thể không tạo ra đủ dòng tiền từ hoạt động kinh doanh, hoạt động tài chính và hoạt động đầu tư của mình để thực hiện thanh toán đúng hạn cho khoản nợ, làm tăng rủi ro vỡ nợ. Tương tự, một bên đi vay là chính phủ có chủ quyền có thể không tạo ra đủ doanh thu thông qua thuế, thu nhập và phí để thực hiện thanh toán đúng hạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Borrowers that lack the resources to meet debt obligations as they come due are often described as illiquid. An illiquid borrower is unable to raise the necessary funds to fulfill a debt obligation. They may not be able to tap credit lines, sell assets, or otherwise raise funding to make a timely debt payment. That is different from an <em>insolvent</em> borrower whose assets are worth less than its liabilities. An illiquid borrower just does not have, or is unable to secure, the liquidity needed to make timely payment.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Những bên đi vay thiếu nguồn lực để đáp ứng các nghĩa vụ nợ khi đến hạn thường được mô tả là kém thanh khoản (<em>illiquid</em>). Một bên đi vay mất thanh khoản không có khả năng huy động các nguồn vốn cần thiết để thực hiện nghĩa vụ nợ. Họ có thể không tiếp cận được các hạn mức tín dụng (<em>credit lines</em>), không bán được tài sản, hoặc không huy động được vốn bằng cách khác để thanh toán nợ đúng hạn. Điều đó khác với một bên đi vay <em>mất khả năng thanh toán</em> (<em>insolvent</em>) có giá trị tài sản thấp hơn nợ phải trả. Một bên đi vay mất thanh khoản chỉ đơn giản là không có, hoặc không thể đảm bảo được, lượng thanh khoản cần thiết để thanh toán đúng hạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Credit risk analysis focuses on understanding how a borrower generates cash, how and when cash is used, and what events and risks may impede the borrower’s ability to repay the debt. In earlier lessons, we encountered <em>unsecured</em> debt, where the primary source of repayment is the cash flow generated by the business. In the case of <em>secured</em> debt, the primary source of repayment remains the firm’s cash flows, but it is also supported by collateral pledged by the company. The following example involves an investor considering an unsecured bond versus a secured bond.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phân tích rủi ro tín dụng tập trung vào việc tìm hiểu cách thức một bên đi vay tạo ra tiền mặt, cách thức và thời điểm tiền mặt được sử dụng, cũng như những sự kiện và rủi ro nào có thể cản trở khả năng hoàn trả khoản nợ của bên đi vay. Trong các bài học trước, chúng ta đã gặp nợ <em>không có bảo đảm</em> (<em>unsecured debt</em>), trong đó nguồn trả nợ chính là dòng tiền được tạo ra từ hoạt động kinh doanh. Trong trường hợp nợ <em>có bảo đảm</em> (<em>secured debt</em>), nguồn trả nợ chính vẫn là dòng tiền của doanh nghiệp, nhưng nó còn được hỗ trợ thêm bởi tài sản thế chấp (<em>collateral</em>) do công ty cầm cố. Ví dụ sau đây liên quan đến một nhà đầu tư đang cân nhắc giữa một trái phiếu không có bảo đảm và một trái phiếu có bảo đảm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 1</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 1</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Risk Comparison of BRWA and VIVU Notes</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>So sánh Rủi ro giữa Trái phiếu BRWA và VIVU</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The hypothetical car manufacturer Bright Wheel Automotive (BRWA) is an investment-grade (IG) issuer with ready access to unsecured debt, while Vivivyu Inc. (VIVU) is a hypothetical high-yield (HY) issuer that borrows on a secured basis. Let us compare 3.2% senior unsecured and unsubordinated BRWA notes to 6.5% secured unsubordinated VIVU notes. Consider BRWA’s debt profile:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nhà sản xuất ô tô giả định Bright Wheel Automotive (BRWA) là một tổ chức phát hành hạng đầu tư (IG) có khả năng tiếp cận dễ dàng với nợ không có bảo đảm, trong khi Vivivyu Inc. (VIVU) là một tổ chức phát hành lợi suất cao (HY) giả định đi vay trên cơ sở có bảo đảm. Chúng ta hãy so sánh trái phiếu trung hạn (<em>notes</em>) BRWA cấp cao không có bảo đảm và không thứ cấp (<em>senior unsecured and unsubordinated</em>) lãi suất 3.2% với trái phiếu trung hạn VIVU có bảo đảm không thứ cấp (<em>secured unsubordinated</em>) lãi suất 6.5%. Hãy xem xét hồ sơ nợ (<em>debt profile</em>) của BRWA:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-361" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 361 / Trang PDF 361
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0361-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0361-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0361-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0361-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh: Hồ sơ nợ của Tập đoàn BRWA (<em>BRWA Corporation Debt Profile</em>)</strong>
+- Trục tung: Dư nợ / Hạn mức khả dụng (<em>Debt Outstanding / Availability</em>)
+- Trục hoành: Số năm đến khi đáo hạn (<em>Years to Maturity</em>: 1, 2, 5, 10, 30)
+- Các khoản nợ: Thương phiếu 150 ngày lãi suất 0.12% của BRWA (<em>0.12% BRWA 150-day Commercial Paper</em>); Hạn mức tín dụng 364 ngày không bảo đảm (<em>Unsecured 364 Day Facility</em>); Hạn mức tín dụng tuần hoàn 3 năm không bảo đảm (<em>Unsecured 3-year Revolving Credit Facility</em>); Trái phiếu 5 năm lãi suất 3.2% của BRWA (<em>3.2% BRWA Five-Year Notes</em>); Trái phiếu 15 năm lãi suất 3.95% của BRWA (<em>3.95% BRWA Fifteen-Year Notes</em>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If BRWA fails to make an interest or principal payment on the note, BRWA is in default. Since its bonds are unsecured and unsubordinated obligations with pari passu and cross-default language in its bond indenture, failure to repay unsecured indebtedness means that all its debt obligations are in default and investors must rely on BRWA’s general asset pool to satisfy their obligations, as shown below.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu BRWA không thực hiện thanh toán lãi hoặc gốc cho trái phiếu này, BRWA sẽ bị vỡ nợ. Vì các trái phiếu của công ty là nghĩa vụ nợ không có bảo đảm và không thứ cấp có điều khoản ngang hàng (<em>pari passu</em>) và vỡ nợ chéo (<em>cross-default</em>) trong khế ước trái phiếu (<em>bond indenture</em>), việc không hoàn trả được khoản nợ không có bảo đảm đồng nghĩa với việc tất cả các nghĩa vụ nợ của công ty đều bị vỡ nợ và các nhà đầu tư phải dựa vào khối tài sản chung (<em>general asset pool</em>) của BRWA để đáp ứng các nghĩa vụ của họ, như minh họa dưới đây.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0361-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0361-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Các quyền đòi nợ không có bảo đảm (ngang hàng - <em>pari passu</em>)</strong>: Các quyền đòi nợ không bảo đảm khác (<em>Other Unsecured Claims</em>), Hạn mức 364 ngày không bảo đảm, Hạn mức tuần hoàn 3 năm không bảo đảm, Thương phiếu 150 ngày 0.12% BRWA, Trái phiếu 5 năm 3.2% BRWA, Trái phiếu 15 năm 3.95% BRWA <span class="math-inline">$\rightarrow$</span> Cùng dựa vào <strong>Tài sản chung của BRWA (<em>BRWA General Assets</em>)</strong>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As an HY issuer, on the other hand, VIVU is limited to secured debt market access, as shown in its debt profile.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặt khác, với tư cách là một tổ chức phát hành HY, VIVU bị giới hạn trong việc tiếp cận thị trường nợ có bảo đảm, như được thể hiện trong hồ sơ nợ của công ty.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-362" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 362 / Trang PDF 362
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>VIVU Debt Profile</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Hồ sơ nợ của VIVU (VIVU Debt Profile)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0362-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0362-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh: Hồ sơ nợ của VIVU (<em>VIVU Debt Profile</em>)</strong>
+- Trục tung: Dư nợ / Hạn mức khả dụng (<em>Debt Outstanding / Availability</em>)
+- Trục hoành: Số năm đến khi đáo hạn (<em>Years to Maturity</em>: 1, 2, 5, 10, 30)
+- Các khoản nợ: Hạn mức vốn lưu động có bảo đảm (<em>Secured Working Capital Facility</em>); Hạn mức tín dụng 2 năm có bảo đảm (<em>Secured 2-year Credit Facility</em>); Khoản vay có kỳ hạn A 5 năm lãi suất MRR + 200 bp (<em>Five-Year Term Loan A MRR + 200 bp</em>); Trái phiếu có thể mua lại 7 năm lãi suất 6.5% của VIVU (<em>6.5% VIVU Seven-Year Callable Notes</em>).</p>
+</blockquote>
+<p><em>Lưu ý:</em> MRR viết tắt của lãi suất tham chiếu thị trường (<em>market reference rate</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Note:</em> MRR stands for market reference rate.</p>
+<p>VIVU’s failure to make timely payments due on the note will also result in default. The pari passu clause and cross-default language in its bond indenture with other unsecured indebtedness also sends all VIVU debt obligations into default. While <em>all</em> of VIVU’s debt investors have access to any unpledged assets, specific pledged assets serve as a secondary source of repayment for specific debt, as shown below.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc VIVU không thực hiện thanh toán đúng hạn cho trái phiếu cũng sẽ dẫn đến vỡ nợ. Điều khoản ngang hàng (<em>pari passu</em>) và điều khoản vỡ nợ chéo (<em>cross-default</em>) trong khế ước trái phiếu của công ty đối với các khoản nợ không có bảo đảm khác cũng đẩy tất cả các nghĩa vụ nợ của VIVU vào tình trạng vỡ nợ. Mặc dù <em>tất cả</em> các nhà đầu tư nợ của VIVU đều có quyền tiếp cận bất kỳ tài sản chưa cầm cố (<em>unpledged assets</em>) nào, các tài sản cầm cố cụ thể (<em>specific pledged assets</em>) đóng vai trò là nguồn trả nợ thứ cấp cho từng khoản nợ cụ thể, như minh họa dưới đây.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0362-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0362-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Tài sản chưa cầm cố của VIVU (<em>VIVU Unpledged Assets</em>)</strong> nằm ở phía trên.
+- <strong>Các quyền đòi nợ có bảo đảm (ngang hàng - <em>pari passu</em>)</strong>:
+  - Hạn mức vốn lưu động có bảo đảm (<em>Secured Working Capital Facility</em>) <span class="math-inline">$\rightarrow$</span> Hàng tồn kho cầm cố (<em>Pledged Inventory</em>).
+  - Hạn mức tín dụng 2 năm có bảo đảm (<em>Secured 2-Year Credit Facility</em>), Khoản vay có kỳ hạn A 5 năm MRR + 200 bp (<em>Five-Year Term Loan A</em>), Trái phiếu có thể mua lại 7 năm 6.5% VIVU (<em>6.5% VIVU Seven-Year Callable Notes</em>) <span class="math-inline">$\rightarrow$</span> Tài sản cầm cố (<em>Pledged Assets</em>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In this example, VIVU’s secured claims include its working capital facility secured by short-term assets (in this case inventory), while its long-term secured debt including the callable notes are backed by a claim to specific long-term assets pledged. As a secondary source of repayment, only when the value of the pledged assets falls below the total amount of pari passu secured debt will VIVU noteholders begin to suffer a credit loss.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong ví dụ này, các quyền đòi nợ có bảo đảm của VIVU bao gồm hạn mức vốn lưu động được bảo đảm bằng tài sản ngắn hạn (trong trường hợp này là hàng tồn kho), trong khi khoản nợ dài hạn có bảo đảm bao gồm cả trái phiếu có thể mua lại được bảo đảm bằng quyền đòi nợ đối với các tài sản dài hạn cụ thể đã cầm cố. Với tư cách là nguồn trả nợ thứ cấp, chỉ khi giá trị của các tài sản cầm cố giảm xuống dưới tổng giá trị của khoản nợ có bảo đảm ngang hàng (<em>pari passu</em>) thì các trái chủ của VIVU mới bắt đầu gánh chịu tổn thất tín dụng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>While the <em>likelihood of default</em> for investment-grade borrowers, such as BRWA, is typically well below that of a high-yield issuer such as VIVU, the investor’s <em>loss in the event of a default</em> for secured debt is usually lower than unsecured debt due to the secondary source of repayment for secured bonds.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù <em>khả năng xảy ra vỡ nợ</em> (<em>likelihood of default</em>) đối với các bên đi vay hạng đầu tư, chẳng hạn như BRWA, thường thấp hơn nhiều so với một tổ chức phát hành lợi suất cao như VIVU, nhưng <em>mức tổn thất của nhà đầu tư trong trường hợp vỡ nợ</em> (<em>loss in the event of a default</em>) đối với nợ có bảo đảm thường thấp hơn so với nợ không có bảo đảm nhờ có nguồn trả nợ thứ cấp của trái phiếu có bảo đảm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We encountered the Government of Romania’s EUR1.95 billion 30-year debt issue in an earlier lesson. For a sovereign government, the right to tax economic activity within its borders means that the sources of repayment are the personal and corporate income taxes, sales taxes, and other revenue generated by the government. In the</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta đã bắt gặp đợt phát hành nợ kỳ hạn 30 năm trị giá 1.95 tỷ EUR của Chính phủ Romania trong một bài học trước. Đối với một chính phủ có chủ quyền, quyền đánh thuế lên các hoạt động kinh tế trong phạm vi biên giới quốc gia đồng nghĩa với việc các nguồn trả nợ là thuế thu nhập cá nhân và doanh nghiệp, thuế doanh thu (<em>sales taxes</em>), và các khoản thu khác do chính phủ tạo ra. Trong</p></div>
+                </div>
+                
+
+                <div id="pdf-page-363" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 363 / Trang PDF 363
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>specific case of Romania’s EUR-denominated debt, the government’s ability to generate reserve currency cash flows based upon its institutional and economic profile, use of monetary and fiscal policy, and exchange rate regime are additional considerations. The main borrower types and their primary sources of repayment and credit risk are listed in Exhibit 3.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trường hợp cụ thể của khoản nợ định danh bằng đồng EUR của Romania, khả năng tạo ra dòng tiền bằng đồng tiền dự trữ (<em>reserve currency</em>) của chính phủ dựa trên hồ sơ thể chế và kinh tế, việc sử dụng chính sách tiền tệ và tài khóa, và chế độ tỷ giá hối đoái là những yếu tố cần xem xét bổ sung. Các loại hình bên đi vay chính cùng nguồn trả nợ chính và nguồn rủi ro tín dụng của họ được liệt kê trong Bảng minh họa 3.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 3: Borrower Types, Sources of Repayment, and Sources of Credit Risk</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 3: Các loại hình Bên đi vay, Nguồn Trả nợ và Nguồn Rủi ro Tín dụng (Borrower Types, Sources of Repayment, and Sources of Credit Risk)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Borrower Type</strong></th>
+<th><strong>Primary Source of Cash Flow</strong><br><strong>Generation</strong></th>
+<th><strong>Secondary Source of Cash</strong><br><strong>Flow Generation</strong></th>
+<th><strong>Sources of Credit Risk</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Corporate</td>
+<td>■Business operations<br>■Investment and financing<br>activities</td>
+<td>■Asset sales<br>■Divestitures<br>■Additional debt issuance<br>■Equity issuance</td>
+<td>■Economic contraction<br>■Strategic shifts in the business<br>and market environment<br>■Increased competition<br>■Reduced pricing power<br>■Shrinking operating margins,<br>increased losses<br>■Excessive debt service needs</td>
+</tr>
+<tr>
+<td>Sovereign or public<br>entity</td>
+<td>■Corporate and personal<br>income taxes, sales tax and<br>VAT revenue, capital gains<br>and wealth-based taxes<br>■Tariffs, fees, and other gov-<br>ernment revenue</td>
+<td>■Newly issued debt<br>■Sale of public assets,<br>privatization</td>
+<td>■Economic contraction<br>■Political uncertainty<br>■Excessive debt service needs<br>■Expansionary economic<br>policies<br>■Budget deficits<br>■Tax cuts<br>■Limited ability to collect taxes</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Loại hình Bên đi vay (Borrower Type)</strong></th>
+<th><strong>Nguồn tạo Dòng tiền Chính (Primary Source of Cash Flow Generation)</strong></th>
+<th><strong>Nguồn tạo Dòng tiền Thứ cấp (Secondary Source of Cash Flow Generation)</strong></th>
+<th><strong>Các nguồn Rủi ro Tín dụng (Sources of Credit Risk)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Doanh nghiệp (<em>Corporate</em>)</td>
+<td>■ Hoạt động kinh doanh (<em>Business operations</em>)<br>■ Hoạt động đầu tư và tài chính (<em>Investment and financing activities</em>)</td>
+<td>■ Bán tài sản (<em>Asset sales</em>)<br>■ Thoái vốn (<em>Divestitures</em>)<br>■ Phát hành thêm nợ (<em>Additional debt issuance</em>)<br>■ Phát hành cổ phần (<em>Equity issuance</em>)</td>
+<td>■ Suy giảm kinh tế (<em>Economic contraction</em>)<br>■ Thay đổi chiến lược trong môi trường kinh doanh và thị trường (<em>Strategic shifts in the business and market environment</em>)<br>■ Cạnh tranh gia tăng (<em>Increased competition</em>)<br>■ Giảm quyền định giá (<em>Reduced pricing power</em>)<br>■ Biên lợi nhuận hoạt động thu hẹp, thua lỗ gia tăng (<em>Shrinking operating margins, increased losses</em>)<br>■ Nhu cầu trả nợ quá mức (<em>Excessive debt service needs</em>)</td>
+</tr>
+<tr>
+<td>Chính phủ có chủ quyền hoặc tổ chức công (<em>Sovereign or public entity</em>)</td>
+<td>■ Thuế thu nhập doanh nghiệp và cá nhân, thuế doanh thu và doanh thu thuế GTGT (VAT), thuế lãi vốn và thuế tài sản (<em>Corporate and personal income taxes, sales tax and VAT revenue, capital gains and wealth-based taxes</em>)<br>■ Thuế quan, phí và doanh thu khác của chính phủ (<em>Tariffs, fees, and other government revenue</em>)</td>
+<td>■ Nợ mới phát hành (<em>Newly issued debt</em>)<br>■ Bán tài sản công, tư nhân hóa (<em>Sale of public assets, privatization</em>)</td>
+<td>■ Suy giảm kinh tế (<em>Economic contraction</em>)<br>■ Bất ổn chính trị (<em>Political uncertainty</em>)<br>■ Nhu cầu trả nợ quá mức (<em>Excessive debt service needs</em>)<br>■ Các chính sách kinh tế mở rộng (<em>Expansionary economic policies</em>)<br>■ Thâm hụt ngân sách (<em>Budget deficits</em>)<br>■ Cắt giảm thuế (<em>Tax cuts</em>)<br>■ Khả năng thu thuế hạn chế (<em>Limited ability to collect taxes</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>While many factors affect the primary and secondary sources of repayment for different fixed-income issuers, investors seek to measure and compare credit risk among different borrowers for similar maturities as well as across maturities for the same borrower.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù có nhiều yếu tố ảnh hưởng đến nguồn trả nợ chính và thứ cấp của các tổ chức phát hành thu nhập cố định khác nhau, các nhà đầu tư luôn tìm cách đo lường và so sánh rủi ro tín dụng giữa các bên đi vay khác nhau có cùng kỳ hạn cũng như giữa các kỳ hạn khác nhau của cùng một bên đi vay.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For example, consider the comparison of BRWA and VIVU notes in Example 1. If we set aside both the VIVU maturity difference and call feature (which the issuer may exercise any time from year three through maturity in year seven) by assuming a similar expected maturity to the BRWA bond for the time being, compare the 6.5% VIVU debt coupon to the 3.2% fixed rate of the BRWA bond. How can we assess whether the additional 3.3% (= 6.5% − 3.2%) in interest adequately compensates an investor for the additional risk? We turn to measures of credit risk, which help answer this question in the next section.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ, hãy xem xét phép so sánh giữa trái phiếu BRWA và VIVU trong Ví dụ 1. Nếu tạm thời chúng ta bỏ qua cả sự khác biệt về kỳ hạn lẫn tính năng mua lại (<em>call feature</em>) của VIVU (tính năng mà tổ chức phát hành có thể thực hiện bất kỳ lúc nào từ năm thứ ba cho đến khi đáo hạn vào năm thứ bảy) bằng cách giả định kỳ hạn kỳ vọng tương tự như trái phiếu BRWA, hãy so sánh mức lãi suất coupon 6.5% của khoản nợ VIVU với mức lãi suất cố định 3.2% của trái phiếu BRWA. Làm thế nào chúng ta có thể đánh giá liệu mức lãi tăng thêm 3.3% (<span class="math-inline">$= 6.5\% - 3.2\%$</span>) có đền bù thỏa đáng cho nhà đầu tư đối với phần rủi ro tăng thêm hay không? Chúng ta sẽ chuyển sang các thước đo rủi ro tín dụng để giúp trả lời câu hỏi này trong phần tiếp theo.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Measuring Credit Risk</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Đo lường Rủi ro Tín dụng (Measuring Credit Risk)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Fixed-income investors face credit risk, or the risk that an issuer does not make promised interest and principal payments. This probability-weighted shortfall known as the <strong>expected loss (EL)</strong> for a given period has two components, as shown in Exhibit 4.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các nhà đầu tư thu nhập cố định phải đối mặt với rủi ro tín dụng, hay rủi ro tổ chức phát hành không thực hiện các khoản thanh toán tiền lãi và nợ gốc đã cam kết. Khoản thiếu hụt có trọng số xác suất này được gọi là <strong>tổn thất kỳ vọng (<em>expected loss</em> – EL)</strong> cho một giai đoạn nhất định và có hai cấu phần, như được trình bày trong Bảng minh họa 4.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-364" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 364 / Trang PDF 364
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 4: Components of Credit Risk</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 4: Các cấu phần của Rủi ro Tín dụng (Components of Credit Risk)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0364-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0364-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Dư nợ rủi ro kỳ vọng (<em>Expected Exposure</em> – EE)</strong>: Tổng dư nợ rủi ro dự phóng khi xảy ra sự kiện vỡ nợ <span class="math-inline">$\rightarrow$</span> Kết hợp với <strong>Tỷ lệ thu hồi (<em>Recovery Rate</em> – RR)</strong>: Tỷ lệ phần trăm tổn thất thu hồi được khi vỡ nợ <span class="math-inline">$\rightarrow$</span> <span class="math-inline">$\text{EE} \times (1 - \text{RR}) = \text{LGD}$</span>.
+- <strong>Mức tổn thất khi vỡ nợ (<em>Loss Given Default</em> – LGD)</strong>: Giá trị tổn thất nếu xảy ra vỡ nợ <span class="math-inline">$\rightarrow$</span> Kết hợp với <strong>Xác suất vỡ nợ (<em>Probability of Default</em> – POD)</strong>: Xác suất có điều kiện bên đi vay vỡ nợ (giả định chưa vỡ nợ trước đó) <span class="math-inline">$\rightarrow$</span> <span class="math-inline">$\text{LGD} \times \text{POD} = \text{EL}$</span>.
+- <strong>Tổn thất kỳ vọng (<em>Expected Loss</em> – EL)</strong>: Giá trị tổn thất có trọng số xác suất.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The first is known as the <strong>probability of default (POD)</strong> , which is the likelihood that an issuer fails to make full and timely payments of principal and interest. The probability of default is typically an annualized measure.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cấu phần thứ nhất được gọi là <strong>xác suất vỡ nợ (<em>probability of default</em> – POD)</strong>, là khả năng một tổ chức phát hành không thực hiện thanh toán đầy đủ và đúng hạn nợ gốc và tiền lãi. Xác suất vỡ nợ thường là một thước đo được chuẩn hóa theo năm (<em>annualized measure</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The second component is the <strong>loss given default (LGD)</strong> , or the investor’s loss conditional on an issuer event of default. The loss given default combines the severity of loss under a default scenario with the amount of the investor’s claim at the time of default. The <strong>recovery rate (RR)</strong> represents the percentage of an outstanding debt claim recovered when an issuer defaults, while the <strong>loss severity</strong> of (1 − RR) represents the unrecovered portion of the claim. The size of the investor’s claim at the time of default is known as the <strong>expected exposure (EE)</strong> or <strong>exposure at default (EAD)</strong> . This is the amount an investor may expect to lose in the case of default, which is usually equal to the loan or bond face value plus accrued interest less the current market value of available collateral. In most instances, in the event of default, bondholders will usually recover some proportion of their investment.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cấu phần thứ hai là <strong>mức tổn thất khi vỡ nợ (<em>loss given default</em> – LGD)</strong>, hay khoản tổn thất của nhà đầu tư với điều kiện xảy ra sự kiện vỡ nợ của tổ chức phát hành. Mức tổn thất khi vỡ nợ kết hợp mức độ nghiêm trọng của tổn thất (<em>severity of loss</em>) trong kịch bản vỡ nợ với quy mô quyền đòi nợ của nhà đầu tư tại thời điểm vỡ nợ. <strong>Tỷ lệ thu hồi (<em>recovery rate</em> – RR)</strong> thể hiện tỷ lệ phần trăm của quyền đòi nợ đang lưu hành được thu hồi khi tổ chức phát hành vỡ nợ, trong khi <strong>mức độ nghiêm trọng của tổn thất (<em>loss severity</em>)</strong> bằng <span class="math-inline">$(1 - \text{RR})$</span> thể hiện phần không thu hồi được của quyền đòi nợ. Quy mô quyền đòi nợ của nhà đầu tư tại thời điểm vỡ nợ được gọi là <strong>dư nợ rủi ro kỳ vọng (<em>expected exposure</em> – EE)</strong> hoặc <strong>dư nợ tại thời điểm vỡ nợ (<em>exposure at default</em> – EAD)</strong>. Đây là số tiền mà nhà đầu tư có thể kỳ vọng bị mất trong trường hợp vỡ nợ, thường bằng mệnh giá khoản vay hoặc trái phiếu cộng với lãi tích lũy trừ đi giá trị thị trường hiện tại của tài sản thế chấp hiện có. Trong hầu hết các trường hợp, khi xảy ra vỡ nợ, các trái chủ thường sẽ thu hồi được một tỷ lệ nhất định trong khoản đầu tư của mình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The expected loss is shown in Equation 1:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tổn thất kỳ vọng được trình bày trong Phương trình 1:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>EL = POD × LGD, ~~(1)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\text{EL} = \text{POD} \times \text{LGD} \tag{1}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where LGD = EE × (1 – RR).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó <span class="math-inline">$\text{LGD} = \text{EE} \times (1 - \text{RR})$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The LGD can be expressed either in currency terms (e.g., EUR450,000) or as a percentage of principal (e.g., 45%). The latter form of expression is more useful for analysis since it allows comparison across borrowers and investments of different sizes.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$\text{LGD}$</span> có thể được biểu thị bằng đơn vị tiền tệ (ví dụ: EUR450,000) hoặc dưới dạng tỷ lệ phần trăm của nợ gốc (ví dụ: 45%). Cách biểu thị thứ hai hữu ích hơn cho việc phân tích vì nó cho phép so sánh giữa các bên đi vay và các khoản đầu tư có quy mô khác nhau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>One way to interpret the expected loss on a fixed-income security for a given period is to compare it to the compensation an investor expects for taking on the credit risk of a borrower over that period, which is the credit spread. Recall from an earlier lesson that the G-spread is equal to yield spread in basis points over an actual or interpolated government bond. This approximation may be expressed as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một cách để diễn giải tổn thất kỳ vọng trên một chứng khoán thu nhập cố định trong một giai đoạn nhất định là so sánh nó với mức đền bù mà nhà đầu tư kỳ vọng nhận được khi gánh chịu rủi ro tín dụng của bên đi vay trong giai đoạn đó, chính là phần bù tín dụng (<em>credit spread</em>). Hãy nhớ lại từ bài học trước rằng phần bù G (<em>G-spread</em>) bằng phần bù lợi suất tính bằng điểm cơ bản so với một trái phiếu chính phủ thực tế hoặc nội suy. Phép xấp xỉ này có thể được biểu diễn như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Credit Spread ≈ POD × LGD. ~~(2)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\text{Credit Spread} \approx \text{POD} \times \text{LGD} \tag{2}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Therefore, we can say that the investor is fairly compensated if the expected loss is equal to the credit spread for a given period. The following example uses this information to assess the expected loss versus compensation for the BRWA and VIVU bonds from Example 1.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó, chúng ta có thể nói rằng nhà đầu tư được đền bù thỏa đáng (<em>fairly compensated</em>) nếu tổn thất kỳ vọng bằng với phần bù tín dụng trong một giai đoạn nhất định. Ví dụ sau đây sử dụng thông tin này để đánh giá tổn thất kỳ vọng so với mức đền bù đối với trái phiếu BRWA và VIVU từ Ví dụ 1.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-365" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 365 / Trang PDF 365
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 2</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 2</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Comparing Expected Loss and Credit Spreads</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>So sánh Tổn thất Kỳ vọng và Phần bù Tín dụng</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Recall from Example 1 that Bright Wheel Automotive (BRWA) issued an unsecured five-year bond with a 3.2% fixed coupon. The yield-to-maturity difference between BRWA’s five-year bond and the comparable US Treasury bond is 90 bps (= 3.2% – 2.3%), which reflects BRWA’s credit spread over Treasuries, known as the G-spread. Vivivyu Inc. (VIVU) issued a 6.5% fixed-rate bond, which the issuer has the right to call at a fixed price any time from three years from the issuance date until final maturity in seven years.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy nhớ lại từ Ví dụ 1 rằng Bright Wheel Automotive (BRWA) đã phát hành một trái phiếu không có bảo đảm kỳ hạn 5 năm với lãi suất coupon cố định 3.2%. Chênh lệch lợi suất đáo hạn (<em>yield-to-maturity</em>) giữa trái phiếu kỳ hạn 5 năm của BRWA và trái phiếu Kho bạc Mỹ tương đương là 90 bps (<span class="math-inline">$= 3.2\% - 2.3\%$</span>), phản ánh phần bù tín dụng của BRWA so với trái phiếu Kho bạc, được gọi là G-spread. Vivivyu Inc. (VIVU) đã phát hành một trái phiếu lãi suất cố định 6.5%, mà tổ chức phát hành có quyền mua lại ở một mức giá cố định bất kỳ lúc nào kể từ 3 năm sau ngày phát hành cho đến khi đáo hạn cuối cùng vào năm thứ 7.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Assuming the BRWA bond has a probability of default of 1% and a loss given default of 80%, estimate whether BRWA bond investors are adequately compensated for assuming BRWA credit risk.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Giả sử trái phiếu BRWA có xác suất vỡ nợ là 1% và mức tổn thất khi vỡ nợ là 80%, hãy ước tính xem các nhà đầu tư trái phiếu BRWA có được đền bù thỏa đáng khi gánh chịu rủi ro tín dụng của BRWA hay không.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using Equation 1, we may solve for BRWA’s expected loss in percentage terms as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng Phương trình 1, chúng ta có thể giải tìm tổn thất kỳ vọng của BRWA dưới dạng phần trăm như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6>EL = POD × LGD, or 0.8% = [0.01 × 80%].</h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\text{EL} = \text{POD} \times \text{LGD}, \text{ hay } 0.8\% = [0.01 \times 80\%]$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Given BRWA’s credit spread of 0.9%, we may conclude based upon the approximation in Equation 2 that BRWA investors are fairly compensated for assuming the credit risk since:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Với phần bù tín dụng của BRWA là 0.9%, chúng ta có thể kết luận dựa trên phép xấp xỉ trong Phương trình 2 rằng các nhà đầu tư vào BRWA được đền bù thỏa đáng khi gánh chịu rủi ro tín dụng vì:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6>Credit Spread &gt; POD × LGD.</h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\text{Credit Spread} &gt; \text{POD} \times \text{LGD}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Investors earn a 90 bps spread per year and have an expected loss of 80 bps per year.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nhà đầu tư hưởng phần bù 90 bps mỗi năm và có mức tổn thất kỳ vọng là 80 bps mỗi năm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>If we assume that VIVU has issued a five-year non-callable bond, as in the case of BRWA, with a probability of default of 6% and a loss given default of 50%, compare investor compensation for assuming the credit risk of the 6.5% VIVU debt coupon to that of the 3.2% fixed rate of the BRWA bond.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Nếu chúng ta giả định rằng VIVU đã phát hành một trái phiếu không thể mua lại kỳ hạn 5 năm, giống như trường hợp của BRWA, với xác suất vỡ nợ là 6% và mức tổn thất khi vỡ nợ là 50%, hãy so sánh mức đền bù cho nhà đầu tư khi gánh chịu rủi ro tín dụng của trái phiếu VIVU lãi suất coupon 6.5% với mức lãi suất cố định 3.2% của trái phiếu BRWA.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using Equation 1, we may solve for VIVU’s expected loss in percentage terms as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng Phương trình 1, chúng ta có thể giải tìm tổn thất kỳ vọng của VIVU dưới dạng phần trăm như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6>EL = POD × LGD, or 3.0% = [0.06 × 50%].</h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\text{EL} = \text{POD} \times \text{LGD}, \text{ hay } 3.0\% = [0.06 \times 50\%]$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We may calculate VIVU’s five-year credit spread by subtracting its 6.5% coupon from the 2.3% five-year US Treasury to solve for a G-spread of 4.2%. Based upon the approximation in Equation 2, we may conclude that VIVU investors are fairly compensated for assuming the credit risk since:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể tính phần bù tín dụng 5 năm của VIVU bằng cách lấy lãi suất coupon 6.5% trừ đi mức lợi suất 2.3% của trái phiếu Kho bạc Mỹ kỳ hạn 5 năm để tìm ra G-spread là 4.2%. Dựa trên phép xấp xỉ trong Phương trình 2, chúng ta có thể kết luận rằng các nhà đầu tư vào VIVU được đền bù thỏa đáng khi gánh chịu rủi ro tín dụng vì:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6>Credit Spread &gt; POD × LGD.</h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\text{Credit Spread} &gt; \text{POD} \times \text{LGD}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Investors earn a 420 bps per year spread and have an expected loss of 300 bps per year.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nhà đầu tư hưởng phần bù 420 bps mỗi năm và có mức tổn thất kỳ vọng là 300 bps mỗi năm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>How would the determination of the spread as well as investor’s view of the risk versus compensation for the VIVU bond change from Question 2 if we</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Việc xác định phần bù cũng như quan điểm của nhà đầu tư về rủi ro so với mức đền bù đối với trái phiếu VIVU sẽ thay đổi như thế nào so với Câu hỏi 2 nếu chúng ta</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-366" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 366 / Trang PDF 366
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>consider the VIVU bond’s <em>actual</em> maturity and call feature with the original 6.5% coupon?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>xem xét kỳ hạn <em>thực tế</em> và tính năng mua lại (<em>call feature</em>) của trái phiếu VIVU với mức coupon 6.5% ban đầu?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>VIVU investors face both call risk and greater maturity risk on the original bond terms versus a five-year, non-callable bond. As described in earlier lessons, bonds callable at a fixed price prior to maturity are advantageous to issuers and disadvantageous to investors, so investors expect to be compensated via a higher yield versus a similar non-callable bond given the uncertain maturity and limited price appreciation known as call risk. This option-adjusted yield is the required market discount rate for which the bond’s price is adjusted for the value of the embedded option. Investors would also expect to be compensated for a longer time to maturity with a higher credit spread.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các nhà đầu tư vào VIVU phải đối mặt với cả rủi ro bị mua lại trước hạn (<em>call risk</em>) và rủi ro kỳ hạn (<em>maturity risk</em>) lớn hơn theo các điều khoản trái phiếu ban đầu so với một trái phiếu kỳ hạn 5 năm không thể mua lại. Như đã mô tả trong các bài học trước, trái phiếu có thể mua lại ở mức giá cố định trước khi đáo hạn mang lại lợi thế cho tổ chức phát hành và bất lợi cho nhà đầu tư, do đó nhà đầu tư kỳ vọng được đền bù thông qua mức lợi suất cao hơn so với một trái phiếu không thể mua lại tương tự do sự không chắc chắn về kỳ hạn và khả năng tăng giá bị giới hạn, được gọi là rủi ro mua lại (<em>call risk</em>). Lợi suất điều chỉnh theo quyền chọn (<em>option-adjusted yield</em>) này là lãi suất chiết khấu thị trường yêu cầu mà tại đó giá của trái phiếu được điều chỉnh theo giá trị của quyền chọn gắn kèm (<em>embedded option</em>). Các nhà đầu tư cũng sẽ kỳ vọng được đền bù cho thời gian đáo hạn dài hơn bằng một phần bù tín dụng cao hơn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We may further consider the drivers of expected loss for BRWA’s unsecured investment-grade debt as compared to VIVU’s secured high-yield debt in Example 2. The POD is driven by an issuer’s ability to service debt based on both qualitative and quantitative factors, including:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể xem xét sâu hơn các yếu tố thúc đẩy tổn thất kỳ vọng đối với khoản nợ hạng đầu tư không có bảo đảm của BRWA so với khoản nợ lợi suất cao có bảo đảm của VIVU trong Ví dụ 2. <span class="math-inline">$\text{POD}$</span> được thúc đẩy bởi khả năng trả nợ của tổ chức phát hành dựa trên cả các yếu tố định tính và định lượng, bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Profitability: Stable, predictable cash flows and profits;</p>
+</li>
+<li>
+<p>Coverage: Sufficient cash flows/profits to make debt payments; and</p>
+</li>
+<li>
+<p>Leverage: Relative reliance on debt financing.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Khả năng sinh lời (<em>Profitability</em>): Dòng tiền và lợi nhuận ổn định, có thể dự báo được;</p>
+</li>
+<li>
+<p>Khả năng thanh toán lãi vay/trang trải nợ (<em>Coverage</em>): Đủ dòng tiền/lợi nhuận để thực hiện các khoản thanh toán nợ; và</p>
+</li>
+<li>
+<p>Đòn bẩy tài chính (<em>Leverage</em>): Mức độ phụ thuộc tương đối vào tài trợ bằng nợ vay.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Higher profitability (as measured, for example, by EBIT margin) and higher coverage (EBIT to interest expense) coupled with lower leverage (debt to earnings or cash flow ratios, such as debt/EBITDA or cash flow to net debt) are associated with lower POD and higher credit quality. While financial ratios are one of several factors used to assess credit risk, and their relative level by rating category varies widely across industries and over time, Exhibit 5 provides a generic example of these relationships.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khả năng sinh lời cao hơn (được đo lường, ví dụ, bằng biên EBIT – <em>EBIT margin</em>) và khả năng trang trải nợ cao hơn (tỷ số EBIT trên chi phí lãi vay – <em>EBIT to interest expense</em>) kết hợp với đòn bẩy thấp hơn (các tỷ số nợ trên thu nhập hoặc dòng tiền, chẳng hạn như Nợ/EBITDA hoặc dòng tiền trên nợ ròng – <em>cash flow to net debt</em>) gắn liền với <span class="math-inline">$\text{POD}$</span> thấp hơn và chất lượng tín dụng cao hơn. Mặc dù các tỷ số tài chính là một trong số nhiều yếu tố được sử dụng để đánh giá rủi ro tín dụng, và mức độ tương đối của chúng theo từng bậc xếp hạng rất khác nhau giữa các ngành và theo thời gian, Bảng minh họa 5 cung cấp một ví dụ tổng quát về các mối quan hệ này.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-367" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 367 / Trang PDF 367
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 5: Key Financial Ratios for Corporate Credit Risk and Ratings</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Bảng minh họa 5: Các Tỷ số Tài chính Chính đối với Rủi ro Tín dụng và Xếp hạng Doanh nghiệp (Key Financial Ratios for Corporate Credit Risk and Ratings)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0367-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0367-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Biên EBIT (<em>EBIT Margin</em>)</strong>: Giảm dần từ hạng <code>Aaa</code> (~30%), <code>Aa</code>, <code>A</code>, <code>Baa</code>, <code>Ba</code>, <code>B</code>, <code>Caa</code> đến <code>Ca</code> (~0%).
+- <strong>Tỷ số EBIT trên Chi phí lãi vay (<em>EBIT to Interest Expense</em>)</strong>: Giảm dần từ hạng <code>Aaa</code> (~20x), <code>Aa</code>, <code>A</code>, <code>Baa</code>, <code>Ba</code>, <code>B</code> đến <code>Caa</code>, <code>Ca</code> (&lt; 0).
+- <strong>Tỷ số Nợ trên EBITDA (<em>Debt to EBITDA</em>)</strong>: Tăng dần từ hạng <code>Aaa</code>, <code>Aa</code> (&lt; 1x), <code>A</code>, <code>Baa</code>, <code>Ba</code>, <code>B</code>, <code>Caa</code> đến <code>Ca</code> (&gt; 8x).
+- <strong>Tỷ số Dòng tiền trên Nợ ròng (<em>Cash Flow to Net Debt</em>)</strong>: Giảm dần từ hạng <code>Aaa</code> (~100%), <code>Aa</code>, <code>A</code>, <code>Baa</code>, <code>Ba</code>, <code>B</code>, <code>Caa</code> đến <code>Ca</code> (&lt; 0%).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As Exhibit 5 shows, changes in profitability (EBIT margin), coverage (EBIT to interest expense), and leverage (debt/EBITDA and cash flow to net debt) ratios over time may result in ratings upgrades or downgrades as well as changing credit spreads. The LGD for a given exposure, on the other hand, is largely a function of the nature and seniority of a creditor’s claim in a default scenario, as shown in Exhibit 6:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Như Bảng minh họa 5 cho thấy, những thay đổi trong các tỷ số về khả năng sinh lời (biên EBIT), khả năng trang trải nợ (EBIT trên chi phí lãi vay), và đòn bẩy (Nợ/EBITDA và dòng tiền trên nợ ròng) theo thời gian có thể dẫn đến việc nâng hạng (<em>upgrades</em>) hoặc hạ hạng (<em>downgrades</em>) tín nhiệm cũng như làm thay đổi phần bù tín dụng. Mặt khác, <span class="math-inline">$\text{LGD}$</span> đối với một dư nợ rủi ro nhất định phần lớn là một hàm số phụ thuộc vào bản chất và thứ tự ưu tiên thanh toán (<em>seniority</em>) của quyền đòi nợ của chủ nợ trong kịch bản vỡ nợ, như được trình bày trong Bảng minh họa 6:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-368" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 368 / Trang PDF 368
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 6: Seniority and LGD</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Bảng minh họa 6: Thứ tự Ưu tiên Thanh toán và LGD (Seniority and LGD)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0368-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0368-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Thứ tự ưu tiên (<em>Seniority</em>)</strong>: Từ Thứ hạng cao nhất (<em>Highest Ranking</em>) đến Thứ hạng thấp nhất (<em>Lowest Ranking</em>).
+- <strong>Nợ có bảo đảm (<em>Secured Debt</em>)</strong> <span class="math-inline">$\rightarrow$</span> <strong>LGD thấp hơn (<em>Lower LGD</em>)</strong>.
+- <strong>Nợ không có bảo đảm (<em>Unsecured Debt</em>)</strong> <span class="math-inline">$\rightarrow$</span> <strong>LGD cao hơn (<em>Higher LGD</em>)</strong>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For investors in unsecured investment-grade bonds or loans with a high LGD, the greatest risk of expected loss arises due to a rise in POD. On the other hand, high-yield investors expecting a greater likelihood of default seek to minimize EL by seeking covenant restrictions and/or security to lower LGD.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với các nhà đầu tư vào trái phiếu hoặc khoản vay hạng đầu tư không có bảo đảm có <span class="math-inline">$\text{LGD}$</span> cao, rủi ro tổn thất kỳ vọng lớn nhất phát sinh do sự gia tăng của <span class="math-inline">$\text{POD}$</span>. Mặt khác, các nhà đầu tư lợi suất cao (HY) vốn kỳ vọng khả năng xảy ra vỡ nợ lớn hơn sẽ tìm cách giảm thiểu <span class="math-inline">$\text{EL}$</span> bằng cách yêu cầu các hạn chế trong điều khoản ràng buộc (<em>covenant restrictions</em>) và/hoặc tài sản bảo đảm để hạ thấp <span class="math-inline">$\text{LGD}$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (QUESTION SET)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li><em>Determine the correct answers to fill in the blanks:</em> The two components of credit risk are the <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>, typically measured over a 12-month horizon, and the </em></strong><strong><em>_</em></strong><strong><em>_</em></strong>, which together with the recovery rate determine the <strong><em>_</em></strong><strong><em>_</em></strong>___.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li><em>Xác định các câu trả lời đúng để điền vào chỗ trống:</em> Hai cấu phần của rủi ro tín dụng là <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>, thường được đo lường trong khung thời gian 12 tháng, và </em></strong><strong><em>_</em></strong><strong><em>_</em></strong>, yếu tố mà cùng với tỷ lệ thu hồi sẽ xác định <strong><em>_</em></strong><strong><em>_</em></strong>___.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The two components of credit risk are the <strong>probability of default</strong> , typically measured over a 12-month horizon, and the <strong>exposure at default (or expected exposure)</strong> , which together with the recovery rate determine the <strong>loss given default</strong> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hai cấu phần của rủi ro tín dụng là <strong>xác suất vỡ nợ (<em>probability of default</em>)</strong>, thường được đo lường trong khung thời gian 12 tháng, và <strong>dư nợ tại thời điểm vỡ nợ (hoặc dư nợ rủi ro kỳ vọng) (<em>exposure at default / expected exposure</em>)</strong>, yếu tố mà cùng với tỷ lệ thu hồi sẽ xác định <strong>mức tổn thất khi vỡ nợ (<em>loss given default</em>)</strong>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Which of the following statements best describes the difference between unsecured and secured debt obligations in the event of issuer default?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Unsecured debtholders only have access to issuer cash flows, while secured debtholders only have access to specific pledged assets.</p>
+</li>
+<li>
+<p><strong>B.</strong> Both unsecured and secured debtholders have access to unpledged assets, while only secured debtholders have access to specific pledged assets as a secondary repayment source.</p>
+</li>
+<li>
+<p><strong>C.</strong> Only unsecured debtholders have access to pledged assets, while only secured debtholders have access to specific pledged assets.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Phát biểu nào sau đây mô tả đúng nhất sự khác biệt giữa nghĩa vụ nợ không có bảo đảm và nghĩa vụ nợ có bảo đảm trong trường hợp tổ chức phát hành vỡ nợ?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Các chủ nợ không có bảo đảm chỉ có quyền tiếp cận dòng tiền của tổ chức phát hành, trong khi các chủ nợ có bảo đảm chỉ có quyền tiếp cận các tài sản cầm cố cụ thể.</p>
+</li>
+<li>
+<p><strong>B.</strong> Cả chủ nợ không có bảo đảm và chủ nợ có bảo đảm đều có quyền tiếp cận các tài sản chưa cầm cố (<em>unpledged assets</em>), trong khi chỉ các chủ nợ có bảo đảm mới có quyền tiếp cận các tài sản cầm cố cụ thể như một nguồn trả nợ thứ cấp.</p>
+</li>
+<li>
+<p><strong>C.</strong> Chỉ các chủ nợ không có bảo đảm mới có quyền tiếp cận các tài sản cầm cố, trong khi chỉ các chủ nợ có bảo đảm mới có quyền tiếp cận các tài sản cầm cố cụ thể.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is correct. While all debtholders receive interest and principal payments from issuer cash flows, in an event of default both unsecured and secured</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B là đáp án đúng. Mặc dù tất cả các chủ nợ đều nhận các khoản thanh toán tiền lãi và nợ gốc từ dòng tiền của tổ chức phát hành, nhưng khi xảy ra sự kiện vỡ nợ thì cả chủ nợ không có bảo đảm và có bảo đảm</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM13_Part2_Empirical_Duration.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM13_Part2_Empirical_Duration</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 6</a>
+      <a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('06_Fixed_Income/LM14_Part1_Introduction.html');
+    });
+  </script>
+</body>
+</html>

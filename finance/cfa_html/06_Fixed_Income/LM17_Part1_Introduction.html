@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 17 Fixed-Income Securitization - Part 1: Introduction — Volume 6: Fixed Income | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 6: Thu Nhập Cố Định
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 17 Fixed-Income Securitization - Part 1: Introduction</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM17_Full_Fixed_Income_Securitization.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (9 trang)...</option>
+          <option value="453">PDF Page 453</option>
+<option value="454">PDF Page 454</option>
+<option value="455">PDF Page 455</option>
+<option value="456">PDF Page 456</option>
+<option value="457">PDF Page 457</option>
+<option value="458">PDF Page 458</option>
+<option value="459">PDF Page 459</option>
+<option value="460">PDF Page 460</option>
+<option value="461">PDF Page 461</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 6</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Thu Nhập Cố Định</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 6</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Fixed_Income_Instrument_Features.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Fixed-Income Instrument Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Bond_Indentures_and_Covenants.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bond Indentures and Covenants</a>
+<a href="LM02_Full_Fixed_Income_Cash_Flows_and_Types.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Fixed-Income Cash Flows and Types</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Fixed_Income_Contingency_Provisions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Fixed-Income Contingency Provisions</a>
+<a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Fixed-Income Issuance and Trading</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Primary and Secondary Fixed-Income Markets</a>
+<a href="LM04_Full_Fixed_Income_Markets_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Fixed-Income Markets for Corporate Issuers</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Repurchase_Agreements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Repurchase Agreements</a>
+<a href="LM04_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM05_Full_Fixed_Income_Markets_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Fixed-Income Markets for Government Issuers</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Non_Sovereign_Quasi_Government_and_Supranatio.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign, Quasi-Government, and Supranational Agency Debt</a>
+<a href="LM06_Full_Fixed_Income_Bond_Valuation_Prices_and_Yields.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Fixed-Income Bond Valuation: Prices and Yields</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Relationships_between_Bond_Prices_and_Bond_Fe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Relationships between Bond Prices and Bond Features</a>
+<a href="LM07_Full_Yield_and_Yield_Spread_Measures_for_Fixed_Rat.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Yield and Yield Spread Measures for Fixed-Rate Bonds</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Spread Measures for Fixed-Rate Bonds and Matrix Pricing</a>
+<a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Measures for Money Market Instruments</a>
+<a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Par_and_Forward_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Par and Forward Rates</a>
+<a href="LM09_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM10_Full_Interest_Rate_Risk_and_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Interest Rate Risk and Return</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Macaulay_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Macaulay Duration</a>
+<a href="LM11_Full_Yield_Based_Bond_Duration_Measures_and_Proper.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Yield-Based Bond Duration Measures and Properties</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Money_Duration_and_Price_Value_of_a_Basis_Poi.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money Duration and Price Value of a Basis Point</a>
+<a href="LM12_Full_Yield_Based_Bond_Convexity_and_Portfolio_Prop.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Yield-Based Bond Convexity and Portfolio Properties</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Portfolio_Duration_and_Convexity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Duration and Convexity</a>
+<a href="LM13_Full_Curve_Based_and_Empirical_Fixed_Income_Risk_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 13 Curve-Based and Empirical Fixed-Income Risk Measures</a>
+<a href="LM13_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM13_Part2_Empirical_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Empirical Duration</a>
+<a href="LM14_Full_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 14 Credit Risk</a>
+<a href="LM14_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Credit Rating Agencies and Credit Ratings</a>
+<a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Factors Impacting Yield Spreads</a>
+<a href="LM14_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM15_Full_Credit_Analysis_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 15 Credit Analysis for Government Issuers</a>
+<a href="LM15_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM15_Part2_Non_Sovereign_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign Credit Risk</a>
+<a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 16 Credit Analysis for Corporate Issuers</a>
+<a href="LM16_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Ratios in Corporate Credit Analysis</a>
+<a href="LM16_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM17_Full_Fixed_Income_Securitization.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 17 Fixed-Income Securitization</a>
+<a href="LM17_Part1_Introduction.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 1: Introduction</a>
+<a href="LM17_Part2_The_Securitization_Process.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Securitization Process</a>
+<a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</a>
+<a href="LM18_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Mortgage Asset-Backed Securities</a>
+<a href="LM18_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM19_Full_Mortgage_Backed_Security_MBS_Instrument_and_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 19 Mortgage-Backed Security (MBS) Instrument and Market Features</a>
+<a href="LM19_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM19_Part2_Residential_Mortgage_Backed_Securities_RMBS.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Residential Mortgage-Backed Securities (RMBS)</a>
+<a href="LM19_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 6 • Fixed Income (Thu Nhập Cố Định)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 17 Fixed-Income Securitization - Part 1: Introduction</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('06_Fixed_Income/LM17_Part1_Introduction.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 6: Fixed Income</h1>
+<h2>Learning Module 17 Fixed-Income Securitization</h2>
+<h3>Part 1/2: Introduction (PDF Pages 453–461)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 6: Chứng Khoán Thu Nhập Cố Định (Fixed Income)</h1>
+<h2>Học phần 17: Chứng Khoán Hóa Thu Nhập Cố Định (Fixed-Income Securitization)</h2>
+<h3>Phần 1/2: Giới thiệu (Trang PDF 453–461)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-453" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 453 / Trang PDF 453
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>L E A R N I N G M O D U L E <strong><mark>17</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>H Ọ C P H Ầ N <strong><mark>17</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Fixed-Income Securitization</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Chứng Khoán Hóa Thu Nhập Cố Định (Fixed-Income Securitization)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><mark>LEARNING OUTCOMES</mark></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><mark>MỤC TIÊU HỌC TẬP (LEARNING OUTCOMES)</mark></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><em>Mastery The candidate should be able to:</em></strong> explain benefits of securitization for issuers, investors, economies, and financial markets describe securitization, including the parties and the roles they play</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong><em>Mức độ thành thạo – Ứng viên cần có khả năng:</em></strong>
+- Giải thích lợi ích của chứng khoán hóa (<em>securitization</em>) đối với tổ chức phát hành (<em>issuers</em>), nhà đầu tư (<em>investors</em>), nền kinh tế và các thị trường tài chính.
+- Mô tả quy trình chứng khoán hóa, bao gồm các bên tham gia và vai trò của họ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>INTRODUCTION</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>GIỚI THIỆU (INTRODUCTION)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>1</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>1</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Asset-backed securities (ABS) are securities backed by and repaid from a pooled group of loans or receivables. Creating securities that are repaid from particular types of loans or receivables transfers risk, provides flexibility to issuers and investors, and efficiently allocates capital. In a securitization, cash flows from a designated pool of assets are redistributed by a special purpose issuer to pay interest and principal to investors in a predetermined manner. Thus, ABS transactions create an entire new subordination structure on the designated pool of assets. Securitization takes place around the world — in the Americas, Asia, and Europe. This first of three Fixed-Income Learning Modules describes the benefits of securitization, the securitization process, and typical securitization structures.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Chứng khoán đảm bảo bằng tài sản (<em>Asset-backed securities</em> – ABS)</strong> là các chứng khoán được đảm bảo và hoàn trả từ một nhóm tập hợp (<em>pooled group</em>) các khoản vay hoặc khoản phải thu (<em>loans or receivables</em>). Việc tạo ra các chứng khoán được hoàn trả từ các loại khoản vay hoặc khoản phải thu cụ thể giúp chuyển giao rủi ro, mang lại sự linh hoạt cho tổ chức phát hành và nhà đầu tư, đồng thời phân bổ vốn một cách hiệu quả. Trong một giao dịch chứng khoán hóa, dòng tiền từ một danh mục tài sản được chỉ định sẽ được phân phối lại bởi một tổ chức phát hành có mục đích đặc biệt (<em>special purpose issuer</em>) để thanh toán tiền lãi và nợ gốc cho các nhà đầu tư theo một phương thức đã được xác định trước. Do đó, các giao dịch ABS tạo ra một cấu trúc phân tầng thứ bậc ưu tiên (<em>subordination structure</em>) hoàn toàn mới trên danh mục tài sản được chỉ định. Chứng khoán hóa diễn ra trên khắp thế giới — tại châu Mỹ, châu Á và châu Âu. Học phần đầu tiên trong chuỗi ba Học phần về Thu nhập Cố định này mô tả những lợi ích của chứng khoán hóa, quy trình chứng khoán hóa và các cấu trúc chứng khoán hóa điển hình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE OVERVIEW</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỔNG QUAN HỌC PHẦN (LEARNING MODULE OVERVIEW)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Securitization benefits investors by redistributing payment risks, enhancing the predictability of payments, diminishing the impact of unexpected changes in payment patterns (such as defaults, prepayments, or payment extensions), helping investors match risk, return and maturity needs, and reducing risk through various credit enhancements.</p>
+</li>
+<li>
+<p>Securitization enables issuers to operate more efficiently on a risk-adjusted basis by removing assets and lending risks from their balance sheets (thereby reducing their leverage), expanding their capacity to originate loans and to secure lower funding costs.</p>
+</li>
+<li>
+<p>Securitization enhances financial market efficiency, improving overall liquidity in the financial system and reducing liquidity risk.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Chứng khoán hóa mang lại lợi ích cho nhà đầu tư thông qua việc phân phối lại rủi ro thanh toán, nâng cao khả năng dự báo của các khoản thanh toán, giảm thiểu tác động của những thay đổi bất ngờ trong mô hình thanh toán (chẳng hạn như vỡ nợ (<em>defaults</em>), trả nợ trước hạn (<em>prepayments</em>) hoặc gia hạn thanh toán (<em>payment extensions</em>)), giúp nhà đầu tư kết hợp phù hợp nhu cầu về rủi ro, tỷ suất sinh lợi và kỳ hạn, đồng thời giảm thiểu rủi ro thông qua các biện pháp tăng cường tín dụng (<em>credit enhancements</em>) khác nhau.</p>
+</li>
+<li>
+<p>Chứng khoán hóa cho phép các tổ chức phát hành hoạt động hiệu quả hơn trên cơ sở điều chỉnh theo rủi ro (<em>risk-adjusted basis</em>) bằng cách loại bỏ tài sản và rủi ro cho vay khỏi bảng cân đối kế toán của họ (từ đó làm giảm đòn bẩy tài chính), mở rộng năng lực khởi tạo khoản vay (<em>originate loans</em>) và tiếp cận chi phí huy động vốn thấp hơn.</p>
+</li>
+<li>
+<p>Chứng khoán hóa nâng cao tính hiệu quả của thị trường tài chính, cải thiện thanh khoản tổng thể trong hệ thống tài chính và giảm thiểu rủi ro thanh khoản (<em>liquidity risk</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-454" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 454 / Trang PDF 454
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Several parties participate in a securitization, including the original corporate issuers of the assets (for example, loans, receivables, leases, or debt) to be securitized; a special purpose entity (SPE) created to buy/own these corporate assets, create new assets from them, and sell the new assets to investors; the servicer of the underlying loans or debt; and other (third-party) entities (for example, accountants, attorneys, and underwriters).</p>
+</li>
+<li>
+<p>When an original issuer elects to securitize assets, it first establishes an SPE to which it sells the assets. The SPE then issues and sells to investors securities backed by these assets. Interest and principal payments on the assets are used to pay the investors in the new securities.</p>
+</li>
+<li>
+<p>The separate legal entity structure of the SPE is designed to protect the underlying assets from any claims by creditors of the issuer should the issuer go into financial distress. However, ABS investors should evaluate the legal considerations of the actual jurisdiction where they purchase an ABS, since legal frameworks vary by country.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Nhiều bên tham gia vào một giao dịch chứng khoán hóa, bao gồm các tổ chức phát hành doanh nghiệp ban đầu của các tài sản (ví dụ: các khoản vay, khoản phải thu, hợp đồng thuê hoặc khoản nợ) sẽ được chứng khoán hóa; một <strong>pháp nhân có mục đích đặc biệt (<em>Special Purpose Entity</em> – SPE)</strong> được thành lập để mua/sở hữu các tài sản doanh nghiệp này, tạo ra các tài sản mới từ chúng và bán các tài sản mới đó cho nhà đầu tư; <strong>tổ chức quản lý dịch vụ thu hộ khoản vay (<em>servicer</em>)</strong> của các khoản vay hoặc khoản nợ cơ sở; và các tổ chức (bên thứ ba) khác (ví dụ: kế toán viên, luật sư và tổ chức bảo lãnh phát hành (<em>underwriters</em>)).</p>
+</li>
+<li>
+<p>Khi một tổ chức phát hành ban đầu quyết định chứng khoán hóa tài sản, trước tiên họ thành lập một SPE để bán tài sản cho pháp nhân đó. Sau đó, SPE phát hành và bán cho các nhà đầu tư các chứng khoán được đảm bảo bằng những tài sản này. Các khoản thanh toán lãi và gốc từ các tài sản cơ sở được sử dụng để chi trả cho các nhà đầu tư nắm giữ chứng khoán mới.</p>
+</li>
+<li>
+<p>Cấu trúc pháp nhân độc lập của SPE được thiết kế nhằm bảo vệ các tài sản cơ sở khỏi bất kỳ quyền đòi nợ nào từ các chủ nợ của tổ chức phát hành trong trường hợp tổ chức phát hành rơi vào tình trạng kiệt quệ tài chính (<em>financial distress</em>). Tuy nhiên, các nhà đầu tư ABS cần đánh giá các khía cạnh pháp lý tại khu vực tài phán thực tế nơi họ mua ABS, vì khuôn khổ pháp lý có sự khác biệt giữa các quốc gia.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE SELF-ASSESSMENT</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỰ ĐÁNH GIÁ HỌC PHẦN (LEARNING MODULE SELF-ASSESSMENT)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các câu hỏi ban đầu này nhằm giúp bạn tự đánh giá mức độ hiểu biết hiện tại của mình về học phần này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Which of the following asset-backed securities (ABS) is <em>most</em> complex?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Covered bonds</p>
+</li>
+<li>
+<p><strong>B.</strong> Pass-through securities</p>
+</li>
+<li>
+<p><strong>C.</strong> Collateralized mortgage obligations</p>
+</li>
+<li>
+<p><strong>Solution</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Loại chứng khoán đảm bảo bằng tài sản (<em>Asset-backed securities</em> – ABS) nào sau đây là <em>phức tạp nhất</em>?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Trái phiếu có bảo đảm (<em>Covered bonds</em>)</p>
+</li>
+<li>
+<p><strong>B.</strong> Chứng khoán chuyển tiếp dòng tiền (<em>Pass-through securities</em>)</p>
+</li>
+<li>
+<p><strong>C.</strong> Nghĩa vụ nợ thế chấp có tài sản đảm bảo (<em>Collateralized mortgage obligations</em> – CMO)</p>
+</li>
+<li>
+<p><strong>Lời giải (Solution)</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. Collateralized mortgage obligations enhance the predictability of payment patterns of pass-through securities by redistributing the cash flows in the pool across the different tranches according to a preset schedule. A is incorrect because covered bonds are the simplest securitization structure. The issuer segregates (but retains) the underlying loans/assets and then uses the segregated loans/assets as collateral for the covered bonds it issues. B is incorrect because pass-through securities, while true securitizations (meaning that the pool of assets is removed from the balance sheet and transferred into a separate and independent legal entity), are not as complex as collateralized mortgage obligations.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Nghĩa vụ nợ thế chấp có tài sản đảm bảo (<em>Collateralized mortgage obligations</em> – CMO) nâng cao khả năng dự báo của mô hình thanh toán ở chứng khoán chuyển tiếp dòng tiền (<em>pass-through securities</em>) bằng cách phân phối lại dòng tiền trong danh mục qua các phần/lớp chứng khoán (<em>tranches</em>) khác nhau theo một lịch trình thiết lập trước. A không đúng vì trái phiếu có bảo đảm (<em>covered bonds</em>) là cấu trúc chứng khoán hóa đơn giản nhất. Tổ chức phát hành tách biệt (nhưng vẫn giữ lại) các khoản vay/tài sản cơ sở và sau đó sử dụng các khoản vay/tài sản được tách biệt đó làm tài sản thế chấp (<em>collateral</em>) cho các trái phiếu có bảo đảm mà họ phát hành. B không đúng vì chứng khoán chuyển tiếp dòng tiền (<em>pass-through securities</em>), mặc dù là chứng khoán hóa thực sự (nghĩa là danh mục tài sản được loại bỏ khỏi bảng cân đối kế toán và chuyển giao sang một pháp nhân độc lập và tách biệt), vẫn không phức tạp bằng nghĩa vụ nợ thế chấp có tài sản đảm bảo (CMO).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Which of the following legal documents in the securitization process describes the structure of the securitization, including the priority of payments and the credit enhancements to be used?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Prospectus</p>
+</li>
+<li>
+<p><strong>B.</strong> Notes issued by the SPE</p>
+</li>
+<li>
+<p><strong>C.</strong> Purchase agreement between the seller of the collateral and the SPE</p>
+</li>
+<li>
+<p><strong>Solution</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Tài liệu pháp lý nào sau đây trong quy trình chứng khoán hóa mô tả cấu trúc của giao dịch chứng khoán hóa, bao gồm thứ tự ưu tiên thanh toán (<em>priority of payments</em>) và các biện pháp tăng cường tín dụng (<em>credit enhancements</em>) sẽ được sử dụng?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Bản cáo bạch (<em>Prospectus</em>)</p>
+</li>
+<li>
+<p><strong>B.</strong> Trái phiếu/kỳ phiếu do SPE phát hành (<em>Notes issued by the SPE</em>)</p>
+</li>
+<li>
+<p><strong>C.</strong> Hợp đồng mua bán (<em>Purchase agreement</em>) giữa bên bán tài sản thế chấp và SPE</p>
+</li>
+<li>
+<p><strong>Lời giải (Solution)</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The correct answer is A. The prospectus describes the structure of the securitization, including the priority and amount of payments to be made to the servicer, administrators, and the ABS holders, as well as the credit enhancements used in the securitization. B is incorrect because the notes issued by the SPE are the actual asset-backed-securities (ABS), not legal documents</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đáp án đúng là A. Bản cáo bạch (<em>prospectus</em>) mô tả cấu trúc của giao dịch chứng khoán hóa, bao gồm thứ tự ưu tiên và số tiền thanh toán sẽ được chi trả cho tổ chức quản lý dịch vụ thu hộ (<em>servicer</em>), các nhà quản trị (<em>administrators</em>), và những người nắm giữ ABS, cũng như các biện pháp tăng cường tín dụng được sử dụng trong giao dịch chứng khoán hóa. B không đúng vì các trái phiếu/kỳ phiếu do SPE phát hành chính là các chứng khoán đảm bảo bằng tài sản (ABS) thực tế, chứ không phải là tài liệu pháp lý</p></div>
+                </div>
+                
+
+                <div id="pdf-page-455" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 455 / Trang PDF 455
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>supporting the securitization process. C is incorrect because the purchase agreement between the seller of the collateral and the SPE outlines the representations and warranties that the seller makes about the assets sold.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>hỗ trợ cho quy trình chứng khoán hóa. C không đúng vì hợp đồng mua bán (<em>purchase agreement</em>) giữa bên bán tài sản thế chấp và SPE nêu rõ các cam đoan và bảo đảm (<em>representations and warranties</em>) mà bên bán đưa ra về các tài sản được bán.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Identify the role that corresponds to each of the following participants in a securitization:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Xác định vai trò tương ứng với từng bên tham gia sau đây trong một giao dịch chứng khoán hóa:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>1. Seller</th>
+<th>A. The entitythat issues the ABS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2. Servicer</td>
+<td>h<br>B. The entity that wishes to increase liquidity, lower funding</td>
+</tr>
+<tr>
+<td></td>
+<td>h<br>costs, and operate more efficientlyon a risk-adjusted basis</td>
+</tr>
+<tr>
+<td>3. SPE</td>
+<td>fi<br>C. The entity that collects payments from borrowers</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bên tham gia</th>
+<th>Vai trò</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Bên bán (<em>Seller</em>)</td>
+<td>A. Pháp nhân phát hành ABS</td>
+</tr>
+<tr>
+<td>2. Tổ chức quản lý dịch vụ thu hộ (<em>Servicer</em>)</td>
+<td>B. Pháp nhân mong muốn tăng thanh khoản, giảm chi phí huy động vốn và hoạt động hiệu quả hơn trên cơ sở điều chỉnh theo rủi ro</td>
+</tr>
+<tr>
+<td>3. Pháp nhân có mục đích đặc biệt (<em>SPE</em>)</td>
+<td>C. Pháp nhân thu tiền thanh toán từ những người đi vay</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (Solution)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> B is correct. By removing assets and lending risks from their balance sheet, the seller can operate more efficiently on a risk-adjusted basis. And, by selling the assets to an SPE, investors can rely on the default risk associated with collecting payments from customers, rather than the seller’s credit quality and default risk. As a result, in aggregate, the funding cost of a securitization may be lower than that of a corporate bond issue.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> B là đáp án đúng. Bằng cách loại bỏ tài sản và rủi ro cho vay khỏi bảng cân đối kế toán, bên bán (<em>seller</em>) có thể hoạt động hiệu quả hơn trên cơ sở điều chỉnh theo rủi ro. Đồng thời, bằng cách bán tài sản cho một SPE, các nhà đầu tư có thể dựa vào rủi ro vỡ nợ gắn liền với việc thu tiền thanh toán từ khách hàng, thay vì chất lượng tín dụng và rủi ro vỡ nợ của chính bên bán. Kết quả là, xét trên tổng thể, chi phí huy động vốn của một giao dịch chứng khoán hóa có thể thấp hơn so với việc phát hành trái phiếu doanh nghiệp.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> C is correct. Loan servicing refers to administering any aspect of a loan, including collecting payments from borrowers, notifying borrowers who may be delinquent, and recovering and disposing of the underlying asset if the borrower does not make the payments as scheduled.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> C là đáp án đúng. Dịch vụ quản lý khoản vay (<em>loan servicing</em>) đề cập đến việc quản trị mọi khía cạnh của khoản vay, bao gồm thu tiền thanh toán từ người đi vay, thông báo cho những người đi vay có thể bị quá hạn thanh toán (<em>delinquent</em>), cũng như thu hồi và thanh lý tài sản cơ sở nếu người đi vay không thực hiện thanh toán theo đúng lịch trình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> A is correct. The SPE purchases the assets from the seller and then issues and sells ABS backed by the pool of securitized assets.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> A là đáp án đúng. SPE mua lại các tài sản từ bên bán và sau đó phát hành cũng như bán ABS được đảm bảo bằng danh mục tài sản đã được chứng khoán hóa.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Identify the benefit of securitization that corresponds most closely to each of the following parties: (A. Economies and Financial Markets, B. Issuers, C. Investors):</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Xác định lợi ích của chứng khoán hóa tương ứng gần nhất với từng bên sau đây: (A. Nền kinh tế và Thị trường Tài chính (<em>Economies and Financial Markets</em>), B. Tổ chức phát hành (<em>Issuers</em>), C. Nhà đầu tư (<em>Investors</em>)):</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>1. By removing assets and lending risks from their bal-<br>ance sheet, <strong><em>_</em></strong>__ can operate more efficiently on<br>a risk adjusted basis. Ultimately, securitization enables<br><strong><em>_</em></strong>____ to expand lending origination beyond their<br>balance sheets.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2. Securitization allows <strong><em>_</em></strong>___ to tailor interest rate<br>and credit risk exposures to suit their specific risk, return,<br>and maturityneeds.</td>
+</tr>
+<tr>
+<td>3. Securitization creates tradable securities with higher<br>liquidity than that of the original, thereby making<br><strong><em>_</em></strong>____ more efficient, improving overall liquidity and<br>reducingliquidityrisk</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mô tả lợi ích</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Bằng cách loại bỏ tài sản và rủi ro cho vay khỏi bảng cân đối kế toán, <strong><em>_</em></strong>__ có thể hoạt động hiệu quả hơn trên cơ sở điều chỉnh theo rủi ro. Cuối cùng, chứng khoán hóa cho phép <strong><em>_</em></strong>____ mở rộng hoạt động khởi tạo cho vay vượt ra ngoài quy mô bảng cân đối kế toán của họ.</td>
+</tr>
+<tr>
+<td>2. Chứng khoán hóa cho phép <strong><em>_</em></strong>___ tùy chỉnh mức độ tiếp xúc rủi ro lãi suất và rủi ro tín dụng sao cho phù hợp với nhu cầu cụ thể về rủi ro, tỷ suất sinh lợi và kỳ hạn của họ.</td>
+</tr>
+<tr>
+<td>3. Chứng khoán hóa tạo ra các chứng khoán có thể giao dịch với tính thanh khoản cao hơn so với tài sản gốc ban đầu, qua đó làm cho <strong><em>_</em></strong>____ hiệu quả hơn, cải thiện thanh khoản tổng thể và giảm thiểu rủi ro thanh khoản.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0455-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0455-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (Solution)</strong></h6></div>
+                </div>
+                
+
+                <div id="pdf-page-456" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 456 / Trang PDF 456
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0456-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0456-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+1. Bằng cách loại bỏ tài sản và rủi ro cho vay khỏi bảng cân đối kế toán... → <strong>B. Tổ chức phát hành (<em>Issuers</em>)</strong>
+2. Chứng khoán hóa cho phép tùy chỉnh mức độ tiếp xúc rủi ro lãi suất và rủi ro tín dụng... → <strong>C. Nhà đầu tư (<em>Investors</em>)</strong>
+3. Chứng khoán hóa tạo ra các chứng khoán có thể giao dịch với tính thanh khoản cao hơn... → <strong>A. Nền kinh tế và Thị trường Tài chính (<em>Economies and Financial Markets</em>)</strong></p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> B is correct. By removing assets and lending risks from their balance sheet, <em>issuers</em> can operate more efficiently on a risk adjusted basis. Ultimately, securitization enables <em>issuers</em> to expand lending origination beyond their balance sheets.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> B là đáp án đúng. Bằng cách loại bỏ tài sản và rủi ro cho vay khỏi bảng cân đối kế toán, <em>các tổ chức phát hành (issuers)</em> có thể hoạt động hiệu quả hơn trên cơ sở điều chỉnh theo rủi ro. Cuối cùng, chứng khoán hóa cho phép <em>các tổ chức phát hành</em> mở rộng hoạt động khởi tạo cho vay vượt ra ngoài quy mô bảng cân đối kế toán của họ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> C is correct. Securitization allows <em>investors</em> to tailor interest rate and credit risk exposures to suit their specific risk, return, and maturity needs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> C là đáp án đúng. Chứng khoán hóa cho phép <em>các nhà đầu tư (investors)</em> tùy chỉnh mức độ tiếp xúc rủi ro lãi suất và rủi ro tín dụng sao cho phù hợp với nhu cầu cụ thể về rủi ro, tỷ suất sinh lợi và kỳ hạn của họ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> A is correct. Securitization creates tradable securities with higher liquidity than that of the original, thereby making <em>economies and financial markets</em> more efficient, improving overall liquidity and reducing liquidity risk.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> A là đáp án đúng. Chứng khoán hóa tạo ra các chứng khoán có thể giao dịch với tính thanh khoản cao hơn so với tài sản gốc ban đầu, qua đó làm cho <em>các nền kinh tế và thị trường tài chính (economies and financial markets)</em> hiệu quả hơn, cải thiện thanh khoản tổng thể và giảm thiểu rủi ro thanh khoản.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>2</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>2</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>THE BENEFITS OF SECURITIZATION</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>LỢI ÍCH CỦA CHỨNG KHOÁN HÓA (THE BENEFITS OF SECURITIZATION)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain benefits of securitization for issuers, investors, economies, and financial markets</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Mục tiêu học tập:</strong> Giải thích lợi ích của chứng khoán hóa đối với tổ chức phát hành, nhà đầu tư, nền kinh tế và các thị trường tài chính.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The securitization process pools and transfers the ownership of cash flow generating assets, such as loans or receivables, from the original lender into a specially created legal entity. The pool of assets are the securitized assets, also called the reference portfolio or collateral. In turn, that legal entity issues securities backed by these pooled assets to investors and uses the cash flows to pay interest and repay the principal to investors. Securitization creates a direct link between investors and borrowers for many types of loans and receivables, and it provides benefits for issuers and investors as well as economies and financial markets. The steps of the securitization process are outlined in Exhibit 1.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Quy trình chứng khoán hóa tập hợp (<em>pools</em>) và chuyển giao quyền sở hữu các tài sản tạo ra dòng tiền (<em>cash flow generating assets</em>), chẳng hạn như các khoản vay hoặc khoản phải thu, từ bên cho vay ban đầu sang một pháp nhân được thành lập đặc biệt. Danh mục tập hợp các tài sản này được gọi là <strong>tài sản chứng khoán hóa (<em>securitized assets</em>)</strong>, hay còn gọi là <strong>danh mục tham chiếu (<em>reference portfolio</em>)</strong> hoặc <strong>tài sản thế chấp (<em>collateral</em>)</strong>. Đến lượt mình, pháp nhân đó phát hành các chứng khoán được đảm bảo bằng các tài sản tập hợp này cho nhà đầu tư và sử dụng dòng tiền thu được để thanh toán tiền lãi và hoàn trả nợ gốc cho nhà đầu tư. Chứng khoán hóa tạo ra mối liên kết trực tiếp giữa nhà đầu tư và người đi vay đối với nhiều loại khoản vay và khoản phải thu khác nhau, đồng thời mang lại lợi ích cho tổ chức phát hành, nhà đầu tư cũng như các nền kinh tế và thị trường tài chính. Các bước của quy trình chứng khoán hóa được phác thảo trong Bảng minh họa 1 (<em>Exhibit 1</em>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-457" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 457 / Trang PDF 457
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 1: The Securitization Process</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Bảng minh họa 1: Quy trình Chứng khoán hóa (Exhibit 1: The Securitization Process)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0457-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0457-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Original source of assets</strong>: Nguồn tài sản ban đầu → <strong>Pooled assets with similar features</strong>: Các tài sản có đặc điểm tương đồng được tập hợp lại → <em>(Chuyển giao tài sản từ tổ chức khởi tạo sang SPE)</em> → <strong>Special purpose entity (SPE)</strong>: Pháp nhân có mục đích đặc biệt (SPE) → <em>(SPE phát hành ABS cho nhà đầu tư)</em> → <strong>Asset-backed securities (ABS)</strong>: Chứng khoán đảm bảo bằng tài sản (ABS) → <strong>ABS investors</strong>: Nhà đầu tư ABS.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>There are several different types of securitized products. In order of increasing complexity, the following products are examples of ABS.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Có nhiều loại sản phẩm chứng khoán hóa khác nhau. Theo thứ tự mức độ phức tạp tăng dần, các sản phẩm sau đây là những ví dụ về ABS:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Covered bonds are the simplest securitization structure. The issuers, mainly European banks, create a specific pool of mortgage loans on the balance sheet of the bank and segregate it from other bank assets. This pool then serves as collateral (“cover”) for bonds issued by the bank. Should the issuing bank default on a covered bond issue, investors can use the collateral underlying the pool to receive payment. Covered bonds are not considered full securitizations because the underlying assets are not transferred to a separate independent SPE but rather remain on the issuing bank’s balance sheet. Moreover, covered bond investors receive payment directly from the bank and not from the cash flow generated by the specific pool of mortgage loans.</p>
+</li>
+<li>
+<p>Pass-through securities are true securitizations: The specific pool of assets is removed from the balance sheet and transferred into a separate and independent legal entity. That legal entity then issues securities backed by these pooled assets. The investors in these securities receive the principal and interest payments from the assets (often loans) in the pool as they are “passed through” the legal entity. Pass-through securities pass through the payments proportionally across the different tranches and redistribute the payment risks to investors seeking differing levels of risk exposures. The payments investors receive vary and depend directly on the overall credit risk of the pool and payment patterns.</p>
+</li>
+<li>
+<p>Bonds with structural enhancements enhance the predictability of payment patterns of pass-through securities by redistributing the cash flows in the pool across specified tranches according to a preset schedule. The set payment schedule mitigates the impact of unexpected changes in payment patterns, such as defaults, prepayments, or extended repayment periods. Additionally, tranches are subordinated with lower tranches assuming greater risks of defaults and changes in repayment patterns than higher tranches. They may further mitigate and redistribute the potential credit risk of a risky pool of securitized loans by adding various types of credit enhancements to further reduce the risk investors are exposed to.</p>
+</li>
+<li>
+<p>Mortgage-backed securities (MBS) are ABS backed by a pool of mortgages. A distinction is sometimes made between MBS and ABS backed by non-mortgage assets. This distinction is common in the United States and is shown in Exhibit 2.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>Trái phiếu có bảo đảm (<em>Covered bonds</em>)</strong> là cấu trúc chứng khoán hóa đơn giản nhất. Các tổ chức phát hành, chủ yếu là các ngân hàng châu Âu, tạo ra một danh mục cụ thể gồm các khoản vay thế chấp trên bảng cân đối kế toán của ngân hàng và tách biệt (<em>segregate</em>) nó khỏi các tài sản khác của ngân hàng. Danh mục này sau đó đóng vai trò là tài sản thế chấp ("bảo đảm" – <em>cover</em>) cho các trái phiếu do ngân hàng phát hành. Trong trường hợp ngân hàng phát hành vỡ nợ đối với đợt phát hành trái phiếu có bảo đảm, các nhà đầu tư có thể sử dụng tài sản thế chấp cơ sở của danh mục này để nhận thanh toán. Trái phiếu có bảo đảm không được coi là chứng khoán hóa toàn phần (<em>full securitizations</em>) bởi vì các tài sản cơ sở không được chuyển giao sang một SPE độc lập tách biệt mà vẫn nằm trên bảng cân đối kế toán của ngân hàng phát hành. Hơn nữa, nhà đầu tư trái phiếu có bảo đảm nhận thanh toán trực tiếp từ ngân hàng chứ không phải từ dòng tiền tạo ra bởi danh mục các khoản vay thế chấp cụ thể đó.</p>
+</li>
+<li>
+<p><strong>Chứng khoán chuyển tiếp dòng tiền (<em>Pass-through securities</em>)</strong> là các giao dịch chứng khoán hóa thực sự (<em>true securitizations</em>): Danh mục tài sản cụ thể được loại bỏ khỏi bảng cân đối kế toán và chuyển giao sang một pháp nhân độc lập và tách biệt. Pháp nhân đó sau đó phát hành các chứng khoán được đảm bảo bằng các tài sản tập hợp này. Các nhà đầu tư vào những chứng khoán này nhận các khoản thanh toán gốc và lãi từ các tài sản (thường là các khoản vay) trong danh mục khi chúng được "chuyển tiếp" (<em>passed through</em>) qua pháp nhân đó. Chứng khoán chuyển tiếp dòng tiền chuyển tiếp các khoản thanh toán theo tỷ lệ tương ứng qua các lớp chứng khoán (<em>tranches</em>) khác nhau và phân phối lại rủi ro thanh toán cho các nhà đầu tư đang tìm kiếm các mức độ tiếp xúc rủi ro khác nhau. Các khoản thanh toán mà nhà đầu tư nhận được sẽ biến đổi và phụ thuộc trực tiếp vào rủi ro tín dụng tổng thể của danh mục cũng như mô hình thanh toán.</p>
+</li>
+<li>
+<p><strong>Trái phiếu có tăng cường cấu trúc (<em>Bonds with structural enhancements</em>)</strong> nâng cao khả năng dự báo của mô hình thanh toán ở chứng khoán chuyển tiếp dòng tiền bằng cách phân phối lại dòng tiền trong danh mục qua các lớp chứng khoán (<em>tranches</em>) được chỉ định theo một lịch trình thiết lập trước. Lịch trình thanh toán cố định này làm giảm thiểu tác động của những thay đổi bất ngờ trong mô hình thanh toán, chẳng hạn như vỡ nợ (<em>defaults</em>), trả nợ trước hạn (<em>prepayments</em>), hoặc kéo dài thời gian trả nợ (<em>extended repayment periods</em>). Ngoài ra, các lớp chứng khoán được phân tầng thứ bậc ưu tiên (<em>subordinated</em>), trong đó các lớp cấp thấp hơn (<em>lower tranches</em>) gánh chịu rủi ro vỡ nợ và rủi ro thay đổi mô hình trả nợ lớn hơn so với các lớp cấp cao hơn (<em>higher tranches</em>). Chúng có thể tiếp tục giảm thiểu và phân phối lại rủi ro tín dụng tiềm ẩn của một danh mục các khoản vay chứng khoán hóa nhiều rủi ro bằng cách bổ sung nhiều hình thức tăng cường tín dụng (<em>credit enhancements</em>) khác nhau nhằm giảm hơn nữa rủi ro mà nhà đầu tư phải đối mặt.</p>
+</li>
+<li>
+<p><strong>Chứng khoán đảm bảo bằng thế chấp (<em>Mortgage-backed securities</em> – MBS)</strong> là các chứng khoán ABS được đảm bảo bằng một danh mục các khoản vay thế chấp bất động sản (<em>mortgages</em>). Đôi khi người ta phân biệt giữa MBS và ABS được đảm bảo bằng các tài sản phi thế chấp (<em>non-mortgage assets</em>). Sự phân biệt này rất phổ biến tại Hoa Kỳ và được thể hiện trong Bảng minh họa 2 (<em>Exhibit 2</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-458" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 458 / Trang PDF 458
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Pass-Through Securities</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 2: Chứng khoán chuyển tiếp dòng tiền (Exhibit 2: Pass-Through Securities)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0458-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0458-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Pass-Through Securities (Chứng khoán chuyển tiếp dòng tiền)</strong> vs. <strong>Subgroup (Phân nhóm)</strong>:
+  - <strong>Mortgage-backed securities (Chứng khoán đảm bảo bằng thế chấp – MBS)</strong>:
+    - Chứng khoán đảm bảo bằng thế chấp nhà ở (<em>Residential Mortgage-Backed Securities</em> – RMBS)
+    - Chứng khoán đảm bảo bằng thế chấp thương mại (<em>Commercial Mortgage-Backed Securities</em> – CMBS)
+    - Nghĩa vụ nợ thế chấp có tài sản đảm bảo (<em>Collateralized Mortgage Obligation</em> – CMO)
+  - <strong>Non-Mortgage-backed securities (Chứng khoán đảm bảo bằng tài sản phi thế chấp)</strong>:
+    - Nghĩa vụ nợ có tài sản đảm bảo (<em>Collateralized Debt Obligation</em> – CDO)
+    - Nghĩa vụ khoản vay có tài sản đảm bảo (<em>Collateralized Loan Obligation</em> – CLO)
+    - Nghĩa vụ trái phiếu có tài sản đảm bảo (<em>Collateralized Bond Obligation</em> – CBO)
+    - Nghĩa vụ nợ có tài sản đảm bảo bậc hai (<em>Collateralized Debt Obligation Squared</em> – CDO Squared)</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 3: Securitization Structure and Tranche Cash Flows</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 3: Cấu trúc Chứng khoán hóa và Dòng tiền của các Lớp chứng khoán (Exhibit 3: Securitization Structure and Tranche Cash Flows)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0458-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0458-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Bonds with Structural Enhancements (Trái phiếu có tăng cường cấu trúc) — Ví dụ: SPV (Quỹ tín thác – Trust)</strong>:
+  - <strong>Tài sản (Assets – được mua bởi SPV)</strong>: Nhiều tài sản (\$100), Lợi suất (<em>Yield</em>) = MRR + 250 bps → <em>Dòng tiền (Cash flows)</em> →
+  - <strong>Nợ phải trả (Liabilities – chứng khoán phát hành bởi SPV)</strong>:
+    - Lớp ưu tiên cấp cao (<em>Senior</em> – \$70): Xếp hạng Aaa/AAA, lãi suất MRR + 40 bps
+    - Lớp trung gian (<em>Mezzanine</em> – \$20): Xếp hạng Baa/BBB, lãi suất MRR + 250 bps
+    - Lớp vốn cổ phần (<em>Equity</em> – \$10): Hưởng dòng tiền còn lại (<em>Residual cash flows</em>)</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Subordination</strong> , or tranching, in the securitization transaction involves creating more than one bond class or tranche, and the bond classes differ in how they receive cash flows from the underlying pool of assets. The bond classes are classified as senior bond classes or subordinated bond classes, and this structure is also referred to as a senior/subordinated structure as seen in Exhibit 3. The subordinated bond classes are sometimes called “non-senior bond classes” or “junior bond classes.” Since all investors in a securitization are paid from the same underlying cash flow pool, the tranching dictates the order of payments made to investors and the order in which losses are absorbed by the investors.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Sự phân tầng thứ bậc ưu tiên (<em>Subordination</em>)</strong>, hay <strong>phân lớp chứng khoán (<em>tranching</em>)</strong>, trong giao dịch chứng khoán hóa bao gồm việc tạo ra nhiều hơn một hạng trái phiếu (<em>bond class</em>) hay lớp chứng khoán (<em>tranche</em>), và các hạng trái phiếu này khác nhau ở cách thức chúng nhận dòng tiền từ danh mục tài sản cơ sở. Các hạng trái phiếu được phân loại thành các hạng trái phiếu cấp cao (<em>senior bond classes</em>) hoặc các hạng trái phiếu cấp thấp (<em>subordinated bond classes</em>), và cấu trúc này còn được gọi là <strong>cấu trúc cấp cao/cấp thấp (<em>senior/subordinated structure</em>)</strong> như được thấy trong Bảng minh họa 3. Các hạng trái phiếu cấp thấp đôi khi được gọi là "các hạng trái phiếu không ưu tiên (<em>non-senior bond classes</em>)" hoặc "các hạng trái phiếu thứ cấp (<em>junior bond classes</em>)". Vì tất cả các nhà đầu tư trong một giao dịch chứng khoán hóa đều được thanh toán từ cùng một danh mục dòng tiền cơ sở, nên việc phân lớp chứng khoán (<em>tranching</em>) sẽ quy định thứ tự thanh toán cho các nhà đầu tư cũng như thứ tự mà các khoản lỗ được hấp thụ bởi các nhà đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Benefits to Issuers</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lợi ích đối với Tổ chức phát hành (Benefits to Issuers)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Traditionally, banks underwrite loans to allow borrowers to finance various purchases and direct investments. These bank loans, which typically remain on the balance sheet of the bank until the loans are fully repaid, are relatively illiquid.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Theo truyền thống, các ngân hàng thẩm định và cấp các khoản vay (<em>underwrite loans</em>) để cho phép người đi vay tài trợ cho các giao dịch mua sắm và đầu tư trực tiếp khác nhau. Các khoản vay ngân hàng này, vốn thường nằm lại trên bảng cân đối kế toán của ngân hàng cho đến khi được hoàn trả đầy đủ, có tính thanh khoản tương đối thấp (<em>illiquid</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Banks act as the intermediary between borrowers and investors. If they can separate loan origination from loan financing, they can improve their profitability, earning origination fees and reducing capital requirements for loans that are sold to investors, as shown in Exhibit 4. As we learned in the example on asset-backed commercial paper (ABCP) in an earlier learning module, by removing assets and lending risks</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ngân hàng đóng vai trò là trung gian giữa người đi vay và nhà đầu tư. Nếu có thể tách rời hoạt động khởi tạo khoản vay (<em>loan origination</em>) khỏi hoạt động tài trợ khoản vay (<em>loan financing</em>), ngân hàng có thể cải thiện khả năng sinh lời, thu phí khởi tạo khoản vay (<em>origination fees</em>) và giảm yêu cầu vốn pháp định (<em>capital requirements</em>) đối với các khoản vay đã được bán cho nhà đầu tư, như thể hiện trong Bảng minh họa 4. Như chúng ta đã tìm hiểu trong ví dụ về thương phiếu đảm bảo bằng tài sản (<em>Asset-backed commercial paper</em> – ABCP) ở học phần trước, bằng cách loại bỏ tài sản và rủi ro cho vay</p></div>
+                </div>
+                
+
+                <div id="pdf-page-459" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 459 / Trang PDF 459
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>from their balance sheet, banks sell illiquid assets and operate more efficiently on a risk-adjusted basis. Selling assets also generates fee income. Ultimately, securitization enables banks to expand lending origination beyond their balance sheets.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>khỏi bảng cân đối kế toán của mình, các ngân hàng bán đi những tài sản kém thanh khoản và hoạt động hiệu quả hơn trên cơ sở điều chỉnh theo rủi ro. Việc bán tài sản cũng tạo ra thu nhập từ phí (<em>fee income</em>). Cuối cùng, chứng khoán hóa cho phép các ngân hàng mở rộng hoạt động khởi tạo cho vay vượt ra ngoài quy mô bảng cân đối kế toán của mình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 4: Banks and Securitization</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 4: Ngân hàng và Chứng khoán hóa (Exhibit 4: Banks and Securitization)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0459-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0459-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Ngân hàng (Bank)</strong>: Tài sản (<em>Assets</em>: Tiền mặt – <em>Cash</em>, Khoản vay – <em>Loans</em>, Tài sản khác – <em>Other assets</em>) | Nguồn vốn (<em>Liabilities</em>: Tiền gửi – <em>Deposits</em>, Nợ – <em>Debt</em>, Vốn chủ sở hữu – <em>Equity</em>).
+- <em>(Ngân hàng bán các khoản vay cho Pháp nhân có mục đích đặc biệt (SPE) và nhận tiền mặt)</em>
+- <strong>Pháp nhân có mục đích đặc biệt (Special Purpose Entity – SPE)</strong>: Tài sản (<em>Assets</em>: Các khoản vay – <em>Loans</em>) | Nợ phải trả (<em>Liabilities</em>: ABS được phát hành – <em>ABS issued</em>).
+- <em>(Các nhà đầu tư trả tiền mặt để mua ABS do SPE phát hành)</em></p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Without ABS as an investment instrument, investors wanting to gain exposure to private debts would have to directly underwrite loans, hold some combination of bank debt and common equity, or purchase loans from bank outright. Direct debt underwriting requires specialized skills in credit evaluation, origination, underwriting, and servicing, and one has to assume the operational costs and business risks of banking. ABS investment breaks down the wide range of skills and risks and redistributes them to appropriate parties.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu không có ABS làm công cụ đầu tư, các nhà đầu tư muốn tiếp xúc với các khoản nợ tư nhân sẽ phải trực tiếp thẩm định và cấp khoản vay, nắm giữ một sự kết hợp nào đó giữa nợ ngân hàng và cổ phiếu phổ thông của ngân hàng, hoặc mua đứt các khoản vay trực tiếp từ ngân hàng. Việc trực tiếp thẩm định cho vay đòi hỏi các kỹ năng chuyên môn về đánh giá tín dụng, khởi tạo, thẩm định bảo lãnh và quản lý dịch vụ thu hộ khoản vay, đồng thời phải gánh chịu các chi phí hoạt động và rủi ro kinh doanh của ngành ngân hàng. Đầu tư vào ABS giúp phân tách phạm vi rộng lớn các kỹ năng và rủi ro này, rồi phân phối lại chúng cho các bên phù hợp.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Benefits to Investors</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lợi ích đối với Nhà đầu tư (Benefits to Investors)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Securitization provides a direct conduit between borrowers and investors, allowing investors to tailor interest rate and credit risk exposures to suit their specific risk, return, and maturity needs. Securitization transactions allow issuers to design risk– return characteristics to satisfy the risk tolerance of investors.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chứng khoán hóa cung cấp một kênh dẫn truyền trực tiếp (<em>direct conduit</em>) giữa người đi vay và nhà đầu tư, cho phép nhà đầu tư tùy chỉnh mức độ tiếp xúc rủi ro lãi suất và rủi ro tín dụng sao cho phù hợp với nhu cầu cụ thể về rủi ro, tỷ suất sinh lợi và kỳ hạn của họ. Các giao dịch chứng khoán hóa cho phép tổ chức phát hành thiết kế các đặc tính rủi ro – tỷ suất sinh lợi nhằm đáp ứng mức độ chấp nhận rủi ro (<em>risk tolerance</em>) của các nhà đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Although few institutional or individual investors have the specialized resources and expertise needed to originate, monitor, and collect the payments from the underlying loans and receivables, many can invest in securities backed by such loans or receivables. The ABS that are created by pooling these loans and receivables have characteristics similar to those of a standard bond.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù rất ít nhà đầu tư tổ chức hoặc cá nhân có đủ nguồn lực chuyên biệt và chuyên môn cần thiết để khởi tạo, giám sát và thu hồi các khoản thanh toán từ các khoản vay và khoản phải thu cơ sở, nhưng nhiều nhà đầu tư có thể đầu tư vào các chứng khoán được đảm bảo bằng các khoản vay hoặc khoản phải thu đó. Các chứng khoán ABS được tạo ra bằng cách tập hợp các khoản vay và khoản phải thu này có những đặc điểm tương tự như một trái phiếu tiêu chuẩn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For example, a pension fund with a long-term horizon can use securitized debt to achieve higher returns, match asset maturities to anticipated liability payout dates, and increase diversity in its asset pool while maintaining the option to adjust holdings quickly and cost-effectively. Thus, holding securitized debt helps pension fund investors increase exposure to the risk–return characteristics of a wider range of underlying assets.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ, một quỹ hưu trí (<em>pension fund</em>) với tầm nhìn đầu tư dài hạn có thể sử dụng nợ chứng khoán hóa để đạt được tỷ suất sinh lợi cao hơn, khớp kỳ hạn tài sản với các ngày chi trả nghĩa vụ nợ dự kiến, và tăng tính đa dạng hóa trong danh mục tài sản của mình trong khi vẫn duy trì quyền chọn điều chỉnh danh mục nắm giữ một cách nhanh chóng và tiết kiệm chi phí. Do đó, việc nắm giữ nợ chứng khoán hóa giúp các nhà đầu tư quỹ hưu trí gia tăng mức độ tiếp xúc với các đặc tính rủi ro – tỷ suất sinh lợi của một phạm vi tài sản cơ sở rộng lớn hơn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 1</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 1 (EXAMPLE 1)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Benefits of Securitized Debt for Long-term Investors</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lợi ích của Nợ Chứng khoán hóa đối với Nhà đầu tư Dài hạn (Benefits of Securitized Debt for Long-term Investors)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Pawas Singhvi, an investment manager for a defined benefit pension fund at a large manufacturer, is discussing investment options and expectations with a new associate, Kevin Epstein. Epstein asks why Singhvi holds a significant portion of fund assets in securitized debt. Singhvi explains that a number of parameters and expectations influence the investments selected for the pension fund, starting with asset and income diversification. The fund seeks safe, diversified assets and income streams, which offer low risk. Anticipated pension payments or outflows</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Pawas Singhvi, nhà quản lý đầu tư cho một quỹ hưu trí có mức hưởng xác định (<em>defined benefit pension fund</em>) tại một công ty sản xuất lớn, đang thảo luận về các lựa chọn và kỳ vọng đầu tư với một cộng sự mới, Kevin Epstein. Epstein hỏi tại sao Singhvi lại nắm giữ một tỷ trọng đáng kể tài sản của quỹ dưới dạng nợ chứng khoán hóa. Singhvi giải thích rằng có một số tham số và kỳ vọng ảnh hưởng đến các khoản đầu tư được lựa chọn cho quỹ hưu trí, bắt đầu từ việc đa dạng hóa tài sản và thu nhập. Quỹ tìm kiếm các tài sản và dòng thu nhập an toàn, đa dạng hóa với mức rủi ro thấp. Các khoản chi trả lương hưu dự kiến hoặc dòng tiền chi ra</p></div>
+                </div>
+                
+
+                <div id="pdf-page-460" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 460 / Trang PDF 460
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>from the fund drive the need for liquid and stable investments, which mature or can be sold easily to match the timing of required cash outflows. Any fund investments must be highly rated.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>từ quỹ thúc đẩy nhu cầu đối với các khoản đầu tư có tính thanh khoản cao và ổn định, có kỳ hạn đáo hạn hoặc có thể bán đi dễ dàng để khớp với thời điểm của các dòng tiền chi ra bắt buộc. Bất kỳ khoản đầu tư nào của quỹ cũng phải có xếp hạng tín nhiệm cao (<em>highly rated</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Because pension payouts take place over many years into the future, pension assets must be invested long-term, too. And the fund’s assets must grow over time in order to produce promised pension payments at the levels required in the future. While public, government-issued debt is highly rated and typically safe, it alone may not produce sufficient returns to meet future obligations. By contrast, holding investment-grade, publicly traded, securitized debt, which can be traded, allows us to garner higher returns and to respond quickly to changes in market sentiment, risk sensitivity, or funding needs at low transaction costs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bởi vì các khoản chi trả lương hưu diễn ra trong nhiều năm tới trong tương lai, nên tài sản của quỹ hưu trí cũng phải được đầu tư trong dài hạn. Và tài sản của quỹ phải tăng trưởng theo thời gian để tạo ra các khoản chi trả lương hưu đã cam kết ở mức độ yêu cầu trong tương lai. Mặc dù nợ công do chính phủ phát hành có xếp hạng tín nhiệm cao và thường an toàn, nhưng chỉ riêng công cụ này có thể không tạo ra đủ tỷ suất sinh lợi để đáp ứng các nghĩa vụ trong tương lai. Ngược lại, việc nắm giữ nợ chứng khoán hóa thuộc nhóm đầu tư (<em>investment-grade</em>), được giao dịch công khai và có thể mua bán trên thị trường, cho phép chúng ta thu được tỷ suất sinh lợi cao hơn và phản ứng nhanh chóng trước những thay đổi trong tâm lý thị trường, mức độ nhạy cảm với rủi ro, hoặc nhu cầu thanh toán với chi phí giao dịch thấp.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Benefits to Economies and Financial Markets</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lợi ích đối với Nền kinh tế và Thị trường Tài chính (Benefits to Economies and Financial Markets)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Securitization creates tradable securities with higher liquidity than that of the original loans on the bank’s balance sheet, and trading securities in the secondary market allows investors to determine equilibrium prices—thereby making financial markets more efficient. Securitization also improves overall liquidity in the financial system and reduces liquidity risk.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chứng khoán hóa tạo ra các chứng khoán có thể giao dịch với tính thanh khoản cao hơn so với các khoản vay gốc ban đầu nằm trên bảng cân đối kế toán của ngân hàng, và việc giao dịch chứng khoán trên thị trường thứ cấp cho phép các nhà đầu tư xác định mức giá cân bằng (<em>equilibrium prices</em>) — qua đó làm cho các thị trường tài chính trở nên hiệu quả hơn. Chứng khoán hóa cũng cải thiện thanh khoản tổng thể trong hệ thống tài chính và làm giảm rủi ro thanh khoản.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An important benefit of securitization is that it provides an alternative means of funding business operations beyond traditional financing tools, such as bonds, preferred equity, and common equity. Companies can use securitization to reduce their funding costs by pooling securitizable assets (often receivables and loans), which increases their return on capital versus borrowing though traditional financing methods.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một lợi ích quan trọng của chứng khoán hóa là nó cung cấp một phương thức thay thế để tài trợ cho các hoạt động kinh doanh ngoài các công cụ tài trợ truyền thống như trái phiếu, cổ phiếu ưu đãi và cổ phiếu phổ thông. Các công ty có thể sử dụng chứng khoán hóa để giảm chi phí huy động vốn bằng cách tập hợp các tài sản có thể chứng khoán hóa (thường là các khoản phải thu và khoản vay), giúp làm tăng tỷ suất sinh lợi trên vốn (<em>return on capital</em>) so với việc đi vay thông qua các phương thức tài trợ truyền thống.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Securitization is beneficial to financial markets. Corporate issuers can facilitate the process of selling their products by extending credit to their customers, usually through their financing subsidiary. These subsidiaries specialize in financing and leasing and often issue much of the corporation's consolidated debt, selling receivables either to a bank or directly to an SPE. The company can then securitize these loans, receiving cash from the SPE that then sells them to investors. A company can use these proceeds to fund financing for new customers and sell even more of their product. If the company instead kept these loans to customers on their own balance sheet, they would have to issue additional debt. That would increase their leverage, increase their overall financing and funding costs, and reduce their credit quality. Securitizing loans for their products allows companies to directly tap the financial markets and move loans off their balance sheet. They can thus capture the benefits of a cheaper source of funding without reducing the company’s overall credit quality.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chứng khoán hóa mang lại lợi ích cho các thị trường tài chính. Các tổ chức phát hành doanh nghiệp có thể thúc đẩy quá trình bán sản phẩm của mình bằng cách cấp tín dụng cho khách hàng, thường là thông qua công ty con tài chính (<em>financing subsidiary</em>) của họ. Các công ty con này chuyên về tài trợ và cho thuê tài chính (<em>leasing</em>) và thường phát hành phần lớn nợ hợp nhất của tập đoàn, bán các khoản phải thu cho một ngân hàng hoặc bán trực tiếp cho một SPE. Sau đó, công ty có thể chứng khoán hóa các khoản vay này, nhận tiền mặt từ SPE — tổ chức sau đó sẽ bán chứng khoán cho các nhà đầu tư. Một công ty có thể sử dụng số tiền thu được này để cấp vốn tài trợ cho các khách hàng mới và bán được nhiều sản phẩm hơn nữa. Nếu thay vào đó công ty giữ lại các khoản vay cấp cho khách hàng này trên bảng cân đối kế toán của chính mình, họ sẽ phải phát hành thêm nợ. Điều đó sẽ làm tăng đòn bẩy tài chính, làm tăng tổng chi phí tài trợ và huy động vốn, đồng thời làm giảm chất lượng tín dụng của công ty. Việc chứng khoán hóa các khoản vay mua sản phẩm cho phép các công ty tiếp cận trực tiếp các thị trường tài chính và đưa các khoản vay ra khỏi bảng cân đối kế toán. Nhờ vậy, họ có thể nắm bắt được lợi ích của một nguồn huy động vốn rẻ hơn mà không làm giảm chất lượng tín dụng tổng thể của công ty.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Securitizations may involve any number of revenue-generating assets owned by companies from a variety of industries. Securitization provides efficiencies to the entire system, benefiting many parties. Manufacturers are able to outsource debt servicing, consumers benefit from reduced costs, and investors benefit from diversified investment opportunities. The following are some interesting examples of securitizations.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các giao dịch chứng khoán hóa có thể liên quan đến bất kỳ số lượng tài sản tạo doanh thu nào thuộc sở hữu của các công ty từ nhiều ngành công nghiệp khác nhau. Chứng khoán hóa mang lại hiệu quả cho toàn bộ hệ thống, đem lại lợi ích cho nhiều bên. Các nhà sản xuất có thể thuê ngoài (<em>outsource</em>) dịch vụ quản lý thu hồi nợ, người tiêu dùng được hưởng lợi từ chi phí giảm xuống, và các nhà đầu tư được hưởng lợi từ các cơ hội đầu tư đa dạng hóa. Dưới đây là một số ví dụ thú vị về chứng khoán hóa.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 2</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 2 (EXAMPLE 2)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Examples of Securitizations</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Các Ví dụ về Chứng khoán hóa (Examples of Securitizations)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Notes securitized by music royalties and licensing agreements (which allow places such as restaurants or retail stores to play popular music) have been issued. In 2019, the performing-rights company, SESAC, issued securitized bonds backed by its music royalties and licensing agreements with more than 30,000 artists, including Adele, Bob Dylan, Kesha, Gabriel Mann, and R.E.M. The largest piece of the securitization was a fixed-rate note, worth $530 million with a weighted</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các trái phiếu/kỳ phiếu được chứng khoán hóa bằng tiền bản quyền âm nhạc (<em>music royalties</em>) và các hợp đồng cấp phép (<em>licensing agreements</em> – cho phép những nơi như nhà hàng hoặc cửa hàng bán lẻ phát nhạc đại chúng) đã được phát hành. Năm 2019, công ty quản lý quyền biểu diễn SESAC đã phát hành trái phiếu chứng khoán hóa được đảm bảo bằng tiền bản quyền âm nhạc và các hợp đồng cấp phép của mình với hơn 30.000 nghệ sĩ, bao gồm Adele, Bob Dylan, Kesha, Gabriel Mann và R.E.M. Phần lớn nhất của giao dịch chứng khoán hóa này là một kỳ phiếu lãi suất cố định (<em>fixed-rate note</em>), trị giá 530 triệu USD với thời gian đáo hạn bình quân gia quyền</p></div>
+                </div>
+                
+
+                <div id="pdf-page-461" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 461 / Trang PDF 461
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>average life of 6.7 years. The note offered a yield of 5.25%. The smaller portion of the deal was a floating-rate note, worth $30 million with a weighted average life of 4.9 years, which was not publicly offered. This type of offering is known as a “whole-business securitization.” This type of bond usually is backed by such assets as restaurant franchise agreements or other unusual assets and typically pays higher rates than more traditional ABS tied to consumer debt.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>(<em>weighted average life</em>) là 6,7 năm. Kỳ phiếu này mang lại mức lợi suất 5,25%. Phần nhỏ hơn của thương vụ là một kỳ phiếu lãi suất thả nổi (<em>floating-rate note</em>), trị giá 30 triệu USD với thời gian đáo hạn bình quân gia quyền là 4,9 năm, không được chào bán ra công chúng. Loại hình chào bán này được gọi là <strong>"chứng khoán hóa toàn bộ hoạt động kinh doanh" (<em>whole-business securitization</em>)</strong>. Loại trái phiếu này thường được đảm bảo bằng các tài sản như hợp đồng nhượng quyền thương mại nhà hàng (<em>restaurant franchise agreements</em>) hoặc các tài sản đặc thù khác và thường trả lãi suất cao hơn so với các chứng khoán ABS truyền thống gắn liền với nợ tiêu dùng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In 2021, Yum! Brands, the parent company of such fast-food chains as KFC, Pizza Hut, and Taco Bell, issued USD2.3 billion in notes securitized by cash flows from franchised Taco Bell locations through a special purpose subsidiary, Taco Bell Funding.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Năm 2021, Yum! Brands, công ty mẹ của các chuỗi thức ăn nhanh như KFC, Pizza Hut và Taco Bell, đã phát hành 2,3 tỷ USD kỳ phiếu được chứng khoán hóa bằng dòng tiền từ các cửa hàng Taco Bell nhượng quyền thông qua một công ty con có mục đích đặc biệt là Taco Bell Funding.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Although securitization brings many benefits to economies, it is not without risks. Broadly, these risks fall into two categories: risks that relate primarily to the timing of the ABS’s cash flows, such as contraction risk and extension risk, and risks related to the inherent credit risk of the loans and receivables backing the ABS. Later modules will address how securitization structures reduce these risks. Some of these risks are widely attributed to have precipitated the turmoil in financial markets during 2007–2009.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù chứng khoán hóa mang lại nhiều lợi ích cho nền kinh tế, nhưng nó không phải là không có rủi ro. Nhìn chung, những rủi ro này rơi vào hai nhóm chính: các rủi ro liên quan chủ yếu đến thời điểm nhận dòng tiền của ABS, chẳng hạn như <strong>rủi ro thu hẹp kỳ hạn (<em>contraction risk</em>)</strong> và <strong>rủi ro kéo dài kỳ hạn (<em>extension risk</em>)</strong>, và các rủi ro liên quan đến rủi ro tín dụng vốn có của các khoản vay và khoản phải thu đảm bảo cho ABS. Các học phần sau sẽ đề cập đến cách thức các cấu trúc chứng khoán hóa giảm thiểu những rủi ro này. Một số rủi ro trong số này được cho là nguyên nhân rộng khắp đã châm ngòi cho sự hỗn loạn trên các thị trường tài chính trong giai đoạn 2007–2009.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (QUESTION SET)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Identify three benefits of securitization to issuers of ABS. <strong>Solution</strong></li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Xác định ba lợi ích của chứng khoán hóa đối với các tổ chức phát hành ABS.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> By removing assets and lending risks from their balance sheet, banks can sell illiquid assets and <em>operate more efficiently</em> on a risk-adjusted basis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Lời giải (Solution)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> Selling assets also <em>generates fee income</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Bằng cách loại bỏ tài sản và rủi ro cho vay khỏi bảng cân đối kế toán, các ngân hàng có thể bán đi các tài sản kém thanh khoản và <em>hoạt động hiệu quả hơn</em> trên cơ sở điều chỉnh theo rủi ro.</p>
+<p><strong>2.</strong> Việc bán tài sản cũng <em>tạo ra thu nhập từ phí (fee income)</em>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> Ultimately, securitization enables banks to <em>expand lending origination beyond their balance sheets</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Cuối cùng, chứng khoán hóa cho phép các ngân hàng <em>mở rộng hoạt động khởi tạo cho vay vượt ra ngoài quy mô bảng cân đối kế toán của họ</em>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Identify two benefits of securitization to investors. <strong>Solution</strong></li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Xác định hai lợi ích của chứng khoán hóa đối với các nhà đầu tư.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> Securitization allows investors to tailor interest rate and credit risk exposures to suit their specific risk, return, and maturity needs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Lời giải (Solution)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> Securitization allows investors to gain exposure to a wider range of imperfectly correlated assets to build more efficient and diversified portfolios.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Chứng khoán hóa cho phép các nhà đầu tư tùy chỉnh mức độ tiếp xúc rủi ro lãi suất và rủi ro tín dụng sao cho phù hợp với nhu cầu cụ thể về rủi ro, tỷ suất sinh lợi và kỳ hạn của họ.</p>
+<p><strong>2.</strong> Chứng khoán hóa cho phép các nhà đầu tư tiếp cận một phạm vi rộng hơn các tài sản có tương quan không hoàn hảo (<em>imperfectly correlated assets</em>) để xây dựng các danh mục đầu tư hiệu quả và đa dạng hóa hơn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Matching asset maturities to anticipated liability payout dates and increasing diversity in an asset pool while maintaining the option to adjust holdings quickly and cost-effectively is <em>most likely</em> a benefit to:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> issuers.</p>
+</li>
+<li>
+<p><strong>B.</strong> investors.</p>
+</li>
+<li>
+<p><strong>C.</strong> economies and financial markets.</p>
+</li>
+<li>
+<p><strong>Solution</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Việc khớp kỳ hạn của tài sản với các ngày chi trả nghĩa vụ nợ dự kiến và tăng tính đa dạng hóa trong danh mục tài sản trong khi vẫn duy trì quyền chọn điều chỉnh danh mục nắm giữ một cách nhanh chóng và tiết kiệm chi phí <em>nhiều khả năng nhất</em> là một lợi ích đối với:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> các tổ chức phát hành (<em>issuers</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> các nhà đầu tư (<em>investors</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> các nền kinh tế và thị trường tài chính (<em>economies and financial markets</em>).</p>
+</li>
+<li>
+<p><strong>Lời giải (Solution)</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The correct answer is B. Matching asset maturities to anticipated liability payout dates and increasing diversity in an asset pool while maintaining the option to adjust holdings quickly and cost-effectively is most likely a benefit to investors. For example, a pension fund with a long-term horizon can use securitized debt gains to achieve higher returns, match asset maturities to</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đáp án đúng là B. Việc khớp kỳ hạn của tài sản với các ngày chi trả nghĩa vụ nợ dự kiến và tăng tính đa dạng hóa trong danh mục tài sản trong khi vẫn duy trì quyền chọn điều chỉnh danh mục nắm giữ một cách nhanh chóng và tiết kiệm chi phí nhiều khả năng nhất là một lợi ích đối với các nhà đầu tư. Ví dụ, một quỹ hưu trí có tầm nhìn đầu tư dài hạn có thể sử dụng lợi ích từ nợ chứng khoán hóa để đạt được tỷ suất sinh lợi cao hơn, khớp kỳ hạn tài sản với</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM16_Part3_Practice_Problems.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM16_Part3_Practice_Problems</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 6</a>
+      <a href="LM17_Part2_The_Securitization_Process.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM17_Part2_The_Securitization_Process →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('06_Fixed_Income/LM17_Part1_Introduction.html');
+    });
+  </script>
+</body>
+</html>

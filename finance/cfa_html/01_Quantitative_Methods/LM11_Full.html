@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[Toàn Chương] LM11 — Learning Module 11 Introduction to Big Data Techniques — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">[Toàn Chương] LM11 — Learning Module 11 Introduction to Big Data Techniques</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (14 trang)...</option>
+          <option value="335">PDF Page 335</option>
+<option value="336">PDF Page 336</option>
+<option value="337">PDF Page 337</option>
+<option value="338">PDF Page 338</option>
+<option value="339">PDF Page 339</option>
+<option value="340">PDF Page 340</option>
+<option value="341">PDF Page 341</option>
+<option value="342">PDF Page 342</option>
+<option value="343">PDF Page 343</option>
+<option value="344">PDF Page 344</option>
+<option value="345">PDF Page 345</option>
+<option value="346">PDF Page 346</option>
+<option value="347">PDF Page 347</option>
+<option value="348">PDF Page 348</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">[Toàn Chương] LM11 — Learning Module 11 Introduction to Big Data Techniques</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM11_Full.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 11 Introduction to Big Data Techniques</h2>
+<h3>Part 1/1: Introduction to Big Data Techniques (PDF Pages 335–348)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Các Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 11: Giới thiệu về các Kỹ thuật Dữ liệu Lớn (<em>Introduction to Big Data Techniques</em>)</h2>
+<h3>Phần 1/1: Giới thiệu về các Kỹ thuật Dữ liệu Lớn (Trang PDF 335–348)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-335" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 335 / Trang PDF 335
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>L E A R N I N G M O D U L E <strong><mark>11</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>H Ọ C P H Ầ N <strong><mark>11</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Introduction to Big Data Techniques</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Giới thiệu về các Kỹ thuật Dữ liệu Lớn (<em>Introduction to Big Data Techniques</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>by Robert Kissell, PhD, and Barbara J. Mack.</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Tác giả: Robert Kissell, PhD, và Barbara J. Mack.</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Robert Kissell, PhD, is at Molloy College and Kissell Research Group (USA). Barbara J. Mack is at Pingry Hill Enterprises, Inc. (USA).</em></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Robert Kissell, PhD, công tác tại Molloy College và Kissell Research Group (Hoa Kỳ). Barbara J. Mack công tác tại Pingry Hill Enterprises, Inc. (Hoa Kỳ).</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><mark>LEARNING OUTCOMES</mark></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><mark>MỤC TIÊU HỌC TẬP (<em>LEARNING OUTCOMES</em>)</mark></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong><em>Mastery</em></strong></th>
+<th><strong><em>The candidate should be able to:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>describe aspects of “fintech” that are directly relevant for the<br>gathering and analyzing of financial data</td>
+</tr>
+<tr>
+<td></td>
+<td>describe Big Data, artificial intelligence, and machine learning</td>
+</tr>
+<tr>
+<td></td>
+<td>describe applications of Big Data and Data Science to investment<br>management</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong><em>Mức độ thành thạo</em></strong></th>
+<th><strong><em>Ứng viên cần có khả năng:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>mô tả các khía cạnh của “công nghệ tài chính” (<em>fintech</em>) có liên quan trực tiếp đến việc thu thập và phân tích dữ liệu tài chính</td>
+</tr>
+<tr>
+<td></td>
+<td>mô tả Dữ liệu lớn (<em>Big Data</em>), trí tuệ nhân tạo (<em>artificial intelligence</em> – AI), và học máy (<em>machine learning</em> – ML)</td>
+</tr>
+<tr>
+<td></td>
+<td>mô tả các ứng dụng của Dữ liệu lớn (<em>Big Data</em>) và Khoa học Dữ liệu (<em>Data Science</em>) vào quản lý đầu tư</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>INTRODUCTION</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>GIỚI THIỆU (<em>INTRODUCTION</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><mark>1</mark></strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong><mark>1</mark></strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The meeting of finance and technology, commonly known as <em>fintech</em> , is changing the landscape of investment management. Advancements include the use of Big Data, artificial intelligence, and machine learning to evaluate investment opportunities, optimize portfolios, and mitigate risks. These developments are affecting not only quantitative asset managers but also fundamental asset managers who make use of these tools and technologies to engage in hybrid forms of investment decision making.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sự giao thoa giữa tài chính và công nghệ, thường được gọi là <em>công nghệ tài chính</em> (<em>fintech</em>), đang làm thay đổi bức tranh toàn cảnh của ngành quản lý đầu tư. Những tiến bộ bao gồm việc sử dụng Dữ liệu lớn (<em>Big Data</em>), trí tuệ nhân tạo (<em>artificial intelligence</em> – AI), và học máy (<em>machine learning</em> – ML) để đánh giá các cơ hội đầu tư, tối ưu hóa danh mục đầu tư và giảm thiểu rủi ro. Những sự phát triển này đang tác động không chỉ đến các nhà quản lý tài sản định lượng (<em>quantitative asset managers</em>) mà còn cả các nhà quản lý tài sản theo phân tích cơ bản (<em>fundamental asset managers</em>)—những người tận dụng các công cụ và công nghệ này để tham gia vào các hình thức ra quyết định đầu tư kết hợp (<em>hybrid forms</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE OVERVIEW</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỔNG QUAN HỌC PHẦN (<em>LEARNING MODULE OVERVIEW</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Big Data is characterized by the three Vs—volume, velocity, and variety—and includes both traditional and non-traditional (or alternative) datasets. When Big Data is used for inference or prediction, it is important to consider a fourth V: veracity.</p>
+</li>
+<li>
+<p>Among the main sources of alternative data are data generated by individuals, business processes, and sensors.</p>
+</li>
+<li>
+<p>■ Artificial intelligence (AI) computer systems are capable of performing tasks that traditionally required human intelligence at levels comparable (or superior) to those of human beings.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Dữ liệu lớn (<em>Big Data</em>) được đặc trưng bởi ba chữ V—khối lượng (<em>volume</em>), tốc độ (<em>velocity</em>), và sự đa dạng (<em>variety</em>)—và bao gồm cả các tập dữ liệu truyền thống lẫn phi truyền thống (hay dữ liệu thay thế – <em>alternative data</em>). Khi Dữ liệu lớn được sử dụng để suy luận hoặc dự báo, điều quan trọng là phải xem xét chữ V thứ tư: tính xác thực (<em>veracity</em>).</p>
+</li>
+<li>
+<p>Trong số các nguồn dữ liệu thay thế (<em>alternative data</em>) chính có dữ liệu được tạo ra bởi các cá nhân (<em>individuals</em>), các quy trình kinh doanh (<em>business processes</em>), và các cảm biến (<em>sensors</em>).</p>
+</li>
+<li>
+<p>Các hệ thống máy tính trí tuệ nhân tạo (<em>Artificial intelligence</em> – AI) có khả năng thực hiện các tác vụ mà theo truyền thống đòi hỏi trí thông minh của con người ở mức độ tương đương (hoặc vượt trội) so với con người.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-336" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 336 / Trang PDF 336
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Machine learning (ML) seeks to extract knowledge from large amounts of data by “learning” from known examples and then generating structure or predictions. Simply put, ML algorithms aim to “find the pattern, apply the pattern.” Main types of ML include supervised learning, unsupervised learning, and deep learning.</p>
+</li>
+<li>
+<p>Natural language processing (NLP) is an application of text analytics that uses insight into the structure of human language to analyze and interpret text- and voice-based data.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Học máy (<em>Machine learning</em> – ML) tìm cách trích xuất tri thức từ lượng dữ liệu khổng lồ bằng cách “học” từ các ví dụ đã biết và sau đó tạo ra cấu trúc hoặc các dự báo. Nói một cách đơn giản, các thuật toán ML hướng tới mục tiêu “tìm kiếm quy luật, áp dụng quy luật” (<em>find the pattern, apply the pattern</em>). Các loại hình ML chính bao gồm học có giám sát (<em>supervised learning</em>), học không giám sát (<em>unsupervised learning</em>), và học sâu (<em>deep learning</em>).</p>
+</li>
+<li>
+<p>Xử lý ngôn ngữ tự nhiên (<em>Natural language processing</em> – NLP) là một ứng dụng của phân tích văn bản (<em>text analytics</em>) sử dụng sự hiểu biết sâu sắc về cấu trúc ngôn ngữ của con người để phân tích và diễn giải dữ liệu dạng văn bản và giọng nói.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>2</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>2</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>HOW IS FINTECH USED IN QUANTITATIVE INVESTMENT ANALYSIS?</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>FINTECH ĐƯỢC SỬ DỤNG TRONG PHÂN TÍCH ĐẦU TƯ ĐỊNH LƯỢNG NHƯ THẾ NÀO? (<em>HOW IS FINTECH USED IN QUANTITATIVE INVESTMENT ANALYSIS?</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe aspects of “fintech” that are directly relevant for the gathering and analyzing of financial data describe Big Data, artificial intelligence, and machine learning</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>mô tả các khía cạnh của “công nghệ tài chính” (<em>fintech</em>) có liên quan trực tiếp đến việc thu thập và phân tích dữ liệu tài chính</li>
+<li>mô tả Dữ liệu lớn (<em>Big Data</em>), trí tuệ nhân tạo (<em>artificial intelligence</em> – AI), và học máy (<em>machine learning</em> – ML)</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In its broadest sense, the term <strong>fintech</strong> generally refers to technology-driven innovation occurring in the financial services industry. For our purposes, fintech refers to technological innovation in the design and delivery of financial services and products. In common usage, fintech can also refer to companies involved in developing the new technologies and their applications, as well as the business sector that includes such companies. Many of these innovations are challenging the traditional business models of incumbent financial services providers.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Theo nghĩa rộng nhất, thuật ngữ <strong>công nghệ tài chính (<em>fintech</em>)</strong> thường đề cập đến sự đổi mới sáng tạo dựa trên công nghệ đang diễn ra trong ngành dịch vụ tài chính. Đối với mục đích của chúng ta, fintech đề cập đến sự đổi mới công nghệ trong việc thiết kế và cung cấp các dịch vụ và sản phẩm tài chính. Trong cách sử dụng thông thường, fintech cũng có thể đề cập đến các công ty tham gia phát triển các công nghệ mới và ứng dụng của chúng, cũng như lĩnh vực kinh doanh bao gồm các công ty đó. Nhiều đổi mới trong số này đang thách thức các mô hình kinh doanh truyền thống của các nhà cung cấp dịch vụ tài chính hiện hữu (<em>incumbent</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Early forms of fintech included data processing and the automation of routine tasks. Systems that provided execution of decisions according to specified rules and instructions followed. Fintech has advanced into decision-making applications based on complex machine-learning logic, in which computer programs are able to “learn” how to complete tasks over time. In some applications, advanced computer systems are performing tasks at levels that far surpass human capabilities. Fintech has changed the financial services industry in many ways, giving rise to new systems for investment advice, financial planning, business lending, and payments.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các hình thức ban đầu của fintech bao gồm việc xử lý dữ liệu và tự động hóa các tác vụ lặp đi lặp lại thường nhật. Tiếp theo đó là các hệ thống cung cấp việc thực thi quyết định theo các quy tắc và chỉ dẫn được xác định trước. Fintech đã tiến xa sang các ứng dụng ra quyết định dựa trên logic học máy phức tạp, trong đó các chương trình máy tính có khả năng “học” cách hoàn thành các tác vụ theo thời gian. Trong một số ứng dụng, các hệ thống máy tính tiên tiến đang thực hiện các tác vụ ở mức độ vượt xa khả năng của con người. Fintech đã thay đổi ngành dịch vụ tài chính theo nhiều cách, làm nảy sinh các hệ thống mới cho tư vấn đầu tư, lập kế hoạch tài chính, cho vay doanh nghiệp và thanh toán.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Whereas fintech covers a broad range of services and applications, areas of development that are more directly relevant to quantitative analysis in the investment industry include the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù fintech bao phủ một phạm vi rộng lớn các dịch vụ và ứng dụng, những lĩnh vực phát triển có liên quan trực tiếp hơn đến phân tích định lượng trong ngành đầu tư bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>Analysis of large datasets.</strong> In addition to growing amounts of traditional data, such as security prices, corporate financial statements, and economic indicators, massive amounts of <strong>alternative data</strong> generated from non-traditional data sources, such as social media and sensor networks, can now be integrated into a portfolio manager’s investment decision-making process and used to help generate alpha and reduce losses.</p>
+</li>
+<li>
+<p><strong>Analytical tools.</strong> For extremely large datasets, techniques involving <strong>artificial intelligence (AI)</strong> —computer systems capable of performing tasks that previously required human intelligence—might be better suited to identify complex, non-linear relationships than traditional quantitative methods and statistical analysis. Advances in AI-based techniques are enabling different data analysis approaches. For example, analysts are turning to AI to sort through the enormous amounts of data from company filings, annual</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>Phân tích các tập dữ liệu lớn (<em>Analysis of large datasets</em>).</strong> Ngoài lượng dữ liệu truyền thống ngày càng tăng, chẳng hạn như giá chứng khoán, báo cáo tài chính doanh nghiệp và các chỉ báo kinh tế, một lượng khổng lồ <strong>dữ liệu thay thế (<em>alternative data</em>)</strong> được tạo ra từ các nguồn dữ liệu phi truyền thống, chẳng hạn như mạng xã hội và mạng lưới cảm biến, giờ đây có thể được tích hợp vào quy trình ra quyết định đầu tư của nhà quản lý danh mục đầu tư và được sử dụng để giúp tạo ra alpha cũng như giảm thiểu thua lỗ.</p>
+</li>
+<li>
+<p><strong>Các công cụ phân tích (<em>Analytical tools</em>).</strong> Đối với các tập dữ liệu cực lớn, các kỹ thuật liên quan đến <strong>trí tuệ nhân tạo (<em>artificial intelligence</em> – AI)</strong>—các hệ thống máy tính có khả năng thực hiện các tác vụ trước đây đòi hỏi trí thông minh của con người—có thể phù hợp hơn để nhận diện các mối quan hệ phức tạp, phi tuyến tính so với các phương pháp định lượng và phân tích thống kê truyền thống. Những tiến bộ trong các kỹ thuật dựa trên AI đang cho phép áp dụng các cách tiếp cận phân tích dữ liệu khác nhau. Ví dụ, các nhà phân tích đang tìm đến AI để sàng lọc lượng dữ liệu khổng lồ từ hồ sơ công bố của công ty, báo cáo</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-337" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 337 / Trang PDF 337
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>reports, and earnings calls to determine which data are most important and to help uncover trends and generate insights relating to human sentiment and behavior.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>thường niên, và các cuộc gọi công bố thu nhập (<em>earnings calls</em>) nhằm xác định dữ liệu nào là quan trọng nhất và giúp khám phá các xu hướng cũng như tạo ra những hiểu biết sâu sắc (<em>insights</em>) liên quan đến tâm lý và hành vi của con người.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Big Data</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Dữ liệu Lớn (<em>Big Data</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As noted, datasets are growing rapidly in terms of the size and diversity of data types that are available for analysis. The term <strong>Big Data</strong> has been in use since the late 1990s and refers to the vast amount of information being generated by industry, governments, individuals, and electronic devices. Big Data includes data generated from traditional sources—such as stock exchanges, companies, and governments—as well as non-traditional data types, also known as alternative data, arising from the use of electronic devices, social media, sensor networks, and company exhaust (information generated in the normal course of doing business).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Như đã lưu ý, các tập dữ liệu đang tăng trưởng nhanh chóng cả về quy mô lẫn sự đa dạng của các loại dữ liệu có sẵn để phân tích. Thuật ngữ <strong>Dữ liệu lớn (<em>Big Data</em>)</strong> đã được sử dụng từ cuối những năm 1990 và đề cập đến lượng thông tin khổng lồ đang được tạo ra bởi các ngành công nghiệp, chính phủ, cá nhân và các thiết bị điện tử. Dữ liệu lớn bao gồm dữ liệu được tạo ra từ các nguồn truyền thống—chẳng hạn như sở giao dịch chứng khoán, công ty và chính phủ—cũng như các loại dữ liệu phi truyền thống, còn được gọi là dữ liệu thay thế (<em>alternative data</em>), phát sinh từ việc sử dụng các thiết bị điện tử, mạng xã hội, mạng lưới cảm biến, và dữ liệu phụ phẩm của công ty (<em>company exhaust</em> – thông tin được tạo ra trong quá trình hoạt động kinh doanh bình thường).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Traditional data sources include corporate data in the form of annual reports, regulatory filings, sales and earnings figures, and conference calls with analysts. Traditional data also include data that are generated in the financial markets, including trade prices and volumes. Because the world has become increasingly connected, we can now obtain data from a wide range of devices, including smart phones, cameras, microphones, radio-frequency identification (RFID) readers, wireless sensors, and satellites that are now in use all over the world. As the internet and the presence of such networked devices have grown, the use of non-traditional data sources, or alternative data sources—including social media (posts, tweets, and blogs), email and text communications, web traffic, online news sites, and other electronic information sources—has risen.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các nguồn dữ liệu truyền thống bao gồm dữ liệu doanh nghiệp dưới dạng báo cáo thường niên, hồ sơ nộp cho cơ quan quản lý, số liệu doanh thu và thu nhập, và các cuộc họp trực tuyến (<em>conference calls</em>) với các nhà phân tích. Dữ liệu truyền thống cũng bao gồm dữ liệu được tạo ra trên thị trường tài chính, bao gồm giá và khối lượng giao dịch. Bởi vì thế giới ngày càng trở nên kết nối chặt chẽ hơn, giờ đây chúng ta có thể thu thập dữ liệu từ nhiều loại thiết bị khác nhau, bao gồm điện thoại thông minh, máy ảnh, micrô, đầu đọc nhận dạng qua tần số vô tuyến (<em>radio-frequency identification</em> – RFID), cảm biến không dây và vệ tinh hiện đang được sử dụng trên toàn thế giới. Khi internet và sự hiện diện của các thiết bị kết nối mạng như vậy phát triển, việc sử dụng các nguồn dữ liệu phi truyền thống, hay các nguồn dữ liệu thay thế—bao gồm mạng xã hội (bài đăng, tweet và blog), thư điện tử (email) và tin nhắn văn bản, lưu lượng truy cập web, các trang tin tức trực tuyến và các nguồn thông tin điện tử khác—đã tăng lên.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The term <em>Big Data</em> typically refers to datasets that have the following characteristics:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thuật ngữ <em>Dữ liệu lớn</em> (<em>Big Data</em>) thường đề cập đến các tập dữ liệu có các đặc điểm sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>Volume</strong> : The amount of data collected in files, records, and tables is very large, representing many millions, or even billions, of data points.</p>
+</li>
+<li>
+<p><strong>Velocity</strong> : The speed and frequency with which the data are recorded and transmitted has accelerated. Real-time or near-real-time data have become the norm in many areas.</p>
+</li>
+<li>
+<p><strong>Variety</strong> : The data are collected from many different sources and in a variety of formats, including structured data (e.g., SQL tables), semistructured data (e.g., HTML code), and unstructured data (e.g., video messages).</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>Khối lượng (<em>Volume</em>)</strong>: Lượng dữ liệu được thu thập trong các tệp, bản ghi và bảng là rất lớn, đại diện cho hàng triệu, hoặc thậm chí hàng tỷ điểm dữ liệu.</p>
+</li>
+<li>
+<p><strong>Tốc độ (<em>Velocity</em>)</strong>: Tốc độ và tần suất mà dữ liệu được ghi nhận và truyền tải đã tăng tốc. Dữ liệu thời gian thực (<em>real-time</em>) hoặc gần thời gian thực (<em>near-real-time</em>) đã trở thành chuẩn mực trong nhiều lĩnh vực.</p>
+</li>
+<li>
+<p><strong>Sự đa dạng (<em>Variety</em>)</strong>: Dữ liệu được thu thập từ nhiều nguồn khác nhau và dưới nhiều định dạng khác nhau, bao gồm dữ liệu có cấu trúc (<em>structured data</em> – ví dụ: các bảng SQL), dữ liệu bán cấu trúc (<em>semistructured data</em> – ví dụ: mã HTML), và dữ liệu phi cấu trúc (<em>unstructured data</em> – ví dụ: tin nhắn video).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Features relating to big data’s volume, velocity, and variety are shown in Exhibit 1.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các đặc tính liên quan đến khối lượng, tốc độ và sự đa dạng của dữ liệu lớn được trình bày trong Hình 1.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-338" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 338 / Trang PDF 338
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Big Data Characteristics: Volume, Velocity, and Variety</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Hình 1: Các Đặc điểm của Dữ liệu Lớn: Khối lượng (<em>Volume</em>), Tốc độ (<em>Velocity</em>), và Sự đa dạng (<em>Variety</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0338-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0338-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Khối lượng dữ liệu (<em>Data Volume</em>):</strong> Tăng từ MB (Megabyte – Một triệu byte), GB (Gigabyte – Một tỷ byte), TB (Terabyte – Một nghìn tỷ byte) đến PB (Petabyte – Một triệu tỷ byte).
+- <strong>Tốc độ dữ liệu (<em>Data Velocity</em>):</strong> Theo lô (<em>Batch</em>), Định kỳ (<em>Periodic</em>), Gần thời gian thực (<em>Near Real Time</em>), Thời gian thực (<em>Real Time</em>).
+- <strong>Sự đa dạng dữ liệu (<em>Data Variety</em>):</strong> Bảng (<em>Table</em>), Cơ sở dữ liệu (<em>Database</em>), Web, Di động (<em>Mobile</em>), Mạng xã hội (<em>Social</em>), Hình ảnh (<em>Photo</em>), Video, Âm thanh (<em>Audio</em>), Phi cấu trúc (<em>Unstructured</em>).</p>
+</blockquote>
+<p><em>Nguồn</em>: Ivy Wigmore, “Definition: 3Vs (Volume, Variety and Velocity),” WhatIs.com, cập nhật lần cuối tháng 12 năm 2020, http://whatis.techtarget.com/definition/3Vs.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Source</em> : Ivy Wigmore, “Definition: 3Vs (Volume, Variety and Velocity),” WhatIs.com, last updated December 2020, http:// whatis .techtarget .com/ definition/ 3Vs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hình 1 cho thấy khối lượng dữ liệu đang tăng từ megabyte và gigabyte lên các quy mô lớn hơn nhiều, chẳng hạn như terabyte và petabyte, khi ngày càng có nhiều dữ liệu được tạo ra, thu thập và lưu trữ. Đồng thời, ngày càng có nhiều dữ liệu, cả truyền thống lẫn phi truyền thống, sẵn có trên cơ sở thời gian thực hoặc gần thời gian thực với sự đa dạng về loại dữ liệu lớn hơn bao giờ hết.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 1 shows that data volumes are growing from megabytes and gigabytes to far larger sizes, such as terabytes and petabytes, as more data are being generated, captured, and stored. At the same time, more data, traditional and non-traditional, are available on a real-time or near-real-time basis with far greater variety in data types than ever before.</p>
+<p>When Big Data is used for inference or prediction, a “fourth V” comes into play— veracity—which relates to the credibility and reliability of different data sources. Determining the credibility and reliability of data sources is an important part of any empirical investigation. The issue of veracity becomes critically important for Big Data, however, because of the varied sources of these large datasets. Big Data amplifies the age-old challenge of disentangling quality from quantity.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi Dữ liệu lớn được sử dụng để suy luận hoặc dự báo, một “chữ V thứ tư” sẽ phát huy tác dụng—<strong>tính xác thực (<em>veracity</em>)</strong>—liên quan đến mức độ uy tín và độ tin cậy của các nguồn dữ liệu khác nhau. Việc xác định mức độ uy tín và độ tin cậy của các nguồn dữ liệu là một phần quan trọng của bất kỳ cuộc điều tra thực nghiệm nào. Tuy nhiên, vấn đề về tính xác thực trở nên cực kỳ quan trọng đối với Dữ liệu lớn bởi vì các nguồn đa dạng của những tập dữ liệu khổng lồ này. Dữ liệu lớn khuếch đại thách thức muôn thuở trong việc tách bạch chất lượng khỏi số lượng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Big Data can be structured, semi-structured, or unstructured data. Structured data items can be organized in tables and are commonly stored in a database where each field represents the same type of information. Unstructured data can be disparate, unorganized data that cannot be represented in tabular form. Unstructured data, such as those generated by social media, email, text messages, voice recordings, pictures, blogs, scanners, and sensors, often require different, specialized applications or custom programs before they can be useful to investment professionals. For example, to analyze data contained in emails or texts, specially developed or customized computer code might be required to first process these files. Semistructured data can have attributes of both structured and unstructured data.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dữ liệu lớn có thể là dữ liệu có cấu trúc (<em>structured</em>), bán cấu trúc (<em>semi-structured</em>), hoặc phi cấu trúc (<em>unstructured</em>). Các mục dữ liệu có cấu trúc có thể được tổ chức thành các bảng và thường được lưu trữ trong một cơ sở dữ liệu nơi mỗi trường (<em>field</em>) đại diện cho cùng một loại thông tin. Dữ liệu phi cấu trúc có thể là dữ liệu rời rạc, không được tổ chức và không thể biểu diễn dưới dạng bảng. Dữ liệu phi cấu trúc, chẳng hạn như dữ liệu được tạo ra bởi mạng xã hội, email, tin nhắn văn bản, bản ghi âm giọng nói, hình ảnh, blog, máy quét và cảm biến, thường đòi hỏi các ứng dụng chuyên biệt khác nhau hoặc các chương trình tùy chỉnh trước khi chúng có thể trở nên hữu ích cho các chuyên gia đầu tư. Ví dụ, để phân tích dữ liệu chứa trong email hoặc văn bản, có thể cần đến mã máy tính được phát triển đặc biệt hoặc tùy chỉnh để xử lý các tệp này trước tiên. Dữ liệu bán cấu trúc có thể mang các thuộc tính của cả dữ liệu có cấu trúc và dữ liệu phi cấu trúc.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-339" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 339 / Trang PDF 339
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>Sources of Big Data</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>_Các Nguồn của Dữ liệu Lớn (<em>Sources of Big Data</em>)_</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Big Data, therefore, encompasses data generated by the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó, Dữ liệu lớn bao hàm dữ liệu được tạo ra bởi các nguồn sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>financial markets (e.g., equity, fixed income, futures, options, and other derivatives),</p>
+</li>
+<li>
+<p>businesses (e.g., corporate financials, commercial transactions, and credit card purchases),</p>
+</li>
+<li>
+<p>governments (e.g., trade, economic, employment, and payroll data),</p>
+</li>
+<li>
+<p>individuals (e.g., credit card purchases, product reviews, internet search logs, and social media posts),</p>
+</li>
+<li>
+<p>sensors (e.g., satellite imagery, shipping cargo information, and traffic patterns), and, in particular,</p>
+</li>
+<li>
+<p>the Internet of Things, or IoT (e.g., data generated by “smart” buildings, where the building is providing a steady stream of information about climate control, energy consumption, security, and other operational details).</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>thị trường tài chính (ví dụ: cổ phiếu, chứng khoán thu nhập cố định, hợp đồng tương lai, quyền chọn và các công cụ phái sinh khác),</p>
+</li>
+<li>
+<p>doanh nghiệp (ví dụ: báo cáo tài chính doanh nghiệp, các giao dịch thương mại và giao dịch mua hàng bằng thẻ tín dụng),</p>
+</li>
+<li>
+<p>chính phủ (ví dụ: dữ liệu thương mại, kinh tế, việc làm và bảng lương),</p>
+</li>
+<li>
+<p>cá nhân (ví dụ: giao dịch mua hàng bằng thẻ tín dụng, đánh giá sản phẩm, nhật ký tìm kiếm trên internet và các bài đăng trên mạng xã hội),</p>
+</li>
+<li>
+<p>cảm biến (ví dụ: hình ảnh vệ tinh, thông tin hàng hóa vận chuyển đường biển và quy luật giao thông), và đặc biệt là</p>
+</li>
+<li>
+<p>Internet vạn vật (<em>Internet of Things</em> – IoT) (ví dụ: dữ liệu được tạo ra bởi các tòa nhà “thông minh”, nơi tòa nhà cung cấp một luồng thông tin liên tục về kiểm soát khí hậu, mức tiêu thụ năng lượng, an ninh và các chi tiết vận hành khác).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In gathering business intelligence, historically, analysts have tended to draw on traditional data sources, using statistical methods to measure performance, predict future growth, and analyze sector and market trends. In contrast, the analysis of Big Data incorporates the use of alternative data sources.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong việc thu thập thông tin tình báo kinh doanh (<em>business intelligence</em>), về mặt lịch sử, các nhà phân tích có xu hướng dựa vào các nguồn dữ liệu truyền thống, sử dụng các phương pháp thống kê để đo lường hiệu quả hoạt động, dự báo tăng trưởng trong tương lai và phân tích xu hướng ngành cũng như thị trường. Ngược lại, việc phân tích Dữ liệu lớn kết hợp sử dụng các nguồn dữ liệu thay thế (<em>alternative data sources</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>From retail sales data to social media sentiment to satellite imagery that might reveal information about agriculture, shipping, and oil rigs, alternative datasets can provide additional insights about consumer behavior, firm performance, trends, and other factors important for investment-related activities. Such information is having a significant effect on the way that professional investors, particularly quantitative investors, approach financial analysis and decision-making processes. The three main sources of alternative data are</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Từ dữ liệu doanh số bán lẻ đến tâm lý trên mạng xã hội cho đến hình ảnh vệ tinh có thể tiết lộ thông tin về nông nghiệp, vận tải biển và các giàn khoan dầu, các tập dữ liệu thay thế có thể cung cấp thêm những hiểu biết sâu sắc về hành vi của người tiêu dùng, hiệu quả hoạt động của doanh nghiệp, các xu hướng và các yếu tố khác quan trọng đối với các hoạt động liên quan đến đầu tư. Những thông tin như vậy đang có tác động đáng kể đến cách thức mà các nhà đầu tư chuyên nghiệp, đặc biệt là các nhà đầu tư định lượng, tiếp cận phân tích tài chính và quy trình ra quyết định. Ba nguồn dữ liệu thay thế chính là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>data generated by individuals,</p>
+</li>
+<li>
+<p>data generated by business processes, and</p>
+</li>
+<li>
+<p>data generated by sensors.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>dữ liệu được tạo ra bởi các cá nhân (<em>data generated by individuals</em>),</p>
+</li>
+<li>
+<p>dữ liệu được tạo ra bởi các quy trình kinh doanh (<em>data generated by business processes</em>), và</p>
+</li>
+<li>
+<p>dữ liệu được tạo ra bởi các cảm biến (<em>data generated by sensors</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Data generated by individuals are often produced in text, video, photo, and audio formats and also can be generated through such means as website clicks or time spent on a webpage. This type of data tends to be unstructured. The volume of this type of data is growing dramatically as people participate in greater numbers and more frequently in online activities, such as social media and e-commerce, including online reviews of products, services, and entire companies, and as they make personal data available through web searches, email, and other electronic trails.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dữ liệu được tạo ra bởi các cá nhân thường được sản xuất dưới định dạng văn bản, video, hình ảnh và âm thanh, đồng thời cũng có thể được tạo ra thông qua các phương tiện như lượt nhấp chuột trên trang web hoặc thời gian lưu lại trên một trang web. Loại dữ liệu này có xu hướng là phi cấu trúc. Khối lượng của loại dữ liệu này đang tăng lên đáng kể khi mọi người tham gia ngày càng đông đảo và thường xuyên hơn vào các hoạt động trực tuyến, chẳng hạn như mạng xã hội và thương mại điện tử, bao gồm các bài đánh giá trực tuyến về sản phẩm, dịch vụ và toàn bộ công ty, cũng như khi họ để lại dữ liệu cá nhân thông qua các lượt tìm kiếm trên web, email và các dấu vết điện tử khác.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Business process data include information flows from corporations and other public entities. These data tend to be structured data and include direct sales information, such as credit card data, as well as corporate exhaust. Corporate exhaust includes corporate supply chain information, banking records, and retail point-of-sale scanner data. Business process data can be leading or real-time indicators of business performance, whereas traditional corporate metrics might be reported only on a quarterly or even yearly basis and typically are lagging indicators of performance.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dữ liệu quy trình kinh doanh (<em>Business process data</em>) bao gồm các luồng thông tin từ các tập đoàn và các thực thể công cộng khác. Những dữ liệu này có xu hướng là dữ liệu có cấu trúc và bao gồm thông tin bán hàng trực tiếp, chẳng hạn như dữ liệu thẻ tín dụng, cũng như dữ liệu phụ phẩm của doanh nghiệp (<em>corporate exhaust</em>). Dữ liệu phụ phẩm của doanh nghiệp bao gồm thông tin chuỗi cung ứng của công ty, hồ sơ ngân hàng và dữ liệu máy quét tại điểm bán lẻ (<em>point-of-sale</em> – POS). Dữ liệu quy trình kinh doanh có thể là các chỉ báo dẫn dắt (<em>leading indicators</em>) hoặc chỉ báo thời gian thực (<em>real-time indicators</em>) về hiệu quả kinh doanh, trong khi các chỉ số doanh nghiệp truyền thống có thể chỉ được báo cáo theo quý hoặc thậm chí theo năm và thường là các chỉ báo có độ trễ (<em>lagging indicators</em>) về hiệu quả hoạt động.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Sensor data are collected from such devices as smart phones, cameras, RFID chips, and satellites that usually are connected to computers through wireless networks. Sensor data can be unstructured, and the volume of data is many orders of magnitude greater than that of individual or business process datastreams. This form of data is growing exponentially because microprocessors and networking technology are increasingly present in a wide array of personal and commercial electronic devices. Extended to office buildings, homes, vehicles, and many other physical forms, this culminates in a network arrangement, known as the <strong>Internet of Things</strong> , which is formed by the vast</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dữ liệu cảm biến (<em>Sensor data</em>) được thu thập từ các thiết bị như điện thoại thông minh, máy ảnh, chip RFID và vệ tinh thường được kết nối với máy tính thông qua mạng không dây. Dữ liệu cảm biến có thể là phi cấu trúc, và khối lượng dữ liệu lớn hơn nhiều bậc độ lớn (<em>orders of magnitude</em>) so với các luồng dữ liệu từ cá nhân hoặc quy trình kinh doanh. Dạng dữ liệu này đang tăng trưởng theo cấp số nhân bởi vì bộ vi xử lý và công nghệ mạng ngày càng hiện diện nhiều hơn trong hàng loạt các thiết bị điện tử cá nhân và thương mại. Mở rộng ra các tòa nhà văn phòng, nhà ở, phương tiện giao thông và nhiều hình thức vật lý khác, điều này đạt đến đỉnh cao trong một cấu trúc mạng được gọi là <strong>Internet vạn vật (<em>Internet of Things</em> – IoT)</strong>, được hình thành bởi một mạng lưới</p></div>
+                </div>
+                
+
+                <div id="pdf-page-340" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 340 / Trang PDF 340
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>array of physical devices, home appliances, smart buildings, vehicles, and other items that are embedded with electronics, sensors, software, and network connections that enable the objects in the system to interact and share information.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>rộng lớn các thiết bị vật lý, thiết bị gia dụng, tòa nhà thông minh, phương tiện giao thông và các vật dụng khác được nhúng thiết bị điện tử, cảm biến, phần mềm và kết nối mạng cho phép các vật thể trong hệ thống tương tác và chia sẻ thông tin.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 2 shows a classification of alternative data sources and includes examples for each.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng 2 trình bày phân loại các nguồn dữ liệu thay thế và bao gồm các ví dụ cho từng loại.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Classification of Alternative Data Sources</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 2: Phân loại các Nguồn Dữ liệu Thay thế (<em>Classification of Alternative Data Sources</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Individuals</strong></th>
+<th><strong>Business Processes</strong></th>
+<th><strong>Sensors</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Social media</td>
+<td>Transaction data</td>
+<td>Satellites</td>
+</tr>
+<tr>
+<td>News, reviews</td>
+<td>Corporate data</td>
+<td>Geolocation</td>
+</tr>
+<tr>
+<td>Web searches, personal data</td>
+<td></td>
+<td>Internet of Things</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>h<br>Other sensors</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Cá nhân (<em>Individuals</em>)</strong></th>
+<th><strong>Quy trình Kinh doanh (<em>Business Processes</em>)</strong></th>
+<th><strong>Cảm biến (<em>Sensors</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mạng xã hội (<em>Social media</em>)</td>
+<td>Dữ liệu giao dịch (<em>Transaction data</em>)</td>
+<td>Vệ tinh (<em>Satellites</em>)</td>
+</tr>
+<tr>
+<td>Tin tức, đánh giá (<em>News, reviews</em>)</td>
+<td>Dữ liệu doanh nghiệp (<em>Corporate data</em>)</td>
+<td>Định vị địa lý (<em>Geolocation</em>)</td>
+</tr>
+<tr>
+<td>Tìm kiếm web, dữ liệu cá nhân (<em>Web searches, personal data</em>)</td>
+<td></td>
+<td>Internet vạn vật (<em>Internet of Things</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Các cảm biến khác (<em>Other sensors</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In the search to identify new factors that could affect security prices, enhance asset selection, improve trade execution, and uncover trends, alternative data are being used to support data-driven investment models and decisions. As interest in alternative data has risen, the number of specialized firms that collect, aggregate, and sell alternative datasets has grown.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong nỗ lực tìm kiếm nhằm xác định các yếu tố mới có thể ảnh hưởng đến giá chứng khoán, nâng cao khả năng lựa chọn tài sản, cải thiện việc thực thi giao dịch và khám phá các xu hướng, dữ liệu thay thế đang được sử dụng để hỗ trợ các mô hình và quyết định đầu tư dựa trên dữ liệu (<em>data-driven</em>). Khi sự quan tâm đến dữ liệu thay thế tăng lên, số lượng các công ty chuyên biệt thu thập, tổng hợp và bán các tập dữ liệu thay thế cũng đã gia tăng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Although the market for alternative data is expanding, investment professionals should understand the potential legal and ethical issues related to information that is not in the public domain. For example, the <strong>scraping</strong> of web data potentially could capture personal information that is protected by regulations or that might have been published or provided without the explicit knowledge and consent of the individuals involved. Best practices are still in development in many jurisdictions, and because of varying approaches taken by national regulators, the different forms of guidance could conflict.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù thị trường dữ liệu thay thế đang mở rộng, các chuyên gia đầu tư cần hiểu rõ các vấn đề pháp lý và đạo đức tiềm ẩn liên quan đến thông tin không thuộc phạm vi công cộng. Ví dụ, việc <strong>thu thập tự động (<em>scraping</em>)</strong> dữ liệu web có khả năng thu giữ thông tin cá nhân được bảo vệ bởi các quy định pháp luật hoặc có thể đã được công bố hay cung cấp mà không có sự hiểu biết và đồng thuận rõ ràng của các cá nhân liên quan. Các thông lệ tốt nhất (<em>best practices</em>) vẫn đang trong quá trình phát triển ở nhiều khu vực pháp lý, và do cách tiếp cận khác nhau của các cơ quan quản lý quốc gia, các hình thức hướng dẫn khác nhau có thể xảy ra xung đột.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>Big Data Challenges</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>_Những Thách thức của Dữ liệu Lớn (<em>Big Data Challenges</em>)_</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Big Data poses several challenges when it is used in investment analysis, including the quality, volume, and appropriateness of the data. Key issues revolve around the following questions, among others: Does the dataset have selection bias, missing data, or data outliers? Is the volume of collected data sufficient? Is the dataset well suited for the type of analysis? In most instances, the data must be sourced, cleansed, and organized before analysis can occur. This process can be extremely difficult with alternative data because of the unstructured characteristics of the data involved, which more often are qualitative (e.g., texts, photos, and videos) than quantitative in nature.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dữ liệu lớn đặt ra một số thách thức khi được sử dụng trong phân tích đầu tư, bao gồm chất lượng, khối lượng và mức độ phù hợp của dữ liệu. Các vấn đề cốt lõi xoay quanh những câu hỏi sau đây, cùng với nhiều câu hỏi khác: Tập dữ liệu có bị thiên lệch chọn mẫu (<em>selection bias</em>), thiếu dữ liệu (<em>missing data</em>), hay có các giá trị ngoại lai (<em>data outliers</em>) hay không? Khối lượng dữ liệu thu thập được có đủ lớn không? Tập dữ liệu có phù hợp tốt với loại hình phân tích hay không? Trong hầu hết các trường hợp, dữ liệu phải được tìm nguồn, làm sạch (<em>cleansed</em>) và tổ chức sắp xếp trước khi có thể tiến hành phân tích. Quy trình này có thể cực kỳ khó khăn đối với dữ liệu thay thế do các đặc tính phi cấu trúc của dữ liệu liên quan, vốn thường mang bản chất định tính (ví dụ: văn bản, hình ảnh và video) hơn là định lượng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Given the size and complexity of alternative datasets, traditional analytical methods cannot always be used to interpret and evaluate these datasets. To address this challenge, AI and machine learning techniques have emerged that support work on such large and complex sources of information.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Với quy mô và độ phức tạp của các tập dữ liệu thay thế, các phương pháp phân tích truyền thống không phải lúc nào cũng có thể được sử dụng để diễn giải và đánh giá các tập dữ liệu này. Để giải quyết thách thức này, các kỹ thuật AI và học máy (ML) đã xuất hiện nhằm hỗ trợ xử lý các nguồn thông tin lớn và phức tạp như vậy.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>3</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>3</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>ADVANCED ANALYTICAL TOOLS: ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>CÁC CÔNG CỤ PHÂN TÍCH TIÊN TIẾN: TRÍ TUỆ NHÂN TẠO VÀ HỌC MÁY (<em>ADVANCED ANALYTICAL TOOLS: ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING</em>)</strong></h4></div>
+                </div>
+                
+
+                <div id="pdf-page-341" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 341 / Trang PDF 341
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Artificial intelligence (AI) computer systems are capable of performing tasks that traditionally have required human intelligence. AI technology has enabled the development of computer systems that exhibit cognitive and decision-making ability comparable or superior to that of human beings.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các hệ thống máy tính trí tuệ nhân tạo (AI) có khả năng thực hiện các tác vụ mà theo truyền thống đòi hỏi trí thông minh của con người. Công nghệ AI đã cho phép phát triển các hệ thống máy tính thể hiện khả năng nhận thức và ra quyết định tương đương hoặc vượt trội so với con người.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An early example of AI was the <strong>expert system</strong> , a type of computer programming that attempted to simulate the knowledge base and analytical abilities of human experts in specific problem-solving contexts. This was often accomplished through the use of “if–then” rules. By the late 1990s, faster networks and more powerful processors enabled AI to be deployed in logistics, data mining, financial analysis, medical diagnosis, and other areas. Since the 1980s, financial institutions have made use of AI—particularly, <strong>neural networks</strong> , programming based on how our brain learns and processes information—to detect abnormal charges or claims in credit card fraud detection systems.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một ví dụ ban đầu của AI là <strong>hệ chuyên gia (<em>expert system</em>)</strong>, một loại lập trình máy tính cố gắng mô phỏng cơ sở tri thức và khả năng phân tích của các chuyên gia con người trong các bối cảnh giải quyết vấn đề cụ thể. Điều này thường được thực hiện thông qua việc sử dụng các quy tắc “nếu–thì” (<em>if–then rules</em>). Đến cuối những năm 1990, mạng lưới nhanh hơn và bộ vi xử lý mạnh hơn đã cho phép triển khai AI trong hậu cần (<em>logistics</em>), khai phá dữ liệu (<em>data mining</em>), phân tích tài chính, chẩn đoán y tế và các lĩnh vực khác. Kể từ những năm 1980, các định chế tài chính đã tận dụng AI—đặc biệt là <strong>mạng nơ-ron (<em>neural networks</em>)</strong>, phương pháp lập trình dựa trên cách bộ não của chúng ta học hỏi và xử lý thông tin—để phát hiện các khoản phí hoặc yêu cầu bồi thường bất thường trong các hệ thống phát hiện gian lận thẻ tín dụng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Machine learning (ML)</strong> involves computer-based techniques that seek to extract knowledge from large amounts of data without making any assumptions on the data’s underlying probability distribution. The goal of ML algorithms is to automate decision-making processes by generalizing, or “learning,” from known examples to determine an underlying structure in the data. The emphasis is on the ability of the algorithm to generate structure or predictions without any help from a human. Simply put, ML algorithms aim to “find the pattern, apply the pattern.”</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Học máy (<em>Machine learning</em> – ML)</strong> bao gồm các kỹ thuật dựa trên máy tính tìm cách trích xuất tri thức từ lượng dữ liệu lớn mà không đưa ra bất kỳ giả định nào về phân phối xác suất ngầm định của dữ liệu. Mục tiêu của các thuật toán ML là tự động hóa quy trình ra quyết định bằng cách khái quát hóa, hay “học hỏi”, từ các ví dụ đã biết để xác định một cấu trúc ngầm định trong dữ liệu. Trọng tâm đặt vào khả năng của thuật toán trong việc tạo ra cấu trúc hoặc các dự báo mà không cần bất kỳ sự trợ giúp nào từ con người. Nói một cách đơn giản, các thuật toán ML hướng tới mục tiêu “tìm kiếm quy luật, áp dụng quy luật” (<em>find the pattern, apply the pattern</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As it is currently used in the investing context, ML requires massive amounts of data for “training,” so although some ML techniques have existed for years, insufficient data have historically limited broader application. Previously, these algorithms lacked access to the large amounts of data needed to model relationships successfully. The growth in Big Data has provided ML algorithms, including neural networks, with sufficient data to improve modeling and predictive accuracy, and greater use of ML techniques is now possible.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Như cách đang được sử dụng hiện nay trong bối cảnh đầu tư, ML đòi hỏi một lượng dữ liệu khổng lồ để “huấn luyện” (<em>training</em>), vì vậy mặc dù một số kỹ thuật ML đã tồn tại trong nhiều năm, việc thiếu hụt dữ liệu trong lịch sử đã hạn chế khả năng ứng dụng rộng rãi hơn. Trước đây, các thuật toán này thiếu quyền tiếp cận lượng dữ liệu lớn cần thiết để mô hình hóa các mối quan hệ một cách thành công. Sự phát triển của Dữ liệu lớn đã cung cấp cho các thuật toán ML, bao gồm cả mạng nơ-ron, đủ dữ liệu để cải thiện khả năng mô hình hóa và độ chính xác dự báo, và giờ đây việc sử dụng rộng rãi hơn các kỹ thuật ML đã trở nên khả thi.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In ML, the computer algorithm is given “inputs” (a set of variables or datasets) and might be given “outputs” (the target data). The algorithm “learns” from the data provided how best to model inputs to outputs (if provided) or how to identify or describe underlying data structure if no outputs are given. Training occurs as the algorithm identifies relationships in the data and uses that information to refine its learning process.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong ML, thuật toán máy tính được cung cấp “đầu vào” (<em>inputs</em> – một tập hợp các biến số hoặc tập dữ liệu) và có thể được cung cấp “đầu ra” (<em>outputs</em> – dữ liệu mục tiêu). Thuật toán “học” từ dữ liệu được cung cấp cách tốt nhất để mô hình hóa đầu vào thành đầu ra (nếu được cung cấp) hoặc cách nhận diện hay mô tả cấu trúc dữ liệu ngầm định nếu không có đầu ra nào được cung cấp. Quá trình huấn luyện (<em>training</em>) diễn ra khi thuật toán nhận diện các mối quan hệ trong dữ liệu và sử dụng thông tin đó để tinh chỉnh quá trình học của nó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>ML involves splitting the dataset into three distinct subsets: a training dataset, a validation dataset, and a test dataset. The training dataset allows the algorithm to identify relationships between inputs and outputs based on historical patterns in the data. These relationships are then validated, and the model tuned, using the validation dataset. The test dataset is used to test the model’s ability to predict well on new data. Once an algorithm has been trained, validated, and tested, the ML model can be used to predict outcomes based on other datasets.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>ML bao gồm việc chia tập dữ liệu thành ba tập con riêng biệt: <strong>tập dữ liệu huấn luyện (<em>training dataset</em>)</strong>, <strong>tập dữ liệu kiểm định (<em>validation dataset</em>)</strong>, và <strong>tập dữ liệu kiểm tra (<em>test dataset</em>)</strong>. Tập dữ liệu huấn luyện cho phép thuật toán nhận diện các mối quan hệ giữa đầu vào và đầu ra dựa trên các quy luật lịch sử trong dữ liệu. Các mối quan hệ này sau đó được xác thực (<em>validated</em>), và mô hình được tinh chỉnh (<em>tuned</em>), bằng cách sử dụng tập dữ liệu kiểm định. Tập dữ liệu kiểm tra được sử dụng để kiểm tra khả năng dự báo tốt của mô hình trên dữ liệu mới. Một khi thuật toán đã được huấn luyện, kiểm định và kiểm tra, mô hình ML có thể được sử dụng để dự báo kết quả dựa trên các tập dữ liệu khác.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>ML still requires human judgment in understanding the underlying data and selecting the appropriate techniques for data analysis. Before they can be used, the data must be clean and free of biases and spurious data. As noted, ML models also require sufficiently large amounts of data and might not perform well when not enough available data are available to train and validate the model.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>ML vẫn đòi hỏi sự phán đoán của con người trong việc hiểu dữ liệu cơ sở và lựa chọn các kỹ thuật phù hợp để phân tích dữ liệu. Trước khi có thể sử dụng, dữ liệu phải sạch và không có các thiên lệch (<em>biases</em>) cũng như dữ liệu giả mạo (<em>spurious data</em>). Như đã lưu ý, các mô hình ML cũng đòi hỏi lượng dữ liệu đủ lớn và có thể không hoạt động tốt khi không có đủ dữ liệu sẵn có để huấn luyện và kiểm định mô hình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Analysts must be cognizant of errors that could arise from <strong>overfitting</strong> the data, because models that overfit the data might discover “false” relationships or “unsubstantiated” patterns that will lead to prediction errors and incorrect output forecasts. Overfitting occurs when the ML model learns the input and target dataset too precisely. In such cases, the model has been “overtrained” on the data and treats noise in the data as true parameters. An ML model that has been overfitted is not able to accurately predict outcomes using a different dataset and might be too complex. When a model has been <strong>underfitted</strong> , the ML model treats true parameters as if they</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các nhà phân tích phải nhận thức rõ về các sai số có thể phát sinh từ hiện tượng <strong>quá khớp (<em>overfitting</em>)</strong> dữ liệu, bởi vì các mô hình quá khớp dữ liệu có thể khám phá ra các mối quan hệ “sai lệch” hoặc các quy luật “không có cơ sở” dẫn đến sai số dự báo và dự báo đầu ra không chính xác. Hiện tượng quá khớp (<em>Overfitting</em>) xảy ra khi mô hình ML học tập dữ liệu đầu vào và mục tiêu một cách quá chính xác. Trong những trường hợp như vậy, mô hình đã bị “huấn luyện quá mức” (<em>overtrained</em>) trên dữ liệu và coi nhiễu (<em>noise</em>) trong dữ liệu như là các tham số thực sự. Một mô hình ML bị quá khớp không có khả năng dự báo chính xác kết quả khi sử dụng một tập dữ liệu khác và có thể quá phức tạp. Khi một mô hình bị <strong>chưa khớp / khớp thiếu (<em>underfitted</em>)</strong>, mô hình ML coi các tham số thực sự như thể chúng</p></div>
+                </div>
+                
+
+                <div id="pdf-page-342" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 342 / Trang PDF 342
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>are noise and is not able to recognize relationships within the training data. In such cases, the model could be too simplistic. Underfitted models typically will fail to fully discover patterns that underlie the data.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>là nhiễu và không có khả năng nhận ra các mối quan hệ bên trong dữ liệu huấn luyện. Trong những trường hợp như vậy, mô hình có thể quá đơn giản. Các mô hình chưa khớp thường sẽ thất bại trong việc khám phá đầy đủ các quy luật ẩn dưới dữ liệu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In addition, because they are not explicitly programmed, ML techniques can appear to be opaque or “black box” approaches, which arrive at outcomes that might not be entirely understood or explainable.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ngoài ra, bởi vì chúng không được lập trình một cách tường minh, các kỹ thuật ML có thể có vẻ mờ đục hoặc giống như các cách tiếp cận “hộp đen” (<em>black box</em>), đi đến những kết quả có thể không hoàn toàn hiểu được hoặc không giải thích được.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>ML approaches can help identify relationships between variables, detect patterns or trends, and create structure from data, including data classification. ML can be divided broadly into three distinct classes of techniques: supervised learning, unsupervised learning, and deep learning.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các cách tiếp cận ML có thể giúp nhận diện mối quan hệ giữa các biến số, phát hiện các quy luật hoặc xu hướng, và tạo ra cấu trúc từ dữ liệu, bao gồm cả việc phân loại dữ liệu (<em>data classification</em>). ML có thể được chia tổng quát thành ba nhóm kỹ thuật riêng biệt: học có giám sát (<em>supervised learning</em>), học không giám sát (<em>unsupervised learning</em>), và học sâu (<em>deep learning</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In <strong>supervised learning</strong> , computers learn to model relationships based on labeled training data. In supervised learning, inputs and outputs are labeled, or identified, for the algorithm. After learning how best to model relationships for the labeled data, the trained algorithms are used to model or predict outcomes for new datasets. Trying to identify the best signal, or variable; to forecast future returns on a stock; or to predict whether local stock market performance will be up, down, or flat during the next business day are problems that could be approached using supervised learning techniques.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong <strong>học có giám sát (<em>supervised learning</em>)</strong>, máy tính học cách mô hình hóa các mối quan hệ dựa trên dữ liệu huấn luyện đã được gán nhãn (<em>labeled training data</em>). Trong học có giám sát, đầu vào và đầu ra được gán nhãn, hoặc được xác định rõ, cho thuật toán. Sau khi học cách tốt nhất để mô hình hóa các mối quan hệ đối với dữ liệu đã gán nhãn, các thuật toán đã được huấn luyện sẽ được sử dụng để mô hình hóa hoặc dự báo kết quả cho các tập dữ liệu mới. Việc cố gắng xác định tín hiệu (<em>signal</em>) hoặc biến số tốt nhất để dự báo tỷ suất sinh lợi tương lai của một cổ phiếu, hoặc dự báo xem diễn biến thị trường chứng khoán trong nước sẽ tăng, giảm hay đi ngang trong ngày làm việc tiếp theo là những bài toán có thể được tiếp cận bằng các kỹ thuật học có giám sát.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In <strong>unsupervised learning</strong> , computers are not given labeled data but instead are given only data from which the algorithm seeks to describe the data and their structure. For example, grouping companies into peer groups based on their characteristics rather than using standard sector or country groupings is an application of unsupervised learning techniques.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong <strong>học không giám sát (<em>unsupervised learning</em>)</strong>, máy tính không được cung cấp dữ liệu đã gán nhãn mà thay vào đó chỉ được cung cấp dữ liệu để từ đó thuật toán tìm cách mô tả dữ liệu và cấu trúc của chúng. Ví dụ, việc phân nhóm các công ty thành các nhóm đồng đẳng (<em>peer groups</em>) dựa trên đặc điểm của chúng thay vì sử dụng cách phân nhóm theo ngành hoặc quốc gia tiêu chuẩn là một ứng dụng của kỹ thuật học không giám sát.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Underlying AI advances have been key developments relating to neural networks. In <strong>deep learning</strong> (or <strong>deep learning nets</strong> ), computers use neural networks, often with many hidden layers, to perform multistage, non-linear data processing to identify patterns. Deep learning can use supervised or unsupervised ML approaches. By taking a layered or multistage approach to data analysis, deep learning develops an understanding of simple concepts that informs analysis of more complex concepts.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nền tảng cho những tiến bộ của AI là những sự phát triển cốt lõi liên quan đến mạng nơ-ron (<em>neural networks</em>). Trong <strong>học sâu (<em>deep learning<em>)</em><em> (hay </em><em>mạng học sâu – </em>deep learning nets</em></strong>), máy tính sử dụng các mạng nơ-ron, thường có nhiều lớp ẩn (<em>hidden layers</em>), để thực hiện quá trình xử lý dữ liệu phi tuyến tính, đa giai đoạn nhằm nhận diện các quy luật. Học sâu có thể sử dụng các cách tiếp cận ML có giám sát hoặc không giám sát. Bằng cách áp dụng phương pháp tiếp cận theo lớp hoặc đa giai đoạn để phân tích dữ liệu, học sâu phát triển sự hiểu biết về các khái niệm đơn giản để làm cơ sở phân tích các khái niệm phức tạp hơn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Neural networks have existed since 1958 and have been used for many applications, such as forecasting and pattern recognition. Improvements in the algorithms underlying neural networks are providing more accurate models that better incorporate and learn from data. As a result, these algorithms are now far better at such activities as image, pattern, and speech recognition. In many cases, the advanced algorithms require less computing power than the earlier neural networks, and their improved solution enables analysts to discover insights and identify relationships that were previously too difficult or too time consuming to uncover.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mạng nơ-ron đã tồn tại từ năm 1958 và đã được sử dụng cho nhiều ứng dụng, chẳng hạn như dự báo và nhận dạng mẫu (<em>pattern recognition</em>). Những cải tiến trong các thuật toán cơ sở của mạng nơ-ron đang cung cấp các mô hình chính xác hơn, kết hợp và học hỏi từ dữ liệu tốt hơn. Kết quả là, các thuật toán này hiện nay vượt trội hơn hẳn trong các hoạt động như nhận dạng hình ảnh, mẫu và giọng nói. Trong nhiều trường hợp, các thuật toán tiên tiến đòi hỏi ít năng lực tính toán hơn so với các mạng nơ-ron trước đây, và giải pháp cải tiến của chúng cho phép các nhà phân tích khám phá những hiểu biết sâu sắc cũng như nhận diện các mối quan hệ mà trước đây quá khó hoặc quá tốn thời gian để tìm ra.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>ADVANCES IN AI OUTSIDE FINANCE</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>NHỮNG TIẾN BỘ TRONG AI BÊN NGOÀI LĨNH VỰC TÀI CHÍNH (<em>ADVANCES IN AI OUTSIDE FINANCE</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Non-finance-related AI breakthroughs include victories in the general knowledge gameshow <em>Jeopardy</em> (by IBM’s Watson in 2011) and in the ancient Chinese board game Go (by Google’s DeepMind in 2016). Not only is AI providing solutions where perfect information exists (all players have equal access to the same information), such as checkers, chess, and Go, but AI is also providing insight in cases in which information might be imperfect and players have hidden information; AI successes at the game of poker (by DeepStack) are an example. AI has also been behind the rise of virtual assistants, such as Siri (from Apple), Google’s Translate app, and Amazon’s product recommendation engine.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Những đột phá về AI không liên quan đến tài chính bao gồm các chiến thắng trong trò chơi truyền hình kiến thức tổng hợp <em>Jeopardy</em> (bởi Watson của IBM vào năm 2011) và trong trò chơi cờ vây cổ đại của Trung Quốc (bởi DeepMind của Google vào năm 2016). AI không chỉ cung cấp các giải pháp ở những nơi tồn tại thông tin hoàn hảo (tất cả người chơi đều có quyền tiếp cận ngang nhau đối với cùng một thông tin), chẳng hạn như cờ đam, cờ vua và cờ vây, mà AI còn cung cấp sự thấu hiểu trong những trường hợp thông tin có thể không hoàn hảo và người chơi có thông tin ẩn; những thành công của AI trong trò chơi bài poker (bởi DeepStack) là một ví dụ. AI cũng đứng đằng sau sự trỗi dậy của các trợ lý ảo, chẳng hạn như Siri (của Apple), ứng dụng Dịch (<em>Translate</em>) của Google, và công cụ đề xuất sản phẩm của Amazon.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The ability to analyze Big Data using ML techniques, alongside more traditional statistical methods, represents a significant development in investment research, supported by the presence of greater data availability and advances in the algorithms. Improvements in computing power and software processing speeds and falling storage costs have further supported this evolution.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khả năng phân tích Dữ liệu lớn bằng các kỹ thuật ML, bên cạnh các phương pháp thống kê truyền thống hơn, đại diện cho một bước phát triển quan trọng trong nghiên cứu đầu tư, được hỗ trợ bởi sự sẵn có ngày càng lớn của dữ liệu và những tiến bộ trong thuật toán. Những cải tiến về năng lực tính toán, tốc độ xử lý phần mềm và chi phí lưu trữ giảm xuống đã hỗ trợ thêm cho quá trình tiến hóa này.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-343" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 343 / Trang PDF 343
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>ML techniques are being used for Big Data analysis to help predict trends or market events, such as the likelihood of a successful merger or an outcome to a political election. Image recognition algorithms can now analyze data from satellite-imaging systems to provide intelligence on the number of consumers in retail store parking lots, shipping activity and manufacturing facilities, and yields on agricultural crops, to name just a few examples.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các kỹ thuật ML đang được sử dụng để phân tích Dữ liệu lớn nhằm giúp dự báo các xu hướng hoặc sự kiện thị trường, chẳng hạn như khả năng thành công của một thương vụ sáp nhập hoặc kết quả của một cuộc bầu cử chính trị. Các thuật toán nhận dạng hình ảnh giờ đây có thể phân tích dữ liệu từ các hệ thống hình ảnh vệ tinh để cung cấp thông tin tình báo về số lượng người tiêu dùng trong bãi đậu xe của các cửa hàng bán lẻ, hoạt động vận tải biển và các cơ sở sản xuất, cũng như năng suất cây trồng nông nghiệp, cùng nhiều ví dụ khác.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Such information could provide insight into individual firms or at national or global levels and might be used as inputs into valuation or economic models.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Những thông tin như vậy có thể cung cấp cái nhìn sâu sắc về từng doanh nghiệp riêng lẻ hoặc ở cấp độ quốc gia hay toàn cầu và có thể được sử dụng làm dữ liệu đầu vào cho các mô hình định giá hoặc mô hình kinh tế.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>TACKLING BIG DATA WITH DATA SCIENCE</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>XỬ LÝ DỮ LIỆU LỚN BẰNG KHOA HỌC DỮ LIỆU (<em>TACKLING BIG DATA WITH DATA SCIENCE</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>4</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>4</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe applications of Big Data and Data Science to investment management</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>mô tả các ứng dụng của Dữ liệu lớn (<em>Big Data</em>) và Khoa học Dữ liệu (<em>Data Science</em>) vào quản lý đầu tư</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Data science</strong> can be defined as an interdisciplinary field that harnesses advances in computer science (including ML), statistics, and other disciplines for the purpose of extracting information from Big Data (or data in general). Companies rely on the expertise of data scientists/analysts to extract information and insights from Big Data for a wide variety of business and investment purposes.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Khoa học dữ liệu (<em>Data science</em>)</strong> có thể được định nghĩa là một lĩnh vực liên ngành khai thác những tiến bộ trong khoa học máy tính (bao gồm cả ML), thống kê và các ngành khác nhằm mục đích trích xuất thông tin từ Dữ liệu lớn (hoặc dữ liệu nói chung). Các công ty dựa vào chuyên môn của các nhà khoa học/nhà phân tích dữ liệu để trích xuất thông tin và những hiểu biết sâu sắc từ Dữ liệu lớn cho nhiều mục đích kinh doanh và đầu tư khác nhau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An important consideration for the data scientist is the structure of the data. As noted in the discussion on Big Data, because of their unstructured nature, alternative data often require specialized treatment before they can be used for analysis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một yếu tố quan trọng cần cân nhắc đối với nhà khoa học dữ liệu là cấu trúc của dữ liệu. Như đã lưu ý trong phần thảo luận về Dữ liệu lớn, do bản chất phi cấu trúc của chúng, dữ liệu thay thế thường đòi hỏi sự xử lý chuyên biệt trước khi có thể được sử dụng để phân tích.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Data Processing Methods</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Các Phương pháp Xử lý Dữ liệu (<em>Data Processing Methods</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>To help determine the best data management technique needed for Big Data analysis, data scientists use various data processing methods, including capture, curation, storage, search, and transfer.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Để giúp xác định kỹ thuật quản lý dữ liệu tốt nhất cần thiết cho phân tích Dữ liệu lớn, các nhà khoa học dữ liệu sử dụng nhiều phương pháp xử lý dữ liệu khác nhau, bao gồm thu thập (<em>capture</em>), giám tuyển/làm sạch (<em>curation</em>), lưu trữ (<em>storage</em>), tìm kiếm (<em>search</em>), và truyền tải (<em>transfer</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Capture—Data capture refers to how the data are collected and transformed into a format that can be used by the analytical process. Low-latency systems—systems that operate on networks that communicate high volumes of data with minimal delay (latency)—are essential for automated trading applications that make decisions based on real-time prices and market events. In contrast, high-latency systems do not require access to real-time data and calculations.</p>
+</li>
+<li>
+<p>Curation—Data curation refers to the process of ensuring data quality and accuracy through a data cleaning exercise. This process consists of reviewing all data to detect and uncover data errors—bad or inaccurate data—and making adjustments for missing data when appropriate.</p>
+</li>
+<li>
+<p>Storage—Data storage refers to how the data will be recorded, archived, and accessed and the underlying database design. An important consideration for data storage is whether the data are structured or unstructured and whether analytical needs require low-latency solutions.</p>
+</li>
+<li>
+<p>Search—Search refers to how to query data. Big Data has created the need for advanced applications capable of examining and reviewing large quantities of data to locate requested data content.</p>
+</li>
+<li>
+<p>Transfer—Transfer refers to how the data will move from the underlying data source or storage location to the underlying analytical tool. This could be through a direct data feed, such as a stock exchange’s price feed.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>Thu thập (<em>Capture</em>)</strong>—Thu thập dữ liệu đề cập đến cách thức dữ liệu được thu gom và biến đổi thành định dạng có thể được sử dụng bởi quy trình phân tích. Các hệ thống độ trễ thấp (<em>Low-latency systems</em>)—các hệ thống hoạt động trên các mạng lưới truyền thông khối lượng dữ liệu lớn với độ trễ (<em>latency</em>) tối thiểu—là yếu tố thiết yếu cho các ứng dụng giao dịch tự động đưa ra quyết định dựa trên giá cả và sự kiện thị trường theo thời gian thực. Ngược lại, các hệ thống độ trễ cao (<em>high-latency systems</em>) không đòi hỏi quyền truy cập vào dữ liệu và các phép tính theo thời gian thực.</p>
+</li>
+<li>
+<p><strong>Giám tuyển / Làm sạch (<em>Curation</em>)</strong>—Giám tuyển dữ liệu đề cập đến quy trình đảm bảo chất lượng và độ chính xác của dữ liệu thông qua công việc làm sạch dữ liệu (<em>data cleaning</em>). Quy trình này bao gồm việc rà soát tất cả dữ liệu để phát hiện và vạch ra các lỗi dữ liệu—dữ liệu xấu hoặc không chính xác—và thực hiện các điều chỉnh đối với dữ liệu bị thiếu khi thích hợp.</p>
+</li>
+<li>
+<p><strong>Lưu trữ (<em>Storage</em>)</strong>—Lưu trữ dữ liệu đề cập đến cách thức dữ liệu sẽ được ghi lại, lưu trữ và truy cập cũng như thiết kế cơ sở dữ liệu nền tảng. Một cân nhắc quan trọng đối với việc lưu trữ dữ liệu là liệu dữ liệu có cấu trúc hay phi cấu trúc và liệu nhu cầu phân tích có đòi hỏi các giải pháp độ trễ thấp hay không.</p>
+</li>
+<li>
+<p><strong>Tìm kiếm (<em>Search</em>)</strong>—Tìm kiếm đề cập đến cách thức truy vấn dữ liệu. Dữ liệu lớn đã tạo ra nhu cầu về các ứng dụng tiên tiến có khả năng kiểm tra và rà soát số lượng lớn dữ liệu để định vị nội dung dữ liệu được yêu cầu.</p>
+</li>
+<li>
+<p><strong>Truyền tải (<em>Transfer</em>)</strong>—Truyền tải đề cập đến cách thức dữ liệu sẽ di chuyển từ nguồn dữ liệu cơ sở hoặc vị trí lưu trữ đến công cụ phân tích cơ sở. Điều này có thể thực hiện thông qua một luồng cấp dữ liệu trực tiếp (<em>direct data feed</em>), chẳng hạn như luồng cấp dữ liệu giá của sở giao dịch chứng khoán.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-344" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 344 / Trang PDF 344
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Data Visualization</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Trực quan hóa Dữ liệu (<em>Data Visualization</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Data visualization is an important tool for understanding Big Data. Visualization refers to how the data will be formatted, displayed, and summarized in graphical form. Traditional structured data can be visualized using tables, charts, and trends, whereas non-traditional unstructured data require new techniques of data visualization. These visualization tools include, for example, interactive three-dimensional (3D) graphics, in which users can focus in on specified data ranges and rotate the data across 3D axes to help identify trends and uncover relationships. Multidimensional data analysis consisting of more than three variables requires additional data visualization techniques— for example, adding color, shapes, and sizes to the 3D charts. Furthermore, a wide variety of solutions exists to reflect the structure of the data through the geometry of the visualization, with interactive graphics allowing for especially rich possibilities. Examples include heat maps, tree diagrams, and network graphs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trực quan hóa dữ liệu (<em>Data visualization</em>) là một công cụ quan trọng để hiểu Dữ liệu lớn. Trực quan hóa đề cập đến cách thức dữ liệu sẽ được định dạng, hiển thị và tóm tắt dưới dạng đồ họa. Dữ liệu có cấu trúc truyền thống có thể được trực quan hóa bằng cách sử dụng các bảng, biểu đồ và đường xu hướng, trong khi dữ liệu phi cấu trúc phi truyền thống đòi hỏi các kỹ thuật trực quan hóa dữ liệu mới. Các công cụ trực quan hóa này bao gồm, ví dụ, đồ họa ba chiều (3D) tương tác, trong đó người dùng có thể tập trung vào các khoảng dữ liệu cụ thể và xoay dữ liệu qua các trục 3D để giúp nhận diện xu hướng và khám phá các mối quan hệ. Phân tích dữ liệu đa chiều bao gồm nhiều hơn ba biến số đòi hỏi các kỹ thuật trực quan hóa dữ liệu bổ sung—ví dụ: thêm màu sắc, hình dạng và kích thước vào biểu đồ 3D. Hơn nữa, có rất nhiều giải pháp tồn tại để phản ánh cấu trúc của dữ liệu thông qua hình học của sự trực quan hóa, với đồ họa tương tác cho phép những khả năng đặc biệt phong phú. Các ví dụ bao gồm bản đồ nhiệt (<em>heat maps</em>), sơ đồ cây (<em>tree diagrams</em>), và đồ thị mạng (<em>network graphs</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Another valuable Big Data visualization technique that is applicable to textual data is a “tag cloud,” in which words are sized and displayed on the basis of the frequency of the word in the data file. For example, words that appear more often are shown with a larger font, and words that appear less often are shown with a smaller font. A “mind map” is another data visualization technique; it is a variation of the tag cloud, but rather than displaying the frequency of words, a mind map shows how different concepts are related to each other.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một kỹ thuật trực quan hóa Dữ liệu lớn có giá trị khác có thể áp dụng cho dữ liệu văn bản là “đám mây từ khóa” (<em>tag cloud</em> / <em>word cloud</em>), trong đó các từ được định cỡ và hiển thị dựa trên tần suất xuất hiện của từ đó trong tệp dữ liệu. Ví dụ, những từ xuất hiện thường xuyên hơn được hiển thị bằng phông chữ lớn hơn, và những từ xuất hiện ít thường xuyên hơn được hiển thị bằng phông chữ nhỏ hơn. “Sơ đồ tư duy” (<em>mind map</em>) là một kỹ thuật trực quan hóa dữ liệu khác; nó là một biến thể của đám mây từ khóa, nhưng thay vì hiển thị tần suất của các từ, sơ đồ tư duy cho thấy các khái niệm khác nhau có liên hệ với nhau như thế nào.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 3 shows an example of a “tag cloud” based on a section of this reading. The more frequently a word is found within the text, the larger it becomes in the tag cloud. As shown in the tag cloud, the words appearing most frequently in the section include “data,” “ML,” “learning,” “AI,” “techniques,” “model,” and “relationships.”</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hình 3 cho thấy một ví dụ về “đám mây từ khóa” dựa trên một phần của bài đọc này. Một từ được tìm thấy càng thường xuyên trong văn bản thì nó càng trở nên lớn hơn trong đám mây từ khóa. Như được hiển thị trong đám mây từ khóa, những từ xuất hiện thường xuyên nhất trong phần này bao gồm “data”, “ML”, “learning”, “AI”, “techniques”, “model”, và “relationships”.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 3: Data Visualization Tag Cloud</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Hình 3: Đám mây Từ khóa Trực quan hóa Dữ liệu (<em>Data Visualization Tag Cloud</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0344-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0344-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Đám mây từ khóa (<em>Tag Cloud</em>) hiển thị các từ khóa với kích thước tỷ lệ thuận với tần suất xuất hiện, nổi bật nhất là các từ <code>data</code>, <code>ML</code>, <code>learning</code>, <code>AI</code>, <code>model</code>, <code>techniques</code>, <code>relationships</code>, <code>algorithms</code>, <code>analysis</code>.</p>
+</blockquote>
+<p><em>Nguồn</em>: “About Word Clouds,” WordItOut, https://worditout.com/word-cloud/create.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Source</em> : “About Word Clouds,” WordItOut, https:// worditout .com/ word -cloud/ create.</p>
+<p>Fintech is being used in numerous areas of investment management. Applications for investment management include text analytics and natural language processing, risk analysis, and algorithmic trading.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Fintech đang được sử dụng trong nhiều lĩnh vực của quản lý đầu tư. Các ứng dụng cho quản lý đầu tư bao gồm phân tích văn bản (<em>text analytics</em>) và xử lý ngôn ngữ tự nhiên (<em>natural language processing</em>), phân tích rủi ro (<em>risk analysis</em>), và giao dịch thuật toán (<em>algorithmic trading</em>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-345" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 345 / Trang PDF 345
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Text Analytics and Natural Language Processing</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Phân tích Văn bản và Xử lý Ngôn ngữ Tự nhiên (<em>Text Analytics and Natural Language Processing</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Text analytics</strong> involves the use of computer programs to analyze and derive meaning typically from large, unstructured text- or voice-based datasets, such as company filings, written reports, quarterly earnings calls, social media, email, internet postings, and surveys. Text analytics includes using computer programs to perform automated information retrieval from different, unrelated sources to aid the decision-making process. More analytical usage includes lexical analysis, or the analysis of word frequency in a document and pattern recognition based on key words and phrases. Text analytics could be used in predictive analysis to help identify indicators of future performance, such as consumer sentiment.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Phân tích văn bản (<em>Text analytics</em>)</strong> bao gồm việc sử dụng các chương trình máy tính để phân tích và rút ra ý nghĩa thường từ các tập dữ liệu lớn, phi cấu trúc dựa trên văn bản hoặc giọng nói, chẳng hạn như hồ sơ công bố của công ty, báo cáo bằng văn bản, các cuộc gọi công bố thu nhập hàng quý, mạng xã hội, email, các bài đăng trên internet và các cuộc khảo sát. Phân tích văn bản bao gồm việc sử dụng các chương trình máy tính để thực hiện truy xuất thông tin tự động từ các nguồn khác nhau, không liên quan nhằm hỗ trợ quá trình ra quyết định. Việc sử dụng mang tính phân tích sâu hơn bao gồm phân tích từ vựng (<em>lexical analysis</em>), hay phân tích tần suất từ trong một tài liệu và nhận dạng mẫu dựa trên các từ khóa và cụm từ. Phân tích văn bản có thể được sử dụng trong phân tích dự báo (<em>predictive analysis</em>) để giúp xác định các chỉ báo về hiệu quả hoạt động trong tương lai, chẳng hạn như tâm lý người tiêu dùng (<em>consumer sentiment</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Natural language processing (NLP)</strong> is a field of research at the intersection of computer science, AI, and linguistics that focuses on developing computer programs to analyze and interpret human language. Within the larger field of text analytics, NLP is an important application. Automated tasks using NLP include translation, speech recognition, text mining, sentiment analysis, and topic analysis. NLP also might be used in compliance functions to review employee voice and electronic communications for adherence to company or regulatory policy, for detecting fraud or inappropriate conduct, or for ensuring private or customer information is kept confidential.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Xử lý ngôn ngữ tự nhiên (<em>Natural language processing</em> – NLP)</strong> là một lĩnh vực nghiên cứu tại giao điểm của khoa học máy tính, AI và ngôn ngữ học, tập trung vào việc phát triển các chương trình máy tính để phân tích và diễn giải ngôn ngữ của con người. Trong lĩnh vực rộng lớn hơn của phân tích văn bản, NLP là một ứng dụng quan trọng. Các tác vụ tự động hóa sử dụng NLP bao gồm dịch thuật (<em>translation</em>), nhận dạng giọng nói (<em>speech recognition</em>), khai phá văn bản (<em>text mining</em>), phân tích cảm xúc/tâm lý (<em>sentiment analysis</em>), và phân tích chủ đề (<em>topic analysis</em>). NLP cũng có thể được sử dụng trong các chức năng tuân thủ (<em>compliance</em>) để rà soát các giao tiếp bằng giọng nói và điện tử của nhân viên nhằm đảm bảo việc tuân thủ chính sách của công ty hoặc quy định pháp luật, để phát hiện gian lận hoặc hành vi không phù hợp, hoặc để đảm bảo thông tin riêng tư hay thông tin khách hàng được giữ bí mật.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Consider that all the public corporations worldwide generate millions of pages of annual reports and tens of thousands of hours of earnings calls each year. This is more information than any individual analyst or team of researchers can assess. NLP, especially when aided by ML algorithms, can analyze annual reports, call transcripts, news articles, social media posts, and other text- and audio-based data to identify trends in shorter time spans and with greater scale and accuracy than is humanly possible.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy cân nhắc rằng tất cả các công ty đại chúng trên toàn thế giới tạo ra hàng triệu trang báo cáo thường niên và hàng chục nghìn giờ họp công bố thu nhập mỗi năm. Đây là lượng thông tin nhiều hơn mức mà bất kỳ nhà phân tích cá nhân hay nhóm nghiên cứu nào có thể đánh giá được. NLP, đặc biệt khi được hỗ trợ bởi các thuật toán ML, có thể phân tích các báo cáo thường niên, bản ghi âm cuộc gọi (<em>call transcripts</em>), các bài báo tin tức, bài đăng trên mạng xã hội, và các dữ liệu văn bản cũng như âm thanh khác để nhận diện các xu hướng trong khoảng thời gian ngắn hơn và với quy mô cùng độ chính xác lớn hơn mức con người có thể làm được.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For example, NLP can be used to monitor analyst commentary to aid investment decision making. Financial analysts might generate earnings-per-share (EPS) forecasts reflecting their views on a company’s near-term prospects. Focusing on forecasted EPS numbers could mean investors miss subtleties contained in an analyst’s written research report. Because analysts tend not to change their buy, hold, and sell recommendations for a company frequently, they might instead offer nuanced commentary without making a change in their investment recommendation. After analyzing analyst commentary, NLP can assign sentiment ratings ranging from very negative to very positive for each. NLP, therefore, can be used to detect, monitor, and tag shifts in sentiment, potentially ahead of an analyst’s recommendation change. Machine capabilities enable this analysis to scale across thousands of companies worldwide, performing work previously done by humans.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ, NLP có thể được sử dụng để theo dõi bình luận của các nhà phân tích nhằm hỗ trợ việc ra quyết định đầu tư. Các nhà phân tích tài chính có thể đưa ra các dự báo thu nhập trên mỗi cổ phần (EPS) phản ánh quan điểm của họ về triển vọng ngắn hạn của một công ty. Việc chỉ tập trung vào các con số EPS dự báo có thể khiến các nhà đầu tư bỏ lỡ những điểm tinh tế chứa đựng trong báo cáo nghiên cứu bằng văn bản của nhà phân tích. Bởi vì các nhà phân tích có xu hướng không thay đổi khuyến nghị mua, nắm giữ và bán đối với một công ty một cách thường xuyên, thay vào đó họ có thể đưa ra những bình luận mang sắc thái tinh tế mà không làm thay đổi khuyến nghị đầu tư của mình. Sau khi phân tích bình luận của nhà phân tích, NLP có thể gán các mức xếp hạng tâm lý (<em>sentiment ratings</em>) trải dài từ rất tiêu cực đến rất tích cực cho từng bình luận. Do đó, NLP có thể được sử dụng để phát hiện, theo dõi và gắn thẻ những sự dịch chuyển trong tâm lý, có khả năng đi trước cả sự thay đổi khuyến nghị của nhà phân tích. Khả năng của máy móc cho phép phân tích này mở rộng quy mô trên hàng nghìn công ty khắp thế giới, thực hiện công việc trước đây do con người đảm nhiệm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Similarly, communications and transcripts from policy makers, such as the European Central Bank or the US Federal Reserve, offer an opportunity for NLP-based analysis because officials at these institutions might send subtle messages through their choice of topics, words, and inferred tone. NLP can analyze nuances within text to provide insights around trending or waning topics of interest, such as interest rate policy, aggregate output, or inflation expectations.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tương tự, các thông cáo và bản ghi chép từ các nhà hoạch định chính sách, chẳng hạn như Ngân hàng Trung ương Châu Âu (ECB) hoặc Cục Dự trữ Liên bang Hoa Kỳ (Fed), mang lại cơ hội cho việc phân tích dựa trên NLP bởi vì các quan chức tại những định chế này có thể gửi đi những thông điệp tinh tế thông qua cách họ lựa chọn chủ đề, từ ngữ và giọng điệu hàm ý. NLP có thể phân tích các sắc thái bên trong văn bản để cung cấp những hiểu biết sâu sắc xoay quanh các chủ đề quan tâm đang nổi lên hoặc đang lắng xuống, chẳng hạn như chính sách lãi suất, tổng sản lượng hoặc kỳ vọng lạm phát.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Models using NLP analysis might incorporate non-traditional information to evaluate what people are saying—through their preferences, opinions, likes, or dislikes—in an attempt to identify trends and short-term indicators—for example about a company, a stock, or an economic event—to forecast coming trends that may affect investment performance in the future. For example, past research has evaluated the predictive power of Twitter sentiment regarding initial public offering (IPO) performance as well as the effect of positive and negative news sentiment on stock returns.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các mô hình sử dụng phân tích NLP có thể kết hợp thông tin phi truyền thống để đánh giá những gì mọi người đang nói—thông qua sở thích, ý kiến, lượt thích hoặc không thích của họ—trong nỗ lực nhận diện các xu hướng và chỉ báo ngắn hạn—ví dụ: về một công ty, một cổ phiếu hoặc một sự kiện kinh tế—nhằm dự báo các xu hướng sắp tới có thể ảnh hưởng đến hiệu quả đầu tư trong tương lai. Ví dụ, các nghiên cứu trước đây đã đánh giá năng lực dự báo của tâm lý trên Twitter liên quan đến hiệu quả của đợt phát hành cổ phiếu lần đầu ra công chúng (IPO) cũng như tác động của tâm lý tin tức tích cực và tiêu cực lên tỷ suất sinh lợi cổ phiếu.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-346" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 346 / Trang PDF 346
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>PROGRAMMING LANGUAGES AND DATABASES</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>CÁC NGÔN NGỮ LẬP TRÌNH VÀ CƠ SỞ DỮ LIỆU (<em>PROGRAMMING LANGUAGES AND DATABASES</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Some of the more common programming languages used in data science include the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số ngôn ngữ lập trình phổ biến hơn được sử dụng trong khoa học dữ liệu bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>Python:</strong> Python is an open-source, free programming language that does not require an in-depth understanding of computer programming. Python allows individuals with little or no programming experience to develop computer applications for advanced analytical use and is the basis for many fintech applications.</p>
+</li>
+<li>
+<p><strong>R:</strong> R is an open-source, free programming language traditionally used for statistical analysis. R has mathematical packages for statistical analysis, ML, optimization, econometrics, and financial analysis.</p>
+</li>
+<li>
+<p><strong>Java:</strong> Java is a programming language that can run on different computers, servers, and operating systems. Java is the underlying program language used in many internet applications.</p>
+</li>
+<li>
+<p><strong>C and C++:</strong> Both C and C++ are specialized programming languages that provide the ability to optimize source code to achieve superior calculation speed and processing performance. C and C++ is used in applications for algorithmic and high-frequency trading.</p>
+</li>
+<li>
+<p><strong>Excel VBA:</strong> Excel VBA helps bridge the gap between programming and manual data processing by allowing users to run macros to automate tasks, such as updating data tables and formulas, running data queries and collecting data from different web locations, and performing calculations. Excel VBA allows users to develop customized reports and analyses that rely on data that are updated from different applications and databases.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>Python:</strong> Python là một ngôn ngữ lập trình miễn phí, mã nguồn mở (<em>open-source</em>), không đòi hỏi sự hiểu biết quá sâu sắc về lập trình máy tính. Python cho phép những cá nhân có ít hoặc không có kinh nghiệm lập trình phát triển các ứng dụng máy tính để sử dụng cho mục đích phân tích nâng cao và là nền tảng cho nhiều ứng dụng fintech.</p>
+</li>
+<li>
+<p><strong>R:</strong> R là một ngôn ngữ lập trình miễn phí, mã nguồn mở theo truyền thống được sử dụng để phân tích thống kê. R có các gói toán học cho phân tích thống kê, ML, tối ưu hóa, kinh tế lượng và phân tích tài chính.</p>
+</li>
+<li>
+<p><strong>Java:</strong> Java là một ngôn ngữ lập trình có thể chạy trên các máy tính, máy chủ và hệ điều hành khác nhau. Java là ngôn ngữ chương trình cơ sở được sử dụng trong nhiều ứng dụng internet.</p>
+</li>
+<li>
+<p><strong>C và C++:</strong> Cả C và C++ đều là các ngôn ngữ lập trình chuyên biệt cung cấp khả năng tối ưu hóa mã nguồn để đạt được tốc độ tính toán và hiệu suất xử lý vượt trội. C và C++ được sử dụng trong các ứng dụng cho giao dịch thuật toán (<em>algorithmic trading</em>) và giao dịch tần suất cao (<em>high-frequency trading</em>).</p>
+</li>
+<li>
+<p><strong>Excel VBA:</strong> Excel VBA giúp thu hẹp khoảng cách giữa lập trình và xử lý dữ liệu thủ công bằng cách cho phép người dùng chạy các macro để tự động hóa các tác vụ, chẳng hạn như cập nhật bảng dữ liệu và công thức, chạy truy vấn dữ liệu và thu thập dữ liệu từ các vị trí web khác nhau, cũng như thực hiện các phép tính. Excel VBA cho phép người dùng phát triển các báo cáo và phân tích tùy chỉnh dựa trên dữ liệu được cập nhật từ các ứng dụng và cơ sở dữ liệu khác nhau.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Some of the more common types of databases in use include the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số loại cơ sở dữ liệu phổ biến hơn đang được sử dụng bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>SQL:</strong> SQL is a database query language for structured data where the data can be stored in tables with rows and columns. SQL-based databases need to be run on a server that is accessed by users using SQL queries.</p>
+</li>
+<li>
+<p><strong>SQLite:</strong> SQLite is a database for structured data. SQLite databases are embedded into the program and do not need to be run on a server. It is the most common database for mobile apps that require access to data.</p>
+</li>
+<li>
+<p><strong>NoSQL:</strong> NoSQL is a database used for unstructured data where the data cannot be summarized in traditional tables with rows and columns.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>SQL:</strong> SQL là một ngôn ngữ truy vấn cơ sở dữ liệu dành cho dữ liệu có cấu trúc, nơi dữ liệu có thể được lưu trữ trong các bảng với các hàng và cột. Các cơ sở dữ liệu dựa trên SQL cần được chạy trên một máy chủ (<em>server</em>) được người dùng truy cập bằng các truy vấn SQL.</p>
+</li>
+<li>
+<p><strong>SQLite:</strong> SQLite là một cơ sở dữ liệu dành cho dữ liệu có cấu trúc. Các cơ sở dữ liệu SQLite được nhúng vào trong chương trình và không cần phải chạy trên một máy chủ. Đây là cơ sở dữ liệu phổ biến nhất cho các ứng dụng di động cần quyền truy cập dữ liệu.</p>
+</li>
+<li>
+<p><strong>NoSQL:</strong> NoSQL là một cơ sở dữ liệu được sử dụng cho dữ liệu phi cấu trúc, nơi dữ liệu không thể được tóm tắt trong các bảng truyền thống với các hàng và cột.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-347" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 347 / Trang PDF 347
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>~~PRACTICE PROBLEMS~~</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> A characteristic of Big Data is that:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Một đặc điểm của Dữ liệu lớn (<em>Big Data</em>) là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> it involves formats with diverse structures.</p>
+</li>
+<li>
+<p><strong>B.</strong> one of its traditional sources is business processes.</p>
+</li>
+<li>
+<p><strong>C.</strong> real-time communication of it is uncommon due to vast content.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> nó bao gồm các định dạng có cấu trúc đa dạng.</p>
+</li>
+<li>
+<p><strong>B.</strong> một trong những nguồn truyền thống của nó là các quy trình kinh doanh (<em>business processes</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> việc truyền thông theo thời gian thực đối với nó là không phổ biến do nội dung quá khổng lồ.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> Which of the following statements is true in the use of ML:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Phát biểu nào sau đây là đúng khi sử dụng học máy (ML):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> some techniques are termed “black box” due to data biases.</p>
+</li>
+<li>
+<p><strong>B.</strong> human judgment is not needed because algorithms continuously learn from data.</p>
+</li>
+<li>
+<p><strong>C.</strong> training data can be learned too precisely, resulting in inaccurate predictions when used with different datasets.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> một số kỹ thuật được gọi là “hộp đen” (<em>black box</em>) do các thiên lệch dữ liệu.</p>
+</li>
+<li>
+<p><strong>B.</strong> sự phán đoán của con người là không cần thiết bởi vì các thuật toán liên tục học hỏi từ dữ liệu.</p>
+</li>
+<li>
+<p><strong>C.</strong> dữ liệu huấn luyện có thể được học quá chính xác, dẫn đến các dự báo không chính xác khi được sử dụng với các tập dữ liệu khác.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> Text analytics is appropriate for application to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Phân tích văn bản (<em>Text analytics</em>) phù hợp để ứng dụng vào việc:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> large, structured datasets.</p>
+</li>
+<li>
+<p><strong>B.</strong> public but not private information.</p>
+</li>
+<li>
+<p><strong>C.</strong> identifying possible short-term indicators of coming trends.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> xử lý các tập dữ liệu lớn, có cấu trúc.</p>
+</li>
+<li>
+<p><strong>B.</strong> xử lý thông tin công cộng nhưng không áp dụng cho thông tin riêng tư.</p>
+</li>
+<li>
+<p><strong>C.</strong> nhận diện các chỉ báo ngắn hạn tiềm năng của những xu hướng sắp tới.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-348" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 348 / Trang PDF 348
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>~~SOLUTIONS~~</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>A is correct. Big Data is collected from many different sources and is in a variety of formats, including structured data (e.g., SQL tables), semistructured data (e.g., HTML code), and unstructured data (e.g., video messages).</p>
+</li>
+<li>
+<p>C is correct. Overfitting occurs when the ML model learns the input and target dataset too precisely. In this case, the model has been “overtrained” on the data and is treating noise in the data as true parameters. An ML model that has been overfitted is not able to accurately predict outcomes using a different dataset and might be too complex.</p>
+</li>
+<li>
+<p>C is correct. Through the text analytics application of NLP, models using NLP analysis might incorporate non-traditional information to evaluate what people are saying—through their preferences, opinions, likes, or dislikes— in an attempt to identify trends and short-term indicators—for example, about a company, a stock, or an economic event—to forecast coming trends that may affect investment performance in the future.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p><strong>A đúng.</strong> Dữ liệu lớn được thu thập từ nhiều nguồn khác nhau và ở nhiều định dạng đa dạng, bao gồm dữ liệu có cấu trúc (ví dụ: các bảng SQL), dữ liệu bán cấu trúc (ví dụ: mã HTML), và dữ liệu phi cấu trúc (ví dụ: tin nhắn video).</p>
+</li>
+<li>
+<p><strong>C đúng.</strong> Hiện tượng quá khớp (<em>Overfitting</em>) xảy ra khi mô hình ML học tập dữ liệu đầu vào và mục tiêu một cách quá chính xác. Trong trường hợp này, mô hình đã bị “huấn luyện quá mức” (<em>overtrained</em>) trên dữ liệu và coi nhiễu trong dữ liệu như là các tham số thực sự. Một mô hình ML bị quá khớp không có khả năng dự báo chính xác kết quả khi sử dụng một tập dữ liệu khác và có thể quá phức tạp.</p>
+</li>
+<li>
+<p><strong>C đúng.</strong> Thông qua ứng dụng phân tích văn bản của NLP, các mô hình sử dụng phân tích NLP có thể kết hợp thông tin phi truyền thống để đánh giá những gì mọi người đang nói—thông qua sở thích, ý kiến, lượt thích hoặc không thích của họ—trong nỗ lực nhận diện các xu hướng và chỉ báo ngắn hạn—ví dụ: về một công ty, một cổ phiếu hoặc một sự kiện kinh tế—nhằm dự báo các xu hướng sắp tới có thể ảnh hưởng đến hiệu quả đầu tư trong tương lai.</p>
+</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM10_Full_Simple_Linear_Regression.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM10</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM12_Full.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM12 →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM11_Full.html');
+    });
+  </script>
+</body>
+</html>

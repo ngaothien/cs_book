@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 8 Equity Valuation: Concepts and Basic Tools - Part 2: The Gordon Growth Model — Volume 5: Equity Investments | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 5: Đầu Tư Vốn Cổ Phần
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 8 Equity Valuation: Concepts and Basic Tools - Part 2: The Gordon Growth Model</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM08_Full_Equity_Valuation_Concepts_and_Basic_Tools.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (13 trang)...</option>
+          <option value="360">PDF Page 360</option>
+<option value="361">PDF Page 361</option>
+<option value="362">PDF Page 362</option>
+<option value="363">PDF Page 363</option>
+<option value="364">PDF Page 364</option>
+<option value="365">PDF Page 365</option>
+<option value="366">PDF Page 366</option>
+<option value="367">PDF Page 367</option>
+<option value="368">PDF Page 368</option>
+<option value="369">PDF Page 369</option>
+<option value="370">PDF Page 370</option>
+<option value="371">PDF Page 371</option>
+<option value="372">PDF Page 372</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 5</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Đầu Tư Vốn Cổ Phần</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 5</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Market_Organization_and_Structure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Market Organization and Structure</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Currencies_Commodities_and_Real_Assets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Currencies, Commodities, and Real Assets</a>
+<a href="LM01_Part3_Securitizers_Depository_Institutions_and_Insu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Securitizers, Depository Institutions and Insurance Companies</a>
+<a href="LM01_Part4_Orders_and_Execution_Instructions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Orders and Execution Instructions</a>
+<a href="LM01_Part5_Well_functioning_Financial_Systems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Well-functioning Financial Systems</a>
+<a href="LM01_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM02_Full_Security_Market_Indexes.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Security Market Indexes</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Uses_of_Market_Indexes.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Uses of Market Indexes</a>
+<a href="LM02_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM03_Full_Market_Efficiency.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Market Efficiency</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Market_Pricing_Anomalies_Time_Series_and_Cros.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Market Pricing Anomalies - Time Series and Cross-Sectional</a>
+<a href="LM03_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM04_Full_Overview_of_Equity_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Overview of Equity Securities</a>
+<a href="LM04_Part1_Importance_of_Equity_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Importance of Equity Securities</a>
+<a href="LM04_Part2_Non_Domestic_Equity_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Domestic Equity Securities</a>
+<a href="LM04_Part3_Summary.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Summary</a>
+<a href="LM05_Full_Company_Analysis_Past_and_Present.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Company Analysis: Past and Present</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Determining_the_Business_Model.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Determining the Business Model</a>
+<a href="LM05_Part3_Revenue_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Revenue Analysis</a>
+<a href="LM05_Part4_Operating_Profitability_and_Working_Capital_A.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Operating Profitability and Working Capital Analysis</a>
+<a href="LM05_Part5_Capital_Investments_and_Capital_Structure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Capital Investments and Capital Structure</a>
+<a href="LM06_Full_Industry_and_Competitive_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Industry and Competitive Analysis</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Industry_Survey.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Industry Survey</a>
+<a href="LM06_Part3_Industry_Structure_and_External_Influences.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Industry Structure and External Influences</a>
+<a href="LM06_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM07_Full_Company_Analysis_Forecasting.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Company Analysis: Forecasting</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Forecasting_Operating_Expenses_and_Working_Ca.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Forecasting Operating Expenses and Working Capital</a>
+<a href="LM07_Part3_Forecasting_Capital_Investments_and_Capital_S.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Forecasting Capital Investments and Capital Structure</a>
+<a href="LM07_Part4_Scenario_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Scenario Analysis</a>
+<a href="LM07_Part5_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Solutions</a>
+<a href="LM08_Full_Equity_Valuation_Concepts_and_Basic_Tools.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Equity Valuation: Concepts and Basic Tools</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_The_Gordon_Growth_Model.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: The Gordon Growth Model</a>
+<a href="LM08_Part3_Method_of_Comparables_and_Valuation_Based_on.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Method of Comparables and Valuation Based on Price Multiples</a>
+<a href="LM08_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 5 • Equity Investments (Đầu Tư Vốn Cổ Phần)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 8 Equity Valuation: Concepts and Basic Tools - Part 2: The Gordon Growth Model</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('05_Equity_Investments/LM08_Part2_The_Gordon_Growth_Model.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 5: Equity Investments</h1>
+<h2>Learning Module 8 Equity Valuation: Concepts and Basic Tools</h2>
+<h3>Part 2/4: The Gordon Growth Model (PDF Pages 360–372)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 5: Đầu tư Cổ phiếu (Volume 5: Equity Investments)</h1>
+<h2>Học phần 8: Định giá Cổ phiếu: Các Khái niệm và Công cụ Cơ bản (Equity Valuation: Concepts and Basic Tools)</h2>
+<h3>Phần 2/4: Mô hình Tăng trưởng Gordon (The Gordon Growth Model) (Trang PDF 360–372)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-360" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 360 / Trang PDF 360
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>7</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>7</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>THE GORDON GROWTH MODEL</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>MÔ HÌNH TĂNG TRƯỞNG GORDON (THE GORDON GROWTH MODEL)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>calculate and interpret the intrinsic value of an equity security based on the Gordon (constant) growth dividend discount model or a two-stage dividend discount model, as appropriate</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>tính toán và diễn giải giá trị nội tại của một chứng khoán vốn dựa trên mô hình chiết khấu cổ tức tăng trưởng đều Gordon (<em>Gordon (constant) growth dividend discount model</em>) hoặc mô hình chiết khấu cổ tức hai giai đoạn (<em>two-stage dividend discount model</em>), tùy trường hợp phù hợp</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>identify characteristics of companies for which the constant growth or a multistage dividend discount model is appropriate explain advantages and disadvantages of each category of valuation model</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>xác định các đặc điểm của những công ty phù hợp để áp dụng mô hình chiết khấu cổ tức tăng trưởng đều hoặc đa giai đoạn (<em>multistage dividend discount model</em>)
+giải thích các ưu điểm và nhược điểm của từng nhóm mô hình định giá</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A rather obvious problem when one is trying to implement Equation 1 for common equity is that it requires the analyst to estimate an infinite series of expected dividends. To simplify this process, analysts frequently make assumptions about how dividends will grow or change over time. The Gordon (constant) growth model (Gordon, 1962) is a simple and well-recognized DDM. The model assumes dividends grow indefinitely at a constant rate.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một vấn đề khá hiển nhiên khi cố gắng áp dụng Phương trình 1 cho vốn chủ sở hữu phổ thông là phương trình này đòi hỏi chuyên gia phân tích phải ước tính một chuỗi vô hạn các khoản cổ tức dự kiến. Để đơn giản hóa quá trình này, các chuyên gia phân tích thường đưa ra những giả định về cách thức cổ tức sẽ tăng trưởng hoặc thay đổi theo thời gian. Mô hình tăng trưởng (đều) Gordon (<em>Gordon (constant) growth model</em> – Gordon, 1962) là một mô hình chiết khấu cổ tức (DDM) đơn giản và được công nhận rộng rãi. Mô hình này giả định cổ tức tăng trưởng vô thời hạn ở một tốc độ không đổi.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Because of its assumption of a constant growth rate, the Gordon growth model is particularly appropriate for valuing the equity of dividend-paying companies that are relatively insensitive to the business cycle and in a mature growth phase. Examples might include an electric utility serving a slowly growing area or a producer of a staple food product (e.g., bread). A history of increasing the dividend at a stable growth rate is another practical criterion if the analyst believes that pattern will hold in the future.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bởi vì giả định tốc độ tăng trưởng không đổi, mô hình tăng trưởng Gordon đặc biệt phù hợp để định giá vốn chủ sở hữu của các công ty có trả cổ tức, tương đối ít nhạy cảm với chu kỳ kinh doanh (<em>business cycle</em>) và đang ở giai đoạn tăng trưởng trưởng thành/bão hòa (<em>mature growth phase</em>). Các ví dụ có thể bao gồm một công ty tiện ích điện lực phục vụ một khu vực tăng trưởng chậm hoặc một nhà sản xuất mặt hàng thực phẩm thiết yếu (ví dụ: bánh mì). Lịch sử tăng cổ tức ở một tốc độ tăng trưởng ổn định là một tiêu chí thực tiễn khác nếu chuyên gia phân tích tin rằng khuôn mẫu đó sẽ tiếp tục duy trì trong tương lai.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>With a constant growth assumption, Equation 1 can be written as Equation 8, where <em>g</em> is the constant growth rate:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Với giả định tăng trưởng không đổi, Phương trình 1 có thể được viết lại thành Phương trình 8, trong đó <span class="math-inline">$g$</span> là tốc độ tăng trưởng không đổi (<em>constant growth rate</em>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0360-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0360-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \sum_{t=1}^{\infty} \frac{D_0(1 + g)^t}{(1 + r)^t} = D_0 \left[ \frac{(1 + g)}{(1 + r)} + \frac{(1 + g)^2}{(1 + r)^2} + \cdots + \frac{(1 + g)^\infty}{(1 + r)^\infty} \right] \tag{8}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If required return <em>r</em> is assumed to be strictly greater than growth rate <em>g</em> , then the square-bracketed term in Equation 8 is an infinite geometric series and sums to [(1 + <em>g</em> )/( <em>r</em> – <em>g</em> )]. Substituting into Equation 8 produces the Gordon growth model as presented in Equation 9:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu tỷ suất sinh lợi yêu cầu <span class="math-inline">$r$</span> được giả định là lớn hơn nghiêm ngặt so với tốc độ tăng trưởng <span class="math-inline">$g$</span> (<span class="math-inline">$r &gt; g$</span>), thì biểu thức trong ngoặc vuông ở Phương trình 8 là một cấp số nhân lùi vô hạn (<em>infinite geometric series</em>) và có tổng bằng <span class="math-inline">$[(1 + g)/(r - g)]$</span>. Thay vào Phương trình 8 sẽ tạo ra mô hình tăng trưởng Gordon như được trình bày trong Phương trình 9:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0360-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0360-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \frac{D_0(1 + g)}{r - g} = \frac{D_1}{r - g} \tag{9}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For an illustration of the expression, suppose the current (most recent) annual dividend on a share is €5.00 and dividends are expected to grow at 4 percent per year. The required rate of return on equity is 8 percent. The Gordon growth model estimate of intrinsic value is, therefore, €5.00(1.04)/(0.08 – 0.04) = €5.20/0.04 = €130 per share. Note that the numerator is <em>D</em> 1 not <em>D</em> 0. (Using the wrong numerator is a common error.)</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Để minh họa cho biểu thức này, giả sử cổ tức hàng năm hiện tại (gần đây nhất) của một cổ phiếu là €5.00 và cổ tức dự kiến sẽ tăng trưởng ở mức 4 phần trăm mỗi năm. Tỷ suất sinh lợi yêu cầu đối với vốn chủ sở hữu là 8 phần trăm. Do đó, ước tính giá trị nội tại theo mô hình tăng trưởng Gordon là <span class="math-inline">$€5.00(1.04)/(0.08 - 0.04) = €5.20/0.04 = €130$</span> trên mỗi cổ phiếu. Lưu ý rằng tử số là <span class="math-inline">$D_1$</span> chứ không phải <span class="math-inline">$D_0$</span>. (Sử dụng sai tử số là một lỗi phổ biến.)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The Gordon growth model estimates intrinsic value as the present value of a growing perpetuity. If the growth rate, <em>g</em> , is assumed to be zero, Equation 8 reduces to the expression for the present value of a perpetuity, given earlier as Equation 6.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình tăng trưởng Gordon ước tính giá trị nội tại như là giá trị hiện tại của một niên kim vĩnh cửu tăng trưởng đều (<em>growing perpetuity</em>). Nếu tốc độ tăng trưởng, <span class="math-inline">$g$</span>, được giả định bằng 0, Phương trình 8 sẽ rút gọn về biểu thức tính giá trị hiện tại của một niên kim vĩnh cửu không đổi, đã được cho trước đó ở Phương trình 6.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In estimating a long-term growth rate, analysts use a variety of methods, including assessing the growth in dividends or earnings over time, using the industry median growth rate, and using the relationship shown in Equation 10 to estimate the sustainable growth rate:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi ước tính tốc độ tăng trưởng dài hạn, các chuyên gia phân tích sử dụng nhiều phương pháp khác nhau, bao gồm việc đánh giá mức tăng trưởng của cổ tức hoặc thu nhập theo thời gian, sử dụng tốc độ tăng trưởng trung vị của ngành, và sử dụng mối quan hệ được trình bày trong Phương trình 10 để ước tính tốc độ tăng trưởng bền vững (<em>sustainable growth rate</em>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0360-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0360-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$g = b \times \text{ROE} \tag{10}$$</div></div>
+                </div>
+                
+
+                <div id="pdf-page-361" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 361 / Trang PDF 361
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5>where</h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5>trong đó</h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>g</em> = dividend growth rate</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$g =$</span> tốc độ tăng trưởng cổ tức (<em>dividend growth rate</em>)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>b</em> = earnings retention rate = (1 – Dividend payout ratio)</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$b =$</span> tỷ lệ lợi nhuận giữ lại (<em>earnings retention rate</em>) <span class="math-inline">$= (1 - \text{Tỷ lệ chi trả cổ tức } [\text{Dividend payout ratio}])$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>ROE = return on equity</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$\text{ROE} =$</span> tỷ suất sinh lợi trên vốn chủ sở hữu (<em>return on equity</em>)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Example 7 illustrates the application of the Gordon growth model to the shares of a large industrial manufacturing company. The analyst believes it will continue to grow at a rate that it achieved in the previous three years and remain stable in the future. The example asks how much the dividend growth assumption adds to the intrinsic value estimate. The question is relevant to valuation because if the amount is high on a percentage basis, a large part of the value of the share depends on the realization of the growth estimate. One can answer the question by subtracting from the intrinsic value estimate determined by Equation 9 the value determined by Equation 6, which assumes no dividend growth.<sup>3</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ 7 minh họa việc áp dụng mô hình tăng trưởng Gordon đối với cổ phiếu của một công ty sản xuất công nghiệp lớn. Chuyên gia phân tích tin rằng công ty sẽ tiếp tục tăng trưởng ở tốc độ mà nó đã đạt được trong ba năm trước đó và duy trì ổn định trong tương lai. Ví dụ này đặt câu hỏi rằng giả định tăng trưởng cổ tức đóng góp bao nhiêu vào ước tính giá trị nội tại. Câu hỏi này có ý nghĩa liên quan đến việc định giá bởi vì nếu con số này cao xét theo tỷ lệ phần trăm, thì một phần lớn giá trị của cổ phiếu phụ thuộc vào việc hiện thực hóa ước tính tăng trưởng đó. Người ta có thể trả lời câu hỏi này bằng cách lấy ước tính giá trị nội tại được xác định bởi Phương trình 9 trừ đi giá trị được xác định bởi Phương trình 6 (vốn giả định cổ tức không tăng trưởng).<sup>3</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 7</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 7 (EXAMPLE 7)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Applying the Gordon Growth Model</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Áp dụng Mô hình Tăng trưởng Gordon (Applying the Gordon Growth Model)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Siemens AG operates in the capital goods and technology space. It is involved in the engineering, manufacturing, automation, power, and transportation sectors. It operates globally and is one of the largest companies in the sectors in which it operates. It is a substantial employer in both its original, domestic German market, as well as dozens of countries around the world. Selected financial information for Siemens appears in Exhibit 3.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Siemens AG hoạt động trong lĩnh vực tư liệu sản xuất (<em>capital goods</em>) và công nghệ. Công ty tham gia vào các lĩnh vực kỹ thuật, sản xuất chế tạo, tự động hóa, năng lượng và giao thông vận tải. Công ty hoạt động trên phạm vi toàn cầu và là một trong những tập đoàn lớn nhất trong các lĩnh vực mà mình tham gia. Đây là một nhà tuyển dụng lớn cả ở thị trường nội địa Đức nguyên bản lẫn tại hàng chục quốc gia trên khắp thế giới. Thông tin tài chính chọn lọc của Siemens xuất hiện trong Bảng minh họa 3 (Exhibit 3).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 3: Selected Financial Information for Siemens AG</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 3: Thông tin Tài chính Chọn lọc của Siemens AG (Exhibit 3: Selected Financial Information for Siemens AG)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Year</strong></th>
+<th><strong>2017</strong></th>
+<th><strong>2016</strong></th>
+<th><strong>2015</strong></th>
+<th><strong>2014</strong></th>
+<th><strong>2013</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EPS</td>
+<td>€7.45</td>
+<td>€6.74</td>
+<td>€8.85</td>
+<td>€6.37</td>
+<td>€5.08</td>
+</tr>
+<tr>
+<td>DPS</td>
+<td>€3.7</td>
+<td>€3.6</td>
+<td>€3.5</td>
+<td>€3.3</td>
+<td>€3.0</td>
+</tr>
+<tr>
+<td>Payout ratio</td>
+<td>50%</td>
+<td>53%</td>
+<td>40%</td>
+<td>52%</td>
+<td>59%</td>
+</tr>
+<tr>
+<td>ROE</td>
+<td>15.6%</td>
+<td>15.9%</td>
+<td>22.3%</td>
+<td>18.2%</td>
+<td>14.6%</td>
+</tr>
+<tr>
+<td>Share price</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>(XETRA<br>- Frankfurt)</td>
+<td>€119.2</td>
+<td>€104.2</td>
+<td>€79.94</td>
+<td>€94.37</td>
+<td>€89.06</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Năm (Year)</strong></th>
+<th><strong>2017</strong></th>
+<th><strong>2016</strong></th>
+<th><strong>2015</strong></th>
+<th><strong>2014</strong></th>
+<th><strong>2013</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EPS</td>
+<td>€7.45</td>
+<td>€6.74</td>
+<td>€8.85</td>
+<td>€6.37</td>
+<td>€5.08</td>
+</tr>
+<tr>
+<td>DPS</td>
+<td>€3.7</td>
+<td>€3.6</td>
+<td>€3.5</td>
+<td>€3.3</td>
+<td>€3.0</td>
+</tr>
+<tr>
+<td>Tỷ lệ chi trả cổ tức (<em>Payout ratio</em>)</td>
+<td>50%</td>
+<td>53%</td>
+<td>40%</td>
+<td>52%</td>
+<td>59%</td>
+</tr>
+<tr>
+<td>ROE</td>
+<td>15.6%</td>
+<td>15.9%</td>
+<td>22.3%</td>
+<td>18.2%</td>
+<td>14.6%</td>
+</tr>
+<tr>
+<td>Giá cổ phiếu (<em>Share price</em>)<br>(XETRA - Frankfurt)</td>
+<td>€119.2</td>
+<td>€104.2</td>
+<td>€79.94</td>
+<td>€94.37</td>
+<td>€89.06</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Note:</em> DPS stands for “dividends per share.”</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Lưu ý:</em> DPS viết tắt của "cổ tức trên mỗi cổ phiếu (<em>dividends per share</em>)."</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Source:</em> Morningstar, www .siemens .com.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Nguồn:</em> Morningstar, www.siemens.com.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The analyst estimates the growth rate to be approximately 5.4 percent based on the dividend growth rate over the period 2013 to 2017 [3(1 + <em>g</em> )<sup>4</sup> = 3.7, so <em>g</em> = 5.4%]. To verify that the estimated growth rate of 5.4 percent is feasible in the future, the analyst also uses the average of Siemens’s retention rate and ROE for the previous five years ( <em>g</em> ≈ 0.49 × 17.3% ≈ 8.5%) to estimate the sustainable growth rate.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chuyên gia phân tích ước tính tốc độ tăng trưởng vào khoảng 5.4 phần trăm dựa trên tốc độ tăng trưởng cổ tức trong giai đoạn từ năm 2013 đến năm 2017 <span class="math-inline">$[3(1 + g)^4 = 3.7$</span>, suy ra <span class="math-inline">$g = 5.4\%]$</span>. Để xác minh rằng tốc độ tăng trưởng ước tính 5.4 phần trăm là khả thi trong tương lai, chuyên gia phân tích cũng sử dụng mức trung bình của tỷ lệ lợi nhuận giữ lại và ROE của Siemens trong năm năm trước đó <span class="math-inline">$(g \approx 0.49 \times 17.3\% \approx 8.5\%)$</span> để ước tính tốc độ tăng trưởng bền vững.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using a number of approaches, including adding a risk premium to a longterm German government bond and using the CAPM, the analyst estimates a required return of 7.5 percent. The most recent dividend of €3.70 is used for <em>D0</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng một số cách tiếp cận, bao gồm việc cộng một phần bù rủi ro vào trái phiếu chính phủ Đức dài hạn và sử dụng mô hình CAPM, chuyên gia phân tích ước tính tỷ suất sinh lợi yêu cầu là 7.5 phần trăm. Khoản cổ tức gần nhất là €3.70 được sử dụng cho <span class="math-inline">$D_0$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-362" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 362 / Trang PDF 362
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Use the Gordon growth model to estimate Siemens’s intrinsic value.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Sử dụng mô hình tăng trưởng Gordon để ước tính giá trị nội tại của Siemens.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0362-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0362-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \frac{€3.70(1 + 0.054)}{0.075 - 0.054} = €185.70$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>How much does the dividend growth assumption add to the intrinsic value estimate?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Giả định tăng trưởng cổ tức đóng góp bao nhiêu vào ước tính giá trị nội tại?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0362-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0362-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$€185.70 - \frac{€3.70}{0.075} = €136.37$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Based on the estimated intrinsic value, is a share of Siemens undervalued, overvalued, or fairly valued?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Dựa trên giá trị nội tại ước tính, một cổ phiếu của Siemens đang bị định giá thấp, định giá cao, hay định giá hợp lý?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A share of Siemens appears to be undervalued. The analyst, before making a recommendation, might consider how realistic the estimated inputs are and check the sensitivity of the estimated value to changes in the inputs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một cổ phiếu của Siemens dường như đang bị định giá thấp (<em>undervalued</em> – vì giá thị trường năm 2017 là €119.2 thấp hơn €185.70). Trước khi đưa ra khuyến nghị, chuyên gia phân tích có thể cân nhắc xem các dữ liệu đầu vào ước tính có thực tế hay không và kiểm tra độ nhạy của giá trị ước tính đối với những thay đổi trong các dữ liệu đầu vào.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>What is the intrinsic value if the growth rate estimate is lowered to 4.4 percent?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Giá trị nội tại là bao nhiêu nếu ước tính tốc độ tăng trưởng được hạ xuống mức 4.4 phần trăm?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0362-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0362-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \frac{€3.70(1 + 0.044)}{0.075 - 0.044} = €124.61$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="5">
+<li>What is the intrinsic value if the growth rate estimate is lowered to 4.4 percent and the required rate of return estimate is increased to 8.5 percent?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li>Giá trị nội tại là bao nhiêu nếu ước tính tốc độ tăng trưởng được hạ xuống mức 4.4 phần trăm và ước tính tỷ suất sinh lợi yêu cầu được tăng lên mức 8.5 phần trăm?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0362-17.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0362-17.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \frac{€3.70(1 + 0.044)}{0.085 - 0.044} = €94.21$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The Gordon growth model estimate of intrinsic value is extremely sensitive to the choice of required rate of return <em>r</em> and growth rate <em>g</em> . It is possible that the growth rate assumption and the required return assumption used initially were too high. Worldwide economic growth is typically in the low single digits, which may mean that a large company such as Siemens may struggle to grow dividends at 5.4 percent into perpetuity. Exhibit 4 presents a further sensitivity analysis of Siemens’s intrinsic value to the required return and growth estimates.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ước tính giá trị nội tại theo mô hình tăng trưởng Gordon cực kỳ nhạy cảm với việc lựa chọn tỷ suất sinh lợi yêu cầu <span class="math-inline">$r$</span> và tốc độ tăng trưởng <span class="math-inline">$g$</span>. Có khả năng là giả định tốc độ tăng trưởng và giả định tỷ suất sinh lợi yêu cầu được sử dụng ban đầu đã quá cao. Tăng trưởng kinh tế toàn cầu thường chỉ ở mức một chữ số thấp, điều này có thể đồng nghĩa với việc một công ty lớn như Siemens sẽ phải chật vật mới có thể tăng trưởng cổ tức ở mức 5.4 phần trăm mãi mãi. Bảng minh họa 4 (Exhibit 4) trình bày một phân tích độ nhạy sâu hơn đối với giá trị nội tại của Siemens theo các ước tính tỷ suất sinh lợi yêu cầu và tốc độ tăng trưởng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 4: Sensitivity Analysis of the Intrinsic-Value Estimate for Siemens AG</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 4: Phân tích Độ nhạy đối với Ước tính Giá trị Nội tại của Siemens AG (Exhibit 4: Sensitivity Analysis of the Intrinsic-Value Estimate for Siemens AG)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong><em>g</em> = 2.5%</strong></th>
+<th><strong><em>g</em> = 3.5%</strong></th>
+<th><strong><em>g</em> = 4.5%</strong></th>
+<th><strong><em>g</em> = 5.5%</strong></th>
+<th><strong><em>g</em> = 6.5%</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>r</em>= 6%</td>
+<td>€108.4</td>
+<td>€153.2</td>
+<td>€257.8</td>
+<td>€780.7</td>
+<td>—</td>
+</tr>
+<tr>
+<td><em>r</em>= 7%</td>
+<td>€84.3</td>
+<td>€109.4</td>
+<td>€154.7</td>
+<td>€260.2</td>
+<td>€788.1</td>
+</tr>
+<tr>
+<td><em>r</em>= 8%</td>
+<td>€69.0</td>
+<td>€85.1</td>
+<td>€110.5</td>
+<td>€156.1</td>
+<td>€262.7</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong><span class="math-inline">$g = 2.5\%$</span></strong></th>
+<th><strong><span class="math-inline">$g = 3.5\%$</span></strong></th>
+<th><strong><span class="math-inline">$g = 4.5\%$</span></strong></th>
+<th><strong><span class="math-inline">$g = 5.5\%$</span></strong></th>
+<th><strong><span class="math-inline">$g = 6.5\%$</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math-inline">$r = 6\%$</span></td>
+<td>€108.4</td>
+<td>€153.2</td>
+<td>€257.8</td>
+<td>€780.7</td>
+<td>—</td>
+</tr>
+<tr>
+<td><span class="math-inline">$r = 7\%$</span></td>
+<td>€84.3</td>
+<td>€109.4</td>
+<td>€154.7</td>
+<td>€260.2</td>
+<td>€788.1</td>
+</tr>
+<tr>
+<td><span class="math-inline">$r = 8\%$</span></td>
+<td>€69.0</td>
+<td>€85.1</td>
+<td>€110.5</td>
+<td>€156.1</td>
+<td>€262.7</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-363" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 363 / Trang PDF 363
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong><em>g</em> = 2.5%</strong></th>
+<th><strong><em>g</em> = 3.5%</strong></th>
+<th><strong><em>g</em> = 4.5%</strong></th>
+<th><strong><em>g</em> = 5.5%</strong></th>
+<th><strong><em>g</em> = 6.5%</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>r</em>= 9%</td>
+<td>€58.3</td>
+<td>€69.6</td>
+<td>€85.9</td>
+<td>€111.5</td>
+<td>€157.6</td>
+</tr>
+<tr>
+<td><em>r</em>= 10%</td>
+<td>€50.6</td>
+<td>€58.9</td>
+<td>€70.3</td>
+<td>€86.7</td>
+<td>€112.6</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong><span class="math-inline">$g = 2.5\%$</span></strong></th>
+<th><strong><span class="math-inline">$g = 3.5\%$</span></strong></th>
+<th><strong><span class="math-inline">$g = 4.5\%$</span></strong></th>
+<th><strong><span class="math-inline">$g = 5.5\%$</span></strong></th>
+<th><strong><span class="math-inline">$g = 6.5\%$</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math-inline">$r = 9\%$</span></td>
+<td>€58.3</td>
+<td>€69.6</td>
+<td>€85.9</td>
+<td>€111.5</td>
+<td>€157.6</td>
+</tr>
+<tr>
+<td><span class="math-inline">$r = 10\%$</span></td>
+<td>€50.6</td>
+<td>€58.9</td>
+<td>€70.3</td>
+<td>€86.7</td>
+<td>€112.6</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Note that no value is shown when the growth rate exceeds the required rate of return. The Gordon growth model assumes that the growth rate cannot be greater than the required rate of return.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lưu ý rằng không có giá trị nào được hiển thị khi tốc độ tăng trưởng vượt quá tỷ suất sinh lợi yêu cầu. Mô hình tăng trưởng Gordon giả định rằng tốc độ tăng trưởng không thể lớn hơn tỷ suất sinh lợi yêu cầu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The assumptions of the Gordon model are as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các giả định của mô hình Gordon bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Dividends are the correct metric to use for valuation purposes.</p>
+</li>
+<li>
+<p>The dividend growth rate is forever: It is perpetual and never changes.</p>
+</li>
+<li>
+<p>The required rate of return is also constant over time.</p>
+</li>
+<li>
+<p>The dividend growth rate is strictly less than the required rate of return.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Cổ tức là thước đo chính xác để sử dụng cho mục đích định giá.</p>
+</li>
+<li>
+<p>Tốc độ tăng trưởng cổ tức là mãi mãi: Nó là vĩnh cửu và không bao giờ thay đổi.</p>
+</li>
+<li>
+<p>Tỷ suất sinh lợi yêu cầu cũng không đổi theo thời gian.</p>
+</li>
+<li>
+<p>Tốc độ tăng trưởng cổ tức nhỏ hơn nghiêm ngặt so với tỷ suất sinh lợi yêu cầu (<span class="math-inline">$g &lt; r$</span>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An analyst might be dissatisfied with these assumptions for many reasons. The equities being examined might not currently pay a dividend. The Gordon assumptions might be too simplistic to reflect the characteristics of the companies being evaluated. Some alternatives to using the Gordon model are as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một chuyên gia phân tích có thể không hài lòng với những giả định này vì nhiều lý do. Các cổ phiếu đang được xem xét có thể hiện tại không trả cổ tức. Các giả định của Gordon có thể quá đơn giản hóa nên không phản ánh được đặc điểm của các công ty đang được đánh giá. Một số phương án thay thế cho việc sử dụng mô hình Gordon như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Use a more robust DDM that allows for varying patterns of growth.</p>
+</li>
+<li>
+<p>Use a cash flow measure other than dividends for valuation purposes.</p>
+</li>
+<li>
+<p>Use some other approach (such as a multiplier method) to valuation.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Sử dụng một mô hình DDM mạnh mẽ/linh hoạt hơn cho phép các khuôn mẫu tăng trưởng thay đổi khác nhau.</p>
+</li>
+<li>
+<p>Sử dụng một thước đo dòng tiền khác ngoài cổ tức cho mục đích định giá.</p>
+</li>
+<li>
+<p>Sử dụng một cách tiếp cận định giá khác (chẳng hạn như phương pháp bội số).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Applying a DDM is difficult if the company being analyzed is not currently paying a dividend. A company may not be paying a dividend if 1) the investment opportunities the company has are all so attractive that the retention and reinvestment of funds is preferable, from a return perspective, to the distribution of a dividend to shareholders or 2) the company is in such shaky financial condition that it cannot afford to pay a dividend. An analyst might still use a DDM to value such companies by assuming that dividends will begin at some future point in time. The analyst might further assume that constant growth occurs after that date and use the Gordon growth model for valuation. Extrapolating from no current dividend, however, generally yields highly uncertain forecasts. Analysts typically choose to use one or more of the alternatives instead of or as a supplement to the Gordon growth model.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc áp dụng DDM sẽ gặp khó khăn nếu công ty đang được phân tích hiện tại không trả cổ tức. Một công ty có thể không trả cổ tức nếu: 1) các cơ hội đầu tư mà công ty có được đều hấp dẫn đến mức việc giữ lại và tái đầu tư nguồn vốn là tốt hơn, xét dưới góc độ tỷ suất sinh lợi, so với việc phân phối cổ tức cho các cổ đông, hoặc 2) công ty đang ở trong tình trạng tài chính bấp bênh đến mức không đủ khả năng chi trả cổ tức. Một chuyên gia phân tích vẫn có thể sử dụng DDM để định giá các công ty như vậy bằng cách giả định rằng cổ tức sẽ bắt đầu được chi trả tại một thời điểm nào đó trong tương lai. Chuyên gia phân tích có thể giả định thêm rằng sự tăng trưởng không đổi sẽ diễn ra sau ngày đó và sử dụng mô hình tăng trưởng Gordon để định giá. Tuy nhiên, việc ngoại suy từ chỗ hiện tại chưa có cổ tức nhìn chung sẽ mang lại những dự báo có độ bất định rất cao. Các chuyên gia phân tích thường chọn sử dụng một hoặc nhiều phương án thay thế thay cho hoặc để bổ trợ cho mô hình tăng trưởng Gordon.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 8</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 8 (EXAMPLE 8)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Gordon Growth Model in the Case of No Current Dividend</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Mô hình Tăng trưởng Gordon trong Trường hợp Hiện tại Không có Cổ tức (Gordon Growth Model in the Case of No Current Dividend)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>A company does not currently pay a dividend but is expected to begin to do so in five years (at <em>t</em> = 5). The first dividend is expected to be $4.00 and to be received five years from today. That dividend is expected to grow at 6 percent into perpetuity. The required return is 10 percent. What is the estimated current intrinsic value?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Một công ty hiện tại không trả cổ tức nhưng dự kiến sẽ bắt đầu trả cổ tức sau 5 năm nữa (tại <span class="math-inline">$t = 5$</span>). Khoản cổ tức đầu tiên dự kiến là $4.00 và sẽ nhận được sau 5 năm kể từ hôm nay. Khoản cổ tức đó dự kiến sẽ tăng trưởng ở mức 6 phần trăm mãi mãi. Tỷ suất sinh lợi yêu cầu là 10 phần trăm. Giá trị nội tại hiện tại ước tính là bao nhiêu?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Solution:</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Lời giải:</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The analyst can value the share in two pieces:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chuyên gia phân tích có thể định giá cổ phiếu này thành hai phần:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> The analyst uses the Gordon growth model to estimate the value at <em>t</em> = 5; in the model, the year-ahead dividend is $4(1.06). Then the analyst finds the present value of this value as of <em>t</em> = 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Chuyên gia phân tích sử dụng mô hình tăng trưởng Gordon để ước tính giá trị tại <span class="math-inline">$t = 5$</span>; trong mô hình này, khoản cổ tức của năm kế tiếp (năm 6) là $\$4(1.06)<span class="math-inline">$. Sau đó chuyên gia phân tích tìm giá trị hiện tại của mức giá trị này tính tại thời điểm $</span>t = 0$.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-364" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 364 / Trang PDF 364
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> The analyst finds the present value of the <span class="math-inline">$4 dividend not “counted” in the estimate in Piece 1 (which values dividends from _t_ = 6 onward). Note that the statement of the problem implies that _D_ 0, _D_ 1, _D_ 2, _D_ 3, and _D_ 4 are zero. Piece 1: The value of this piece is $</span>65.818: <em>Vn</em> =   Dnr_ ( −  1 + <em>g g</em> ) =   rD_ − <em>n</em> +1 <em>g</em> _  V_ 5 =<sup><span class="math-inline">$4&lt;/sup&gt; 0.10 − 0.06&lt;sup&gt;( 1 + 0.06 ) =  $</span>4.24</sup> 0.04<sup>= <span class="math-inline">$106&lt;/sup&gt; _$</span>106 <em>V</em> 0 =<sup>(</sup> 1 + 0.10<sup>)5 = <span class="math-inline">$65.818&lt;/sup&gt; Piece 2: The value of this piece is $</span>2.484: <mark>_</mark> <span class="math-inline">$4 _V_ 0 =&lt;sup&gt;(&lt;/sup&gt; 1 + 0.10&lt;sup&gt;)5 = $</span>2.484</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Chuyên gia phân tích tìm giá trị hiện tại của khoản cổ tức <span class="math-inline">$4 chưa được &quot;tính&quot; trong ước tính ở Phần 1 (vốn chỉ định giá các khoản cổ tức từ $</span>t = 6<span class="math-inline">$ trở đi). Lưu ý rằng đề bài ngụ ý rằng $</span>D_0, D_1, D_2, D_3,<span class="math-inline">$ và $</span>D_4$ đều bằng 0.</p>
+<p>Phần 1: Giá trị của phần này là $65.818:</p>
+<div class="math-display my-3 overflow-x-auto">$$V_n = \frac{D_n(1 + g)}{r - g} = \frac{D_{n+1}}{r - g}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$V_5 = \frac{\$4(1 + 0.06)}{0.10 - 0.06} = \frac{\$4.24}{0.04} = \$106$$</div>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \frac{\$106}{(1 + 0.10)^5} = \$65.818$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The sum of the two pieces is <span class="math-inline">$65.818 + $</span>2.484 = <span class="math-inline">$68.30. Alternatively, the analyst could value the share at _t_ = 4, the point at which dividends are expected to be paid in the following year and from which point they are expected to grow at a constant rate. _$</span>4.00  V_ 4 =  0.10 − 0.06<sup>=  <span class="math-inline">$4.00&lt;/sup&gt; 0.04&lt;sup&gt;= $</span>100</sup> _<span class="math-inline">$100 _V_ 0 =&lt;sup&gt;(&lt;/sup&gt; 1 + 0.10&lt;sup&gt;)4 = $</span>68.30</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phần 2: Giá trị của phần này là $2.484:</p>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \frac{\$4}{(1 + 0.10)^5} = \$2.484$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The next section addresses the application of the DDM with more flexible assumptions as to the dividend growth rate.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tổng của hai phần là $\$65.818 + \$2.484 = \$68.30<span class="math-inline">$. Cách khác, chuyên gia phân tích có thể định giá cổ phiếu tại thời điểm $</span>t = 4$, thời điểm mà cổ tức dự kiến sẽ được chi trả vào năm kế tiếp (năm 5) và từ thời điểm đó chúng dự kiến sẽ tăng trưởng với tốc độ không đổi:</p>
+<div class="math-display my-3 overflow-x-auto">$$V_4 = \frac{\$4.00}{0.10 - 0.06} = \frac{\$4.00}{0.04} = \$100$$</div>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \frac{\$100}{(1 + 0.10)^4} = \$68.30$$</div>
+<p>Phần tiếp theo giải quyết việc áp dụng DDM với các giả định linh hoạt hơn về tốc độ tăng trưởng cổ tức.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>8</mark> MULTISTAGE DIVIDEND DISCOUNT MODELS</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>8</mark> CÁC MÔ HÌNH CHIẾT KHẤU CỔ TỨC ĐA GIAI ĐOẠN (MULTISTAGE DIVIDEND DISCOUNT MODELS)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>calculate and interpret the intrinsic value of an equity security based on the Gordon (constant) growth dividend discount model or a two-stage dividend discount model, as appropriate</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>tính toán và diễn giải giá trị nội tại của một chứng khoán vốn dựa trên mô hình chiết khấu cổ tức tăng trưởng đều Gordon hoặc mô hình chiết khấu cổ tức hai giai đoạn, tùy trường hợp phù hợp</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>identify characteristics of companies for which the constant growth or a multistage dividend discount model is appropriate explain advantages and disadvantages of each category of valuation model</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>xác định các đặc điểm của những công ty phù hợp để áp dụng mô hình chiết khấu cổ tức tăng trưởng đều hoặc đa giai đoạn
+giải thích các ưu điểm và nhược điểm của từng nhóm mô hình định giá</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Multistage growth models are often used to model rapidly growing companies. The <em>two-stage DDM</em> assumes that at some point the company will begin to pay dividends that grow at a constant rate, but prior to that time the company will pay dividends that are growing at a higher rate than can be sustained in the long run. That is, the company is assumed to experience an initial, finite period of high growth, perhaps prior to the entry of competitors, followed by an infinite period of sustainable growth. The two-stage DDM thus makes use of two growth rates: a high growth rate for an initial, finite period followed by a lower, sustainable growth rate into perpetuity. The Gordon growth model is used to estimate a terminal value at time <em>n</em> that reflects the present value at time <em>n</em> of the dividends received during the sustainable growth period.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các mô hình tăng trưởng đa giai đoạn (<em>multistage growth models</em>) thường được sử dụng để mô hình hóa các công ty đang tăng trưởng nhanh. <em>Mô hình DDM hai giai đoạn (two-stage DDM)</em> giả định rằng tại một thời điểm nào đó công ty sẽ bắt đầu trả cổ tức tăng trưởng với tốc độ không đổi, nhưng trước thời điểm đó công ty sẽ trả cổ tức đang tăng trưởng ở một tốc độ cao hơn mức có thể duy trì bền vững trong dài hạn. Nghĩa là, công ty được giả định sẽ trải qua một giai đoạn tăng trưởng cao ban đầu và hữu hạn, có lẽ là trước khi có sự gia nhập của các đối thủ cạnh tranh, theo sau bởi một giai đoạn tăng trưởng bền vững vô hạn. Do đó, DDM hai giai đoạn sử dụng hai tốc độ tăng trưởng: một tốc độ tăng trưởng cao cho giai đoạn hữu hạn ban đầu, theo sau là một tốc độ tăng trưởng bền vững thấp hơn kéo dài mãi mãi. Mô hình tăng trưởng Gordon được sử dụng để ước tính giá trị kết thúc (<em>terminal value</em>) tại thời điểm <span class="math-inline">$n$</span>, phản ánh giá trị hiện tại tại thời điểm <span class="math-inline">$n$</span> của các khoản cổ tức nhận được trong suốt giai đoạn tăng trưởng bền vững.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Equation 11 will be used here as the starting point for a two-stage valuation model. The two-stage valuation model is similar to Example 8 except that instead of assuming zero dividends for the initial period, the analyst assumes that dividends will exhibit a</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phương trình 11 sẽ được sử dụng ở đây làm điểm khởi đầu cho mô hình định giá hai giai đoạn. Mô hình định giá hai giai đoạn tương tự như Ví dụ 8 ngoại trừ việc thay vì giả định cổ tức bằng 0 trong giai đoạn đầu, chuyên gia phân tích giả định rằng cổ tức sẽ thể hiện một</p></div>
+                </div>
+                
+
+                <div id="pdf-page-365" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 365 / Trang PDF 365
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>high rate of growth during the initial period. Equation 11 values the dividends over the short-term period of high growth and the terminal value at the end of the period of high growth. The short-term growth rate, <em>gS</em> , lasts for <em>n</em> years. The intrinsic value per share in year <em>n</em> , <em>Vn</em> , represents the year <em>n</em> value of the dividends received during the sustainable growth period or the terminal value at time <em>n</em> . <em>Vn</em> can be estimated by using the Gordon growth model as shown in Equation 12, where <em>gL</em> is the long-term or sustainable growth rate. The dividend in year <em>n</em> + 1, <em>Dn</em> +1, can be determined by using Equation 13:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>tốc độ tăng trưởng cao trong suốt giai đoạn đầu. Phương trình 11 định giá các khoản cổ tức trong giai đoạn tăng trưởng cao ngắn hạn và giá trị kết thúc vào cuối giai đoạn tăng trưởng cao đó. Tốc độ tăng trưởng ngắn hạn, <span class="math-inline">$g_S$</span>, kéo dài trong <span class="math-inline">$n$</span> năm. Giá trị nội tại trên mỗi cổ phiếu vào năm <span class="math-inline">$n$</span>, <span class="math-inline">$V_n$</span>, đại diện cho giá trị tại năm <span class="math-inline">$n$</span> của các khoản cổ tức nhận được trong giai đoạn tăng trưởng bền vững hay chính là giá trị kết thúc tại thời điểm <span class="math-inline">$n$</span>. <span class="math-inline">$V_n$</span> có thể được ước tính bằng cách sử dụng mô hình tăng trưởng Gordon như được trình bày trong Phương trình 12, trong đó <span class="math-inline">$g_L$</span> là tốc độ tăng trưởng dài hạn hay bền vững (<em>long-term or sustainable growth rate</em>). Cổ tức trong năm <span class="math-inline">$n + 1$</span>, <span class="math-inline">$D_{n+1}$</span>, có thể được xác định bằng cách sử dụng Phương trình 13:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0365-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0365-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \sum_{t=1}^{n} \frac{D_0(1 + g_S)^t}{(1 + r)^t} + \frac{V_n}{(1 + r)^n} \tag{11}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$V_n = \frac{D_{n+1}}{r - g_L} \tag{12}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$D_{n+1} = D_0(1 + g_S)^n(1 + g_L) \tag{13}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 9</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 9 (EXAMPLE 9)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Applying the Two-Stage Dividend Discount Model</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Áp dụng Mô hình Chiết khấu Cổ tức Hai giai đoạn (Applying the Two-Stage Dividend Discount Model)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>The current dividend, <em>D</em> 0, is $5.00. Growth is expected to be 10 percent a year for three years and then 5 percent thereafter. The required rate of return is 15 percent. Estimate the intrinsic value.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Cổ tức hiện tại, <span class="math-inline">$D_0$</span>, là $5.00. Tốc độ tăng trưởng dự kiến là 10 phần trăm một năm trong ba năm và sau đó là 5 phần trăm. Tỷ suất sinh lợi yêu cầu là 15 phần trăm. Hãy ước tính giá trị nội tại.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Solution:</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Lời giải:</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>D</em> 1 = <span class="math-inline">$5.00(1 + 0.10) = $</span>5.50</p>
+<p><em>D</em> 2 = <span class="math-inline">$5.00(1 + 0.10)&lt;sup&gt;2&lt;/sup&gt; = $</span>6.05 <em>D</em> 3 = <span class="math-inline">$5.00(1 + 0.10)&lt;sup&gt;3&lt;/sup&gt; = $</span>6.655 <em>D</em> 4 = <span class="math-inline">$5.00(1 + 0.10)&lt;sup&gt;3&lt;/sup&gt; (1 + 0.05) = $</span>6.98775</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$D_1 = \$5.00(1 + 0.10) = \$5.50$$</div>
+<div class="math-display my-3 overflow-x-auto">$$D_2 = \$5.00(1 + 0.10)^2 = \$6.05$$</div>
+<div class="math-display my-3 overflow-x-auto">$$D_3 = \$5.00(1 + 0.10)^3 = \$6.655$$</div>
+<div class="math-display my-3 overflow-x-auto">$$D_4 = \$5.00(1 + 0.10)^3(1 + 0.05) = \$6.98775$$</div>
+<div class="math-display my-3 overflow-x-auto">$$V_3 = \frac{\$6.98775}{0.15 - 0.05} = \$69.8775$$</div>
+<div class="math-display my-3 overflow-x-auto">$$V_0 = \frac{\$5.50}{(1 + 0.15)} + \frac{\$6.05}{(1 + 0.15)^2} + \frac{\$6.655}{(1 + 0.15)^3} + \frac{\$69.8775}{(1 + 0.15)^3} \approx \$59.68$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>V_ 3 =  0.15 − 0.05<sup><span class="math-inline">$6.98775= $</span>69.8775</sup> _ _<span class="math-inline">$6.05 _  V_ 0 =&lt;sup&gt;(&lt;/sup&gt; 1 + 0.15&lt;sup&gt;$</span>5.50)+  (</sup> 1 + 0.15<sup>)2 +  (</sup> 1 + 0.15<sup><span class="math-inline">$6.655)3 +  (&lt;/sup&gt; 1 + 0.15&lt;sup&gt;$</span>69.8775)3 ≈ $59.68</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình DDM có thể được mở rộng ra nhiều giai đoạn tùy theo mức độ phù hợp. Đối với hầu hết các công ty đại chúng (tức là các công ty đã vượt qua giai đoạn khởi nghiệp), những người hành nghề giả định tốc độ tăng trưởng rốt cuộc sẽ rơi vào ba giai đoạn: 1) tăng trưởng (<em>growth</em>), 2) chuyển tiếp (<em>transition</em>), và 3) trưởng thành/bão hòa (<em>maturity</em>). Giả định này củng cố việc sử dụng <em>mô hình DDM ba giai đoạn (three-stage DDM)</em>, vốn sử dụng ba tốc độ tăng trưởng: một tốc độ tăng trưởng cao cho giai đoạn hữu hạn đầu tiên, theo sau là một tốc độ tăng trưởng thấp hơn cho giai đoạn hữu hạn thứ hai, và tiếp theo là một tốc độ tăng trưởng bền vững thấp hơn kéo dài mãi mãi.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The DDM can be extended to as many stages as deemed appropriate. For most publicly traded companies (that is, companies beyond the start-up stage), practitioners assume growth will ultimately fall into three stages: 1) growth, 2) transition, and 3) maturity. This assumption supports the use of a <em>three-stage DDM</em> , which makes use of three growth rates: a high growth rate for an initial finite period, followed by a lower growth rate for a finite second period, followed by a lower, sustainable growth rate into perpetuity.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Người ta có thể lập luận rằng DDM ba giai đoạn sẽ phù hợp nhất đối với một công ty khá non trẻ, một công ty vừa mới bước vào giai đoạn tăng trưởng. Mô hình DDM hai giai đoạn sẽ phù hợp để ước tính giá trị của một công ty lâu đời hơn đã đi qua giai đoạn tăng trưởng của mình và hiện đang ở giai đoạn chuyển tiếp (một giai đoạn có tốc độ tăng trưởng cao hơn tốc độ tăng trưởng bền vững) trước khi tiến tới giai đoạn trưởng thành (giai đoạn có tốc độ tăng trưởng bền vững thấp hơn).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>One can make the case that a three-stage DDM would be most appropriate for a fairly young company, one that is just entering the growth phase. The two-stage DDM would be appropriate to estimate the value of an older company that has already moved through its growth phase and is currently in the transition phase (a period with a higher growth rate than the sustainable growth rate) prior to moving to the maturity phase (the period with a lower, sustainable growth rate).</p>
+<p>However, the choice of a two-stage DDM need not rely solely on the age of a company. Long-established companies sometimes manage to restart above-average growth through, for example, innovation, expansion to new markets, or acquisitions.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tuy nhiên, việc lựa chọn DDM hai giai đoạn không nhất thiết chỉ dựa vào tuổi đời của công ty. Các công ty đã thành lập lâu năm đôi khi vẫn xoay sở để tái khởi động mức tăng trưởng trên trung bình thông qua, chẳng hạn như, đổi mới sáng tạo, mở rộng sang các thị trường mới, hoặc mua lại và sáp nhập (<em>acquisitions</em>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-366" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 366 / Trang PDF 366
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Or a company’s long-run growth rate may be interrupted by a period of subnormal performance. If growth is expected to moderate (in the first case) or improve (in the second case) toward some long-term growth rate, a two-stage DDM may be appropriate. Thus, we chose a two-stage DDM to value International Business Machines Corporation in Example 10.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hoặc tốc độ tăng trưởng dài hạn của một công ty có thể bị gián đoạn bởi một giai đoạn hoạt động kém hơn mức bình thường. Nếu tốc độ tăng trưởng dự kiến sẽ dịu lại (trong trường hợp thứ nhất) hoặc cải thiện (trong trường hợp thứ hai) hướng về một tốc độ tăng trưởng dài hạn nào đó, thì DDM hai giai đoạn có thể sẽ phù hợp. Do đó, chúng ta đã chọn DDM hai giai đoạn để định giá Tập đoàn International Business Machines (IBM) trong Ví dụ 10.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 10</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 10 (EXAMPLE 10)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Two-Stage Dividend Discount Model: International Business Machines Corporation</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Mô hình Chiết khấu Cổ tức Hai giai đoạn: Tập đoàn International Business Machines (Two-Stage Dividend Discount Model: International Business Machines Corporation)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>International Business Machines Corporation (IBM) is a US based leading technology company. IBM was founded in 1911, initially as a company that manufactured machinery for sale and lease, ranging from commercial scales and industrial time recorders, meat and cheese slicers, to punched cards. IBM introduced the personal computer in 1981; however, by the 1990s, it began to suffer losses in its core computer manufacturing business and by the 2000s, it had begun to diversify into business consulting, which was finalized in 2005 when it sold its personal computer business to Chinese company Lenovo. IBM now operates through five segments: Cognitive Solutions, Global Business Services (GBS), Technology Services &amp; Cloud Platforms, Systems, and Global Financing. The Cognitive Solutions segment delivers a spectrum of capabilities from descriptive, predictive, and prescriptive analytics to cognitive systems. Cognitive Solutions includes Watson, a cognitive computing platform that has the ability to interact in natural language, process big data, and learn from interactions with people and computers. The GBS segment provides clients with consulting, application management services, and global process services. The Technology Services &amp; Cloud Platforms segment provides information technology infrastructure services. The Systems segment provides clients with infrastructure technologies. The Global Financing segment includes client financing, commercial financing, and remanufacturing and remarketing.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tập đoàn International Business Machines (IBM) là một công ty công nghệ hàng đầu có trụ sở tại Hoa Kỳ. IBM được thành lập vào năm 1911, ban đầu là một công ty sản xuất máy móc để bán và cho thuê, từ cân thương mại và máy chấm công công nghiệp, máy thái thịt và phô mai, cho đến thẻ đục lỗ. IBM đã giới thiệu máy tính cá nhân vào năm 1981; tuy nhiên, đến thập niên 1990, công ty bắt đầu chịu thua lỗ trong mảng kinh doanh sản xuất máy tính cốt lõi của mình và đến thập niên 2000, công ty đã bắt đầu đa dạng hóa sang lĩnh vực tư vấn kinh doanh, quá trình này được hoàn tất vào năm 2005 khi hãng bán mảng kinh doanh máy tính cá nhân của mình cho công ty Trung Quốc Lenovo. IBM hiện hoạt động thông qua năm phân khúc: Giải pháp Nhận thức (<em>Cognitive Solutions</em>), Dịch vụ Kinh doanh Toàn cầu (<em>Global Business Services</em> – GBS), Dịch vụ Công nghệ &amp; Nền tảng Đám mây (<em>Technology Services &amp; Cloud Platforms</em>), Hệ thống (<em>Systems</em>), và Tài chính Toàn cầu (<em>Global Financing</em>). Phân khúc Giải pháp Nhận thức cung cấp một dải năng lực từ phân tích mô tả, dự đoán và đề xuất (<em>descriptive, predictive, and prescriptive analytics</em>) cho đến các hệ thống nhận thức. Giải pháp Nhận thức bao gồm Watson, một nền tảng điện toán nhận thức có khả năng tương tác bằng ngôn ngữ tự nhiên, xử lý dữ liệu lớn (<em>big data</em>), và học hỏi từ các tương tác với con người và máy tính. Phân khúc GBS cung cấp cho khách hàng dịch vụ tư vấn, dịch vụ quản lý ứng dụng và dịch vụ quy trình toàn cầu. Phân khúc Dịch vụ Công nghệ &amp; Nền tảng Đám mây cung cấp các dịch vụ cơ sở hạ tầng công nghệ thông tin. Phân khúc Hệ thống cung cấp cho khách hàng các công nghệ cơ sở hạ tầng. Phân khúc Tài chính Toàn cầu bao gồm tài trợ khách hàng, tài trợ thương mại, cùng tái sản xuất và tiếp thị lại.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The 30 July 2018 <em>Value Line</em> report on IBM appears in Exhibit 5. IBM has increased its dividends every year over the past 15 years. Information from <em>Value Line</em> shows that the dividend growth is around 17.0 percent for the past 10 years, 13.5 percent for the past 5 years, and estimated to be 4.5 percent for 2015 to 2023. After a period of growth through acquisition and merger, the pattern suggests that IBM may be transitioning to a mature growth phase.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Báo cáo <em>Value Line</em> ngày 30 tháng 7 năm 2018 về IBM xuất hiện trong Bảng minh họa 5 (Exhibit 5). IBM đã tăng cổ tức hàng năm trong suốt 15 năm qua. Thông tin từ <em>Value Line</em> cho thấy mức tăng trưởng cổ tức vào khoảng 17.0 phần trăm trong 10 năm qua, 13.5 phần trăm trong 5 năm qua, và ước tính ở mức 4.5 phần trăm cho giai đoạn từ năm 2015 đến năm 2023. Sau một thời kỳ tăng trưởng thông qua mua lại và sáp nhập, khuôn mẫu này cho thấy IBM có thể đang chuyển tiếp sang giai đoạn tăng trưởng trưởng thành.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The two-stage DDM is arguably a good choice for valuing IBM because the company appears to be transitioning from a high-growth phase (note the 13.5 percent dividend growth for the past 5 years) to a lower-growth phase (note the forecast of 4.5 percent dividend growth to 2015–2023).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình DDM hai giai đoạn có thể nói là một lựa chọn tốt để định giá IBM bởi vì công ty dường như đang chuyển tiếp từ giai đoạn tăng trưởng cao (lưu ý mức tăng trưởng cổ tức 13.5 phần trăm trong 5 năm qua) sang giai đoạn tăng trưởng thấp hơn (lưu ý mức dự báo tăng trưởng cổ tức 4.5 phần trăm cho giai đoạn 2015–2023).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The CAPM can be used to estimate the required return, <em>r</em> , for IBM. The <em>Value Line</em> report (in the top left corner) estimates beta to be 0.95. Using the yield of about 2.0 percent on 10-year US Treasury notes as a proxy for the risk-free rate and assuming an equity risk premium of 5.0 percent, we find the estimate for <em>r</em> would be 6.75 percent [2.0% + 0.95(5.0%)].</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình CAPM có thể được sử dụng để ước tính tỷ suất sinh lợi yêu cầu, <span class="math-inline">$r$</span>, cho IBM. Báo cáo <em>Value Line</em> (ở góc trên bên trái) ước tính hệ số beta là 0.95. Sử dụng lợi suất khoảng 2.0 phần trăm của trái phiếu Kho bạc Hoa Kỳ kỳ hạn 10 năm làm đại diện (<em>proxy</em>) cho lãi suất phi rủi ro và giả định phần bù rủi ro vốn chủ sở hữu là 5.0 phần trăm, chúng ta tìm được ước tính cho <span class="math-inline">$r$</span> sẽ là 6.75 phần trăm <span class="math-inline">$[2.0\% + 0.95(5.0\%)]$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>To estimate the intrinsic value at the end of 2018, we use the 2018 dividend of US$6.21 from the <em>Value Line</em> report. The dividend is assumed to grow at a rate of 5.0 percent for one year and then 2.33 percent thereafter. The growth rate assumption for the first stage is consistent with the <em>Value Line</em> forecast for the</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Để ước tính giá trị nội tại vào cuối năm 2018, chúng ta sử dụng mức cổ tức năm 2018 là US$6.21 từ báo cáo <em>Value Line</em>. Cổ tức được giả định sẽ tăng trưởng ở tốc độ 5.0 phần trăm trong một năm và sau đó là 2.33 phần trăm. Giả định tốc độ tăng trưởng cho giai đoạn đầu nhất quán với dự báo của <em>Value Line</em> cho</p></div>
+                </div>
+                
+
+                <div id="pdf-page-367" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 367 / Trang PDF 367
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>2018 and 2019 dividends. Our assumption of a 2.33 percent perpetual growth rate produces an 8-year growth rate assumption near 4.5%,<sup>4</sup> which is consistent with the <em>Value Line</em> forecast of 4.5 percent growth from 2015–2022. Thus:</p>
+<p><em>D</em> 2019 = US<span class="math-inline">$6.21(1 + 0.05) = US$</span>6.5205 <em>D</em> 2020 = US<span class="math-inline">$6.21(1 + 0.05)(1 + 0.0233) = US$</span>6.6724 <em>D</em> 2021 = US<span class="math-inline">$6.21(1 + 0.05)(1 + 0.0233)&lt;sup&gt;2&lt;/sup&gt; = US$</span>6.8279 <strong><em>_</em></strong>____ V_ 2020 =  0.0675 − 0.0233<sup>US<span class="math-inline">$6.8279= US$</span>154.4774</sup> _ _  V_ 2018 =<sup>(US<span class="math-inline">$6.5205&lt;/sup&gt; 1 + 0.0675&lt;sup&gt;)+  (&lt;/sup&gt; 1 + 0.0675&lt;sup&gt;US$</span>6.6724)2 +  US<span class="math-inline">$154.4774(&lt;/sup&gt; 1 + 0.0675&lt;sup&gt;)2≈ US$</span>147.523</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>cổ tức năm 2018 và năm 2019. Giả định của chúng ta về tốc độ tăng trưởng vĩnh cửu 2.33 phần trăm tạo ra một giả định tốc độ tăng trưởng 8 năm gần mức 4.5%,<sup>4</sup> nhất quán với dự báo của <em>Value Line</em> về mức tăng trưởng 4.5 phần trăm từ năm 2015–2022. Do đó:</p>
+<div class="math-display my-3 overflow-x-auto">$$D_{2019} = \text{US}\$6.21(1 + 0.05) = \text{US}\$6.5205$$</div>
+<div class="math-display my-3 overflow-x-auto">$$D_{2020} = \text{US}\$6.21(1 + 0.05)(1 + 0.0233) = \text{US}\$6.6724$$</div>
+<div class="math-display my-3 overflow-x-auto">$$D_{2021} = \text{US}\$6.21(1 + 0.05)(1 + 0.0233)^2 = \text{US}\$6.8279$$</div>
+<div class="math-display my-3 overflow-x-auto">$$V_{2020} = \frac{\text{US}\$6.8279}{0.0675 - 0.0233} = \text{US}\$154.4774$$</div>
+<div class="math-display my-3 overflow-x-auto">$$V_{2018} = \frac{\text{US}\$6.5205}{(1 + 0.0675)} + \frac{\text{US}\$6.6724}{(1 + 0.0675)^2} + \frac{\text{US}\$154.4774}{(1 + 0.0675)^2} \approx \text{US}\$147.523$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Given a recent price of US<span class="math-inline">$148.56, as noted at the top left corner of the _Value Line_ report, the intrinsic-value estimate of US$</span>147.523 suggests that IBM is approximately fairly valued.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Với mức giá gần đây là US<span class="math-inline">$148.56, như được ghi chú ở góc trên bên trái của báo cáo _Value Line_, ước tính giá trị nội tại US$</span>147.523 cho thấy rằng IBM đang được định giá xấp xỉ mức hợp lý (<em>approximately fairly valued</em>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-368" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 368 / Trang PDF 368
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Exhibit 5:</strong> <strong><em>Value Line</em> Report on IBM</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Bảng minh họa 5: Báo cáo <em>Value Line</em> về IBM (Exhibit 5: <em>Value Line</em> Report on IBM)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0368-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0368-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><em>Nguồn:</em> © 2018 Value Line, Inc. Bảo lưu mọi quyền trên toàn thế giới. “Value Line” là nhãn hiệu đã đăng ký của Value Line, Inc. Các Chỉ số Trung bình Nhân và Trung bình Cộng của Value Line được tính toán bởi Thomson Reuters. Thông tin được cung cấp bởi Thomson Reuters.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Source:</em> © 2018 Value Line, Inc. All Rights Reserved Worldwide. “Value Line” is a registered trademark of Value Line, Inc. Value Line Geometric and Arithmetic Indices calculated by Thomson Reuters. Information supplied by Thomson Reuters.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"></div>
+                </div>
+                
+
+                <div id="pdf-page-369" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 369 / Trang PDF 369
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>MULTIPLER MODELS AND RELATIONSHIP AMONG PRICE MULTIPLES, PRESENT VALUE MODELS, AND FUNDAMENTALS</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>CÁC MÔ HÌNH BỘI SỐ VÀ MỐI QUAN HỆ GIỮA BỘI SỐ GIÁ, MÔ HÌNH GIÁ TRỊ HIỆN TẠI, VÀ CÁC YẾU TỐ CƠ BẢN (MULTIPLIER MODELS AND RELATIONSHIP AMONG PRICE MULTIPLES, PRESENT VALUE MODELS, AND FUNDAMENTALS)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>9</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>9</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain the rationale for using price multiples to value equity, how the price to earnings multiple relates to fundamentals, and the use of multiples based on comparables calculate and interpret the following multiples: price to earnings, price to an estimate of operating cash flow, price to sales, and price to book value</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích cơ sở lý luận của việc sử dụng các bội số giá để định giá cổ phiếu, mối liên hệ giữa bội số giá trên thu nhập với các yếu tố cơ bản, và việc sử dụng các bội số dựa trên phương pháp so sánh
+tính toán và diễn giải các bội số sau: giá trên thu nhập, giá trên ước tính dòng tiền hoạt động, giá trên doanh thu, và giá trên giá trị sổ sách</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain advantages and disadvantages of each category of valuation model</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích các ưu điểm và nhược điểm của từng nhóm mô hình định giá</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The term <strong>price multiple</strong> refers to a ratio that compares the share price with some sort of monetary flow or value to allow evaluation of the relative worth of a company’s stock. Some practitioners use price ratios as a screening mechanism. If the ratio falls below a specified value, the shares are identified as candidates for purchase, and if the ratio exceeds a specified value, the shares are identified as candidates for sale. Many practitioners use ratios when examining a group or sector of stocks and consider the shares for which the ratio is relatively low to be attractively valued securities.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thuật ngữ <strong>bội số giá (<em>price multiple</em>)</strong> đề cập đến một tỷ số so sánh giá cổ phiếu với một dòng tiền tệ hoặc giá trị nào đó nhằm cho phép đánh giá giá trị tương đối của cổ phiếu một công ty. Một số người hành nghề sử dụng các tỷ số giá như một cơ chế sàng lọc (<em>screening mechanism</em>). Nếu tỷ số này thấp hơn một giá trị xác định, cổ phiếu sẽ được xác định là ứng viên để mua, và nếu tỷ số này vượt quá một giá trị xác định, cổ phiếu sẽ được xác định là ứng viên để bán. Nhiều người hành nghề sử dụng các tỷ số khi xem xét một nhóm hoặc một khu vực ngành các cổ phiếu và coi những cổ phiếu có tỷ số tương đối thấp là những chứng khoán có mức định giá hấp dẫn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Price multiples that are used by security analysts include the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các bội số giá được các chuyên gia phân tích chứng khoán sử dụng bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Price-to-earnings ratio (P/E). This measure is the ratio of the stock price to earnings per share. P/E is arguably the price multiple most frequently cited by the media and used by analysts and investors (Block 1999). The seminal works of McWilliams (1966), Miller and Widmann (1966), Nicholson (1968), Dreman (1977), and Basu (1977) presented evidence of a return advantage to low-P/E stocks.</p>
+</li>
+<li>
+<p>Price-to-book ratio (P/B). The ratio of the stock price to book value per share. Considerable evidence suggests that P/B multiples are inversely related to future rates of return (Fama and French 1995).</p>
+</li>
+<li>
+<p>Price-to-sales ratio (P/S). This measure is the ratio of stock price to sales per share. O’Shaughnessy (2005) provided evidence that a low P/S multiple is the most useful multiple for predicting future returns.</p>
+</li>
+<li>
+<p>Price-to-cash-flow ratio (P/CF). This measure is the ratio of stock price to some per-share measure of cash flow. The measures of cash flow include free cash flow (FCF) and operating cash flow (OCF).</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Tỷ số giá trên thu nhập (<em>Price-to-earnings ratio</em> – P/E). Thước đo này là tỷ số giữa giá cổ phiếu trên thu nhập mỗi cổ phiếu (EPS). P/E có thể nói là bội số giá được giới truyền thông trích dẫn thường xuyên nhất và được các chuyên gia phân tích cũng như các nhà đầu tư sử dụng nhiều nhất (Block 1999). Các công trình nền tảng của McWilliams (1966), Miller và Widmann (1966), Nicholson (1968), Dreman (1977), và Basu (1977) đã trình bày bằng chứng về lợi thế tỷ suất sinh lợi của các cổ phiếu có P/E thấp.</p>
+</li>
+<li>
+<p>Tỷ số giá trên giá trị sổ sách (<em>Price-to-book ratio</em> – P/B). Tỷ số giữa giá cổ phiếu trên giá trị sổ sách mỗi cổ phiếu. Nhiều bằng chứng đáng kể cho thấy các bội số P/B có mối quan hệ nghịch biến với tỷ suất sinh lợi tương lai (Fama và French 1995).</p>
+</li>
+<li>
+<p>Tỷ số giá trên doanh thu (<em>Price-to-sales ratio</em> – P/S). Thước đo này là tỷ số giữa giá cổ phiếu trên doanh thu mỗi cổ phiếu. O’Shaughnessy (2005) đã cung cấp bằng chứng cho thấy bội số P/S thấp là bội số hữu ích nhất để dự đoán tỷ suất sinh lợi tương lai.</p>
+</li>
+<li>
+<p>Tỷ số giá trên dòng tiền (<em>Price-to-cash-flow ratio</em> – P/CF). Thước đo này là tỷ số giữa giá cổ phiếu trên một thước đo dòng tiền tính trên mỗi cổ phiếu nào đó. Các thước đo dòng tiền bao gồm dòng tiền tự do (<em>free cash flow</em> – FCF) và dòng tiền hoạt động (<em>operating cash flow</em> – OCF).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A common criticism of all of these multiples is that they do not consider the future. This criticism is true if the multiple is calculated from trailing or current values of the divisor. Practitioners seek to counter this criticism by a variety of techniques, including forecasting fundamental values (the divisors) one or more years into the future. The resulting forward (leading or prospective) price multiples may differ markedly from the trailing price multiples. In the absence of an explicit forecast of fundamental values, the analyst is making an implicit forecast of the future when implementing such models. The choice of price multiple—trailing or forward—should be used consistently for companies being compared.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một lời chỉ trích phổ biến đối với tất cả các bội số này là chúng không tính đến tương lai. Lời chỉ trích này là đúng nếu bội số được tính toán từ các giá trị quá khứ (<em>trailing</em>) hoặc hiện tại của mẫu số. Những người hành nghề tìm cách khắc phục lời chỉ trích này bằng nhiều kỹ thuật khác nhau, bao gồm việc dự báo các giá trị cơ bản (mẫu số) cho một hoặc nhiều năm trong tương lai. Các bội số giá dự phóng (<em>forward</em>, <em>leading</em>, hoặc <em>prospective price multiples</em>) thu được có thể khác biệt rõ rệt so với các bội số giá quá khứ (<em>trailing price multiples</em>). Trong trường hợp không có dự báo tường minh về các giá trị cơ bản, chuyên gia phân tích đang đưa ra một dự báo ngầm định về tương lai khi triển khai các mô hình như vậy. Việc lựa chọn bội số giá—quá khứ (<em>trailing</em>) hay dự phóng (<em>forward</em>)—cần phải được sử dụng nhất quán cho các công ty đang được đem ra so sánh.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Besides the traditional price multiples used in valuation, just presented, analysts need to know how to calculate and interpret other ratios. Such ratios include those used to analyze business performance and financial condition based on data reported in financial statements. In addition, many industries have specialized measures of</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bên cạnh các bội số giá truyền thống được sử dụng trong định giá vừa được trình bày, các chuyên gia phân tích cần biết cách tính toán và diễn giải các tỷ số khác. Những tỷ số đó bao gồm các tỷ số được sử dụng để phân tích hiệu quả hoạt động kinh doanh và tình trạng tài chính dựa trên dữ liệu được báo cáo trong báo cáo tài chính. Ngoài ra, nhiều ngành còn có các thước đo chuyên biệt về</p></div>
+                </div>
+                
+
+                <div id="pdf-page-370" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 370 / Trang PDF 370
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>business performance that analysts covering those industries should be familiar with. In analyzing cable television companies, for example, the ratio of total market value of the company to the total number of subscribers is commonly used. Another common measure is revenue per subscriber. In the oil industry, a commonly cited ratio is proved reserves per common share. Industry-specific or sector-specific ratios such as these can be used to understand the key business variables in an industry or sector as well as to highlight attractively valued securities.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>hiệu quả hoạt động kinh doanh mà các chuyên gia phân tích phụ trách những ngành đó cần phải nắm vững. Ví dụ, khi phân tích các công ty truyền hình cáp, tỷ số giữa tổng giá trị thị trường của công ty trên tổng số lượng thuê bao thường được sử dụng. Một thước đo phổ biến khác là doanh thu trên mỗi thuê bao. Trong ngành dầu khí, một tỷ số thường được trích dẫn là trữ lượng đã được chứng minh (<em>proved reserves</em>) trên mỗi cổ phiếu phổ thông. Các tỷ số đặc thù theo ngành hoặc lĩnh vực như thế này có thể được sử dụng để hiểu các biến số kinh doanh cốt lõi trong một ngành hoặc lĩnh vực cũng như để làm nổi bật các chứng khoán có mức định giá hấp dẫn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Relationships among Price Multiples, Present Value Models, and Fundamentals</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Mối quan hệ giữa các Bội số Giá, Mô hình Giá trị Hiện tại, và các Yếu tố Cơ bản (Relationships among Price Multiples, Present Value Models, and Fundamentals)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Price multiples are frequently used independently of present value models. One price multiple valuation approach, the method of comparables, does not involve cash flow forecasts or discounting to present value. A price multiple is often related to fundamentals through a discounted cash flow model, however, such as the Gordon growth model. Understanding such connections can deepen the analyst’s appreciation of the factors that affect the value of a multiple and often can help explain reasons for differences in multiples that do not involve mispricing. The expressions that are developed can be interpreted as the <em>justified value</em> of a multiple—that is, the value justified by (based on) fundamentals or a set of cash flow predictions. These expressions are an alternative way of presenting intrinsic-value estimates.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các bội số giá thường được sử dụng độc lập với các mô hình giá trị hiện tại. Một cách tiếp cận định giá theo bội số giá, phương pháp so sánh (<em>method of comparables</em>), không bao gồm việc dự báo dòng tiền hay chiết khấu về giá trị hiện tại. Tuy nhiên, một bội số giá thường có liên hệ với các yếu tố cơ bản thông qua một mô hình dòng tiền chiết khấu, chẳng hạn như mô hình tăng trưởng Gordon. Việc hiểu rõ những mối liên kết như vậy có thể làm sâu sắc thêm sự thấu hiểu của chuyên gia phân tích về các nhân tố tác động đến giá trị của một bội số và thường có thể giúp giải thích nguyên nhân dẫn đến sự khác biệt trong các bội số mà không liên quan đến việc định giá sai. Các biểu thức được xây dựng có thể được diễn giải là <em>giá trị hợp lý (justified value)</em> của một bội số—tức là giá trị được biện minh bởi (dựa trên) các yếu tố cơ bản hoặc một tập hợp các dự đoán dòng tiền. Những biểu thức này là một cách thức thay thế để trình bày các ước tính giá trị nội tại.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As an example, using the Gordon growth model identified previously in Equation 9 and assuming that price equals intrinsic value ( <em>P</em> 0 = <em>V</em> 0), we can restate Equation 9 as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ, sử dụng mô hình tăng trưởng Gordon đã xác định trước đó trong Phương trình 9 và giả định rằng giá bằng với giá trị nội tại (<span class="math-inline">$P_0 = V_0$</span>), chúng ta có thể phát biểu lại Phương trình 9 như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0370-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0370-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$P_0 = \frac{D_1}{r - g} \tag{14}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>To arrive at the model for the justified forward P/E given in Equation 15, we divide both sides of Equation 14 by a forecast for next year’s earnings, <em>E</em> 1. In Equation 15, the dividend payout ratio, <em>p</em> , is the ratio of dividends to earnings:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Để đi đến mô hình cho hệ số P/E dự phóng hợp lý (<em>justified forward P/E</em>) được cho trong Phương trình 15, chúng ta chia cả hai vế của Phương trình 14 cho dự báo thu nhập của năm tới, <span class="math-inline">$E_1$</span>. Trong Phương trình 15, tỷ lệ chi trả cổ tức (<em>dividend payout ratio</em>), <span class="math-inline">$p$</span>, là tỷ số giữa cổ tức trên thu nhập:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0370-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0370-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\frac{P_0}{E_1} = \frac{D_1 / E_1}{r - g} = \frac{p}{r - g} \tag{15}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Equation 15 indicates that the P/E is inversely related to the required rate of return and positively related to the growth rate; that is, as the required rate of return increases, the P/E declines, and as the growth rate increases, the P/E increases. The P/E and the payout ratio appear to be positively related. This relationship may not be true, however, because a higher payout ratio may imply a slower growth rate as a result of the company retaining a lower proportion of earnings for reinvestment. This phenomenon is referred to as the dividend displacement of earnings.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phương trình 15 chỉ ra rằng hệ số P/E có mối quan hệ nghịch biến với tỷ suất sinh lợi yêu cầu và đồng biến với tốc độ tăng trưởng; nghĩa là, khi tỷ suất sinh lợi yêu cầu tăng lên thì P/E giảm xuống, và khi tốc độ tăng trưởng tăng lên thì P/E tăng lên. Hệ số P/E và tỷ lệ chi trả cổ tức bề ngoài dường như có mối quan hệ đồng biến. Tuy nhiên, mối quan hệ này có thể không đúng, bởi vì tỷ lệ chi trả cổ tức cao hơn có thể hàm ý một tốc độ tăng trưởng chậm hơn do công ty giữ lại một tỷ trọng thu nhập thấp hơn để tái đầu tư. Hiện tượng này được gọi là sự đánh đổi giữa cổ tức và thu nhập (<em>dividend displacement of earnings</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 11</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 11 (EXAMPLE 11)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Value Estimate Based on Fundamentals</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Ước tính Giá trị Dựa trên các Yếu tố Cơ bản (Value Estimate Based on Fundamentals)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Petroleo Brasileiro SA, commonly known as Petrobras, was once labeled “the most expensive oil company” by Bloomberg.com. Data for Petrobras and the oil industry, including the trailing twelve-month (TTM) P/E and payout ratios, appear below.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Petroleo Brasileiro SA, thường được biết đến với tên gọi Petrobras, từng có lần bị Bloomberg.com gắn mác là "công ty dầu khí đắt đỏ nhất". Dữ liệu của Petrobras và ngành dầu khí, bao gồm hệ số P/E 12 tháng gần nhất (<em>trailing twelve-month</em> – TTM) và tỷ lệ chi trả cổ tức, xuất hiện dưới đây.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Petrobras</strong></th>
+<th><strong>Industry</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P/E ratio (TTM)</td>
+<td>39.61</td>
+<td>13.0</td>
+</tr>
+<tr>
+<td>Return on assets (TTM) (%)</td>
+<td>3. 0</td>
+<td>3.2</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Petrobras</strong></th>
+<th><strong>Ngành (Industry)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tỷ số P/E (TTM)</td>
+<td>39.61</td>
+<td>13.0</td>
+</tr>
+<tr>
+<td>Tỷ suất sinh lợi trên tài sản – ROA (TTM) (%)</td>
+<td>3.0</td>
+<td>3.2</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-371" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 371 / Trang PDF 371
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Petrobras</strong></th>
+<th><strong>Industry</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EPS 3-year growth rate (%)</td>
+<td>NM</td>
+<td>66.00</td>
+</tr>
+<tr>
+<td>EPS (MRQ) vs. Qtr. 1yr. ago (% change)</td>
+<td>138.96</td>
+<td>−12.0</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Petrobras</strong></th>
+<th><strong>Ngành (Industry)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tốc độ tăng trưởng EPS 3 năm (%)</td>
+<td>NM</td>
+<td>66.00</td>
+</tr>
+<tr>
+<td>EPS (MRQ) so với Quý cách đây 1 năm (% thay đổi)</td>
+<td>138.96</td>
+<td>−12.0</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Note:</em> NM stands for non-quantifiable. Petrobras EPS has decreased from a loss of BRL 1.14 per share to a profit of BRL 0.16 per share in the most recent period. MRQ stands for “most recent quarter.”</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Lưu ý:</em> NM viết tắt của không thể định lượng (<em>non-quantifiable</em>). EPS của Petrobras đã chuyển biến từ mức lỗ 1.14 BRL trên mỗi cổ phiếu sang mức lãi 0.16 BRL trên mỗi cổ phiếu trong kỳ gần nhất. MRQ viết tắt của "quý gần nhất (<em>most recent quarter</em>)."</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Source:</em> Reuters.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Nguồn:</em> Reuters.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Explain how the information shown supports a higher P/E for Petrobras than for the industry.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy giải thích làm thế nào thông tin được hiển thị lại củng cố cho một hệ số P/E của Petrobras cao hơn so với của ngành.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Solution:</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Lời giải:</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The data support a higher P/E for Petrobras because its (MRQ) EPS growth rate exceed those of the industry. Equation 15 implies a positive relationship between the payout ratio and the P/E multiple. Petrobras has had a negative EPS for the period 2014 to 2017, and has paid no dividend during that period. A higher payout ratio supports a higher P/E. Furthermore, to the extent that higher EPS growth implies a high growth rate in dividends, the high EPS growth rate supports a high P/E. The higher P/E ratio is due to an improvement in the underlying financial performance of the company and the expected higher growth potential of the stock compared to the median firms in the industry.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dữ liệu củng cố cho mức P/E cao hơn đối với Petrobras bởi vì tốc độ tăng trưởng EPS quý gần nhất (MRQ) của công ty vượt trội so với ngành. Phương trình 15 ngụ ý một mối quan hệ đồng biến giữa tỷ lệ chi trả cổ tức và bội số P/E. Petrobras đã có EPS âm trong giai đoạn từ năm 2014 đến năm 2017, và không trả cổ tức trong suốt giai đoạn đó. Tỷ lệ chi trả cổ tức cao hơn sẽ hỗ trợ cho mức P/E cao hơn. Hơn nữa, trong chừng mực mà mức tăng trưởng EPS cao hơn hàm ý một tốc độ tăng trưởng cao về cổ tức, thì tốc độ tăng trưởng EPS cao sẽ hỗ trợ cho một mức P/E cao. Tỷ số P/E cao hơn là do sự cải thiện trong hiệu quả hoạt động tài chính cơ bản của công ty và tiềm năng tăng trưởng dự kiến cao hơn của cổ phiếu này so với các công ty trung vị trong ngành.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 12</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 12 (EXAMPLE 12)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Determining Justified Forward P/E</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Xác định P/E Dự phóng Hợp lý (Determining Justified Forward P/E)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Heinrich Gladisch, CFA, is estimating the justified forward P/E for Nestlé, one of the world’s leading nutrition and health companies. Gladisch notes that sales for 2017 were SFr89.78 billion (US<span class="math-inline">$90.3 billion) and that net income was SFr7.18 billion (US$</span>7.25 billion). He organizes the data for EPS, dividends per share, and the dividend payout ratio for the years 2013–2017 in the following table:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Heinrich Gladisch, CFA, đang ước tính hệ số P/E dự phóng hợp lý cho Nestlé, một trong những công ty dinh dưỡng và sức khỏe hàng đầu thế giới. Gladisch ghi nhận rằng doanh thu năm 2017 là 89.78 tỷ SFr (90.3 tỷ US<span class="math-inline">$) và thu nhập ròng là 7.18 tỷ SFr (7.25 tỷ US$</span>). Ông sắp xếp dữ liệu về EPS, cổ tức trên mỗi cổ phiếu, và tỷ lệ chi trả cổ tức cho các năm 2013–2017 trong bảng sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2013</strong></th>
+<th><strong>2014</strong></th>
+<th><strong>2015</strong></th>
+<th><strong>2016</strong></th>
+<th><strong>2017</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Earnings per share</td>
+<td>SFr3.24</td>
+<td>SFr4.54</td>
+<td>SFr2.90</td>
+<td>SFr2.76</td>
+<td>SFr2.32</td>
+</tr>
+<tr>
+<td><em>Year over year % change</em></td>
+<td></td>
+<td>44.6%</td>
+<td>–36.1%</td>
+<td>–4.8%</td>
+<td>–15.9%</td>
+</tr>
+<tr>
+<td>Dividend per share</td>
+<td>SFr2.15</td>
+<td>SFr2.2</td>
+<td>SFr2.25</td>
+<td>SFr2.3</td>
+<td>SFr2.35</td>
+</tr>
+<tr>
+<td><em>Year over year % change</em></td>
+<td></td>
+<td>2.3%</td>
+<td>2.3%</td>
+<td>2.2%</td>
+<td>2.2%</td>
+</tr>
+<tr>
+<td>Dividend payout ratio</td>
+<td>68.5%</td>
+<td>48.5%</td>
+<td>77.6%</td>
+<td>83.3%</td>
+<td>99.2%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2013</strong></th>
+<th><strong>2014</strong></th>
+<th><strong>2015</strong></th>
+<th><strong>2016</strong></th>
+<th><strong>2017</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thu nhập trên mỗi cổ phiếu (<em>Earnings per share</em>)</td>
+<td>SFr3.24</td>
+<td>SFr4.54</td>
+<td>SFr2.90</td>
+<td>SFr2.76</td>
+<td>SFr2.32</td>
+</tr>
+<tr>
+<td><em>% thay đổi so với năm trước (Year over year % change)</em></td>
+<td></td>
+<td>44.6%</td>
+<td>–36.1%</td>
+<td>–4.8%</td>
+<td>–15.9%</td>
+</tr>
+<tr>
+<td>Cổ tức trên mỗi cổ phiếu (<em>Dividend per share</em>)</td>
+<td>SFr2.15</td>
+<td>SFr2.2</td>
+<td>SFr2.25</td>
+<td>SFr2.3</td>
+<td>SFr2.35</td>
+</tr>
+<tr>
+<td><em>% thay đổi so với năm trước (Year over year % change)</em></td>
+<td></td>
+<td>2.3%</td>
+<td>2.3%</td>
+<td>2.2%</td>
+<td>2.2%</td>
+</tr>
+<tr>
+<td>Tỷ lệ chi trả cổ tức (<em>Dividend payout ratio</em>)</td>
+<td>68.5%</td>
+<td>48.5%</td>
+<td>77.6%</td>
+<td>83.3%</td>
+<td>99.2%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Gladisch calculates that ROE averaged 15.5 percent in the period 2013−2017 but was below that level at 11.7 percent in 2017. In that year, however, Nestlé’s reported net income included a large nonrecurring component. The company reported 2017 “underlying earnings,” which it defined as net income “from continuing operations before impairments, restructuring costs, results on disposals and significant one-off items,” to be SFr2.93, giving an adjusted 14.8% ROE. Predicting increasing improvement in Nestlé’s profit margins from growth in its product markets, Gladisch estimates a long-run ROE of 21.5 percent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Gladisch tính toán rằng ROE đạt trung bình 15.5 phần trăm trong giai đoạn 2013−2017 nhưng đã xuống dưới mức đó ở 11.7 phần trăm vào năm 2017. Tuy nhiên, trong năm đó, thu nhập ròng báo cáo của Nestlé bao gồm một khoản mục không thường xuyên (<em>nonrecurring component</em>) lớn. Công ty đã báo cáo "thu nhập cơ bản (<em>underlying earnings</em>)" năm 2017, được định nghĩa là thu nhập ròng "từ các hoạt động kinh doanh liên tục trước các khoản suy giảm giá trị tài sản (<em>impairments</em>), chi phí tái cấu trúc, kết quả từ việc thanh lý và các khoản mục bất thường một lần (<em>one-off items</em>) đáng kể," ở mức SFr2.93, mang lại mức ROE điều chỉnh là 14.8%. Dự đoán sự cải thiện ngày càng tăng trong biên lợi nhuận của Nestlé nhờ sự tăng trưởng tại các thị trường sản phẩm của hãng, Gladisch ước tính mức ROE dài hạn là 21.5 phần trăm.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-372" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 372 / Trang PDF 372
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Gladisch decides that the dividend payout ratios of the 2013–2016 period— averaging 67.7 percent—are more representative of Nestlé’s future payout ratio than is the high 2017 dividend payout ratio (when based on reported earnings). The dividend payout ratio in 2017 was higher because management apparently based the 2017 dividend on the components of net income that were expected to continue into the future. But basing a dividend on net income including non-recurring items creates the potential need to increase dividends in the future. Rounding up the 2013−2017 average, Gladisch settles on an estimate of 68 percent for the dividend payout ratio for use in calculating a justified forward P/E using Equation 15.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Gladisch quyết định rằng các tỷ lệ chi trả cổ tức của giai đoạn 2013–2016—đạt trung bình 67.7 phần trăm—đại diện tốt hơn cho tỷ lệ chi trả cổ tức trong tương lai của Nestlé so với tỷ lệ chi trả cổ tức cao của năm 2017 (khi tính dựa trên thu nhập báo cáo). Tỷ lệ chi trả cổ tức năm 2017 cao hơn bởi vì ban lãnh đạo rõ ràng đã dựa vào các cấu phần thu nhập ròng dự kiến sẽ tiếp diễn trong tương lai để ấn định mức cổ tức năm 2017. Nhưng việc dựa vào thu nhập ròng bao gồm cả các khoản mục không thường xuyên để trả cổ tức sẽ tạo ra nhu cầu tiềm tàng phải tăng cổ tức trong tương lai. Làm tròn mức trung bình giai đoạn 2013−2016 lên, Gladisch chốt mức ước tính 68 phần trăm cho tỷ lệ chi trả cổ tức để sử dụng trong việc tính toán hệ số P/E dự phóng hợp lý bằng Phương trình 15.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Gladisch’s firm estimates that the required rate of return for Nestlé’s shares is 9 percent per year. Gladisch also finds the following data at the opposite ends of the spectrum of external research analyst forecasts:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Công ty của Gladisch ước tính rằng tỷ suất sinh lợi yêu cầu đối với cổ phiếu của Nestlé là 9 phần trăm mỗi năm. Gladisch cũng tìm thấy dữ liệu sau đây ở hai đầu thái cực của dải phổ dự báo từ các chuyên gia phân tích nghiên cứu bên ngoài:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2018E</strong></th>
+<th><strong>2019E</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Most optimistic analyst forecast:</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EPS</td>
+<td>SFr3.99</td>
+<td>SFr4.33</td>
+</tr>
+<tr>
+<td><em>Year over year % change</em></td>
+<td>71.9%</td>
+<td>8.5%</td>
+</tr>
+<tr>
+<td>P/E (based on a target price of SFr105)</td>
+<td>26.3</td>
+<td>24.2</td>
+</tr>
+<tr>
+<td>Least optimistic analyst forecast:</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EPS</td>
+<td>SFr3.52</td>
+<td>SFr3.59</td>
+</tr>
+<tr>
+<td><em>Year over year % change</em></td>
+<td>51.7%</td>
+<td>2.0%</td>
+</tr>
+<tr>
+<td>P/E (based on a target price of SFr68)</td>
+<td>19.3</td>
+<td>18.9</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2018E</strong></th>
+<th><strong>2019E</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dự báo của chuyên gia phân tích lạc quan nhất:</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EPS</td>
+<td>SFr3.99</td>
+<td>SFr4.33</td>
+</tr>
+<tr>
+<td><em>% thay đổi so với năm trước</em></td>
+<td>71.9%</td>
+<td>8.5%</td>
+</tr>
+<tr>
+<td>P/E (dựa trên mức giá mục tiêu SFr105)</td>
+<td>26.3</td>
+<td>24.2</td>
+</tr>
+<tr>
+<td>Dự báo của chuyên gia phân tích kém lạc quan nhất:</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EPS</td>
+<td>SFr3.52</td>
+<td>SFr3.59</td>
+</tr>
+<tr>
+<td><em>% thay đổi so với năm trước</em></td>
+<td>51.7%</td>
+<td>2.0%</td>
+</tr>
+<tr>
+<td>P/E (dựa trên mức giá mục tiêu SFr68)</td>
+<td>19.3</td>
+<td>18.9</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Based only on information and estimates developed by Gladisch and his firm, estimate Nestlé’s justified forward P/E.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Chỉ dựa trên thông tin và các ước tính do Gladisch cùng công ty của ông xây dựng, hãy ước tính hệ số P/E dự phóng hợp lý của Nestlé.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The estimate of the justified forward P/E is 32.38. The dividend growth rate can be estimated by using Equation 10 as (1 – Dividend payout ratio) × ROE = (1 – 0.68) × 0.21.5 = 0.069, or 6.9 percent. Therefore,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ước tính hệ số P/E dự phóng hợp lý là 32.38. Tốc độ tăng trưởng cổ tức có thể được ước tính bằng cách sử dụng Phương trình 10 là <span class="math-inline">$(1 - \text{Tỷ lệ chi trả cổ tức}) \times \text{ROE} = (1 - 0.68) \times 0.215 = 0.069$</span>, hay 6.9 phần trăm. Do đó,</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Equity_Investments.pdf-0372-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Equity_Investments.pdf-0372-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\frac{P_0}{E_1} = \frac{\text{Payout}}{r - g} = \frac{0.68}{0.09 - 0.069} = 32.38$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Compare and contrast the justified forward P/E estimate from Question 1 to the estimates from each end of the spectrum of external research analysts forecasts.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>So sánh và đối chiếu ước tính P/E dự phóng hợp lý từ Câu hỏi 1 với các ước tính từ mỗi đầu thái cực trong dải phổ dự báo của các chuyên gia phân tích nghiên cứu bên ngoài.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The estimated justified forward P/E of 32.38 is higher than the justified 2018 P/E estimates of 26.3 and 19.3 of the two analysts. Using a required rate of return of 9.5 percent rather than 9 percent results in a justified forward P/E estimate of 26.2 = 0.68/(0.095 – 0.069). Using an ROE of 16.5 percent (the average ROE of the 2013–2016 period) rather than 21.5 percent results in a justified forward P/E estimate of 18.4 = 0.68/[0.09 – (0.32)(0.165)] = 0.68/ (0.09 – 0.053). The justified forward P/E is very sensitive to changes in the inputs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hệ số P/E dự phóng hợp lý ước tính là 32.38 cao hơn so với các ước tính P/E năm 2018 hợp lý ở mức 26.3 và 19.3 của hai chuyên gia phân tích kia. Việc sử dụng tỷ suất sinh lợi yêu cầu 9.5 phần trăm thay vì 9 phần trăm sẽ dẫn đến ước tính P/E dự phóng hợp lý là <span class="math-inline">$26.2 = 0.68 / (0.095 - 0.069)$</span>. Việc sử dụng mức ROE 16.5 phần trăm (mức ROE trung bình của giai đoạn 2013–2016) thay vì 21.5 phần trăm sẽ dẫn đến ước tính P/E dự phóng hợp lý là <span class="math-inline">$18.4 = 0.68 / [0.09 - (0.32)(0.165)] = 0.68 / (0.09 - 0.053)$</span>. Hệ số P/E dự phóng hợp lý rất nhạy cảm với những thay đổi trong các dữ liệu đầu vào.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Justified forward P/E estimates can be sensitive to small changes in assumptions. Therefore, analysts can benefit from carrying out a sensitivity analysis, as shown in Exhibit 6, which is based on Example 12. Exhibit 6 shows how the justified forward</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các ước tính P/E dự phóng hợp lý có thể nhạy cảm với những thay đổi nhỏ trong các giả định. Do đó, các chuyên gia phân tích có thể hưởng lợi từ việc thực hiện phân tích độ nhạy, như được trình bày trong Bảng minh họa 6 (Exhibit 6), vốn được dựa trên Ví dụ 12. Bảng minh họa 6 cho thấy hệ số P/E dự phóng hợp lý</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM08_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM08_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 5</a>
+      <a href="LM08_Part3_Method_of_Comparables_and_Valuation_Based_on.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM08_Part3_Method_of_Comparables_and_Valuation_Based_on →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('05_Equity_Investments/LM08_Part2_The_Gordon_Growth_Model.html');
+    });
+  </script>
+</body>
+</html>

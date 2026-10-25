@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 10 Simple Linear Regression - Part 4: Prediction in the Simple Linear Regression Model — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 10 Simple Linear Regression - Part 4: Prediction in the Simple Linear Regression Model</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM10_Full_Simple_Linear_Regression.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (15 trang)...</option>
+          <option value="303">PDF Page 303</option>
+<option value="304">PDF Page 304</option>
+<option value="305">PDF Page 305</option>
+<option value="306">PDF Page 306</option>
+<option value="307">PDF Page 307</option>
+<option value="308">PDF Page 308</option>
+<option value="309">PDF Page 309</option>
+<option value="310">PDF Page 310</option>
+<option value="311">PDF Page 311</option>
+<option value="312">PDF Page 312</option>
+<option value="313">PDF Page 313</option>
+<option value="314">PDF Page 314</option>
+<option value="315">PDF Page 315</option>
+<option value="316">PDF Page 316</option>
+<option value="317">PDF Page 317</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 10 Simple Linear Regression - Part 4: Prediction in the Simple Linear Regression Model</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 10 Simple Linear Regression</h2>
+<h3>Part 4/6: Prediction in the Simple Linear Regression Model (PDF Pages 303–317)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Các Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 10: Hồi quy Tuyến tính Đơn (<em>Simple Linear Regression</em>)</h2>
+<h3>Phần 4/6: Dự báo trong Mô hình Hồi quy Tuyến tính Đơn (Trang PDF 303–317)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-303" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 303 / Trang PDF 303
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0303-02.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0303-02.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh (Hình 31: Mức độ phù hợp của Mô hình khi có và không có Lỗi dữ liệu):</strong>
+- <strong>A. Trước khi sửa lỗi dữ liệu (<em>Before the Data Errors Are Corrected</em>):</strong> Trục tung: Tỷ suất sinh lợi danh mục đầu tư (từ <span class="math-inline">$-10$</span> đến <span class="math-inline">$80$</span>). Trục hoành: Tỷ suất sinh lợi chỉ số (từ <span class="math-inline">$-20$</span> đến <span class="math-inline">$80$</span>). Điểm dữ liệu ngoại lai ở góc trên bên phải kéo đường hồi quy đi qua nó, tạo cảm giác khớp gần như tuyệt đối.
+- <strong>B. Sau khi sửa lỗi dữ liệu (<em>After the Data Errors Are Corrected</em>):</strong> Trục tung: Tỷ suất sinh lợi danh mục đầu tư (%) (từ <span class="math-inline">$-4$</span> đến <span class="math-inline">$8$</span>). Trục hoành: Tỷ suất sinh lợi chỉ số (%) (từ <span class="math-inline">$-10$</span> đến <span class="math-inline">$10$</span>). Các điểm dữ liệu phân tán tự nhiên hơn quanh đường hồi quy.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>PREDICTION IN THE SIMPLE LINEAR REGRESSION MODEL</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>DỰ BÁO TRONG MÔ HÌNH HỒI QUY TUYẾN TÍNH ĐƠN (<em>PREDICTION IN THE SIMPLE LINEAR REGRESSION MODEL</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>5</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>5</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe the use of analysis of variance (ANOVA) in regression analysis, interpret ANOVA results, and calculate and interpret the standard error of estimate in a simple linear regression</p>
+<p>calculate and interpret the predicted value for the dependent variable, and a prediction interval for it, given an estimated linear regression model and a value for the independent variable</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>mô tả việc sử dụng phân tích phương sai (<em>analysis of variance</em> – ANOVA) trong phân tích hồi quy, diễn giải kết quả ANOVA, và tính toán cũng như diễn giải sai số chuẩn của ước lượng (<em>standard error of estimate</em>) trong hồi quy tuyến tính đơn</p>
+</li>
+<li>
+<p>tính toán và diễn giải giá trị dự báo cho biến phụ thuộc (<em>dependent variable</em>), và khoảng dự báo (<em>prediction interval</em>) cho giá trị đó, khi biết mô hình hồi quy tuyến tính ước lượng và một giá trị của biến độc lập (<em>independent variable</em>)</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>ANOVA and Standard Error of Estimate in Simple Linear Regression</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>ANOVA và Sai số chuẩn của Ước lượng trong Hồi quy Tuyến tính Đơn (<em>ANOVA and Standard Error of Estimate in Simple Linear Regression</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We often represent the sums of squares from a regression model in an <strong>analysis of variance (ANOVA)</strong> table, as shown in Exhibit 32, which presents the sums of squares, the degrees of freedom, the mean squares, and the <em>F</em> -statistic. Notice that the variance of the dependent variable is the ratio of the sum of squares total to <em>n</em> − 1.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta thường biểu diễn các tổng bình phương từ một mô hình hồi quy trong bảng <strong>phân tích phương sai (<em>analysis of variance</em> – ANOVA)</strong>, như trình bày trong Bảng 32, bao gồm các tổng bình phương (<em>sums of squares</em>), bậc tự do (<em>degrees of freedom</em>), trung bình bình phương (<em>mean squares</em>), và thống kê <span class="math-inline">$F$</span> (<em><span class="math-inline">$F$</span>-statistic</em>). Lưu ý rằng phương sai của biến phụ thuộc là tỷ số giữa tổng bình phương toàn phần (SST) và <span class="math-inline">$n - 1$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-304" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 304 / Trang PDF 304
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 32: Analysis of Variance Table for Simple Linear Regression</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 32: Bảng Phân tích Phương sai (ANOVA) cho Hồi quy Tuyến tính Đơn</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Source</strong></th>
+<th><strong>Sum of Squares</strong></th>
+<th><strong>Degrees of</strong><br><strong>Freedom</strong></th>
+<th><strong>Mean Square</strong></th>
+<th><strong><em>F</em>-S</strong></th>
+<th><strong>tatistic</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regression</td>
+<td>SSR =∑ <em>i</em>=1<br><em>n</em><br>  ( <sup>ˆ</sup><br><em>Yi</em>−<sup><em></sup><br>_Y</em>)<br>2</td>
+<td>1</td>
+<td>MSR =<br> ∑ <em>i</em>=1<br><em>n</em><br> ( <sup>ˆ</sup><br><em>Yi</em>−<sup><em></sup><br>_Y</em>)<br>2 <br><strong><em>_</em></strong>_____<br>1</td>
+<td><em>F</em>=<sup>MSR</sup><br>_<br>MSE</td>
+<td><sup>=</sup><br> ∑ <em>i</em>=1<br><em>n</em><br> ( <sup>ˆ</sup><br><em>Yi</em>−<sup><em></sup><br>_Y</em>)<br>2 <br><strong><em>_</em></strong><strong><em>_</em><br>1 <br></strong><strong><em>_</em></strong><strong><br> ∑ <em>i_=1<br><em>n</em><br> ( <em>Y</em> <em>i</em>−<sup>ˆ</sup><br><em>Yi</em> )<br>2 <br><strong><em>_</em></strong>___</em></strong><br><em>n</em>− 2</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>SSE =∑ <em>i</em>=1<br><em>n</em><br>  ( <em>Y</em> <em>i</em>−<sup>ˆ</sup><br><em>Yi</em> )<br>2</td>
+<td><em>n</em>− 2</td>
+<td>MSE =<br> ∑ <em>i</em>=1<br><em>n</em><br> ( <em>Y</em> <em>i</em>−<sup>ˆ</sup><br><em>Yi</em> )<br>2 <br><strong><em>_</em></strong><em><strong>_</strong><br></em>n_− 2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Total</td>
+<td>SST =∑ <em>i</em>=1<br><em>n</em><br>  ( <em>Y</em> <em>i</em>−<sup><em></sup><br>_Y</em>) <sup>2</sup></td>
+<td><em>n</em>− 1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nguồn biến thiên (<em>Source</em>)</strong></th>
+<th><strong>Tổng bình phương (<em>Sum of Squares</em>)</strong></th>
+<th><strong>Bậc tự do (<em>Degrees of Freedom</em>)</strong></th>
+<th><strong>Trung bình bình phương (<em>Mean Square</em>)</strong></th>
+<th><strong>Thống kê <span class="math-inline">$F$</span> (<em><span class="math-inline">$F$</span>-Statistic</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hồi quy (<em>Regression</em>)</td>
+<td><span class="math-inline">$\text{SSR} = \sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2$</span></td>
+<td><span class="math-inline">$1$</span></td>
+<td><span class="math-inline">$\text{MSR} = \frac{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2}{1}$</span></td>
+<td><span class="math-inline">$F = \frac{\text{MSR}}{\text{MSE}} = \frac{\frac{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2}{1}}{\frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{n - 2}}$</span></td>
+</tr>
+<tr>
+<td>Sai số (<em>Error</em>)</td>
+<td><span class="math-inline">$\text{SSE} = \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2$</span></td>
+<td><span class="math-inline">$n - 2$</span></td>
+<td><span class="math-inline">$\text{MSE} = \frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{n - 2}$</span></td>
+<td></td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td><span class="math-inline">$\text{SST} = \sum_{i=1}^{n} (Y_i - \bar{Y})^2$</span></td>
+<td><span class="math-inline">$n - 1$</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>From the ANOVA table, we can also calculate the <strong>standard error of the estimate</strong> ( <em>se</em> ), which is also known as the standard error of the regression or the root mean square error. The <em>se</em> is a measure of the distance between the observed values of the dependent variable and those predicted from the estimated regression—the smaller the <em>se</em> , the better the fit of the model. The <em>se</em> , along with the coefficient of determination and the <em>F</em> -statistic, is a measure of the goodness of the fit of the estimated regression line. Unlike the coefficient of determination and the <em>F</em> -statistic, which are relative measures of fit, the standard error of the estimate is an absolute measure of the distance of the observed dependent variable from the regression line. Thus, the <em>se</em> is an important statistic used to evaluate a regression model and is used to calculate prediction intervals and to perform tests on the coefficients. The calculation of <em>se</em> is straightforward once we have the ANOVA table because it is the square root of the MSE:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Từ bảng ANOVA, chúng ta cũng có thể tính <strong>sai số chuẩn của ước lượng (<em>standard error of the estimate</em> – <span class="math-inline">$s_e$</span>)</strong>, còn được gọi là sai số chuẩn của hồi quy (<em>standard error of the regression</em>) hoặc căn bậc hai trung bình bình phương sai số (<em>root mean square error</em> – RMSE). Đại lượng <span class="math-inline">$s_e$</span> là thước đo khoảng cách giữa các giá trị quan sát được của biến phụ thuộc và các giá trị được dự báo từ hồi quy ước lượng—<span class="math-inline">$s_e$</span> càng nhỏ thì độ phù hợp của mô hình càng tốt. Cùng với hệ số xác định (<span class="math-inline">$R^2$</span>) và thống kê <span class="math-inline">$F$</span>, <span class="math-inline">$s_e$</span> là một thước đo mức độ phù hợp của đường hồi quy ước lượng. Không giống như hệ số xác định và thống kê <span class="math-inline">$F$</span> là các thước đo mức độ phù hợp mang tính tương đối (<em>relative measures of fit</em>), sai số chuẩn của ước lượng là một thước đo tuyệt đối (<em>absolute measure</em>) về khoảng cách từ biến phụ thuộc quan sát được đến đường hồi quy. Do đó, <span class="math-inline">$s_e$</span> là một thống kê quan trọng được sử dụng để đánh giá mô hình hồi quy và được dùng để tính các khoảng dự báo (<em>prediction intervals</em>) cũng như thực hiện các kiểm định đối với các hệ số. Việc tính toán <span class="math-inline">$s_e$</span> rất đơn giản một khi chúng ta có bảng ANOVA bởi vì nó là căn bậc hai của MSE:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0304-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0304-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\text{Sai số chuẩn của ước lượng } (s_e) = \sqrt{\text{MSE}} = \sqrt{\frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{n - 2}} \tag{22}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We show the ANOVA table for our ROA regression example in Exhibit 32, using the information from Exhibit 33. For a 5 percent level of significance, the critical <em>F</em> -value for the test of whether the model is a good fit (i.e., whether the slope coefficient is different from zero) is 7.71. We can get this critical value in the following ways:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta trình bày bảng ANOVA cho ví dụ hồi quy ROA của chúng ta trong Bảng 33 (dựa theo cấu trúc của Bảng 32). Tại mức ý nghĩa 5%, giá trị <span class="math-inline">$F$</span> tới hạn cho kiểm định xem liệu mô hình có độ phù hợp tốt hay không (tức là liệu hệ số góc có khác 0 hay không) là <span class="math-inline">$7.71$</span>. Chúng ta có thể lấy giá trị tới hạn này theo các cách sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><em>Excel</em> [F.INV(0.95,1,4)]</p>
+</li>
+<li>
+<p><em>R</em> [qf(.95,1,4)]</p>
+</li>
+<li>
+<p><em>Python</em> [from scipy.stats import f <em>and</em> f.ppf(.95,1,4)]</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><em>Excel</em>: <code>[F.INV(0.95,1,4)]</code></p>
+</li>
+<li>
+<p><em>R</em>: <code>[qf(.95,1,4)]</code></p>
+</li>
+<li>
+<p><em>Python</em>: <code>[from scipy.stats import f</code> <em>và</em> <code>f.ppf(.95,1,4)]</code></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>With a calculated <em>F</em> -statistic of 16.0104 and a critical <em>F</em> -value of 7.71, we reject the null hypothesis and conclude that the slope of our simple linear regression model for ROA is different from zero.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Với thống kê <span class="math-inline">$F$</span> tính được là <span class="math-inline">$16.0104$</span> và giá trị <span class="math-inline">$F$</span> tới hạn là <span class="math-inline">$7.71$</span>, chúng ta bác bỏ giả thuyết không và kết luận rằng hệ số góc của mô hình hồi quy tuyến tính đơn cho ROA của chúng ta khác 0.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 33: ANOVA Table for ROA Regression Model</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 33: Bảng ANOVA cho Mô hình Hồi quy ROA</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Source</strong></th>
+<th><strong>Sum of</strong><br><strong>Squares</strong></th>
+<th><strong>Degrees of</strong><br><strong>Freedom</strong></th>
+<th><strong>Mean Square</strong></th>
+<th><strong><em>F</em>-Statistic</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regression</td>
+<td>191.625</td>
+<td>1</td>
+<td>191.625</td>
+<td>16.0104</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>47.875</td>
+<td>4</td>
+<td>11.96875</td>
+<td></td>
+</tr>
+<tr>
+<td>Total</td>
+<td>239.50</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nguồn biến thiên (<em>Source</em>)</strong></th>
+<th><strong>Tổng bình phương (<em>Sum of Squares</em>)</strong></th>
+<th><strong>Bậc tự do (<em>Degrees of Freedom</em>)</strong></th>
+<th><strong>Trung bình bình phương (<em>Mean Square</em>)</strong></th>
+<th><strong>Thống kê <span class="math-inline">$F$</span> (<em><span class="math-inline">$F$</span>-Statistic</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hồi quy (<em>Regression</em>)</td>
+<td>191.625</td>
+<td>1</td>
+<td>191.625</td>
+<td>16.0104</td>
+</tr>
+<tr>
+<td>Sai số (<em>Error</em>)</td>
+<td>47.875</td>
+<td>4</td>
+<td>11.96875</td>
+<td></td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td>239.50</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-305" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 305 / Trang PDF 305
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The calculations to derive the ANOVA table and ultimately to test the goodness of fit of the regression model can be time consuming, especially for samples with many observations. However, statistical packages, such as SAS, SPSS Statistics, and Stata, as well as software, such as Excel, R, and Python, produce the ANOVA table as part of the output for regression analysis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các phép tính để lập bảng ANOVA và cuối cùng là kiểm định mức độ phù hợp của mô hình hồi quy có thể tốn nhiều thời gian, đặc biệt đối với các mẫu có nhiều quan sát. Tuy nhiên, các gói thống kê như SAS, SPSS Statistics và Stata, cũng như các phần mềm như Excel, R và Python, đều tạo ra bảng ANOVA như một phần của kết quả đầu ra cho phân tích hồi quy.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Prediction Using Simple Linear Regression and Prediction Intervals</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Dự báo Sử dụng Hồi quy Tuyến tính Đơn và Khoảng Dự báo (<em>Prediction Using Simple Linear Regression and Prediction Intervals</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Financial analysts often want to use regression results to make predictions about a dependent variable. For example, we might ask, “How fast will the sales of XYZ Corporation grow this year if real GDP grows by 4 percent?” But we are not merely interested in making these forecasts; we also want to know how certain we can be about the forecasts’ results. A forecasted value of the dependent variable, <em>Y</em><sup>ˆ</sup> <em>f</em> , is determined using the estimated intercept and slope, as well as the expected or forecasted independent variable, Xf:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các nhà phân tích tài chính thường muốn sử dụng kết quả hồi quy để đưa ra các dự báo về biến phụ thuộc. Ví dụ, chúng ta có thể hỏi, “Doanh số của Tập đoàn XYZ sẽ tăng trưởng nhanh như thế nào trong năm nay nếu GDP thực tăng trưởng 4%?” Nhưng chúng ta không chỉ đơn thuần quan tâm đến việc đưa ra các dự báo này; chúng ta còn muốn biết mình có thể chắc chắn đến mức nào về kết quả của các dự báo đó. Một giá trị dự báo của biến phụ thuộc, <span class="math-inline">$\hat{Y}_f$</span>, được xác định bằng cách sử dụng hệ số chặn và hệ số góc ước lượng, cũng như biến độc lập kỳ vọng hoặc dự báo, <span class="math-inline">$X_f$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0305-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0305-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\hat{Y}_f = \hat{b}_0 + \hat{b}_1 X_f \tag{23}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In our ROA regression model, if we forecast a company’s CAPEX to be 6 percent, the forecasted ROA based on our estimated equation is 12.375 percent:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong mô hình hồi quy ROA của chúng ta, nếu chúng ta dự báo CAPEX của một công ty là 6%, thì ROA dự báo dựa trên phương trình ước lượng của chúng ta là 12,375%:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Y</em><sup>ˆ</sup> <em>f</em> = 4.875 +<sup>(</sup> 1.25 × 6<sup>)</sup> = 12.375 .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\hat{Y}_f = 4.875 + (1.25 \times 6) = 12.375$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>However, we need to consider that the estimated regression line does not describe the relation between the dependent and independent variables perfectly; it is an average of the relation between the two variables. This is evident because the residuals are not all zero.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tuy nhiên, chúng ta cần lưu ý rằng đường hồi quy ước lượng không mô tả hoàn hảo mối quan hệ giữa biến phụ thuộc và biến độc lập; nó chỉ là mức trung bình của mối quan hệ giữa hai biến số. Điều này thể hiện rõ bởi vì không phải tất cả các phần dư đều bằng 0.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Therefore, an interval estimate of the forecast is needed to reflect this uncertainty. The estimated variance of the prediction error, <em>sf</em><sup>2</sup> , of <em>Y</em> , given <em>X</em> , is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó, cần có một ước lượng khoảng (<em>interval estimate</em>) của dự báo để phản ánh sự không chắc chắn này. Phương sai ước lượng của sai số dự báo (<em>prediction error</em>), <span class="math-inline">$s_f^2$</span>, của <span class="math-inline">$Y$</span> khi biết <span class="math-inline">$X$</span> là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0305-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0305-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$s_f^2 = s_e^2 \left[ 1 + \frac{1}{n} + \frac{(X_f - \bar{X})^2}{(n - 1) s_X^2} \right] = s_e^2 \left[ 1 + \frac{1}{n} + \frac{(X_f - \bar{X})^2}{\sum_{i=1}^{n} (X_i - \bar{X})^2} \right]$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The standard error of the forecast depends on the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>và <strong>sai số chuẩn của dự báo (<em>standard error of the forecast</em>)</strong> là:</p>
+<div class="math-display my-3 overflow-x-auto">$$s_f = s_e \sqrt{1 + \frac{1}{n} + \frac{(X_f - \bar{X})^2}{\sum_{i=1}^{n} (X_i - \bar{X})^2}} \tag{24}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>the standard error of the estimate, se;</p>
+</li>
+<li>
+<p>the number of observations, <em>n</em> ;</p>
+</li>
+<li>
+<p>the forecasted value of the independent variable, Xf, used to predict the dependent variable and its deviation from the estimated mean, <em>X</em><sup>_</sup> ; and</p>
+</li>
+<li>
+<p>the variation of the independent variable.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sai số chuẩn của dự báo phụ thuộc vào các yếu tố sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can see the following from the equation for the standard error of the forecast:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>sai số chuẩn của ước lượng, <span class="math-inline">$s_e$</span>;</p>
+</li>
+<li>
+<p>số lượng quan sát, <span class="math-inline">$n$</span>;</p>
+</li>
+<li>
+<p>giá trị dự báo của biến độc lập, <span class="math-inline">$X_f$</span>, được sử dụng để dự báo biến phụ thuộc và độ lệch của nó so với giá trị trung bình ước lượng, <span class="math-inline">$\bar{X}$</span>; và</p>
+</li>
+<li>
+<p>sự biến thiên của biến độc lập.</p>
+</li>
+</ul>
+<p>Chúng ta có thể thấy những điều sau đây từ phương trình tính sai số chuẩn của dự báo:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> The better the fit of the regression model, the smaller the standard error of the estimate (se) and, therefore, the smaller standard error of the forecast.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Mô hình hồi quy có độ phù hợp càng tốt thì sai số chuẩn của ước lượng (<span class="math-inline">$s_e$</span>) càng nhỏ và do đó, sai số chuẩn của dự báo (<span class="math-inline">$s_f$</span>) càng nhỏ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> The larger the sample size ( <em>n</em> ) in the regression estimation, the smaller the standard error of the forecast.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Cỡ mẫu (<span class="math-inline">$n$</span>) trong ước lượng hồi quy càng lớn thì sai số chuẩn của dự báo càng nhỏ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> The closer the forecasted independent variable (Xf) is to the mean of the independent variable<sup>(</sup> <em>X</em><sup>_)</sup> used in the regression estimation, the smaller the standard error of the forecast.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Biến độc lập dự báo (<span class="math-inline">$X_f$</span>) càng gần với giá trị trung bình của biến độc lập (<span class="math-inline">$\bar{X}$</span>) được sử dụng trong ước lượng hồi quy thì sai số chuẩn của dự báo càng nhỏ.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-306" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 306 / Trang PDF 306
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Once we have this estimate of the standard error of the forecast, determining a prediction interval around the predicted value of the dependent variable ( <em>Y</em><sup>ˆ</sup> <em>f</em> ) is very similar to estimating a confidence interval around an estimated parameter. The prediction interval is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một khi chúng ta có ước lượng này về sai số chuẩn của dự báo, việc xác định một khoảng dự báo (<em>prediction interval</em>) xung quanh giá trị dự báo của biến phụ thuộc (<span class="math-inline">$\hat{Y}_f$</span>) rất giống với việc ước lượng một khoảng tin cậy (<em>confidence interval</em>) xung quanh một tham số ước lượng. Khoảng dự báo là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Y</em><sup>ˆ</sup> <em>f</em> ± <em>tcritical for α</em> /2 <em>sf</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\hat{Y}_f \pm t_{\text{critical for }\alpha/2} s_f$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We outline the steps for developing the prediction interval in Exhibit 34.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta phác thảo các bước để xây dựng khoảng dự báo trong Hình 34.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 34: Creating a Prediction Interval around the Predicted Dependent Variable</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Hình 34: Tạo Khoảng Dự báo xung quanh Biến phụ thuộc Dự báo</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0306-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0306-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh (Quy trình 5 bước):</strong>
+1. Dự báo giá trị của <span class="math-inline">$Y$</span>, tức <span class="math-inline">$\hat{Y}_f$</span>, khi biết giá trị dự báo của <span class="math-inline">$X$</span>, tức <span class="math-inline">$X_f$</span>.
+2. Chọn một mức ý nghĩa, <span class="math-inline">$\alpha$</span>, cho khoảng dự báo.
+3. Xác định giá trị tới hạn cho khoảng dự báo dựa trên bậc tự do và mức ý nghĩa.
+4. Tính sai số chuẩn của dự báo (<span class="math-inline">$s_f$</span>).
+5. Tính khoảng dự báo <span class="math-inline">$(1 - \alpha)\%$</span> cho giá trị dự báo theo công thức: <span class="math-inline">$\hat{Y}_f \pm t_{\text{critical for }\alpha/2} s_f$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For our ROA regression model, given that the forecasted value of CAPEX is 6.0, the predicted value of <em>Y</em> is 12.375:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với mô hình hồi quy ROA của chúng ta, biết rằng giá trị dự báo của CAPEX là <span class="math-inline">$6.0$</span>, giá trị dự báo của <span class="math-inline">$Y$</span> là <span class="math-inline">$12.375$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Y</em><sup>ˆ</sup> <em>f</em> = 4.875 + 1.25 <em>Xf</em> = 4.875 +<sup>(</sup> 1.25 × 6.0<sup>)</sup> = 12.375.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\hat{Y}_f = 4.875 + 1.25 X_f = 4.875 + (1.25 \times 6.0) = 12.375$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Assuming a 5 percent significance level ( <em>α</em> ), two sided, with <em>n</em> − 2 degrees of freedom (so, df = 4), the critical values for the prediction interval are ±2.776. The standard error of the forecast is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử mức ý nghĩa 5% (<span class="math-inline">$\alpha$</span>), kiểm định hai phía, với <span class="math-inline">$n - 2$</span> bậc tự do (tức <span class="math-inline">$\text{df} = 4$</span>), các giá trị tới hạn cho khoảng dự báo là <span class="math-inline">$\pm 2.776$</span>. Sai số chuẩn của dự báo là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0306-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0306-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$s_f = 3.459588 \sqrt{1 + \frac{1}{6} + \frac{(6 - 6.1)^2}{122.640}} = 3.459588 \sqrt{1.166748} = 3.736912$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The 95 percent prediction interval then becomes</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi đó, khoảng dự báo 95% trở thành:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0306-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0306-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$12.375 \pm 2.776 (3.736912)$$</div>
+<div class="math-display my-3 overflow-x-auto">$$12.375 \pm 10.3737$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>12.375 ± 10.3737</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0306-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0306-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\{2.0013 &lt; \hat{Y}_f &lt; 22.7487\}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For our ROA regression example, we can see how the standard error of the forecast ( <em>sf</em> ) changes as our forecasted value of the independent variable gets farther from the mean of the independent variable  ( <em>Xf</em> − <em>X</em><sup>_</sup> ) in Exhibit 35. The mean of CAPEX is 6.1</p>
+<p>percent, and the band that represents one standard error of the forecast, above and below the forecast, is minimized at that point and increases as the independent variable gets farther from <em>X</em><sup>_</sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với ví dụ hồi quy ROA của chúng ta, chúng ta có thể thấy sai số chuẩn của dự báo (<span class="math-inline">$s_f$</span>) thay đổi như thế nào khi giá trị dự báo của biến độc lập rời xa dần giá trị trung bình của biến độc lập <span class="math-inline">$(X_f - \bar{X})$</span> trong Hình 35. Giá trị trung bình của CAPEX là 6,1%, và dải băng biểu thị một sai số chuẩn của dự báo, nằm phía trên và phía dưới mức dự báo, đạt mức tối thiểu tại điểm đó và mở rộng dần khi biến độc lập rời xa <span class="math-inline">$\bar{X}$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-307" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 307 / Trang PDF 307
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 35: ROA Forecasts and Standard Error of the Forecast</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Hình 35: Dự báo ROA và Sai số chuẩn của Dự báo</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0307-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0307-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Trục tung: ROA dự báo (%). Trục hoành: CAPEX dự báo (%). Hiển thị đường Dự báo <span class="math-inline">$Y$</span> (<em>Forecasted <span class="math-inline">$Y$</span></em>), Cận trên và Cận dưới của Khoảng dự báo 95% (<em>Upper/Lower Bound of 95% Prediction Interval</em>), cùng với các đường cộng/trừ 1 Sai số chuẩn của dự báo (<em>One Standard Error of the Forecast above/below the Forecast</em>). Các đường giới hạn loe rộng ra khi <span class="math-inline">$X_f$</span> rời xa mức trung bình <span class="math-inline">$6.1\%$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>QUESTION SET</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose you run a cross-sectional regression for 100 companies, where the dependent variable is the annual return on stock and the independent variable is the lagged percentage of institutional ownership (INST). The results of this simple linear regression estimation are shown in Exhibit 36. Evaluate the model by answering questions 1–4.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử bạn chạy một hồi quy dữ liệu chéo cho 100 công ty, trong đó biến phụ thuộc là tỷ suất sinh lợi cổ phiếu hàng năm và biến độc lập là tỷ lệ phần trăm sở hữu của tổ chức có độ trễ (<em>lagged percentage of institutional ownership</em> – INST). Kết quả của ước lượng hồi quy tuyến tính đơn này được trình bày trong Bảng 36. Hãy đánh giá mô hình bằng cách trả lời các câu hỏi 1–4.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 36: ANOVA Table for Annual Stock Return Regressed on Institutional Ownership</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Bảng 36: Bảng ANOVA cho Tỷ suất sinh lợi Cổ phiếu Hàng năm được Hồi quy theo Tỷ lệ Sở hữu của Tổ chức</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Source</strong></th>
+<th><strong>Sum of Squares</strong></th>
+<th><strong>Degrees of Freedom</strong></th>
+<th><strong>Mean Square</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regression</td>
+<td>576.1485</td>
+<td>1</td>
+<td>576.1485</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>1,873.5615</td>
+<td>98</td>
+<td>19.1180</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>2,449.7100</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nguồn biến thiên (<em>Source</em>)</strong></th>
+<th><strong>Tổng bình phương (<em>Sum of Squares</em>)</strong></th>
+<th><strong>Bậc tự do (<em>Degrees of Freedom</em>)</strong></th>
+<th><strong>Trung bình bình phương (<em>Mean Square</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hồi quy (<em>Regression</em>)</td>
+<td>576.1485</td>
+<td>1</td>
+<td>576.1485</td>
+</tr>
+<tr>
+<td>Sai số (<em>Error</em>)</td>
+<td>1,873.5615</td>
+<td>98</td>
+<td>19.1180</td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td>2,449.7100</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>What is the coefficient of determination for this regression model?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Hệ số xác định (<em>coefficient of determination</em>) của mô hình hồi quy này là bao nhiêu?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The coefficient of determination is sum of squares regression/sum of squares total: 576.148 ÷ 2,449.71 = 0.2352, or 23.52 percent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hệ số xác định bằng tổng bình phương hồi quy chia cho tổng bình phương toàn phần: <span class="math-inline">$576.1485 \div 2,449.71 = 0.2352$</span>, hay 23,52%.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-308" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 308 / Trang PDF 308
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>What is the standard error of the estimate for this regression model? <strong>Solution:</strong></li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Sai số chuẩn của ước lượng (<em>standard error of the estimate</em>) của mô hình hồi quy này là bao nhiêu?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The standard error of the estimate is the square root of the mean square error:  √<sup>_</sup> 19.1180 = 4.3724 .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>At a 5 percent level of significance, do we reject the null hypothesis of the slope coefficient equal to zero if the critical <em>F</em> -value is 3.938?</li>
+</ol>
+<ul>
+<li><strong>Solution:</strong></li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sai số chuẩn của ước lượng là căn bậc hai của trung bình bình phương sai số (MSE): <span class="math-inline">$\sqrt{19.1180} = 4.3724$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using a six-step process for testing hypotheses, we get the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Tại mức ý nghĩa 5%, chúng ta có bác bỏ giả thuyết không cho rằng hệ số góc bằng 0 hay không nếu giá trị <span class="math-inline">$F$</span> tới hạn là <span class="math-inline">$3.938$</span>?</li>
+</ol>
+<h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Step 1</strong></th>
+<th>State the hypotheses.</th>
+<th><em>H_0:_b_1= 0 versus_Ha</em>:_b_1≠ 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 2</strong></td>
+<td>Identify the appropri-<br>ate test statistic.</td>
+<td><em>F</em>=<sup>MSR</sup><br>_<br>MSE<br>with 1 and 98 degrees of freedom.</td>
+</tr>
+<tr>
+<td><strong>Step 3</strong></td>
+<td>Specify the level of<br>significance.</td>
+<td><em>α</em>= 5% (one tail, right side).</td>
+</tr>
+<tr>
+<td><strong>Step 4</strong></td>
+<td>State the decision<br>rule.</td>
+<td>Critical_F_-value = 3.938.<br>Reject the null hypothesis if the calculated<br><em>F</em>-statistic is greater than 3.938.</td>
+</tr>
+<tr>
+<td><strong>Step 5</strong></td>
+<td>Calculate the test<br>statistic.</td>
+<td><em>F</em>=<sup>576.1485</sup><br>_<br>19.1180<sup>= 30.1364</sup></td>
+</tr>
+<tr>
+<td><strong>Step 6</strong></td>
+<td>Make a decision.</td>
+<td>Reject the null hypothesis because the cal-<br>culated_F_-statistic is greater than the critical<br><em>F</em>-value. Evidence is sufficient to indicate that<br>the slope coefficient is different from 0.0.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng quy trình sáu bước để kiểm định giả thuyết, chúng ta có:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Based on your answers to the preceding questions, evaluate this simple linear regression model.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 1</strong></th>
+<th>Phát biểu các giả thuyết.</th>
+<th><span class="math-inline">$H_0: b_1 = 0$</span> đối lập với <span class="math-inline">$H_a: b_1 \neq 0$</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 2</strong></td>
+<td>Xác định thống kê kiểm định phù hợp.</td>
+<td><span class="math-inline">$F = \frac{\text{MSR}}{\text{MSE}}$</span> với 1 và 98 bậc tự do.</td>
+</tr>
+<tr>
+<td><strong>Bước 3</strong></td>
+<td>Xác định mức ý nghĩa.</td>
+<td><span class="math-inline">$\alpha = 5\%$</span> (một phía, bên phải).</td>
+</tr>
+<tr>
+<td><strong>Bước 4</strong></td>
+<td>Phát biểu quy tắc quyết định.</td>
+<td>Giá trị <span class="math-inline">$F$</span> tới hạn <span class="math-inline">$= 3.938$</span>.<br>Bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$F$</span> tính được lớn hơn <span class="math-inline">$3.938$</span>.</td>
+</tr>
+<tr>
+<td><strong>Bước 5</strong></td>
+<td>Tính toán thống kê kiểm định.</td>
+<td><span class="math-inline">$F = \frac{576.1485}{19.1180} = 30.1364$</span></td>
+</tr>
+<tr>
+<td><strong>Bước 6</strong></td>
+<td>Đưa ra quyết định.</td>
+<td>Bác bỏ giả thuyết không bởi vì thống kê <span class="math-inline">$F$</span> tính được lớn hơn giá trị <span class="math-inline">$F$</span> tới hạn. Có đủ bằng chứng cho thấy hệ số góc khác <span class="math-inline">$0.0$</span>.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Dựa trên câu trả lời của bạn cho các câu hỏi trước, hãy đánh giá mô hình hồi quy tuyến tính đơn này.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The coefficient of determination indicates that variation in the independent variable explains 23.52 percent of the variation in the dependent variable. Also, the <em>F</em> -statistic test confirms that the model’s slope coefficient is different from 0 at the 5 percent level of significance. In sum, the model seems to fit the data reasonably well.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>The following applies to questions 5-10</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hệ số xác định chỉ ra rằng sự biến thiên của biến độc lập giải thích được 23,52% sự biến thiên của biến phụ thuộc. Ngoài ra, kiểm định thống kê <span class="math-inline">$F$</span> xác nhận rằng hệ số góc của mô hình khác 0 tại mức ý nghĩa 5%. Tóm lại, mô hình dường như khớp với dữ liệu khá tốt.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose we want to forecast a company’s net profit margin (NPM) based on its research and development expenditures scaled by revenues (RDR), using the model estimated in Example 2 and the details provided in Exhibit 8. The regression model was estimated using data on eight companies as</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Thông tin sau đây áp dụng cho các câu hỏi 5–10</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Y</em><sup>ˆ</sup> <em>f</em> = 16.5 − 1.3 <em>Xf</em> ,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử chúng ta muốn dự báo biên lợi nhuận ròng (NPM) của một công ty dựa trên chi tiêu nghiên cứu và phát triển được chuẩn hóa theo doanh thu (RDR) của công ty đó, sử dụng mô hình đã ước lượng ở phần trước và các chi tiết được cung cấp trong Bảng 8. Mô hình hồi quy đã được ước lượng bằng dữ liệu của tám công ty như sau:</p>
+<div class="math-display my-3 overflow-x-auto">$$\hat{Y}_f = 16.5 - 1.3 X_f$$</div>
+<p>với sai số chuẩn của ước lượng (<span class="math-inline">$s_e$</span>) là <span class="math-inline">$1.8618987$</span> và phương sai của RDR, <span class="math-inline">$\frac{\sum_{i=1}^{n} (X_i - \bar{X})^2}{n - 1}$</span>, là <span class="math-inline">$4.285714$</span> như đã cho.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><em>_</em></strong>_____∑ <em>ni</em> with a standard error of the estimate (=1( <em>Xi</em> − <em>X</em><sup><em></sup> )<sup>2</sup> _se</em> ) of 1.8618987 and variance of RDR, , of 4.285714, as given. ( <em>n</em> − 1)</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li>Giá trị dự báo của NPM là bao nhiêu nếu giá trị dự báo của RDR là 5?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="5">
+<li>What is the predicted value of NPM if the forecasted value of RDR is 5? <strong>Solution:</strong></li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The predicted value of NPM is 10: 16.5 − (1.3 × 5) = 10.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá trị dự báo của NPM là 10: <span class="math-inline">$16.5 - (1.3 \times 5) = 10$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-309" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 309 / Trang PDF 309
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="6">
+<li>
+<p>What is the standard error of the forecast ( <em>sf</em> ) if the forecasted value of RDR is 5? <strong>Solution:</strong> To derive the standard error of the forecast ( <em>sf</em> ), we first have to calculate the variation of RDR. Then, we have all the pieces to calculate sf: ∑ <em>ni</em> =1 ( <em>Xi</em> − <em>X</em> <em>)<sup>2</sup> = 4.285714 × 7 = 30. ______________ _ 1 +<sup>_1</sup> = 2.1499. _sf</em> = 1.8618987  √ 8<sup>+  (5 − 7.5</sup> 30<sup>)2</sup> 7. What is the 95 percent prediction interval for the predicted value of NPM using critical <em>t</em> -values (df = 6) of ±2.447? <strong>Solution:</strong> The 95 percent prediction interval for the predicted value of NPM is {10 ± 2.447<sup>(</sup> 2.1499<sup>)</sup> } , { 4.7392 &lt; <em>Y</em><sup>ˆ</sup> <em>f</em> &lt; 15.2608 }  . 8. What is the predicted value of NPM if the forecasted value of RDR is 15? <strong>Solution:</strong> The predicted value of NPM is −3: 16.5 − (1.3 × 15) = −3. 9. Referring to exhibit 9, what is the standard error of the forecast if the forecasted value of RDR is 15? <strong>Solution:</strong> To derive the standard error of the forecast, we first must calculate the variation of RDR. Then, we can calculate sf: ∑ <em>ni</em> =1 ( <em>Xi</em> − <em>X</em> <em>)<sup>2</sup> = 4.285714 × 7 = 30. _______________ _ 1 +<sup>_1</sup> = 3.2249. _sf</em> = 1.8618987  √ 8<sup>+  (15 − 7.5</sup> 30<sup>)2</sup></p>
+</li>
+<li>
+<p>What is the 95 percent prediction interval for the predicted value of NPM using critical <em>t</em> -values (df = 6) of ±2.447? <strong>Solution:</strong></p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="6">
+<li>Sai số chuẩn của dự báo (<span class="math-inline">$s_f$</span>) là bao nhiêu nếu giá trị dự báo của RDR là 5?</li>
+</ol>
+<h4><strong>Lời giải:</strong></h4>
+<p>Để suy ra sai số chuẩn của dự báo (<span class="math-inline">$s_f$</span>), trước tiên chúng ta phải tính sự biến thiên của RDR. Sau đó, chúng ta có tất cả các mảnh ghép để tính <span class="math-inline">$s_f$</span>:</p>
+<div class="math-display my-3 overflow-x-auto">$$\sum_{i=1}^{n} (X_i - \bar{X})^2 = 4.285714 \times 7 = 30$$</div>
+<div class="math-display my-3 overflow-x-auto">$$s_f = 1.8618987 \sqrt{1 + \frac{1}{8} + \frac{(5 - 7.5)^2}{30}} = 2.1499$$</div>
+<ol start="7">
+<li>Khoảng dự báo 95% cho giá trị dự báo của NPM sử dụng các giá trị <span class="math-inline">$t$</span> tới hạn (<span class="math-inline">$\text{df} = 6$</span>) bằng <span class="math-inline">$\pm 2.447$</span> là bao nhiêu?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The 95 percent prediction interval for the predicted value of NPM is {− 3 ± 2.447<sup>(</sup> 3.2249<sup>)</sup> } , { − 10.8913 &lt; <em>Y</em><sup>ˆ</sup> <em>f</em> &lt; 4.8913 }  .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4>
+<p>Khoảng dự báo 95% cho giá trị dự báo của NPM là <span class="math-inline">$\{10 \pm 2.447(2.1499)\}$</span>, hay <span class="math-inline">$\{4.7392 &lt; \hat{Y}_f &lt; 15.2608\}$</span>.</p>
+<ol start="8">
+<li>Giá trị dự báo của NPM là bao nhiêu nếu giá trị dự báo của RDR là 15?</li>
+</ol>
+<h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>The following applies to questions 11-15</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá trị dự báo của NPM là <span class="math-inline">$-3$</span>: <span class="math-inline">$16.5 - (1.3 \times 15) = -3$</span>.</p>
+<ol start="9">
+<li>Tham chiếu Bảng 9, sai số chuẩn của dự báo là bao nhiêu nếu giá trị dự báo của RDR là 15?</li>
+</ol>
+<h4><strong>Lời giải:</strong></h4>
+<p>Để suy ra sai số chuẩn của dự báo, trước tiên chúng ta phải tính sự biến thiên của RDR. Sau đó, chúng ta có thể tính <span class="math-inline">$s_f$</span>:</p>
+<div class="math-display my-3 overflow-x-auto">$$\sum_{i=1}^{n} (X_i - \bar{X})^2 = 4.285714 \times 7 = 30$$</div>
+<div class="math-display my-3 overflow-x-auto">$$s_f = 1.8618987 \sqrt{1 + \frac{1}{8} + \frac{(15 - 7.5)^2}{30}} = 3.2249$$</div>
+<ol start="10">
+<li>Khoảng dự báo 95% cho giá trị dự báo của NPM sử dụng các giá trị <span class="math-inline">$t$</span> tới hạn (<span class="math-inline">$\text{df} = 6$</span>) bằng <span class="math-inline">$\pm 2.447$</span> là bao nhiêu?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>You are examining the results of a regression estimation that attempts to explain the unit sales growth of a business you are researching. The analysis of variance output for the regression is given in the Exhibit 37. The regression was based on five observations ( <em>n</em> = 5).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4>
+<p>Khoảng dự báo 95% cho giá trị dự báo của NPM là <span class="math-inline">$\{-3 \pm 2.447(3.2249)\}$</span>, hay <span class="math-inline">$\{-10.8913 &lt; \hat{Y}_f &lt; 4.8913\}$</span>.</p>
+<h3><strong>Thông tin sau đây áp dụng cho các câu hỏi 11–15</strong></h3>
+<p>Bạn đang kiểm tra kết quả của một ước lượng hồi quy nhằm cố gắng giải thích tốc độ tăng trưởng doanh số theo đơn vị sản phẩm (<em>unit sales growth</em>) của một doanh nghiệp mà bạn đang nghiên cứu. Kết quả đầu ra phân tích phương sai (ANOVA) cho hồi quy được cho trong Bảng 37. Hồi quy được dựa trên năm quan sát (<span class="math-inline">$n = 5$</span>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-310" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 310 / Trang PDF 310
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 37: ANOVA Output</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Bảng 37: Kết quả Đầu ra ANOVA (<em>ANOVA Output</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0310-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0310-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="11">
+<li>Calculate the sample variance of the dependent variable using information in the table.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nguồn (<em>Source</em>)</strong></th>
+<th><strong>Bậc tự do (<em>df</em>)</strong></th>
+<th><strong>Tổng bình phương (<em>Sum of Squares</em>)</strong></th>
+<th><strong>Trung bình bình phương (<em>Mean Square</em>)</strong></th>
+<th><strong><span class="math-inline">$F$</span></strong></th>
+<th><strong>Trị số <span class="math-inline">$p$</span> (<em><span class="math-inline">$p$</span>-Value</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hồi quy (<em>Regression</em>)</td>
+<td>1</td>
+<td>88.0</td>
+<td>88.0</td>
+<td>36.667</td>
+<td>0.00904</td>
+</tr>
+<tr>
+<td>Phần dư (<em>Residual</em>)</td>
+<td>3</td>
+<td>7.2</td>
+<td>2.4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td>4</td>
+<td>95.2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="11">
+<li>Tính phương sai mẫu (<em>sample variance</em>) của biến phụ thuộc bằng cách sử dụng thông tin trong bảng.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The sample variance of the dependent variable is the sum of squares total divided by its degrees of freedom ( <em>n</em> − 1 = 5 − 1 = 4, as given). Thus, the sample variance of the dependent variable is 95.2 ÷ 4 = 23.8.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="12">
+<li>Calculate the coefficient of determination for this estimated model.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phương sai mẫu của biến phụ thuộc là tổng bình phương toàn phần chia cho bậc tự do của nó (<span class="math-inline">$n - 1 = 5 - 1 = 4$</span>, như đã cho). Do đó, phương sai mẫu của biến phụ thuộc là <span class="math-inline">$95.2 \div 4 = 23.8$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="12">
+<li>Tính hệ số xác định (<em>coefficient of determination</em>) cho mô hình ước lượng này.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The coefficient of determination = 88.0 ÷ 95.2 = 0.92437.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="13">
+<li>What hypothesis does the <em>F</em> -statistic test?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hệ số xác định <span class="math-inline">$= 88.0 \div 95.2 = 0.92437$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="13">
+<li>Thống kê <span class="math-inline">$F$</span> kiểm định giả thuyết nào?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The <em>F</em> -statistic tests whether all the slope coefficients in a linear regression are equal to zero.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="14">
+<li>Is the <em>F</em> -test significant at the 0.05 significance level?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thống kê <span class="math-inline">$F$</span> kiểm định xem liệu tất cả các hệ số góc trong một hồi quy tuyến tính có bằng 0 hay không.</p>
+<ol start="14">
+<li>Kiểm định <span class="math-inline">$F$</span> có ý nghĩa thống kê tại mức ý nghĩa <span class="math-inline">$0.05$</span> hay không?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The calculated value of the <em>F</em> -statistic is 36.667, as shown in Exhibit 32. The corresponding <em>p</em> -value is less than 0.05, so you reject the null hypothesis of a slope equal to zero.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá trị tính được của thống kê <span class="math-inline">$F$</span> là <span class="math-inline">$36.667$</span>, như trình bày trong Bảng 37. Trị số <span class="math-inline">$p$</span> tương ứng (<span class="math-inline">$0.00904$</span>) nhỏ hơn <span class="math-inline">$0.05$</span>, vì vậy bạn bác bỏ giả thuyết không cho rằng hệ số góc bằng 0.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="15">
+<li>Calculate the standard error of the estimate.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="15">
+<li>Tính sai số chuẩn của ước lượng (<em>standard error of the estimate</em>).</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The standard error of the estimate is the square root of the mean square error: <em>se</em> =  √<sup>_</sup> 2.4 = 1.54919.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sai số chuẩn của ước lượng là căn bậc hai của trung bình bình phương sai số: <span class="math-inline">$s_e = \sqrt{2.4} = 1.54919$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>6</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>6</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>FUNCTIONAL FORMS FOR SIMPLE LINEAR REGRESSION</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>CÁC DẠNG HÀM CHO HỒI QUY TUYẾN TÍNH ĐƠN (<em>FUNCTIONAL FORMS FOR SIMPLE LINEAR REGRESSION</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe different functional forms of simple linear regressions</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>mô tả các dạng hàm (<em>functional forms</em>) khác nhau của hồi quy tuyến tính đơn</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Not every set of independent and dependent variables has a linear relation. In fact, we often see non-linear relationships in economic and financial data. Consider the revenues of a company over time illustrated in Exhibit 38, with revenues as the dependent</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Không phải mọi tập hợp biến độc lập và biến phụ thuộc đều có mối quan hệ tuyến tính. Trên thực tế, chúng ta thường thấy các mối quan hệ phi tuyến tính trong dữ liệu kinh tế và tài chính. Hãy xem xét doanh thu của một công ty theo thời gian được minh họa trong Hình 38, với doanh thu là biến phụ thuộc</p></div>
+                </div>
+                
+
+                <div id="pdf-page-311" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 311 / Trang PDF 311
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>( <em>Y</em> ) variable and time as the independent ( <em>X</em> ) variable. Revenues grow at a rate of 15 percent per year for several years, but then the growth rate eventually declines to just 5 percent per year. Estimating this relationship as a simple linear model would understate the dependent variable, revenues, and, for some ranges of the independent variable, time, and would overstate it for other ranges of the independent variable.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>(<span class="math-inline">$Y$</span>) và thời gian là biến độc lập (<span class="math-inline">$X$</span>). Doanh thu tăng trưởng ở mức 15% mỗi năm trong một vài năm, nhưng sau đó tốc độ tăng trưởng cuối cùng giảm xuống chỉ còn 5% mỗi năm. Việc ước lượng mối quan hệ này dưới dạng một mô hình tuyến tính đơn sẽ ước lượng thấp hơn thực tế (<em>understate</em>) biến phụ thuộc (doanh thu) đối với một số khoảng của biến độc lập (thời gian), và sẽ ước lượng cao hơn thực tế (<em>overstate</em>) đối với các khoảng khác của biến độc lập.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 38: Company Revenues over Time</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Hình 38: Doanh thu Công ty theo Thời gian</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0311-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0311-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Trục tung: Doanh thu (<span class="math-inline">$Y$</span>). Trục hoành: Thời gian (<span class="math-inline">$X$</span>, từ 1 đến 30). Phương trình tuyến tính: <span class="math-inline">$Y = -287.61 + 76.578X$</span>, <span class="math-inline">$R^2 = 0.9478$</span>, <span class="math-inline">$F\text{-statistic} = 508.9017$</span>. Hiển thị Giá trị <span class="math-inline">$Y$</span> quan sát (<em>Observed <span class="math-inline">$Y$</span></em>) và Dự báo tuyến tính của <span class="math-inline">$Y$</span> (<em>Linear Prediction of <span class="math-inline">$Y$</span></em>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can still use the simple linear regression model, but we need to modify either the dependent or the independent variables to make it work well. This is the case with many different financial or economic data that you might use as dependent and independent variables in your regression analysis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta vẫn có thể sử dụng mô hình hồi quy tuyến tính đơn, nhưng chúng ta cần điều chỉnh biến phụ thuộc hoặc biến độc lập để làm cho mô hình hoạt động tốt. Đây là trường hợp của nhiều dữ liệu tài chính hoặc kinh tế khác nhau mà bạn có thể sử dụng làm biến phụ thuộc và biến độc lập trong phân tích hồi quy của mình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Several different functional forms can be used to potentially transform the data to enable their use in linear regression. These transformations include using the log (i.e., natural logarithm) of the dependent variable, the log of the independent variable, the reciprocal of the independent variable, the square of the independent variable, or the differencing of the independent variable. We illustrate and discuss three often-used functional forms, each of which involves log transformation:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số dạng hàm (<em>functional forms</em>) khác nhau có thể được sử dụng để biến đổi dữ liệu nhằm cho phép sử dụng chúng trong hồi quy tuyến tính. Những phép biến đổi này bao gồm việc sử dụng logarit (tức là logarit tự nhiên – <em>natural logarithm</em>) của biến phụ thuộc, logarit của biến độc lập, nghịch đảo của biến độc lập, bình phương của biến độc lập, hoặc lấy sai phân (<em>differencing</em>) của biến độc lập. Chúng ta minh họa và thảo luận ba dạng hàm thường được sử dụng, mỗi dạng đều liên quan đến phép biến đổi logarit:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> the <strong>log-lin model</strong> , in which the dependent variable is logarithmic but the independent variable is linear;</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> <strong>Mô hình log-tuyến tính (<em>log-lin model</em>)</strong>, trong đó biến phụ thuộc ở dạng logarit nhưng biến độc lập ở dạng tuyến tính;</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> the <strong>lin-log model</strong> , in which the dependent variable is linear but the independent variable is logarithmic; and</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> <strong>Mô hình tuyến tính-log (<em>lin-log model</em>)</strong>, trong đó biến phụ thuộc ở dạng tuyến tính nhưng biến độc lập ở dạng logarit; và</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> the <strong>log-log model</strong> , in which both the dependent and independent variables are in logarithmic form.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> <strong>Mô hình log-log (<em>log-log model</em>)</strong>, trong đó cả biến phụ thuộc và biến độc lập đều ở dạng logarit.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong><em>The Log-Lin Model</em></strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>_Mô hình Log-Tuyến tính (<em>The Log-Lin Model</em>)_</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In the log-lin model, the dependent variable is in logarithmic form and the independent variable is not, as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong mô hình log-tuyến tính (<em>log-lin model</em>), biến phụ thuộc ở dạng logarit và biến độc lập thì không, như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>ln <em>Yi</em> = <em>b</em> 0 + <em>b</em> 1 <em>Xi</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\ln Y_i = b_0 + b_1 X_i \tag{25}$$</div></div>
+                </div>
+                
+
+                <div id="pdf-page-312" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 312 / Trang PDF 312
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The slope coefficient in this model is the relative change in the dependent variable for an absolute change in the independent variable. We can transform the <em>Y</em> variable (revenues) in Exhibit 38 into its natural log (ln) and then fit the regression line, as shown in Exhibit 39. From this chart, we see that the log-lin model is a better-fitting model than the simple linear regression model.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hệ số góc trong mô hình này là mức thay đổi tương đối (<em>relative change</em>) trong biến phụ thuộc ứng với một mức thay đổi tuyệt đối (<em>absolute change</em>) trong biến độc lập. Chúng ta có thể biến đổi biến <span class="math-inline">$Y$</span> (doanh thu) trong Hình 38 thành logarit tự nhiên (<span class="math-inline">$\ln$</span>) của nó và sau đó khớp đường hồi quy, như trình bày trong Hình 39. Từ biểu đồ này, chúng ta thấy rằng mô hình log-lin là một mô hình khớp tốt hơn so với mô hình hồi quy tuyến tính đơn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 39: Log-Lin Model Applied to Company Revenues over Time</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Hình 39: Mô hình Log-Lin được Áp dụng cho Doanh thu Công ty theo Thời gian</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0312-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0312-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Trục tung: <span class="math-inline">$\ln$</span> Doanh thu (<span class="math-inline">$\ln Y$</span>). Trục hoành: Thời gian (<span class="math-inline">$X$</span>). Phương trình: <span class="math-inline">$\ln Y = 4.7932 + 0.1087X$</span>, <span class="math-inline">$R^2 = 0.9808$</span>, <span class="math-inline">$F\text{-statistic} = 1429.5473$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>It is important to note that in working with a log-lin model, you must take care when making a forecast. For example, suppose the estimated regression model is ln <em>Y</em> = −7 + 2 <em>X.</em> If <em>X</em> is 2.5 percent, then the forecasted value of ln <em>Y</em> is −2. In this case, the predicted value of <em>Y</em> is the antilog of −2, or <em>e</em><sup>−2</sup> = 0.135335. Another caution is that you cannot directly compare a log-lin model with a lin-lin model (i.e., the regression of <em>Y</em> on <em>X</em> without any transformation) because the dependent variables are not in the same form—we would have to transform the <em>R</em><sup>2</sup> and <em>F</em> -statistic to enable a comparison. Looking at the residuals, however, is helpful:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Điều quan trọng cần lưu ý là khi làm việc với mô hình log-lin, bạn phải cẩn thận khi đưa ra dự báo. Ví dụ, giả sử mô hình hồi quy ước lượng là <span class="math-inline">$\ln Y = -7 + 2X$</span>. Nếu <span class="math-inline">$X$</span> là 2,5%, thì giá trị dự báo của <span class="math-inline">$\ln Y$</span> là <span class="math-inline">$-2$</span>. Trong trường hợp này, giá trị dự báo của <span class="math-inline">$Y$</span> là đối logarit (<em>antilog</em>) của <span class="math-inline">$-2$</span>, hay <span class="math-inline">$e^{-2} = 0.135335$</span>. Một lưu ý thận trọng khác là bạn không thể so sánh trực tiếp một mô hình log-lin với một mô hình lin-lin (tức là hồi quy của <span class="math-inline">$Y$</span> theo <span class="math-inline">$X$</span> mà không có bất kỳ phép biến đổi nào) bởi vì các biến phụ thuộc không ở cùng một dạng—chúng ta sẽ phải biến đổi <span class="math-inline">$R^2$</span> và thống kê <span class="math-inline">$F$</span> để có thể so sánh. Tuy nhiên, việc xem xét các phần dư lại rất hữu ích.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong><em>The Lin-Log Model</em></strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>_Mô hình Tuyến tính-Log (<em>The Lin-Log Model</em>)_</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The lin-log model is similar to the log-lin model, but only the independent variable is in logarithmic form:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình tuyến tính-log (<em>lin-log model</em>) tương tự như mô hình log-lin, nhưng chỉ có biến độc lập ở dạng logarit:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Yi</em> = <em>b</em> 0 + <em>b</em> 1 ln <em>Xi</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$Y_i = b_0 + b_1 \ln X_i$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0312-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0312-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$Y_i = b_0 + b_1 \ln X_i \tag{26}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The slope coefficient in this regression model provides the absolute change in the dependent variable for a relative change in the independent variable.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hệ số góc trong mô hình hồi quy này cung cấp mức thay đổi tuyệt đối (<em>absolute change</em>) trong biến phụ thuộc ứng với một mức thay đổi tương đối (<em>relative change</em>) trong biến độc lập.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose an analyst is examining the cross-sectional relationship between operating profit margin, the dependent variable ( <em>Y</em> ), and unit sales, the independent variable ( <em>X</em> ), and gathers data on a sample of 30 companies. The scatter plot and regression line for these observations are shown in Exhibit 40. Although the slope is different from zero at the 5 percent level (the calculated <em>t</em> -statistic on the slope is 5.8616, compared with critical <em>t</em> -values of ±2.048), given the R<sup>2</sup> of 55.10 percent, the issue is whether we can get a better fit by using a different functional form.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử một nhà phân tích đang kiểm tra mối quan hệ dữ liệu chéo giữa biên lợi nhuận hoạt động (<em>operating profit margin</em>), biến phụ thuộc (<span class="math-inline">$Y$</span>), và doanh số theo đơn vị sản phẩm (<em>unit sales</em>), biến độc lập (<span class="math-inline">$X$</span>), và thu thập dữ liệu trên một mẫu gồm 30 công ty. Biểu đồ phân tán và đường hồi quy cho các quan sát này được trình bày trong Hình 40. Mặc dù hệ số góc khác 0 tại mức ý nghĩa 5% (thống kê <span class="math-inline">$t$</span> tính được của hệ số góc là <span class="math-inline">$5.8616$</span>, so với giá trị <span class="math-inline">$t$</span> tới hạn là <span class="math-inline">$\pm 2.048$</span>), với <span class="math-inline">$R^2$</span> là 55,10%, vấn đề đặt ra là liệu chúng ta có thể đạt được mức độ phù hợp tốt hơn bằng cách sử dụng một dạng hàm khác hay không.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-313" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 313 / Trang PDF 313
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 40: Relationship between Operating Profit Margin and Unit Sales</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Hình 40: Mối quan hệ giữa Biên lợi nhuận Hoạt động và Doanh số theo Đơn vị sản phẩm</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0313-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0313-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Trục tung: Biên lợi nhuận hoạt động (<span class="math-inline">$Y$</span>). Trục hoành: Doanh số theo đơn vị (<span class="math-inline">$X$</span>). Phương trình: <span class="math-inline">$Y = 10.3665 + 0.000045X$</span>, <span class="math-inline">$R^2 = 0.5510$</span>, <span class="math-inline">$s_e = 2.2528$</span>, <span class="math-inline">$F\text{-statistic} = 33.8259$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If instead we use the natural log of the unit sales as the independent variable in our model, we get a very different picture, as shown in Exhibit 41. The <em>R</em><sup>2</sup> for the model of operating profit margin regressed on the natural log of unit sales jumps to 97.17 percent. Because the dependent variable is the same in both the original and transformed models, we can compare the standard error of the estimate: 2.2528 with the original independent variable and a much lower 0.5629 with the transformed independent variable. Clearly the log-transformed explanatory variable has resulted in a better-fitting model.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu thay vào đó chúng ta sử dụng logarit tự nhiên của doanh số theo đơn vị sản phẩm làm biến độc lập trong mô hình của mình, chúng ta sẽ nhận được một bức tranh rất khác, như trình bày trong Hình 41. Hệ số <span class="math-inline">$R^2$</span> cho mô hình biên lợi nhuận hoạt động được hồi quy theo logarit tự nhiên của doanh số theo đơn vị sản phẩm nhảy vọt lên 97,17%. Bởi vì biến phụ thuộc là như nhau trong cả mô hình gốc và mô hình đã biến đổi, chúng ta có thể so sánh sai số chuẩn của ước lượng: <span class="math-inline">$2.2528$</span> với biến độc lập gốc và mức thấp hơn nhiều là <span class="math-inline">$0.5659$</span> (văn bản ghi <span class="math-inline">$0.5629$</span>, hình ghi <span class="math-inline">$0.5659$</span>) với biến độc lập đã biến đổi. Rõ ràng biến giải thích được biến đổi logarit đã mang lại một mô hình có độ phù hợp tốt hơn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 41: Relationship Between Operating Profit Margin and Natural Logarithm of Unit Sales</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Hình 41: Mối quan hệ giữa Biên lợi nhuận Hoạt động và Logarit Tự nhiên của Doanh số theo Đơn vị sản phẩm</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0313-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0313-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Trục tung: Biên lợi nhuận hoạt động (<span class="math-inline">$Y$</span>). Trục hoành: <span class="math-inline">$\ln$</span> của Doanh số theo đơn vị (<span class="math-inline">$\ln X$</span>). Phương trình: <span class="math-inline">$Y = 2.6286 + 1.1797 \ln X$</span>, <span class="math-inline">$R^2 = 0.9717$</span>, <span class="math-inline">$s_e = 0.5659$</span>, <span class="math-inline">$F\text{-statistic} = 960.1538$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-314" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 314 / Trang PDF 314
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong><em>The Log-Log Model</em></strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>_Mô hình Log-Log (<em>The Log-Log Model</em>)_</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The log-log model, in which both the dependent variable and the independent variable are linear in their logarithmic forms, is also referred to as the double-log model: ln <em>Yi</em> = <em>b</em> 0 + <em>b</em> 1 ln <em>Xi</em> . ~~(27)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình log-log (<em>log-log model</em>), trong đó cả biến phụ thuộc và biến độc lập đều tuyến tính dưới dạng logarit của chúng, còn được gọi là mô hình log kép (<em>double-log model</em>):</p>
+<div class="math-display my-3 overflow-x-auto">$$\ln Y_i = b_0 + b_1 \ln X_i \tag{27}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This model is useful in calculating elasticities because the slope coefficient is the relative change in the dependent variable for a relative change in the independent variable. Consider a cross-sectional model of company revenues (the <em>Y</em> variable) regressed on advertising spending as a percentage of selling, general, and administrative expenses, ADVERT (the <em>X</em> variable). As shown in Exhibit 42, a simple linear regression model results in a shallow regression line, with a coefficient of determination of just 20.89 percent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình này rất hữu ích trong việc tính toán độ co giãn (<em>elasticities</em>) bởi vì hệ số góc là mức thay đổi tương đối (<em>relative change</em>) trong biến phụ thuộc ứng với một mức thay đổi tương đối trong biến độc lập. Hãy xem xét một mô hình dữ liệu chéo của doanh thu công ty (biến <span class="math-inline">$Y$</span>) được hồi quy theo chi tiêu quảng cáo tính theo tỷ lệ phần trăm của chi phí bán hàng, chi phí chung và quản lý (SG&amp;A), ký hiệu là <span class="math-inline">$\text{ADVERT}$</span> (biến <span class="math-inline">$X$</span>). Như trình bày trong Hình 42, mô hình hồi quy tuyến tính đơn tạo ra một đường hồi quy khá thoải, với hệ số xác định chỉ đạt 20,89%.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 42: Fitting a Linear Relation Between Revenues and Advertising Spending</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Hình 42: Khớp Mối quan hệ Tuyến tính giữa Doanh thu và Chi tiêu Quảng cáo</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0314-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0314-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Trục tung: Doanh thu (<span class="math-inline">$Y$</span>). Trục hoành: Quảng cáo tính theo tỷ lệ % của SG&amp;A (%, <span class="math-inline">$X$</span>). Phương trình: <span class="math-inline">$Y = 70.7139 + 475.3665X$</span>, <span class="math-inline">$R^2 = 0.2089$</span>, <span class="math-inline">$F\text{-statistic} = 7.3924$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If instead we use the natural logarithms of both the revenues and ADVERT, we get a much different picture of this relationship. As shown in Exhibit 43, the estimated regression line has a significant positive slope; the log-log model’s <em>R</em><sup>2</sup> increases by more than four times, from 20.89 percent to 84.91 percent; and the <em>F</em> -statistic jumps from 7.39 to 157.52. So, using the log-log transformation dramatically improves the regression model fit relative to our data.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu thay vào đó chúng ta sử dụng logarit tự nhiên của cả doanh thu và <span class="math-inline">$\text{ADVERT}$</span>, chúng ta sẽ có một bức tranh rất khác về mối quan hệ này. Như trình bày trong Hình 43, đường hồi quy ước lượng có hệ số góc dương có ý nghĩa thống kê; hệ số <span class="math-inline">$R^2$</span> của mô hình log-log tăng hơn bốn lần, từ 20,89% lên 84,91%; và thống kê <span class="math-inline">$F$</span> nhảy vọt từ <span class="math-inline">$7.39$</span> lên <span class="math-inline">$157.52$</span>. Do đó, việc sử dụng phép biến đổi log-log cải thiện đáng kể mức độ phù hợp của mô hình hồi quy đối với dữ liệu của chúng ta.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-315" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 315 / Trang PDF 315
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 43: Fitting a Log-Log Model of Revenues and Advertising Spending</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Hình 43: Khớp Mô hình Log-Log của Doanh thu và Chi tiêu Quảng cáo</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0315-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0315-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Trục tung: <span class="math-inline">$\ln$</span> Doanh thu (<span class="math-inline">$\ln Y$</span>). Trục hoành: <span class="math-inline">$\ln$</span> Quảng cáo tính theo tỷ lệ % của SG&amp;A (<span class="math-inline">$\ln X$</span>). Phương trình: <span class="math-inline">$\ln Y = 5.3109 + 1.3686 \ln X$</span>, <span class="math-inline">$R^2 = 0.8491$</span>, <span class="math-inline">$F\text{-statistic} = 157.5208$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong><em>Selecting the Correct Functional Form</em></strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>_Lựa chọn Dạng hàm Đúng (<em>Selecting the Correct Functional Form</em>)_</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The key to fitting the appropriate functional form of a simple linear regression is examining the goodness-of-fit measures—the coefficient of determination ( <em>R</em><sup>2</sup> ), the <em>F</em> -statistic, and the standard error of the estimate ( <em>se</em> )—as well as examining whether there are patterns in the residuals. In addition to fit statistics, most statistical packages provide plots of residuals as part of the regression output, which enables you to visually inspect the residuals. To reiterate an important point, what you want to see in these plots is random residuals.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chìa khóa để khớp dạng hàm phù hợp của một hồi quy tuyến tính đơn là xem xét các thước đo mức độ phù hợp (<em>goodness-of-fit measures</em>)—hệ số xác định (<span class="math-inline">$R^2$</span>), thống kê <span class="math-inline">$F$</span>, và sai số chuẩn của ước lượng (<span class="math-inline">$s_e$</span>)—cũng như kiểm tra xem liệu có các quy luật (<em>patterns</em>) trong phần dư hay không. Ngoài các thống kê về độ phù hợp, hầu hết các gói thống kê đều cung cấp đồ thị phần dư như một phần của kết quả đầu ra hồi quy, cho phép bạn kiểm tra trực quan các phần dư. Để nhắc lại một điểm quan trọng, điều bạn muốn thấy trong các đồ thị này là các phần dư mang tính ngẫu nhiên.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As an example, consider the relationship between the monthly returns on DEF stock and the monthly returns of the EAA Equity Index, as depicted in Panel A of Exhibit 44, with the regression line indicated. Using the equation for this regression line, we calculate the residuals and plot them against the EAA Equity Index, as shown in Panel B of Exhibit 44. The residuals appear to be random, bearing no relation to the independent variable. The distribution of the residuals, shown in Panel C of Exhibit 44, shows that the residuals are approximately normal. Using statistical software, we can investigate further by examining the distribution of the residuals, including using a normal probability plot or statistics to test for normality of the residuals.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Để làm ví dụ, hãy xem xét mối quan hệ giữa tỷ suất sinh lợi hàng tháng của cổ phiếu DEF và tỷ suất sinh lợi hàng tháng của Chỉ số Cổ phiếu EAA, như được mô tả trong Phần A của Hình 44, kèm theo đường hồi quy. Sử dụng phương trình của đường hồi quy này, chúng ta tính toán phần dư và vẽ đồ thị của chúng theo Chỉ số Cổ phiếu EAA, như trình bày trong Phần B của Hình 44. Các phần dư có vẻ ngẫu nhiên, không mang mối liên hệ nào với biến độc lập. Phân phối của phần dư, được trình bày trong Phần C của Hình 44, cho thấy các phần dư xấp xỉ phân phối chuẩn. Sử dụng phần mềm thống kê, chúng ta có thể nghiên cứu sâu hơn bằng cách kiểm tra phân phối của phần dư, bao gồm việc sử dụng biểu đồ xác suất chuẩn (<em>normal probability plot</em>) hoặc các thống kê để kiểm định tính phân phối chuẩn của phần dư.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-316" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 316 / Trang PDF 316
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 44: Monthly Returns on DEF Stock Regressed on Returns on the EAA Index</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Hình 44: Tỷ suất sinh lợi Hàng tháng của Cổ phiếu DEF được Hồi quy theo Tỷ suất sinh lợi của Chỉ số EAA</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong><em>A. Scatterplot of Returns on DEF Stock and Return on the EAA Index</em></strong> Return on DEF Stock (%)</h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong><em>A. Biểu đồ phân tán của Tỷ suất sinh lợi Cổ phiếu DEF và Tỷ suất sinh lợi Chỉ số EAA</em></strong></h4>
+<p>Tỷ suất sinh lợi Cổ phiếu DEF (%)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0316-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0316-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh (Phần A):</strong> Trục tung: Tỷ suất sinh lợi cổ phiếu DEF (%). Trục hoành: Tỷ suất sinh lợi Chỉ số EAA (%). Phương trình đường hồi quy: <span class="math-inline">$Y = 0.0062 + 1.1905X$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong><em>B. Scatterplot of Residuals and the Returns on the EAA Index</em></strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong><em>B. Biểu đồ phân tán của Phần dư và Tỷ suất sinh lợi Chỉ số EAA</em></strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5>Residual Return on DEF Stock (%)</h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5>Phần dư Tỷ suất sinh lợi Cổ phiếu DEF (%)</h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0316-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0316-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh (Phần B &amp; C):</strong>
+- <strong>B. Biểu đồ phân tán của phần dư:</strong> Các điểm phần dư phân bố ngẫu nhiên quanh đường 0 trên toàn bộ dải giá trị của Tỷ suất sinh lợi Chỉ số EAA (%).
+- <strong>C. Biểu đồ tần suất của phần dư (<em>Histogram of Residuals</em>):</strong> Trục tung: Số lượng quan sát (<em>Number of Observations</em>). Trục hoành: Khoảng phần dư (<em>Residual Range</em>, %). Hình dáng quả chuông đối xứng cho thấy phần dư có phân phối xấp xỉ chuẩn.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>QUESTION SET</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An analyst is investigating the relationship between the annual growth in consumer spending (CONS) in a country and the annual growth in the country’s GDP (GGDP). The analyst estimates the two models in Exhibit 45.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một nhà phân tích đang nghiên cứu mối quan hệ giữa tốc độ tăng trưởng chi tiêu tiêu dùng hàng năm (<span class="math-inline">$\text{CONS}$</span>) ở một quốc gia và tốc độ tăng trưởng GDP hàng năm của quốc gia đó (<span class="math-inline">$\text{GGDP}$</span>). Nhà phân tích ước lượng hai mô hình trong Bảng 45.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-317" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 317 / Trang PDF 317
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 45: Model Estimates</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Bảng 45: Các Ước lượng Mô hình (<em>Model Estimates</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Model 1</strong></th>
+<th><strong>Model 2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>GGDPi=_b_0+_b_1CONSi+ εi</td>
+<td>GGDPi=_b_0+_b_1ln(CONSi)<br>+ εi</td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>1.040</td>
+<td>1.006</td>
+</tr>
+<tr>
+<td>Slope</td>
+<td>0.669</td>
+<td>1.994</td>
+</tr>
+<tr>
+<td><em>R</em><sup>2</sup></td>
+<td>0.788</td>
+<td>0.867</td>
+</tr>
+<tr>
+<td>Standard error of</td>
+<td>0.404</td>
+<td>0.320</td>
+</tr>
+<tr>
+<td>the estimate</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em>F</em>-statistic</td>
+<td>141.558</td>
+<td>247.040</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Mô hình 1 (<em>Model 1</em>)</strong></th>
+<th><strong>Mô hình 2 (<em>Model 2</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><span class="math-inline">$\text{GGDP}_i = b_0 + b_1 \text{CONS}_i + \varepsilon_i$</span></td>
+<td><span class="math-inline">$\text{GGDP}_i = b_0 + b_1 \ln(\text{CONS}_i) + \varepsilon_i$</span></td>
+</tr>
+<tr>
+<td>Hệ số chặn (<em>Intercept</em>)</td>
+<td>1.040</td>
+<td>1.006</td>
+</tr>
+<tr>
+<td>Hệ số góc (<em>Slope</em>)</td>
+<td>0.669</td>
+<td>1.994</td>
+</tr>
+<tr>
+<td><span class="math-inline">$R^2$</span></td>
+<td>0.788</td>
+<td>0.867</td>
+</tr>
+<tr>
+<td>Sai số chuẩn của ước lượng (<em>Standard error of the estimate</em>)</td>
+<td>0.404</td>
+<td>0.320</td>
+</tr>
+<tr>
+<td>Thống kê <span class="math-inline">$F$</span> (<em><span class="math-inline">$F$</span>-statistic</em>)</td>
+<td>141.558</td>
+<td>247.040</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Identify the functional form used in these models.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Xác định dạng hàm (<em>functional form</em>) được sử dụng trong các mô hình này.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Model 1 is a simple linear regression model with no variable transformation, whereas Model 2 is a lin-log model with the natural log of the variable CONS as the independent variable.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình 1 là mô hình hồi quy tuyến tính đơn không có biến đổi biến số, trong khi Mô hình 2 là mô hình tuyến tính-log (<em>lin-log model</em>) với logarit tự nhiên của biến <span class="math-inline">$\text{CONS}$</span> làm biến độc lập.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Explain which model has better goodness of fit with the sample data.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Giải thích mô hình nào có mức độ phù hợp (<em>goodness of fit</em>) tốt hơn với dữ liệu mẫu.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải:</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The lin-log model, Model 2, fits the data better. Since the dependent variable is the same for the two models, we can compare the fit of the models using either the relative measures ( <em>R</em><sup>2</sup> or <em>F</em> -statistic) or the absolute measure of fit, the standard error of the estimate. The standard error of the estimate is lower for Model 2, whereas the <em>R</em><sup>2</sup> and <em>F</em> -statistic are higher for Model 2 compared with Model 1.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình lin-log, tức Mô hình 2, khớp với dữ liệu tốt hơn. Bởi vì biến phụ thuộc là như nhau đối với cả hai mô hình, chúng ta có thể so sánh mức độ phù hợp của hai mô hình bằng cách sử dụng các thước đo tương đối (<span class="math-inline">$R^2$</span> hoặc thống kê <span class="math-inline">$F$</span>) hoặc thước đo mức độ phù hợp tuyệt đối là sai số chuẩn của ước lượng (<span class="math-inline">$s_e$</span>). Sai số chuẩn của ước lượng thấp hơn đối với Mô hình 2 (<span class="math-inline">$0.320 &lt; 0.404$</span>), trong khi <span class="math-inline">$R^2$</span> và thống kê <span class="math-inline">$F$</span> lại cao hơn đối với Mô hình 2 so với Mô hình 1.</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM10_Part5_Practice_Problems.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM10_Part5_Practice_Problems →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html');
+    });
+  </script>
+</body>
+</html>

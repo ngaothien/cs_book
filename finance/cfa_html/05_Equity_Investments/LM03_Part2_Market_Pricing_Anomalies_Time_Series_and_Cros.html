@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 3 Market Efficiency - Part 2: Market Pricing Anomalies - Time Series and Cross-Sectional — Volume 5: Equity Investments | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 5: Đầu Tư Vốn Cổ Phần
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 3 Market Efficiency - Part 2: Market Pricing Anomalies - Time Series and Cross-Sectional</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM03_Full_Market_Efficiency.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (13 trang)...</option>
+          <option value="149">PDF Page 149</option>
+<option value="150">PDF Page 150</option>
+<option value="151">PDF Page 151</option>
+<option value="152">PDF Page 152</option>
+<option value="153">PDF Page 153</option>
+<option value="154">PDF Page 154</option>
+<option value="155">PDF Page 155</option>
+<option value="156">PDF Page 156</option>
+<option value="157">PDF Page 157</option>
+<option value="158">PDF Page 158</option>
+<option value="159">PDF Page 159</option>
+<option value="160">PDF Page 160</option>
+<option value="161">PDF Page 161</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 5</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Đầu Tư Vốn Cổ Phần</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 5</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Market_Organization_and_Structure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Market Organization and Structure</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Currencies_Commodities_and_Real_Assets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Currencies, Commodities, and Real Assets</a>
+<a href="LM01_Part3_Securitizers_Depository_Institutions_and_Insu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Securitizers, Depository Institutions and Insurance Companies</a>
+<a href="LM01_Part4_Orders_and_Execution_Instructions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Orders and Execution Instructions</a>
+<a href="LM01_Part5_Well_functioning_Financial_Systems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Well-functioning Financial Systems</a>
+<a href="LM01_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM02_Full_Security_Market_Indexes.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Security Market Indexes</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Uses_of_Market_Indexes.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Uses of Market Indexes</a>
+<a href="LM02_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM03_Full_Market_Efficiency.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Market Efficiency</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Market_Pricing_Anomalies_Time_Series_and_Cros.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Market Pricing Anomalies - Time Series and Cross-Sectional</a>
+<a href="LM03_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM04_Full_Overview_of_Equity_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Overview of Equity Securities</a>
+<a href="LM04_Part1_Importance_of_Equity_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Importance of Equity Securities</a>
+<a href="LM04_Part2_Non_Domestic_Equity_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Domestic Equity Securities</a>
+<a href="LM04_Part3_Summary.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Summary</a>
+<a href="LM05_Full_Company_Analysis_Past_and_Present.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Company Analysis: Past and Present</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Determining_the_Business_Model.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Determining the Business Model</a>
+<a href="LM05_Part3_Revenue_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Revenue Analysis</a>
+<a href="LM05_Part4_Operating_Profitability_and_Working_Capital_A.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Operating Profitability and Working Capital Analysis</a>
+<a href="LM05_Part5_Capital_Investments_and_Capital_Structure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Capital Investments and Capital Structure</a>
+<a href="LM06_Full_Industry_and_Competitive_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Industry and Competitive Analysis</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Industry_Survey.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Industry Survey</a>
+<a href="LM06_Part3_Industry_Structure_and_External_Influences.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Industry Structure and External Influences</a>
+<a href="LM06_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM07_Full_Company_Analysis_Forecasting.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Company Analysis: Forecasting</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Forecasting_Operating_Expenses_and_Working_Ca.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Forecasting Operating Expenses and Working Capital</a>
+<a href="LM07_Part3_Forecasting_Capital_Investments_and_Capital_S.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Forecasting Capital Investments and Capital Structure</a>
+<a href="LM07_Part4_Scenario_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Scenario Analysis</a>
+<a href="LM07_Part5_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Solutions</a>
+<a href="LM08_Full_Equity_Valuation_Concepts_and_Basic_Tools.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Equity Valuation: Concepts and Basic Tools</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_The_Gordon_Growth_Model.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Gordon Growth Model</a>
+<a href="LM08_Part3_Method_of_Comparables_and_Valuation_Based_on.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Method of Comparables and Valuation Based on Price Multiples</a>
+<a href="LM08_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 5 • Equity Investments (Đầu Tư Vốn Cổ Phần)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 3 Market Efficiency - Part 2: Market Pricing Anomalies - Time Series and Cross-Sectional</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('05_Equity_Investments/LM03_Part2_Market_Pricing_Anomalies_Time_Series_and_Cros.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 5: Equity Investments</h1>
+<h2>Learning Module 3 Market Efficiency</h2>
+<h3>Part 2/3: Market Pricing Anomalies - Time Series and Cross-Sectional (PDF Pages 149–161)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 5: Đầu tư Cổ phiếu (Volume 5: Equity Investments)</h1>
+<h2>Học phần 3: Hiệu quả Thị trường (Learning Module 3: Market Efficiency)</h2>
+<h3>Phần 2/3: Các Bất thường Định giá trên Thị trường - Theo Chuỗi thời gian và Chéo (Market Pricing Anomalies - Time Series and Cross-Sectional) (Trang PDF 149–161)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-149" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 149 / Trang PDF 149
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>MARKET PRICING ANOMALIES - TIME SERIES AND CROSS-SECTIONAL</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>CÁC BẤT THƯỜNG ĐỊNH GIÁ TRÊN THỊ TRƯỜNG - THEO CHUỖI THỜI GIAN VÀ CHÉO (MARKET PRICING ANOMALIES - TIME SERIES AND CROSS-SECTIONAL)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>6</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>6</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe market anomalies</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>mô tả các bất thường thị trường (<em>market anomalies</em>)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Although considerable evidence shows that markets are efficient, researchers have identified a number of apparent market inefficiencies or anomalies. These market anomalies, if persistent, are exceptions to the notion of market efficiency. Researchers conclude that a <strong>market anomaly</strong> may be present if a change in the price of an asset or security cannot directly be linked to current relevant information known in the market or to the release of new information into the market.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù có rất nhiều bằng chứng cho thấy các thị trường là hiệu quả, các nhà nghiên cứu đã xác định được một số sự kém hiệu quả hoặc bất thường bề ngoài của thị trường. Những bất thường thị trường này, nếu tồn tại dai dẳng (<em>persistent</em>), sẽ là những ngoại lệ đối với khái niệm hiệu quả thị trường. Các nhà nghiên cứu kết luận rằng một <strong>bất thường thị trường (<em>market anomaly</em>)</strong> có thể hiện diện nếu sự thay đổi trong giá của một tài sản hoặc chứng khoán không thể được liên kết trực tiếp với thông tin liên quan hiện tại đã được biết đến trên thị trường hoặc với việc công bố thông tin mới vào thị trường.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The validity of any evidence supporting the potential existence of a market inefficiency or anomaly must be <em>consistent</em> over reasonably long periods. Otherwise, a detected market anomaly may largely be an artifact of the sample period chosen. In the widespread search for discovering profitable anomalies, many findings could simply be the product of a process called <strong>data mining</strong> , also known as <strong>data snooping</strong> . In generally accepted research practice, an initial hypothesis is developed which is based on economic rationale. Tests are then conducted on objectively selected data to either confirm or reject the original hypothesis. However, with data mining the process is typically reversed: data are examined with the intent to develop a hypothesis, instead of developing a hypothesis first. This is done by analyzing data in various manners, and even utilizing different empirical approaches until you find support for a desired result, in this case a profitable anomaly.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá trị hiệu lực của bất kỳ bằng chứng nào ủng hộ sự tồn tại tiềm tàng của một sự kém hiệu quả hoặc bất thường thị trường phải <em>nhất quán</em> qua các khoảng thời gian đủ dài. Nếu không, một bất thường thị trường được phát hiện có thể phần lớn chỉ là một sản phẩm ngẫu nhiên (<em>artifact</em>) của giai đoạn mẫu được chọn. Trong cuộc tìm kiếm rộng khắp nhằm khám phá các bất thường có khả năng sinh lời, nhiều phát hiện có thể chỉ đơn giản là sản phẩm của một quá trình được gọi là <strong>khai phá dữ liệu (<em>data mining</em>)</strong>, còn được gọi là <strong>sục sạo dữ liệu (<em>data snooping</em>)</strong>. Trong thông lệ nghiên cứu được chấp nhận chung, một giả thuyết ban đầu được xây dựng dựa trên cơ sở lý luận kinh tế (<em>economic rationale</em>). Sau đó, các kiểm định được tiến hành trên dữ liệu được lựa chọn một cách khách quan để xác nhận hoặc bác bỏ giả thuyết ban đầu. Tuy nhiên, với việc khai phá dữ liệu, quy trình này thường bị đảo ngược: dữ liệu được kiểm tra với mục đích xây dựng một giả thuyết, thay vì xây dựng giả thuyết trước. Điều này được thực hiện bằng cách phân tích dữ liệu theo nhiều cách khác nhau, và thậm chí sử dụng các phương pháp thực nghiệm khác nhau cho đến khi bạn tìm thấy sự ủng hộ cho một kết quả mong muốn, trong trường hợp này là một bất thường có khả năng sinh lời.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Can researchers look back on data and find a trading strategy that would have yielded abnormal returns? Absolutely. Enough data snooping often can detect a trading strategy that would have worked in the past by chance alone. But in an efficient market, such a strategy is unlikely to generate abnormal returns on a consistent basis in the future. Also, although identified anomalies may appear to produce excess returns, it is generally difficult to profitably exploit the anomalies after accounting for risk, trading costs, and so on.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Liệu các nhà nghiên cứu có thể nhìn lại dữ liệu trong quá khứ và tìm ra một chiến lược giao dịch lẽ ra đã mang lại tỷ suất sinh lợi bất thường hay không? Chắc chắn là có. Việc sục sạo dữ liệu đủ nhiều thường có thể phát hiện ra một chiến lược giao dịch lẽ ra đã hoạt động hiệu quả trong quá khứ chỉ đơn thuần nhờ sự tình cờ ngẫu nhiên. Nhưng trong một thị trường hiệu quả, một chiến lược như vậy ít có khả năng tạo ra tỷ suất sinh lợi bất thường một cách nhất quán trong tương lai. Ngoài ra, mặc dù các bất thường được xác định có vẻ tạo ra tỷ suất sinh lợi vượt trội, nhưng nhìn chung rất khó để khai thác các bất thường đó một cách có lời sau khi đã tính đến rủi ro, chi phí giao dịch, v.v.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Several well-known anomalies are listed in Exhibit 3. This list is by no means exhaustive, but it provides information on the breadth of the anomalies. A few of these anomalies are discussed in more detail in the following sections. The anomalies are placed into categories based on the research method that identified the anomaly. Time-series anomalies were identified using time series of data. Cross-sectional anomalies were identified based on analyzing a cross section of companies that differ on some key characteristics. Other anomalies were identified by a variety of means, including event studies.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số bất thường nổi tiếng được liệt kê trong Bảng minh họa 3. Danh sách này hoàn toàn không phải là toàn diện, nhưng nó cung cấp thông tin về độ rộng của các bất thường. Một vài trong số các bất thường này được thảo luận chi tiết hơn trong các phần tiếp theo. Các bất thường được xếp vào các nhóm dựa trên phương pháp nghiên cứu đã xác định ra bất thường đó. Các bất thường theo chuỗi thời gian (<em>time-series anomalies</em>) được xác định bằng cách sử dụng dữ liệu chuỗi thời gian. Các bất thường chéo (<em>cross-sectional anomalies</em>) được xác định dựa trên việc phân tích một lát cắt ngang các công ty khác nhau ở một số đặc điểm then chốt. Các bất thường khác được xác định bằng nhiều phương pháp khác nhau, bao gồm cả các nghiên cứu sự kiện (<em>event studies</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 3: Sampling of Observed Pricing Anomalies</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 3: Mẫu các Bất thường Định giá Quan sát được (Exhibit 3: Sampling of Observed Pricing Anomalies)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Time Series</strong></th>
+<th><strong>Cross-Sectional</strong></th>
+<th><strong>Other</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>January effect<br>f</td>
+<td>Size effect<br>f</td>
+<td>Closed-end fund discount</td>
+</tr>
+<tr>
+<td>Day-of-the-week effect<br>f</td>
+<td>Value effect</td>
+<td>Earnings surprise<br>f</td>
+</tr>
+<tr>
+<td>Weekend effect</td>
+<td>Book-to-market ratios</td>
+<td>Initial public offerings</td>
+</tr>
+<tr>
+<td>Turn-of-the-month effect<br>f</td>
+<td>P/E ratio effect</td>
+<td>Distressed securities effect</td>
+</tr>
+<tr>
+<td>Holiday effect<br>f</td>
+<td>Value Line enigma</td>
+<td>Stock splits</td>
+</tr>
+<tr>
+<td>Time-of-day effect</td>
+<td></td>
+<td>Super Bowl</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Chuỗi thời gian (Time Series)</strong></th>
+<th><strong>Chéo (Cross-Sectional)</strong></th>
+<th><strong>Khác (Other)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hiệu ứng tháng Giêng (<em>January effect</em>)</td>
+<td>Hiệu ứng quy mô (<em>Size effect</em>)</td>
+<td>Chiết khấu quỹ đóng (<em>Closed-end fund discount</em>)</td>
+</tr>
+<tr>
+<td>Hiệu ứng ngày trong tuần (<em>Day-of-the-week effect</em>)</td>
+<td>Hiệu ứng giá trị (<em>Value effect</em>)</td>
+<td>Bất ngờ lợi nhuận (<em>Earnings surprise</em>)</td>
+</tr>
+<tr>
+<td>Hiệu ứng cuối tuần (<em>Weekend effect</em>)</td>
+<td>Tỷ số giá trị sổ sách trên giá trị thị trường (<em>Book-to-market ratios</em>)</td>
+<td>Phát hành lần đầu ra công chúng (<em>Initial public offerings</em>)</td>
+</tr>
+<tr>
+<td>Hiệu ứng chuyển giao tháng (<em>Turn-of-the-month effect</em>)</td>
+<td>Hiệu ứng tỷ số P/E (<em>P/E ratio effect</em>)</td>
+<td>Hiệu ứng chứng khoán kiệt quệ tài chính (<em>Distressed securities effect</em>)</td>
+</tr>
+<tr>
+<td>Hiệu ứng ngày lễ (<em>Holiday effect</em>)</td>
+<td>Bí ẩn Value Line (<em>Value Line enigma</em>)</td>
+<td>Chia tách cổ phiếu (<em>Stock splits</em>)</td>
+</tr>
+<tr>
+<td>Hiệu ứng thời điểm trong ngày (<em>Time-of-day effect</em>)</td>
+<td></td>
+<td>Siêu cúp Bóng bầu dục Mỹ (<em>Super Bowl</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-150" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 150 / Trang PDF 150
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Time Series</strong></th>
+<th><strong>Cross-Sectional</strong></th>
+<th><strong>Other</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Momentum</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Overreaction</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Chuỗi thời gian (Time Series)</strong></th>
+<th><strong>Chéo (Cross-Sectional)</strong></th>
+<th><strong>Khác (Other)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Đà tăng trưởng (<em>Momentum</em>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Phản ứng thái quá (<em>Overreaction</em>)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Time-Series Anomalies</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Các Bất thường theo Chuỗi thời gian (Time-Series Anomalies)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Two of the major categories of time-series anomalies that have been documented are 1) calendar anomalies and 2) momentum and overreaction anomalies.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hai trong số các nhóm bất thường theo chuỗi thời gian chính đã được ghi nhận là 1) các bất thường theo lịch (<em>calendar anomalies</em>) và 2) các bất thường về đà tăng trưởng và phản ứng thái quá (<em>momentum and overreaction anomalies</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><em>Calendar Anomalies</em></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><em>Các Bất thường theo Lịch (Calendar Anomalies)</em></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In the 1980s, a number of researchers reported that stock market returns in January were significantly higher compared to the rest of the months of the year, with most of the abnormal returns reported during the first five trading days in January. Since its first documentation in the 1980s, this pattern, known as the <strong>January effect</strong> , has been observed in most equity markets around the world. This anomaly is also known as the <strong>turn-of-the-year effect</strong> , or even often referred to as the “small firm in January effect” because it is most frequently observed for the returns of small market capitalization stocks.<sup>23</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Vào những năm 1980, một số nhà nghiên cứu đã báo cáo rằng tỷ suất sinh lợi của thị trường chứng khoán trong tháng Giêng cao hơn đáng kể so với các tháng còn lại trong năm, với phần lớn tỷ suất sinh lợi bất thường được ghi nhận trong năm ngày giao dịch đầu tiên của tháng Giêng. Kể từ lần đầu tiên được ghi nhận vào những năm 1980, quy luật này, được gọi là <strong>hiệu ứng tháng Giêng (<em>January effect</em>)</strong>, đã được quan sát thấy ở hầu hết các thị trường cổ phiếu trên thế giới. Bất thường này còn được gọi là <strong>hiệu ứng chuyển giao năm (<em>turn-of-the-year effect</em>)</strong>, hoặc thậm chí thường được gọi là “hiệu ứng công ty nhỏ vào tháng Giêng” (<em>“small firm in January effect”</em>) bởi vì nó thường được quan sát thấy nhất đối với tỷ suất sinh lợi của các cổ phiếu có vốn hóa thị trường nhỏ.<sup>23</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The January effect contradicts the efficient market hypothesis because excess returns in January are not attributed to any new and relevant information or news. A number of reasons have been suggested for this anomaly, including tax-loss selling. Researchers have speculated that, in order to reduce their tax liabilities, investors sell their “loser” securities in December for the purpose of creating capital losses, which can then be used to offset any capital gains. A related explanation is that these losers tend to be small-cap stocks with high volatility.<sup>24</sup> This increased supply of equities in December depresses their prices, and then these shares are bought in early January at relatively attractive prices. This demand then drives their prices up again. Overall, the evidence indicates that tax-loss selling may account for a portion of January abnormal returns, but it does not explain all of it.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hiệu ứng tháng Giêng mâu thuẫn với giả thuyết thị trường hiệu quả bởi vì tỷ suất sinh lợi vượt trội trong tháng Giêng không bắt nguồn từ bất kỳ thông tin hay tin tức mới và liên quan nào. Một số lý do đã được đề xuất cho bất thường này, bao gồm việc bán cắt lỗ để giảm thuế (<em>tax-loss selling</em>). Các nhà nghiên cứu đã suy đoán rằng, để giảm nghĩa vụ thuế của mình, các nhà đầu tư bán các chứng khoán “thua lỗ” (<em>“loser” securities</em>) của họ vào tháng Mười Hai với mục đích tạo ra các khoản lỗ vốn (<em>capital losses</em>), sau đó có thể được dùng để khấu trừ vào bất kỳ khoản lãi vốn (<em>capital gains</em>) nào. Một lời giải thích có liên quan là những cổ phiếu thua lỗ này có xu hướng là các cổ phiếu vốn hóa nhỏ có độ biến động cao.<sup>24</sup> Nguồn cung cổ phiếu tăng lên trong tháng Mười Hai này làm giảm giá của chúng, và sau đó những cổ phiếu này được mua lại vào đầu tháng Giêng ở mức giá tương đối hấp dẫn. Nhu cầu mua này sau đó lại đẩy giá của chúng tăng trở lại. Nhìn chung, bằng chứng chỉ ra rằng việc bán cắt lỗ để giảm thuế có thể giải thích một phần tỷ suất sinh lợi bất thường trong tháng Giêng, nhưng không giải thích được toàn bộ hiện tượng này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Another possible explanation for the anomaly is so-called “window dressing”, a practice in which portfolio managers sell their riskier securities prior to 31 December. The explanation is as follows: many portfolio managers prepare the annual reports of their portfolio holdings as of 31 December. Selling riskier securities is an attempt to make their portfolios appear less risky. After 31 December, a portfolio manager would then simply purchase riskier securities in an attempt to earn higher returns. However, similar to the tax-loss selling hypothesis, the research evidence in support of the window dressing hypothesis explains some, but not all, of the anomaly.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một lời giải thích khả dĩ khác cho bất thường này là cái gọi là “làm đẹp báo cáo danh mục” (<em>“window dressing”</em>), một thông lệ trong đó các nhà quản lý danh mục đầu tư bán đi các chứng khoán rủi ro hơn của họ trước ngày 31 tháng Mười Hai. Lời giải thích như sau: nhiều nhà quản lý danh mục đầu tư lập báo cáo thường niên về các khoản nắm giữ trong danh mục của họ tính đến ngày 31 tháng Mười Hai. Việc bán các chứng khoán rủi ro hơn là một nỗ lực nhằm làm cho danh mục của họ trông có vẻ ít rủi ro hơn. Sau ngày 31 tháng Mười Hai, nhà quản lý danh mục đầu tư sau đó sẽ chỉ đơn giản là mua lại các chứng khoán rủi ro hơn nhằm cố gắng kiếm được tỷ suất sinh lợi cao hơn. Tuy nhiên, tương tự như giả thuyết bán cắt lỗ để giảm thuế, bằng chứng nghiên cứu ủng hộ giả thuyết làm đẹp báo cáo giải thích được một phần, nhưng không phải toàn bộ, bất thường này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Recent evidence for both stock and bond returns suggests that the January effect is not persistent and, therefore, is not a pricing anomaly. Once an appropriate adjustment for risk is made, the January “effect” does not produce abnormal returns.<sup>25</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bằng chứng gần đây đối với cả tỷ suất sinh lợi cổ phiếu và trái phiếu cho thấy rằng hiệu ứng tháng Giêng không tồn tại dai dẳng và do đó không phải là một bất thường định giá. Một khi thực hiện điều chỉnh phù hợp cho rủi ro, “hiệu ứng” tháng Giêng không tạo ra tỷ suất sinh lợi bất thường.<sup>25</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Several other calendar effects, including the day-of-the-week and the weekend effects,<sup>26</sup> have been found. These anomalies are summarized in Exhibit 4.<sup>27</sup> But like the size effect, which will be described later, most of these anomalies have been eliminated</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số hiệu ứng theo lịch khác, bao gồm hiệu ứng ngày trong tuần (<em>day-of-the-week</em>) và hiệu ứng cuối tuần (<em>weekend effects</em>),<sup>26</sup> đã được tìm thấy. Các bất thường này được tóm tắt trong Bảng minh họa 4.<sup>27</sup> Nhưng giống như hiệu ứng quy mô sẽ được mô tả sau, hầu hết các bất thường này đã bị loại bỏ</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>23 There is also evidence of a January effect in bond returns that is more prevalent in high-yield corporate bonds, similar to the small-company effect for stocks.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>23 Cũng có bằng chứng về hiệu ứng tháng Giêng trong tỷ suất sinh lợi trái phiếu vốn phổ biến hơn ở các trái phiếu doanh nghiệp lợi suất cao (<em>high-yield corporate bonds</em>), tương tự như hiệu ứng công ty nhỏ đối với cổ phiếu.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>24 See Roll (1983).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>24 Xem Roll (1983).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>25 See, for example, Kim (2006).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>25 Xem, ví dụ, Kim (2006).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>26 For a discussion of several of these anomalous patterns, see Jacobs and Levy (1988).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>26 Để xem thảo luận về một số quy luật bất thường này, xem Jacobs và Levy (1988).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>27 The weekend effect consists of a pattern of returns around the weekend: abnormal positive returns on Fridays followed by abnormally negative returns on Mondays. This is a day-of-the-week effect that specifically links Friday and Monday returns. It is interesting to note that in 2009, the weekend effect in the United States was inverted, with 80 percent of the gains from March 2009 onward coming from the</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>27 Hiệu ứng cuối tuần bao gồm một quy luật của tỷ suất sinh lợi xoay quanh dịp cuối tuần: tỷ suất sinh lợi dương bất thường vào các ngày thứ Sáu tiếp nối bởi tỷ suất sinh lợi âm bất thường vào các ngày thứ Hai. Đây là một hiệu ứng ngày trong tuần liên kết cụ thể tỷ suất sinh lợi của ngày thứ Sáu và ngày thứ Hai. Điều thú vị cần lưu ý là vào năm 2009, hiệu ứng cuối tuần tại Hoa Kỳ đã bị đảo ngược, với 80 phần trăm mức tăng từ tháng 3 năm 2009 trở đi đến từ</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-151" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 151 / Trang PDF 151
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>over time. One view is that the anomalies have been exploited such that the effect has been arbitraged away. Another view, however, is that increasingly sophisticated statistical methodologies fail to detect pricing inefficiencies.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>theo thời gian. Một quan điểm cho rằng các bất thường đã bị khai thác đến mức hiệu ứng đó đã bị kinh doanh chênh lệch giá triệt tiêu (<em>arbitraged away</em>). Tuy nhiên, một quan điểm khác cho rằng các phương pháp luận thống kê ngày càng tinh vi hơn đã không còn phát hiện ra những sự kém hiệu quả trong định giá nữa.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 4: Calendar-Based Anomalies</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 4: Các Bất thường Dựa trên Lịch (Exhibit 4: Calendar-Based Anomalies)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Anomaly</strong></th>
+<th><strong>Observation</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Turn-of-the-month effect</td>
+<td>Returns tend to be higher on the last trading day of the<br>month and the first three trading days of the next month.</td>
+</tr>
+<tr>
+<td>Day-of-the-week effect</td>
+<td>The average Monday return is negative and lower than<br>the average returns for the other four days, which are all<br>positive.</td>
+</tr>
+<tr>
+<td>Weekend effect</td>
+<td>Returns on weekends tend to be lower than returns on<br>weekdays.</td>
+</tr>
+<tr>
+<td>Holiday effect</td>
+<td>Returns on stocks in the day prior to market holidays tend<br>to be higher than other days.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bất thường (Anomaly)</strong></th>
+<th><strong>Quan sát (Observation)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hiệu ứng chuyển giao tháng (<em>Turn-of-the-month effect</em>)</td>
+<td>Tỷ suất sinh lợi có xu hướng cao hơn vào ngày giao dịch cuối cùng của tháng và ba ngày giao dịch đầu tiên của tháng tiếp theo.</td>
+</tr>
+<tr>
+<td>Hiệu ứng ngày trong tuần (<em>Day-of-the-week effect</em>)</td>
+<td>Tỷ suất sinh lợi trung bình vào ngày thứ Hai là số âm và thấp hơn tỷ suất sinh lợi trung bình của bốn ngày còn lại trong tuần, vốn đều là số dương.</td>
+</tr>
+<tr>
+<td>Hiệu ứng cuối tuần (<em>Weekend effect</em>)</td>
+<td>Tỷ suất sinh lợi vào dịp cuối tuần có xu hướng thấp hơn tỷ suất sinh lợi vào các ngày làm việc trong tuần.</td>
+</tr>
+<tr>
+<td>Hiệu ứng ngày lễ (<em>Holiday effect</em>)</td>
+<td>Tỷ suất sinh lợi của cổ phiếu vào ngày trước các kỳ nghỉ lễ của thị trường có xu hướng cao hơn các ngày khác.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><em>Momentum and Overreaction Anomalies</em></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><em>Các Bất thường về Đà tăng trưởng và Phản ứng thái quá (Momentum and Overreaction Anomalies)</em></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Momentum anomalies relate to short-term share price patterns. One of the earliest studies to identify this type of anomaly was conducted by Werner DeBondt and Richard Thaler, who argued that investors overreact to the release of unexpected public information.<sup>28</sup> Therefore, stock prices will be inflated (depressed) for those companies releasing good (bad) information. This anomaly has become known as the overreaction effect. Using the overreaction effect, they proposed a strategy that involved buying “loser” portfolios and selling “winner” portfolios. They defined stocks as winners or losers based on their total returns over the previous three- to five-year period. They found that in a subsequent period, the loser portfolios outperformed the market, while the winner portfolios underperformed the market. Similar patterns have been documented in many, but not all, global stock markets as well as in bond markets. One criticism is that the observed anomaly may be the result of statistical problems in the analysis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các bất thường về đà tăng trưởng (<em>Momentum anomalies</em>) liên quan đến các mô hình giá cổ phiếu trong ngắn hạn. Một trong những nghiên cứu đầu tiên xác định loại bất thường này được thực hiện bởi Werner DeBondt và Richard Thaler, những người lập luận rằng các nhà đầu tư phản ứng thái quá (<em>overreact</em>) trước việc công bố thông tin đại chúng ngoài kỳ vọng.<sup>28</sup> Do đó, giá cổ phiếu sẽ bị thổi phồng quá mức (hoặc bị dìm giá quá mức) đối với những công ty công bố thông tin tốt (hoặc xấu). Bất thường này đã được biết đến với tên gọi là hiệu ứng phản ứng thái quá (<em>overreaction effect</em>). Sử dụng hiệu ứng phản ứng thái quá, họ đã đề xuất một chiến lược bao gồm việc mua các danh mục “thua cuộc” (<em>“loser” portfolios</em>) và bán các danh mục “chiến thắng” (<em>“winner” portfolios</em>). Họ định nghĩa các cổ phiếu là người chiến thắng hay kẻ thua cuộc dựa trên tổng tỷ suất sinh lợi của chúng trong giai đoạn từ ba đến năm năm trước đó. Họ phát hiện ra rằng trong giai đoạn tiếp theo, các danh mục thua cuộc có thành quả vượt trội hơn thị trường, trong khi các danh mục chiến thắng có thành quả kém hơn thị trường. Các quy luật tương tự đã được ghi nhận ở nhiều, dù không phải tất cả, các thị trường cổ phiếu toàn cầu cũng như trên các thị trường trái phiếu. Một lời chỉ trích là bất thường quan sát được có thể là kết quả của các vấn đề thống kê trong quá trình phân tích.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A contradiction to weak-form efficiency occurs when securities that have experienced high returns in the short term tend to continue to generate higher returns in subsequent periods.<sup>29</sup> Empirical support for the existence of momentum in stock returns in most stock markets around the world is well documented. If investors can trade on the basis of momentum and earn abnormal profits, then this anomaly contradicts the weak form of the efficient market hypothesis because it represents a pattern in prices that can be exploited by simply using historical price information.<sup>30</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một sự mâu thuẫn với hiệu quả dạng yếu xảy ra khi các chứng khoán đã trải qua mức tỷ suất sinh lợi cao trong ngắn hạn có xu hướng tiếp tục tạo ra tỷ suất sinh lợi cao hơn trong các kỳ tiếp theo.<sup>29</sup> Bằng chứng thực nghiệm ủng hộ sự tồn tại của đà tăng trưởng (<em>momentum</em>) trong tỷ suất sinh lợi cổ phiếu ở hầu hết các thị trường chứng khoán trên thế giới đã được ghi nhận rất đầy đủ. Nếu các nhà đầu tư có thể giao dịch dựa trên đà tăng trưởng và kiếm được lợi nhuận bất thường, thì bất thường này mâu thuẫn với dạng yếu của giả thuyết thị trường hiệu quả bởi vì nó đại diện cho một mô hình trong giá cả có thể được khai thác chỉ đơn giản bằng cách sử dụng thông tin giá lịch sử.<sup>30</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Researchers have argued that the existence of momentum is rational and not contrary to market efficiency because it is plausible that there are shocks to the expected growth rates of cash flows to shareholders and that these shocks induce a</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các nhà nghiên cứu đã lập luận rằng sự tồn tại của đà tăng trưởng là hợp lý (<em>rational</em>) và không đi ngược lại hiệu quả thị trường bởi vì hoàn toàn hợp lý khi có những cú sốc đối với tốc độ tăng trưởng kỳ vọng của dòng tiền dành cho cổ đông và những cú sốc này tạo ra một</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>first trading day of the week.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>ngày giao dịch đầu tiên của tuần.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>28 DeBondt and Thaler (1985).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>28 DeBondt và Thaler (1985).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>29 Notice that this pattern lies in sharp contrast to DeBondt and Thaler’s reversal pattern that is displayed over longer periods of time. In theory, the two patterns could be related. In other words, it is feasible that prices are bid up extremely high, perhaps too high, in the short term for companies that are doing well. In the longer term (three-to-five years), the prices of these short-term winners correct themselves and they do poorly.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>29 Lưu ý rằng quy luật này hoàn toàn trái ngược với quy luật đảo chiều của DeBondt và Thaler vốn xuất hiện trong các khoảng thời gian dài hơn. Về mặt lý thuyết, hai quy luật này có thể có liên hệ với nhau. Nói cách khác, hoàn toàn có khả năng giá cả bị đẩy lên cực kỳ cao, có lẽ là quá cao, trong ngắn hạn đối với các công ty đang ăn nên làm ra. Trong dài hạn hơn (từ ba đến năm năm), giá của những cổ phiếu chiến thắng trong ngắn hạn này tự điều chỉnh lại và chúng có thành quả kém đi.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>30 Jegadeesh and Titman (2001).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>30 Jegadeesh và Titman (2001).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-152" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 152 / Trang PDF 152
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>serial correlation that is rational and short lived.<sup>31</sup> In other words, having stocks with some degree of momentum in their security returns may not imply irrationality but, rather, may reflect prices adjusting to a shock in growth rates.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>sự tự tương quan hợp lý và tồn tại trong thời gian ngắn.<sup>31</sup> Nói cách khác, việc các cổ phiếu có một mức độ đà tăng trưởng nhất định trong tỷ suất sinh lợi chứng khoán của chúng có thể không hàm ý sự phi lý trí mà thay vào đó có thể phản ánh việc giá cả đang điều chỉnh trước một cú sốc về tốc độ tăng trưởng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Cross-Sectional Anomalies</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Các Bất thường Chéo (Cross-Sectional Anomalies)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Two of the most researched cross-sectional anomalies in financial markets are the size effect and the value effect.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hai trong số các bất thường chéo được nghiên cứu nhiều nhất trên các thị trường tài chính là hiệu ứng quy mô (<em>size effect</em>) và hiệu ứng giá trị (<em>value effect</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><em>Size Effect</em></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><em>Hiệu ứng Quy mô (Size Effect)</em></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The size effect results from the observation that equities of small-cap companies tend to outperform equities of large-cap companies on a risk-adjusted basis. Many researchers documented a small-company effect soon after the initial research was published in 1981. This effect, however, was not apparent in subsequent studies.<sup>32</sup> Part of the reason that the size effect was not confirmed by subsequent studies may be because of the fact that if it were truly an anomaly, investors acting on this effect would reduce any potential returns. But some of the explanation may simply be that the effect as originally observed was a chance outcome and, therefore, not actually an inefficiency.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hiệu ứng quy mô xuất phát từ quan sát cho thấy cổ phiếu của các công ty vốn hóa nhỏ (<em>small-cap companies</em>) có xu hướng có thành quả vượt trội hơn cổ phiếu của các công ty vốn hóa lớn (<em>large-cap companies</em>) trên cơ sở điều chỉnh theo rủi ro. Nhiều nhà nghiên cứu đã ghi nhận hiệu ứng công ty nhỏ ngay sau khi nghiên cứu ban đầu được công bố vào năm 1981. Tuy nhiên, hiệu ứng này không còn rõ ràng trong các nghiên cứu tiếp theo.<sup>32</sup> Một phần lý do khiến hiệu ứng quy mô không được xác nhận bởi các nghiên cứu tiếp theo có thể là do thực tế rằng nếu nó thực sự là một bất thường, các nhà đầu tư hành động dựa trên hiệu ứng này sẽ làm giảm bất kỳ tỷ suất sinh lợi tiềm năng nào. Nhưng một phần lời giải thích có thể chỉ đơn giản là hiệu ứng được quan sát thấy ban đầu là một kết quả ngẫu nhiên tình cờ và do đó thực chất không phải là một sự kém hiệu quả.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><em>Value Effect</em></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><em>Hiệu ứng Giá trị (Value Effect)</em></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A number of global empirical studies have shown that value stocks, which are generally referred to as stocks that have below-average price-to-earnings (P/E) and market-to-book (M/B) ratios, and above-average dividend yields, have consistently outperformed growth stocks over long periods of time.<sup>33</sup> If the effect persists, the value stock anomaly contradicts semi-strong market efficiency because all the information used to categorize stocks in this manner is publicly available.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số nghiên cứu thực nghiệm toàn cầu đã chỉ ra rằng các cổ phiếu giá trị (<em>value stocks</em>), vốn thường được hiểu là các cổ phiếu có tỷ số giá trên thu nhập (P/E) và tỷ số giá trị thị trường trên giá trị sổ sách (M/B) thấp hơn mức trung bình, cùng tỷ suất cổ tức (<em>dividend yields</em>) cao hơn mức trung bình, đã có thành quả vượt trội một cách nhất quán so với các cổ phiếu tăng trưởng (<em>growth stocks</em>) trong những khoảng thời gian dài.<sup>33</sup> Nếu hiệu ứng này tồn tại dai dẳng, bất thường cổ phiếu giá trị mâu thuẫn với hiệu quả thị trường dạng bán mạnh bởi vì tất cả các thông tin được sử dụng để phân loại cổ phiếu theo cách này đều là thông tin công khai hiện có.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Fama and French developed a three-factor model to predict stock returns.<sup>34</sup> In addition to the use of market returns as specified by the capital asset pricing model (CAPM), the Fama and French model also includes the size of the company as measured by the market value of its equity and the company’s book value of equity divided by its market value of equity, which is a value measure. The Fama and French model captures risk dimensions related to stock returns that the CAPM model does not consider. Fama and French find that when they apply the three-factor model instead of the CAPM, the value stock anomaly disappears.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Fama và French đã phát triển một mô hình ba nhân tố (<em>three-factor model</em>) để dự đoán tỷ suất sinh lợi cổ phiếu.<sup>34</sup> Ngoài việc sử dụng tỷ suất sinh lợi thị trường như được chỉ định bởi mô hình định giá tài sản vốn (CAPM), mô hình Fama và French còn đưa thêm quy mô của công ty được đo lường bằng giá trị thị trường của vốn chủ sở hữu và giá trị sổ sách của vốn chủ sở hữu chia cho giá trị thị trường của vốn chủ sở hữu của công ty, vốn là một thước đo giá trị. Mô hình Fama và French nắm bắt các chiều kích rủi ro liên quan đến tỷ suất sinh lợi cổ phiếu mà mô hình CAPM không xem xét. Fama và French nhận thấy rằng khi họ áp dụng mô hình ba nhân tố thay vì CAPM, bất thường cổ phiếu giá trị biến mất.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>7</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>7</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>OTHER ANOMALIES, IMPLICATIONS OF MARKET PRICING ANOMALIES</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>CÁC BẤT THƯỜNG KHÁC, HÀM Ý CỦA CÁC BẤT THƯỜNG ĐỊNH GIÁ TRÊN THỊ TRƯỜNG (OTHER ANOMALIES, IMPLICATIONS OF MARKET PRICING ANOMALIES)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe market anomalies</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>mô tả các bất thường thị trường (<em>market anomalies</em>)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>31 Johnson (2002).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>31 Johnson (2002).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>32 Although a large number of studies documents a small-company effect, these studies are concentrated in a period similar to that of the original research and, therefore, use a similar data set. The key to whether something is a true anomaly is persistence in out-of-sample tests. Fama and French (2008) document that the size effect is apparent only in microcap stocks but not in small- and large-cap stocks and these microcap stocks may have a significant influence in studies that document a size effect.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>32 Mặc dù một số lượng lớn các nghiên cứu ghi nhận hiệu ứng công ty nhỏ, các nghiên cứu này tập trung vào một giai đoạn tương tự như giai đoạn của nghiên cứu ban đầu và do đó sử dụng một bộ dữ liệu tương tự. Chìa khóa để xác định xem một hiện tượng có phải là bất thường thực sự hay không là sự tồn tại dai dẳng trong các kiểm định ngoài mẫu (<em>out-of-sample tests</em>). Fama và French (2008) ghi nhận rằng hiệu ứng quy mô chỉ thể hiện rõ ở các cổ phiếu vốn hóa siêu nhỏ (<em>microcap stocks</em>) chứ không phải ở các cổ phiếu vốn hóa nhỏ và lớn, và những cổ phiếu vốn hóa siêu nhỏ này có thể có ảnh hưởng đáng kể trong các nghiên cứu ghi nhận hiệu ứng quy mô.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>33 For example, see Capaul, Rowley, and Sharpe (1993) and Fama and French (1998).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>33 Ví dụ, xem Capaul, Rowley, và Sharpe (1993) cùng Fama và French (1998).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>34 Fama and French (1995).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>34 Fama và French (1995).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-153" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 153 / Trang PDF 153
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A number of additional anomalies has been documented in the financial markets, including the existence of closed-end investment fund discounts, price reactions to the release of earnings information, returns of initial public offerings, and the predictability of returns based on prior information.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số bất thường bổ sung đã được ghi nhận trên các thị trường tài chính, bao gồm sự tồn tại của các khoản chiết khấu quỹ đầu tư đóng (<em>closed-end investment fund discounts</em>), các phản ứng giá trước việc công bố thông tin lợi nhuận, tỷ suất sinh lợi của các đợt phát hành lần đầu ra công chúng (IPO), và khả năng dự đoán tỷ suất sinh lợi dựa trên thông tin trước đó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Closed-End Investment Fund Discounts</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Chiết khấu Quỹ Đầu tư Đóng (Closed-End Investment Fund Discounts)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A closed-end investment fund issues a fixed number of shares at inception and does not sell any additional shares after the initial offering. Therefore, the fund capitalization is fixed unless a secondary public offering is made. The shares of closed-end funds trade on stock markets like any other shares in the equity market (i.e., their prices are determined by supply and demand).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một quỹ đầu tư đóng (<em>closed-end investment fund</em>) phát hành một số lượng cổ phiếu cố định tại thời điểm thành lập và không bán thêm bất kỳ cổ phiếu nào sau đợt chào bán ban đầu. Do đó, vốn hóa của quỹ là cố định trừ khi có một đợt chào bán ra công chúng thứ cấp được thực hiện. Cổ phiếu của các quỹ đóng được giao dịch trên thị trường chứng khoán giống như bất kỳ cổ phiếu nào khác trên thị trường vốn cổ phần (tức là giá của chúng được xác định bởi cung và cầu).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Theoretically, these shares should trade at a price approximately equal to their net asset value (NAV) per share, which is simply the total market value of the fund’s security holdings less any liabilities divided by the number of shares outstanding. An abundance of research, however, has documented that, on average, closed-end funds trade at a discount from NAV. Most studies have documented average discounts in the 4–10 percent range, although individual funds have traded at discounts exceeding 50 percent and others have traded at large premiums.<sup>35</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Về mặt lý thuyết, những cổ phiếu này lẽ ra phải được giao dịch ở mức giá xấp xỉ bằng với giá trị tài sản ròng (<em>net asset value</em> – NAV) trên mỗi cổ phiếu của chúng, vốn chỉ đơn giản là tổng giá trị thị trường của các chứng khoán mà quỹ đang nắm giữ trừ đi mọi khoản nợ phải trả rồi chia cho số lượng cổ phiếu đang lưu hành. Tuy nhiên, có vô số nghiên cứu đã ghi nhận rằng, tính trung bình, các quỹ đóng được giao dịch ở mức chiết khấu (<em>discount</em>) so với NAV. Hầu hết các nghiên cứu đã ghi nhận mức chiết khấu trung bình nằm trong khoảng 4–10 phần trăm, mặc dù có những quỹ riêng lẻ đã giao dịch ở mức chiết khấu vượt quá 50 phần trăm và những quỹ khác lại giao dịch ở mức phần bù (<em>premiums</em>) lớn.<sup>35</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The closed-end fund discount presents a puzzle because conceptually, an investor could purchase all the shares in the fund, liquidate the fund, and end up making a profit. Some researchers have suggested that these discounts are attributed to management fees or expectations of the managers’ performance, but these explanations are not supported by the evidence.<sup>36</sup> An alternative explanation for the discount is that tax liabilities are associated with unrealized capital gains and losses that exist prior to when the investor bought the shares, and hence, the investor does not have complete control over the timing of the realization of gains and losses.<sup>37</sup> Although the evidence supports this hypothesis to a certain extent, the tax effect is not large enough to explain the entire discount. Finally, it has often been argued that the discounts exist because of liquidity problems and errors in calculating NAV. The illiquidity explanation is plausible if shares are recorded at the same price as more liquid, publicly traded stocks; some evidence supports this assertion. But as with tax reasons, liquidity issues explain only a portion of the discount effect.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khoản chiết khấu quỹ đóng đặt ra một câu đố hóc búa bởi vì về mặt khái niệm, một nhà đầu tư có thể mua tất cả cổ phiếu trong quỹ, thanh lý quỹ, và cuối cùng thu được một khoản lợi nhuận. Một số nhà nghiên cứu đã cho rằng các khoản chiết khấu này bắt nguồn từ phí quản lý hoặc kỳ vọng về thành quả hoạt động của các nhà quản lý, nhưng những lời giải thích này không được ủng hộ bởi bằng chứng thực tế.<sup>36</sup> Một lời giải thích thay thế cho khoản chiết khấu là các nghĩa vụ thuế gắn liền với các khoản lãi và lỗ vốn chưa thực hiện (<em>unrealized capital gains and losses</em>) vốn đã tồn tại trước thời điểm nhà đầu tư mua cổ phiếu, và do đó, nhà đầu tư không có quyền kiểm soát hoàn toàn đối với thời điểm hiện thực hóa các khoản lãi và lỗ đó.<sup>37</sup> Mặc dù bằng chứng ủng hộ giả thuyết này ở một mức độ nhất định, hiệu ứng thuế không đủ lớn để giải thích toàn bộ khoản chiết khấu. Cuối cùng, người ta thường lập luận rằng các khoản chiết khấu tồn tại do các vấn đề về thanh khoản và những sai sót trong việc tính toán NAV. Lời giải thích về sự kém thanh khoản là hợp lý nếu các cổ phiếu trong danh mục được ghi nhận ở cùng mức giá như các cổ phiếu giao dịch công khai có tính thanh khoản cao hơn; một số bằng chứng ủng hộ khẳng định này. Nhưng cũng giống như các lý do về thuế, các vấn đề thanh khoản chỉ giải thích được một phần của hiệu ứng chiết khấu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Can these discounts be exploited to earn abnormal returns if transaction costs are taken into account? No. First, the transaction costs involved in exploiting the discount—buying all the shares and liquidating the fund—would eliminate any profit.<sup>38</sup> Second, these discounts tend to revert to zero over time. Hence, a strategy to trade on the basis of these discounts would not likely be profitable.<sup>39</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Liệu các khoản chiết khấu này có thể được khai thác để kiếm tỷ suất sinh lợi bất thường nếu tính đến chi phí giao dịch hay không? Không. Thứ nhất, chi phí giao dịch liên quan đến việc khai thác khoản chiết khấu—mua tất cả cổ phiếu và thanh lý quỹ—sẽ xóa sạch mọi khoản lợi nhuận.<sup>38</sup> Thứ hai, các khoản chiết khấu này có xu hướng quay trở về mức không theo thời gian. Do đó, một chiến lược giao dịch dựa trên các khoản chiết khấu này sẽ ít có khả năng sinh lời.<sup>39</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Earnings Surprise</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Bất ngờ Lợi nhuận (Earnings Surprise)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Although most event studies have supported semi-strong market efficiency, some researchers have provided evidence that questions semi-strong market efficiency. One of these studies relates to the extensively examined adjustment of stock prices</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù hầu hết các nghiên cứu sự kiện đều ủng hộ hiệu quả thị trường dạng bán mạnh, một số nhà nghiên cứu đã cung cấp bằng chứng đặt dấu hỏi về hiệu quả thị trường dạng bán mạnh. Một trong những nghiên cứu này liên quan đến sự điều chỉnh đã được kiểm tra sâu rộng của giá cổ phiếu</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>35 See Dimson and Minio-Kozerski (1999) for a review of this literature.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>35 Xem Dimson và Minio-Kozerski (1999) để xem tổng thuật về các tài liệu nghiên cứu này.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>36 See Lee, Sheifer, and Thaler (1990).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>36 Xem Lee, Shleifer, và Thaler (1990).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>37 The return to owners of closed-end fund shares has three parts: 1) the price appreciation or depreciation of the shares themselves, 2) the dividends earned and distributed to owners by the fund, and 3) the capital gains and losses earned by the fund that are distributed by the fund. The explanation of the anomalous pricing has to do with the timing of the distribution of capital gains.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>37 Tỷ suất sinh lợi cho những người sở hữu cổ phiếu quỹ đóng có ba phần: 1) sự tăng giá hoặc giảm giá của bản thân các cổ phiếu quỹ đó, 2) cổ tức kiếm được và được quỹ phân phối cho những người sở hữu, và 3) các khoản lãi và lỗ vốn kiếm được bởi quỹ và được quỹ phân phối. Lời giải thích cho việc định giá bất thường này có liên quan đến thời điểm phân phối các khoản lãi vốn.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>38 See, for example, the study by Pontiff (1996), which shows how the cost of arbitraging these discounts eliminates the profit. 39 See Pontiff (1995).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>38 Xem, ví dụ, nghiên cứu của Pontiff (1996), chỉ ra cách chi phí kinh doanh chênh lệch giá trên các khoản chiết khấu này triệt tiêu lợi nhuận.
+39 Xem Pontiff (1995).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-154" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 154 / Trang PDF 154
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>to earnings announcements.<sup>40</sup> The unexpected part of the earnings announcement, or <strong>earnings surprise</strong> , is the portion of earnings that is unanticipated by investors and, according to the efficient market hypothesis, merits a price adjustment. Positive (negative) surprises should cause appropriate and rapid price increases (decreases). Several studies have been conducted using data from numerous markets around the world. Most of the results indicate that earnings surprises are reflected quickly in stock prices, but the adjustment process is not always efficient. In particular, although a substantial adjustment occurs prior to and at the announcement date, an adjustment also occurs after the announcement.<sup>41</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trước các thông báo lợi nhuận.<sup>40</sup> Phần ngoài kỳ vọng của thông báo lợi nhuận, hay <strong>bất ngờ lợi nhuận (<em>earnings surprise</em>)</strong>, là phần lợi nhuận không được các nhà đầu tư dự đoán trước và, theo giả thuyết thị trường hiệu quả, đáng có một sự điều chỉnh giá. Các bất ngờ tích cực (tiêu cực) lẽ ra phải gây ra những đợt tăng (giảm) giá phù hợp và nhanh chóng. Một số nghiên cứu đã được tiến hành bằng cách sử dụng dữ liệu từ nhiều thị trường trên khắp thế giới. Hầu hết các kết quả chỉ ra rằng các bất ngờ lợi nhuận được phản ánh nhanh chóng vào giá cổ phiếu, nhưng quá trình điều chỉnh không phải lúc nào cũng hiệu quả. Cụ thể, mặc dù một sự điều chỉnh đáng kể xảy ra trước và ngay vào ngày ra thông báo, một sự điều chỉnh vẫn tiếp tục diễn ra sau khi có thông báo.<sup>41</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As a result of these slow price adjustments, companies that display the largest positive earnings surprises subsequently display superior stock return performance, whereas poor subsequent performance is displayed by companies with low or negative earnings surprises.<sup>42</sup> This finding implies that investors could earn abnormal returns using publicly available information by buying stocks of companies that had positive earnings surprises and selling those with negative surprises.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hệ quả của những sự điều chỉnh giá chậm chạp này là các công ty thể hiện mức bất ngờ lợi nhuận tích cực lớn nhất sau đó lại thể hiện thành quả tỷ suất sinh lợi cổ phiếu vượt trội, trong khi thành quả kém cỏi sau đó lại được thể hiện bởi các công ty có mức bất ngờ lợi nhuận thấp hoặc âm.<sup>42</sup> Phát hiện này hàm ý rằng các nhà đầu tư có thể kiếm được tỷ suất sinh lợi bất thường bằng cách sử dụng thông tin công khai hiện có thông qua việc mua cổ phiếu của các công ty có bất ngờ lợi nhuận tích cực và bán cổ phiếu của những công ty có bất ngờ lợi nhuận âm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Although there is support for abnormal returns associated with earnings surprises, and some support for such returns beyond the announcement period, there is also evidence indicating that these observed abnormal returns are an artifact of studies that do not sufficiently control for transaction costs and risk.<sup>43</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù có sự ủng hộ đối với tỷ suất sinh lợi bất thường gắn liền với các bất ngờ lợi nhuận, và một số sự ủng hộ đối với các tỷ suất sinh lợi như vậy kéo dài sau giai đoạn ra thông báo, nhưng cũng có bằng chứng chỉ ra rằng các tỷ suất sinh lợi bất thường quan sát được này là sản phẩm ngẫu nhiên của những nghiên cứu không kiểm soát đầy đủ chi phí giao dịch và rủi ro.<sup>43</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Initial Public Offerings (IPOs)</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Phát hành Lần đầu ra Công chúng (Initial Public Offerings – IPOs)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>When a company offers shares of its stock to the public for the first time, it does so through an initial public offering (or IPO). This offering involves working with an investment bank that helps price and market the newly issued shares. After the offering is complete, the new shares trade on a stock market for the first time. Given the risk that investment bankers face in trying to sell a new issue for which the true price is unknown, it is perhaps not surprising to find that, on average, the initial selling price is set too low and that the price increases dramatically on the first trading day. The percentage difference between the issue price and the closing price at the end of the first day of trading is often referred to as the degree of underpricing.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi một công ty chào bán cổ phiếu của mình ra công chúng lần đầu tiên, công ty thực hiện điều đó thông qua một đợt phát hành lần đầu ra công chúng (hay IPO). Đợt chào bán này bao gồm việc làm việc với một ngân hàng đầu tư giúp định giá và tiếp thị các cổ phiếu mới phát hành. Sau khi đợt chào bán hoàn tất, các cổ phiếu mới được giao dịch trên thị trường chứng khoán lần đầu tiên. Xét đến rủi ro mà các ngân hàng đầu tư phải đối mặt trong việc cố gắng bán một đợt phát hành mới mà mức giá thực của nó chưa được biết đến, có lẽ không có gì đáng ngạc nhiên khi thấy rằng, tính trung bình, giá bán ban đầu được đặt quá thấp và mức giá tăng vọt đáng kể ngay trong ngày giao dịch đầu tiên. Chênh lệch phần trăm giữa giá phát hành và giá đóng cửa vào cuối ngày giao dịch đầu tiên thường được gọi là mức độ định giá thấp (<em>degree of underpricing</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The evidence suggests that, on average, investors who are able to buy the shares of an IPO at their offering price may be able to earn abnormal profits. For example, during the internet bubble of 1995–2000, many IPOs ended their first day of trading up by more than 100 percent. Such performance, however, is not always the case. Sometimes the issues are priced too high, which means that share prices drop on their first day of trading. In addition, the evidence also suggests that investors buying after the initial offering are not able to earn abnormal profits because prices adjust quickly to the “true” values, which supports semi-strong market efficiency. In fact, the subsequent long-term performance of IPOs is generally found to be below average. Taken together, the IPO underpricing and the subsequent poor performance suggests that the markets are overly optimistic initially (i.e., investors overreact).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bằng chứng cho thấy rằng, tính trung bình, các nhà đầu tư có khả năng mua được cổ phiếu của một đợt IPO ở mức giá chào bán có thể kiếm được lợi nhuận bất thường. Ví dụ, trong thời kỳ bong bóng internet giai đoạn 1995–2000, nhiều đợt IPO đã kết thúc ngày giao dịch đầu tiên với mức tăng hơn 100 phần trăm. Tuy nhiên, thành quả như vậy không phải lúc nào cũng xảy ra. Đôi khi các đợt phát hành được định giá quá cao, đồng nghĩa với việc giá cổ phiếu sụt giảm ngay trong ngày giao dịch đầu tiên. Ngoài ra, bằng chứng cũng cho thấy rằng các nhà đầu tư mua vào sau đợt chào bán ban đầu không thể kiếm được lợi nhuận bất thường bởi vì giá cả điều chỉnh nhanh chóng về các giá trị “thực”, điều này ủng hộ hiệu quả thị trường dạng bán mạnh. Trên thực tế, thành quả dài hạn tiếp theo của các đợt IPO nhìn chung được phát hiện là thấp hơn mức trung bình. Xét tổng thể, việc định giá thấp IPO và thành quả kém cỏi sau đó gợi ý rằng thị trường đã quá lạc quan lúc ban đầu (tức là các nhà đầu tư phản ứng thái quá).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>40 See Jones, Rendleman, and Latané (1984).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>40 Xem Jones, Rendleman, và Latané (1984).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>41 Not surprisingly, it is often argued that this slow reaction contributes to a momentum pattern.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>41 Không có gì đáng ngạc nhiên khi người ta thường lập luận rằng phản ứng chậm chạp này đóng góp vào quy luật đà tăng trưởng (<em>momentum pattern</em>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>42 A similar pattern has been documented in the corporate bond market, where bond prices react too slowly to new company earnings announcements as well as to changes in company debt ratings.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>42 Một quy luật tương tự đã được ghi nhận trên thị trường trái phiếu doanh nghiệp, nơi giá trái phiếu phản ứng quá chậm trước các thông báo lợi nhuận mới của công ty cũng như trước những thay đổi trong xếp hạng tín nhiệm nợ của công ty.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>43 See Brown (1997) for a summary of evidence supporting the existence of this anomaly. See Zarowin (1989) for evidence regarding the role of size in explaining abnormal returns to surprises; Alexander, Goff, and Peterson (1989) for evidence regarding transaction costs and unexpected earnings strategies; and Kim and Kim (2003) for evidence indicating that the anomalous returns can be explained by risk factors.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>43 Xem Brown (1997) để có bản tóm tắt các bằng chứng ủng hộ sự tồn tại của bất thường này. Xem Zarowin (1989) để biết bằng chứng liên quan đến vai trò của quy mô trong việc giải thích tỷ suất sinh lợi bất thường trước các bất ngờ; Alexander, Goff, và Peterson (1989) về bằng chứng liên quan đến chi phí giao dịch và các chiến lược lợi nhuận ngoài kỳ vọng; và Kim và Kim (2003) về bằng chứng chỉ ra rằng các tỷ suất sinh lợi bất thường có thể được giải thích bởi các nhân tố rủi ro.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-155" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 155 / Trang PDF 155
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Some researchers have examined closely why IPOs may appear to have anomalous returns. Because of the small size of the IPO companies and the method of equally weighting the samples, what appears to be an anomaly may simply be an artifact of the methodology.<sup>44</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số nhà nghiên cứu đã kiểm tra kỹ lưỡng lý do tại sao các đợt IPO có vẻ mang lại tỷ suất sinh lợi bất thường. Do quy mô nhỏ của các công ty IPO và phương pháp tính tỷ trọng đều cho các mẫu nghiên cứu, những gì có vẻ là một bất thường có thể chỉ đơn giản là một sản phẩm ngẫu nhiên (<em>artifact</em>) của phương pháp luận nghiên cứu.<sup>44</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Predictability of Returns Based on Prior Information</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Khả năng Dự đoán Tỷ suất sinh lợi Dựa trên Thông tin Trước đó (Predictability of Returns Based on Prior Information)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A number of researchers have documented that equity returns are related to prior information on such factors as interest rates, inflation rates, stock volatility, and dividend yields.<sup>45</sup> But finding that equity returns are affected by changes in economic fundamentals is not evidence of market inefficiency and would not result in abnormal trading returns.<sup>46</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số nhà nghiên cứu đã ghi nhận rằng tỷ suất sinh lợi vốn cổ phần có liên hệ với thông tin trước đó về các yếu tố như lãi suất, tỷ lệ lạm phát, độ biến động của cổ phiếu, và tỷ suất cổ tức.<sup>45</sup> Nhưng việc phát hiện ra rằng tỷ suất sinh lợi vốn cổ phần bị ảnh hưởng bởi những thay đổi trong các yếu tố kinh tế cơ bản không phải là bằng chứng về sự kém hiệu quả của thị trường và sẽ không mang lại tỷ suất sinh lợi giao dịch bất thường.<sup>46</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Furthermore, the relationship between stock returns and the prior information is not consistent over time. For example, in one study, the relationship between stock prices and dividend yields changed from positive to negative in different periods.<sup>47</sup> Hence, a trading strategy based on dividend yields would not yield consistent abnormal returns.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hơn nữa, mối quan hệ giữa tỷ suất sinh lợi cổ phiếu và thông tin trước đó không nhất quán theo thời gian. Ví dụ, trong một nghiên cứu, mối quan hệ giữa giá cổ phiếu và tỷ suất cổ tức đã chuyển từ dương sang âm trong các giai đoạn khác nhau.<sup>47</sup> Do đó, một chiến lược giao dịch dựa trên tỷ suất cổ tức sẽ không mang lại tỷ suất sinh lợi bất thường một cách nhất quán.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Implications for Investment Strategies</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Hàm ý đối với các Chiến lược Đầu tư (Implications for Investment Strategies)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Although it is interesting to consider the anomalies just described, attempting to benefit from them in practice is not easy. In fact, most researchers conclude that observed anomalies are not violations of market efficiency but, rather, are the result of statistical methodologies used to detect the anomalies. As a result, if the methodologies are corrected, most of these anomalies disappear.<sup>48</sup> Another point to consider is that in an efficient market, overreactions may occur, but then so do under-reactions.<sup>49</sup> Therefore, on average, the markets are efficient. In other words, investors face challenges when they attempt to translate statistical anomalies into economic profits. Consider the following quote regarding anomalies from the <em>Economist</em> (“Frontiers of Finance Survey,” 9 October 1993):</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù việc xem xét các bất thường vừa được mô tả là rất thú vị, nhưng việc cố gắng hưởng lợi từ chúng trên thực tế lại không hề dễ dàng. Trên thực tế, hầu hết các nhà nghiên cứu đều kết luận rằng các bất thường quan sát được không phải là sự vi phạm hiệu quả thị trường mà đúng hơn là kết quả của các phương pháp luận thống kê được sử dụng để phát hiện ra các bất thường đó. Hệ quả là, nếu các phương pháp luận được hiệu chỉnh lại cho đúng, hầu hết các bất thường này đều biến mất.<sup>48</sup> Một điểm khác cần xem xét là trong một thị trường hiệu quả, các phản ứng thái quá (<em>overreactions</em>) có thể xảy ra, nhưng các phản ứng dưới mức (<em>under-reactions</em>) cũng xảy ra tương tự.<sup>49</sup> Do đó, tính trung bình, các thị trường vẫn là hiệu quả. Nói cách khác, các nhà đầu tư phải đối mặt với nhiều thách thức khi họ cố gắng chuyển hóa các bất thường thống kê thành lợi nhuận kinh tế. Hãy xem xét trích dẫn sau đây liên quan đến các bất thường từ tạp chí <em>The Economist</em> (“Frontiers of Finance Survey,” ngày 9 tháng 10 năm 1993):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Many can be explained away. When transactions costs are taken into account, the fact that stock prices tend to over-react to news, falling back the day after good news and bouncing up the day after bad news, proves unexploitable: price reversals are always within the bid-ask spread. Others such as the small-firm effect, work for a few years and then fail for a few years. Others prove to be merely proxies for the reward for risk taking. Many have disappeared since (and because) attention has been drawn to them.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>Nhiều bất thường có thể được lý giải thỏa đáng. Khi chi phí giao dịch được tính đến, thực tế là giá cổ phiếu có xu hướng phản ứng thái quá với tin tức, giảm trở lại vào ngày hôm sau khi có tin tốt và bật tăng trở lại vào ngày hôm sau khi có tin xấu, hóa ra lại không thể khai thác được: những sự đảo chiều giá luôn nằm gọn trong chênh lệch giá chào mua - chào bán (<em>bid-ask spread</em>). Những hiệu ứng khác như hiệu ứng công ty nhỏ, hoạt động hiệu quả trong vài năm rồi lại thất bại trong vài năm. Những hiệu ứng khác nữa hóa ra chỉ đơn thuần là các đại diện (<em>proxies</em>) cho phần thưởng của việc chấp nhận rủi ro. Nhiều bất thường đã biến mất kể từ khi (và bởi vì) sự chú ý được hướng vào chúng.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>It is difficult to envision entrusting your retirement savings to a manager whose strategy is based on buying securities on Mondays, which tends to have negative returns on average, and selling them on Fridays. For one thing, the negative Monday returns are merely an average, so on any given week, they could be positive. In addition, such a strategy would generate large trading costs. Even more importantly, investors would likely be uncomfortable investing their funds in a strategy that has no compelling underlying economic rationale.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thật khó để hình dung việc ủy thác khoản tiền tiết kiệm hưu trí của bạn cho một nhà quản lý có chiến lược dựa trên việc mua chứng khoán vào các ngày thứ Hai, vốn có xu hướng có tỷ suất sinh lợi trung bình âm, và bán chúng vào các ngày thứ Sáu. Thứ nhất, tỷ suất sinh lợi âm vào ngày thứ Hai chỉ đơn thuần là một mức trung bình, vì vậy trong bất kỳ tuần cụ thể nào, chúng hoàn toàn có thể là số dương. Ngoài ra, một chiến lược như vậy sẽ phát sinh chi phí giao dịch rất lớn. Thậm chí quan trọng hơn, các nhà đầu tư có lẽ sẽ cảm thấy không thoải mái khi đầu tư tiền vốn của mình vào một chiến lược không có cơ sở lý luận kinh tế nền tảng thuyết phục nào.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>44 See Brav, Geczy, and Gompers (1995).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>44 Xem Brav, Geczy, và Gompers (1995).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>45 See, for example, Fama and Schwert (1977) and Fama and French (1988).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>45 Xem, ví dụ, Fama và Schwert (1977) cùng Fama và French (1988).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>46 See Fama and French (2008).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>46 Xem Fama và French (2008).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>47 Schwert (2003, Chapter 15).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>47 Schwert (2003, Chương 15).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>48 Fama (1998).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>48 Fama (1998).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>49 This point is made by Fama (1998).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>49 Điểm này được nêu ra bởi Fama (1998).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-156" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 156 / Trang PDF 156
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>8</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>8</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>BEHAVIORAL FINANCE</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>TÀI CHÍNH HÀNH VI (BEHAVIORAL FINANCE)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>describe behavioral finance and its potential relevance to understanding market anomalies</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>mô tả tài chính hành vi (<em>behavioral finance</em>) và sự liên quan tiềm tàng của nó đối với việc thấu hiểu các bất thường thị trường</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Behavioral finance</strong> examines investor behavior to understand how people make decisions, individually and collectively. Behavioral finance does not assume that people consider all available information in decision-making and act rationally by maximizing utility within budget constraints and updating expectations consistent with Bayes’ formula. The resulting behaviors may affect what is observed in the financial markets. In a broader sense, behavioral finance attempts to explain why individuals make the decisions that they do, whether these decisions are rational or irrational. The focus of much of the work in this area is on the behavioral biases that affect investment decisions. The behavior of individuals, in particular their behavioral biases, has been offered as a possible explanation for a number of pricing anomalies.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Tài chính hành vi (<em>Behavioral finance</em>)</strong> nghiên cứu hành vi của nhà đầu tư để hiểu cách con người đưa ra quyết định, ở cấp độ cá nhân và tập thể. Tài chính hành vi không giả định rằng con người xem xét tất cả các thông tin hiện có khi ra quyết định và hành động một cách duy lý bằng cách tối đa hóa hữu dụng (<em>utility</em>) trong phạm vi ràng buộc ngân sách cũng như cập nhật các kỳ vọng nhất quán với công thức Bayes. Các hành vi phát sinh có thể ảnh hưởng đến những gì được quan sát thấy trên các thị trường tài chính. Theo nghĩa rộng hơn, tài chính hành vi cố gắng giải thích tại sao các cá nhân lại đưa ra những quyết định mà họ thực hiện, cho dù những quyết định này là hợp lý (<em>rational</em>) hay phi lý trí (<em>irrational</em>). Trọng tâm của phần lớn các công trình nghiên cứu trong lĩnh vực này là về các thiên lệch hành vi (<em>behavioral biases</em>) ảnh hưởng đến các quyết định đầu tư. Hành vi của các cá nhân, đặc biệt là các thiên lệch hành vi của họ, đã được đưa ra như một lời giải thích khả dĩ cho một số bất thường định giá.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Most asset-pricing models assume that markets are rational and that the intrinsic value of a security reflects this rationality. But market efficiency and asset-pricing models do not require that each individual is rational—rather, only that the market is rational. If individuals deviate from rationality, other individuals are assumed to observe this deviation and respond accordingly. These responses move the market toward efficiency. If this does not occur in practice, it may be possible to explain some market anomalies referencing observed behaviors and behavioral biases.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hầu hết các mô hình định giá tài sản đều giả định rằng các thị trường là hợp lý và giá trị nội tại của một chứng khoán phản ánh sự hợp lý này. Nhưng hiệu quả thị trường và các mô hình định giá tài sản không đòi hỏi mỗi cá nhân đều phải hợp lý—mà đúng hơn, chỉ đòi hỏi rằng bản thân thị trường là hợp lý. Nếu các cá nhân chệch hướng khỏi sự hợp lý, những cá nhân khác được giả định là sẽ quan sát thấy sự chệch hướng này và phản ứng tương ứng. Những phản ứng này đưa thị trường tiến về trạng thái hiệu quả. Nếu điều này không xảy ra trên thực tế, có thể giải thích một số bất thường thị trường bằng cách tham chiếu đến các hành vi quan sát được và các thiên lệch hành vi.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Loss Aversion</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Ác cảm Thua lỗ (Loss Aversion)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In most financial models, the assumption is that investors are risk averse. <strong>Risk aversion</strong> refers to the tendency of people to dislike risk and to require higher expected returns to compensate for exposure to additional risk. Behavioral finance allows for the possibility that the dissatisfaction resulting from a loss exceeds the satisfaction resulting from a gain of the same magnitude. <strong>Loss aversion</strong> refers to the tendency of people to dislike losses more than they like comparable gains. This results in a strong preference for avoiding losses as opposed to achieving gains.<sup>50</sup> Some argue that behavioral theories of loss aversion can explain observed overreaction in markets. If loss aversion is more important than risk aversion, researchers should observe that investors overreact.<sup>51</sup> Although loss aversion can explain the overreaction anomaly, evidence also suggests that under reaction is just as prevalent as overreaction, which counters these arguments.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong hầu hết các mô hình tài chính, giả định được đặt ra là các nhà đầu tư có tâm lý ngại rủi ro (<em>risk averse</em>). <strong>Ngại rủi ro (<em>Risk aversion</em>)</strong> đề cập đến xu hướng con người không thích rủi ro và đòi hỏi tỷ suất sinh lợi kỳ vọng cao hơn để đền bù cho việc tiếp xúc với rủi ro tăng thêm. Tài chính hành vi cho phép khả năng rằng sự bất mãn xuất phát từ một khoản thua lỗ vượt quá sự hài lòng xuất phát từ một khoản lợi nhuận có cùng quy mô. <strong>Ác cảm thua lỗ (<em>Loss aversion</em>)</strong> đề cập đến xu hướng con người ghét các khoản thua lỗ nhiều hơn mức họ thích các khoản lợi nhuận tương đương. Điều này dẫn đến một sự ưu tiên mạnh mẽ cho việc né tránh thua lỗ thay vì đạt được lợi nhuận.<sup>50</sup> Một số người lập luận rằng các lý thuyết hành vi về ác cảm thua lỗ có thể giải thích hiện tượng phản ứng thái quá quan sát được trên các thị trường. Nếu ác cảm thua lỗ quan trọng hơn sự ngại rủi ro, các nhà nghiên cứu sẽ quan sát thấy rằng các nhà đầu tư phản ứng thái quá.<sup>51</sup> Mặc dù ác cảm thua lỗ có thể giải thích bất thường phản ứng thái quá, bằng chứng cũng cho thấy rằng việc phản ứng dưới mức (<em>under-reaction</em>) cũng phổ biến không kém gì phản ứng thái quá, điều này phản bác lại các lập luận đó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Herding</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Hiệu ứng Bầy đàn (Herding)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Herding behavior has been advanced as a possible explanation of under reaction and overreaction in financial markets. <strong>Herding</strong> occurs when investors trade on the same side of the market in the same securities, or when investors ignore their own private information and/or analysis and act as other investors do. Herding is clustered trading that may or may not be based on information.<sup>52</sup> Herding may result in under- or over-reaction to information depending upon the direction of the herd.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hành vi bầy đàn đã được đưa ra như một lời giải thích khả dĩ cho hiện tượng phản ứng dưới mức và phản ứng thái quá trên các thị trường tài chính. <strong>Hiệu ứng bầy đàn (<em>Herding</em>)</strong> xảy ra khi các nhà đầu tư giao dịch ở cùng một phía của thị trường đối với cùng các chứng khoán, hoặc khi các nhà đầu tư phớt lờ thông tin và/hoặc phân tích riêng của chính họ và hành động giống như các nhà đầu tư khác. Hiệu ứng bầy đàn là hoạt động giao dịch co cụm (<em>clustered trading</em>) có thể dựa trên hoặc không dựa trên thông tin.<sup>52</sup> Hiệu ứng bầy đàn có thể dẫn đến phản ứng dưới mức hoặc phản ứng thái quá trước thông tin tùy thuộc vào hướng đi của đám đông.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>50 See DeBondt and Thaler (1985) and Tversky and Kahneman (1981).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>50 Xem DeBondt và Thaler (1985) cùng Tversky và Kahneman (1981).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>51 See Fama (1998).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>51 Xem Fama (1998).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>52 The term used when there is herding without information is “spurious herding.”</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>52 Thuật ngữ được sử dụng khi có hiệu ứng bầy đàn không dựa trên thông tin là “hiệu ứng bầy đàn giả tạo” (<em>“spurious herding”</em>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-157" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 157 / Trang PDF 157
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Overconfidence</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Sự Quá Tự tin (Overconfidence)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A behavioral bias offered to explain pricing anomalies is overconfidence. If investors are overconfident, they overestimate their ability to process and interpret information about a security. Overconfident investors may not process information appropriately, and if there is a sufficient number of these investors, stocks will be mispriced.<sup>53</sup> But most researchers argue that this mispricing is temporary, with prices correcting eventually. If it takes a sufficiently long time for prices to become correctly priced and the mispricing is predictable, it may be possible for investors to earn abnormal profits.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một thiên lệch hành vi được đưa ra để giải thích các bất thường định giá là sự quá tự tin (<em>overconfidence</em>). Nếu các nhà đầu tư quá tự tin, họ đánh giá quá cao khả năng của bản thân trong việc xử lý và diễn giải thông tin về một chứng khoán. Các nhà đầu tư quá tự tin có thể không xử lý thông tin một cách thích hợp, và nếu có một số lượng đủ lớn những nhà đầu tư này, các cổ phiếu sẽ bị định giá sai.<sup>53</sup> Nhưng hầu hết các nhà nghiên cứu đều lập luận rằng sự định giá sai này chỉ mang tính tạm thời, và giá cả cuối cùng sẽ tự điều chỉnh lại. Nếu phải mất một khoảng thời gian đủ dài để giá cả được định giá đúng trở lại và sự định giá sai này là có thể dự đoán được, các nhà đầu tư có thể kiếm được lợi nhuận bất thường.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Evidence has suggested that overconfidence results in mispricing for US, UK, German, French, and Japanese markets.<sup>54</sup> This overconfidence, however, is predominantly in higher-growth companies, whose prices react slowly to new information.<sup>55</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bằng chứng đã gợi ý rằng sự quá tự tin dẫn đến việc định giá sai tại các thị trường Hoa Kỳ, Vương quốc Anh, Đức, Pháp, và Nhật Bản.<sup>54</sup> Tuy nhiên, sự quá tự tin này chủ yếu diễn ra ở các công ty có tốc độ tăng trưởng cao hơn, vốn có mức giá phản ứng chậm trước thông tin mới.<sup>55</sup></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Information Cascades</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Hiệu ứng Thác Thông tin (Information Cascades)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An application of behavioral theories to markets and pricing focuses on the role of personal learning in markets. Personal learning is what investors learn by observing outcomes of trades and what they learn from “conversations”—ideas shared among investors about specific assets and the markets.<sup>56</sup> Social interaction and the resultant contagion is important in pricing and may explain such phenomena as price changes without accompanying news and mistakes in valuation.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một ứng dụng của các lý thuyết hành vi vào thị trường và việc định giá tập trung vào vai trò của sự học hỏi cá nhân (<em>personal learning</em>) trên thị trường. Sự học hỏi cá nhân là những gì các nhà đầu tư học được bằng cách quan sát kết quả của các giao dịch và những gì họ học được từ “các cuộc trò chuyện”—những ý tưởng được chia sẻ giữa các nhà đầu tư về các tài sản cụ thể và về thị trường.<sup>56</sup> Sự tương tác xã hội và hiệu ứng lây lan (<em>contagion</em>) phát sinh là rất quan trọng trong việc định giá và có thể giải thích những hiện tượng như sự thay đổi giá mà không có tin tức đi kèm và những sai lầm trong định giá.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Biases that investors possess can lead to herding behavior or information cascades. Herding and information cascades are related but not identical concepts. An <strong>information cascade</strong> is the transmission of information from those participants who act first and whose decisions influence the decisions of others. Those who are acting on the choices of others may be ignoring their own preferences in favor of imitating the choices of others. In particular, information cascades may occur with respect to the release of accounting information because accounting information may be difficult to interpret and may be noisy. For example, the release of earnings is difficult to interpret because it is necessary to understand how the number was arrived at and noisy because it is uncertain what the current earnings imply about future earnings.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các thiên lệch mà các nhà đầu tư mắc phải có thể dẫn đến hành vi bầy đàn hoặc thác thông tin (<em>information cascades</em>). Hiệu ứng bầy đàn và thác thông tin là những khái niệm có liên quan nhưng không đồng nhất với nhau. Một <strong>thác thông tin (<em>information cascade</em>)</strong> là sự truyền tải thông tin từ những người tham gia hành động trước tiên và các quyết định của họ ảnh hưởng đến quyết định của những người khác. Những người đang hành động dựa trên lựa chọn của người khác có thể đang phớt lờ những ưu tiên của chính mình để bắt chước lựa chọn của người khác. Cụ thể, thác thông tin có thể xảy ra liên quan đến việc công bố thông tin kế toán bởi vì thông tin kế toán có thể khó diễn giải và có thể chứa nhiều nhiễu (<em>noisy</em>). Ví dụ, việc công bố lợi nhuận rất khó diễn giải bởi vì cần phải hiểu con số đó đã được tính ra như thế nào, và chứa nhiều nhiễu bởi vì không chắc chắn lợi nhuận hiện tại hàm ý điều gì về lợi nhuận tương lai.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Information cascades may result in serial correlation of stock returns, which is consistent with overreaction anomalies. Do information cascades result in correct pricing? Some argue that if a cascade is leading toward an incorrect value, this cascade is “fragile” and will be corrected because investors will ultimately give more weight to public information or the trading of a recognized informed trader.<sup>57</sup> Information cascades, although documented in markets, do not necessarily mean that investors can exploit knowledge of them as profitable trading opportunities.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thác thông tin có thể dẫn đến sự tự tương quan (<em>serial correlation</em>) của tỷ suất sinh lợi cổ phiếu, điều này nhất quán với các bất thường phản ứng thái quá. Liệu thác thông tin có dẫn đến việc định giá đúng hay không? Một số người lập luận rằng nếu một thác thông tin đang dẫn về phía một giá trị không chính xác, thác thông tin này là “mong manh” (<em>“fragile”</em>) và sẽ được điều chỉnh lại bởi vì các nhà đầu tư cuối cùng sẽ đặt nhiều trọng số hơn vào thông tin đại chúng hoặc hoạt động giao dịch của một nhà giao dịch có thông tin đã được công nhận.<sup>57</sup> Thác thông tin, mặc dù được ghi nhận trên các thị trường, không nhất thiết đồng nghĩa với việc các nhà đầu tư có thể khai thác sự hiểu biết về chúng như những cơ hội giao dịch sinh lời.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Are information cascades rational? If the informed traders act first and uninformed traders imitate the informed traders, this behavior is consistent with rationality. The imitation trading by the uninformed traders may help the market incorporate relevant information and improve market efficiency.<sup>58</sup> However, the imitation trading may lead</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Liệu thác thông tin có hợp lý (<em>rational</em>) hay không? Nếu các nhà giao dịch có thông tin (<em>informed traders</em>) hành động trước và các nhà giao dịch không có thông tin (<em>uninformed traders</em>) bắt chước các nhà giao dịch có thông tin, hành vi này là nhất quán với sự hợp lý. Hoạt động giao dịch bắt chước của các nhà giao dịch không có thông tin có thể giúp thị trường phản ánh thông tin liên quan và cải thiện hiệu quả thị trường.<sup>58</sup> Tuy nhiên, hoạt động giao dịch bắt chước có thể dẫn</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>53 Another aspect to overconfidence is that investors who are overconfident in their ability to select investments and manage a portfolio tend to use less diversification, investing in what is most familiar. Therefore, investor behavior may affect investment results—returns and risk—without implications for the efficiency of markets.</p>
+<p>54 Scott, Stumpp, and Xu (2003) and Boujelbene Abbes, Boujelbene, and Bouri (2009).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>53 Một khía cạnh khác của sự quá tự tin là các nhà đầu tư quá tự tin vào khả năng lựa chọn các khoản đầu tư và quản lý danh mục của mình có xu hướng ít sử dụng sự đa dạng hóa hơn, mà chỉ đầu tư vào những gì quen thuộc nhất. Do đó, hành vi của nhà đầu tư có thể ảnh hưởng đến kết quả đầu tư—tỷ suất sinh lợi và rủi ro—mà không có hàm ý gì đối với tính hiệu quả của các thị trường.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>55 Scott, Stumpp, and Xu (2003).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>54 Scott, Stumpp, và Xu (2003) cùng Boujelbene Abbes, Boujelbene, và Bouri (2009).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>56 Hirshleifer and Teoh (2009).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>55 Scott, Stumpp, và Xu (2003).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>57 Avery and Zemsky (1999).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>56 Hirshleifer và Teoh (2009).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>58 Another alternative is that the uninformed traders are the majority of the market participants and the</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>57 Avery và Zemsky (1999).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>imitators are imitating not because they agree with the actions of the majority but because they are looking to act on the actions of the uninformed traders.</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>58 Một khả năng thay thế khác là các nhà giao dịch không có thông tin chiếm đa số trong những người tham gia thị trường và những người bắt chước thực hiện việc bắt chước không phải vì họ đồng ý với hành động của số đông mà vì họ đang tìm cách hành động dựa trên hành động của các nhà giao dịch không có thông tin.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-158" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 158 / Trang PDF 158
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>to an overreaction to information. The empirical evidence indicates that information cascades are greater for a stock when the information quality regarding the company is poor.<sup>59</sup> Information cascades may enhance the information available to investors.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>đến sự phản ứng thái quá trước thông tin. Bằng chứng thực nghiệm chỉ ra rằng thác thông tin diễn ra mạnh hơn đối với một cổ phiếu khi chất lượng thông tin liên quan đến công ty đó là thấp.<sup>59</sup> Thác thông tin có thể làm tăng cường lượng thông tin hiện có cho các nhà đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Other Behavioral Biases</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Các Thiên lệch Hành vi Khác (Other Behavioral Biases)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Other behavioral biases that have been put forth to explain observed investor behavior include the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các thiên lệch hành vi khác đã được đưa ra để giải thích hành vi quan sát được của nhà đầu tư bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>representativeness</strong> —investors assess new information and probabilities of outcomes based on similarity to the current state or to a familiar classification;</p>
+</li>
+<li>
+<p><strong>mental accounting</strong> —investors keep track of the gains and losses for different investments in separate mental accounts and treat those accounts differently;</p>
+</li>
+<li>
+<p><strong>conservatism</strong> —investors tend to be slow to react to new information and continue to maintain their prior views or forecasts; and</p>
+</li>
+<li>
+<p><strong>narrow framing</strong> —investors focus on issues in isolation and respond to the issues based on how the issues are posed.<sup>60</sup></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>thiên lệch đại diện (<em>representativeness</em>)</strong> — các nhà đầu tư đánh giá thông tin mới và xác suất của các kết quả dựa trên sự tương đồng với trạng thái hiện tại hoặc với một phân loại quen thuộc;</p>
+</li>
+<li>
+<p><strong>kế toán tâm lý (<em>mental accounting</em>)</strong> — các nhà đầu tư theo dõi các khoản lãi và lỗ cho các khoản đầu tư khác nhau trong các tài khoản tâm lý riêng biệt và đối xử với các tài khoản đó một cách khác nhau;</p>
+</li>
+<li>
+<p><strong>thiên lệch bảo thủ (<em>conservatism</em>)</strong> — các nhà đầu tư có xu hướng phản ứng chậm trước thông tin mới và tiếp tục duy trì các quan điểm hoặc dự báo trước đó của họ; và</p>
+</li>
+<li>
+<p><strong>đóng khung hẹp (<em>narrow framing</em>)</strong> — các nhà đầu tư tập trung vào các vấn đề một cách cô lập và phản ứng với các vấn đề dựa trên cách thức các vấn đề đó được đặt ra.<sup>60</sup></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The basic idea behind behavioral finance is that investors are humans and, therefore, imperfect. These observed less than rational behaviors may help explain observed pricing anomalies. The beliefs investors have about a given asset’s value may not be homogeneous. But an issue, which is controversial, is whether these insights can help someone identify and exploit any mispricing. In other words, can investors use knowledge of behavioral biases to predict how asset prices will be affected and act based on the predictions to earn abnormal profits?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ý tưởng cơ bản đằng sau tài chính hành vi là các nhà đầu tư là con người và do đó không hoàn hảo. Những hành vi chưa hoàn toàn hợp lý quan sát được này có thể giúp giải thích các bất thường định giá quan sát được. Niềm tin mà các nhà đầu tư có về giá trị của một tài sản nhất định có thể không đồng nhất (<em>homogeneous</em>). Nhưng một vấn đề vẫn còn gây tranh cãi là liệu những hiểu biết sâu sắc này có thể giúp một người nào đó xác định và khai thác bất kỳ sự định giá sai nào hay không. Nói cách khác, liệu các nhà đầu tư có thể sử dụng kiến thức về các thiên lệch hành vi để dự đoán giá tài sản sẽ bị ảnh hưởng như thế nào và hành động dựa trên những dự đoán đó để kiếm được lợi nhuận bất thường hay không?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Behavioral Finance and Investors</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Tài chính Hành vi và Nhà đầu tư (Behavioral Finance and Investors)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Behavior biases can affect all market participants, from the novice investor to the most experienced investment manager. An understanding of behavioral finance can help market participants recognize their own and others’ behavioral biases. As a result of this recognition, they may be able to respond and make improved decisions, individually and collectively.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các thiên lệch hành vi có thể ảnh hưởng đến tất cả những người tham gia thị trường, từ nhà đầu tư mới vào nghề cho đến nhà quản lý đầu tư giàu kinh nghiệm nhất. Sự hiểu biết về tài chính hành vi có thể giúp những người tham gia thị trường nhận ra các thiên lệch hành vi của chính họ và của những người khác. Nhờ sự nhận thức này, họ có thể phản ứng và đưa ra các quyết định được cải thiện tốt hơn, ở cả cấp độ cá nhân và tập thể.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Behavioral Finance and Efficient Markets</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Tài chính Hành vi và Thị trường Hiệu quả (Behavioral Finance and Efficient Markets)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The use of behavioral finance to explain observed pricing is an important part of the understanding of how markets function and how prices are determined. Whether there is a behavioral explanation for market anomalies remains a debate. Pricing anomalies are continually being uncovered, and then statistical and behavioral explanations are offered to explain these anomalies.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc sử dụng tài chính hành vi để giải thích việc định giá quan sát được là một phần quan trọng của việc thấu hiểu cách thức các thị trường vận hành và cách thức giá cả được xác định. Liệu có một lời giải thích mang tính hành vi cho các bất thường thị trường hay không vẫn là một cuộc tranh luận. Các bất thường định giá liên tục được phát hiện, và sau đó các lời giải thích mang tính thống kê và hành vi được đưa ra để giải thích các bất thường này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>On the one hand, if investors must be rational for efficient markets to exist, then all the imperfections of human investors suggest that markets cannot be efficient. On the other hand, if all that is required for markets to be efficient is that investors cannot consistently beat the market on a risk-adjusted basis, then the evidence does support market efficiency.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một mặt, nếu các nhà đầu tư buộc phải duy lý để các thị trường hiệu quả tồn tại, thì tất cả những sự bất hoàn hảo của các nhà đầu tư con người gợi ý rằng các thị trường không thể hiệu quả được. Mặt khác, nếu tất cả những gì cần thiết để các thị trường trở nên hiệu quả là việc các nhà đầu tư không thể đánh bại thị trường một cách nhất quán trên cơ sở điều chỉnh theo rủi ro, thì bằng chứng thực tế quả thực ủng hộ hiệu quả thị trường.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>59 Avery and Zemsky (1999) and Bikhchandani, Hirshleifer, and Welch (1992).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>59 Avery và Zemsky (1999) cùng Bikhchandani, Hirshleifer, và Welch (1992).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><blockquote>
+<p>60 For a review of these behavioral issues, see Hirshleifer (2001).</p>
+</blockquote></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><blockquote>
+<p>60 Để xem tổng thuật về các vấn đề hành vi này, xem Hirshleifer (2001).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-159" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 159 / Trang PDF 159
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~SUMMARY~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>TÓM TẮT (SUMMARY)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This reading has provided an overview of the theory and evidence regarding market efficiency and has discussed the different forms of market efficiency as well as the implications for fundamental analysis, technical analysis, and portfolio management. The general conclusion drawn from the efficient market hypothesis is that it is not possible to beat the market on a consistent basis by generating returns in excess of those expected for the level of risk of the investment.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bài đọc này đã cung cấp một cái nhìn tổng quan về lý thuyết và bằng chứng liên quan đến hiệu quả thị trường, đồng thời đã thảo luận về các dạng hiệu quả thị trường khác nhau cũng như các hàm ý đối với phân tích cơ bản, phân tích kỹ thuật, và quản lý danh mục đầu tư. Kết luận chung được rút ra từ giả thuyết thị trường hiệu quả là không thể đánh bại thị trường một cách nhất quán bằng cách tạo ra tỷ suất sinh lợi vượt quá mức kỳ vọng tương ứng với mức độ rủi ro của khoản đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Additional key points include the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các điểm chính bổ sung bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>The efficiency of a market is affected by the number of market participants and depth of analyst coverage, information availability, and limits to trading.</p>
+</li>
+<li>
+<p>There are three forms of efficient markets, each based on what is considered to be the information used in determining asset prices. In the weak form, asset prices fully reflect all market data, which refers to all past price and trading volume information. In the semi-strong form, asset prices reflect all publicly known and available information. In the strong form, asset prices fully reflect all information, which includes both public and private information.</p>
+</li>
+<li>
+<p>Intrinsic value refers to the true value of an asset, whereas market value refers to the price at which an asset can be bought or sold. When markets are efficient, the two should be the same or very close. But when markets are not efficient, the two can diverge significantly.</p>
+</li>
+<li>
+<p>Most empirical evidence supports the idea that securities markets in developed countries are semi-strong-form efficient; however, empirical evidence does not support the strong form of the efficient market hypothesis.</p>
+</li>
+<li>
+<p>A number of anomalies have been documented that contradict the notion of market efficiency, including the size anomaly, the January anomaly, and the winners–losers anomalies. In most cases, however, contradictory evidence both supports and refutes the anomaly.</p>
+</li>
+<li>
+<p>Behavioral finance uses human psychology, such as behavioral biases, in an attempt to explain investment decisions. Whereas behavioral finance is helpful in understanding observed decisions, a market can still be considered efficient even if market participants exhibit seemingly irrational behaviors, such as herding.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Tính hiệu quả của một thị trường bị ảnh hưởng bởi số lượng người tham gia thị trường và độ sâu bao phủ của các nhà phân tích (<em>depth of analyst coverage</em>), tính sẵn có của thông tin, và các giới hạn đối với giao dịch.</p>
+</li>
+<li>
+<p>Có ba dạng thị trường hiệu quả, mỗi dạng dựa trên những gì được coi là thông tin được sử dụng trong việc xác định giá tài sản.Ở dạng yếu (<em>weak form</em>), giá tài sản phản ánh đầy đủ tất cả dữ liệu thị trường, tức là đề cập đến tất cả các thông tin về giá và khối lượng giao dịch trong quá khứ. Ở dạng bán mạnh (<em>semi-strong form</em>), giá tài sản phản ánh tất cả các thông tin đã được công chúng biết đến và hiện có sẵn. Ở dạng mạnh (<em>strong form</em>), giá tài sản phản ánh đầy đủ mọi thông tin, bao gồm cả thông tin đại chúng và thông tin nội bộ/tư nhân.</p>
+</li>
+<li>
+<p>Giá trị nội tại (<em>Intrinsic value</em>) đề cập đến giá trị thực của một tài sản, trong khi giá trị thị trường (<em>market value</em>) đề cập đến mức giá mà tại đó một tài sản có thể được mua hoặc bán. Khi các thị trường là hiệu quả, hai giá trị này phải bằng nhau hoặc rất gần nhau. Nhưng khi các thị trường không hiệu quả, hai giá trị này có thể phân kỳ đáng kể.</p>
+</li>
+<li>
+<p>Hầu hết các bằng chứng thực nghiệm đều ủng hộ ý tưởng rằng các thị trường chứng khoán tại các quốc gia phát triển có hiệu quả dạng bán mạnh; tuy nhiên, bằng chứng thực nghiệm không ủng hộ dạng mạnh của giả thuyết thị trường hiệu quả.</p>
+</li>
+<li>
+<p>Một số bất thường đã được ghi nhận đi ngược lại khái niệm hiệu quả thị trường, bao gồm bất thường quy mô (<em>size anomaly</em>), bất thường tháng Giêng (<em>January anomaly</em>), và các bất thường người chiến thắng–kẻ thua cuộc (<em>winners–losers anomalies</em>). Tuy nhiên, trong hầu hết các trường hợp, các bằng chứng trái chiều vừa ủng hộ vừa bác bỏ bất thường đó.</p>
+</li>
+<li>
+<p>Tài chính hành vi sử dụng tâm lý học con người, chẳng hạn như các thiên lệch hành vi, nhằm cố gắng giải thích các quyết định đầu tư. Trong khi tài chính hành vi rất hữu ích trong việc thấu hiểu các quyết định quan sát được, một thị trường vẫn có thể được coi là hiệu quả ngay cả khi những người tham gia thị trường thể hiện các hành vi có vẻ phi lý trí, chẳng hạn như hiệu ứng bầy đàn (<em>herding</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-160" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 160 / Trang PDF 160
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~REFERENCES~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>TÀI LIỆU THAM KHẢO (REFERENCES)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Alexander, John C., Delbert Goff, and Pamela P. Peterson. 1989. “Profitability of a Trading Strategy Based on Unexpected Earnings.” <em>Financial Analysts Journal</em> 45, vol. , no. 4:65–71. 10.2469/faj.v45.n4.65</p>
+<p>Bessembinder, Hendrik and Kalok Chan. 1998. “Market Efficiency and the Returns to Technical Analysis.” <em>Financial Management</em> 27, vol. , no. 2:5–17. 10.2307/3666289</p>
+<p>Bikhchandani, Sushil, David Hirshleifer, and Ivo Welch. 1992. “A Theory of Fads, Fashion, Custom, and Cultural Change as Informational Cascades.” <em>Journal of Political Economy</em> 100, vol. , no. 5:992–1026. 10.1086/261849</p>
+<ul>
+<li>
+<p>Brav, Alon, Christopher Geczy, and Paul A. Gompers. 1995. “The Long-Run Underperformance of Seasoned Equity Offerings Revisited.” Working paper, Harvard University.</p>
+</li>
+<li>
+<p>Brealey, Richard. 1983. “Can Professional Investors Beat the Market?” <em>An Introduction to Risk and Return from Common Stocks</em> , 2nd edition. Cambridge, MA: MIT Press.</p>
+</li>
+<li>
+<p>Bris, Arturo, William N. Goetzmann, and Ning Zhu. 2009. “Efficiency and the Bear: Short Sales and Markets around the World.” <em>Journal of Finance</em> 62, vol. , no. 3:1029–1079. 10.1111/j.154 0-6261.2007.01230.x</p>
+</li>
+<li>
+<p>Brown, Laurence D. 1997. “Earning Surprise Research: Synthesis and Perspectives.” <em>Financial Analysts Journal</em> 53, vol. , no. 2:13–19. 10.2469/faj.v53.n2.2067</p>
+</li>
+<li>
+<p>Capaul, Carlo, Ian Rowley, and William Sharpe. 1993. “International Value and Growth Stock Returns.” <em>Financial Analysts Journal</em> 49, vol. :27–36. 10.2469/faj.v49.n1.27</p>
+</li>
+<li>
+<p>Chen, Kong-Jun and Xiao-Ming Li. 2006. “Is Technical Analysis Useful for Stock Traders in China? Evidence from the Szse Component A-Share Index.” <em>Pacific Economic Review</em> 11, vol. , no. 4:477–488. 10.1111/j.1468-0106.2006.00329.x</p>
+</li>
+<li>
+<p>Chordia, Tarun, Richard Roll, and Avanidhar Subrahmanyam. 2005. “Evidence on the Speed of Convergence to Market Efficiency.” <em>Journal of Financial Economics</em> 76, vol. , no. 2:271–292. 10.1016/j.jfineco.2004.06.004</p>
+</li>
+<li>
+<p>DeBondt, Werner and Richard Thaler. 1985. “Does the Stock Market Overreact?” <em>Journal of Finance</em> 40, vol. , no. 3:793–808. 10.2307/2327804</p>
+</li>
+<li>
+<p>Deng, Xiaohu, Sandra Mortal, and Vishal Gupta. 2017. “The Real Effects of Short Selling Constraints: Cross-Country Evidence.” Working paper.</p>
+</li>
+<li>
+<p>Dimson, Elroy and Carolina Minio-Kozerski. 1999. “Closed-End Funds: A Survey.” <em>Financial Markets, Institutions &amp; Instruments</em> 8, vol. , no. 2:1–41. 10.1111/1468-0416.00027</p>
+</li>
+<li>
+<p>Fama, Eugene F. 1970. “Efficient Capital Markets: A Review of Theory and Empirical Work.” <em>Journal of Finance</em> 25, vol. , no. 2:383–417. 10.2307/2325486</p>
+</li>
+<li>
+<p>Fama, Eugene F. 1976. <em>Foundations of Finance</em> . New York: Basic Books.</p>
+</li>
+<li>
+<p>Fama, Eugene F. 1998. “Market Efficiency, Long-Term Returns, and Behavioral Finance.” <em>Journal of Financial Economics</em> 50, vol. , no. 3:283–306. 10.1016/S0304-405X(98)00026-9</p>
+</li>
+<li>
+<p>Fama, Eugene F. and Kenneth R. French. 1988. “Dividend Yields and Expected Stock Returns.” <em>Journal of Financial Economics</em> 22, vol. , no. 1:3–25. 10.1016/0304-405X(88)90020-7</p>
+</li>
+<li>
+<p>Fama, Eugene F. and Kenneth R. French. 1995. “Size and Book-to-Market Factors in Earnings and Returns.” <em>Journal of Finance</em> 50, vol. , no. 1:131–155. 10.2307/2329241</p>
+</li>
+<li>
+<p>Fama, Eugene F. and Kenneth R. French. 1998. “Value versus Growth: The International Evidence.” <em>Journal of Finance</em> 53, vol. :1975–1999. 10.1111/0022-1082.00080</p>
+</li>
+<li>
+<p>Fama, Eugene F. and Kenneth R. French. 2008. “Dissecting Anomalies.” <em>Journal of Finance</em> 63, vol. , no. 4:1653–1678. 10.1111/j.1540-6261.2008.01371.x</p>
+</li>
+<li>
+<p>Grossman, Sanford J. and Joseph E. Stiglitz. 1980. “On the Impossibility of Informationally Efficient Markets.” <em>American Economic Review</em> 70, vol. , no. 3:393–408.</p>
+</li>
+<li>
+<p>Hirshleifer, David. 2001. “Investor Psychology and Asset Pricing.” <em>Journal of Finance</em> 56, vol. , no. 4:1533–1597. 10.1111/0022-1082.00379</p>
+</li>
+<li>
+<p>Hirshleifer, David and Siew Hong Teoh. 2009. “Thought and Behavior Contagion in Capital Markets.” In <em>Handbook of Financial Markets: Dynamics and Evolution</em> . Edited by Klaus Reiner Schenk-Hoppe and Thorstein Hens. Amsterdam: North Holland.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Alexander, John C., Delbert Goff, and Pamela P. Peterson. 1989. “Profitability of a Trading Strategy Based on Unexpected Earnings.” <em>Financial Analysts Journal</em> 45, vol. , no. 4:65–71. 10.2469/faj.v45.n4.65</p>
+</li>
+<li>
+<p>Bessembinder, Hendrik and Kalok Chan. 1998. “Market Efficiency and the Returns to Technical Analysis.” <em>Financial Management</em> 27, vol. , no. 2:5–17. 10.2307/3666289</p>
+</li>
+<li>
+<p>Bikhchandani, Sushil, David Hirshleifer, and Ivo Welch. 1992. “A Theory of Fads, Fashion, Custom, and Cultural Change as Informational Cascades.” <em>Journal of Political Economy</em> 100, vol. , no. 5:992–1026. 10.1086/261849</p>
+</li>
+<li>
+<p>Brav, Alon, Christopher Geczy, and Paul A. Gompers. 1995. “The Long-Run Underperformance of Seasoned Equity Offerings Revisited.” Working paper, Harvard University.</p>
+</li>
+<li>
+<p>Brealey, Richard. 1983. “Can Professional Investors Beat the Market?” <em>An Introduction to Risk and Return from Common Stocks</em> , 2nd edition. Cambridge, MA: MIT Press.</p>
+</li>
+<li>
+<p>Bris, Arturo, William N. Goetzmann, and Ning Zhu. 2009. “Efficiency and the Bear: Short Sales and Markets around the World.” <em>Journal of Finance</em> 62, vol. , no. 3:1029–1079. 10.1111/j.154 0-6261.2007.01230.x</p>
+</li>
+<li>
+<p>Brown, Laurence D. 1997. “Earning Surprise Research: Synthesis and Perspectives.” <em>Financial Analysts Journal</em> 53, vol. , no. 2:13–19. 10.2469/faj.v53.n2.2067</p>
+</li>
+<li>
+<p>Capaul, Carlo, Ian Rowley, and William Sharpe. 1993. “International Value and Growth Stock Returns.” <em>Financial Analysts Journal</em> 49, vol. :27–36. 10.2469/faj.v49.n1.27</p>
+</li>
+<li>
+<p>Chen, Kong-Jun and Xiao-Ming Li. 2006. “Is Technical Analysis Useful for Stock Traders in China? Evidence from the Szse Component A-Share Index.” <em>Pacific Economic Review</em> 11, vol. , no. 4:477–488. 10.1111/j.1468-0106.2006.00329.x</p>
+</li>
+<li>
+<p>Chordia, Tarun, Richard Roll, and Avanidhar Subrahmanyam. 2005. “Evidence on the Speed of Convergence to Market Efficiency.” <em>Journal of Financial Economics</em> 76, vol. , no. 2:271–292. 10.1016/j.jfineco.2004.06.004</p>
+</li>
+<li>
+<p>DeBondt, Werner and Richard Thaler. 1985. “Does the Stock Market Overreact?” <em>Journal of Finance</em> 40, vol. , no. 3:793–808. 10.2307/2327804</p>
+</li>
+<li>
+<p>Deng, Xiaohu, Sandra Mortal, and Vishal Gupta. 2017. “The Real Effects of Short Selling Constraints: Cross-Country Evidence.” Working paper.</p>
+</li>
+<li>
+<p>Dimson, Elroy and Carolina Minio-Kozerski. 1999. “Closed-End Funds: A Survey.” <em>Financial Markets, Institutions &amp; Instruments</em> 8, vol. , no. 2:1–41. 10.1111/1468-0416.00027</p>
+</li>
+<li>
+<p>Fama, Eugene F. 1970. “Efficient Capital Markets: A Review of Theory and Empirical Work.” <em>Journal of Finance</em> 25, vol. , no. 2:383–417. 10.2307/2325486</p>
+</li>
+<li>
+<p>Fama, Eugene F. 1976. <em>Foundations of Finance</em> . New York: Basic Books.</p>
+</li>
+<li>
+<p>Fama, Eugene F. 1998. “Market Efficiency, Long-Term Returns, and Behavioral Finance.” <em>Journal of Financial Economics</em> 50, vol. , no. 3:283–306. 10.1016/S0304-405X(98)00026-9</p>
+</li>
+<li>
+<p>Fama, Eugene F. and Kenneth R. French. 1988. “Dividend Yields and Expected Stock Returns.” <em>Journal of Financial Economics</em> 22, vol. , no. 1:3–25. 10.1016/0304-405X(88)90020-7</p>
+</li>
+<li>
+<p>Fama, Eugene F. and Kenneth R. French. 1995. “Size and Book-to-Market Factors in Earnings and Returns.” <em>Journal of Finance</em> 50, vol. , no. 1:131–155. 10.2307/2329241</p>
+</li>
+<li>
+<p>Fama, Eugene F. and Kenneth R. French. 1998. “Value versus Growth: The International Evidence.” <em>Journal of Finance</em> 53, vol. :1975–1999. 10.1111/0022-1082.00080</p>
+</li>
+<li>
+<p>Fama, Eugene F. and Kenneth R. French. 2008. “Dissecting Anomalies.” <em>Journal of Finance</em> 63, vol. , no. 4:1653–1678. 10.1111/j.1540-6261.2008.01371.x</p>
+</li>
+<li>
+<p>Grossman, Sanford J. and Joseph E. Stiglitz. 1980. “On the Impossibility of Informationally Efficient Markets.” <em>American Economic Review</em> 70, vol. , no. 3:393–408.</p>
+</li>
+<li>
+<p>Hirshleifer, David. 2001. “Investor Psychology and Asset Pricing.” <em>Journal of Finance</em> 56, vol. , no. 4:1533–1597. 10.1111/0022-1082.00379</p>
+</li>
+<li>
+<p>Hirshleifer, David and Siew Hong Teoh. 2009. “Thought and Behavior Contagion in Capital Markets.” In <em>Handbook of Financial Markets: Dynamics and Evolution</em> . Edited by Klaus Reiner Schenk-Hoppe and Thorstein Hens. Amsterdam: North Holland.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-161" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 161 / Trang PDF 161
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Jacobs, Bruce I. and Kenneth N. Levy. 1988. “Calendar Anomalies: Abnormal Returns at Calendar Turning Points.” <em>Financial Analysts Journal</em> 44, vol. , no. 6:28–39. 10.2469/faj.v44. n6.28</p>
+</li>
+<li>
+<p>Jaffe, Jeffrey. 1974. “Special Information and Insider Trading.” <em>Journal of Business</em> 47, vol. , no. 3:410–428. 10.1086/295655</p>
+</li>
+<li>
+<p>Jegadeesh, Narayan and Sheridan Titman. 2001. “Profitability of Momentum Strategies: An Evaluation of Alternative Explanations.” <em>Journal of Finance</em> 56, vol. :699–720. 10.1111/0022-1082.00342</p>
+</li>
+<li>
+<p>Johnson, Timothy C. 2002. “Rational Momentum Effects.” <em>Journal of Finance</em> 57, vol. , no. 2:585–608. 10.1111/1540-6261.00435</p>
+</li>
+<li>
+<p>Kim, Donchoi and Myungsun Kim. 2003. “A Multifactor Explanation of Post-Earnings Announcement Drift.” <em>Journal of Financial and Quantitative Analysis</em> 38, vol. , no. 2:383–398. 10.2307/4126756</p>
+</li>
+<li>
+<p>Kim, Dongcheol. 2006. “On the Information Uncertainty Risk and the January Effect.” <em>Journal of Business</em> 79, vol. , no. 4:2127–2162. 10.1086/503659</p>
+</li>
+<li>
+<p>Lee, Charles M.C., Andrei Sheifer, and Richard H. Thaler. 1990. “Anomalies: Closed-End Mutual Funds.” <em>Journal of Economic Perspectives</em> 4, vol. , no. 4:153–164.</p>
+</li>
+<li>
+<p>Malkiel, Burton G. 1995. “Returns from Investing in Equity Mutual Funds 1971 to 1991.” <em>Journal of Finance</em> 50, vol. :549–572. 10.2307/2329419</p>
+</li>
+<li>
+<p>Mobarek, Asma, A. Sabur Mollah, and Rafiqul Bhuyan. 2008. “Market Efficiency in Emerging Stock Market.” <em>Journal of Emerging Market Finance</em> 7, no. 1:17–41. 10.1177/097265270700700102</p>
+</li>
+<li>
+<p>Pontiff, Jeffrey. 1995. “Closed-End Fund Premia and Returns: Implications for Financial Market Equilibrium.” <em>Journal of Financial Economics</em> 37, 341–370. 10.1016/0304-405X(94)00800-G</p>
+</li>
+<li>
+<p>Pontiff, Jeffrey. 1996. “Costly Arbitrage: Evidence from Closed-End Funds.” <em>Quarterly Journal of Economics</em> 111, vol. , no. 4:1135–1151. 10.2307/2946710</p>
+</li>
+<li>
+<p>Roll, Richard. 1983. “On Computing Mean Returns and the Small Firm Premium.” <em>Journal of Financial Economics</em> 12, vol. :371–386. 10.1016/0304-405X(83)90055-7</p>
+</li>
+<li>
+<p>Rozeff, Michael S. and Mir A. Zaman. 1988. “Market Efficiency and Insider Trading: New Evidence.” <em>Journal of Business</em> 61, vol. :25–44. 10.1086/296418</p>
+</li>
+<li>
+<p>Schwert, G. William. 2003. “Anomalies and Market Efficiency.” <em>Handbook of the Economics of Finance</em> . Edited by George M. Constantinides, M. Harris, and Rene Stulz. Amsterdam: Elsevier Science, B. V.</p>
+</li>
+<li>
+<p>Scott, James, Margaret Stumpp, and Peter Xu. 2003. “Overconfidence Bias in International Stock Prices.” <em>Journal of Portfolio Management</em> 29, vol. , no. 2:80–89. 10.3905/jpm.2003.319875</p>
+</li>
+<li>
+<p>Tversky, Amos and Daniel Kahneman. 1981. “The Framing of Decisions and the Psychology of Choice.” <em>Science</em> 211, vol. , no. 30:453–458. 10.1126/science.7455683</p>
+</li>
+<li>
+<p>Yau, Jot, Thomas Schneeweis, Thomas Robinson, and Lisa Weiss. 2007. “Alternative Investments Portfolio Management.” <em>Managing Investment Portfolios: A Dynamic Process</em> . Hoboken, NJ: John Wiley &amp; Sons.</p>
+</li>
+<li>
+<p>Zarowin, P. 1989. “Does the Stock Market Overreact to Corporate Earnings Information?” <em>Journal of Finance</em> 44, vol. :1385–1399. 10.2307/2328649</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Jacobs, Bruce I. and Kenneth N. Levy. 1988. “Calendar Anomalies: Abnormal Returns at Calendar Turning Points.” <em>Financial Analysts Journal</em> 44, vol. , no. 6:28–39. 10.2469/faj.v44. n6.28</p>
+</li>
+<li>
+<p>Jaffe, Jeffrey. 1974. “Special Information and Insider Trading.” <em>Journal of Business</em> 47, vol. , no. 3:410–428. 10.1086/295655</p>
+</li>
+<li>
+<p>Jegadeesh, Narayan and Sheridan Titman. 2001. “Profitability of Momentum Strategies: An Evaluation of Alternative Explanations.” <em>Journal of Finance</em> 56, vol. :699–720. 10.1111/0022-1082.00342</p>
+</li>
+<li>
+<p>Johnson, Timothy C. 2002. “Rational Momentum Effects.” <em>Journal of Finance</em> 57, vol. , no. 2:585–608. 10.1111/1540-6261.00435</p>
+</li>
+<li>
+<p>Kim, Donchoi and Myungsun Kim. 2003. “A Multifactor Explanation of Post-Earnings Announcement Drift.” <em>Journal of Financial and Quantitative Analysis</em> 38, vol. , no. 2:383–398. 10.2307/4126756</p>
+</li>
+<li>
+<p>Kim, Dongcheol. 2006. “On the Information Uncertainty Risk and the January Effect.” <em>Journal of Business</em> 79, vol. , no. 4:2127–2162. 10.1086/503659</p>
+</li>
+<li>
+<p>Lee, Charles M.C., Andrei Sheifer, and Richard H. Thaler. 1990. “Anomalies: Closed-End Mutual Funds.” <em>Journal of Economic Perspectives</em> 4, vol. , no. 4:153–164.</p>
+</li>
+<li>
+<p>Malkiel, Burton G. 1995. “Returns from Investing in Equity Mutual Funds 1971 to 1991.” <em>Journal of Finance</em> 50, vol. :549–572. 10.2307/2329419</p>
+</li>
+<li>
+<p>Mobarek, Asma, A. Sabur Mollah, and Rafiqul Bhuyan. 2008. “Market Efficiency in Emerging Stock Market.” <em>Journal of Emerging Market Finance</em> 7, no. 1:17–41. 10.1177/097265270700700102</p>
+</li>
+<li>
+<p>Pontiff, Jeffrey. 1995. “Closed-End Fund Premia and Returns: Implications for Financial Market Equilibrium.” <em>Journal of Financial Economics</em> 37, 341–370. 10.1016/0304-405X(94)00800-G</p>
+</li>
+<li>
+<p>Pontiff, Jeffrey. 1996. “Costly Arbitrage: Evidence from Closed-End Funds.” <em>Quarterly Journal of Economics</em> 111, vol. , no. 4:1135–1151. 10.2307/2946710</p>
+</li>
+<li>
+<p>Roll, Richard. 1983. “On Computing Mean Returns and the Small Firm Premium.” <em>Journal of Financial Economics</em> 12, vol. :371–386. 10.1016/0304-405X(83)90055-7</p>
+</li>
+<li>
+<p>Rozeff, Michael S. and Mir A. Zaman. 1988. “Market Efficiency and Insider Trading: New Evidence.” <em>Journal of Business</em> 61, vol. :25–44. 10.1086/296418</p>
+</li>
+<li>
+<p>Schwert, G. William. 2003. “Anomalies and Market Efficiency.” <em>Handbook of the Economics of Finance</em> . Edited by George M. Constantinides, M. Harris, and Rene Stulz. Amsterdam: Elsevier Science, B. V.</p>
+</li>
+<li>
+<p>Scott, James, Margaret Stumpp, and Peter Xu. 2003. “Overconfidence Bias in International Stock Prices.” <em>Journal of Portfolio Management</em> 29, vol. , no. 2:80–89. 10.3905/jpm.2003.319875</p>
+</li>
+<li>
+<p>Tversky, Amos and Daniel Kahneman. 1981. “The Framing of Decisions and the Psychology of Choice.” <em>Science</em> 211, vol. , no. 30:453–458. 10.1126/science.7455683</p>
+</li>
+<li>
+<p>Yau, Jot, Thomas Schneeweis, Thomas Robinson, and Lisa Weiss. 2007. “Alternative Investments Portfolio Management.” <em>Managing Investment Portfolios: A Dynamic Process</em> . Hoboken, NJ: John Wiley &amp; Sons.</p>
+</li>
+<li>
+<p>Zarowin, P. 1989. “Does the Stock Market Overreact to Corporate Earnings Information?” <em>Journal of Finance</em> 44, vol. :1385–1399. 10.2307/2328649</p>
+</li>
+</ul></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM03_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM03_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 5</a>
+      <a href="LM03_Part3_Practice_Problems.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM03_Part3_Practice_Problems →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('05_Equity_Investments/LM03_Part2_Market_Pricing_Anomalies_Time_Series_and_Cros.html');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 12 Introduction to Financial Statement Modeling - Part 3: Modeling Inflation and Deflation — Volume 4: Financial Statement Analysis | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 4: Phân Tích Báo Cáo Tài Chính
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 12 Introduction to Financial Statement Modeling - Part 3: Modeling Inflation and Deflation</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM12_Full_Introduction_to_Financial_Statement_Modeling.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (15 trang)...</option>
+          <option value="490">PDF Page 490</option>
+<option value="491">PDF Page 491</option>
+<option value="492">PDF Page 492</option>
+<option value="493">PDF Page 493</option>
+<option value="494">PDF Page 494</option>
+<option value="495">PDF Page 495</option>
+<option value="496">PDF Page 496</option>
+<option value="497">PDF Page 497</option>
+<option value="498">PDF Page 498</option>
+<option value="499">PDF Page 499</option>
+<option value="500">PDF Page 500</option>
+<option value="501">PDF Page 501</option>
+<option value="502">PDF Page 502</option>
+<option value="503">PDF Page 503</option>
+<option value="504">PDF Page 504</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 4</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Phân Tích Báo Cáo Tài Chính</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 4</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Introduction_to_Financial_Statement_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Introduction to Financial Statement Analysis</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Regulated_Sources_of_Information.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Regulated Sources of Information</a>
+<a href="LM01_Part3_Comparison_of_IFRS_with_Alternative_Financial.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Comparison of IFRS with Alternative Financial Reporting Systems</a>
+<a href="LM02_Full_Analyzing_Income_Statements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Analyzing Income Statements</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Expense_Recognition.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Expense Recognition</a>
+<a href="LM02_Part3_Non_Recurring_Items.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Non-Recurring Items</a>
+<a href="LM02_Part4_Income_Statement_Ratios_and_Common_Size_Analy.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Income Statement Ratios and Common-Size Analysis</a>
+<a href="LM03_Full_Analyzing_Balance_Sheets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Analyzing Balance Sheets</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Ratios_and_Common_Size_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Ratios and Common-Size Analysis</a>
+<a href="LM04_Full_Analyzing_Statements_of_Cash_Flows_I.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Analyzing Statements of Cash Flows I</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_The_Indirect_Method_for_Cash_Flows_from_Opera.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Indirect Method for Cash Flows from Operating Activities</a>
+<a href="LM04_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM05_Full_Analyzing_Statements_of_Cash_Flows_II.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Analyzing Statements of Cash Flows II</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM06_Full_Analysis_of_Inventories.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Analysis of Inventories</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Presentation_and_Disclosure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Presentation and Disclosure</a>
+<a href="LM06_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM06_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM07_Full_Analysis_of_Long_Term_Assets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Analysis of Long-Term Assets</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Presentation_and_Disclosure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Presentation and Disclosure</a>
+<a href="LM07_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM08_Full_Topics_in_Long_Term_Liabilities_and_Equity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Topics in Long-Term Liabilities and Equity</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Financial_Reporting_for_Postemployment_and_Sh.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Reporting for Postemployment and Share-Based Compensation Plans</a>
+<a href="LM08_Part3_Presentation_and_Disclosure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Presentation and Disclosure</a>
+<a href="LM09_Full_Analysis_of_Income_Taxes.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Analysis of Income Taxes</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Corporate_Income_Tax_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Corporate Income Tax Rates</a>
+<a href="LM09_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM10_Full_Financial_Reporting_Quality.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Financial Reporting Quality</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Differentiate_between_Conservative_and_Aggres.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Differentiate between Conservative and Aggressive Accounting</a>
+<a href="LM10_Part3_Detection_of_Financial_Reporting_Quality_Issu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Detection of Financial Reporting Quality Issues: Introduction and Presentation Choices</a>
+<a href="LM10_Part4_Accounting_Choices_and_Estimates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Accounting Choices and Estimates</a>
+<a href="LM10_Part5_Accounting_Choices_that_Affect_Financial_Repo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Accounting Choices that Affect Financial Reporting</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full_Financial_Analysis_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Financial Analysis Techniques</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Cross_Sectional_Trend_Analysis_and_Relationsh.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Cross-Sectional, Trend Analysis, and Relationships in Financial Statements</a>
+<a href="LM11_Part3_Liquidity_Ratios.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Liquidity Ratios</a>
+<a href="LM11_Part4_DuPont_Analysis_The_Decomposition_of_ROE.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: DuPont Analysis—The Decomposition of ROE</a>
+<a href="LM11_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM12_Full_Introduction_to_Financial_Statement_Modeling.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Introduction to Financial Statement Modeling</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Behavioral_Finance_and_Analyst_Forecasts.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Behavioral Finance and Analyst Forecasts</a>
+<a href="LM12_Part3_Modeling_Inflation_and_Deflation.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 3: Modeling Inflation and Deflation</a>
+<a href="LM12_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 4 • Financial Statement Analysis (Phân Tích Báo Cáo Tài Chính)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 12 Introduction to Financial Statement Modeling - Part 3: Modeling Inflation and Deflation</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('04_Financial_Statement_Analysis/LM12_Part3_Modeling_Inflation_and_Deflation.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 4: Financial Statement Analysis</h1>
+<h2>Learning Module 12 Introduction to Financial Statement Modeling</h2>
+<h3>Part 3/4: Modeling Inflation and Deflation (PDF Pages 490–504)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 4: Phân tích Báo cáo Tài chính (Volume 4: Financial Statement Analysis)</h1>
+<h2>Học phần 12: Giới thiệu về Lập mô hình Báo cáo Tài chính (Learning Module 12: Introduction to Financial Statement Modeling)</h2>
+<h3>Phần 3/4: Lập mô hình Lạm phát và Giảm phát (Modeling Inflation and Deflation) (Trang PDF 490–504)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-490" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 490 / Trang PDF 490
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>in the industry. But there is no mechanical link between the analysts’ observations and projecting the company’s future sales growth and profit margin. Instead, the link is more subjective and probabilistic.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong ngành. Nhưng không có một mối liên kết cơ học cứng nhắc nào giữa những quan sát của chuyên gia phân tích và việc phóng chiếu tốc độ tăng trưởng doanh thu cũng như biên lợi nhuận trong tương lai của công ty. Thay vào đó, mối liên kết này mang tính chủ quan và xác suất nhiều hơn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>5</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>5</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>MODELING INFLATION AND DEFLATION</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>LẬP MÔ HÌNH LẠM PHÁT VÀ GIẢM PHÁT (MODELING INFLATION AND DEFLATION)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain how to forecast industry and company sales and costs when they are subject to price inflation or deflation</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích cách thức dự báo doanh thu và chi phí của ngành và công ty khi chúng chịu tác động của lạm phát hoặc giảm phát giá cả</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Inflation and deflation (i.e., general increase and decrease in the prices of goods and services) can significantly affect the accuracy of forecasts for a company’s future revenue, profit, and cash flow. The impact of inflation or deflation on revenue and expenses differs from company to company. Even within a single company, the impact of inflation or deflation is generally different for revenue and expenses categories.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lạm phát và giảm phát (<em>Inflation and deflation</em> — tức sự gia tăng và sụt giảm chung của mức giá hàng hóa và dịch vụ) có thể ảnh hưởng đáng kể đến độ chính xác của các dự báo về doanh thu, lợi nhuận, và dòng tiền trong tương lai của một công ty. Tác động của lạm phát hoặc giảm phát lên doanh thu và chi phí khác nhau tùy theo từng công ty. Ngay cả trong nội bộ một công ty duy nhất, tác động của lạm phát hoặc giảm phát nhìn chung cũng khác nhau đối với từng nhóm doanh thu và chi phí.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Some companies are better able to pass on higher input costs by raising the prices at which they sell their output. The ability to pass on price increases can be the result of, for example, strong branding (Coca-Cola) or proprietary technology (Apple). Companies that are well positioned to pass on price increases are, in turn, more likely to have higher and more stable profits and cash flow, relative to competitors. We first consider the impact of inflation on sales and then on costs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một số công ty có khả năng tốt hơn trong việc chuyển phần chi phí đầu vào cao hơn sang cho khách hàng bằng cách tăng mức giá bán sản phẩm đầu ra của mình. Khả năng chuyển tiếp mức tăng giá (<em>pass on price increases</em>) có thể là kết quả của, chẳng hạn như, thương hiệu mạnh (Coca-Cola) hoặc công nghệ độc quyền (Apple). Những công ty có vị thế tốt để chuyển tiếp mức tăng giá đến lượt mình lại có nhiều khả năng đạt được lợi nhuận và dòng tiền cao hơn cũng như ổn định hơn so với các đối thủ cạnh tranh. Trước tiên chúng ta xem xét tác động của lạm phát lên doanh thu và sau đó là lên chi phí.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Sales Projections with Inflation and Deflation</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Phóng chiếu Doanh thu khi Có Lạm phát và Giảm phát (Sales Projections with Inflation and Deflation)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The following analysis addresses the projection of industry sales and company sales in the presence of inflation.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phân tích dưới đây giải quyết việc phóng chiếu doanh thu của ngành và doanh thu của công ty khi có sự hiện diện của lạm phát.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><em>Industry Sales and Inflation or Deflation</em></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><em>Doanh thu Ngành và Lạm phát hoặc Giảm phát (Industry Sales and Inflation or Deflation)</em></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Most increases in the cost of inputs, such as commodities or labor, will eventually result in higher prices for end products. Industry structure can be an important factor in determining the relationship between increases in input costs and increases in the price of end products. For example, in the United States, the beer market is an oligopoly, with one player, AB InBev, controlling almost half of the market. Moreover, the three-tier structure of the US beer market, in which the producers (the brewers) must use a third party (the wholesalers) to get their products (beer) to the consumers (bars, restaurants, and retailers) results in a fragmented customer base because brewers are not allowed to deliver directly to the end consumer but rather must use wholesale distributors. These wholesalers often differ state by state. Large nationwide retailers, such as Walmart, still must negotiate with several different wholesalers instead of using their dominant national market position to negotiate directly with the brewers. The industry structure in the United States has likely contributed to increases in beer prices roughly in line with the US Consumer Price Index. In other words, beer prices have generally risen during years of inflation in input costs and decreased when costs have eased (though there have been brief exceptional periods where the opposite has occurred). If necessary, US brewers have been able to increase prices to compensate for costs of inflation. In contrast, European beer companies distribute through a more concentrated customer base—namely, such dominant retail outlets as Carrefour, Tesco, and Ahold—which results in a weaker pricing position for the brewers. Also, the European market lacks an overall dominant brewer. As a result of the industry structure and the lack of underlying volume growth, changes in beer prices in Europe have been on average 100 bps less than customer inflation.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hầu hết sự gia tăng chi phí đầu vào, chẳng hạn như hàng hóa nguyên liệu hoặc nhân công, rốt cuộc sẽ dẫn đến mức giá cao hơn đối với các sản phẩm cuối cùng. Cấu trúc ngành có thể là một nhân tố quan trọng trong việc quyết định mối quan hệ giữa sự gia tăng chi phí đầu vào và sự gia tăng giá bán của các sản phẩm cuối cùng. Ví dụ, tại Hoa Kỳ, thị trường bia là một thị trường độc quyền nhóm (<em>oligopoly</em>), với một doanh nghiệp là AB InBev kiểm soát gần một nửa thị trường. Hơn nữa, cấu trúc ba tầng (<em>three-tier structure</em>) của thị trường bia Hoa Kỳ, trong đó các nhà sản xuất (các hãng bia) bắt buộc phải sử dụng một bên thứ ba (các nhà bán buôn – <em>wholesalers</em>) để đưa sản phẩm (bia) của mình đến tay khách hàng tiêu thụ (các quán bar, nhà hàng, và nhà bán lẻ), dẫn đến một tập khách hàng phân mảnh bởi vì các hãng bia không được phép giao hàng trực tiếp cho người tiêu dùng cuối cùng mà phải thông qua các nhà phân phối bán buôn. Các nhà bán buôn này thường khác nhau tùy theo từng tiểu bang. Các nhà bán lẻ lớn trên toàn quốc, chẳng hạn như Walmart, vẫn phải đàm phán với nhiều nhà bán buôn khác nhau thay vì sử dụng vị thế thống lĩnh thị trường toàn quốc của mình để đàm phán trực tiếp với các hãng bia. Cấu trúc ngành tại Hoa Kỳ nhiều khả năng đã góp phần giúp giá bia tăng lên gần như tương ứng với Chỉ số Giá Tiêu dùng (<em>Consumer Price Index</em> – CPI) của Hoa Kỳ. Nói cách khác, giá bia nhìn chung đã tăng lên trong những năm có lạm phát chi phí đầu vào và giảm xuống khi chi phí dịu bớt (mặc dù có những giai đoạn ngoại lệ ngắn ngủi xảy ra điều ngược lại). Khi cần thiết, các hãng bia Hoa Kỳ đã có thể tăng giá bán để bù đắp cho chi phí lạm phát. Ngược lại, các công ty bia châu Âu phân phối thông qua một tập khách hàng tập trung hơn nhiều—cụ thể là các hệ thống bán lẻ thống lĩnh như Carrefour, Tesco, và Ahold—dẫn đến vị thế định giá yếu hơn cho các hãng bia. Ngoài ra, thị trường châu Âu cũng thiếu vắng một hãng bia thống lĩnh toàn diện. Do cấu trúc ngành và sự thiếu hụt tăng trưởng sản lượng cơ bản, mức thay đổi giá bia tại châu Âu trung bình thấp hơn 100 bps so với mức lạm phát tiêu dùng.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-491" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 491 / Trang PDF 491
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Exhibit 25: US General Inflation and Inflation in Beer Prices</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Bảng 25: Lạm phát Chung tại Hoa Kỳ và Lạm phát Giá Bia (Exhibit 25: US General Inflation and Inflation in Beer Prices)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Financial_Statement_Analysis.pdf-0491-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Financial_Statement_Analysis.pdf-0491-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Biểu đồ đường so sánh Lạm phát Giá Bia (<em>Beer Prices</em>) và Chỉ số Giá Tiêu dùng (<em>CPI</em>) tại Hoa Kỳ tính theo phần trăm (<em>Percent</em>, từ <span class="math-inline">$-6\%$</span> đến <span class="math-inline">$10\%$</span>) giai đoạn từ tháng 3/1995 đến tháng 3/2017.</p>
+</blockquote>
+<p><em>Nguồn:</em> Cục Thống kê Lao động Hoa Kỳ (<em>US Bureau of Labor Statistics</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Source:</em> US Bureau of Labor Statistics.</p>
+<p>A company’s efforts to pass on inflation through higher prices can have a negative impact on volume if the demand is price elastic, which is the case if cheaper substitutes are available. If selling prices could be increased 10 percent while maintaining unit sales volume to offset an increase of 10 percent in input costs, gross profit margin percentage would be the same but the absolute amount of gross profit would increase. In the short term, however, volumes will usually decline as result of a price increase. The decline would depend not only on the price elasticity of demand but also on the reaction of competitors and the availability of substitutes. Lower input costs also make lower consumer prices possible. The first competitor to lower prices will usually benefit with an uptick in volume. Competitors react quickly, however, resulting in a short-term benefit. The price–volume trade-off can make accurate revenue projections difficult. In an inflationary environment, raising prices too late will result in a profit margin squeeze but acting too soon could result in volume losses. In a deflationary environment, lowering prices too soon will result in a lower gross margin, but waiting too long will result in volume losses.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Những nỗ lực của một công ty nhằm chuyển tiếp lạm phát thông qua việc tăng giá bán có thể gây ra tác động tiêu cực đến sản lượng nếu cầu co giãn theo giá (<em>price elastic</em>), điều thường xảy ra nếu có sẵn các sản phẩm thay thế rẻ hơn. Nếu giá bán có thể tăng thêm 10% trong khi vẫn duy trì được sản lượng bán hàng tính theo đơn vị để bù đắp cho mức tăng 10% của chi phí đầu vào, thì tỷ lệ phần trăm biên lợi nhuận gộp sẽ giữ nguyên không đổi nhưng quy mô tuyệt đối của lợi nhuận gộp sẽ tăng lên. Tuy nhiên, trong ngắn hạn, sản lượng thường sẽ sụt giảm do việc tăng giá. Mức độ sụt giảm sẽ phụ thuộc không chỉ vào độ co giãn của cầu theo giá mà còn vào phản ứng của các đối thủ cạnh tranh và sự sẵn có của các sản phẩm thay thế. Chi phí đầu vào thấp hơn cũng giúp việc hạ giá bán cho người tiêu dùng trở nên khả thi. Đối thủ cạnh tranh đầu tiên hạ giá bán thường sẽ được hưởng lợi nhờ sự nhích lên về sản lượng. Tuy nhiên, các đối thủ cạnh tranh sẽ phản ứng rất nhanh chóng, khiến lợi ích này chỉ mang tính ngắn hạn. Sự đánh đổi giữa giá và sản lượng (<em>price–volume trade-off</em>) có thể làm cho việc phóng chiếu doanh thu chính xác trở nên khó khăn. Trong một môi trường lạm phát, việc tăng giá quá muộn sẽ dẫn đến tình trạng biên lợi nhuận bị thu hẹp (<em>profit margin squeeze</em>) nhưng hành động quá sớm lại có thể dẫn đến sụt giảm sản lượng. Trong một môi trường giảm phát, việc hạ giá quá sớm sẽ dẫn đến biên lợi nhuận gộp thấp hơn, nhưng chờ đợi quá lâu lại dẫn đến mất sản lượng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In the highly competitive consumer goods market, pricing is strongly influenced by movements in input prices, which can account for half of the COGS. In some time periods, customers’ price sensitivity has resulted in a strong inverse relationship between volume and pricing. For example, Exhibit 26 illustrates Unilever’s annual underlying volume and price growth from 2001 to 2020. Increased input prices for packaging, wheat, and milk forced Anglo-Dutch consumer staple company Unilever to increase prices for its products significantly in 2008. Consequently, volumes deteriorated. But as raw material prices fell in 2009–2010, the company’s prices were lowered and volumes recovered strongly. As the company started to increase prices in 2011, volume growth once again slowed. In 2016, the company faced challenging conditions in several emerging markets as currency-devaluation-led cost increases led to weaker volumes. Both volume and price growth have moderated to low-single digit growth rates, also exhibiting lower volatility.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong thị trường hàng tiêu dùng có tính cạnh tranh cao, việc định giá chịu ảnh hưởng mạnh mẽ bởi biến động giá đầu vào, vốn có thể chiếm tới một nửa giá vốn hàng bán (COGS). Trong một số giai đoạn thời gian, mức độ nhạy cảm về giá của khách hàng đã tạo ra mối quan hệ nghịch biến mạnh mẽ giữa sản lượng và giá bán. Ví dụ, Bảng 26 minh họa tốc độ tăng trưởng sản lượng và giá cơ sở hàng năm của Unilever từ năm 2001 đến năm 2020. Giá đầu vào tăng cao đối với bao bì, lúa mì, và sữa đã buộc công ty hàng tiêu dùng thiết yếu Anh–Hà Lan Unilever phải tăng mạnh giá bán các sản phẩm của mình vào năm 2008. Hậu quả là sản lượng đã xấu đi. Nhưng khi giá nguyên vật liệu thô giảm xuống vào giai đoạn 2009–2010, giá bán của công ty đã được hạ xuống và sản lượng phục hồi mạnh mẽ. Khi công ty bắt đầu tăng giá vào năm 2011, tốc độ tăng trưởng sản lượng một lần nữa lại chậm lại. Vào năm 2016, công ty phải đối mặt với những điều kiện đầy thách thức tại một số thị trường mới nổi khi chi phí tăng cao do phá giá tiền tệ đã dẫn đến sản lượng yếu hơn. Cả tốc độ tăng trưởng sản lượng và giá đều đã dịu xuống về mức tăng trưởng một chữ số thấp (<em>low-single digit</em>), đồng thời cũng thể hiện mức độ biến động thấp hơn.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-492" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 492 / Trang PDF 492
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Exhibit 26: Unilever Overall Revenue Growth by Percentage Change in Volume and Price</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Bảng 26: Tăng trưởng Doanh thu Tổng thể của Unilever theo Thay đổi Phần trăm về Sản lượng và Giá (Exhibit 26: Unilever Overall Revenue Growth by Percentage Change in Volume and Price)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Financial_Statement_Analysis.pdf-0492-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Financial_Statement_Analysis.pdf-0492-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Biểu đồ biến động phần trăm (<em>Percent</em>, từ <span class="math-inline">$-4\%$</span> đến <span class="math-inline">$10\%$</span>) của Giá (<em>Price</em>) và Sản lượng (<em>Volume</em>) của Unilever từ Quý 4/2007 (Q4/07) đến Quý 4/2017 (Q4/17).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Sources</em> : Unilever PLC filings.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Nguồn</em>: Các hồ sơ công bố thông tin của Unilever PLC.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><em>Company Sales and Inflation or Deflation</em></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><em>Doanh thu Công ty và Lạm phát hoặc Giảm phát (Company Sales and Inflation or Deflation)</em></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Revenue projections in a model are based on the expected volume and price development. Forecasting revenue for a company faced with inflation in input costs requires some understanding of the price elasticity of the products, the different rates of cost inflation in the countries where the company is active, and, if possible, the likely inflation in costs relevant to a company’s individual product categories. Pricing strategy and market position are also important.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các phóng chiếu doanh thu trong một mô hình được dựa trên diễn biến sản lượng và giá cả kỳ vọng. Việc dự báo doanh thu cho một công ty đang phải đối mặt với lạm phát chi phí đầu vào đòi hỏi phải có sự hiểu biết nhất định về độ co giãn của cầu theo giá đối với các sản phẩm, các mức tỷ lệ lạm phát chi phí khác nhau tại những quốc gia nơi công ty đang hoạt động, và nếu có thể, mức lạm phát chi phí có khả năng xảy ra liên quan đến từng danh mục sản phẩm riêng lẻ của công ty. Chiến lược định giá và vị thế thị trường cũng rất quan trọng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The impact of higher prices on volume depends on the price elasticity of demand (i.e., how the quantity demanded varies with price). If demand is relatively price inelastic, revenues will benefit from inflation. If demand is relatively price elastic (i.e., elasticity is greater than unit price elasticity), revenue can decline even if unit prices are raised. For example, a regression of volume on food inflation in UK food stores from 1989 to 2012 (shown in Exhibit 27) gives a regression slope coefficient of −0.398. (For every increase by 1 percentage point in year-on-year food prices, year-on-year sales decreased by approximately 0.4 percent.)</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tác động của mức giá cao hơn lên sản lượng phụ thuộc vào độ co giãn của cầu theo giá (<em>price elasticity of demand</em> — tức là lượng cầu biến đổi như thế nào theo giá). Nếu cầu tương đối không co giãn theo giá (<em>price inelastic</em>), doanh thu sẽ được hưởng lợi từ lạm phát. Nếu cầu tương đối co giãn theo giá (<em>price elastic</em> — tức độ co giãn lớn hơn độ co giãn đơn vị theo giá), doanh thu có thể sụt giảm ngay cả khi đơn giá bán được nâng lên. Ví dụ, một phép hồi quy sản lượng theo lạm phát thực phẩm tại các cửa hàng thực phẩm ở Vương quốc Anh từ năm 1989 đến năm 2012 (hiển thị trong Bảng 27) cho ra hệ số góc hồi quy (<em>regression slope coefficient</em>) là <span class="math-inline">$-0.398$</span>. (Với mỗi mức tăng 1 điểm phần trăm của giá thực phẩm so với cùng kỳ năm trước, doanh số bán hàng so với cùng kỳ năm trước giảm xấp xỉ 0.4%.)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An analyst covering UK food retailers can use this information when building forecast profit models. By assuming an expected level of food inflation, volume growth can be estimated and revenue calculated.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một chuyên gia phân tích theo dõi các nhà bán lẻ thực phẩm tại Vương quốc Anh có thể sử dụng thông tin này khi xây dựng các mô hình dự báo lợi nhuận. Bằng cách giả định một mức lạm phát thực phẩm kỳ vọng, tốc độ tăng trưởng sản lượng có thể được ước tính và từ đó tính ra được doanh thu.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-493" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 493 / Trang PDF 493
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Exhibit 27: UK Relationship between Food Inflation and Volume, January 1989–February 2012</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Bảng 27: Mối quan hệ tại Vương quốc Anh giữa Lạm phát Thực phẩm và Sản lượng, Tháng 1/1989–Tháng 2/2012 (Exhibit 27: UK Relationship between Food Inflation and Volume, January 1989–February 2012)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Financial_Statement_Analysis.pdf-0493-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Financial_Statement_Analysis.pdf-0493-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Biểu đồ phân tán và đường hồi quy tuyến tính:
+- Trục tung: Sản lượng Bán hàng tại các Cửa hàng Thực phẩm (%) (<em>Volume of Sales at Food Stores [%]</em>, từ <span class="math-inline">$-5\%$</span> đến <span class="math-inline">$6\%$</span>).
+- Trục hoành: Lạm phát Hàng năm tại các Cửa hàng Thực phẩm (%) (<em>Year-on-Year Inflation at Food Stores [%]</em>, từ <span class="math-inline">$-2\%$</span> đến <span class="math-inline">$10\%$</span>).
+- Thống kê <span class="math-inline">$t$</span> (<em>t-Stat</em>) <span class="math-inline">$= -10$</span>. Các điểm quan sát màu đen là các tháng trong 12 tháng gần nhất (từ tháng 3/2011 đến tháng 2/2012).</p>
+</blockquote>
+<p><em>Nguồn:</em> Dựa trên dữ liệu từ Datastream. Phân tích của các tác giả.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Source:</em> Based on data from Datastream. Analysis is the authors’.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thành phần định giá kỳ vọng đối với một công ty quốc tế cần xem xét cơ cấu địa lý của doanh thu nhằm phản ánh các mức tỷ lệ lạm phát khác nhau giữa các quốc gia. Tất nhiên, chiến lược và các nhân tố cạnh tranh, bên cạnh lạm phát chi phí đầu vào, cũng đóng vai trò trong việc thiết lập giá bán.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The expected pricing component for an international company should consider the geographic mix of its revenues to reflect different rates of inflation among countries. Of course, strategy and competitive factors, in addition to inflation in input costs, play roles in price setting.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chẳng hạn, tốc độ tăng trưởng sản lượng và khả năng định giá của AB InBev tỏ ra mạnh mẽ hơn tại các thị trường mới nổi nhờ nhu cầu cao đối với các sản phẩm bia mới của hãng. Tác động của lạm phát cũng là một nhân tố quan trọng. Tại bộ phận Nam Mỹ Latinh của hãng, mà thời điểm đó chủ yếu bao gồm Argentina, hãng bia này đã báo cáo mức tăng trưởng doanh thu hữu cơ mạnh mẽ 24.7% vào năm 2011, trong đó chỉ có 2.1% được thúc đẩy bởi sản lượng và phần còn lại là do giá bán. Khi chi phí tăng lên tương ứng với doanh thu, biên lợi nhuận hoạt động duy trì ít nhiều ổn định, và tốc độ tăng trưởng lợi nhuận hoạt động hữu cơ đạt mức cao là 27%. Với tác động tiêu cực từ tiền tệ chỉ ở mức hạn chế, lợi nhuận hoạt động được báo cáo đã tăng 24% tính theo đô la Mỹ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>AB InBev’s volume growth and pricing have been more robust in emerging markets, for example, thanks to strong demand for its new beer products. The impact of inflation is also an important factor. In its Latin America South division, which then mainly consisted of Argentina, the brewer reported strong 24.7 percent organic revenue growth in 2011, of which only 2.1 percent was driven by volume and the remainder by price. As costs increased in line with revenues, operating margin remained more or less stable, and organic operating profit growth was high at 27 percent. With only a limited negative currency impact, reported operating profit increased 24 percent in US dollars.</p>
+<p>High inflation in a company’s export market relative to a company’s domestic inflation rate generally implies that the export country’s currency will come under pressure and any pricing gain could be wiped out by the currency losses. The strong pricing increases AB InBev reported in its Latin America South division were clearly driven by input price inflation. The absence of a negative currency impact should be seen as a positive surprise but not as a typical outcome. A country’s currency will usually come under pressure and depreciate if high rates of inflation persist for an extended period.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lạm phát cao tại thị trường xuất khẩu của một công ty so với tỷ lệ lạm phát trong nước của công ty đó nhìn chung hàm ý rằng đồng tiền của quốc gia xuất khẩu sẽ chịu áp lực mất giá và bất kỳ khoản lợi ích tăng giá bán nào cũng có thể bị xóa sạch bởi các khoản lỗ tỷ giá. Những đợt tăng giá mạnh mẽ mà AB InBev báo cáo tại bộ phận Nam Mỹ Latinh rõ ràng được thúc đẩy bởi lạm phát giá đầu vào. Việc không xảy ra tác động tiền tệ tiêu cực nên được nhìn nhận như một bất ngờ tích cực chứ không phải là một kết quả điển hình. Đồng tiền của một quốc gia thông thường sẽ chịu áp lực và mất giá (<em>depreciate</em>) nếu tỷ lệ lạm phát cao kéo dài dai dẳng trong một thời gian dài.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Most analysts adjust for recent high inflation in foreign countries by assuming a normalized growth rate for both revenues and costs after one or two years. This constant currency growth rate is based on an underlying growth rate assumption for the business. This approach can understate revenues in the short term. Other analysts</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hầu hết các chuyên gia phân tích điều chỉnh cho tình trạng lạm phát cao gần đây ở các quốc gia nước ngoài bằng cách giả định một tốc độ tăng trưởng bình thường hóa (<em>normalized growth rate</em>) cho cả doanh thu lẫn chi phí sau một hoặc hai năm. Tốc độ tăng trưởng theo đồng tiền không đổi (<em>constant currency growth rate</em>) này dựa trên giả định về tốc độ tăng trưởng cơ bản của doanh nghiệp. Phương pháp tiếp cận này có thể làm phản ánh thấp hơn thực tế (<em>understate</em>) doanh thu trong ngắn hạn. Các chuyên gia phân tích khác</p></div>
+                </div>
+                
+
+                <div id="pdf-page-494" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 494 / Trang PDF 494
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>reflect in their forecasts the high impact of inflation on revenues and expenses and adjust growth rates for the expected currency (interest rate parity) impact. This approach is also imperfect given the difficulty in projecting currency rates.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>lại phản ánh vào dự báo của họ tác động mạnh của lạm phát lên doanh thu và chi phí, đồng thời điều chỉnh tốc độ tăng trưởng theo tác động tiền tệ kỳ vọng (ngang giá lãi suất – <em>interest rate parity</em>). Phương pháp tiếp cận này cũng không hoàn hảo xét đến độ khó trong việc phóng chiếu tỷ giá tiền tệ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Identifying a company’s major input costs provides an indication of likely pricing. For a specialist retail bakery chain, for example, the impact of increased grain prices will be more significant than for a diversified standard supermarket chain. Consequently, it seems logical that the bakery is likely to increase its prices by a higher percentage than the grocer in response to increased grain prices.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc nhận diện các chi phí đầu vào chính của một công ty cung cấp một chỉ báo về động thái định giá có khả năng xảy ra. Ví dụ, đối với một chuỗi cửa hàng bánh mì bán lẻ chuyên biệt, tác động của việc tăng giá ngũ cốc sẽ lớn hơn nhiều so với một chuỗi siêu thị tiêu chuẩn đa dạng hóa. Do đó, hoàn toàn hợp lý khi chuỗi cửa hàng bánh mì nhiều khả năng sẽ tăng giá bán ở mức tỷ lệ phần trăm cao hơn so với chuỗi siêu thị tạp hóa để phản ứng lại việc giá ngũ cốc tăng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Company strategy is also an important factor. Faced with rising input prices, a company might decide to preserve its margins by passing on the costs to its customers, or it might decide to accept some margin reduction to increase its market share. In other words, the company could try to gain market share by not fully increasing prices to reflect increased costs. On the one hand, Sysco Company (the largest food distributor to restaurants and institutions in North America) has sometimes not passed on food price increases in recessionary conditions out of concern of not financially weakening already recession-affected customers (e.g., restaurants, private clubs, schools, nursing homes). On the other hand, in 2011 and 2012, the large French cognac houses substantially increased the prices of their products in China to reduce strong demand. Because older cognac generates a higher price, it can be more profitable to build an inventory of vintage cognac rather than maximizing short-term volumes.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chiến lược của công ty cũng là một nhân tố quan trọng. Khi đối mặt với giá đầu vào tăng cao, một công ty có thể quyết định bảo toàn biên lợi nhuận của mình bằng cách chuyển phần chi phí tăng thêm sang cho khách hàng, hoặc có thể quyết định chấp nhận giảm một phần biên lợi nhuận để gia tăng thị phần. Nói cách khác, công ty có thể cố gắng giành thêm thị phần bằng cách không tăng giá bán toàn bộ tương ứng với mức chi phí tăng lên. Một mặt, Công ty Sysco (nhà phân phối thực phẩm lớn nhất cho các nhà hàng và tổ chức tại Bắc Mỹ) đôi khi đã không chuyển tiếp các đợt tăng giá thực phẩm trong điều kiện kinh tế suy thoái vì lo ngại không muốn làm suy yếu thêm về mặt tài chính những khách hàng vốn đã bị ảnh hưởng bởi suy thoái (ví dụ: các nhà hàng, câu lạc bộ tư nhân, trường học, viện dưỡng lão). Mặt khác, vào năm 2011 và 2012, các hãng rượu cognac lớn của Pháp đã tăng mạnh giá bán sản phẩm của họ tại Trung Quốc nhằm làm giảm bớt nhu cầu quá nóng. Bởi vì rượu cognac ủ lâu năm hơn sẽ mang lại mức giá bán cao hơn, việc tích lũy hàng tồn kho rượu cognac lâu năm (<em>vintage cognac</em>) có thể mang lại lợi nhuận cao hơn so với việc tối đa hóa sản lượng trong ngắn hạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 8</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 8 (EXAMPLE 8)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Passing on Input Cost Increases or Not</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Chuyển tiếp hay Không Chuyển tiếp Mức Tăng Chi phí Đầu vào (Passing on Input Cost Increases or Not)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Four food retail analysts are assessing the impact of a potential increase in input costs on the global supermarket chain Carrefour. In this hypothetical scenario, they believe that rising oil prices and packaging prices will affect many of the company’s suppliers. They believe that Carrefour is likely to be confronted with 4 percent inflation in its COGS (with stable volume). The analysts have their own expectations about how the company will react. Exhibit 28 shows Carrefour’s 2020 results, and Exhibit 29 shows the four analysts’ estimates of input prices, volume growth, and pricing for the following year. Both exhibits are in the Example 8 worksheet in the downloadable Microsoft Excel workbook.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bốn chuyên gia phân tích ngành bán lẻ thực phẩm đang đánh giá tác động của khả năng tăng chi phí đầu vào lên chuỗi siêu thị toàn cầu Carrefour. Trong kịch bản giả định này, họ tin rằng giá dầu và giá bao bì tăng cao sẽ ảnh hưởng đến nhiều nhà cung cấp của công ty. Họ tin rằng Carrefour nhiều khả năng sẽ phải đối mặt với mức lạm phát 4% trong giá vốn hàng bán (COGS) của mình (với sản lượng ổn định). Các chuyên gia phân tích có những kỳ vọng riêng về cách thức công ty sẽ phản ứng. Bảng 28 hiển thị kết quả năm 2020 của Carrefour, và Bảng 29 hiển thị ước tính của bốn chuyên gia phân tích về giá đầu vào, tăng trưởng sản lượng, và định giá cho năm tiếp theo. Cả hai bảng đều có trong trang tính Example 8 thuộc tệp sổ tính Microsoft Excel có thể tải xuống.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 28: Carrefour Data (euro millions, unless noted)</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 28: Dữ liệu của Carrefour (triệu euro, trừ khi có ghi chú khác) (Exhibit 28: Carrefour Data [euro millions, unless noted])</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2020</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total revenue</td>
+<td>72,150</td>
+</tr>
+<tr>
+<td>COGS</td>
+<td>56,705</td>
+</tr>
+<tr>
+<td>Gross profit</td>
+<td>15,445</td>
+</tr>
+<tr>
+<td>Gross margin</td>
+<td>21.4%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2020</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tổng doanh thu (<em>Total revenue</em>)</td>
+<td>72,150</td>
+</tr>
+<tr>
+<td>Giá vốn hàng bán (<em>COGS</em>)</td>
+<td>56,705</td>
+</tr>
+<tr>
+<td>Lợi nhuận gộp (<em>Gross profit</em>)</td>
+<td>15,445</td>
+</tr>
+<tr>
+<td>Biên lợi nhuận gộp (<em>Gross margin</em>)</td>
+<td>21.4%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Exhibit 29: Four Analysts’ Estimates of Carrefour’s Reaction to Inflation</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Bảng 29: Ước tính của Bốn Chuyên gia Phân tích về Phản ứng của Carrefour trước Lạm phát (Exhibit 29: Four Analysts’ Estimates of Carrefour’s Reaction to Inflation)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>A</strong></th>
+<th><strong>B</strong></th>
+<th><strong>C</strong></th>
+<th><strong>D</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Price increase for revenues</td>
+<td>0.00%</td>
+<td>2.00%</td>
+<td>3.00%</td>
+<td>4.00%</td>
+</tr>
+<tr>
+<td>Volume growth</td>
+<td>5.00%</td>
+<td>2.00%</td>
+<td>1.00%</td>
+<td>−4.00%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>A</strong></th>
+<th><strong>B</strong></th>
+<th><strong>C</strong></th>
+<th><strong>D</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mức tăng giá bán cho doanh thu (<em>Price increase for revenues</em>)</td>
+<td>0.00%</td>
+<td>2.00%</td>
+<td>3.00%</td>
+<td>4.00%</td>
+</tr>
+<tr>
+<td>Tăng trưởng sản lượng (<em>Volume growth</em>)</td>
+<td>5.00%</td>
+<td>2.00%</td>
+<td>1.00%</td>
+<td>−4.00%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-495" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 495 / Trang PDF 495
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>A</strong></th>
+<th><strong>B</strong></th>
+<th><strong>C</strong></th>
+<th><strong>D</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total revenue growth</td>
+<td>5.00%</td>
+<td>4.04%</td>
+<td>4.03%</td>
+<td>−0.16%</td>
+</tr>
+<tr>
+<td>Input costs increase</td>
+<td>4.00%</td>
+<td>4.00%</td>
+<td>4.00%</td>
+<td>4.00%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>A</strong></th>
+<th><strong>B</strong></th>
+<th><strong>C</strong></th>
+<th><strong>D</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tăng trưởng tổng doanh thu (<em>Total revenue growth</em>)</td>
+<td>5.00%</td>
+<td>4.04%</td>
+<td>4.03%</td>
+<td>−0.16%</td>
+</tr>
+<tr>
+<td>Mức tăng chi phí đầu vào (<em>Input costs increase</em>)</td>
+<td>4.00%</td>
+<td>4.00%</td>
+<td>4.00%</td>
+<td>4.00%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>What are each analyst’s predictions for gross profit and gross margin?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Dự đoán của từng chuyên gia phân tích đối với lợi nhuận gộp và biên lợi nhuận gộp là bao nhiêu?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải:</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The results for each analyst are shown in Exhibit 30 and the Example 8 worksheet in the downloadable Microsoft Excel workbook. For Analyst B, revenues increase 4 percent [= (1.02 × 1.02) ‒ 1] and COGS 6.1 percent [= (1.02 × 1.04) ‒ 1]. The difference between the calculated revenue and COGS is the new gross profit and gross margin is gross profit as a percentage of revenue.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Kết quả của từng chuyên gia phân tích được hiển thị trong Bảng 30 và trang tính Example 8 trong tệp sổ tính Microsoft Excel có thể tải xuống. Đối với Chuyên gia phân tích B, doanh thu tăng 4.04% (làm tròn 4%) <span class="math-inline">$[= (1.02 \times 1.02) - 1]$</span> và COGS tăng 6.08% (làm tròn 6.1%) <span class="math-inline">$[= (1.02 \times 1.04) - 1]$</span>. Phần chênh lệch giữa doanh thu tính được và COGS là lợi nhuận gộp mới, và biên lợi nhuận gộp là lợi nhuận gộp tính theo phần trăm doanh thu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 30: Results for Analysts’ Predictions (EUR millions, unless noted)</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 30: Kết quả Dự đoán của các Chuyên gia Phân tích (triệu EUR, trừ khi có ghi chú khác) (Exhibit 30: Results for Analysts’ Predictions [EUR millions, unless noted])</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th><strong>Analyst A</strong></th>
+<th></th>
+<th><strong>Analyst B</strong></th>
+<th></th>
+<th><strong>Analyst C</strong></th>
+<th></th>
+<th><strong>Analyst D</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><strong>2020</strong></td>
+<td><strong>2021E</strong></td>
+<td><strong>YoY%</strong></td>
+<td><strong>2021E</strong></td>
+<td><strong>YoY%</strong></td>
+<td><strong>2021E</strong></td>
+<td><strong>YoY%</strong></td>
+<td><strong>2021E</strong></td>
+<td><strong>YoY%</strong></td>
+</tr>
+<tr>
+<td>Total revenue</td>
+<td>72,150</td>
+<td>75,758</td>
+<td>5.0%</td>
+<td>75,065</td>
+<td>4%</td>
+<td>75,058</td>
+<td>4.0%</td>
+<td>72,035</td>
+<td>–0.2%</td>
+</tr>
+<tr>
+<td>COGS</td>
+<td>56,705</td>
+<td>61,922</td>
+<td>9.2%</td>
+<td>60,153</td>
+<td>6%</td>
+<td>59,563</td>
+<td>5.0%</td>
+<td>56,614</td>
+<td>–0.2%</td>
+</tr>
+<tr>
+<td>Gross profit</td>
+<td>15,445</td>
+<td>13,836</td>
+<td>–10%</td>
+<td>14,912</td>
+<td>–3%</td>
+<td>15,495</td>
+<td>0%</td>
+<td>15,420</td>
+<td>–0.2%</td>
+</tr>
+<tr>
+<td>Gross margin</td>
+<td>21.4%</td>
+<td>18.3%</td>
+<td></td>
+<td>19.9%</td>
+<td></td>
+<td>20.6%</td>
+<td></td>
+<td>21.4%</td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2020</strong></th>
+<th><strong>Chuyên gia A (2021E)</strong></th>
+<th><strong>Chuyên gia A (YoY%)</strong></th>
+<th><strong>Chuyên gia B (2021E)</strong></th>
+<th><strong>Chuyên gia B (YoY%)</strong></th>
+<th><strong>Chuyên gia C (2021E)</strong></th>
+<th><strong>Chuyên gia C (YoY%)</strong></th>
+<th><strong>Chuyên gia D (2021E)</strong></th>
+<th><strong>Chuyên gia D (YoY%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tổng doanh thu (<em>Total revenue</em>)</td>
+<td>72,150</td>
+<td>75,758</td>
+<td>5.0%</td>
+<td>75,065</td>
+<td>4%</td>
+<td>75,058</td>
+<td>4.0%</td>
+<td>72,035</td>
+<td>–0.2%</td>
+</tr>
+<tr>
+<td>COGS</td>
+<td>56,705</td>
+<td>61,922</td>
+<td>9.2%</td>
+<td>60,153</td>
+<td>6%</td>
+<td>59,563</td>
+<td>5.0%</td>
+<td>56,614</td>
+<td>–0.2%</td>
+</tr>
+<tr>
+<td>Lợi nhuận gộp (<em>Gross profit</em>)</td>
+<td>15,445</td>
+<td>13,836</td>
+<td>–10%</td>
+<td>14,912</td>
+<td>–3%</td>
+<td>15,495</td>
+<td>0%</td>
+<td>15,420</td>
+<td>–0.2%</td>
+</tr>
+<tr>
+<td>Biên lợi nhuận gộp (<em>Gross margin</em>)</td>
+<td>21.4%</td>
+<td>18.3%</td>
+<td></td>
+<td>19.9%</td>
+<td></td>
+<td>20.6%</td>
+<td></td>
+<td>21.4%</td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Which analyst has the highest forecast for gross margin?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Chuyên gia phân tích nào có dự báo biên lợi nhuận gộp cao nhất?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải:</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The highest gross margin is projected by Analyst D, who assumes that selling prices would increase by 4 percent to offset rising input costs and keep gross margin stable from the 2020 level.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Biên lợi nhuận gộp cao nhất được phóng chiếu bởi Chuyên gia phân tích D, người giả định rằng giá bán sẽ tăng thêm 4% để bù đắp cho chi phí đầu vào tăng cao và giữ cho biên lợi nhuận gộp ổn định so với mức của năm 2020.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Which analyst has the highest forecast for gross profit?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Chuyên gia phân tích nào có dự báo lợi nhuận gộp cao nhất?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải:</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The highest gross profit is projected by Analyst C.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lợi nhuận gộp cao nhất được phóng chiếu bởi Chuyên gia phân tích C.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Cost Projections with Inflation and Deflation</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Phóng chiếu Chi phí khi Có Lạm phát và Giảm phát (Cost Projections with Inflation and Deflation)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The following analysis addresses the forecasting of industry and company costs in the presence of inflation and deflation.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phân tích dưới đây giải quyết việc dự báo chi phí của ngành và công ty khi có sự hiện diện của lạm phát và giảm phát.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><em>Industry Costs and Inflation or Deflation</em></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><em>Chi phí Ngành và Lạm phát hoặc Giảm phát (Industry Costs and Inflation or Deflation)</em></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Familiarity with the specific purchasing characteristics of an industry can also be useful in forecasting costs. For example, long-term price-fixed forward contracts and hedges can delay the impact of price increases. Thus, an analyst forecasting costs for an industry in which companies customarily use such purchasing practices would incorporate any expected input price fluctuations more slowly than they would for an industry in which the participants do not use long-term contracts or hedges.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sự am hiểu về các đặc điểm thu mua cụ thể của một ngành cũng có thể rất hữu ích trong việc dự báo chi phí. Ví dụ, các hợp đồng kỳ hạn cố định giá (<em>price-fixed forward contracts</em>) dài hạn và các công cụ phòng vệ giá (<em>hedges</em>) có thể làm trì hoãn tác động của việc tăng giá. Do đó, một chuyên gia phân tích khi dự báo chi phí cho một ngành mà các công ty thường xuyên sử dụng những thông lệ thu mua như vậy sẽ đưa các biến động giá đầu vào kỳ vọng vào mô hình chậm hơn so với một ngành mà các doanh nghiệp tham gia không sử dụng hợp đồng dài hạn hay công cụ phòng vệ.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-496" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 496 / Trang PDF 496
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Monitoring the underlying drivers of input prices can also be useful in forecasting costs. For example, weather conditions can have a dramatic impact on the price of agricultural products and consequently on the cost base of industries that rely on them. An analyst observing a particular weather pattern might thus be able to incorporate this information into forecasts of costs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc theo dõi các động lực cơ sở của giá đầu vào cũng có thể rất hữu ích trong việc dự báo chi phí. Ví dụ, điều kiện thời tiết có thể gây ra tác động cực lớn đến giá các mặt hàng nông sản và kéo theo đó là tác động lên nền tảng chi phí của các ngành phụ thuộc vào chúng. Một chuyên gia phân tích quan sát thấy một hình thái thời tiết cụ thể nhờ đó có thể đưa thông tin này vào các dự báo chi phí.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>How inflation or deflation affects an industry’s cost structure depends on its competitive environment. For example, if the participants within the industry have access to alternative inputs or are vertically integrated, the impact of volatility in input costs can be mitigated. Jacobs Douwe Egberts (JDE) is a coffee company that has been facing high and volatile coffee prices. However, its coffee is a blend of different kinds of beans. By shifting the mix slightly, JDE can keep both taste and costs constant by reducing the amount of the more expensive types of coffee beans in the blend. But if all supplier countries significantly increase the price of coffee simultaneously, JDE cannot use blending as an offset and will be confronted with overall higher input costs. To sustain its profitability, JDE will have to increase its prices to its clients. But if competition from other companies, such as Nestlé (Nespresso, Dolce Gusto, Nescafe) makes it difficult to increase prices, JDE will have to look for alternatives if it wants to keep its profit margins stable. An easy solution for the short term could be reducing advertising and promotional (A&amp;P) spending, which usually improves profit. For the longer term, however, it could be harmful for revenues because the company’s brand position could be weakened.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc lạm phát hay giảm phát ảnh hưởng như thế nào đến cấu trúc chi phí của một ngành phụ thuộc vào môi trường cạnh tranh của ngành đó. Ví dụ, nếu các doanh nghiệp tham gia trong ngành có khả năng tiếp cận các nguyên liệu đầu vào thay thế hoặc có sự liên kết dọc (<em>vertically integrated</em>), tác động từ sự biến động chi phí đầu vào có thể được giảm thiểu. Jacobs Douwe Egberts (JDE) là một công ty cà phê đã và đang phải đối mặt với giá cà phê cao và biến động mạnh. Tuy nhiên, sản phẩm cà phê của hãng là sự pha trộn (<em>blend</em>) của nhiều loại hạt cà phê khác nhau. Bằng cách dịch chuyển nhẹ công thức pha trộn, JDE có thể giữ cho cả hương vị lẫn chi phí không đổi thông qua việc giảm bớt lượng hạt cà phê thuộc các chủng loại đắt tiền hơn trong hỗn hợp pha trộn. Nhưng nếu tất cả các quốc gia cung ứng đồng loạt tăng mạnh giá cà phê cùng một lúc, JDE không thể sử dụng việc pha trộn làm biện pháp bù đắp và sẽ phải đối mặt với chi phí đầu vào tổng thể cao hơn. Để duy trì khả năng sinh lời của mình, JDE sẽ buộc phải tăng giá bán cho khách hàng. Nhưng nếu sự cạnh tranh từ các công ty khác, chẳng hạn như Nestlé (Nespresso, Dolce Gusto, Nescafe) khiến cho việc tăng giá trở nên khó khăn, JDE sẽ phải tìm kiếm các giải pháp thay thế nếu muốn giữ ổn định biên lợi nhuận. Một giải pháp dễ dàng trong ngắn hạn có thể là cắt giảm chi tiêu quảng cáo và khuyến mãi (A&amp;P), việc này thông thường giúp cải thiện lợi nhuận. Tuy nhiên, xét về dài hạn, điều đó có thể gây tổn hại cho doanh thu bởi vì vị thế thương hiệu của công ty có thể bị suy yếu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For example, in 2010, Russia experienced a heat wave that destroyed large parts of its grain harvest, causing prices for malting barley, a major input for beer, to increase significantly. Carlsberg, as the largest Russian brewer at that time, was particularly hard hit because it had to pay more for its Russian barley and also needed to import grain into the country, incurring additional transportation costs. By increasing imports from Western Europe, Carlsberg also pushed up barley prices in this region, affecting the cost base of other Western European brewers.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ, vào năm 2010, Nga đã trải qua một đợt nắng nóng thiêu rụi phần lớn vụ mùa ngũ cốc của nước này, khiến giá lúa mạch dùng để ủ mạch nha (<em>malting barley</em>), một nguyên liệu đầu vào chính để sản xuất bia, tăng vọt đáng kể. Carlsberg, với tư cách là hãng bia lớn nhất tại Nga vào thời điểm đó, đã chịu ảnh hưởng đặc biệt nặng nề bởi vì hãng vừa phải trả nhiều tiền hơn cho nguồn lúa mạch tại Nga vừa phải nhập khẩu thêm ngũ cốc vào nước này, làm phát sinh thêm chi phí vận chuyển. Bằng việc tăng cường nhập khẩu từ Tây Âu, Carlsberg cũng đã đẩy giá lúa mạch tại khu vực này tăng lên, làm ảnh hưởng đến nền tảng chi phí của các hãng bia Tây Âu khác.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong><em>Company Costs and Inflation or Deflation</em></strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong><em>Chi phí Công ty và Lạm phát hoặc Giảm phát (Company Costs and Inflation or Deflation)</em></strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In forecasting a company’s costs, it is often helpful to segment the cost structure by category and geography. For each item of cost, an assessment should be made about the impact of potential inflation and deflation on input prices. This assessment should take into account the company’s ability to substitute cheaper alternatives for expensive inputs or to increase efficiency to offset the impact of increases in input prices. For example, although a jump in raw material prices in 2011 caused Unilever’s and Nestlé’s gross margins to fall sharply (by 110−170 bps), increases in operational efficiencies, such as reducing advertising spending, enabled both companies to achieve slightly higher overall operating profit margins that year. Example 9 shows the use of common size (percent-of-sales) analysis of inflation in input costs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi dự báo chi phí của một công ty, việc phân tách cấu trúc chi phí theo danh mục và theo khu vực địa lý thường rất hữu ích. Đối với từng khoản mục chi phí, cần thực hiện đánh giá về tác động của lạm phát và giảm phát tiềm tàng lên giá đầu vào. Đánh giá này cần tính đến khả năng của công ty trong việc thay thế các nguyên liệu đầu vào đắt đỏ bằng những lựa chọn thay thế rẻ hơn hoặc gia tăng hiệu quả hoạt động để bù đắp tác động của việc tăng giá đầu vào. Ví dụ, mặc dù sự tăng vọt của giá nguyên vật liệu thô vào năm 2011 đã khiến biên lợi nhuận gộp của Unilever và Nestlé sụt giảm mạnh (giảm từ <span class="math-inline">$110 - 170$</span> bps), việc gia tăng hiệu quả hoạt động, chẳng hạn như cắt giảm chi tiêu quảng cáo, đã cho phép cả hai công ty đạt được biên lợi nhuận hoạt động tổng thể cao hơn đôi chút trong năm đó. Ví dụ 9 cho thấy việc sử dụng phân tích theo quy mô chung (tỷ lệ phần trăm trên doanh thu) đối với lạm phát chi phí đầu vào.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 9</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 9 (EXAMPLE 9)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Inflation in Input Costs</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lạm phát Chi phí Đầu vào (Inflation in Input Costs)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Two fictional consumer staple companies—chocolate and sweets specialist “Choco A” and a food producer “Sweet B”—have costs that are constantly affected by inflation and deflation. Exhibit 31 (see the Example 9 worksheet in the downloadable Microsoft Excel workbook) presents a common size analysis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hai công ty hàng tiêu dùng thiết yếu giả định—chuyên gia về sô-cô-la và bánh kẹo “Choco A” và nhà sản xuất thực phẩm “Sweet B”—có các khoản chi phí liên tục chịu ảnh hưởng bởi lạm phát và giảm phát. Bảng 31 (xem trang tính Example 9 trong tệp sổ tính Microsoft Excel có thể tải xuống) trình bày phân tích theo quy mô chung.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-497" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 497 / Trang PDF 497
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 31: Common Size Analysis for Sweet B and Choco A</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 31: Phân tích theo Quy mô Chung cho Sweet B và Choco A (Exhibit 31: Common Size Analysis for Sweet B and Choco A)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Sweet B</strong></th>
+<th><strong>Choco A</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Net sales</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>COGS</td>
+<td>50%</td>
+<td>36%</td>
+</tr>
+<tr>
+<td>Gross margin</td>
+<td>50%</td>
+<td>64%</td>
+</tr>
+<tr>
+<td>SG&amp;A</td>
+<td>31%</td>
+<td>47%</td>
+</tr>
+<tr>
+<td>Depreciation</td>
+<td>3%</td>
+<td>4%</td>
+</tr>
+<tr>
+<td>EBIT</td>
+<td>16%</td>
+<td>13%</td>
+</tr>
+<tr>
+<td>Raw materials</td>
+<td>22%</td>
+<td>22%</td>
+</tr>
+<tr>
+<td>Packaging</td>
+<td>12%</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>Other COGS</td>
+<td>16%</td>
+<td>4%</td>
+</tr>
+<tr>
+<td>Total COGS</td>
+<td>50%</td>
+<td>36%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Sweet B</strong></th>
+<th><strong>Choco A</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Doanh thu thuần (<em>Net sales</em>)</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>COGS</td>
+<td>50%</td>
+<td>36%</td>
+</tr>
+<tr>
+<td>Biên lợi nhuận gộp (<em>Gross margin</em>)</td>
+<td>50%</td>
+<td>64%</td>
+</tr>
+<tr>
+<td>SG&amp;A</td>
+<td>31%</td>
+<td>47%</td>
+</tr>
+<tr>
+<td>Khấu hao (<em>Depreciation</em>)</td>
+<td>3%</td>
+<td>4%</td>
+</tr>
+<tr>
+<td>EBIT</td>
+<td>16%</td>
+<td>13%</td>
+</tr>
+<tr>
+<td>Nguyên vật liệu thô (<em>Raw materials</em>)</td>
+<td>22%</td>
+<td>22%</td>
+</tr>
+<tr>
+<td>Bao bì (<em>Packaging</em>)</td>
+<td>12%</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>COGS khác (<em>Other COGS</em>)</td>
+<td>16%</td>
+<td>4%</td>
+</tr>
+<tr>
+<td>Tổng COGS (<em>Total COGS</em>)</td>
+<td>50%</td>
+<td>36%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Assume inflation of 10 percent for all costs (except depreciation) and that the companies are not able to pass on this increase through higher prices (total revenues will remain constant).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử mức lạm phát là 10% đối với tất cả các chi phí (ngoại trừ khấu hao) và các công ty không có khả năng chuyển tiếp mức tăng này sang khách hàng thông qua việc tăng giá bán (tổng doanh thu sẽ giữ nguyên không đổi).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Calculate the gross profit margin for each company. Which company will experience the greater reduction in gross profit margin?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Hãy tính biên lợi nhuận gộp cho từng công ty. Công ty nào sẽ phải chịu mức sụt giảm biên lợi nhuận gộp lớn hơn?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải:</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The company with the higher COGS as a percent of net sales—equivalently, the lower gross margin—will experience the greater negative impact. Sweet B has a lower gross margin than Choco A: 50 percent compared with 64 percent, as shown in Exhibit 31. After the 10 percent increase in COGS to 1.10 × 50% = 55%, Sweet B’s gross margin will fall to 45 percent, as shown in Exhibit 32. Sweet B’s resulting gross margin of 45 percent represents a proportional decline of 10 percent from the initial value of 50 percent. In contrast, the proportional decline in Choco A’s gross margin is approximately 4%/64% = 6%.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Công ty nào có COGS tính theo phần trăm doanh thu thuần cao hơn—hay tương đương là có biên lợi nhuận gộp thấp hơn—sẽ phải chịu tác động tiêu cực lớn hơn. Sweet B có biên lợi nhuận gộp thấp hơn Choco A: 50% so với 64%, như được hiển thị trong Bảng 31. Sau khi COGS tăng thêm 10% lên mức <span class="math-inline">$1.10 \times 50\% = 55\%$</span>, biên lợi nhuận gộp của Sweet B sẽ giảm xuống còn 45%, như hiển thị trong Bảng 32. Biên lợi nhuận gộp sau cùng của Sweet B ở mức 45% thể hiện mức sụt giảm theo tỷ lệ là 10% so với giá trị ban đầu 50%. Ngược lại, mức sụt giảm theo tỷ lệ trong biên lợi nhuận gộp của Choco A là xấp xỉ <span class="math-inline">$3.6\%/64\% \approx 4\%/64\% = 6\%$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 32: Effect of Cost Inflation</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 32: Tác động của Lạm phát Chi phí (Exhibit 32: Effect of Cost Inflation)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>All Costs (Exce</strong><br><strong>tion) +</strong></th>
+<th><strong>pt Deprecia-</strong><br><strong>10%</strong></th>
+<th><strong>Raw Mate</strong></th>
+<th><strong>rials + 10%</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><strong>Sweet B</strong></td>
+<td><strong>Choco A</strong></td>
+<td><strong>Sweet B</strong></td>
+<td><strong>Choco A</strong></td>
+</tr>
+<tr>
+<td>Net sales</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>COGS</td>
+<td>55%</td>
+<td>40%</td>
+<td>52%</td>
+<td>38%</td>
+</tr>
+<tr>
+<td>Gross margin</td>
+<td>45%</td>
+<td>60%</td>
+<td>48%</td>
+<td>62%</td>
+</tr>
+<tr>
+<td>SG&amp;A</td>
+<td>34%</td>
+<td>52%</td>
+<td>31%</td>
+<td>47%</td>
+</tr>
+<tr>
+<td>Depreciation</td>
+<td>3%</td>
+<td>4%</td>
+<td>3%</td>
+<td>4%</td>
+</tr>
+<tr>
+<td>EBIT</td>
+<td>8%</td>
+<td>5%</td>
+<td>14%</td>
+<td>11%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Tất cả Chi phí (Trừ Khấu hao) + 10% (Sweet B)</strong></th>
+<th><strong>Tất cả Chi phí (Trừ Khấu hao) + 10% (Choco A)</strong></th>
+<th><strong>Nguyên vật liệu Thô + 10% (Sweet B)</strong></th>
+<th><strong>Nguyên vật liệu Thô + 10% (Choco A)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Doanh thu thuần (<em>Net sales</em>)</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>COGS</td>
+<td>55%</td>
+<td>40%</td>
+<td>52%</td>
+<td>38%</td>
+</tr>
+<tr>
+<td>Biên lợi nhuận gộp (<em>Gross margin</em>)</td>
+<td>45%</td>
+<td>60%</td>
+<td>48%</td>
+<td>62%</td>
+</tr>
+<tr>
+<td>SG&amp;A</td>
+<td>34%</td>
+<td>52%</td>
+<td>31%</td>
+<td>47%</td>
+</tr>
+<tr>
+<td>Khấu hao (<em>Depreciation</em>)</td>
+<td>3%</td>
+<td>4%</td>
+<td>3%</td>
+<td>4%</td>
+</tr>
+<tr>
+<td>EBIT</td>
+<td>8%</td>
+<td>5%</td>
+<td>14%</td>
+<td>11%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-498" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 498 / Trang PDF 498
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Calculate the operating profit margin for each company. Which company will experience the greater reduction in operating profit (EBIT) margin? <strong>Solution:</strong></li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Hãy tính biên lợi nhuận hoạt động cho từng công ty. Công ty nào sẽ phải chịu mức sụt giảm biên lợi nhuận hoạt động (EBIT) lớn hơn?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Choco A has higher overall costs than Sweet B, primarily as a consequence of its high SG&amp;A expenses. Choco A’s operating profit margin will drop to approximately 5 percent, as shown in Exhibit 32, representing a proportional decline of approximately 62 percent compared with a proportional decline of approximately 8%/16% = 50% for Sweet B.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Lời giải:</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Assume inflation of 10 percent only for the raw material costs (reflected in COGS) and that the companies are not able to pass on this increase through higher prices. Which company will be more affected negatively in terms of gross profit margin and operating profit margin?</li>
+</ol>
+<ul>
+<li><strong>Solution:</strong></li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Choco A có tổng chi phí cao hơn Sweet B, chủ yếu là hệ quả của chi phí SG&amp;A cao. Biên lợi nhuận hoạt động của Choco A sẽ sụt giảm xuống mức xấp xỉ 5%, như hiển thị trong Bảng 32, thể hiện mức sụt giảm theo tỷ lệ xấp xỉ 62% so với mức sụt giảm theo tỷ lệ xấp xỉ <span class="math-inline">$8\%/16\% = 50\%$</span> của Sweet B.</p>
+<ol start="3">
+<li>Giả sử mức lạm phát 10% chỉ xảy ra đối với chi phí nguyên vật liệu thô (được phản ánh trong COGS) và các công ty không có khả năng chuyển tiếp mức tăng này sang khách hàng thông qua việc tăng giá bán. Công ty nào sẽ chịu ảnh hưởng tiêu cực nhiều hơn xét về biên lợi nhuận gộp và biên lợi nhuận hoạt động?</li>
+</ol>
+<ul>
+<li><strong>Lời giải:</strong></li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The company with the higher raw material expense component will experience the more negative effect. In this case, raw materials represent 22 percent of net sales for both Sweet B and Choco A. Gross margin and operating margin will decline by 220 bps for both. This impact is more severe on gross margin on a relative basis for Sweet B (2.2%/50% = 4.4% decline) than for Choco A (2.2%/64% = 3.4% decline). But the relative effect on operating margin will be more severe for Choco A (2.2%/13% = 16.9% decline) than for Sweet B (2.2%/16% = 13.8%).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Công ty nào có thành phần chi phí nguyên vật liệu thô cao hơn sẽ phải chịu tác động tiêu cực nhiều hơn. Trong trường hợp này, nguyên vật liệu thô chiếm 22% doanh thu thuần đối với cả Sweet B lẫn Choco A. Biên lợi nhuận gộp và biên lợi nhuận hoạt động sẽ giảm 220 bps đối với cả hai công ty. Tác động này lên biên lợi nhuận gộp xét trên cơ sở tương đối sẽ nặng nề hơn đối với Sweet B (giảm <span class="math-inline">$2.2\%/50\% = 4.4\%$</span>) so với Choco A (giảm <span class="math-inline">$2.2\%/64\% = 3.4\%$</span>). Nhưng tác động tương đối lên biên lợi nhuận hoạt động sẽ nặng nề hơn đối với Choco A (giảm <span class="math-inline">$2.2\%/13\% = 16.9\%$</span>) so với Sweet B (giảm <span class="math-inline">$2.2\%/16\% = 13.8\%$</span>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>6</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>6</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>THE FORECAST HORIZON AND LONG-TERM FORECASTING</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>TẦM NHÌN DỰ BÁO VÀ DỰ BÁO DÀI HẠN (THE FORECAST HORIZON AND LONG-TERM FORECASTING)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain considerations in the choice of an explicit forecast horizon and an analyst’s choices in developing projections beyond the short-term forecast horizon</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích các yếu tố cần cân nhắc khi lựa chọn tầm nhìn dự báo tường minh và các lựa chọn của chuyên gia phân tích khi xây dựng các phóng chiếu vượt quá tầm nhìn dự báo ngắn hạn</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The choice of the forecast time horizon can be influenced by certain factors, including the investment strategy for which the security is being considered, the cyclicality of the industry, company-specific factors, and the analyst’s employer’s preferences. Most professionally managed investment strategies describe the investment time frame, or average holding period, in the stated investment objectives of the strategy; the time frame should ideally correspond with average annual turnover of the portfolio. For example, a stated investment time horizon of three to five years would imply average annual portfolio turnover between 20 percent and 33 percent (average holding period is calculated as one/portfolio turnover). The cyclicality of the industry could also influence the analyst’s choice of time frame because the forecast period should be long enough to allow the business to reach an expected mid-cycle level of sales and profitability. Similar to cyclicality, various company-specific factors, including recent acquisition or restructuring activity, can influence the selection of the forecast period to allow enough time for the realization of the expected benefits from such activity to be reflected in the financial statements. In other cases, there might be no individual analyst choice in the sense that the analyst’s employer has specified more or less fixed parameters. Much of the discussion so far has focused on various methods of forecasting a company’s income statement, balance sheet, and cash flow for an explicit</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc lựa chọn tầm nhìn thời gian dự báo (<em>forecast time horizon</em>) có thể chịu ảnh hưởng bởi một số nhân tố nhất định, bao gồm chiến lược đầu tư mà chứng khoán đang được xem xét, tính chu kỳ của ngành (<em>cyclicality of the industry</em>), các nhân tố đặc thù của công ty, và sở thích từ tổ chức tuyển dụng của chuyên gia phân tích. Hầu hết các chiến lược đầu tư được quản lý chuyên nghiệp đều mô tả khung thời gian đầu tư, hay thời kỳ nắm giữ bình quân (<em>average holding period</em>), trong các mục tiêu đầu tư đã tuyên bố của chiến lược; về mặt lý tưởng, khung thời gian này nên tương ứng với vòng quay danh mục (<em>portfolio turnover</em>) bình quân hàng năm. Ví dụ, một tầm nhìn thời gian đầu tư được tuyên bố từ ba đến năm năm sẽ hàm ý vòng quay danh mục bình quân hàng năm nằm trong khoảng từ 20% đến 33% (thời kỳ nắm giữ bình quân được tính bằng <span class="math-inline">$1 / \text{vòng quay danh mục}$</span>). Tính chu kỳ của ngành cũng có thể ảnh hưởng đến lựa chọn khung thời gian của chuyên gia phân tích bởi vì kỳ dự báo cần phải đủ dài để cho phép doanh nghiệp đạt tới mức doanh thu và khả năng sinh lời giữa chu kỳ (<em>mid-cycle level</em>) kỳ vọng. Tương tự như tính chu kỳ, nhiều nhân tố đặc thù của công ty, bao gồm hoạt động mua lại hoặc tái cấu trúc gần đây, có thể ảnh hưởng đến việc lựa chọn kỳ dự báo nhằm cho phép có đủ thời gian để những lợi ích kỳ vọng từ hoạt động đó được hiện thực hóa và phản ánh vào trong các báo cáo tài chính. Trong các trường hợp khác, cá nhân chuyên gia phân tích có thể không có quyền tự lựa chọn theo nghĩa là tổ chức tuyển dụng của chuyên gia phân tích đã quy định sẵn các tham số ít nhiều cố định. Phần lớn nội dung thảo luận cho đến nay đã tập trung vào các phương pháp khác nhau để dự báo báo cáo kết quả hoạt động kinh doanh, bảng cân đối kế toán, và dòng tiền của một công ty cho một kỳ dự báo</p></div>
+                </div>
+                
+
+                <div id="pdf-page-499" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 499 / Trang PDF 499
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>short-term forecast period. Although the underlying principles remain the same if one extends the time horizon, certain considerations and choices are available to the analyst when developing longer-term projections.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>ngắn hạn tường minh (<em>explicit short-term forecast period</em>). Mặc dù các nguyên tắc cơ sở vẫn giữ nguyên không đổi nếu người ta kéo dài tầm nhìn thời gian, chuyên gia phân tích vẫn có những yếu tố cần cân nhắc và các lựa chọn nhất định khi xây dựng các phóng chiếu dài hạn hơn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Longer-term projections often provide a better representation of the normalized earnings potential of a company than a short-term forecast, especially when certain temporary factors are present. <strong>Normalized earnings</strong> are the expected level of mid-cycle earnings for a company in the absence of any unusual or temporary factors that affect profitability (either positively or negatively). For example, at any given point in time, a company’s profitability can be influenced by a number of temporary factors, including the stage in the business cycle, recent merger and acquisition activity, and restructuring activity. Similarly, normalized free cash flow can be defined as the expected level of mid-cycle cash flow from operations adjusted for unusual items just described less recurring capital expenditures. By extending the forecast period, an analyst is able to adjust for these unusual or temporary factors and derive an estimate of earnings that the company is likely to earn in a normal year. We will consider various alternatives for two aspects of long-term forecasting: revenue forecasts and terminal value.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các phóng chiếu dài hạn hơn thường mang lại sự đại diện tốt hơn cho tiềm năng lợi nhuận bình thường hóa (<em>normalized earnings potential</em>) của một công ty so với một dự báo ngắn hạn, đặc biệt là khi có sự hiện diện của một số nhân tố tạm thời nhất định. <strong>Lợi nhuận bình thường hóa (<em>Normalized earnings</em>)</strong> là mức lợi nhuận giữa chu kỳ (<em>mid-cycle earnings</em>) kỳ vọng của một công ty khi không có bất kỳ nhân tố bất thường hoặc tạm thời nào ảnh hưởng đến khả năng sinh lời (dù theo hướng tích cực hay tiêu cực). Ví dụ, tại bất kỳ thời điểm nhất định nào, khả năng sinh lời của một công ty có thể chịu ảnh hưởng bởi một số nhân tố tạm thời, bao gồm giai đoạn trong chu kỳ kinh doanh (<em>business cycle</em>), hoạt động mua bán và sáp nhập (M&amp;A) gần đây, và hoạt động tái cấu trúc. Tương tự, dòng tiền tự do bình thường hóa (<em>normalized free cash flow</em>) có thể được định nghĩa là mức dòng tiền giữa chu kỳ kỳ vọng từ hoạt động kinh doanh đã được điều chỉnh loại bỏ các khoản mục bất thường vừa mô tả trừ đi các khoản chi tiêu vốn định kỳ thường xuyên (<em>recurring capital expenditures</em>). Bằng cách kéo dài kỳ dự báo, chuyên gia phân tích có thể điều chỉnh cho những nhân tố bất thường hoặc tạm thời này và suy ra được một ước tính về mức lợi nhuận mà công ty nhiều khả năng sẽ kiếm được trong một năm bình thường. Chúng ta sẽ xem xét các phương án thay thế khác nhau cho hai khía cạnh của dự báo dài hạn: dự báo doanh thu và giá trị kết thúc (<em>terminal value</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As with most income statement projections, a long-term forecast begins with a revenue projection, with most of the remaining income statement items subsequently derived from the level or change in revenue. Revenue projection methods were covered earlier.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cũng giống như hầu hết các phóng chiếu báo cáo kết quả hoạt động kinh doanh, một dự báo dài hạn bắt đầu bằng một phóng chiếu doanh thu, với hầu hết các khoản mục còn lại trên báo cáo kết quả hoạt động kinh doanh sau đó được suy ra từ mức độ hoặc sự thay đổi của doanh thu. Các phương pháp phóng chiếu doanh thu đã được trình bày ở phần trước.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Case Study: Estimating Normalized Revenue</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Nghiên cứu Tình huống: Ước tính Doanh thu Bình thường hóa (Case Study: Estimating Normalized Revenue)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 33 contains 10 years of historical revenue data and four years of estimated normalized data for Continental AG, a global automotive supplier. The accompanying bar chart in Exhibit 34 graphically depicts the data and includes a trend line based on a linear regression of the data. The numerical values for each point along the trend line can be found by using the TREND formula in Microsoft Excel. The TREND formula uses observations on the dependent variable (in this case revenue) and observations on the explanatory (time) variable to perform a linear regression by using least squares criterion to find the best fit. After computing the best fit regression model, the TREND formula returns predicted values associated with new points in time. The worksheet for Exhibit 33 and Exhibit 34 in the downloadable Microsoft Excel workbook demonstrates the calculations used in the exhibits.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng 33 chứa dữ liệu doanh thu lịch sử trong 10 năm và dữ liệu bình thường hóa ước tính trong bốn năm của Continental AG, một nhà cung cấp phụ tùng ô tô toàn cầu. Biểu đồ cột đi kèm trong Bảng 34 mô tả bằng đồ họa dữ liệu này và bao gồm một đường xu hướng (<em>trend line</em>) dựa trên phép hồi quy tuyến tính của dữ liệu. Các giá trị bằng số cho từng điểm dọc theo đường xu hướng có thể được tìm thấy bằng cách sử dụng hàm <code>TREND</code> trong Microsoft Excel. Hàm <code>TREND</code> sử dụng các quan sát của biến phụ thuộc (trong trường hợp này là doanh thu) và các quan sát của biến giải thích (thời gian) để thực hiện một phép hồi quy tuyến tính bằng cách sử dụng tiêu chuẩn bình phương tối thiểu (<em>least squares criterion</em>) nhằm tìm ra đường khớp tốt nhất (<em>best fit</em>). Sau khi tính toán mô hình hồi quy khớp tốt nhất, hàm <code>TREND</code> trả về các giá trị dự đoán gắn với những điểm thời gian mới. Trang tính cho Bảng 33 và Bảng 34 trong tệp sổ tính Microsoft Excel có thể tải xuống minh họa các phép tính được sử dụng trong các bảng này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 33: Historical and Estimated Revenue Data for Continental AG, 2011–2024E (euro billions)</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 33: Dữ liệu Doanh thu Lịch sử và Ước tính của Continental AG, 2011–2024E (tỷ euro) (Exhibit 33: Historical and Estimated Revenue Data for Continental AG, 2011–2024E [euro billions])</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2011</strong></th>
+<th><strong>2012</strong></th>
+<th><strong>2013</strong></th>
+<th><strong>2014</strong></th>
+<th><strong>2015</strong></th>
+<th><strong>2016</strong></th>
+<th><strong>2017</strong></th>
+<th><strong>2018</strong></th>
+<th><strong>2019</strong></th>
+<th><strong>2020</strong></th>
+<th><strong>2021</strong></th>
+<th><strong>2022</strong></th>
+<th><strong>2023</strong></th>
+<th><strong>2024</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Revenue</td>
+<td>30.5</td>
+<td>32.7</td>
+<td>33.3</td>
+<td>34.5</td>
+<td>39.2</td>
+<td>40.6</td>
+<td>44.0</td>
+<td>44.4</td>
+<td>44.5</td>
+<td>37.7</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Normalized</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>revenue</td>
+<td>31.8</td>
+<td>33.2</td>
+<td>34.6</td>
+<td>36.0</td>
+<td>37.4</td>
+<td>38.9</td>
+<td>40.3</td>
+<td>41.7</td>
+<td>43.1</td>
+<td>44.5</td>
+<td>45.9</td>
+<td>47.3</td>
+<td>48.7</td>
+<td>50.1</td>
+</tr>
+<tr>
+<td>Percent</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>above/below</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>trend</td>
+<td>–4.1%</td>
+<td>–1.4%</td>
+<td>–3.7%</td>
+<td>–4.2%</td>
+<td>4.8%</td>
+<td>4.4%</td>
+<td>9.3%</td>
+<td>–6.6%</td>
+<td>3.3%</td>
+<td>–15.2%</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2011</strong></th>
+<th><strong>2012</strong></th>
+<th><strong>2013</strong></th>
+<th><strong>2014</strong></th>
+<th><strong>2015</strong></th>
+<th><strong>2016</strong></th>
+<th><strong>2017</strong></th>
+<th><strong>2018</strong></th>
+<th><strong>2019</strong></th>
+<th><strong>2020</strong></th>
+<th><strong>2021</strong></th>
+<th><strong>2022</strong></th>
+<th><strong>2023</strong></th>
+<th><strong>2024</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Doanh thu (<em>Revenue</em>)</td>
+<td>30.5</td>
+<td>32.7</td>
+<td>33.3</td>
+<td>34.5</td>
+<td>39.2</td>
+<td>40.6</td>
+<td>44.0</td>
+<td>44.4</td>
+<td>44.5</td>
+<td>37.7</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Doanh thu bình thường hóa (<em>Normalized revenue</em>)</td>
+<td>31.8</td>
+<td>33.2</td>
+<td>34.6</td>
+<td>36.0</td>
+<td>37.4</td>
+<td>38.9</td>
+<td>40.3</td>
+<td>41.7</td>
+<td>43.1</td>
+<td>44.5</td>
+<td>45.9</td>
+<td>47.3</td>
+<td>48.7</td>
+<td>50.1</td>
+</tr>
+<tr>
+<td>Phần trăm cao hơn/thấp hơn xu hướng (<em>Percent above/below trend</em>)</td>
+<td>–4.1%</td>
+<td>–1.4%</td>
+<td>–3.7%</td>
+<td>–4.2%</td>
+<td>4.8%</td>
+<td>4.4%</td>
+<td>9.3%</td>
+<td>–6.6%</td>
+<td>3.3%</td>
+<td>–15.2%</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-500" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 500 / Trang PDF 500
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Exhibit 34: Historical and Estimated Revenue for Continental AG, 2011– 2024E</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Bảng 34: Doanh thu Lịch sử và Ước tính của Continental AG, 2011–2024E (Exhibit 34: Historical and Estimated Revenue for Continental AG, 2011–2024E)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Financial_Statement_Analysis.pdf-0500-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Financial_Statement_Analysis.pdf-0500-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Biểu đồ cột và đường xu hướng tuyến tính thể hiện Doanh thu tính bằng tỷ euro (<em>Revenues [€bn]</em>, từ 0 đến 60) của Continental AG qua các năm.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The “growth relative to GDP growth” and “market growth and market share” methods discussed earlier can also be applied to developing longer-term projections. Once a revenue projection has been established, previously described methods of forecasting costs can be used to complete the income statement, balance sheet, and cash flow statement.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các phương pháp “tăng trưởng tương quan với tăng trưởng GDP” (<em>“growth relative to GDP growth”</em>) và “tăng trưởng thị trường và thị phần” (<em>“market growth and market share”</em>) đã thảo luận trước đó cũng có thể được áp dụng để xây dựng các phóng chiếu dài hạn hơn. Một khi phóng chiếu doanh thu đã được thiết lập, các phương pháp dự báo chi phí đã mô tả trước đó có thể được sử dụng để hoàn thiện báo cáo kết quả hoạt động kinh doanh, bảng cân đối kế toán, và báo cáo lưu chuyển tiền tệ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If an analyst is creating a valuation model such as a DCF model, estimating a terminal value is required to capture the going-concern value of the company after the explicit forecast period. Certain considerations should be kept in mind when deriving the terminal value based on long-term projections.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu một chuyên gia phân tích đang tạo lập một mô hình định giá chẳng hạn như mô hình DCF, việc ước tính giá trị kết thúc (<em>terminal value</em>) là bắt buộc để nắm bắt giá trị hoạt động liên tục (<em>going-concern value</em>) của công ty sau kỳ dự báo tường minh. Cần ghi nhớ một số yếu tố cân nhắc nhất định khi suy ra giá trị kết thúc dựa trên các phóng chiếu dài hạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>First, an analyst should consider whether the terminal year free cash flow projection should be normalized before that cash flow is incorporated into a long-term projection. For example, if the explicitly forecasted terminal year free cash flow is “low” (e.g., because of business cycle reasons or capital investment projects), an adjustment to normalize the amount might be warranted. Second, an analyst should consider whether and how the future long-term growth rate will differ from the historical growth rate. For example, even some mature companies might be able to accelerate their long-term growth rate through product innovation and/or market expansion (e.g., Apple), whereas other seemingly well-protected “growers” could experience an unanticipated decline in their business as a result of technological change (e.g., Eastman Kodak Company, a global commercial printing and imaging company).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thứ nhất, chuyên gia phân tích cần xem xét liệu phóng chiếu dòng tiền tự do của năm kết thúc (<em>terminal year free cash flow</em>) có nên được bình thường hóa trước khi đưa dòng tiền đó vào một phóng chiếu dài hạn hay không. Ví dụ, nếu dòng tiền tự do năm kết thúc được dự báo tường minh ở mức “thấp” (ví dụ: vì lý do chu kỳ kinh doanh hoặc các dự án đầu tư vốn), việc điều chỉnh để bình thường hóa con số này có thể là hợp lý. Thứ hai, chuyên gia phân tích cần xem xét liệu tốc độ tăng trưởng dài hạn trong tương lai có khác biệt so với tốc độ tăng trưởng lịch sử hay không và khác biệt như thế nào. Ví dụ, ngay cả một số công ty đã trưởng thành vẫn có thể tăng tốc độ tăng trưởng dài hạn thông qua đổi mới sản phẩm và/hoặc mở rộng thị trường (ví dụ: Apple), trong khi những công ty “tăng trưởng” có vẻ như được bảo vệ rất tốt khác lại có thể trải qua một đợt suy giảm không lường trước trong hoạt động kinh doanh do sự thay đổi công nghệ (ví dụ: Công ty Eastman Kodak, một công ty in ấn thương mại và hình ảnh toàn cầu).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>One of the greatest challenges facing the analyst is anticipating inflection points, when the future will look significantly different from the recent past. Most DCF models rely on a perpetuity calculation, which assumes that the cash flows from the last year of an explicit forecast grow at a constant rate forever. Because the perpetuity can account for a relatively large portion of the overall valuation of the company, it is critical that the cash flow used is representative of a “normalized” or “mid-cycle” result. If the analyst is examining a cyclical company, using a boom year as the starting point for the perpetuity could result in a grossly overstated valuation. Similarly, using a trough year could result in a valuation that is much too low.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một trong những thách thức lớn nhất mà chuyên gia phân tích phải đối mặt là việc dự đoán các điểm uốn (<em>inflection points</em>), khi tương lai sẽ có diện mạo khác biệt đáng kể so với quá khứ gần đây. Hầu hết các mô hình DCF đều dựa vào phép tính dòng tiền vĩnh viễn (<em>perpetuity calculation</em>), vốn giả định rằng các dòng tiền từ năm cuối cùng của một dự báo tường minh sẽ tăng trưởng với tốc độ không đổi mãi mãi. Bởi vì giá trị dòng tiền vĩnh viễn có thể chiếm một tỷ trọng tương đối lớn trong tổng giá trị định giá của công ty, điều tối quan trọng là dòng tiền được sử dụng phải đại diện cho một kết quả “bình thường hóa” hoặc “giữa chu kỳ”. Nếu chuyên gia phân tích đang xem xét một công ty có tính chu kỳ, việc sử dụng một năm bùng nổ (<em>boom year</em>) làm điểm khởi đầu cho dòng tiền vĩnh viễn có thể dẫn đến một mức định giá bị phóng đại quá mức. Tương tự, việc sử dụng một năm chạm đáy chu kỳ (<em>trough year</em>) có thể dẫn đến một mức định giá quá thấp.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Another important consideration is economic disruption. The economy can occasionally experience sudden, unprecedented changes that affect a wide variety of companies, such as the 2008 global financial crisis or the COVID-19 pandemic. Even a company with a sound strategy and solid operations can be thrown far off course by a sudden economic disruption, particularly if the company has a high degree of financial leverage.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một yếu tố cân nhắc quan trọng khác là sự đứt gãy kinh tế (<em>economic disruption</em>). Nền kinh tế đôi khi có thể trải qua những thay đổi đột ngột, chưa từng có tiền lệ làm ảnh hưởng đến hàng loạt công ty, chẳng hạn như cuộc khủng hoảng tài chính toàn cầu năm 2008 hoặc đại dịch COVID-19. Ngay cả một công ty có chiến lược đúng đắn và hoạt động vững chắc cũng có thể bị đẩy chệch hướng rất xa bởi một sự đứt gãy kinh tế đột ngột, đặc biệt là nếu công ty đó có mức độ đòn bẩy tài chính cao.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-501" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 501 / Trang PDF 501
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Regulation and technology are also potential drivers of inflection points, and it is important for the analyst to keep a close eye on both. Government actions can have extreme, sudden, and unpredictable impacts on some businesses. Technological advances can turn fast-growing innovators obsolete in a matter of months. Both regulation and technology affect some industries more than others. Utilities experience intense regulation but might not see a significant technological change for decades. Semiconductor manufacturers must constantly keep up with new technology but experience relatively light regulation. Pharmaceutical manufacturers are heavily exposed to both regulation and technological advances.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Quy định quản lý (<em>Regulation</em>) và công nghệ (<em>technology</em>) cũng là những động lực tiềm tàng tạo ra các điểm uốn, và điều quan trọng là chuyên gia phân tích phải theo dõi sát sao cả hai yếu tố này. Các hành động của chính phủ có thể gây ra những tác động cực đoan, đột ngột, và không thể đoán trước lên một số doanh nghiệp. Những tiến bộ công nghệ có thể biến các công ty đổi mới sáng tạo đang tăng trưởng nhanh chóng trở nên lỗi thời chỉ trong vòng vài tháng. Cả quy định quản lý lẫn công nghệ đều ảnh hưởng đến một số ngành nhiều hơn những ngành khác. Các công ty tiện ích công cộng (<em>Utilities</em>) chịu sự quản lý giám sát rất gắt gao nhưng có thể không chứng kiến một sự thay đổi công nghệ đáng kể nào trong hàng thập kỷ. Các nhà sản xuất chất bán dẫn (<em>Semiconductor manufacturers</em>) phải liên tục bắt kịp công nghệ mới nhưng lại chịu sự quản lý tương đối nhẹ nhàng. Các nhà sản xuất dược phẩm (<em>Pharmaceutical manufacturers</em>) chịu sự phơi nhiễm nặng nề trước cả quy định quản lý lẫn những tiến bộ công nghệ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Finally, long-term growth is a key input in the perpetuity calculation. Some companies and industries can grow faster than the overall economy for long periods of time, causing them to account for an increasing share of overall output. Examples include some technology companies, such as Tencent, Amazon, and Google. Other companies, such as those in the print media sector, are likely to grow slower than the overall economy or even shrink over time. Using an unrealistic long-term growth rate can put the analyst’s valuation far off the mark.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cuối cùng, tăng trưởng dài hạn (<em>long-term growth</em>) là một đầu vào then chốt trong phép tính dòng tiền vĩnh viễn. Một số công ty và ngành có thể tăng trưởng nhanh hơn toàn bộ nền kinh tế trong những khoảng thời gian dài, khiến chúng chiếm tỷ trọng ngày càng tăng trong tổng sản lượng chung. Các ví dụ bao gồm một số công ty công nghệ như Tencent, Amazon, và Google. Những công ty khác, chẳng hạn như các công ty trong lĩnh vực truyền thông in ấn (<em>print media</em>), nhiều khả năng sẽ tăng trưởng chậm hơn toàn bộ nền kinh tế hoặc thậm chí thu hẹp dần theo thời gian. Việc sử dụng một tốc độ tăng trưởng dài hạn thiếu thực tế có thể khiến kết quả định giá của chuyên gia phân tích lệch rất xa so với thực tế.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 10</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 10 (EXAMPLE 10)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Important Considerations When Making Assumptions</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Những Cân nhắc Quan trọng Khi Đưa ra Giả định (Important Considerations When Making Assumptions)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Turkish Airlines (THYAO.IS) operates in the highly cyclical global airline industry. Operating margins for 2011–2019 are shown in the following table and in the Example 10 worksheet in the downloadable Microsoft Excel workbook.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Turkish Airlines (THYAO.IS) hoạt động trong ngành hàng không toàn cầu có tính chu kỳ rất cao. Biên lợi nhuận hoạt động trong giai đoạn 2011–2019 được hiển thị trong bảng sau đây và trong trang tính Example 10 thuộc tệp sổ tính Microsoft Excel có thể tải xuống.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2011</strong></th>
+<th><strong>2012</strong></th>
+<th><strong>2013</strong></th>
+<th><strong>2014</strong></th>
+<th><strong>2015</strong></th>
+<th><strong>2016</strong></th>
+<th><strong>2017</strong></th>
+<th><strong>2018</strong></th>
+<th><strong>2019</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operating<br>margin</td>
+<td>1.0%</td>
+<td>10.8%</td>
+<td>6.5%</td>
+<td>5.6%</td>
+<td>8.6%</td>
+<td>−2.9%</td>
+<td>9.0%</td>
+<td>9.9%</td>
+<td>7.9%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>2011</strong></th>
+<th><strong>2012</strong></th>
+<th><strong>2013</strong></th>
+<th><strong>2014</strong></th>
+<th><strong>2015</strong></th>
+<th><strong>2016</strong></th>
+<th><strong>2017</strong></th>
+<th><strong>2018</strong></th>
+<th><strong>2019</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Biên lợi nhuận hoạt động (<em>Operating margin</em>)</td>
+<td>1.0%</td>
+<td>10.8%</td>
+<td>6.5%</td>
+<td>5.6%</td>
+<td>8.6%</td>
+<td>−2.9%</td>
+<td>9.0%</td>
+<td>9.9%</td>
+<td>7.9%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>On the basis of only the information in the table, which of the following operating margins would <em>most likely</em> be appropriate to use in a perpetuity calculation for Turkish Airlines to arrive at a reasonable intrinsic value estimate?</p>
+<ul>
+<li>
+<p><strong>A.</strong> 6.0 percent</p>
+</li>
+<li>
+<p><strong>B.</strong> 9.0 percent</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chỉ dựa trên thông tin trong bảng, biên lợi nhuận hoạt động nào sau đây <em>nhiều khả năng nhất</em> sẽ phù hợp để sử dụng trong phép tính dòng tiền vĩnh viễn cho Turkish Airlines nhằm đi đến một ước tính giá trị nội tại (<em>intrinsic value</em>) hợp lý?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> 9.9 percent</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 6.0%</p>
+</li>
+<li>
+<p><strong>B.</strong> 9.0%</p>
+</li>
+<li>
+<p><strong>C.</strong> 9.9%</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải:</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A is correct. Because the airline industry is cyclical, an estimate of “mid-cycle” or “normalized” operating margin is necessary to estimate a perpetuity value. The nine-year average operating margin was 6.3 percent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>A là đáp án đúng. Bởi vì ngành hàng không có tính chu kỳ, một ước tính về biên lợi nhuận hoạt động “giữa chu kỳ” hay “bình thường hóa” là cần thiết để ước tính giá trị dòng tiền vĩnh viễn. Biên lợi nhuận hoạt động bình quân chín năm là 6.3% (gần nhất với 6.0%).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For each of the companies in the following problems, indicate which of the choices is <em>least likely</em> to cause a change in the company’s outlook.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với từng công ty trong các bài toán dưới đây, hãy chỉ ra lựa chọn nào <em>ít khả năng nhất</em> sẽ gây ra sự thay đổi trong triển vọng của công ty.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>ABC Diesel (hypothetical company), a manufacturer of diesel-power trucks</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Consumers have started switching to trucks with electric engines, threatening ABC’s historic strength in diesel engine trucks.</p>
+</li>
+<li>
+<p><strong>B.</strong> ABC Diesel has formed a partnership with Electrico (hypothetical), a company involved in research and innovation in electric engines.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>ABC Diesel (công ty giả định), một nhà sản xuất xe tải chạy bằng động cơ diesel</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Người tiêu dùng đã bắt đầu chuyển sang các dòng xe tải chạy bằng động cơ điện, đe dọa thế mạnh lịch sử của ABC về xe tải động cơ diesel.</p>
+</li>
+<li>
+<p><strong>B.</strong> ABC Diesel đã thiết lập quan hệ đối tác với Electrico (giả định), một công ty tham gia nghiên cứu và đổi mới sáng tạo về động cơ điện.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-502" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 502 / Trang PDF 502
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>C.</strong> Environmental regulations have been getting tighter in most regions, and consistent with prior experience, this need to make the engines less polluting is expected to continue over the next several years.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>C.</strong> Các quy định về môi trường đang ngày càng trở nên thắt chặt hơn ở hầu hết các khu vực, và nhất quán với kinh nghiệm trước đây, nhu cầu phải làm cho động cơ ít gây ô nhiễm hơn này được kỳ vọng sẽ tiếp diễn trong vài năm tới.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải:</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. Although it is important that environmental regulations have been getting stricter, this is consistent with past experience and so does not represent a turning point.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Mặc dù việc các quy định môi trường ngày càng trở nên nghiêm ngặt hơn là điều quan trọng, nhưng điều này nhất quán với kinh nghiệm trong quá khứ và do đó không đại diện cho một bước ngoặt (<em>turning point</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Abbott Laboratories, a diversified manufacturer of health care products, including medical devices</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Management reiterates its long-standing approach to capital deployment.</p>
+</li>
+<li>
+<p><strong>B.</strong> A competitor has demonstrated favorable efficacy data on a medical device candidate that will compete with an important Abbott product.</p>
+</li>
+<li>
+<p><strong>C.</strong> It has become more difficult for medical device manufacturers to receive regulatory approval for new products because of heightened safety concerns.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Abbott Laboratories, một nhà sản xuất đa ngành các sản phẩm chăm sóc sức khỏe, bao gồm cả thiết bị y tế</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Ban giám đốc tái khẳng định phương pháp tiếp cận lâu nay của mình đối với việc phân bổ vốn (<em>capital deployment</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> Một đối thủ cạnh tranh đã chứng minh được dữ liệu hiệu quả thuận lợi đối với một thiết bị y tế tiềm năng sẽ cạnh tranh trực tiếp với một sản phẩm quan trọng của Abbott.</p>
+</li>
+<li>
+<p><strong>C.</strong> Các nhà sản xuất thiết bị y tế ngày càng gặp nhiều khó khăn hơn trong việc nhận được sự phê duyệt của cơ quan quản lý đối với các sản phẩm mới do những lo ngại ngày càng tăng về độ an toàn.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải:</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A is correct. Management is sticking with its historical approach to capital deployment, so this does not represent a turning point.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>A là đáp án đúng. Ban giám đốc vẫn đang kiên định với phương pháp tiếp cận lịch sử của mình đối với việc phân bổ vốn, vì vậy điều này không đại diện cho một bước ngoặt.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Grupo Aeroportuario del Sureste, operator of nine airports in Mexico, especially in the tourist-heavy southeast</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Global economic disruption has caused a sharp decline in international travel.</p>
+</li>
+<li>
+<p><strong>B.</strong> Regulators will allow the construction of a new airport by a competitor in Grupo Aeroportuario del Sureste’s service territory.</p>
+</li>
+<li>
+<p><strong>C.</strong> A technological advance will allow airlines to save 5 percent on fuel costs, but it is not expected to meaningfully alter passenger volumes. Similar developments in the past have benefited airlines but not airports, whose price per passenger is regulated.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Grupo Aeroportuario del Sureste, đơn vị vận hành chín sân bay tại Mexico, đặc biệt là ở khu vực đông nam tập trung đông khách du lịch</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Sự đứt gãy kinh tế toàn cầu đã gây ra sự sụt giảm mạnh trong hoạt động du lịch quốc tế.</p>
+</li>
+<li>
+<p><strong>B.</strong> Các cơ quan quản lý sẽ cho phép một đối thủ cạnh tranh xây dựng một sân bay mới ngay trong địa bàn phục vụ của Grupo Aeroportuario del Sureste.</p>
+</li>
+<li>
+<p><strong>C.</strong> Một tiến bộ công nghệ sẽ cho phép các hãng hàng không tiết kiệm 5% chi phí nhiên liệu, nhưng không được kỳ vọng sẽ làm thay đổi đáng kể lưu lượng hành khách. Những tiến bộ tương tự trong quá khứ đã mang lại lợi ích cho các hãng hàng không chứ không phải cho các sân bay, vốn có mức giá thu trên mỗi hành khách chịu sự quản lý của nhà nước.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải:</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. Although the technological advance is good for the airlines, it will not have a meaningful effect on passenger volumes, which will likely prevent the airports from sharing in that benefit. In contrast, both A and B could have a significant impact on the long-run earnings power of Mexican airports.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Mặc dù tiến bộ công nghệ này là tốt cho các hãng hàng không, nó sẽ không tạo ra tác động có ý nghĩa nào lên lưu lượng hành khách, điều này nhiều khả năng sẽ ngăn cản các sân bay được chia sẻ phần lợi ích đó. Ngược lại, cả A và B đều có thể gây ra tác động đáng kể đến năng lực tạo lợi nhuận dài hạn của các sân bay Mexico.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="5">
+<li>LinkedIn, operator of an online social network for professionals and part of Microsoft Corporation, with limited investment needs and no debt</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Facebook, another online social network, announces a plan to enhance its offerings in the professional category.</p>
+</li>
+<li>
+<p><strong>B.</strong> Regulators announce an investigation of LinkedIn’s privacy practices, which could result in significant changes to the service.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li>LinkedIn, đơn vị vận hành mạng xã hội trực tuyến dành cho giới chuyên gia và là một phần của Tập đoàn Microsoft, với nhu cầu đầu tư hạn chế và không có nợ vay</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Facebook, một mạng xã hội trực tuyến khác, công bố kế hoạch nâng cấp các dịch vụ của mình trong phân khúc dành cho giới chuyên gia.</p>
+</li>
+<li>
+<p><strong>B.</strong> Các cơ quan quản lý công bố một cuộc điều tra về các thông lệ quyền riêng tư của LinkedIn, điều có thể dẫn đến những thay đổi đáng kể đối với dịch vụ này.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-503" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 503 / Trang PDF 503
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>C.</strong> The US Federal Reserve has just increased interest rates. Although this will raise borrowing costs, the rate increase is not expected to have a negative impact on the economy.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>C.</strong> Cục Dự trữ Liên bang Hoa Kỳ (Fed) vừa tăng lãi suất. Mặc dù việc này sẽ làm tăng chi phí đi vay, đợt tăng lãi suất này không được kỳ vọng sẽ gây ra tác động tiêu cực đến nền kinh tế.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. Because LinkedIn carries no debt, it is unlikely that higher interest rates will cause a change in the company’s outlook.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Bởi vì LinkedIn không sử dụng nợ vay, việc lãi suất cao hơn ít có khả năng gây ra sự thay đổi trong triển vọng của công ty.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-504" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 504 / Trang PDF 504
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~REFERENCES~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>TÀI LIỆU THAM KHẢO (REFERENCES)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Dunning, D., D. W. Griffin, J. D. Milojkovic, and L. Ross. 1990. “The Overconfidence Effect in Social Prediction.” <em>Journal of Personality and Social Psychology</em> 58 (4): 568–81. https:// psycnet .apa .org/ record/ 1990 -22524 -00110 .1037/ 0022 -3514 .58 .4 .568</p>
+</li>
+<li>
+<p>Porter, Michael E. 1980. <em>Competitive Strategy: Techniques for Analyzing Industries and Competitors</em> . New York: Free Press.</p>
+</li>
+<li>
+<p>Porter, Michael E. 2008. “ <em>The Five Competitive Forces That Shape Strategy.</em> ” (January). https:// hbr .org/ 2008/ 01/ the -five -competitive -forces -that -shape -strategy</p>
+</li>
+<li>
+<p>Russo, J. Edward and Paul J. H. Schoemaker. 1992. “Managing Overconfidence.” <em>MIT Sloan Management Review</em> 15 (January). https:// sloanreview .mit .edu/ article/ managing -overconfidence/</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Dunning, D., D. W. Griffin, J. D. Milojkovic, and L. Ross. 1990. “The Overconfidence Effect in Social Prediction.” <em>Journal of Personality and Social Psychology</em> 58 (4): 568–81. https://psycnet.apa.org/record/1990-22524-001 10.1037/0022-3514.58.4.568</p>
+</li>
+<li>
+<p>Porter, Michael E. 1980. <em>Competitive Strategy: Techniques for Analyzing Industries and Competitors</em>. New York: Free Press.</p>
+</li>
+<li>
+<p>Porter, Michael E. 2008. “<em>The Five Competitive Forces That Shape Strategy.</em>” (January). https://hbr.org/2008/01/the-five-competitive-forces-that-shape-strategy</p>
+</li>
+<li>
+<p>Russo, J. Edward and Paul J. H. Schoemaker. 1992. “Managing Overconfidence.” <em>MIT Sloan Management Review</em> 15 (January). https://sloanreview.mit.edu/article/managing-overconfidence/</p>
+</li>
+</ul></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM12_Part2_Behavioral_Finance_and_Analyst_Forecasts.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM12_Part2_Behavioral_Finance_and_Analyst_Forecasts</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 4</a>
+      <a href="LM12_Part4_Practice_Problems.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM12_Part4_Practice_Problems →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('04_Financial_Statement_Analysis/LM12_Part3_Modeling_Inflation_and_Deflation.html');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 9 Parametric and Non-Parametric Tests of Independence - Part 1: Introduction — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 9 Parametric and Non-Parametric Tests of Independence - Part 1: Introduction</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (10 trang)...</option>
+          <option value="251">PDF Page 251</option>
+<option value="252">PDF Page 252</option>
+<option value="253">PDF Page 253</option>
+<option value="254">PDF Page 254</option>
+<option value="255">PDF Page 255</option>
+<option value="256">PDF Page 256</option>
+<option value="257">PDF Page 257</option>
+<option value="258">PDF Page 258</option>
+<option value="259">PDF Page 259</option>
+<option value="260">PDF Page 260</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 9 Parametric and Non-Parametric Tests of Independence - Part 1: Introduction</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM09_Part1_Introduction.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 9 Parametric and Non-Parametric Tests of Independence</h2>
+<h3>Part 1/2: Introduction (PDF Pages 251–260)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 9: Các Kiểm định Tính Độc lập Tham số và Phi tham số (<em>Parametric and Non-Parametric Tests of Independence</em>)</h2>
+<h3>Phần 1/2: Giới thiệu (<em>Introduction</em>) (Trang PDF 251–260)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-251" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 251 / Trang PDF 251
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4>L E A R N I N G M O D U L E</h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4>H Ọ C P H Ầ N</h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>9</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>9</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Parametric and Non-Parametric Tests of Independence</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Các Kiểm định Tính Độc lập Tham số và Phi tham số (<em>Parametric and Non-Parametric Tests of Independence</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>by Pamela Peterson Drake, PhD, CFA.</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>tác giả: Pamela Peterson Drake, PhD, CFA.</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Pamela Peterson Drake, PhD, CFA, is at James Madison University (USA).</em></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Pamela Peterson Drake, PhD, CFA, làm việc tại Đại học James Madison (Hoa Kỳ).</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><mark>LEARNING OUTCOMES</mark></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><mark>MỤC TIÊU HỌC TẬP (<em>LEARNING OUTCOMES</em>)</mark></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><em>Mastery The candidate should be able to:</em></strong> explain parametric and nonparametric tests of the hypothesis that the population correlation coefficient equals zero, and determine whether the hypothesis is rejected at a given level of significance explain tests of independence based on contingency table data</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong><em>Mức độ Thành thạo – Ứng viên cần có khả năng:</em></strong>
+- Giải thích các kiểm định tham số và phi tham số đối với giả thuyết rằng hệ số tương quan tổng thể (<em>population correlation coefficient</em>) bằng 0, và xác định xem giả thuyết có bị bác bỏ ở một mức ý nghĩa cho trước hay không.
+- Giải thích các kiểm định tính độc lập dựa trên dữ liệu bảng tiếp liên (<em>contingency table data</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>INTRODUCTION</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>GIỚI THIỆU (<em>INTRODUCTION</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><mark>1</mark></strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong><mark>1</mark></strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In many contexts in investments, we want to assess the strength of the linear relationship between two variables—that is, we want to evaluate the <strong>correlation</strong> between them. A significance test of a correlation coefficient allows us to assess whether the relationship between two random variables is the result of chance. Lesson 1 covers a parametric and a non-parametric approach to testing the correlation between two variables. If we decide that the relationship does not result from chance, then we can use this information in modeling or forecasting using regression models or machine learning covered in later Learning Modules.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong nhiều bối cảnh đầu tư, chúng ta muốn đánh giá độ mạnh của mối quan hệ tuyến tính giữa hai biến số—tức là chúng ta muốn đánh giá <strong>tương quan (<em>correlation</em>)</strong> giữa chúng. Một kiểm định ý nghĩa của hệ số tương quan cho phép chúng ta đánh giá xem liệu mối quan hệ giữa hai biến ngẫu nhiên có phải là kết quả của sự ngẫu nhiên hay không. Bài 1 trình bày cách tiếp cận tham số và phi tham số để kiểm định tương quan giữa hai biến số. Nếu chúng ta kết luận rằng mối quan hệ không phải do ngẫu nhiên mà có, thì chúng ta có thể sử dụng thông tin này trong việc mô hình hóa hoặc dự báo bằng cách sử dụng các mô hình hồi quy (<em>regression models</em>) hoặc học máy (<em>machine learning</em>) được trình bày trong các Học phần sau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>When faced with categorical or discrete data, however, we cannot use the methods discussed in the first lesson to test whether the classifications of such data are independent. If we want to test whether there is a relationship between categorical or discreet data, we can perform a test of independence using a nonparametric test statistic. The second lesson covers the use of contingency tables in implementing this non-parametric test.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tuy nhiên, khi đối mặt với dữ liệu phân loại (<em>categorical data</em>) hoặc dữ liệu rời rạc (<em>discrete data</em>), chúng ta không thể sử dụng các phương pháp được thảo luận trong bài học đầu tiên để kiểm định xem các phân loại của dữ liệu đó có độc lập với nhau hay không. Nếu chúng ta muốn kiểm định xem liệu có mối quan hệ nào giữa dữ liệu phân loại hoặc rời rạc hay không, chúng ta có thể thực hiện kiểm định tính độc lập (<em>test of independence</em>) bằng cách sử dụng một thống kê kiểm định phi tham số. Bài học thứ hai trình bày việc sử dụng các bảng tiếp liên (<em>contingency tables</em>) trong việc triển khai kiểm định phi tham số này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE OVERVIEW</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỔNG QUAN HỌC PHẦN (<em>LEARNING MODULE OVERVIEW</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>■ There are three ways to formulate hypotheses. Let θ indicate the population parameters:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Có ba cách để thiết lập các giả thuyết. Gọi <span class="math-inline">$\theta$</span> biểu thị các tham số tổng thể:</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-252" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 252 / Trang PDF 252
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> Two-sided alternative: <em>H0</em> : θ = θ0 versus <em>Ha</em> : θ ≠ θ0</p>
+<p><strong>2.</strong> One-sided alternative (right side): <em>H0</em> : θ ≤ θ0 versus <em>Ha</em> : θ &gt; θ0</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Giả thuyết đối hai phía (<em>Two-sided alternative</em>): <span class="math-inline">$H_0: \theta = \theta_0$</span> đối lập với <span class="math-inline">$H_a: \theta \ne \theta_0$</span> 
+   <strong>2.</strong> Giả thuyết đối một phía (phía bên phải – <em>right side</em>): <span class="math-inline">$H_0: \theta \le \theta_0$</span> đối lập với <span class="math-inline">$H_a: \theta &gt; \theta_0$</span> 
+   <strong>3.</strong> Giả thuyết đối một phía (phía bên trái – <em>left side</em>): <span class="math-inline">$H_0: \theta \ge \theta_0$</span> đối lập với <span class="math-inline">$H_a: \theta &lt; \theta_0$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> One-sided alternative (left side): <em>H0</em> : θ ≥ θ0 versus <em>Ha</em> : θ &lt; θ0</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó <span class="math-inline">$\theta_0$</span> là một giá trị theo giả thuyết của tham số tổng thể và <span class="math-inline">$\theta$</span> là giá trị thực của tham số tổng thể.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where θ0 is a hypothesized value of the population parameter and θ is the true value of the population parameter.</p>
+<ul>
+<li>
+<p>A parametric test is a hypothesis test concerning a population parameter or a hypothesis test based on specific distributional assumptions. In contrast, a nonparametric test either is not concerned with a parameter or makes mini mal assumptions about the population from which the sample comes.</p>
+</li>
+<li>
+<p>A nonparametric test is primarily used when data do not meet distributional assumptions, when there are outliers, when data are given in ranks, or when the hypothesis we are addressing does not concern a parameter.</p>
+</li>
+<li>
+<p>In tests concerning correlation, we use a t-statistic to test whether a popula tion correlation coefficient is different from zero. If we have n observations for two variables, this test statistic has a <em>t</em> -distribution with <em>n</em> − 2 degrees of freedom.</p>
+</li>
+<li>
+<p>The Spearman rank correlation coefficient is calculated on the ranks of two variables within their respective samples.</p>
+</li>
+<li>
+<p>A chi-square distributed test statistic is used to test for independence of two categorical variables. This nonparametric test compares actual frequencies with those expected on the basis of independence. This test statistic has degrees of freedom of ( <em>r</em> − 1)( <em>c</em> − 2), where <em>r</em> is the number of categories for the first variable and c is the number of categories of the second variable.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Kiểm định tham số (<em>parametric test</em>) là một kiểm định giả thuyết liên quan đến một tham số tổng thể hoặc một kiểm định giả thuyết dựa trên các giả định phân phối cụ thể. Ngược lại, kiểm định phi tham số (<em>nonparametric test</em>) hoặc không liên quan đến một tham số hoặc đưa ra các giả định tối thiểu về tổng thể mà từ đó mẫu được rút ra.</p>
+</li>
+<li>
+<p>Kiểm định phi tham số chủ yếu được sử dụng khi dữ liệu không đáp ứng các giả định về phân phối, khi có các giá trị ngoại lai (<em>outliers</em>), khi dữ liệu được cho dưới dạng thứ hạng (<em>ranks</em>), hoặc khi giả thuyết chúng ta đang giải quyết không liên quan đến một tham số.</p>
+</li>
+<li>
+<p>Trong các kiểm định liên quan đến tương quan, chúng ta sử dụng thống kê <span class="math-inline">$t$</span> để kiểm định xem hệ số tương quan tổng thể có khác <span class="math-inline">$0$</span> hay không. Nếu chúng ta có <span class="math-inline">$n$</span> quan sát cho hai biến số, thống kê kiểm định này có phân phối <span class="math-inline">$t$</span> với <span class="math-inline">$n - 2$</span> bậc tự do.</p>
+</li>
+<li>
+<p>Hệ số tương quan hạng Spearman (<em>Spearman rank correlation coefficient</em>) được tính toán trên thứ hạng của hai biến số trong các mẫu tương ứng của chúng.</p>
+</li>
+<li>
+<p>Một thống kê kiểm định có phân phối Khi-bình phương (<em>chi-square distributed test statistic</em>) được sử dụng để kiểm định tính độc lập của hai biến phân loại. Kiểm định phi tham số này so sánh các tần số thực tế với các tần số kỳ vọng trên cơ sở tính độc lập. Thống kê kiểm định này có bậc tự do là <span class="math-inline">$(r - 1)(c - 1)$</span> <em>(lưu ý: bản gốc tiếng Anh ở trang 252 in nhầm thành <span class="math-inline">$(r - 1)(c - 2)$</span>, công thức đúng chuẩn ở trang 262 là <span class="math-inline">$(r - 1)(c - 1)$</span>)</em>, trong đó <span class="math-inline">$r$</span> là số danh mục của biến thứ nhất và <span class="math-inline">$c$</span> là số danh mục của biến thứ hai.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>2</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>2</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>TESTS CONCERNING CORRELATION</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>CÁC KIỂM ĐỊNH LIÊN QUAN ĐẾN TƯƠNG QUAN (<em>TESTS CONCERNING CORRELATION</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>explain parametric and nonparametric tests of the hypothesis that the population correlation coefficient equals zero, and determine whether the hypothesis is rejected at a given level of significance</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><em>Giải thích các kiểm định tham số và phi tham số đối với giả thuyết rằng hệ số tương quan tổng thể bằng 0, và xác định xem giả thuyết có bị bác bỏ ở một mức ý nghĩa cho trước hay không</em></li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The most common hypotheses concerning correlation occur when comparing the population correlation coefficient with zero because we often ask whether a relationship exists, which implies a null of the correlation coefficient equal to zero (i.e., no relationship). Hypotheses concerning the population correlation coefficient may be two- or one-sided, as we have seen in other tests. Let <em>ρ</em> represent the population correlation coefficient. The possible hypotheses are as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các giả thuyết phổ biến nhất liên quan đến tương quan xuất hiện khi so sánh hệ số tương quan tổng thể với <span class="math-inline">$0$</span> bởi vì chúng ta thường đặt câu hỏi liệu một mối quan hệ có tồn tại hay không, điều này ngụ ý một giả thuyết không rằng hệ số tương quan bằng <span class="math-inline">$0$</span> (tức là không có mối quan hệ). Các giả thuyết liên quan đến hệ số tương quan tổng thể có thể là hai phía hoặc một phía, như chúng ta đã thấy trong các kiểm định khác. Gọi <span class="math-inline">$\rho$</span> đại diện cho hệ số tương quan tổng thể. Các giả thuyết có thể có như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Two sided: <em>H</em> 0: <em>ρ</em> = 0 versus <em>Ha</em> : ρ ≠ 0</p>
+</li>
+<li>
+<p>One sided (right side): <em>H</em> 0: <em>ρ</em> ≤ 0 versus <em>Ha</em> : <em>ρ</em> &gt; 0</p>
+</li>
+<li>
+<p>One sided (left side): <em>H</em> 0: <em>ρ</em> ≥ 0 versus <em>Ha</em> : <em>ρ</em> &lt; 0</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Hai phía (<em>Two sided</em>): <span class="math-inline">$H_0: \rho = 0$</span> đối lập với <span class="math-inline">$H_a: \rho \ne 0$</span> </li>
+<li>Một phía (phía bên phải – <em>right side</em>): <span class="math-inline">$H_0: \rho \le 0$</span> đối lập với <span class="math-inline">$H_a: \rho &gt; 0$</span> </li>
+<li>Một phía (phía bên trái – <em>left side</em>): <span class="math-inline">$H_0: \rho \ge 0$</span> đối lập với <span class="math-inline">$H_a: \rho &lt; 0$</span></li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We use the sample correlation to test these hypotheses on the population correlation.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta sử dụng tương quan mẫu để kiểm định các giả thuyết này về tương quan tổng thể.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-253" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 253 / Trang PDF 253
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Parametric Test of a Correlation</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Kiểm định Tham số về Tương quan (<em>Parametric Test of a Correlation</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The parametric pairwise correlation coefficient is often referred to as <strong>Pearson correlation</strong> , the <strong>bivariate correlation</strong> , or simply the correlation. Our focus is on the testing of the correlation and not the actual calculation of this statistic, but it helps distinguish this correlation from the nonparametric correlation if we look at the formula for the sample correlation. Consider two variables, <em>X</em> and <em>Y</em> . The sample correlation, <em>rXY</em> , is as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hệ số tương quan từng cặp tham số thường được gọi là <strong>tương quan Pearson (<em>Pearson correlation</em>)</strong>, <strong>tương quan hai biến (<em>bivariate correlation</em>)</strong>, hoặc đơn giản là tương quan. Trọng tâm của chúng ta là việc kiểm định tương quan chứ không phải phép tính thực tế của thống kê này, nhưng việc nhìn vào công thức tính tương quan mẫu sẽ giúp phân biệt tương quan này với tương quan phi tham số. Xét hai biến số, <span class="math-inline">$X$</span> và <span class="math-inline">$Y$</span>. Tương quan mẫu, <span class="math-inline">$r_{XY}$</span>, được tính như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0253-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0253-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$r_{XY} = \frac{s_{XY}}{s_X s_Y} \tag{1}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where <em>sXY</em> is the sample covariance between the <em>X</em> and <em>Y</em> variables, <em>sX</em> is the standard deviation of the <em>X</em> variable, and <em>sY</em> is the standard deviation of the <em>Y</em> variable. We often drop the subscript to represent the correlation as simply <em>r</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó <span class="math-inline">$s_{XY}$</span> là hiệp phương sai mẫu (<em>sample covariance</em>) giữa hai biến <span class="math-inline">$X$</span> và <span class="math-inline">$Y$</span>, <span class="math-inline">$s_X$</span> là độ lệch chuẩn của biến <span class="math-inline">$X$</span>, và <span class="math-inline">$s_Y$</span> là độ lệch chuẩn của biến <span class="math-inline">$Y$</span>. Chúng ta thường lược bỏ chỉ số dưới để biểu thị tương quan đơn giản là <span class="math-inline">$r$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Therefore, you can see from this formula that each observation is compared with its respective variable mean and that, because of the covariance, it matters how much each observation differs from its respective variable mean. Note that the covariance drives the sign of the correlation.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó, bạn có thể thấy từ công thức này rằng mỗi quan sát được so sánh với giá trị trung bình của biến tương ứng và, do có hiệp phương sai, mức độ chênh lệch của mỗi quan sát so với giá trị trung bình của biến tương ứng đóng vai trò rất quan trọng. Lưu ý rằng hiệp phương sai quyết định dấu của hệ số tương quan.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If the two variables are normally distributed, we can test to determine whether the null hypothesis ( <em>H</em> 0: <em>ρ</em> = 0) should be rejected using the sample correlation, <em>r</em> . The formula for the <em>t</em> -test is as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu hai biến số có phân phối chuẩn, chúng ta có thể kiểm định để xác định xem giả thuyết không (<span class="math-inline">$H_0: \rho = 0$</span>) có nên bị bác bỏ hay không bằng cách sử dụng tương quan mẫu, <span class="math-inline">$r$</span>. Công thức cho kiểm định <span class="math-inline">$t$</span> như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0253-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0253-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}} \tag{2}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This test statistic is <em>t</em> -distributed with <em>n</em> − 2 degrees of freedom. One practical observation concerning Equation 2 is that the magnitude of <em>r</em> needed to reject the null hypothesis decreases as sample size <em>n</em> increases, for two reasons. First, as <em>n</em> increases, the number of degrees of freedom increases and the absolute value of the critical value of the <em>t</em> -statistic decreases. Second, the absolute value of the numerator increases with larger <em>n</em> , resulting in a larger magnitude of the calculated <em>t</em> -statistic. For example, with sample size <em>n</em> = 12, <em>r</em> = 0.35 results in a <em>t</em> -statistic of 1.182, which is not different from zero at the 0.05 level ( <em>t</em> α/2 = ±2.228). With a sample size of <em>n</em> = 32, the same sample correlation, <em>r</em> = 0.35, yields a <em>t</em> -statistic of 2.046, which is just significant at the 0.05 level ( <em>t</em> α/2 = ±2.042).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thống kê kiểm định này có phân phối <span class="math-inline">$t$</span> với <span class="math-inline">$n - 2$</span> bậc tự do. Một nhận xét thực tế liên quan đến Phương trình 2 là độ lớn của <span class="math-inline">$r$</span> cần thiết để bác bỏ giả thuyết không sẽ giảm xuống khi kích thước mẫu <span class="math-inline">$n$</span> tăng lên, vì hai lý do. Thứ nhất, khi <span class="math-inline">$n$</span> tăng lên, số bậc tự do tăng lên và giá trị tuyệt đối của giá trị tới hạn của thống kê <span class="math-inline">$t$</span> giảm xuống. Thứ hai, giá trị tuyệt đối của tử số tăng lên khi <span class="math-inline">$n$</span> lớn hơn, dẫn đến độ lớn của thống kê <span class="math-inline">$t$</span> tính toán được lớn hơn. Ví dụ, với kích thước mẫu <span class="math-inline">$n = 12$</span>, <span class="math-inline">$r = 0.35$</span> mang lại thống kê <span class="math-inline">$t$</span> là <span class="math-inline">$1.182$</span>, không khác <span class="math-inline">$0$</span> ở mức ý nghĩa <span class="math-inline">$0.05$</span> (<span class="math-inline">$t_{\alpha/2} = \pm 2.228$</span>). Với kích thước mẫu <span class="math-inline">$n = 32$</span>, cùng mức tương quan mẫu đó, <span class="math-inline">$r = 0.35$</span>, mang lại thống kê <span class="math-inline">$t$</span> là <span class="math-inline">$2.046$</span>, vừa đủ có ý nghĩa thống kê ở mức <span class="math-inline">$0.05$</span> (<span class="math-inline">$t_{\alpha/2} = \pm 2.042$</span>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Another way to make this point is that when sampling from the same population, a false null hypothesis is more likely to be rejected (i.e., the power of the test increases) as we increase the sample size, all else equal, because a higher number of observations increases the numerator of the test statistic. We show this in Exhibit 1 for three different sample correlation coefficients, with the corresponding calculated <em>t</em> -statistics and significance at the 5 percent level for a two-sided alternative hypothesis. As the sample size increases, significance is more likely to be indicated, but the rate of achieving this significance depends on the sample correlation coefficient; the higher the sample correlation, the faster significance is achieved when increasing the sample size. As the sample sizes increase as ever-larger datasets are examined, the null hypothesis is almost always rejected and other tools of data analysis must be applied.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một cách khác để diễn đạt điểm này là khi lấy mẫu từ cùng một tổng thể, một giả thuyết không đang sai có nhiều khả năng bị bác bỏ hơn (tức là lực kiểm định tăng lên) khi chúng ta tăng kích thước mẫu, với các yếu tố khác không đổi, bởi vì số lượng quan sát cao hơn làm tăng tử số của thống kê kiểm định. Chúng tôi thể hiện điều này trong Minh họa 1 cho ba hệ số tương quan mẫu khác nhau, với các thống kê <span class="math-inline">$t$</span> tính toán được tương ứng và ý nghĩa thống kê ở mức <span class="math-inline">$5\%$</span> cho một giả thuyết đối hai phía. Khi kích thước mẫu tăng lên, ý nghĩa thống kê có nhiều khả năng đạt được hơn, nhưng tốc độ đạt được ý nghĩa thống kê này phụ thuộc vào hệ số tương quan mẫu; tương quan mẫu càng cao thì càng nhanh đạt được ý nghĩa thống kê khi tăng kích thước mẫu. Khi kích thước mẫu tăng lên do các tập dữ liệu ngày càng lớn được xem xét, giả thuyết không hầu như luôn bị bác bỏ và cần phải áp dụng các công cụ phân tích dữ liệu khác.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-254" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 254 / Trang PDF 254
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Calculated Test Statistics for Different Sample Sizes and Sample Correlations with a 5 Percent Level of Significance</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 1: Các Thống kê Kiểm định Tính toán được cho các Kích thước Mẫu và Tương quan Mẫu Khác nhau với Mức Ý nghĩa 5% (<em>Exhibit 1: Calculated Test Statistics for Different Sample Sizes and Sample Correlations with a 5 Percent Level of Significance</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0254-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0254-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Đồ thị biểu diễn Thống kê <span class="math-inline">$t$</span> tính toán được (<em>Calculated t-Statistic</em>) trên trục tung theo Kích thước mẫu (<em>Sample Size</em>) trên trục hoành cho các mức hệ số tương quan <span class="math-inline">$r = 0.2, 0.4, 0.6$</span>, đánh dấu vùng bắt đầu có ý nghĩa thống kê (<em>Significant Correlation</em>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 1</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 1 (<em>EXAMPLE 1</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Examining the Relationship between Returns on Investment One and Investment Two</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Xem xét Mối quan hệ giữa Tỷ suất sinh lợi trên Khoản đầu tư Một và Khoản đầu tư Hai (<em>Examining the Relationship between Returns on Investment One and Investment Two</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An analyst is examining the annual returns for Investment One and Investment Two over 33 years, as displayed in Exhibit 2.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một nhà phân tích đang xem xét tỷ suất sinh lợi hàng năm của Khoản đầu tư Một và Khoản đầu tư Hai trong 33 năm, như được hiển thị trong Minh họa 2.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Returns for Investments One and Two over 33 Years</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 2: Tỷ suất sinh lợi của Khoản đầu tư Một và Hai trong 33 Năm (<em>Exhibit 2: Returns for Investments One and Two over 33 Years</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0254-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0254-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Đồ thị chuỗi thời gian của Tỷ suất sinh lợi hàng năm (<em>Annual Return</em> (%)) từ Năm 1 đến Năm 33 của Khoản đầu tư Một (<em>Investment One</em>) và Khoản đầu tư Hai (<em>Investment Two</em>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Although this time series plot provides some useful information, the analyst is most interested in quantifying how the returns of these two series are related, so she calculates the correlation coefficient, equal to 0.43051, between these series.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù đồ thị chuỗi thời gian này cung cấp một số thông tin hữu ích, nhà phân tích quan tâm nhất đến việc định lượng mối liên hệ giữa tỷ suất sinh lợi của hai chuỗi này, vì vậy cô tính hệ số tương quan giữa hai chuỗi này và thu được kết quả bằng <span class="math-inline">$0.43051$</span>.</p>
+<ol>
+<li>Có mối tương quan dương có ý nghĩa thống kê giữa hai chuỗi tỷ suất sinh lợi này hay không nếu cô sử dụng mức ý nghĩa <span class="math-inline">$1\%$</span>?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Is there a significant positive correlation between these two return series if she uses a 1 percent level of significance? <strong>Solution:</strong></li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Lời giải (<em>Solution</em>):</strong></p></div>
+                </div>
+                
+
+                <div id="pdf-page-255" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 255 / Trang PDF 255
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Step 1</strong></th>
+<th>State the hypotheses.</th>
+<th><em>H</em> 0:<em>ρ</em>≤ 0 versus_H_ <em>a</em>:<em>ρ</em>&gt; 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 2</strong></td>
+<td>Identify the appropriate test<br>statistic.</td>
+<td><em>t</em>=<sup><em>r</em>  √ <em></sup><br>_n</em>− 2<br><em><br> √ <sup></em></sup><br>1 −<em>r</em> <sup>2</sup></td>
+</tr>
+<tr>
+<td><strong>Step 3</strong></td>
+<td>Specify the level of<br>significance.</td>
+<td>1%</td>
+</tr>
+<tr>
+<td><strong>Step 4</strong></td>
+<td>State the decision rule.</td>
+<td>With 33 − 2 = 31 degrees of freedom<br>and a one-sided test with a 1% level<br>of significance, the critical value is<br>2.45282.<br>We reject the null hypothesis if the<br>calculated_t_-statistic is greater than<br>2.45282.</td>
+</tr>
+<tr>
+<td><strong>Step 5</strong></td>
+<td>Calculate the test statistic.</td>
+<td><sup><em>t</em> =0.43051√ _</sup><br>33 − 2<br><strong><em>_</em></strong><strong><em>_</em><br> √<br></strong><strong><em>_</em></strong>__<br>1 − 0.18534 <br>= 2.65568</td>
+</tr>
+<tr>
+<td><strong>Step 6</strong></td>
+<td>Make a decision.</td>
+<td>Reject the null hypothesis because the<br>calculated_t_-statistic is greater than<br>2.45282. Evidence is sufficient to reject<br>the_H_0in favor of Ha, that the correla-<br>tion between the annual returns of<br>these two investments is positive.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 1 (<em>Step 1</em>)</strong></th>
+<th>Phát biểu các giả thuyết.</th>
+<th><div class="math-display my-3 overflow-x-auto">$$H_0: \rho \le 0 \text{ đối lập với } H_a: \rho &gt; 0$$</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 2 (<em>Step 2</em>)</strong></td>
+<td>Xác định thống kê kiểm định phù hợp.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}}$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 3 (<em>Step 3</em>)</strong></td>
+<td>Xác định mức ý nghĩa.</td>
+<td><span class="math-inline">$1\%$</span></td>
+</tr>
+<tr>
+<td><strong>Bước 4 (<em>Step 4</em>)</strong></td>
+<td>Phát biểu quy tắc quyết định.</td>
+<td>Với <span class="math-inline">$33 - 2 = 31$</span> bậc tự do và kiểm định một phía với mức ý nghĩa <span class="math-inline">$1\%$</span>, giá trị tới hạn là <span class="math-inline">$2.45282$</span>.<br>Chúng ta bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$t$</span> tính toán được lớn hơn <span class="math-inline">$2.45282$</span>.</td>
+</tr>
+<tr>
+<td><strong>Bước 5 (<em>Step 5</em>)</strong></td>
+<td>Tính toán thống kê kiểm định.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$t = \frac{0.43051\sqrt{33 - 2}}{\sqrt{1 - 0.18534}} = 2.65568$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 6 (<em>Step 6</em>)</strong></td>
+<td>Đưa ra quyết định.</td>
+<td>Bác bỏ giả thuyết không bởi vì thống kê <span class="math-inline">$t$</span> tính toán được lớn hơn <span class="math-inline">$2.45282$</span>. Có đủ bằng chứng để bác bỏ <span class="math-inline">$H_0$</span> nhằm ủng hộ <span class="math-inline">$H_a$</span>, tức là tương quan giữa tỷ suất sinh lợi hàng năm của hai khoản đầu tư này là dương.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 2</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 2 (<em>EXAMPLE 2</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Correlation with the S&amp;P 500 Returns</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Tương quan với Tỷ suất sinh lợi S&amp;P 500 (<em>Correlation with the S&amp;P 500 Returns</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Exhibit 3 shows the sample correlations between the monthly returns for four different mutual funds and the S&amp;P 500. The correlations are based on 36 monthly observations. The funds are as follows:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Minh họa 3 cho thấy tương quan mẫu giữa tỷ suất sinh lợi hàng tháng của bốn quỹ tương hỗ khác nhau và chỉ số S&amp;P 500. Các hệ số tương quan dựa trên 36 quan sát hàng tháng. Các quỹ như sau:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 3: Sample Correlations between Monthly Returns and the S&amp;P 500</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Minh họa 3: Tương quan Mẫu giữa Tỷ suất sinh lợi Hàng tháng và S&amp;P 500 (<em>Exhibit 3: Sample Correlations between Monthly Returns and the S&amp;P 500</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Fund 1</th>
+<th>Large-cap fund</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fund 2</td>
+<td>Mid-cap fund</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Fund 3</td>
+<td>Large-cap value fund</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Fund 4</td>
+<td>Emerging market fund</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>S&amp;P 500</td>
+<td>US domestic stock index</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Fund 1</strong><br><strong>Fund 2</strong></td>
+<td><strong>Fund 3</strong></td>
+<td><strong>Fund 4</strong></td>
+<td><strong>S&amp;P 500</strong></td>
+</tr>
+<tr>
+<td>Fund 1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Fund 2</td>
+<td>0.9231<br>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Fund 3</td>
+<td>0.4771<br>0.4156</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Quỹ 1 (<em>Fund 1</em>):</strong> Quỹ vốn hóa lớn (<em>Large-cap fund</em>)</li>
+<li><strong>Quỹ 2 (<em>Fund 2</em>):</strong> Quỹ vốn hóa trung bình (<em>Mid-cap fund</em>)</li>
+<li><strong>Quỹ 3 (<em>Fund 3</em>):</strong> Quỹ giá trị vốn hóa lớn (<em>Large-cap value fund</em>)</li>
+<li><strong>Quỹ 4 (<em>Fund 4</em>):</strong> Quỹ thị trường mới nổi (<em>Emerging market fund</em>)</li>
+<li><strong>S&amp;P 500:</strong> Chỉ số cổ phiếu nội địa Hoa Kỳ (<em>US domestic stock index</em>)</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-256" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 256 / Trang PDF 256
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Fund 4</th>
+<th>0.7111</th>
+<th>0.7238</th>
+<th>0.3102</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S&amp;P 500</td>
+<td>0.8277</td>
+<td>0.8223</td>
+<td>0.5791</td>
+<td>0.7515<br>1</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Quỹ 1 (<em>Fund 1</em>)</strong></th>
+<th><strong>Quỹ 2 (<em>Fund 2</em>)</strong></th>
+<th><strong>Quỹ 3 (<em>Fund 3</em>)</strong></th>
+<th><strong>Quỹ 4 (<em>Fund 4</em>)</strong></th>
+<th><strong>S&amp;P 500</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quỹ 1 (<em>Fund 1</em>)</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quỹ 2 (<em>Fund 2</em>)</td>
+<td>0.9231</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quỹ 3 (<em>Fund 3</em>)</td>
+<td>0.4771</td>
+<td>0.4156</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quỹ 4 (<em>Fund 4</em>)</td>
+<td>0.7111</td>
+<td>0.7238</td>
+<td>0.3102</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>S&amp;P 500</td>
+<td>0.8277</td>
+<td>0.8223</td>
+<td>0.5791</td>
+<td>0.7515</td>
+<td>1</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Test the null hypothesis that each of these correlations, individually, is equal to zero against the alternative hypothesis that it is not equal to zero. Use a 5 percent significance level and critical <em>t</em> -values of ±2.032.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy kiểm định giả thuyết không rằng mỗi hệ số tương quan này, xét riêng lẻ, bằng <span class="math-inline">$0$</span> đối lập với giả thuyết đối rằng nó khác <span class="math-inline">$0$</span>. Sử dụng mức ý nghĩa <span class="math-inline">$5\%$</span> và các giá trị <span class="math-inline">$t$</span> tới hạn là <span class="math-inline">$\pm 2.032$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The hypotheses are <em>H</em> 0: <em>ρ</em> = 0 and <em>Ha</em> : <em>ρ</em> ≠ 0. The calculated test statistics are based on the formula</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các giả thuyết là <span class="math-inline">$H_0: \rho = 0$</span> và <span class="math-inline">$H_a: \rho \ne 0$</span>. Các thống kê kiểm định tính toán được dựa trên công thức:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0256-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0256-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0256-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0256-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Repeating this calculation for the entire matrix of correlations gives the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ, thống kê <span class="math-inline">$t$</span> tính toán được cho tương quan của Quỹ 3 và Quỹ 4 như sau:
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}} = \frac{0.3102\sqrt{36 - 2}}{\sqrt{1 - 0.3102^2}} = 1.903$$</div></p>
+<p>Lặp lại phép tính này cho toàn bộ ma trận tương quan mang lại kết quả sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Calculated</strong> <strong><em>t</em> -Statistics for Correlations</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Thống kê <span class="math-inline">$t$</span> Tính toán được cho các Hệ số Tương quan (<em>Calculated t-Statistics for Correlations</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Fund 1</strong></th>
+<th><strong>Fund 2</strong></th>
+<th><strong>Fund 3</strong></th>
+<th><strong>Fund 4</strong></th>
+<th><strong>S&amp;P 500</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fund 1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Fund 2</td>
+<td>13.997</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Fund 3</td>
+<td>3.165</td>
+<td>2.664</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Fund 4</td>
+<td>5.897</td>
+<td>6.116</td>
+<td>1.903</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>S&amp;P 500</td>
+<td>8.600</td>
+<td>8.426</td>
+<td>4.142</td>
+<td>6.642</td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Quỹ 1 (<em>Fund 1</em>)</strong></th>
+<th><strong>Quỹ 2 (<em>Fund 2</em>)</strong></th>
+<th><strong>Quỹ 3 (<em>Fund 3</em>)</strong></th>
+<th><strong>Quỹ 4 (<em>Fund 4</em>)</strong></th>
+<th><strong>S&amp;P 500</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quỹ 1 (<em>Fund 1</em>)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quỹ 2 (<em>Fund 2</em>)</td>
+<td>13.997</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quỹ 3 (<em>Fund 3</em>)</td>
+<td>3.165</td>
+<td>2.664</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quỹ 4 (<em>Fund 4</em>)</td>
+<td>5.897</td>
+<td>6.116</td>
+<td>1.903</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>S&amp;P 500</td>
+<td>8.600</td>
+<td>8.426</td>
+<td>4.142</td>
+<td>6.642</td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>With critical values of ±2.032, with the exception of the correlation between Fund 3 and Fund 4 returns, we reject the null hypothesis for these correlations. In other words, evidence is sufficient to indicate that the correlations are different from zero, with the exception of the correlation of returns between Fund 3 and Fund 4.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Với các giá trị tới hạn là <span class="math-inline">$\pm 2.032$</span>, ngoại trừ tương quan giữa tỷ suất sinh lợi của Quỹ 3 và Quỹ 4, chúng ta bác bỏ giả thuyết không cho tất cả các hệ số tương quan này. Nói cách khác, có đủ bằng chứng để chỉ ra rằng các hệ số tương quan đều khác <span class="math-inline">$0$</span>, ngoại trừ tương quan tỷ suất sinh lợi giữa Quỹ 3 và Quỹ 4.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We could use software to determine the critical values:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể sử dụng phần mềm để xác định các giá trị tới hạn:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Excel</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Excel</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0256-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0256-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>R</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><code>[T.INV(0.025,34) and T.INV(0.975,34)]</code></p>
+<p><strong>R</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0256-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0256-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><code>[qt(c(.025,.975),34)]</code></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Python</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Python</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>~~[from scipy.stats import t and t.ppf(.025,34) and t.ppf(.975,34)]~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><code>[from scipy.stats import t and t.ppf(.025,34) and t.ppf(.975,34)]</code></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We also could use software to determine the <em>p</em> -value for the calculated test statistic to enable a comparison with the level of significance. For example, for <em>t</em> = 2.664, the <em>p</em> -value is 0.01172:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta cũng có thể sử dụng phần mềm để xác định giá trị <span class="math-inline">$p$</span> (<em>p-value</em>) cho thống kê kiểm định tính toán được nhằm so sánh với mức ý nghĩa. Ví dụ, đối với <span class="math-inline">$t = 2.664$</span>, giá trị <span class="math-inline">$p$</span> là <span class="math-inline">$0.01172$</span>:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-257" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 257 / Trang PDF 257
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>~~[(1-T.DIST(2.664,34,TRUE))<em>2]~~ </em><em>R</em><em> ~~[(1-pt(2.664,34))</em>2]~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Excel:</strong> <code>[(1-T.DIST(2.664,34,TRUE))*2]</code></li>
+<li><strong>R:</strong> <code>[(1-pt(2.664,34))*2]</code> </li>
+<li><strong>Python:</strong> <code>[from scipy.stats import t (1-t.cdf(2.664,34))*2]</code></li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Python</strong></h6>
+<p>~~[from scipy.stats import t (1-t.cdf(2.664,34))*2]~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Kiểm định Phi tham số về Tương quan: Hệ số Tương quan Hạng Spearman (<em>Non-Parametric Test of Correlation: The Spearman Rank Correlation Coefficient</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Non-Parametric Test of Correlation: The Spearman Rank Correlation Coefficient</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi chúng ta tin rằng tổng thể đang xem xét lệch đáng kể so với phân phối chuẩn, chúng ta có thể sử dụng một kiểm định dựa trên <strong>hệ số tương quan hạng Spearman (<em>Spearman rank correlation coefficient</em>)</strong>, <span class="math-inline">$r_S$</span>. Hệ số tương quan hạng Spearman về cơ bản tương đương với hệ số tương quan Pearson như đã định nghĩa trước đó, nhưng nó được tính toán trên <em>thứ hạng</em> (<em>ranks</em>) của hai biến số (ví dụ: <span class="math-inline">$X$</span> và <span class="math-inline">$Y$</span>) trong các mẫu tương ứng của chúng. Phép tính <span class="math-inline">$r_S$</span> đòi hỏi các bước sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>When we believe that the population under consideration meaningfully departs from normality, we can use a test based on the <strong>Spearman rank correlation coefficient</strong> , <em>rS</em> . The Spearman rank correlation coefficient is essentially equivalent to the Pearson correlation coefficient as defined earlier, but it is calculated on the <em>ranks</em> of the two variables (e.g., <em>X</em> and <em>Y</em> ) within their respective samples. The calculation of <em>rS</em> requires the following steps:</p>
+<p><strong>1.</strong> Rank the observations on <em>X</em> from largest to smallest. Assign the number 1 to the observation with the largest value, the number 2 to the observation with second largest value, and so on. In case of ties, assign to each tied observation the average of the ranks that they jointly occupy. For example, if the third and fourth largest values are tied, we assign both observations the rank of 3.5 (the average of 3 and 4). Perform the same procedure for the observations on <em>Y.</em></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Xếp hạng các quan sát của <span class="math-inline">$X$</span> từ lớn nhất đến nhỏ nhất. Gán số 1 cho quan sát có giá trị lớn nhất, số 2 cho quan sát có giá trị lớn thứ hai, và cứ tiếp tục như vậy. Trong trường hợp có các giá trị bằng nhau (<em>ties</em>), hãy gán cho mỗi quan sát đồng hạng giá trị trung bình của các thứ hạng mà chúng cùng chiếm giữ. Ví dụ, nếu giá trị lớn thứ ba và thứ tư bằng nhau, chúng ta gán cho cả hai quan sát thứ hạng là <span class="math-inline">$3.5$</span> (trung bình cộng của 3 và 4). Thực hiện thủ tục tương tự cho các quan sát của <span class="math-inline">$Y$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> Calculate the difference, di, between the ranks for each pair of observations on <em>X</em> and <em>Y</em> , and then calculate di<sup>2</sup> (the squared difference in ranks).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Tính chênh lệch, <span class="math-inline">$d_i$</span>, giữa các thứ hạng cho mỗi cặp quan sát của <span class="math-inline">$X$</span> và <span class="math-inline">$Y$</span>, và sau đó tính <span class="math-inline">$d_i^2$</span> (bình phương chênh lệch thứ hạng).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0257-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0257-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose an analyst is examining the relationship between returns for two investment funds, A and B, of similar risk over 35 years. She is concerned that the assumptions for the parametric correlation may not be met, so she decides to test Spearman rank correlations. Her hypotheses are <em>H</em> 0: <em>rS</em> = 0 and <em>Ha</em> : <em>rS</em> ≠ 0. She gathers the returns, ranks the returns for each fund, and calculates the difference in ranks and the squared differences. A partial table is provided in Exhibit 4.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Với <span class="math-inline">$n$</span> là kích thước mẫu, tương quan hạng Spearman được cho như sau:
+<div class="math-display my-3 overflow-x-auto">$$r_S = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)} \tag{3}$$</div></p>
+<p>Giả sử một nhà phân tích đang xem xét mối quan hệ giữa tỷ suất sinh lợi của hai quỹ đầu tư, A và B, có rủi ro tương tự nhau trong 35 năm. Cô lo ngại rằng các giả định cho tương quan tham số có thể không được đáp ứng, vì vậy cô quyết định kiểm định tương quan hạng Spearman. Các giả thuyết của cô là <span class="math-inline">$H_0: r_S = 0$</span> và <span class="math-inline">$H_a: r_S \ne 0$</span>. Cô thu thập tỷ suất sinh lợi, xếp hạng tỷ suất sinh lợi cho mỗi quỹ, và tính chênh lệch thứ hạng cùng bình phương các chênh lệch. Một phần của bảng được cung cấp trong Minh họa 4.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 4: Differences and Squared Differences in Ranks for Fund A and Fund B over 35 Years</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 4: Chênh lệch và Bình phương Chênh lệch Thứ hạng của Quỹ A và Quỹ B trong 35 Năm (<em>Exhibit 4: Differences and Squared Differences in Ranks for Fund A and Fund B over 35 Years</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Year</strong></th>
+<th><strong>Fund A</strong></th>
+<th><strong>Fund B</strong></th>
+<th><strong>Rank of A</strong></th>
+<th><strong>Rank of B</strong></th>
+<th><strong><em>d</em></strong></th>
+<th><strong><em>d</em></strong><sup><strong>2</strong></sup></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2.453</td>
+<td>1.382</td>
+<td>27</td>
+<td>31</td>
+<td>−4</td>
+<td>16</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3.017</td>
+<td>3.110</td>
+<td>24</td>
+<td>24</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4.495</td>
+<td>6.587</td>
+<td>19</td>
+<td>7</td>
+<td>12</td>
+<td>144</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3.627</td>
+<td>3.300</td>
+<td>23</td>
+<td>23</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Năm (<em>Year</em>)</strong></th>
+<th><strong>Quỹ A (<em>Fund A</em>)</strong></th>
+<th><strong>Quỹ B (<em>Fund B</em>)</strong></th>
+<th><strong>Thứ hạng của A (<em>Rank of A</em>)</strong></th>
+<th><strong>Thứ hạng của B (<em>Rank of B</em>)</strong></th>
+<th><strong><span class="math-inline">$d$</span></strong></th>
+<th><strong><span class="math-inline">$d^2$</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2.453</td>
+<td>1.382</td>
+<td>27</td>
+<td>31</td>
+<td>−4</td>
+<td>16</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3.017</td>
+<td>3.110</td>
+<td>24</td>
+<td>24</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4.495</td>
+<td>6.587</td>
+<td>19</td>
+<td>7</td>
+<td>12</td>
+<td>144</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3.627</td>
+<td>3.300</td>
+<td>23</td>
+<td>23</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>⁝</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\vdots$$</div></div>
+                </div>
+                
+
+                <div id="pdf-page-258" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 258 / Trang PDF 258
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Year</strong></th>
+<th><strong>Fund A</strong></th>
+<th><strong>Fund B</strong></th>
+<th><strong>Rank of A</strong></th>
+<th><strong>Rank of B</strong></th>
+<th><strong><em>d</em></strong></th>
+<th><strong><em>d</em></strong><sup><strong>2</strong></sup></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30</td>
+<td>2.269</td>
+<td>0.025</td>
+<td>28</td>
+<td>35</td>
+<td>−7</td>
+<td>49</td>
+</tr>
+<tr>
+<td>31</td>
+<td>6.354</td>
+<td>4.428</td>
+<td>10</td>
+<td>19</td>
+<td>−9</td>
+<td>81</td>
+</tr>
+<tr>
+<td>32</td>
+<td>6.793</td>
+<td>4.165</td>
+<td>8</td>
+<td>20</td>
+<td>−12</td>
+<td>144</td>
+</tr>
+<tr>
+<td>33</td>
+<td>7.300</td>
+<td>7.623</td>
+<td>5</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>34</td>
+<td>6.266</td>
+<td>4.527</td>
+<td>11</td>
+<td>18</td>
+<td>−7</td>
+<td>49</td>
+</tr>
+<tr>
+<td>35</td>
+<td>1.257</td>
+<td>4.704</td>
+<td>34</td>
+<td>16</td>
+<td>18</td>
+<td>324</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Sum =</td>
+<td>2,202</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Năm (<em>Year</em>)</strong></th>
+<th><strong>Quỹ A (<em>Fund A</em>)</strong></th>
+<th><strong>Quỹ B (<em>Fund B</em>)</strong></th>
+<th><strong>Thứ hạng của A (<em>Rank of A</em>)</strong></th>
+<th><strong>Thứ hạng của B (<em>Rank of B</em>)</strong></th>
+<th><strong><span class="math-inline">$d$</span></strong></th>
+<th><strong><span class="math-inline">$d^2$</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30</td>
+<td>2.269</td>
+<td>0.025</td>
+<td>28</td>
+<td>35</td>
+<td>−7</td>
+<td>49</td>
+</tr>
+<tr>
+<td>31</td>
+<td>6.354</td>
+<td>4.428</td>
+<td>10</td>
+<td>19</td>
+<td>−9</td>
+<td>81</td>
+</tr>
+<tr>
+<td>32</td>
+<td>6.793</td>
+<td>4.165</td>
+<td>8</td>
+<td>20</td>
+<td>−12</td>
+<td>144</td>
+</tr>
+<tr>
+<td>33</td>
+<td>7.300</td>
+<td>7.623</td>
+<td>5</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>34</td>
+<td>6.266</td>
+<td>4.527</td>
+<td>11</td>
+<td>18</td>
+<td>−7</td>
+<td>49</td>
+</tr>
+<tr>
+<td>35</td>
+<td>1.257</td>
+<td>4.704</td>
+<td>34</td>
+<td>16</td>
+<td>18</td>
+<td>324</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Tổng (<em>Sum</em>) =</td>
+<td>2,202</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The Spearman rank correlation is as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tương quan hạng Spearman được tính như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0258-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0258-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$r_S = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)} = 1 - \frac{6(2,202)}{35(1,225 - 1)} = 0.6916$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The test of hypothesis for the Spearman rank correlation depends on whether the sample is small or large ( <em>n</em> &gt; 30). For small samples, the researcher requires a specialized table of critical values, but for large samples, we can conduct a <em>t</em> -test using the test statistic in Equation 2, which is <em>t</em> -distributed with <em>n</em> − 2 degrees of freedom.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Kiểm định giả thuyết cho tương quan hạng Spearman phụ thuộc vào việc mẫu là nhỏ hay lớn (<span class="math-inline">$n &gt; 30$</span>). Đối với các mẫu nhỏ, nhà nghiên cứu cần một bảng giá trị tới hạn chuyên biệt, nhưng đối với các mẫu lớn, chúng ta có thể tiến hành kiểm định <span class="math-inline">$t$</span> bằng cách sử dụng thống kê kiểm định trong Phương trình 2, có phân phối <span class="math-inline">$t$</span> với <span class="math-inline">$n - 2$</span> bậc tự do.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In this example, for a two-tailed test with a 5 percent significance level, the critical values for <em>n</em> − 2 = 35 − 2 = 33 degrees of freedom are ±2.0345. For the sample information in Exhibit 4, the calculated test statistic is as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong ví dụ này, đối với kiểm định hai phía với mức ý nghĩa <span class="math-inline">$5\%$</span>, các giá trị tới hạn cho <span class="math-inline">$n - 2 = 35 - 2 = 33$</span> bậc tự do là <span class="math-inline">$\pm 2.0345$</span>. Với thông tin mẫu trong Minh họa 4, thống kê kiểm định tính toán được như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0258-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0258-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{0.6916\sqrt{33}}{\sqrt{1 - (0.6916^2)}} = 5.5005$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Accordingly, we reject the null hypothesis ( <em>H</em> 0: <em>rS</em> = 0), concluding that evidence is sufficient to indicate that the correlation between the returns of Fund A and Fund B is different from zero.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Theo đó, chúng ta bác bỏ giả thuyết không (<span class="math-inline">$H_0: r_S = 0$</span>), kết luận rằng có đủ bằng chứng để chỉ ra rằng tương quan giữa tỷ suất sinh lợi của Quỹ A và Quỹ B là khác <span class="math-inline">$0$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 3</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 3 (<em>EXAMPLE 3</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Testing the Exchange Rate Correlation</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Kiểm định Tương quan Tỷ giá Hối đoái (<em>Testing the Exchange Rate Correlation</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An analyst gathers exchange rate data for five currencies relative to the US dollar. Upon inspection of the distribution of these exchange rates, she observes a departure from normality, especially with negative skewness for four of the series and positive skewness for the fifth. Therefore, she decides to examine the relationships among these currencies using Spearman rank correlations. She calculates these correlations between the currencies over 180 days, which are shown in the correlogram in Exhibit 5. In this correlogram, the lower triangle reports the pairwise correlations and the upper triangle provides a visualization of the magnitude of the correlations, with larger circles indicating the larger absolute value of the correlations and darker circles indicating correlations that are negative.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một nhà phân tích thu thập dữ liệu tỷ giá hối đoái của năm đồng tiền so với đồng đô la Mỹ. Khi kiểm tra phân phối của các tỷ giá hối đoái này, cô quan sát thấy có sự lệch khỏi phân phối chuẩn, đặc biệt là độ lệch âm (<em>negative skewness</em>) đối với bốn chuỗi và độ lệch dương (<em>positive skewness</em>) đối với chuỗi thứ năm. Do đó, cô quyết định xem xét mối quan hệ giữa các đồng tiền này bằng cách sử dụng tương quan hạng Spearman. Cô tính toán các hệ số tương quan này giữa các đồng tiền trong 180 ngày, được hiển thị trong biểu đồ tương quan (<em>correlogram</em>) ở Minh họa 5. Trong biểu đồ tương quan này, tam giác dưới báo cáo các hệ số tương quan từng cặp và tam giác trên cung cấp hình ảnh trực quan về độ lớn của các hệ số tương quan, với các hình tròn lớn hơn biểu thị giá trị tuyệt đối lớn hơn của các hệ số tương quan và các hình tròn đậm hơn biểu thị các hệ số tương quan âm.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-259" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 259 / Trang PDF 259
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 5: Spearman Rank Correlations between Exchanges Rates Relative to the US Dollar</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Minh họa 5: Tương quan Hạng Spearman giữa các Tỷ giá Hối đoái so với Đô la Mỹ (<em>Exhibit 5: Spearman Rank Correlations between Exchanges Rates Relative to the US Dollar</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0259-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0259-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Biểu đồ ma trận tương quan (<em>correlogram</em>) giữa 5 đồng tiền (AUD, CAD, EUR, GBP, JPY) so với USD, hiển thị giá trị số ở nửa dưới và biểu tượng hình tròn theo thang màu từ -1.0 đến 1.0 ở nửa trên.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>For any of these pairwise Spearman rank correlations, can we reject the null hypothesis of no correlation ( <em>H</em> 0: <em>rS</em> = 0 and <em>Ha</em> : <em>rS</em> ≠ 0) at the 5 percent level of significance?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Đối với bất kỳ tương quan hạng Spearman từng cặp nào trong số này, chúng ta có thể bác bỏ giả thuyết không về việc không có tương quan (<span class="math-inline">$H_0: r_S = 0$</span> và <span class="math-inline">$H_a: r_S \ne 0$</span>) ở mức ý nghĩa <span class="math-inline">$5\%$</span> hay không?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The critical <em>t</em> -values for 2.5 percent in each tail of the distribution are ±1.97338.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các giá trị <span class="math-inline">$t$</span> tới hạn cho <span class="math-inline">$2.5\%$</span> ở mỗi đuôi của phân phối là <span class="math-inline">$\pm 1.97338$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>There are five exchange rates, so there are 5C2 = {5! / [2!(5 -2)!]}, or 10, unique correlation pairs. Therefore, we need to calculate 10 <em>t</em> -statistics. For example, the correlation between EUR/USD and AUD/USD is 0.6079. The calculated <em>t</em> -statistic is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Có năm tỷ giá hối đoái, vì vậy có <span class="math-inline">$_5C_2 = \frac{5!}{2!(5 - 2)!}$</span>, hay 10 cặp tương quan duy nhất. Do đó, chúng ta cần tính 10 thống kê <span class="math-inline">$t$</span>. Ví dụ, tương quan giữa EUR/USD và AUD/USD là <span class="math-inline">$0.6079$</span>. Thống kê <span class="math-inline">$t$</span> tính toán được là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0259-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0259-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{0.6079\sqrt{180 - 2}}{\sqrt{1 - 0.6079^2}} = \frac{8.11040}{0.79401} = 10.2144$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Repeating this <em>t</em> -statistic calculation for each pair of exchange rates yields the test statistics shown in Exhibit 6.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lặp lại phép tính thống kê <span class="math-inline">$t$</span> này cho mỗi cặp tỷ giá hối đoái mang lại các thống kê kiểm định được trình bày trong Minh họa 6.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 6: Calculated Test Statistics for Test of Spearman Rank Correlations</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 6: Các Thống kê Kiểm định Tính toán được cho Kiểm định Tương quan Hạng Spearman (<em>Exhibit 6: Calculated Test Statistics for Test of Spearman Rank Correlations</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>AUD/USD</strong></th>
+<th><strong>CAD/USD</strong></th>
+<th><strong>EUR/USD</strong></th>
+<th><strong>GBP/USD</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAD/USD</td>
+<td>29.7409</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EUR/USD</td>
+<td>10.2144</td>
+<td>9.1455</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GBP/USD</td>
+<td>12.4277</td>
+<td>13.2513</td>
+<td>7.4773</td>
+<td></td>
+</tr>
+<tr>
+<td>JPY/USD</td>
+<td>−2.6851</td>
+<td>−3.6726</td>
+<td>5.2985</td>
+<td>−2.7887</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>AUD/USD</strong></th>
+<th><strong>CAD/USD</strong></th>
+<th><strong>EUR/USD</strong></th>
+<th><strong>GBP/USD</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAD/USD</td>
+<td>29.7409</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EUR/USD</td>
+<td>10.2144</td>
+<td>9.1455</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GBP/USD</td>
+<td>12.4277</td>
+<td>13.2513</td>
+<td>7.4773</td>
+<td></td>
+</tr>
+<tr>
+<td>JPY/USD</td>
+<td>−2.6851</td>
+<td>−3.6726</td>
+<td>5.2985</td>
+<td>−2.7887</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The analyst should reject all 10 null hypotheses, because the calculated <em>t</em> -statistics for all exchange rate pairs fall outside the bounds of the two critical values. She should conclude that all the exchange rate pair correlations are different from zero at the 5 percent level.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nhà phân tích nên bác bỏ tất cả 10 giả thuyết không, bởi vì các thống kê <span class="math-inline">$t$</span> tính toán được cho tất cả các cặp tỷ giá hối đoái đều nằm ngoài giới hạn của hai giá trị tới hạn. Cô nên kết luận rằng tất cả các tương quan cặp tỷ giá hối đoái đều khác <span class="math-inline">$0$</span> ở mức ý nghĩa <span class="math-inline">$5\%$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-260" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 260 / Trang PDF 260
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>You are interested in whether excess risk-adjusted return (alpha) is correlated with mutual fund expense ratios for US large-cap growth funds. The following table presents the sample.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bạn đang quan tâm đến việc liệu tỷ suất sinh lợi vượt trội đã điều chỉnh rủi ro (alpha) có tương quan với tỷ lệ chi phí (<em>expense ratios</em>) của quỹ tương hỗ đối với các quỹ tăng trưởng vốn hóa lớn tại Hoa Kỳ hay không. Bảng sau đây trình bày dữ liệu mẫu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Mutual Fund</strong></th>
+<th><strong>Alpha</strong></th>
+<th><strong>Expense Ratio</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>−0.52</td>
+<td>1.34</td>
+</tr>
+<tr>
+<td>2</td>
+<td>−0.13</td>
+<td>0.40</td>
+</tr>
+<tr>
+<td>3</td>
+<td>−0.50</td>
+<td>1.90</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−1.01</td>
+<td>1.50</td>
+</tr>
+<tr>
+<td>5</td>
+<td>−0.26</td>
+<td>1.35</td>
+</tr>
+<tr>
+<td>6</td>
+<td>−0.89</td>
+<td>0.50</td>
+</tr>
+<tr>
+<td>7</td>
+<td>−0.42</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>8</td>
+<td>−0.23</td>
+<td>1.50</td>
+</tr>
+<tr>
+<td>9</td>
+<td>−0.60</td>
+<td>1.45</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Quỹ Tương hỗ (<em>Mutual Fund</em>)</strong></th>
+<th><strong>Alpha</strong></th>
+<th><strong>Tỷ lệ Chi phí (<em>Expense Ratio</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>−0.52</td>
+<td>1.34</td>
+</tr>
+<tr>
+<td>2</td>
+<td>−0.13</td>
+<td>0.40</td>
+</tr>
+<tr>
+<td>3</td>
+<td>−0.50</td>
+<td>1.90</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−1.01</td>
+<td>1.50</td>
+</tr>
+<tr>
+<td>5</td>
+<td>−0.26</td>
+<td>1.35</td>
+</tr>
+<tr>
+<td>6</td>
+<td>−0.89</td>
+<td>0.50</td>
+</tr>
+<tr>
+<td>7</td>
+<td>−0.42</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>8</td>
+<td>−0.23</td>
+<td>1.50</td>
+</tr>
+<tr>
+<td>9</td>
+<td>−0.60</td>
+<td>1.45</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Formulate null and alternative hypotheses consistent with the verbal description of the research goal.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Thiết lập giả thuyết không và giả thuyết đối nhất quán với mô tả bằng lời về mục tiêu nghiên cứu.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We have a “not equal to” alternative hypothesis:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có một giả thuyết đối dạng “khác” (<em>not equal to</em>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>H</em> 0: <em>ρ</em> = 0 versus <em>Ha</em> : <em>ρ</em> ≠ 0</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$H_0: \rho = 0 \text{ đối lập với } H_a: \rho \ne 0$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Identify and justify the test statistic for conducting a test of the hypotheses in Part A.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Xác định và giải thích lý do lựa chọn thống kê kiểm định để tiến hành kiểm định các giả thuyết ở Câu 1.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Mutual fund expense ratios are bounded from above and below; in practice, there is at least a lower bound on alpha (as any return cannot be less than −100 percent), and expense ratios cannot be negative. These variables may not be normally distributed, and the assumptions of a parametric test are not likely to be fulfilled. Thus, a nonparametric test appears to be appropriate.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tỷ lệ chi phí của quỹ tương hỗ bị chặn trên và chặn dưới; trên thực tế, có ít nhất một cận dưới đối với alpha (vì bất kỳ tỷ suất sinh lợi nào cũng không thể nhỏ hơn <span class="math-inline">$-100\%$</span>), và tỷ lệ chi phí không thể âm. Các biến số này có thể không có phân phối chuẩn, và các giả định của một kiểm định tham số không có khả năng được thỏa mãn. Do đó, một kiểm định phi tham số có vẻ là phù hợp.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We would use the nonparametric Spearman rank correlation coefficient to conduct the test:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta sẽ sử dụng hệ số tương quan hạng Spearman phi tham số để tiến hành kiểm định:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0260-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0260-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$r_S = 1 - \frac{6 \sum_{i=1}^{n} d_i^2}{n(n^2 - 1)}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>with the <em>t</em> -distributed test statistic of</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>với thống kê kiểm định có phân phối <span class="math-inline">$t$</span> là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0260-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0260-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The calculation of the Spearman rank correlation coefficient is given in the following table.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phép tính hệ số tương quan hạng Spearman được cho trong bảng tiếp theo <em>(xem đầu Phần 2)</em>.</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM08_Part3_Practice_Problems.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM08_Part3_Practice_Problems</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM09_Part2_Tests_of_Independence_Using_Contingency_Table →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM09_Part1_Introduction.html');
+    });
+  </script>
+</body>
+</html>

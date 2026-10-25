@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments - Part 1: Introduction — Volume 6: Fixed Income | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 6: Thu Nhập Cố Định
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments - Part 1: Introduction</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (10 trang)...</option>
+          <option value="197">PDF Page 197</option>
+<option value="198">PDF Page 198</option>
+<option value="199">PDF Page 199</option>
+<option value="200">PDF Page 200</option>
+<option value="201">PDF Page 201</option>
+<option value="202">PDF Page 202</option>
+<option value="203">PDF Page 203</option>
+<option value="204">PDF Page 204</option>
+<option value="205">PDF Page 205</option>
+<option value="206">PDF Page 206</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 6</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Thu Nhập Cố Định</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 6</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Fixed_Income_Instrument_Features.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Fixed-Income Instrument Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Bond_Indentures_and_Covenants.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bond Indentures and Covenants</a>
+<a href="LM02_Full_Fixed_Income_Cash_Flows_and_Types.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Fixed-Income Cash Flows and Types</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Fixed_Income_Contingency_Provisions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Fixed-Income Contingency Provisions</a>
+<a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Fixed-Income Issuance and Trading</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Primary and Secondary Fixed-Income Markets</a>
+<a href="LM04_Full_Fixed_Income_Markets_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Fixed-Income Markets for Corporate Issuers</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Repurchase_Agreements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Repurchase Agreements</a>
+<a href="LM04_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM05_Full_Fixed_Income_Markets_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Fixed-Income Markets for Government Issuers</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Non_Sovereign_Quasi_Government_and_Supranatio.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign, Quasi-Government, and Supranational Agency Debt</a>
+<a href="LM06_Full_Fixed_Income_Bond_Valuation_Prices_and_Yields.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Fixed-Income Bond Valuation: Prices and Yields</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Relationships_between_Bond_Prices_and_Bond_Fe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Relationships between Bond Prices and Bond Features</a>
+<a href="LM07_Full_Yield_and_Yield_Spread_Measures_for_Fixed_Rat.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Yield and Yield Spread Measures for Fixed-Rate Bonds</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Spread Measures for Fixed-Rate Bonds and Matrix Pricing</a>
+<a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Measures for Money Market Instruments</a>
+<a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Par_and_Forward_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Par and Forward Rates</a>
+<a href="LM09_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM10_Full_Interest_Rate_Risk_and_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Interest Rate Risk and Return</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Macaulay_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Macaulay Duration</a>
+<a href="LM11_Full_Yield_Based_Bond_Duration_Measures_and_Proper.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Yield-Based Bond Duration Measures and Properties</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Money_Duration_and_Price_Value_of_a_Basis_Poi.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money Duration and Price Value of a Basis Point</a>
+<a href="LM12_Full_Yield_Based_Bond_Convexity_and_Portfolio_Prop.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Yield-Based Bond Convexity and Portfolio Properties</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Portfolio_Duration_and_Convexity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Duration and Convexity</a>
+<a href="LM13_Full_Curve_Based_and_Empirical_Fixed_Income_Risk_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 13 Curve-Based and Empirical Fixed-Income Risk Measures</a>
+<a href="LM13_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM13_Part2_Empirical_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Empirical Duration</a>
+<a href="LM14_Full_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 14 Credit Risk</a>
+<a href="LM14_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Credit Rating Agencies and Credit Ratings</a>
+<a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Factors Impacting Yield Spreads</a>
+<a href="LM14_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM15_Full_Credit_Analysis_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 15 Credit Analysis for Government Issuers</a>
+<a href="LM15_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM15_Part2_Non_Sovereign_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign Credit Risk</a>
+<a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 16 Credit Analysis for Corporate Issuers</a>
+<a href="LM16_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Ratios in Corporate Credit Analysis</a>
+<a href="LM16_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM17_Full_Fixed_Income_Securitization.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 17 Fixed-Income Securitization</a>
+<a href="LM17_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM17_Part2_The_Securitization_Process.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Securitization Process</a>
+<a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</a>
+<a href="LM18_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Mortgage Asset-Backed Securities</a>
+<a href="LM18_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM19_Full_Mortgage_Backed_Security_MBS_Instrument_and_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 19 Mortgage-Backed Security (MBS) Instrument and Market Features</a>
+<a href="LM19_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM19_Part2_Residential_Mortgage_Backed_Securities_RMBS.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Residential Mortgage-Backed Securities (RMBS)</a>
+<a href="LM19_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 6 • Fixed Income (Thu Nhập Cố Định)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments - Part 1: Introduction</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('06_Fixed_Income/LM08_Part1_Introduction.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 6: Fixed Income</h1>
+<h2>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</h2>
+<h3>Part 1/2: Introduction (PDF Pages 197–206)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 6: Thu nhập Cố định (Fixed Income)</h1>
+<h2>Học phần 8: Các Thước đo Lợi suất và Chênh lệch Lợi suất đối với Công cụ Lãi suất Thả nổi (Yield and Yield Spread Measures for Floating-Rate Instruments)</h2>
+<h3>Phần 1/2: Giới thiệu (Trang PDF 197–206)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-197" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 197 / Trang PDF 197
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4>L E A R N I N G M O D U L E</h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4>H Ọ C P H Ầ N</h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>8</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>8</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Yield and Yield Spread Measures for Floating-Rate Instruments</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Các Thước đo Lợi suất và Chênh lệch Lợi suất đối với Công cụ Lãi suất Thả nổi (<em>Yield and Yield Spread Measures for Floating-Rate Instruments</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><mark>LEARNING OUTCOMES</mark></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><mark>MỤC TIÊU HỌC TẬP (<em>LEARNING OUTCOMES</em>)</mark></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong><em>Mastery</em></strong></th>
+<th><strong><em>The candidate should be able to:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>calculate and interpret yield spread measures for floating-rate<br>instruments</td>
+</tr>
+<tr>
+<td></td>
+<td>calculate and interpret yield measures for money market instruments</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong><em>Mức độ thành thạo</em></strong></th>
+<th><strong><em>Ứng viên cần có khả năng:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>tính toán và diễn giải các thước đo chênh lệch lợi suất (<em>yield spread measures</em>) đối với các công cụ lãi suất thả nổi (<em>floating-rate instruments</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td>tính toán và diễn giải các thước đo lợi suất (<em>yield measures</em>) đối với các công cụ thị trường tiền tệ (<em>money market instruments</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>INTRODUCTION</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>GIỚI THIỆU (<em>INTRODUCTION</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>1</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>1</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Prior lessons covered pricing, yields, and spreads for bonds with fixed coupon rates and times-to-maturity of one year or longer. The next two lessons broaden the discussion to include instruments with variable rather than fixed coupons, known as floating-rate instruments, and those with original maturities of one year or less, known as money market instruments. Both types of instrument are important for investors and issuers. Floating-rate instruments, by adjusting cash flows to changes in interest rates, bear less price risk than fixed-rate instruments and are used to hedge certain exposures and to match asset and liability cash flows. Most loans are floating-rate instruments. Money market instruments are a significant source of short-term financing for many types of issuers. A short time-to-maturity means that investors can reinvest and issuers can refinance relatively quickly, which reduces interest rate risk.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các bài học trước đã đề cập đến việc định giá, lợi suất và chênh lệch lợi suất (<em>spreads</em>) đối với các trái phiếu có lãi suất coupon cố định (<em>fixed coupon rates</em>) và thời gian đáo hạn từ một năm trở lên. Hai bài học tiếp theo sẽ mở rộng thảo luận sang các công cụ có lãi suất coupon biến đổi thay vì cố định, được gọi là <strong>công cụ lãi suất thả nổi (<em>floating-rate instruments</em>)</strong>, và những công cụ có kỳ hạn gốc từ một năm trở xuống, được gọi là <strong>công cụ thị trường tiền tệ (<em>money market instruments</em>)</strong>. Cả hai loại công cụ này đều quan trọng đối với các nhà đầu tư và tổ chức phát hành. Các công cụ lãi suất thả nổi, bằng cách điều chỉnh dòng tiền theo sự thay đổi của lãi suất, chịu ít rủi ro giá (<em>price risk</em>) hơn so với các công cụ lãi suất cố định và được sử dụng để phòng vệ (<em>hedge</em>) một số rủi ro nhất định cũng như để khớp dòng tiền giữa tài sản và nợ phải trả (<em>asset and liability cash flows</em>). Hầu hết các khoản vay đều là công cụ lãi suất thả nổi. Các công cụ thị trường tiền tệ là một nguồn tài trợ ngắn hạn quan trọng đối với nhiều loại tổ chức phát hành. Thời gian đáo hạn ngắn có nghĩa là các nhà đầu tư có thể tái đầu tư và các tổ chức phát hành có thể tái cấp vốn tương đối nhanh chóng, điều này làm giảm rủi ro lãi suất (<em>interest rate risk</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Most of the examples and exhibits used throughout the reading can be downloaded as a Microsoft Excel workbook. Each worksheet in the workbook is labeled with the corresponding example or exhibit number in the text.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hầu hết các ví dụ và bảng biểu được sử dụng xuyên suốt bài đọc có thể được tải xuống dưới dạng sổ làm việc Microsoft Excel. Mỗi trang tính trong sổ làm việc được gắn nhãn với số ví dụ hoặc số bảng biểu tương ứng trong văn bản.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE OVERVIEW</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỔNG QUAN HỌC PHẦN (<em>LEARNING MODULE OVERVIEW</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>A floating-rate instrument is a debt instrument with interest determined by an observed market reference rate (MRR) plus a quoted margin. Interest payments are reset, capturing any change in the MRR, on predetermined dates.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Công cụ lãi suất thả nổi (<em>floating-rate instrument</em>)</strong> là một công cụ nợ có tiền lãi được xác định bởi <strong>lãi suất tham chiếu thị trường (<em>market reference rate</em> – MRR)</strong> quan sát được cộng với một <strong>biên độ yết giá (<em>quoted margin</em>)</strong>. Các khoản thanh toán lãi được đặt lại (<em>reset</em>), phản ánh bất kỳ thay đổi nào trong MRR, vào các ngày đã được xác định trước.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-198" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 198 / Trang PDF 198
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>The quoted margin is a specified spread over or under the reference rate. The required margin, also known as the discount margin, is the spread required by investors.</p>
+</li>
+<li>
+<p>The required margin reflects “bottom-up” or issuer- and security-specific risks and is analogous to a yield spread for a fixed-rate bond discussed in prior lessons. If a floater trades at par, the quoted and required margins are equal.</p>
+</li>
+<li>
+<p>Money market instruments have original maturities of one year or less and are quoted using different conventions from those of longer-dated securities. Quotes are made on a discount rate or add-on rate basis.</p>
+</li>
+<li>
+<p>Money market discount rates are interest income divided by the face value (maturity value). They understate the investor’s rate of return if the purchase price is below the face value and vice versa.</p>
+</li>
+<li>
+<p>Conventional money market measures can be converted to enhance comparability to longer-term securities.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>Biên độ yết giá (<em>quoted margin</em>)</strong> là một mức chênh lệch xác định cao hơn hoặc thấp hơn lãi suất tham chiếu. <strong>Biên độ yêu cầu (<em>required margin</em>)</strong>, còn được gọi là <strong>biên độ chiết khấu (<em>discount margin</em>)</strong>, là mức chênh lệch được các nhà đầu tư yêu cầu.</p>
+</li>
+<li>
+<p>Biên độ yêu cầu phản ánh các rủi ro “từ dưới lên” (<em>“bottom-up”</em>) hay rủi ro đặc thù của tổ chức phát hành và chứng khoán (<em>issuer- and security-specific risks</em>) và tương tự như chênh lệch lợi suất (<em>yield spread</em>) của một trái phiếu lãi suất cố định đã được thảo luận trong các bài học trước. Nếu một trái phiếu lãi suất thả nổi (<em>floater</em>) được giao dịch ngang mệnh giá (<em>at par</em>), biên độ yết giá và biên độ yêu cầu sẽ bằng nhau.</p>
+</li>
+<li>
+<p><strong>Các công cụ thị trường tiền tệ (<em>money market instruments</em>)</strong> có kỳ hạn gốc từ một năm trở xuống và được yết giá bằng các quy ước khác với các quy ước của những chứng khoán có kỳ hạn dài hơn. Báo giá được thực hiện trên cơ sở <strong>lãi suất chiết khấu (<em>discount rate</em>)</strong> hoặc <strong>lãi suất cộng thêm (<em>add-on rate</em>)</strong>.</p>
+</li>
+<li>
+<p><strong>Lãi suất chiết khấu thị trường tiền tệ (<em>money market discount rates</em>)</strong> là thu nhập tiền lãi chia cho mệnh giá (giá trị đáo hạn – <em>face value / maturity value</em>). Chúng đánh giá thấp (<em>understate</em>) tỷ suất sinh lợi của nhà đầu tư nếu giá mua thấp hơn mệnh giá và ngược lại.</p>
+</li>
+<li>
+<p>Các thước đo thông thường của thị trường tiền tệ có thể được chuyển đổi để tăng cường khả năng so sánh với các chứng khoán dài hạn hơn.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE SELF-ASSESSMENT</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỰ ĐÁNH GIÁ HỌC PHẦN (<em>LEARNING MODULE SELF-ASSESSMENT</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>These initial questions are intended to help you gauge your current level of understanding of the learning module.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các câu hỏi ban đầu này nhằm giúp bạn tự đánh giá mức độ hiểu biết hiện tại của mình về học phần này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>The following information relates to three floating-rate notes (FRNs) issued at par value that have the three-month MRR as their reference rate.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Thông tin sau đây liên quan đến ba trái phiếu lãi suất thả nổi (<em>floating-rate notes</em> – FRNs) được phát hành ngang mệnh giá (<em>at par value</em>) và có MRR 3 tháng làm lãi suất tham chiếu.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Floating-Rate Note</strong></th>
+<th><strong>Quoted Margin</strong></th>
+<th><strong>Discount Margin</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FRN 1</td>
+<td>140 bps</td>
+<td>128 bps</td>
+</tr>
+<tr>
+<td>FRN 2</td>
+<td>145 bps</td>
+<td>145 bps</td>
+</tr>
+<tr>
+<td>FRN 3</td>
+<td>150 bps</td>
+<td>165 bps</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Trái phiếu lãi suất thả nổi (<em>Floating-Rate Note</em>)</strong></th>
+<th><strong>Biên độ yết giá (<em>Quoted Margin</em>)</strong></th>
+<th><strong>Biên độ chiết khấu (<em>Discount Margin</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FRN 1</td>
+<td>140 bps</td>
+<td>128 bps</td>
+</tr>
+<tr>
+<td>FRN 2</td>
+<td>145 bps</td>
+<td>145 bps</td>
+</tr>
+<tr>
+<td>FRN 3</td>
+<td>150 bps</td>
+<td>165 bps</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Based on the information provided, identify which FRN will be priced at a discount on the next reset date.</p>
+<ul>
+<li>
+<p><strong>A.</strong> FRN 1</p>
+</li>
+<li>
+<p><strong>B.</strong> FRN 2</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dựa trên thông tin được cung cấp, hãy xác định FRN nào sẽ được định giá chiết khấu (<em>at a discount</em>) vào ngày đặt lại lãi suất (<em>reset date</em>) tiếp theo.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> FRN 3</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> FRN 1</p>
+</li>
+<li>
+<p><strong>B.</strong> FRN 2</p>
+</li>
+<li>
+<p><strong>C.</strong> FRN 3</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. FRN 3 will be priced at a discount on the next reset date since its quoted margin of 150 bps is less than its discount margin of 165 bps. The discount amount is the present value of the deficient future interest payments of 15 bps per quarter (150 bps – 165 bps).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. FRN 3 sẽ được định giá chiết khấu vào ngày đặt lại lãi suất tiếp theo vì biên độ yết giá của nó là 150 bps thấp hơn biên độ chiết khấu là 165 bps. Khoản chiết khấu là giá trị hiện tại của các khoản thanh toán tiền lãi bị thiếu hụt trong tương lai ở mức 15 bps mỗi quý (150 bps – 165 bps).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is incorrect because FRN 2 will be priced at par value on the next reset date since its quoted margin is equal to its discount margin.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B không đúng vì FRN 2 sẽ được định giá ngang mệnh giá vào ngày đặt lại lãi suất tiếp theo do biên độ yết giá của nó bằng với biên độ chiết khấu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A is incorrect because FRN 1 will be priced at a premium because its quoted margin of 140 bps is greater than its discount margin of 128 bps. The premium amount is the present value of the extra, or “excess,” interest payments of 12 bps each quarter (140 bps – 128 bps).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>A không đúng vì FRN 1 sẽ được định giá có phần trội (<em>at a premium</em>) bởi vì biên độ yết giá 140 bps của nó lớn hơn biên độ chiết khấu 128 bps. Khoản phần trội là giá trị hiện tại của các khoản thanh toán tiền lãi bổ sung hay “vượt trội” (<em>“excess”</em>) ở mức 12 bps mỗi quý (140 bps – 128 bps).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-199" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 199 / Trang PDF 199
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>On a reset date, if the required margin falls to 30 bps because of a change in the issuer’s credit risk, an FRN that has a quoted margin of 50 bps will be priced at a:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> discount.</p>
+</li>
+<li>
+<p><strong>B.</strong> premium.</p>
+</li>
+<li>
+<p><strong>C.</strong> discount or premium, depending on its duration.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Vào ngày đặt lại lãi suất (<em>reset date</em>), nếu biên độ yêu cầu (<em>required margin</em>) giảm xuống 30 bps do sự thay đổi trong rủi ro tín dụng của tổ chức phát hành, một FRN có biên độ yết giá (<em>quoted margin</em>) là 50 bps sẽ được định giá ở mức:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> chiết khấu (<em>discount</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> phần trội (<em>premium</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> chiết khấu hoặc phần trội, tùy thuộc vào thời lượng (<em>duration</em>) của nó.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is correct. The required margin reflects the credit risk of the issuer. It declined, meaning that the credit risk of the issuer improved; in other words, the market demands a lower spread. The required margin is below the quoted margin, so this floater will be priced at a premium.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B là đáp án đúng. Biên độ yêu cầu phản ánh rủi ro tín dụng của tổ chức phát hành. Nó đã giảm xuống, có nghĩa là rủi ro tín dụng của tổ chức phát hành đã được cải thiện; nói cách khác, thị trường đòi hỏi một mức chênh lệch thấp hơn. Biên độ yêu cầu thấp hơn biên độ yết giá, vì vậy trái phiếu lãi suất thả nổi này sẽ được định giá ở mức phần trội (<em>at a premium</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>A 365-day year bank certificate of deposit has an initial principal amount of USD96.5 million and a redemption amount due at maturity of USD100 million. The number of days between settlement and maturity is 270. The addon rate of the certificate of deposit is closest to:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> 3.63%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 4.82%.</p>
+</li>
+</ul>
+<p><strong>C.</strong> 4.90%.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Một chứng chỉ tiền gửi ngân hàng (<em>bank certificate of deposit</em>) tính theo năm 365 ngày có số tiền gốc ban đầu là 96,5 triệu USD và số tiền hoàn trả đến hạn khi đáo hạn là 100 triệu USD. Số ngày giữa ngày thanh toán (<em>settlement</em>) và ngày đáo hạn (<em>maturity</em>) là 270 ngày. Lãi suất cộng thêm (<em>add-on rate</em>) của chứng chỉ tiền gửi này gần nhất với mức:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> 3,63%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 4,82%.</p>
+</li>
+<li>
+<p><strong>C.</strong> 4,90%.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Solution:</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Lời giải:</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. The add-on rate is closest to 4.90%. The add-on rate is calculated as</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Lãi suất cộng thêm gần nhất với mức 4,90%. Lãi suất cộng thêm (<em>AOR</em>) được tính như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0199-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0199-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$AOR = \frac{\text{Year}}{\text{Days}} \times \frac{FV - PV}{PV}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$AOR = \frac{365}{270} \times \frac{100 - 96.5}{96.5}$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>AOR</em> = 0.04903 = 4.90 % .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$AOR = 0.04903 = 4.90\%$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>A 90-day commercial paper instrument is quoted at a discount rate of 0.120%, assuming a 360-day year. Given that the price of the instrument is paid 100 per face value, its bond equivalent yield rate is closest to:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> 0.107%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0.120%.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0.135%.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Một công cụ thương phiếu (<em>commercial paper</em>) kỳ hạn 90 ngày được yết ở mức lãi suất chiết khấu (<em>discount rate</em>) là 0,120%, giả định một năm có 360 ngày. Cho biết giá của công cụ được thanh toán trên mỗi 100 đơn vị mệnh giá, lợi suất tương đương trái phiếu (<em>bond equivalent yield</em>) của nó gần nhất với mức:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> 0,107%.</p>
+</li>
+<li>
+<p><strong>B.</strong> 0,120%.</p>
+</li>
+<li>
+<p><strong>C.</strong> 0,135%.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is correct. The bond equivalent yield is closest to 0.120%. First, we need to calculate the price of the instrument. Then, we can calculate the AOR or its bond equivalent yield.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B là đáp án đúng. Lợi suất tương đương trái phiếu gần nhất với mức 0,120%. Trước tiên, chúng ta cần tính giá của công cụ. Sau đó, chúng ta có thể tính AOR hoặc lợi suất tương đương trái phiếu của nó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The price ( <em>PV</em> ) of the commercial paper instrument is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá (<span class="math-inline">$PV$</span>) của công cụ thương phiếu là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Days PV_ = <em>FV</em> × (1 − <em>Year</em><sup>×</sup><sup><em>DR</em>) .</sup>  PV_ = 100 × (1 −  36090<sup>× 0.0012 ) .</sup> <em>PV</em> = 99.97.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><div class="math-display my-3 overflow-x-auto">$$PV = FV \times \left(1 - \frac{\text{Days}}{\text{Year}} \times DR\right)$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = 100 \times \left(1 - \frac{90}{360} \times 0.0012\right)$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = 99.97$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>PV</em> is used to calculate the add-on rate or bond equivalent yield:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$PV$</span> được sử dụng để tính lãi suất cộng thêm (<em>add-on rate</em>) hoặc lợi suất tương đương trái phiếu (<em>bond equivalent yield</em>):</p></div>
+                </div>
+                
+
+                <div id="pdf-page-200" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 200 / Trang PDF 200
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0200-02.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0200-02.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$AOR = \frac{\text{Year}}{\text{Days}} \times \frac{FV - PV}{PV}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$AOR = \frac{360}{90} \times \frac{100 - 99.97}{99.97}$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>AOR</em> = 0.0012 = 0.12 % .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$AOR = 0.0012 = 0.12\%$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="5">
+<li>A fixed-income analyst is evaluating two instruments:</li>
+</ol>
+<ul>
+<li>
+<p>A 180-day Thai bank certificate of deposit (CD) quoted at a discount rate of 5.95%, assuming a 360-day year and a bond equivalent yield of 6.218%</p>
+</li>
+<li>
+<p>A 180-day Thai corporate commercial paper (CP) quoted as an add-on rate of 6.10%, assuming a 365-day year and a bond equivalent yield of 6.100%.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li>Một chuyên viên phân tích thu nhập cố định đang đánh giá hai công cụ:</li>
+</ol>
+<ul>
+<li>
+<p>Một chứng chỉ tiền gửi ngân hàng (<em>certificate of deposit</em> – CD) Thái Lan kỳ hạn 180 ngày được yết ở mức lãi suất chiết khấu 5,95%, giả định một năm có 360 ngày và lợi suất tương đương trái phiếu (<em>bond equivalent yield</em>) là 6,218%</p>
+</li>
+<li>
+<p>Một thương phiếu doanh nghiệp (<em>commercial paper</em> – CP) Thái Lan kỳ hạn 180 ngày được yết dưới dạng lãi suất cộng thêm 6,10%, giả định một năm có 365 ngày và lợi suất tương đương trái phiếu là 6,100%.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Assuming the six-month Thai T-bill is quoted at 4.36%, which instrument <em>most likely</em> has higher credit risk?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử tín phiếu Kho bạc (<em>T-bill</em>) Thái Lan kỳ hạn 6 tháng được yết ở mức 4,36%, công cụ nào <em>nhiều khả năng nhất</em> có rủi ro tín dụng cao hơn?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The Thai CD. The spreads over the Thai T-bill for the CD and CP are 186 bps and 174 bps, respectively. We use the bond equivalent yield measure to compare the return of each instrument and derive the spread of each one over the Thai T-bill.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chứng chỉ tiền gửi (CD) của ngân hàng Thái Lan. Mức chênh lệch (<em>spread</em>) so với tín phiếu Kho bạc Thái Lan đối với CD và CP lần lượt là 186 bps và 174 bps. Chúng ta sử dụng thước đo lợi suất tương đương trái phiếu (<em>bond equivalent yield</em>) để so sánh tỷ suất sinh lợi của từng công cụ và suy ra mức chênh lệch của từng công cụ so với tín phiếu Kho bạc Thái Lan.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The Thai bank CD has a spread of</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>CD ngân hàng Thái Lan có mức chênh lệch là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>6.218% – 4.36% = 186 bps.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>6,218% – 4,36% = 186 bps.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>And the Thai corporate CP has a spread of</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Và CP doanh nghiệp Thái Lan có mức chênh lệch là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>6.10% – 4.36% = 174 bps.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>6,10% – 4,36% = 174 bps.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Therefore, the Thai bank CD has a higher credit risk than the Thai corporate CP.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó, CD ngân hàng Thái Lan có rủi ro tín dụng cao hơn so với CP doanh nghiệp Thái Lan.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>2</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>2</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>YIELD AND YIELD SPREAD MEASURES FOR FLOATING-RATE NOTES</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>CÁC THƯỚC ĐO LỢI SUẤT VÀ CHÊNH LỆCH LỢI SUẤT ĐỐI VỚI TRÁI PHIẾU LÃI SUẤT THẢ NỔI (<em>YIELD AND YIELD SPREAD MEASURES FOR FLOATING-RATE NOTES</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>calculate and interpret yield spread measures for floating-rate instruments</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>tính toán và diễn giải các thước đo chênh lệch lợi suất đối với các công cụ lãi suất thả nổi</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Yield and Yield Spread Measures for Floating-Rate Instruments</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Các Thước đo Lợi suất và Chênh lệch Lợi suất đối với Công cụ Lãi suất Thả nổi (<em>Yield and Yield Spread Measures for Floating-Rate Instruments</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Floating-rate instruments, including floating-rate notes (FRNs or floaters) and most loans, are different from fixed-rate bonds. Rather than fixed coupon payments, they vary from period to period depending on the current level of a reference interest rate. The intent is to both automatically adjust a borrower’s base rate to market conditions and offer an investor or lender less price risk when market interest rates fluctuate. In</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các công cụ lãi suất thả nổi (<em>floating-rate instruments</em>), bao gồm trái phiếu lãi suất thả nổi (<em>floating-rate notes</em> – FRNs hoặc <em>floaters</em>) và hầu hết các khoản vay, khác với trái phiếu lãi suất cố định. Thay vì các khoản thanh toán coupon cố định, chúng thay đổi từ kỳ này sang kỳ khác tùy thuộc vào mức lãi suất tham chiếu hiện hành. Mục đích là vừa tự động điều chỉnh lãi suất cơ sở của bên đi vay theo các điều kiện thị trường, vừa mang lại cho nhà đầu tư hoặc bên cho vay ít rủi ro giá hơn khi lãi suất thị trường biến động. Về</p></div>
+                </div>
+                
+
+                <div id="pdf-page-201" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 201 / Trang PDF 201
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>principle, a floater has a stable price even in a period of volatile interest rates because cash flows adjust with changes in interest rates. With a traditional fixed-income security, constant future cash flows result in price changes in response to interest rate volatility.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>nguyên tắc, một trái phiếu lãi suất thả nổi có mức giá ổn định ngay cả trong giai đoạn lãi suất biến động mạnh bởi vì các dòng tiền tự điều chỉnh theo những thay đổi của lãi suất. Với một chứng khoán thu nhập cố định truyền thống, các dòng tiền tương lai không đổi dẫn đến sự thay đổi giá để phản ứng lại sự biến động của lãi suất.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 1 shows the term sheet for four-year FRNs issued by Antelas AG, the German emerging technology company focused on manufacturing process design, introduced in an earlier lesson.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng 1 hiển thị bản điều khoản tóm tắt (<em>term sheet</em>) cho các FRN kỳ hạn 4 năm được phát hành bởi Antelas AG, công ty công nghệ mới nổi của Đức tập trung vào thiết kế quy trình sản xuất, đã được giới thiệu trong một bài học trước.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Antelas AG Floating-Rate Note Issue</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 1: Đợt phát hành Trái phiếu Lãi suất Thả nổi của Antelas AG (<em>Exhibit 1: Antelas AG Floating-Rate Note Issue</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Antela</strong></th>
+<th><strong>s AG Four-Year Floating-Rate Notes (the “Notes”)</strong><br><strong>Prospectus Summary</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Issuer:</strong></td>
+<td>Antelas AG</td>
+</tr>
+<tr>
+<td><strong>Settlement Date:</strong></td>
+<td>[T + 5 Business Days]</td>
+</tr>
+<tr>
+<td><strong>Maturity Date:</strong></td>
+<td>[Four Years from Settlement Date]</td>
+</tr>
+<tr>
+<td><strong>Principal Amount:</strong></td>
+<td>EUR250 million</td>
+</tr>
+<tr>
+<td><strong>Interest:</strong></td>
+<td>MRR plus 250 bps p.a.</td>
+</tr>
+<tr>
+<td><strong>Interest Payment:</strong></td>
+<td>MRR is reset quarterly and interest is paid quarterly<br>Commencing three months from [Settlement Date] to be paid<br>quarterly with final payment on [Maturity Date]</td>
+</tr>
+<tr>
+<td><strong>Seniority:</strong></td>
+<td>i<br>The Notes are secured and unsubordinated obligations of<br>Antelas AG and will rank pari passu with all other secured and<br>unsubordinated indebtedness</td>
+</tr>
+<tr>
+<td><strong>Business Days:</strong></td>
+<td>Frankfurt</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Antelas AG</strong></th>
+<th><strong>Trái phiếu Lãi suất Thả nổi Kỳ hạn 4 năm (“Trái phiếu”)</strong><br><strong>Tóm tắt Bản cáo bạch (<em>Prospectus Summary</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tổ chức phát hành (<em>Issuer</em>):</strong></td>
+<td>Antelas AG</td>
+</tr>
+<tr>
+<td><strong>Ngày thanh toán (<em>Settlement Date</em>):</strong></td>
+<td>[T + 5 Ngày làm việc]</td>
+</tr>
+<tr>
+<td><strong>Ngày đáo hạn (<em>Maturity Date</em>):</strong></td>
+<td>[Bốn năm kể từ Ngày thanh toán]</td>
+</tr>
+<tr>
+<td><strong>Số tiền gốc (<em>Principal Amount</em>):</strong></td>
+<td>250 triệu EUR</td>
+</tr>
+<tr>
+<td><strong>Tiền lãi (<em>Interest</em>):</strong></td>
+<td>MRR cộng 250 bps mỗi năm (p.a.)</td>
+</tr>
+<tr>
+<td><strong>Thanh toán tiền lãi (<em>Interest Payment</em>):</strong></td>
+<td>MRR được đặt lại hàng quý và tiền lãi được trả hàng quý<br>Bắt đầu từ ba tháng kể từ [Ngày thanh toán], được trả<br>hàng quý với khoản thanh toán cuối cùng vào [Ngày đáo hạn]</td>
+</tr>
+<tr>
+<td><strong>Thứ tự ưu tiên (<em>Seniority</em>):</strong></td>
+<td>Trái phiếu là nghĩa vụ nợ có bảo đảm và không thứ cấp (<em>secured and unsubordinated</em>) của<br>Antelas AG và sẽ xếp ngang hàng (<em>pari passu</em>) với tất cả các khoản nợ có bảo đảm và<br>không thứ cấp khác</td>
+</tr>
+<tr>
+<td><strong>Ngày làm việc (<em>Business Days</em>):</strong></td>
+<td>Frankfurt</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Notice how the interest is stated “MRR plus 250 bps p.a.” The market reference rate (MRR) on an FRN or loan usually is a short-term money market rate. Typically, the reference rate is determined at the beginning of the period, and the interest payment is made at the end of the period. This payment structure is called “in arrears.” The most common day-count conventions for calculating accrued interest on floaters are actual/360 and actual/365. For the Antelas FRN, the MRR is reset quarterly and interest is paid quarterly.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy chú ý cách tiền lãi được ghi là “MRR cộng 250 bps mỗi năm (p.a.)”. Lãi suất tham chiếu thị trường (<em>market reference rate</em> – MRR) trên một FRN hoặc khoản vay thường là một lãi suất thị trường tiền tệ ngắn hạn. Thông thường, lãi suất tham chiếu được xác định vào đầu kỳ, và khoản thanh toán tiền lãi được thực hiện vào cuối kỳ. Cấu trúc thanh toán này được gọi là trả sau (<em>“in arrears”</em>). Các quy ước đếm ngày phổ biến nhất để tính lãi tích lũy (<em>accrued interest</em>) trên các trái phiếu lãi suất thả nổi là thực tế/360 (<em>actual/360</em>) và thực tế/365 (<em>actual/365</em>). Đối với FRN của Antelas, MRR được đặt lại hàng quý và tiền lãi được trả hàng quý.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For most FRNs and loans, a specified spread is added to or subtracted from the market reference rate. For the Antelas FRN, the spread over the MRR is 250 bps, and this is known as the <strong>quoted margin</strong> on the FRN. The role of the quoted margin is to compensate the investor for the difference in the credit risk of the issuer and that implied by the reference rate. Firms with very low credit risk may be able to obtain a negative quoted margin.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với hầu hết các FRN và khoản vay, một mức chênh lệch xác định được cộng vào hoặc trừ đi khỏi lãi suất tham chiếu thị trường. Đối với FRN của Antelas, mức chênh lệch trên MRR là 250 bps, và đây được gọi là <strong>biên độ yết giá (<em>quoted margin</em>)</strong> trên FRN. Vai trò của biên độ yết giá là bù đắp cho nhà đầu tư phần chênh lệch giữa rủi ro tín dụng của tổ chức phát hành và rủi ro tín dụng hàm ý trong lãi suất tham chiếu. Các doanh nghiệp có rủi ro tín dụng rất thấp có thể đạt được mức biên độ yết giá âm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The <strong>required margin</strong> is the yield spread over or under the reference rate such that the FRN is priced at par value on a rate reset date. It is determined by the market. Suppose that a floater is issued at par value and pays MRR plus 0.50%. The quoted margin is 50 bps. If there is no change in the credit risk of the issuer, the required margin remains at 50 bps. On each quarterly reset date, the floater will be priced at par value. Between coupon dates, its flat price will be at a premium or discount to par value if MRR goes, respectively, down or up. However, if the required margin continues to be the same as the quoted margin, the flat price is “pulled to par” as the next reset date nears. At the reset date, any change in MRR is included in the interest payment for the next period.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Biên độ yêu cầu (<em>required margin</em>)</strong> là mức chênh lệch lợi suất cao hơn hoặc thấp hơn lãi suất tham chiếu sao cho FRN được định giá ngang mệnh giá (<em>at par value</em>) vào ngày đặt lại lãi suất (<em>rate reset date</em>). Nó được quyết định bởi thị trường. Giả sử một trái phiếu lãi suất thả nổi được phát hành ngang mệnh giá và trả lãi MRR cộng 0,50%. Biên độ yết giá là 50 bps. Nếu không có sự thay đổi nào trong rủi ro tín dụng của tổ chức phát hành, biên độ yêu cầu vẫn giữ ở mức 50 bps. Vào mỗi ngày đặt lại lãi suất hàng quý, trái phiếu lãi suất thả nổi sẽ được định giá ngang mệnh giá. Giữa các ngày trả coupon, giá tịnh (<em>flat price</em>) của nó sẽ ở mức phần trội (<em>premium</em>) hoặc chiết khấu (<em>discount</em>) so với mệnh giá nếu MRR tương ứng giảm xuống hoặc tăng lên. Tuy nhiên, nếu biên độ yêu cầu tiếp tục bằng với biên độ yết giá, giá tịnh sẽ được “kéo về mệnh giá” (<em>“pulled to par”</em>) khi ngày đặt lại lãi suất tiếp theo đến gần. Vào ngày đặt lại lãi suất, bất kỳ thay đổi nào trong MRR đều được tính vào khoản thanh toán tiền lãi cho kỳ tiếp theo.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Changes in the required margin usually come from changes in the issuer’s credit risk. Changes in liquidity or tax status can also affect the required margin. Note that these are the same factors that affect the yield spread for fixed-rate bonds. Suppose that on a reset date, the required margin increases to 75 bps because of a downgrade in the issuer’s credit rating. If the quoted margin is 50 bps, the issuer now pays its</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Những thay đổi trong biên độ yêu cầu thường xuất phát từ những thay đổi trong rủi ro tín dụng của tổ chức phát hành. Những thay đổi về tính thanh khoản hoặc tình trạng thuế cũng có thể ảnh hưởng đến biên độ yêu cầu. Lưu ý rằng đây cũng chính là những yếu tố ảnh hưởng đến chênh lệch lợi suất (<em>yield spread</em>) đối với trái phiếu lãi suất cố định. Giả sử vào một ngày đặt lại lãi suất, biên độ yêu cầu tăng lên 75 bps do việc hạ bậc xếp hạng tín nhiệm của tổ chức phát hành. Nếu biên độ yết giá là 50 bps, tổ chức phát hành hiện đang trả cho các</p></div>
+                </div>
+                
+
+                <div id="pdf-page-202" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 202 / Trang PDF 202
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>investors a “deficient” interest payment. This FRN will be priced at a discount below par value. The amount of the discount is the present value of the deficient future cash flows. That annuity is 25 bps per period for the remaining life of the bond. It is the difference between the required and quoted margins. If the required margin instead fell to 40 bps, perhaps from a decrease in the issuer’s credit risk, the FRN would be priced at a premium. The amount of the premium is the present value of the 10 bp annuity for the “excess” interest payment each period.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>nhà đầu tư của mình một khoản thanh toán tiền lãi “thiếu hụt” (<em>“deficient”</em>). FRN này sẽ được định giá chiết khấu dưới mệnh giá. Giá trị của khoản chiết khấu chính là giá trị hiện tại của các dòng tiền tương lai bị thiếu hụt đó. Chuỗi niên kim (<em>annuity</em>) đó là 25 bps mỗi kỳ trong suốt thời gian còn lại của trái phiếu. Đó là phần chênh lệch giữa biên độ yêu cầu và biên độ yết giá. Ngược lại, nếu biên độ yêu cầu giảm xuống 40 bps, có thể do sự sụt giảm rủi ro tín dụng của tổ chức phát hành, thì FRN sẽ được định giá ở mức phần trội (<em>at a premium</em>). Giá trị của khoản phần trội là giá trị hiện tại của chuỗi niên kim 10 bp từ khoản thanh toán tiền lãi “vượt trội” (<em>“excess”</em>) mỗi kỳ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Fixed-rate and floating-rate bonds are essentially the same with respect to changes in credit risk. With fixed-rate bonds, the premium or discount arises from a difference in the fixed coupon rate and the required yield-to-maturity. With floating-rate bonds, the premium or discount arises from a difference in the fixed quoted margin and the required margin. However, fixed-rate and floating-rate bonds are very different with respect to changes in benchmark interest rates.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trái phiếu lãi suất cố định và trái phiếu lãi suất thả nổi về cơ bản là giống nhau xét trên khía cạnh thay đổi rủi ro tín dụng. Với trái phiếu lãi suất cố định, phần trội hoặc chiết khấu phát sinh từ sự chênh lệch giữa lãi suất coupon cố định và lợi suất đáo hạn yêu cầu (<em>required yield-to-maturity</em>). Với trái phiếu lãi suất thả nổi, phần trội hoặc chiết khấu phát sinh từ sự chênh lệch giữa biên độ yết giá cố định và biên độ yêu cầu. Tuy nhiên, trái phiếu lãi suất cố định và trái phiếu lãi suất thả nổi lại rất khác nhau xét trên khía cạnh thay đổi lãi suất chuẩn (<em>benchmark interest rates</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0202-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0202-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For an FRN, <em>PMT</em> is a function of the MRR and the quoted margin and <em>r</em> is a function of the MRR and the discount margin. We can use this intuition to derive Equation 1, a simplified FRN pricing model.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc định giá một trái phiếu lãi suất thả nổi đòi hỏi một mô hình định giá. Hãy nhớ lại rằng giá của một trái phiếu lãi suất cố định với lãi suất chiết khấu thị trường <span class="math-inline">$r$</span> và khoản coupon mỗi kỳ <span class="math-inline">$PMT$</span> là:</p>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + r)^1} + \frac{PMT}{(1 + r)^2} + \dots + \frac{PMT + FV}{(1 + r)^N}$$</div>
+<p>Đối với một FRN, <span class="math-inline">$PMT$</span> là một hàm của MRR và biên độ yết giá (<em>quoted margin</em>), còn <span class="math-inline">$r$</span> là một hàm của MRR và biên độ chiết khấu (<em>discount margin</em>). Chúng ta có thể sử dụng trực giác này để suy ra Phương trình 1, một mô hình định giá FRN giản lược.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0202-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0202-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{\frac{(MRR + QM) \times FV}{m}}{\left(1 + \frac{MRR + DM}{m}\right)^1} + \frac{\frac{(MRR + QM) \times FV}{m}}{\left(1 + \frac{MRR + DM}{m}\right)^2} + \dots + \frac{\frac{(MRR + QM) \times FV}{m} + FV}{\left(1 + \frac{MRR + DM}{m}\right)^N} \tag{1}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><em>PV</em> = present value, or the price of the floating-rate note</p>
+</li>
+<li>
+<p><em>MRR</em> = the market reference rate, stated as an annual percentage rate (it is sometimes known generically as Index)</p>
+</li>
+<li>
+<p><em>QM</em> = the quoted margin, stated as an annual percentage rate</p>
+</li>
+<li>
+<p><em>FV</em> = the future value paid at maturity, or the par value of the bond</p>
+</li>
+<li>
+<p><em>m</em> = the periodicity of the floating-rate note, the number of payment periods per year</p>
+</li>
+<li>
+<p><em>DM</em> = the discount margin = required margin stated as an annual percentage rate</p>
+</li>
+<li>
+<p><em>N</em> = the number of evenly spaced periods to maturity</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><span class="math-inline">$PV$</span> = giá trị hiện tại (<em>present value</em>), hay giá của trái phiếu lãi suất thả nổi</p>
+</li>
+<li>
+<p><span class="math-inline">$MRR$</span> = lãi suất tham chiếu thị trường (<em>market reference rate</em>), được biểu thị dưới dạng lãi suất phần trăm năm (đôi khi được gọi chung là Chỉ số – <em>Index</em>)</p>
+</li>
+<li>
+<p><span class="math-inline">$QM$</span> = biên độ yết giá (<em>quoted margin</em>), được biểu thị dưới dạng lãi suất phần trăm năm</p>
+</li>
+<li>
+<p><span class="math-inline">$FV$</span> = giá trị tương lai (<em>future value</em>) được trả khi đáo hạn, hay mệnh giá (<em>par value</em>) của trái phiếu</p>
+</li>
+<li>
+<p><span class="math-inline">$m$</span> = định kỳ (<em>periodicity</em>) của trái phiếu lãi suất thả nổi, tức số kỳ thanh toán mỗi năm</p>
+</li>
+<li>
+<p><span class="math-inline">$DM$</span> = biên độ chiết khấu (<em>discount margin</em>) = biên độ yêu cầu (<em>required margin</em>) được biểu thị dưới dạng lãi suất phần trăm năm</p>
+</li>
+<li>
+<p><span class="math-inline">$N$</span> = số kỳ cách đều nhau cho đến khi đáo hạn</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Notice that in Equation 1, because we are using annual rates for <em>MRR</em> , <em>QM</em> , and <em>DM</em> , we must divide by <em>m</em> periods in the year.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lưu ý rằng trong Phương trình 1, bởi vì chúng ta đang sử dụng lãi suất hàng năm cho <span class="math-inline">$MRR$</span>, <span class="math-inline">$QM$</span>, và <span class="math-inline">$DM$</span>, chúng ta phải chia cho <span class="math-inline">$m$</span> kỳ trong năm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This is a simplified model for several reasons. First, <em>PV</em> is as of a rate reset date when there are <em>N</em> evenly spaced periods to maturity. There is no accrued interest, so the flat price is the full price. Second, the model assumes a 30/360 day-count convention, to make sure the periodicity, <em>m</em> , is an integer. However, in practice, most floaters use actual/360 day counts. Third, and most important, the same <em>MRR</em> is used for all cash flows. More complex FRN pricing models use projected future rates in the numerators and spot rates in the denominators. Therefore, the calculation for <em>DM</em> depends on the simplifying assumptions in the pricing model.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đây là một mô hình giản lược vì một số lý do. Thứ nhất, <span class="math-inline">$PV$</span> được tính tại một ngày đặt lại lãi suất (<em>rate reset date</em>) khi có <span class="math-inline">$N$</span> kỳ cách đều nhau cho đến khi đáo hạn. Không có lãi tích lũy (<em>accrued interest</em>), vì vậy giá tịnh (<em>flat price</em>) cũng chính là giá toàn phần (<em>full price</em>). Thứ hai, mô hình giả định quy ước đếm ngày 30/360, nhằm đảm bảo rằng định kỳ <span class="math-inline">$m$</span> là một số nguyên. Tuy nhiên, trên thực tế, hầu hết các trái phiếu lãi suất thả nổi sử dụng quy ước đếm ngày thực tế/360 (<em>actual/360</em>). Thứ ba, và quan trọng nhất, cùng một mức <span class="math-inline">$MRR$</span> được sử dụng cho tất cả các dòng tiền. Các mô hình định giá FRN phức tạp hơn sử dụng lãi suất dự phóng trong tương lai ở tử số và lãi suất giao ngay (<em>spot rates</em>) ở mẫu số. Do đó, phép tính cho <span class="math-inline">$DM$</span> phụ thuộc vào các giả định giản lược trong mô hình định giá.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-203" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 203 / Trang PDF 203
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose that we are pricing a two-year, semi-annual FRN that pays MRR plus 0.50%. Assume MRR is 1.25% and the yield spread required by investors is 40 bps. For Equation 1, we have the following inputs:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử chúng ta đang định giá một FRN trả lãi nửa năm một lần, kỳ hạn 2 năm, trả lãi bằng MRR cộng 0,50%. Giả sử MRR là 1,25% và mức chênh lệch lợi suất được các nhà đầu tư yêu cầu là 40 bps. Đối với Phương trình 1, chúng ta có các thông số đầu vào sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>MRR</em> = 0.0125,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$MRR = 0.0125$</span>,</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>QM</em> = 0.0050, <em>FV</em> = 100, <em>m</em> = 2,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$QM = 0.0050$</span>, <span class="math-inline">$FV = 100$</span>, <span class="math-inline">$m = 2$</span>,</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>DM</em> = 0.0040, and</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$DM = 0.0040$</span>, và</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>N</em> = 4.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$N = 4$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using Equation 1 for <em>N</em> = 4, the FRN is priced at 100.196 per 100 of par value. This floater is priced at a premium above par value because the quoted margin is greater than the discount margin.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng Phương trình 1 với <span class="math-inline">$N = 4$</span>, FRN được định giá ở mức 100,196 trên mỗi 100 đơn vị mệnh giá. Trái phiếu lãi suất thả nổi này được định giá ở mức phần trội (<em>at a premium</em>) cao hơn mệnh giá bởi vì biên độ yết giá lớn hơn biên độ chiết khấu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0203-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0203-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{\frac{(MRR + QM) \times FV}{m}}{\left(1 + \frac{MRR + DM}{m}\right)^1} + \frac{\frac{(MRR + QM) \times FV}{m}}{\left(1 + \frac{MRR + DM}{m}\right)^2} + \dots + \frac{\frac{(MRR + QM) \times FV}{m} + FV}{\left(1 + \frac{MRR + DM}{m}\right)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{\frac{(0.0125 + 0.0050) \times 100}{2}}{\left(1 + \frac{0.0125 + 0.0040}{2}\right)^1} + \frac{\frac{(0.0125 + 0.0050) \times 100}{2}}{\left(1 + \frac{0.0125 + 0.0040}{2}\right)^2} + \frac{\frac{(0.0125 + 0.0050) \times 100}{2}}{\left(1 + \frac{0.0125 + 0.0040}{2}\right)^3} + \frac{\frac{(0.0125 + 0.0050) \times 100}{2} + 100}{\left(1 + \frac{0.0125 + 0.0040}{2}\right)^4}$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>PV = 100.196</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$PV = 100.196$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If we have the market price of an FRN, we can also use Equation 1 to estimate the discount margin. Suppose that a two-year FRN pays MRR plus 0.75% on a semiannual basis. Currently, MRR is 1.10% and the price of the floater is 95.50 per 100 of par value, a discount to par, because of worsening credit risk. For Equation 1, we have the following inputs:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu chúng ta có giá thị trường của một FRN, chúng ta cũng có thể sử dụng Phương trình 1 để ước tính biên độ chiết khấu (<em>discount margin</em>). Giả sử một FRN kỳ hạn 2 năm trả lãi MRR cộng 0,75% trên cơ sở nửa năm một lần. Hiện tại, MRR là 1,10% và giá của trái phiếu lãi suất thả nổi này là 95,50 trên mỗi 100 đơn vị mệnh giá, tức chiết khấu so với mệnh giá, do rủi ro tín dụng xấu đi. Đối với Phương trình 1, chúng ta có các thông số đầu vào sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>PV</em> = 95.50,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$PV = 95.50$</span>,</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>MRR</em> = 0.0110,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$MRR = 0.0110$</span>,</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>QM</em> = 0.0075,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$QM = 0.0075$</span>,</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>FV</em> = 100,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$FV = 100$</span>,</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>m</em> = 2, and</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$m = 2$</span>, và</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>N</em> = 4.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$N = 4$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using the Solver add-in for Microsoft Excel, we find <em>DM</em> = 3.12%, or 312 bps, by setting the price (sum of present values of cash flows) equal to 95.50 as the objective and <em>DM</em> as the change variable. Please see the candidate learning ecosystem online for a spreadsheet demonstrating the calculation in the downloadable Excel workbook.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng công cụ bổ trợ Solver cho Microsoft Excel, chúng ta tìm được <span class="math-inline">$DM = 3.12\%$</span>, hay 312 bps, bằng cách đặt mức giá (tổng giá trị hiện tại của các dòng tiền) bằng 95,50 làm mục tiêu (<em>objective</em>) và <span class="math-inline">$DM$</span> làm biến thay đổi (<em>change variable</em>). Vui lòng xem hệ sinh thái học tập dành cho ứng viên trực tuyến để biết bảng tính minh họa phép tính trong sổ làm việc Excel có thể tải xuống.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If this FRN was issued at par value, investors required at that time a spread of only 75 bps over MRR. Now, after the credit downgrade, investors require an <em>estimated</em> discount margin of 312 bps. The floater trades at a discount because the quoted margin remains fixed at 75 bps, so is “deficient” by 237 bps (312-75) per period The discount margin is an estimate because it is based on a simplified FRN pricing model.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu FRN này được phát hành ngang mệnh giá, các nhà đầu tư vào thời điểm đó chỉ yêu cầu mức chênh lệch 75 bps trên MRR. Giờ đây, sau khi bị hạ bậc tín nhiệm, các nhà đầu tư yêu cầu một biên độ chiết khấu <em>ước tính</em> là 312 bps. Trái phiếu lãi suất thả nổi giao dịch ở mức chiết khấu bởi vì biên độ yết giá vẫn giữ cố định ở mức 75 bps, nên bị “thiếu hụt” 237 bps (312 – 75) mỗi kỳ. Biên độ chiết khấu chỉ là một con số ước tính bởi vì nó dựa trên một mô hình định giá FRN giản lược.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The FRN pricing model in Equation 1 similarly applies to adjustable-rate loans made by banks and other fixed-income instruments based on MRR. Because a significant portion of bank funding comes from short-term deposits and other floating-rate</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mô hình định giá FRN trong Phương trình 1 cũng áp dụng tương tự cho các khoản vay có lãi suất điều chỉnh (<em>adjustable-rate loans</em>) do các ngân hàng cấp và các công cụ thu nhập cố định khác dựa trên MRR. Bởi vì một phần đáng kể nguồn vốn của ngân hàng đến từ tiền gửi ngắn hạn và các nguồn lãi suất thả nổi</p></div>
+                </div>
+                
+
+                <div id="pdf-page-204" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 204 / Trang PDF 204
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>sources, banks prefer to make floating-rate loans to businesses and individuals, as opposed to fixed-rate loans, to help maintain a match between assets and liabilities on the balance sheet.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>khác, các ngân hàng ưu tiên cấp các khoản vay lãi suất thả nổi cho các doanh nghiệp và cá nhân, thay vì các khoản vay lãi suất cố định, để giúp duy trì sự cân xứng giữa tài sản và nợ phải trả trên bảng cân đối kế toán.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 1</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 1</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Calculating the Discount Margin for a Floating-Rate Note</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Tính toán Biên độ Chiết khấu cho một Trái phiếu Lãi suất Thả nổi (<em>Calculating the Discount Margin for a Floating-Rate Note</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose that the MRR for the Antelas AG four-year floating-rate note is on a three-month basis and the quoted margin is 250 bps. The floater is priced at 97 per 100 of par value. Calculate the discount margin for the floater assuming that three-month MRR is constant at –0.55%. Assume a 30/360 day-count convention and evenly spaced periods.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử MRR cho trái phiếu lãi suất thả nổi kỳ hạn 4 năm của Antelas AG được tính trên cơ sở 3 tháng và biên độ yết giá là 250 bps. Trái phiếu lãi suất thả nổi này được định giá ở mức 97 trên mỗi 100 đơn vị mệnh giá. Hãy tính biên độ chiết khấu cho trái phiếu lãi suất thả nổi này với giả định rằng MRR 3 tháng không đổi ở mức –0,55%. Giả định quy ước đếm ngày 30/360 và các kỳ cách đều nhau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can use the Solver add-in in Microsoft Excel to quickly solve for <em>DM</em> = 3.29%, or 329 bps, in the same manner as in the prior example. Please see the candidate learning ecosystem online for a spreadsheet demonstrating the calculation in the downloadable Excel workbook.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể sử dụng công cụ bổ trợ Solver trong Microsoft Excel để giải nhanh ra <span class="math-inline">$DM = 3.29\%$</span>, hay 329 bps, theo cùng cách thức như trong ví dụ trước. Vui lòng xem hệ sinh thái học tập dành cho ứng viên trực tuyến để biết bảng tính minh họa phép tính trong sổ làm việc Excel có thể tải xuống.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Alternatively, we can use the RATE function in Microsoft Excel, Google Sheets, or a financial calculator by first solving for <em>PMT</em> , the numerators in Equation 1.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ngoài ra, chúng ta có thể sử dụng hàm RATE trong Microsoft Excel, Google Sheets, hoặc máy tính tài chính bằng cách trước tiên giải tìm <span class="math-inline">$PMT$</span>, tức các tử số trong Phương trình 1.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0204-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0204-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$PMT = \frac{(MRR + QM) \times FV}{m}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PMT = \frac{(-0.0055 + 0.0250) \times 100}{4}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PMT = 0.4875$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Then, using <em>PV</em> = –97, <em>FV</em> = 100, <em>PMT</em> = 0.4875, and <em>N</em> = 16, we can solve for the discount rate per period of 0.686122%. We use this to solve for <em>DM</em> . <mark><em></mark> _r</em> =<sup><em>MRR</em></sup> <em>m</em><sup>+</sup><sup><em>DM</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sau đó, sử dụng <span class="math-inline">$PV = -97$</span>, <span class="math-inline">$FV = 100$</span>, <span class="math-inline">$PMT = 0.4875$</span>, và <span class="math-inline">$N = 16$</span>, chúng ta có thể giải tìm lãi suất chiết khấu mỗi kỳ là 0,686122%. Chúng ta sử dụng con số này để giải tìm <span class="math-inline">$DM$</span>:</p>
+<div class="math-display my-3 overflow-x-auto">$$r = \frac{MRR + DM}{m}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0204-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0204-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$0.00686122 = \frac{-0.0055 + DM}{4}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0204-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0204-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$DM = 0.0329 = 3.29\%$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The quoted margin is 250 bps over the reference rate. Using the simplified FRN pricing model, the discount margin (the spread investors require for the floater to be priced at par) is 329 bps.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Biên độ yết giá là 250 bps trên lãi suất tham chiếu. Sử dụng mô hình định giá FRN giản lược, biên độ chiết khấu (mức chênh lệch mà các nhà đầu tư yêu cầu để trái phiếu lãi suất thả nổi được định giá ngang mệnh giá) là 329 bps.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0204-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0204-16.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Floaters with longer reset periods may be <strong><em>_</em></strong>___ (more, less) exposed to interest rate and price volatility.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Điền vào chỗ trống bằng cách sử dụng một trong các từ trong mỗi cặp ngoặc đơn:</li>
+</ol>
+<p>Các trái phiếu lãi suất thả nổi có kỳ đặt lại lãi suất (<em>reset periods</em>) dài hơn có thể chịu <strong><em>_</em></strong>___ (nhiều hơn, ít hơn) rủi ro biến động lãi suất và biến động giá.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-205" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 205 / Trang PDF 205
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The <strong><em>_</em></strong><strong><em> (shorter, longer) the reset period, the more a floater will behave similarly to a short-dated fixed-rate security and the </em></strong><strong><em>_</em></strong> (less, more) its price will potentially fluctuate. <strong>Solution:</strong> Floaters with longer reset periods may be <em><u>more</u></em> exposed to interest rate and price volatility. The <em><u>longer</u></em> the reset period, the more a floater will behave similarly to a short-dated fixed-rate security and the <em><u>more</u></em> its price will potentially fluctuate.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Kỳ đặt lại lãi suất càng <strong><em>_</em></strong><strong><em> (ngắn hơn, dài hơn), trái phiếu lãi suất thả nổi sẽ càng hoạt động giống với một chứng khoán lãi suất cố định ngắn hạn và giá của nó sẽ có khả năng biến động </em></strong><strong><em>_</em></strong> (ít hơn, nhiều hơn). <strong>Lời giải:</strong> Các trái phiếu lãi suất thả nổi có kỳ đặt lại lãi suất dài hơn có thể chịu <em><u>nhiều hơn</u></em> (<em>more</em>) rủi ro biến động lãi suất và biến động giá. Kỳ đặt lại lãi suất càng <em><u>dài hơn</u></em> (<em>longer</em>), trái phiếu lãi suất thả nổi sẽ càng hoạt động giống với một chứng khoán lãi suất cố định ngắn hạn và giá của nó sẽ có khả năng biến động <em><u>nhiều hơn</u></em> (<em>more</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>2. For a five-year floating-rate security, if market interest rates change by 0.5%,<br>the change in the price of the security will most likely be:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A.</strong>zero.</td>
+</tr>
+<tr>
+<td><strong>B.</strong>like an otherwise identical fixed-rate security.<br><strong>C.</strong>related to the security’s coupon reset frequency.<br><strong>Solution:</strong><br>C is correct. The interest rate sensitivity of a floating-rate security comes<br>typically from the time remaining until its next coupon reset date.<br>A is incorrect: when the interest rates changes, the discount rate of the<br>floating rate security also changes, changing the present value of the security<br>when discounting the cashflows.<br>B is incorrect: with a fixed-rate security, interest rates changes affect the<br>price more than an identical (same-term) floating-rate security, due to its<br>fixed coupon payments and a higher duration.</td>
+</tr>
+<tr>
+<td>3. Identify the relationship between required margin and a floater’s price at the<br>reset date:</td>
+</tr>
+<tr>
+<td>1. Required margin &gt; Quoted<br>margin<br>A. Floater priced at par</td>
+</tr>
+<tr>
+<td>2. Required margin = Quoted<br>margin<br>B. Floater priced at a discount</td>
+</tr>
+<tr>
+<td>3. Required margin &lt; Quoted<br>margin<br>C. Floater priced at a premium</td>
+</tr>
+<tr>
+<td><strong>Solution:</strong></td>
+</tr>
+<tr>
+<td>1. Required margin &gt; Quoted<br>margin<br>B. Floater priced at a discount</td>
+</tr>
+<tr>
+<td>2. Required margin = Quoted<br>margin<br>A. Floater priced at par</td>
+</tr>
+<tr>
+<td>3. Required margin &lt; Quoted<br>margin<br>C. Floater priced at a premium</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>2. Đối với một chứng khoán lãi suất thả nổi kỳ hạn 5 năm, nếu lãi suất thị trường thay đổi 0,5%,<br>thay đổi trong giá của chứng khoán đó nhiều khả năng nhất sẽ:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A.</strong> bằng không.</td>
+</tr>
+<tr>
+<td><strong>B.</strong> giống như một chứng khoán lãi suất cố định tương tự về mọi mặt khác.<br><strong>C.</strong> liên quan đến tần suất đặt lại coupon (<em>coupon reset frequency</em>) của chứng khoán đó.<br><strong>Lời giải:</strong><br>C là đáp án đúng. Độ nhạy cảm với lãi suất của một chứng khoán lãi suất thả nổi<br>thường xuất phát từ thời gian còn lại cho đến ngày đặt lại coupon tiếp theo của nó.<br>A không đúng: khi lãi suất thay đổi, lãi suất chiết khấu của<br>chứng khoán lãi suất thả nổi cũng thay đổi, làm thay đổi giá trị hiện tại của chứng khoán<br>khi chiết khấu các dòng tiền.<br>B không đúng: với một chứng khoán lãi suất cố định, những thay đổi về lãi suất ảnh hưởng đến<br>giá nhiều hơn so với một chứng khoán lãi suất thả nổi tương tự (cùng kỳ hạn), do<br>các khoản thanh toán coupon cố định và thời lượng (<em>duration</em>) cao hơn của nó.</td>
+</tr>
+<tr>
+<td>3. Xác định mối quan hệ giữa biên độ yêu cầu (<em>required margin</em>) và giá của một trái phiếu lãi suất thả nổi vào<br>ngày đặt lại lãi suất (<em>reset date</em>):</td>
+</tr>
+<tr>
+<td>1. Biên độ yêu cầu &gt; Biên độ yết giá (<em>Required margin &gt; Quoted margin</em>)<br>A. Trái phiếu lãi suất thả nổi được định giá ngang mệnh giá (<em>at par</em>)</td>
+</tr>
+<tr>
+<td>2. Biên độ yêu cầu = Biên độ yết giá (<em>Required margin = Quoted margin</em>)<br>B. Trái phiếu lãi suất thả nổi được định giá chiết khấu (<em>at a discount</em>)</td>
+</tr>
+<tr>
+<td>3. Biên độ yêu cầu &lt; Biên độ yết giá (<em>Required margin &lt; Quoted margin</em>)<br>C. Trái phiếu lãi suất thả nổi được định giá ở mức phần trội (<em>at a premium</em>)</td>
+</tr>
+<tr>
+<td><strong>Lời giải:</strong></td>
+</tr>
+<tr>
+<td>1. Biên độ yêu cầu &gt; Biên độ yết giá (<em>Required margin &gt; Quoted margin</em>)<br>B. Trái phiếu lãi suất thả nổi được định giá chiết khấu (<em>at a discount</em>)</td>
+</tr>
+<tr>
+<td>2. Biên độ yêu cầu = Biên độ yết giá (<em>Required margin = Quoted margin</em>)<br>A. Trái phiếu lãi suất thả nổi được định giá ngang mệnh giá (<em>at par</em>)</td>
+</tr>
+<tr>
+<td>3. Biên độ yêu cầu &lt; Biên độ yết giá (<em>Required margin &lt; Quoted margin</em>)<br>C. Trái phiếu lãi suất thả nổi được định giá ở mức phần trội (<em>at a premium</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For Required margin &gt; Quoted margin, B is correct. Changes in the required margin usually come from changes in the issuer’s credit risk. If the required margin increases and is above the quoted margin at the reset date, the floater pays a “deficient” interest payment. The floater will be priced at a discount below par value.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với Biên độ yêu cầu &gt; Biên độ yết giá, B là đáp án đúng. Những thay đổi trong biên độ yêu cầu thường xuất phát từ những thay đổi trong rủi ro tín dụng của tổ chức phát hành. Nếu biên độ yêu cầu tăng lên và cao hơn biên độ yết giá vào ngày đặt lại lãi suất, trái phiếu lãi suất thả nổi sẽ trả một khoản thanh toán tiền lãi “thiếu hụt”. Trái phiếu lãi suất thả nổi sẽ được định giá chiết khấu dưới mệnh giá.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For Required margin = Quoted margin, A is correct. If the required margin continues to be the same as the quoted margin, the flat price is “pulled to <u>par” as the next reset date nears.</u></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với Biên độ yêu cầu = Biên độ yết giá, A là đáp án đúng. Nếu biên độ yêu cầu tiếp tục bằng với biên độ yết giá, giá tịnh sẽ được “kéo về <u>mệnh giá” khi ngày đặt lại lãi suất tiếp theo đến gần.</u></p></div>
+                </div>
+                
+
+                <div id="pdf-page-206" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 206 / Trang PDF 206
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For Required margin &lt; Quoted margin, C is correct. If the required margin decreases and is below the quoted margin, the floater will be priced at a premium.</p>
+<ol start="4">
+<li>A two-year Italian floating-rate note pays three-month Euribor of –0.50% plus 250 bp. The floater is priced at 99 per 100 of par value. Assuming the 30/360 day-count convention and evenly spaced periods, the discount margin for the floater is closest to:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với Biên độ yêu cầu &lt; Biên độ yết giá, C là đáp án đúng. Nếu biên độ yêu cầu giảm xuống và thấp hơn biên độ yết giá, trái phiếu lãi suất thả nổi sẽ được định giá ở mức phần trội.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>A.</strong> 201 bps.</p>
+<ul>
+<li><strong>B.</strong> 251 bps.</li>
+</ul>
+<p><strong>C.</strong> 300 bps.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Một trái phiếu lãi suất thả nổi của Ý kỳ hạn 2 năm trả lãi Euribor 3 tháng ở mức –0,50% cộng 250 bp. Trái phiếu lãi suất thả nổi này được định giá ở mức 99 trên mỗi 100 đơn vị mệnh giá. Giả định quy ước đếm ngày 30/360 và các kỳ cách đều nhau, biên độ chiết khấu (<em>discount margin</em>) của trái phiếu lãi suất thả nổi này gần nhất với mức:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> 201 bps.</p>
+</li>
+<li>
+<p><strong>B.</strong> 251 bps.</p>
+</li>
+<li>
+<p><strong>C.</strong> 300 bps.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. The discount margin for the floater is closest to 300 bps. Using the information provided, the periodic <em>PMT</em> is equal to</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Biên độ chiết khấu của trái phiếu lãi suất thả nổi gần nhất với mức 300 bps. Sử dụng thông tin được cung cấp, khoản thanh toán định kỳ <span class="math-inline">$PMT$</span> bằng:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0206-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0206-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\frac{(MRR + QM) \times FV}{m} = \frac{(-0.005 + 0.025) \times 100}{4} = 0.5$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using the RATE function in Microsoft Excel, Google Sheets, or a financial calculator using <em>PV</em> = –99, <em>FV</em> = 100, <em>PMT</em> = 0.5, and <em>N</em> = 8, we solve for the discount rate per period of 0.628562%. The discount margin can be estimated by solving for <em>DM</em> :</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng hàm RATE trong Microsoft Excel, Google Sheets, hoặc máy tính tài chính với <span class="math-inline">$PV = -99$</span>, <span class="math-inline">$FV = 100$</span>, <span class="math-inline">$PMT = 0.5$</span>, và <span class="math-inline">$N = 8$</span>, chúng ta giải tìm lãi suất chiết khấu mỗi kỳ là 0,628562%. Biên độ chiết khấu có thể được ước tính bằng cách giải tìm <span class="math-inline">$DM$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0206-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0206-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$r = \frac{MRR + DM}{m}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$0.00628562 = \frac{-0.005 + DM}{4}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>0.00628562 =  <em><sup>− 0.005 +</sup><sup>_DM</em></sup> . 4</p>
+<ul>
+<li><em>DM</em> = 0.03014 = 3.014 % .</li>
+</ul>
+<ol start="5">
+<li>The Antelas AG four-year floating-rate note pays three-month MRR of –0.55% plus 250 bps. The floater is priced at 102 per 100 of par value. Assuming the 30/360 day-count convention and evenly spaced periods, calculate the discount margin for the floating-rate note.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><span class="math-inline">$DM = 0.03014 = 3.014\%$</span>.</li>
+</ul>
+<ol start="5">
+<li>Trái phiếu lãi suất thả nổi kỳ hạn 4 năm của Antelas AG trả lãi MRR 3 tháng ở mức –0,55% cộng 250 bps. Trái phiếu lãi suất thả nổi này được định giá ở mức 102 trên mỗi 100 đơn vị mệnh giá. Giả định quy ước đếm ngày 30/360 và các kỳ cách đều nhau, hãy tính biên độ chiết khấu cho trái phiếu lãi suất thả nổi này.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The estimated discount margin is 199 bps.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Biên độ chiết khấu ước tính là 199 bps.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using the information provided, the periodic <em>PMT</em> is equal to</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng thông tin được cung cấp, khoản thanh toán định kỳ <span class="math-inline">$PMT$</span> bằng:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong><em>_</em></strong><strong><em>_</em></strong> <strong><em>_</em></strong><strong><em>_</em></strong>____<sup>(</sup><sup><em>MRR</em>+</sup> <em>m</em><sup><em>QM</em>) ×</sup><sup><em>FV</em></sup> =<sup>(− 0.0055 + 0.025 ) × 100</sup> 4 = 0.4875.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><div class="math-display my-3 overflow-x-auto">$$\frac{(MRR + QM) \times FV}{m} = \frac{(-0.0055 + 0.025) \times 100}{4} = 0.4875$$</div></li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using the RATE function in Microsoft Excel, Google Sheets, or a financial calculator using <em>PV</em> = –102, <em>F</em> V = 100, <em>PMT</em> = 0.4875, and <em>N</em> = 16, we solve for the discount rate per period of 0.358655%. The discount margin can then be estimated by solving for <em>DM</em> :</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng hàm RATE trong Microsoft Excel, Google Sheets, hoặc máy tính tài chính với <span class="math-inline">$PV = -102$</span>, <span class="math-inline">$FV = 100$</span>, <span class="math-inline">$PMT = 0.4875$</span>, và <span class="math-inline">$N = 16$</span>, chúng ta giải tìm lãi suất chiết khấu mỗi kỳ là 0,358655%. Biên độ chiết khấu sau đó có thể được ước tính bằng cách giải tìm <span class="math-inline">$DM$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>r_ =<sup><em>MRR</em></sup> <em>m</em><sup>+</sup><sup><em>DM</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$r = \frac{MRR + DM}{m}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>0.00358655 =  <strong><em>_</em></strong>____<sup>− 0.0055 +</sup><sup><em>DM</em></sup> . 4</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$0.00358655 = \frac{-0.0055 + DM}{4}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><em>DM</em> = 0.019846 = 1.99 % .</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><span class="math-inline">$DM = 0.019846 = 1.99\%$</span>.</li>
+</ul></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 6</a>
+      <a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM08_Part2_Yield_Measures_for_Money_Market_Instruments →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('06_Fixed_Income/LM08_Part1_Introduction.html');
+    });
+  </script>
+</body>
+</html>

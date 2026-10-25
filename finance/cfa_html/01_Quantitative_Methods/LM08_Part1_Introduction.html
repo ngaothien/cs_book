@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 8 Hypothesis Testing - Part 1: Introduction — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 8 Hypothesis Testing - Part 1: Introduction</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM08_Full_Hypothesis_Testing.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (7 trang)...</option>
+          <option value="223">PDF Page 223</option>
+<option value="224">PDF Page 224</option>
+<option value="225">PDF Page 225</option>
+<option value="226">PDF Page 226</option>
+<option value="227">PDF Page 227</option>
+<option value="228">PDF Page 228</option>
+<option value="229">PDF Page 229</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 8 Hypothesis Testing - Part 1: Introduction</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM08_Part1_Introduction.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 8 Hypothesis Testing</h2>
+<h3>Part 1/3: Introduction (PDF Pages 223–229)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 8: Kiểm định Giả thuyết (<em>Hypothesis Testing</em>)</h2>
+<h3>Phần 1/3: Giới thiệu (<em>Introduction</em>) (Trang PDF 223–229)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-223" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 223 / Trang PDF 223
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4>L E A R N I N G M O D U L E</h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4>H Ọ C P H Ầ N</h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>8</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>8</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Hypothesis Testing</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Kiểm định Giả thuyết (<em>Hypothesis Testing</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>by Pamela Peterson Drake, PhD, CFA.</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>tác giả: Pamela Peterson Drake, PhD, CFA.</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Pamela Peterson Drake, PhD, CFA, is at James Madison University (USA).</em></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Pamela Peterson Drake, PhD, CFA, làm việc tại Đại học James Madison (Hoa Kỳ).</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><mark>LEARNING OUTCOMES</mark></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><mark>MỤC TIÊU HỌC TẬP (<em>LEARNING OUTCOMES</em>)</mark></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong><em>Mastery</em></strong></th>
+<th><strong><em>The candidate should be able to:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>explain hypothesis testing and its components, including statistical<br>significance, Type I and Type II errors, and the power of a test</td>
+</tr>
+<tr>
+<td></td>
+<td>construct hypothesis tests and determine their statistical<br>significance, the associated Type I and Type II errors, and power of<br>the test given a significance level</td>
+</tr>
+<tr>
+<td></td>
+<td>compare and contrast parametric and nonparametric tests, and<br>describe situations where each is the more appropriate type of test</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong><em>Mức độ Thành thạo</em></strong></th>
+<th><strong><em>Ứng viên cần có khả năng:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Giải thích kiểm định giả thuyết (<em>hypothesis testing</em>) và các cấu phần của nó, bao gồm ý nghĩa thống kê (<em>statistical significance</em>), sai lầm Loại I và Loại II (<em>Type I and Type II errors</em>), và lực kiểm định (<em>power of a test</em>).</td>
+</tr>
+<tr>
+<td></td>
+<td>Xây dựng các kiểm định giả thuyết và xác định ý nghĩa thống kê của chúng, các sai lầm Loại I và Loại II liên quan, cũng như lực kiểm định khi biết trước một mức ý nghĩa (<em>significance level</em>).</td>
+</tr>
+<tr>
+<td></td>
+<td>So sánh và đối chiếu các kiểm định tham số (<em>parametric tests</em>) và phi tham số (<em>nonparametric tests</em>), đồng thời mô tả các tình huống mà mỗi loại kiểm định là phù hợp hơn.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0223-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0223-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>INTRODUCTION</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>GIỚI THIỆU (<em>INTRODUCTION</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Hypothesis testing is covered extensively in the pre-read. This learning module builds on that coverage and assumes a functional understanding of the topic gained there or elsewhere.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Kiểm định giả thuyết (<em>hypothesis testing</em>) đã được trình bày chi tiết trong phần tài liệu đọc trước (<em>pre-read</em>). Học phần này phát triển dựa trên nội dung đó và giả định rằng người học đã có sự hiểu biết thực hành về chủ đề này từ tài liệu đó hoặc từ nguồn khác.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Lesson 1 summaries the hypothesis testing process by exemplifying its use in finance and investment management. Lesson 2 brings forward the impact of errors in the hypothesis testing process. Lesson 3 introduces nonparametric tests and their applications in investment management.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bài 1 tóm tắt quy trình kiểm định giả thuyết thông qua các ví dụ về việc sử dụng nó trong tài chính và quản lý đầu tư. Bài 2 làm rõ tác động của các sai lầm trong quy trình kiểm định giả thuyết. Bài 3 giới thiệu các kiểm định phi tham số (<em>nonparametric tests</em>) và ứng dụng của chúng trong quản lý đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE OVERVIEW</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỔNG QUAN HỌC PHẦN (<em>LEARNING MODULE OVERVIEW</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>The steps in testing a hypothesis are as follows: <strong>1.</strong> State the hypotheses. <strong>2.</strong> Identify the appropriate test statistic and its probability distribution.</li>
+</ul>
+<p><strong>3.</strong> Specify the significance level.</p>
+<p><strong>4.</strong> State the decision rule. <strong>5.</strong> Collect the data and calculate the test statistic.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Các bước trong việc kiểm định một giả thuyết như sau:
+   <strong>1.</strong> Phát biểu các giả thuyết (<em>State the hypotheses</em>).
+   <strong>2.</strong> Xác định thống kê kiểm định phù hợp và phân phối xác suất của nó (<em>Identify the appropriate test statistic and its probability distribution</em>). 
+   <strong>3.</strong> Xác định mức ý nghĩa (<em>Specify the significance level</em>). 
+   <strong>4.</strong> Phát biểu quy tắc quyết định (<em>State the decision rule</em>).
+   <strong>5.</strong> Thu thập dữ liệu và tính toán thống kê kiểm định (<em>Collect the data and calculate the test statistic</em>).</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-224" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 224 / Trang PDF 224
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>6.</strong> Make a decision.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>6.</strong> Đưa ra quyết định (<em>Make a decision</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>A test statistic is a quantity, calculated using a sample, whose value is the basis for deciding whether to reject or not reject the null hypothesis. We compare the computed value of the test statistic to a critical value for the same test statistic to determine whether to reject or not reject the null hypothesis.</p>
+</li>
+<li>
+<p>In reaching a statistical decision, two possible errors can be made: reject a true null hypothesis (a Type I error, or false positive), or fail to reject a false null hypothesis (a Type II error, or false negative).</p>
+</li>
+<li>
+<p>The level of significance of a test is the probability of a Type I error when conducting a hypothesis test. The standard approach to hypothesis testing involves specifying a level of significance (i.e., the probability of a Type I error). The complement of the level of significance is the confidence level.</p>
+</li>
+<li>
+<p>For hypothesis tests concerning the population mean of a normally distributed population with an unknown variance, the theoretically correct test statistic is the <em>t</em> -statistic.</p>
+</li>
+<li>
+<p>To test whether the observed difference between two means is statistically significant, the analyst must first decide whether the samples are independent or dependent (related). If the samples are independent, a test concerning differences between means is employed. If the samples are dependent, a test of mean differences (paired comparisons test) is employed.</p>
+</li>
+<li>
+<p>To determine whether the difference between two population means from normally distributed populations with unknown but equal variances, the appropriate test is a <em>t</em> -test based on pooling the observations of the two samples to estimate the common but unknown variance. This test is based on an assumption of independent samples.</p>
+</li>
+<li>
+<p>In tests concerning two means based on two samples that are not independent, the data are often arranged in paired observations and a test of mean differences (a paired comparisons test) is conducted. When the samples are from normally distributed populations with unknown variances, the appropriate test statistic is <em>t</em> -distributed.</p>
+</li>
+<li>
+<p>In tests concerning the variance of a single normally distributed population, the test statistic is chi-square with <em>n</em> − 1 degrees of freedom, where <em>n</em> is sample size.</p>
+</li>
+<li>
+<p>For tests concerning differences between the variances of two normally distributed populations based on two random, independent samples, the appropriate test statistic is based on an <em>F</em> -test (the ratio of the sample variances). The degrees of freedom for this <em>F</em> -test are <em>n</em> 1 − 1 and <em>n</em> 2 − 1, where <em>n</em> 1 corresponds to the number of observations in the calculation of the numerator, and <em>n</em> 2 is the number of observations in the calculation of the denominator of the <em>F</em> -statistic.</p>
+</li>
+<li>
+<p>A parametric test is a hypothesis test concerning a population parameter, or a hypothesis test based on specific distributional assumptions. In contrast, a nonparametric test either is not concerned with a parameter or makes minimal assumptions about the population from which the sample was taken.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Thống kê kiểm định (<em>test statistic</em>) là một đại lượng được tính toán bằng cách sử dụng một mẫu, có giá trị làm cơ sở để quyết định bác bỏ hay không bác bỏ giả thuyết không (<em>null hypothesis</em>). Chúng ta so sánh giá trị tính toán được của thống kê kiểm định với một giá trị tới hạn (<em>critical value</em>) của cùng thống kê kiểm định đó để xác định xem nên bác bỏ hay không bác bỏ giả thuyết không.</p>
+</li>
+<li>
+<p>Khi đưa ra một quyết định thống kê, có thể mắc phải hai sai lầm: bác bỏ một giả thuyết không đang đúng (sai lầm Loại I – <em>Type I error</em>, hay dương tính giả – <em>false positive</em>), hoặc không bác bỏ một giả thuyết không đang sai (sai lầm Loại II – <em>Type II error</em>, hay âm tính giả – <em>false negative</em>).</p>
+</li>
+<li>
+<p>Mức ý nghĩa của một kiểm định (<em>level of significance</em>) là xác suất mắc sai lầm Loại I khi tiến hành kiểm định giả thuyết. Cách tiếp cận tiêu chuẩn trong kiểm định giả thuyết bao gồm việc chỉ định trước một mức ý nghĩa (tức là xác suất mắc sai lầm Loại I). Phần bù của mức ý nghĩa là mức độ tin cậy (<em>confidence level</em>).</p>
+</li>
+<li>
+<p>Đối với các kiểm định giả thuyết liên quan đến trung bình tổng thể của một tổng thể có phân phối chuẩn với phương sai chưa biết, thống kê kiểm định chính xác về mặt lý thuyết là thống kê <span class="math-inline">$t$</span> (<em>t-statistic</em>).</p>
+</li>
+<li>
+<p>Để kiểm định xem sự khác biệt quan sát được giữa hai giá trị trung bình có ý nghĩa thống kê hay không, trước tiên nhà phân tích phải quyết định xem các mẫu là độc lập (<em>independent</em>) hay phụ thuộc/có liên quan (<em>dependent/related</em>). Nếu các mẫu độc lập, kiểm định sự khác biệt giữa hai giá trị trung bình (<em>test concerning differences between means</em>) được sử dụng. Nếu các mẫu phụ thuộc, kiểm định giá trị trung bình của các chênh lệch (<em>test of mean differences</em> hay kiểm định so sánh cặp – <em>paired comparisons test</em>) được sử dụng.</p>
+</li>
+<li>
+<p>Để xác định sự khác biệt giữa hai trung bình tổng thể từ các tổng thể có phân phối chuẩn với phương sai chưa biết nhưng bằng nhau, kiểm định phù hợp là kiểm định <span class="math-inline">$t$</span> (<em>t-test</em>) dựa trên việc gộp chung (<em>pooling</em>) các quan sát của hai mẫu để ước tính phương sai chung chưa biết. Kiểm định này dựa trên giả định các mẫu độc lập.</p>
+</li>
+<li>
+<p>Trong các kiểm định liên quan đến hai giá trị trung bình dựa trên hai mẫu không độc lập, dữ liệu thường được sắp xếp thành các quan sát ghép cặp (<em>paired observations</em>) và một kiểm định trung bình của các chênh lệch (kiểm định so sánh cặp) được tiến hành. Khi các mẫu đến từ các tổng thể có phân phối chuẩn với phương sai chưa biết, thống kê kiểm định phù hợp có phân phối <span class="math-inline">$t$</span>.</p>
+</li>
+<li>
+<p>Trong các kiểm định liên quan đến phương sai của một tổng thể đơn lẻ có phân phối chuẩn, thống kê kiểm định là Khi-bình phương (<em>chi-square</em> – <span class="math-inline">$\chi^2$</span>) với <span class="math-inline">$n - 1$</span> bậc tự do (<em>degrees of freedom</em>), trong đó <span class="math-inline">$n$</span> là kích thước mẫu.</p>
+</li>
+<li>
+<p>Đối với các kiểm định liên quan đến sự khác biệt giữa phương sai của hai tổng thể có phân phối chuẩn dựa trên hai mẫu ngẫu nhiên, độc lập, thống kê kiểm định phù hợp dựa trên kiểm định <span class="math-inline">$F$</span> (<em>F-test</em> – tỷ số của hai phương sai mẫu). Bậc tự do cho kiểm định <span class="math-inline">$F$</span> này là <span class="math-inline">$n_1 - 1$</span> và <span class="math-inline">$n_2 - 1$</span>, trong đó <span class="math-inline">$n_1$</span> tương ứng với số lượng quan sát trong phép tính ở tử số, và <span class="math-inline">$n_2$</span> là số lượng quan sát trong phép tính ở mẫu số của thống kê <span class="math-inline">$F$</span>.</p>
+</li>
+<li>
+<p>Kiểm định tham số (<em>parametric test</em>) là một kiểm định giả thuyết liên quan đến một tham số tổng thể, hoặc một kiểm định giả thuyết dựa trên các giả định phân phối cụ thể. Ngược lại, kiểm định phi tham số (<em>nonparametric test</em>) hoặc không liên quan đến một tham số hoặc đưa ra các giả định tối thiểu về tổng thể mà từ đó mẫu được lấy ra.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-225" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 225 / Trang PDF 225
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>A nonparametric test is primarily used when data do not meet distributional assumptions, when there are outliers, when data are given in ranks, or when the hypothesis we are addressing does not concern a parameter.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Kiểm định phi tham số chủ yếu được sử dụng khi dữ liệu không đáp ứng các giả định về phân phối, khi có các giá trị ngoại lai (<em>outliers</em>), khi dữ liệu được cho dưới dạng thứ hạng (<em>ranks</em>), hoặc khi giả thuyết chúng ta đang giải quyết không liên quan đến một tham số.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>HYPOTHESIS TESTS FOR FINANCE</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>CÁC KIỂM ĐỊNH GIẢ THUYẾT TRONG TÀI CHÍNH (<em>HYPOTHESIS TESTS FOR FINANCE</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>2</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>2</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain hypothesis testing and its components, including statistical significance, Type I and Type II errors, and the power of a test</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Giải thích kiểm định giả thuyết và các cấu phần của nó, bao gồm ý nghĩa thống kê, sai lầm Loại I và Loại II, và lực kiểm định</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We use <strong>hypothesis testing</strong> to make decisions using data. Hypothesis testing is part of statistical inference, the process of making judgments about a larger group (a population) based on a smaller group of observations (a sample).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta sử dụng <strong>kiểm định giả thuyết (<em>hypothesis testing</em>)</strong> để đưa ra quyết định bằng cách sử dụng dữ liệu. Kiểm định giả thuyết là một phần của suy luận thống kê (<em>statistical inference</em>), quá trình đưa ra các phán đoán về một nhóm lớn hơn (tổng thể) dựa trên một nhóm quan sát nhỏ hơn (mẫu).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In hypothesis testing, we test to determine whether a sample statistic is likely to come from a population with the hypothesized value of the population parameter.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong kiểm định giả thuyết, chúng ta kiểm định để xác định xem một thống kê mẫu có khả năng đến từ một tổng thể có giá trị tham số tổng thể như giả thuyết hay không.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The concepts and tools of hypothesis testing provide an objective means to gauge whether the available evidence supports the hypothesis. After applying a statistical test, we should have a clearer idea of the probability that a hypothesis is true or not, although our conclusion always stops short of certainty.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các khái niệm và công cụ của kiểm định giả thuyết cung cấp một phương tiện khách quan để đánh giá xem bằng chứng hiện có có ủng hộ giả thuyết hay không. Sau khi áp dụng một kiểm định thống kê, chúng ta sẽ có ý niệm rõ ràng hơn về xác suất một giả thuyết là đúng hay sai, mặc dù kết luận của chúng ta luôn chưa đạt tới sự chắc chắn tuyệt đối.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The main focus of this lesson is on the framework of hypothesis testing and tests concerning mean and variance, two measures frequently used in investments.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trọng tâm chính của bài học này là khuôn khổ của kiểm định giả thuyết và các kiểm định liên quan đến giá trị trung bình và phương sai, hai thước đo thường xuyên được sử dụng trong đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>The Process of Hypothesis Testing</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Quy trình Kiểm định Giả thuyết (<em>The Process of Hypothesis Testing</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Hypothesis testing is part of the branch of statistics known as statistical inference. In statistical inference, there is estimation and hypothesis testing. Estimation involves point estimates and interval estimates. Consider a sample mean, which is a point estimate, that we can use to form a confidence interval. In hypothesis testing, the focus is examining how a sample statistic informs us about a population parameter. A <strong>hypothesis</strong> is a statement about one or more populations that we test using sample statistics.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Kiểm định giả thuyết là một phần của nhánh thống kê được gọi là suy luận thống kê. Trong suy luận thống kê, có ước lượng (<em>estimation</em>) và kiểm định giả thuyết (<em>hypothesis testing</em>). Ước lượng bao gồm ước lượng điểm (<em>point estimates</em>) và ước lượng khoảng (<em>interval estimates</em>). Hãy xem xét một trung bình mẫu, vốn là một ước lượng điểm, mà chúng ta có thể sử dụng để lập một khoảng tin cậy. Trong kiểm định giả thuyết, trọng tâm là xem xét cách một thống kê mẫu cung cấp thông tin cho chúng ta về một tham số tổng thể. Một <strong>giả thuyết (<em>hypothesis</em>)</strong> là một phát biểu về một hoặc nhiều tổng thể mà chúng ta kiểm định bằng cách sử dụng các thống kê mẫu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The process of hypothesis testing begins with the formulation of a theory to organize and explain observations. We judge the correctness of the theory by its ability to make accurate predictions—for example, to predict the results of new observations. If the predictions are correct, we continue to maintain the theory as a possibly correct explanation of our observations. Risk plays a role in the outcomes of observations in finance, so we can only try to make unbiased, probability-based judgments about whether the new data support the predictions. Statistical hypothesis testing fills that key role of testing hypotheses when there is uncertainty. When an analyst correctly formulates the question into a testable hypothesis and carries out a test of hypotheses, the use of well-established scientific methods supports the conclusions and decisions made on the basis of this test.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Quy trình kiểm định giả thuyết bắt đầu bằng việc hình thành một lý thuyết để sắp xếp và giải thích các quan sát. Chúng ta đánh giá tính đúng đắn của lý thuyết bằng khả năng đưa ra các dự đoán chính xác của nó—ví dụ, dự đoán kết quả của các quan sát mới. Nếu các dự đoán là chính xác, chúng ta tiếp tục duy trì lý thuyết đó như một lời giải thích có khả năng đúng cho các quan sát của mình. Rủi ro đóng một vai trò trong kết quả của các quan sát trong tài chính, vì vậy chúng ta chỉ có thể cố gắng đưa ra các phán đoán không chệch, dựa trên xác suất về việc liệu dữ liệu mới có ủng hộ các dự đoán hay không. Kiểm định giả thuyết thống kê lấp đầy vai trò quan trọng đó là kiểm định các giả thuyết khi có sự không chắc chắn. Khi một nhà phân tích chuyển hóa đúng câu hỏi thành một giả thuyết có thể kiểm định được và tiến hành kiểm định giả thuyết, việc sử dụng các phương pháp khoa học đã được thiết lập vững chắc sẽ củng cố cho các kết luận và quyết định được đưa ra trên cơ sở kiểm định này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We organize this introduction to hypothesis testing around the six steps presented in Exhibit 1, which illustrate the standard approach to hypothesis testing.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng tôi sắp xếp phần giới thiệu về kiểm định giả thuyết này xoay quanh sáu bước được trình bày trong Minh họa 1, minh họa cách tiếp cận tiêu chuẩn đối với kiểm định giả thuyết.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-226" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 226 / Trang PDF 226
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Exhibit 1: The Process of Hypothesis Testing</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Minh họa 1: Quy trình Kiểm định Giả thuyết (<em>Exhibit 1: The Process of Hypothesis Testing</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0226-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0226-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Bước 1:</strong> Phát biểu các giả thuyết (<em>State the hypotheses</em>)
+- <strong>Bước 2:</strong> Xác định thống kê kiểm định phù hợp (<em>Identify the appropriate test statistic</em>)
+- <strong>Bước 3:</strong> Xác định mức ý nghĩa (<em>Specify the level of significance</em>)
+- <strong>Bước 4:</strong> Phát biểu quy tắc quyết định (<em>State the decision rule</em>)
+- <strong>Bước 5:</strong> Thu thập dữ liệu và tính toán thống kê kiểm định (<em>Collect data and calculate the test statistic</em>)
+- <strong>Bước 6:</strong> Đưa ra quyết định (<em>Make a decision</em>)</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>Stating the Hypotheses</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><em>Phát biểu các Giả thuyết (Stating the Hypotheses)</em></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For each hypothesis test, we always state two hypotheses: the <strong>null hypothesis</strong> (or null), designated <em>H</em> 0, and the <strong>alternative hypothesis</strong> , designated Ha. The null hypothesis is a statement concerning a population parameter or parameters considered to be true unless the sample we use to conduct the hypothesis test gives convincing evidence that the null hypothesis is false. In fact, the null hypothesis is what we want to reject. If there is sufficient evidence to indicate that the null hypothesis is not true, we reject it in favor of the alternative hypothesis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với mỗi kiểm định giả thuyết, chúng ta luôn phát biểu hai giả thuyết: <strong>giả thuyết không (<em>null hypothesis</em>)</strong>, được ký hiệu là <span class="math-inline">$H_0$</span>, và <strong>giả thuyết đối (<em>alternative hypothesis</em>)</strong>, được ký hiệu là <span class="math-inline">$H_a$</span>. Giả thuyết không là một phát biểu liên quan đến một hoặc nhiều tham số tổng thể được coi là đúng trừ khi mẫu mà chúng ta sử dụng để tiến hành kiểm định giả thuyết đưa ra bằng chứng thuyết phục rằng giả thuyết không là sai. Trên thực tế, giả thuyết không là thứ mà chúng ta muốn bác bỏ. Nếu có đủ bằng chứng chỉ ra rằng giả thuyết không là không đúng, chúng ta bác bỏ nó để ủng hộ giả thuyết đối.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Importantly, the null and alternative hypotheses are stated in terms of population parameters, and we use sample statistics to test these hypotheses.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Điều quan trọng là giả thuyết không và giả thuyết đối được phát biểu theo các tham số tổng thể (<em>population parameters</em>), và chúng ta sử dụng các thống kê mẫu (<em>sample statistics</em>) để kiểm định các giả thuyết này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Second, the null and alternative hypotheses must be mutually exclusive and collectively exhaustive; in other words, all possible values are contained in either the null or the alternative hypothesis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thứ hai, giả thuyết không và giả thuyết đối phải xung khắc lẫn nhau (<em>mutually exclusive</em>) và bao quát toàn bộ (<em>collectively exhaustive</em>); nói cách khác, tất cả các giá trị có thể có đều nằm trong giả thuyết không hoặc giả thuyết đối.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>Identify the Appropriate Test Statistic and Distribution</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><em>Xác định Thống kê Kiểm định và Phân phối Phù hợp (Identify the Appropriate Test Statistic and Distribution)</em></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A test statistic is a value calculated on the basis of a sample that, when used in conjunction with a decision rule, is the basis for deciding whether to reject the null hypothesis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thống kê kiểm định (<em>test statistic</em>) là một giá trị được tính toán trên cơ sở một mẫu mà khi được sử dụng kết hợp với một quy tắc quyết định sẽ là cơ sở để quyết định có bác bỏ giả thuyết không hay không.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The focal point of our statistical decision is the value of the test statistic. The test statistic that we use depends on what we are testing.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trọng tâm của quyết định thống kê của chúng ta là giá trị của thống kê kiểm định. Thống kê kiểm định mà chúng ta sử dụng phụ thuộc vào những gì chúng ta đang kiểm định.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Following the identification of the appropriate test statistic, we must be concerned with the distribution of the test statistic. We show examples of test statistics, and their corresponding distributions, in Exhibit 2.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sau khi xác định được thống kê kiểm định phù hợp, chúng ta phải quan tâm đến phân phối của thống kê kiểm định đó. Chúng tôi trình bày các ví dụ về thống kê kiểm định và phân phối tương ứng của chúng trong Minh họa 2.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-227" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 227 / Trang PDF 227
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Test Statistics and Their Distribution</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 2: Các Thống kê Kiểm định và Phân phối của Chúng (<em>Exhibit 2: Test Statistics and Their Distribution</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>What We Want to Test</strong></th>
+<th><strong>Test Statistic</strong></th>
+<th><strong>Probability Distribution of</strong><br><strong>the Statistic</strong></th>
+<th><strong>Degrees of</strong><br><strong>Freedom</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test of a single mean</td>
+<td><em>t</em>= <sup>~~<em>~~</sup><br>_X</em>−<em>μ</em> 0 <br>~~<em>~~<br>_s </em>⧸ √ <em><br>_n</em></td>
+<td><em>t</em>-distributed</td>
+<td><em>n</em>− 1</td>
+</tr>
+<tr>
+<td>Test of the difference in means<br>Test of the mean of differences</td>
+<td><em>t</em>=<br> ( <sup><em></sup><br>_Xd_1−<sup></em></sup><br><em>Xd_2 )−( _μ</em> <em>d_1−_μ</em> <em>d_2 ) <br>_______<strong>_</strong><strong><em>_</em></strong>_____<br> √<br> _s</em> <em>p</em> <sup>2</sup><br><em><br> _n</em> <em>d_1 <sup>+</sup><br> _s</em> <em>p</em> <sup>2</sup><br><em><br> _n</em> <em>d_2<br> _t</em>=<br><em><br>_d</em>−<em>μ</em> <em>d_0 <br></em><br> <em>s</em> <br><em><br>_d</em></td>
+<td><em>t</em>-distributed<br><em>t</em>-distributed</td>
+<td><em>n_1+_n_2− 2<br>_n</em>− 1</td>
+</tr>
+<tr>
+<td>Test of a single variance</td>
+<td><em>χ</em> <sup>2</sup>=<sup>(</sup><sup><em>n</em> − 1 )</sup><sup><em>s</em> 2 </sup><br><em><br> _σ</em> 0 <sup>2</sup></td>
+<td>Chi-square distributed</td>
+<td><em>n</em>− 1</td>
+</tr>
+<tr>
+<td>Test of the difference in variances</td>
+<td><em>F</em>=<br> <em>s</em> <em>Before</em><br>2 <br><em><br> _s</em> <em>After</em><br>2</td>
+<td><em>F</em>-distributed</td>
+<td>_n_1− 1,_n_2− 1</td>
+</tr>
+<tr>
+<td>Test of a correlation</td>
+<td><em>t</em>=<sup><em>r</em>  √ <em></sup><br>_n</em>− 2<br><em><br> √ <sup></em></sup><br>1 −<em>r</em> <sup>2</sup></td>
+<td><em>t-Distributed</em></td>
+<td><em>n</em>− 2</td>
+</tr>
+<tr>
+<td>Test of independence (categorical data)</td>
+<td><em>χ</em> <sup>2</sup>=∑<br><em>i</em>=1<br><em>m</em><br> ( <em>O</em> <em>ij</em>−<em>E</em> <em>ij</em>)<sup>2</sup> ) <br><em><br> _E</em> <em>ij</em></td>
+<td><em>Chi-square distributed</em></td>
+<td>(<em>r</em>− 1)(<em>c</em>− 1)</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nội dung Cần Kiểm định (<em>What We Want to Test</em>)</strong></th>
+<th><strong>Thống kê Kiểm định (<em>Test Statistic</em>)</strong></th>
+<th><strong>Phân phối Xác suất của Thống kê (<em>Probability Distribution of the Statistic</em>)</strong></th>
+<th><strong>Bậc Tự do (<em>Degrees of Freedom</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kiểm định một giá trị trung bình đơn lẻ (<em>Test of a single mean</em>)</td>
+<td><div class="math-display my-3 overflow-x-auto">$$t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}$$</div></td>
+<td>Phân phối <span class="math-inline">$t$</span> (<em>t-distributed</em>)</td>
+<td><span class="math-inline">$n - 1$</span></td>
+</tr>
+<tr>
+<td>Kiểm định sự khác biệt giữa hai giá trị trung bình (<em>Test of the difference in means</em>)</td>
+<td><div class="math-display my-3 overflow-x-auto">$$t = \frac{(\bar{X}_{d1} - \bar{X}_{d2}) - (\mu_{d1} - \mu_{d2})}{\sqrt{\frac{s_p^2}{n_{d1}} + \frac{s_p^2}{n_{d2}}}}$$</div></td>
+<td>Phân phối <span class="math-inline">$t$</span> (<em>t-distributed</em>)</td>
+<td><span class="math-inline">$n_1 + n_2 - 2$</span></td>
+</tr>
+<tr>
+<td>Kiểm định giá trị trung bình của các chênh lệch (<em>Test of the mean of differences</em>)</td>
+<td><div class="math-display my-3 overflow-x-auto">$$t = \frac{\bar{d} - \mu_{d0}}{s_{\bar{d}}}$$</div></td>
+<td>Phân phối <span class="math-inline">$t$</span> (<em>t-distributed</em>)</td>
+<td><span class="math-inline">$n - 1$</span></td>
+</tr>
+<tr>
+<td>Kiểm định một phương sai đơn lẻ (<em>Test of a single variance</em>)</td>
+<td><div class="math-display my-3 overflow-x-auto">$$\chi^2 = \frac{(n - 1)s^2}{\sigma_0^2}$$</div></td>
+<td>Phân phối Khi-bình phương (<em>Chi-square distributed</em>)</td>
+<td><span class="math-inline">$n - 1$</span></td>
+</tr>
+<tr>
+<td>Kiểm định sự khác biệt giữa hai phương sai (<em>Test of the difference in variances</em>)</td>
+<td><div class="math-display my-3 overflow-x-auto">$$F = \frac{s_{\text{Before}}^2}{s_{\text{After}}^2}$$</div></td>
+<td>Phân phối <span class="math-inline">$F$</span> (<em>F-distributed</em>)</td>
+<td><span class="math-inline">$n_1 - 1, n_2 - 1$</span></td>
+</tr>
+<tr>
+<td>Kiểm định hệ số tương quan (<em>Test of a correlation</em>)</td>
+<td><div class="math-display my-3 overflow-x-auto">$$t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}}$$</div></td>
+<td>Phân phối <span class="math-inline">$t$</span> (<em>t-distributed</em>)</td>
+<td><span class="math-inline">$n - 2$</span></td>
+</tr>
+<tr>
+<td>Kiểm định tính độc lập – dữ liệu phân loại (<em>Test of independence – categorical data</em>)</td>
+<td><div class="math-display my-3 overflow-x-auto">$$\chi^2 = \sum_{i=1}^{m} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$</div></td>
+<td>Phân phối Khi-bình phương (<em>Chi-square distributed</em>)</td>
+<td><span class="math-inline">$(r - 1)(c - 1)$</span></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Note:</em> μ0, μd0, and   σ_ 0<sup>2</sup> denote hypothesized values of the mean, mean difference, and variance, respectively. The <em>x</em><sup><em></sup> , _d</em> , <em>s</em><sup>2</sup> , <em>s</em> , and <em>r</em> denote for a sample the mean, mean of the differences, variance, standard deviation, and correlation, respectively, with subscripts indicating the sample, if appropriate. The sample size is indicated as <em>n</em> , and the subscript indicates the sample, if appropriate. <em>Oij</em> and <em>Eij</em> are observed and expected frequencies, respectively, with <em>r</em> indicating the number of rows and <em>c</em> indicating the number of columns in the contingency table.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Lưu ý:</em> <span class="math-inline">$\mu_0, \mu_{d0}$</span> và <span class="math-inline">$\sigma_0^2$</span> lần lượt ký hiệu các giá trị theo giả thuyết của trung bình, trung bình chênh lệch và phương sai. <span class="math-inline">$\bar{X}, \bar{d}, s^2, s$</span> và <span class="math-inline">$r$</span> lần lượt ký hiệu cho trung bình mẫu, trung bình của các chênh lệch, phương sai mẫu, độ lệch chuẩn mẫu và hệ số tương quan mẫu, với các chỉ số dưới cho biết mẫu tương ứng nếu phù hợp. Kích thước mẫu được biểu thị là <span class="math-inline">$n$</span>, và chỉ số dưới cho biết mẫu nếu phù hợp. <span class="math-inline">$O_{ij}$</span> và <span class="math-inline">$E_{ij}$</span> lần lượt là tần số quan sát được (<em>observed frequencies</em>) và tần số kỳ vọng (<em>expected frequencies</em>), với <span class="math-inline">$r$</span> biểu thị số hàng và <span class="math-inline">$c$</span> biểu thị số cột trong bảng tiếp liên (<em>contingency table</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>Specify the Level of Significance</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><em>Xác định Mức Ý nghĩa (Specify the Level of Significance)</em></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The level of significance reflects how much sample evidence we require to reject the null hypothesis. The required standard of proof can change according to the nature of the hypotheses and the seriousness of the consequences of making a mistake.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mức ý nghĩa (<em>level of significance</em>) phản ánh lượng bằng chứng mẫu mà chúng ta yêu cầu để bác bỏ giả thuyết không. Tiêu chuẩn bằng chứng yêu cầu có thể thay đổi tùy theo bản chất của các giả thuyết và mức độ nghiêm trọng của hậu quả khi mắc sai lầm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>There are four possible outcomes when we test a null hypothesis, as shown in Exhibit 3. A <strong>Type I error</strong> is a false positive (reject when the null is true), whereas a <strong>Type II error</strong> is a false negative (fail to reject when the null is false).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Có bốn kết quả có thể xảy ra khi chúng ta kiểm định một giả thuyết không, như được hiển thị trong Minh họa 3. <strong>Sai lầm Loại I (<em>Type I error</em>)</strong> là dương tính giả (<em>false positive</em> – bác bỏ khi giả thuyết không đang đúng), trong khi <strong>sai lầm Loại II (<em>Type II error</em>)</strong> là âm tính giả (<em>false negative</em> – không bác bỏ khi giả thuyết không đang sai).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 3: Correct and Incorrect Decisions in Hypothesis Testing</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 3: Các Quyết định Đúng và Sai trong Kiểm định Giả thuyết (<em>Exhibit 3: Correct and Incorrect Decisions in Hypothesis Testing</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Decision</strong></th>
+<th><strong>_H_0 True</strong></th>
+<th><strong>_H_0 False</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Correct decision:</td>
+<td>Type II error:</td>
+</tr>
+<tr>
+<td><strong>Fail to reject</strong><strong>_H_0</strong></td>
+<td>Do not reject a true null<br>hypothesis.</td>
+<td>Fail to reject a false null<br>hypothesis.<br>False negative</td>
+</tr>
+<tr>
+<td></td>
+<td>Type I error:</td>
+<td>Correct decision:</td>
+</tr>
+<tr>
+<td><strong>Reject</strong><strong>_H_0</strong></td>
+<td>Reject a true null hypothesis.<br>Falsepositive</td>
+<td>Reject a false null hypothesis.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Quyết định (<em>Decision</em>)</strong></th>
+<th><strong><span class="math-inline">$H_0$</span> Đúng (<em><span class="math-inline">$H_0$</span> True</em>)</strong></th>
+<th><strong><span class="math-inline">$H_0$</span> Sai (<em><span class="math-inline">$H_0$</span> False</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Không bác bỏ <span class="math-inline">$H_0$</span> (<em>Fail to reject <span class="math-inline">$H_0$</span></em>)</strong></td>
+<td><strong>Quyết định đúng (<em>Correct decision</em>):</strong><br>Không bác bỏ một giả thuyết không đang đúng.</td>
+<td><strong>Sai lầm Loại II (<em>Type II error</em>):</strong><br>Không bác bỏ một giả thuyết không đang sai.<br>Âm tính giả (<em>False negative</em>)</td>
+</tr>
+<tr>
+<td><strong>Bác bỏ <span class="math-inline">$H_0$</span> (<em>Reject <span class="math-inline">$H_0$</span></em>)</strong></td>
+<td><strong>Sai lầm Loại I (<em>Type I error</em>):</strong><br>Bác bỏ một giả thuyết không đang đúng.<br>Dương tính giả (<em>False positive</em>)</td>
+<td><strong>Quyết định đúng (<em>Correct decision</em>):</strong><br>Bác bỏ một giả thuyết không đang sai.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-228" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 228 / Trang PDF 228
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>When we make a decision in a hypothesis test, we run the risk of making either a Type I or a Type II error. As shown in Exhibit 3, these errors are mutually exclusive: If we mistakenly reject the true null, we can only be making a Type I error; if we mistakenly fail to reject the false null, we can only be making a Type II error.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi đưa ra một quyết định trong một kiểm định giả thuyết, chúng ta đối mặt với rủi ro mắc sai lầm Loại I hoặc Loại II. Như được hiển thị trong Minh họa 3, các sai lầm này loại trừ lẫn nhau (<em>mutually exclusive</em>): Nếu chúng ta bác bỏ nhầm giả thuyết không đang đúng, chúng ta chỉ có thể mắc sai lầm Loại I; nếu chúng ta không bác bỏ nhầm giả thuyết không đang sai, chúng ta chỉ có thể mắc sai lầm Loại II.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The probability of a Type I error is denoted by the lowercase Greek letter alpha, α. This probability is also known as the <strong>level of significance</strong> of the test, and its complement, (1 − α), is the <strong>confidence level</strong> . For example, a level of significance of 5 percent for a test means that there is a 5 percent probability of rejecting a true null hypothesis and corresponds to the 95 percent confidence level.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Xác suất mắc sai lầm Loại I được ký hiệu bằng chữ cái Hy Lạp viết thường alpha, <span class="math-inline">$\alpha$</span>. Xác suất này còn được gọi là <strong>mức ý nghĩa (<em>level of significance</em>)</strong> của kiểm định, và phần bù của nó, <span class="math-inline">$(1 - \alpha)$</span>, là <strong>mức độ tin cậy (<em>confidence level</em>)</strong>. Ví dụ, mức ý nghĩa <span class="math-inline">$5\%$</span> cho một kiểm định có nghĩa là có <span class="math-inline">$5\%$</span> xác suất bác bỏ một giả thuyết không đang đúng và tương ứng với mức độ tin cậy <span class="math-inline">$95\%$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Controlling the probabilities of the two types of errors involves a trade-off. All else equal, if we decrease the probability of a Type I error by specifying a smaller significance level (say, 1 percent rather than 5 percent), we increase the probability of making a Type II error because we will reject the null less frequently, including when it is false. Both Type I and Type II errors are risks of being wrong. Whether to accept more of one type versus the other depends on the consequences of the errors, such as costs. This trade-off weighs the impact of errors we are willing to accept and if so, at what cost. The only way to reduce the probabilities of both types of errors simultaneously is to increase the sample size, <em>n</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc kiểm soát xác suất của hai loại sai lầm này bao hàm sự đánh đổi (<em>trade-off</em>). Với các yếu tố khác không đổi, nếu chúng ta giảm xác suất mắc sai lầm Loại I bằng cách chỉ định một mức ý nghĩa nhỏ hơn (chẳng hạn <span class="math-inline">$1\%$</span> thay vì <span class="math-inline">$5\%$</span>), chúng ta sẽ làm tăng xác suất mắc sai lầm Loại II bởi vì chúng ta sẽ ít bác bỏ giả thuyết không hơn, kể cả khi nó sai. Cả sai lầm Loại I và Loại II đều là rủi ro đưa ra kết luận sai. Việc chấp nhận loại sai lầm nào nhiều hơn phụ thuộc vào hậu quả của các sai lầm đó, chẳng hạn như chi phí. Sự đánh đổi này cân nhắc tác động của những sai lầm mà chúng ta sẵn sàng chấp nhận và nếu có thì với cái giá nào. Cách duy nhất để giảm xác suất của cả hai loại sai lầm cùng một lúc là tăng kích thước mẫu, <span class="math-inline">$n$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Whereas the significance level of a test is the probability of incorrectly rejecting the true null, the <strong>power of a test</strong> is the probability of <em>correctly</em> rejecting the null—that is, the probability of rejecting the null when it is false. The power of a test is, in fact, the complement of the Type II error. The probability of a Type II error is often denoted by the lowercase Greek letter beta, β. We can classify the different probabilities in Exhibit 4 to reflect the notation that is often used.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong khi mức ý nghĩa của một kiểm định là xác suất bác bỏ <em>sai</em> giả thuyết không đang đúng, thì <strong>lực kiểm định (<em>power of a test</em>)</strong> là xác suất bác bỏ <em>đúng</em> giả thuyết không—tức là xác suất bác bỏ giả thuyết không khi nó thực sự sai. Lực kiểm định trên thực tế là phần bù của sai lầm Loại II. Xác suất mắc sai lầm Loại II thường được ký hiệu bằng chữ cái Hy Lạp viết thường beta, <span class="math-inline">$\beta$</span>. Chúng ta có thể phân loại các xác suất khác nhau trong Minh họa 4 để phản ánh các ký hiệu thường được sử dụng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 4: Probabilities Associated with Hypothesis Testing Decisions</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 4: Các Xác suất Liên quan đến Quyết định Kiểm định Giả thuyết (<em>Exhibit 4: Probabilities Associated with Hypothesis Testing Decisions</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Decision</strong></th>
+<th><strong>_H_0 True</strong></th>
+<th><strong>_H_0 False</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fail to reject_H_0</td>
+<td>1 − α</td>
+<td>β</td>
+</tr>
+<tr>
+<td>Reject_H_0</td>
+<td>α</td>
+<td>1 − β</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Quyết định (<em>Decision</em>)</strong></th>
+<th><strong><span class="math-inline">$H_0$</span> Đúng (<em><span class="math-inline">$H_0$</span> True</em>)</strong></th>
+<th><strong><span class="math-inline">$H_0$</span> Sai (<em><span class="math-inline">$H_0$</span> False</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Không bác bỏ <span class="math-inline">$H_0$</span> (<em>Fail to reject <span class="math-inline">$H_0$</span></em>)</td>
+<td><span class="math-inline">$1 - \alpha$</span></td>
+<td><span class="math-inline">$\beta$</span></td>
+</tr>
+<tr>
+<td>Bác bỏ <span class="math-inline">$H_0$</span> (<em>Reject <span class="math-inline">$H_0$</span></em>)</td>
+<td><span class="math-inline">$\alpha$</span></td>
+<td><span class="math-inline">$1 - \beta$</span></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><em>State the Decision Rule</em></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><em>Phát biểu Quy tắc Quyết định (State the Decision Rule)</em></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The fourth step in hypothesis testing is stating the decision rule: When do we reject the null hypothesis, and when do we not? The action we take is based on comparing the calculated sample test statistic with a specified value or values, which are referred to as <strong>critical values</strong> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bước thứ tư trong kiểm định giả thuyết là phát biểu quy tắc quyết định: Khi nào chúng ta bác bỏ giả thuyết không, và khi nào chúng ta không bác bỏ? Hành động chúng ta thực hiện dựa trên việc so sánh thống kê kiểm định mẫu tính toán được với một hoặc nhiều giá trị được chỉ định, được gọi là <strong>các giá trị tới hạn (<em>critical values</em>)</strong>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The critical value or values we choose are based on the level of significance and the probability distribution associated with the test statistic. If we find that the calculated value of the test statistic is more extreme than the critical value or values, then we reject the null hypothesis; we say the result is <strong>statistically significant</strong> . Otherwise, we fail to reject the null hypothesis; there is not sufficient evidence to reject the null hypothesis. Recall that the smallest level of significance at which the null hypothesis can be rejected is the <strong>p-value</strong> , the area in the probability distribution outside the calculated test statistic.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>(Các) giá trị tới hạn mà chúng ta chọn dựa trên mức ý nghĩa và phân phối xác suất gắn với thống kê kiểm định. Nếu chúng ta thấy rằng giá trị tính toán được của thống kê kiểm định khắc nghiệt hơn (<em>more extreme</em> – nằm ngoài vùng chấp nhận) so với (các) giá trị tới hạn, thì chúng ta bác bỏ giả thuyết không; chúng ta nói rằng kết quả có <strong>ý nghĩa thống kê (<em>statistically significant</em>)</strong>. Ngược lại, chúng ta không bác bỏ giả thuyết không; không có đủ bằng chứng để bác bỏ giả thuyết không. Hãy nhớ lại rằng mức ý nghĩa nhỏ nhất mà tại đó giả thuyết không có thể bị bác bỏ chính là <strong>giá trị p (<em>p-value</em>)</strong>, phần diện tích trong phân phối xác suất nằm bên ngoài thống kê kiểm định tính toán được.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-229" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 229 / Trang PDF 229
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Willco is a manufacturer in a mature cyclical industry. During the most recent industry cycle, its net income averaged USD30 million per year with a standard deviation of USD10 million ( <em>n</em> = 6 observations). Management claims that Willco’s performance during the most recent cycle results from new approaches and that Willco’s profitability will exceed the average of USD24 million per year observed in prior cycles.</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> With <em>μ</em> as the population value of mean annual net income, formulate null and alternative hypotheses consistent with testing Willco management’s claim.</p>
+</li>
+<li>
+<p><strong>B.</strong> Assuming that Willco’s net income is at least approximately normally distributed, identify the appropriate test statistic and calculate the degrees of freedom.</p>
+</li>
+<li>
+<p><strong>C.</strong> Based on a critical value of 2.015, determine whether to reject the null hypothesis.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Willco là một nhà sản xuất trong một ngành có tính chu kỳ đã trưởng thành. Trong chu kỳ ngành gần đây nhất, thu nhập ròng của công ty đạt trung bình 30 triệu USD mỗi năm với độ lệch chuẩn là 10 triệu USD (<span class="math-inline">$n = 6$</span> quan sát). Ban giám đốc tuyên bố rằng kết quả hoạt động của Willco trong chu kỳ gần đây nhất là nhờ các phương pháp tiếp cận mới và khả năng sinh lời của Willco sẽ vượt mức trung bình 24 triệu USD mỗi năm từng quan sát được trong các chu kỳ trước.</li>
+</ol>
+<ul>
+<li><strong>A.</strong> Với <span class="math-inline">$\mu$</span> là giá trị tổng thể của thu nhập ròng hàng năm trung bình, hãy thiết lập giả thuyết không và giả thuyết đối nhất quán với việc kiểm định tuyên bố của ban giám đốc Willco. </li>
+<li><strong>B.</strong> Giả sử thu nhập ròng của Willco ít nhất có phân phối xấp xỉ chuẩn, hãy xác định thống kê kiểm định phù hợp và tính bậc tự do. </li>
+<li><strong>C.</strong> Dựa trên giá trị tới hạn là <span class="math-inline">$2.015$</span>, hãy xác định xem có bác bỏ giả thuyết không hay không.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> We often set up the “hoped for” or “suspected” condition as the alternative hypothesis. Here, that condition is that the population value of Willco’s mean annual net income exceeds USD24 million. Thus, we have <em>H</em> 0: <em>μ</em> ≤ 24 versus <em>Ha</em> : <em>μ</em> &gt; 24.</p>
+</li>
+<li>
+<p><strong>B.</strong> Given that net income is normally distributed with unknown variance, the appropriate test statistic is a t-statistic with <em>n</em> − 1 = 6 − 1 = 5 degrees of freedom.</p>
+</li>
+<li>
+<p><strong>C.</strong> We reject the null if the calculated <em>t-</em> statistic is greater than 2.015. The calculated <em>t</em> -statistic is</p>
+</li>
+<li>
+<p>_</p>
+</li>
+<li>
+<p><em>t</em> =<sup>30 − 24</sup> = 1.4697 .<sup>10</sup> ⧸√_6</p>
+</li>
+<li>
+<p><strong>D.</strong> Because the calculated test statistic does not exceed 2.015, we fail to reject the null hypothesis. There is not sufficient evidence to indicate that the mean net income is greater than USD24 million.</p>
+</li>
+</ul>
+<ol start="2">
+<li>All else equal, is specifying a smaller significance level in a hypothesis test likely to increase the probability of a:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Chúng ta thường thiết lập điều kiện “mong muốn” hoặc “nghi ngờ” làm giả thuyết đối. Ở đây, điều kiện đó là giá trị tổng thể của thu nhập ròng hàng năm trung bình của Willco vượt quá 24 triệu USD. Do đó, ta có <span class="math-inline">$H_0: \mu \le 24$</span> đối lập với <span class="math-inline">$H_a: \mu &gt; 24$</span>. </li>
+<li><strong>B.</strong> Biết rằng thu nhập ròng có phân phối chuẩn với phương sai chưa biết, thống kê kiểm định phù hợp là thống kê <span class="math-inline">$t$</span> với bậc tự do là <span class="math-inline">$n - 1 = 6 - 1 = 5$</span>. </li>
+<li><strong>C.</strong> Chúng ta bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$t$</span> tính toán được lớn hơn <span class="math-inline">$2.015$</span>. Thống kê <span class="math-inline">$t$</span> tính toán được là:</li>
+</ul>
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{30 - 24}{10 / \sqrt{6}} = 1.4697$$</div>
+<ul>
+<li><strong>D.</strong> Bởi vì thống kê kiểm định tính toán được không vượt quá <span class="math-inline">$2.015$</span>, chúng ta không bác bỏ giả thuyết không (<em>fail to reject the null hypothesis</em>). Không có đủ bằng chứng để chỉ ra rằng thu nhập ròng trung bình lớn hơn 24 triệu USD.</li>
+</ul>
+<ol start="2">
+<li>Với các yếu tố khác không đổi, việc chỉ định một mức ý nghĩa nhỏ hơn trong một kiểm định giả thuyết có khả năng làm tăng xác suất của:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Type I error?</strong></th>
+<th><strong>Type II error?</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A.</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>B.</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>C.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Sai lầm Loại I (<em>Type I error</em>)?</strong></th>
+<th><strong>Sai lầm Loại II (<em>Type II error</em>)?</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A.</td>
+<td>Không (<em>No</em>)</td>
+<td>Không (<em>No</em>)</td>
+</tr>
+<tr>
+<td>B.</td>
+<td>Không (<em>No</em>)</td>
+<td>Có (<em>Yes</em>)</td>
+</tr>
+<tr>
+<td>C.</td>
+<td>Có (<em>Yes</em>)</td>
+<td>Không (<em>No</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is correct. Specifying a smaller significance level decreases the probability of a Type I error (rejecting a true null hypothesis) but increases the probability of a Type II error (not rejecting a false null hypothesis). As the level of significance decreases, the null hypothesis is less frequently rejected.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B đúng. Việc chỉ định một mức ý nghĩa nhỏ hơn làm giảm xác suất mắc sai lầm Loại I (bác bỏ một giả thuyết không đang đúng) nhưng làm tăng xác suất mắc sai lầm Loại II (không bác bỏ một giả thuyết không đang sai). Khi mức ý nghĩa giảm xuống, giả thuyết không ít bị bác bỏ hơn.</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM08_Part2_Tests_of_Return_and_Risk_in_Finance →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM08_Part1_Introduction.html');
+    });
+  </script>
+</body>
+</html>

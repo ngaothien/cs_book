@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves - Part 1: Introduction — Volume 6: Fixed Income | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 6: Thu Nhập Cố Định
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves - Part 1: Introduction</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (10 trang)...</option>
+          <option value="221">PDF Page 221</option>
+<option value="222">PDF Page 222</option>
+<option value="223">PDF Page 223</option>
+<option value="224">PDF Page 224</option>
+<option value="225">PDF Page 225</option>
+<option value="226">PDF Page 226</option>
+<option value="227">PDF Page 227</option>
+<option value="228">PDF Page 228</option>
+<option value="229">PDF Page 229</option>
+<option value="230">PDF Page 230</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 6</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Thu Nhập Cố Định</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 6</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Fixed_Income_Instrument_Features.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Fixed-Income Instrument Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Bond_Indentures_and_Covenants.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bond Indentures and Covenants</a>
+<a href="LM02_Full_Fixed_Income_Cash_Flows_and_Types.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Fixed-Income Cash Flows and Types</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Fixed_Income_Contingency_Provisions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Fixed-Income Contingency Provisions</a>
+<a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Fixed-Income Issuance and Trading</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Primary and Secondary Fixed-Income Markets</a>
+<a href="LM04_Full_Fixed_Income_Markets_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Fixed-Income Markets for Corporate Issuers</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Repurchase_Agreements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Repurchase Agreements</a>
+<a href="LM04_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM05_Full_Fixed_Income_Markets_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Fixed-Income Markets for Government Issuers</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Non_Sovereign_Quasi_Government_and_Supranatio.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign, Quasi-Government, and Supranational Agency Debt</a>
+<a href="LM06_Full_Fixed_Income_Bond_Valuation_Prices_and_Yields.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Fixed-Income Bond Valuation: Prices and Yields</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Relationships_between_Bond_Prices_and_Bond_Fe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Relationships between Bond Prices and Bond Features</a>
+<a href="LM07_Full_Yield_and_Yield_Spread_Measures_for_Fixed_Rat.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Yield and Yield Spread Measures for Fixed-Rate Bonds</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Spread Measures for Fixed-Rate Bonds and Matrix Pricing</a>
+<a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Measures for Money Market Instruments</a>
+<a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Par_and_Forward_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Par and Forward Rates</a>
+<a href="LM09_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM10_Full_Interest_Rate_Risk_and_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Interest Rate Risk and Return</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Macaulay_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Macaulay Duration</a>
+<a href="LM11_Full_Yield_Based_Bond_Duration_Measures_and_Proper.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Yield-Based Bond Duration Measures and Properties</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Money_Duration_and_Price_Value_of_a_Basis_Poi.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money Duration and Price Value of a Basis Point</a>
+<a href="LM12_Full_Yield_Based_Bond_Convexity_and_Portfolio_Prop.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Yield-Based Bond Convexity and Portfolio Properties</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Portfolio_Duration_and_Convexity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Duration and Convexity</a>
+<a href="LM13_Full_Curve_Based_and_Empirical_Fixed_Income_Risk_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 13 Curve-Based and Empirical Fixed-Income Risk Measures</a>
+<a href="LM13_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM13_Part2_Empirical_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Empirical Duration</a>
+<a href="LM14_Full_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 14 Credit Risk</a>
+<a href="LM14_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Credit Rating Agencies and Credit Ratings</a>
+<a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Factors Impacting Yield Spreads</a>
+<a href="LM14_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM15_Full_Credit_Analysis_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 15 Credit Analysis for Government Issuers</a>
+<a href="LM15_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM15_Part2_Non_Sovereign_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign Credit Risk</a>
+<a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 16 Credit Analysis for Corporate Issuers</a>
+<a href="LM16_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Ratios in Corporate Credit Analysis</a>
+<a href="LM16_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM17_Full_Fixed_Income_Securitization.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 17 Fixed-Income Securitization</a>
+<a href="LM17_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM17_Part2_The_Securitization_Process.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Securitization Process</a>
+<a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</a>
+<a href="LM18_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Mortgage Asset-Backed Securities</a>
+<a href="LM18_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM19_Full_Mortgage_Backed_Security_MBS_Instrument_and_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 19 Mortgage-Backed Security (MBS) Instrument and Market Features</a>
+<a href="LM19_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM19_Part2_Residential_Mortgage_Backed_Securities_RMBS.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Residential Mortgage-Backed Securities (RMBS)</a>
+<a href="LM19_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 6 • Fixed Income (Thu Nhập Cố Định)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves - Part 1: Introduction</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('06_Fixed_Income/LM09_Part1_Introduction.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 6: Fixed Income</h1>
+<h2>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</h2>
+<h3>Part 1/3: Introduction (PDF Pages 221–230)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 6: Thu nhập Cố định (Fixed Income)</h1>
+<h2>Học phần 9: Cấu trúc Kỳ hạn của Lãi suất: Đường cong Lãi suất Giao ngay, Đường cong Lãi suất Ngang giá và Đường cong Lãi suất Kỳ hạn (The Term Structure of Interest Rates: Spot, Par, and Forward Curves)</h2>
+<h3>Phần 1/3: Giới thiệu (Trang PDF 221–230)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-221" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 221 / Trang PDF 221
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4>L E A R N I N G M O D U L E</h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4>H Ọ C P H Ầ N</h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>9</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>9</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>The Term Structure of Interest Rates: Spot, Par, and Forward Curves</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Cấu trúc Kỳ hạn của Lãi suất: Đường cong Lãi suất Giao ngay, Đường cong Lãi suất Ngang giá và Đường cong Lãi suất Kỳ hạn (<em>The Term Structure of Interest Rates: Spot, Par, and Forward Curves</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><mark>LEARNING OUTCOMES</mark></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><mark>MỤC TIÊU HỌC TẬP (<em>LEARNING OUTCOMES</em>)</mark></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong><em>Mastery</em></strong></th>
+<th><strong><em>The candidate should be able to:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>define spot rates and the spot curve, and calculate the price of a<br>bond using spot rates</td>
+</tr>
+<tr>
+<td></td>
+<td>define par and forward rates, and calculate par rates, forward rates<br>from spot rates, spot rates from forward rates, and the price of a<br>bond using forward rates</td>
+</tr>
+<tr>
+<td></td>
+<td>compare the spot curve, par curve, and forward curve</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong><em>Mức độ thành thạo</em></strong></th>
+<th><strong><em>Ứng viên cần có khả năng:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>định nghĩa lãi suất giao ngay (<em>spot rates</em>) và đường cong lãi suất giao ngay (<em>spot curve</em>), đồng thời tính giá của một trái phiếu bằng cách sử dụng lãi suất giao ngay</td>
+</tr>
+<tr>
+<td></td>
+<td>định nghĩa lãi suất ngang giá (<em>par rates</em>) và lãi suất kỳ hạn (<em>forward rates</em>), đồng thời tính lãi suất ngang giá, lãi suất kỳ hạn từ lãi suất giao ngay, lãi suất giao ngay từ lãi suất kỳ hạn, và giá của một trái phiếu bằng cách sử dụng lãi suất kỳ hạn</td>
+</tr>
+<tr>
+<td></td>
+<td>so sánh đường cong lãi suất giao ngay (<em>spot curve</em>), đường cong lãi suất ngang giá (<em>par curve</em>), và đường cong lãi suất kỳ hạn (<em>forward curve</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>INTRODUCTION</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>GIỚI THIỆU (<em>INTRODUCTION</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><mark>1</mark></strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong><mark>1</mark></strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Prior lessons priced fixed-income instruments by discounting all future cash flows using a single interest rate, such as the yield-to-maturity or a market reference rate (MRR) plus a discount margin. The next three lessons relax this assumption by introducing the term structure of interest rates, or the fact that interest rates vary with time-to-maturity. The ideal data to use for term structure analysis are default-risk-free zero-coupon bonds, known as spot rates or the spot curve. Since these are generally not directly observable, various estimation techniques are used. The spot curve is used to derive two other important yield curves: the par curve and the forward curve. A par curve involves bond yields for hypothetical benchmark securities priced at par, while the forward curve involves rates for interest periods starting in the future. All three of these curves are fundamental to fixed-income analysis and other applications because they represent default-risk-free rates of return for time periods that start today and in the future. We show the pricing of bonds using these different rates and establish their relationships.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các bài học trước đã định giá các công cụ thu nhập cố định bằng cách chiết khấu tất cả các dòng tiền tương lai theo một mức lãi suất duy nhất, chẳng hạn như lợi suất đáo hạn (<em>yield-to-maturity</em>) hoặc lãi suất tham chiếu thị trường (<em>market reference rate</em> – MRR) cộng với biên độ chiết khấu (<em>discount margin</em>). Ba bài học tiếp theo sẽ nới lỏng giả định này bằng cách giới thiệu <strong>cấu trúc kỳ hạn của lãi suất (<em>term structure of interest rates</em>)</strong>, hay thực tế là lãi suất thay đổi theo thời gian đáo hạn. Dữ liệu lý tưởng để sử dụng cho việc phân tích cấu trúc kỳ hạn là các trái phiếu không trả lãi định kỳ (<em>zero-coupon bonds</em>) phi rủi ro vỡ nợ, được gọi là <strong>lãi suất giao ngay (<em>spot rates</em>)</strong> hoặc <strong>đường cong lãi suất giao ngay (<em>spot curve</em>)</strong>. Vì những dữ liệu này nhìn chung không thể quan sát trực tiếp được, nên nhiều kỹ thuật ước tính khác nhau được sử dụng. Đường cong lãi suất giao ngay được sử dụng để suy ra hai đường cong lợi suất quan trọng khác: <strong>đường cong lãi suất ngang giá (<em>par curve</em>)</strong> và <strong>đường cong lãi suất kỳ hạn (<em>forward curve</em>)</strong>. Đường cong lãi suất ngang giá liên quan đến lợi suất trái phiếu của các chứng khoán chuẩn giả định được định giá ngang mệnh giá (<em>at par</em>), trong khi đường cong lãi suất kỳ hạn liên quan đến lãi suất cho các kỳ tính lãi bắt đầu trong tương lai. Cả ba đường cong này đều là nền tảng cho phân tích thu nhập cố định và các ứng dụng khác bởi vì chúng đại diện cho các tỷ suất sinh lợi phi rủi ro vỡ nợ cho các khoảng thời gian bắt đầu từ ngày hôm nay và trong tương lai. Chúng tôi sẽ trình bày việc định giá trái phiếu bằng cách sử dụng các mức lãi suất khác nhau này và thiết lập mối quan hệ giữa chúng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Most of the examples and exhibits used throughout the reading can be downloaded as a Microsoft Excel workbook. Each worksheet in the workbook is labeled with the corresponding example or exhibit number in the text.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hầu hết các ví dụ và bảng biểu được sử dụng xuyên suốt bài đọc có thể được tải xuống dưới dạng sổ làm việc Microsoft Excel. Mỗi trang tính trong sổ làm việc được gắn nhãn với số ví dụ hoặc số bảng biểu tương ứng trong văn bản.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-222" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 222 / Trang PDF 222
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE OVERVIEW</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỔNG QUAN HỌC PHẦN (<em>LEARNING MODULE OVERVIEW</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Spot rates are market discount rates on default-risk-free zero-coupon bonds, sometimes referred to as zero rates. By using a sequence of spot rates in calculating bond prices, a no-arbitrage bond price is obtained.</p>
+</li>
+<li>
+<p>A par rate is the market discount rate for a specific maturity that would result in a bond priced at par. A par rate is derived from the spot rates up to and including the maturity date.</p>
+</li>
+<li>
+<p>Implied forward rates are calculated using spot rates and can be interpreted as an incremental, or marginal, return for extending the time-to-maturity for an additional time period. As such, they reflect a breakeven reinvestment rate.</p>
+</li>
+<li>
+<p>Since par and forward rates can be derived from spot rates, the shape of the spot curve is closely related to the shape of the par and forward curves.</p>
+</li>
+<li>
+<p>In upward-sloping term structures, par rates will be lower than their corresponding spot rates and forward rates will be greater than spot rates. In downward-sloping term structures, par rates will be greater than spot rates and forward rates will be lower than spot rates.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>Lãi suất giao ngay (<em>spot rates</em>)</strong> là lãi suất chiết khấu thị trường trên các trái phiếu không trả lãi định kỳ (<em>zero-coupon bonds</em>) phi rủi ro vỡ nợ, đôi khi được gọi là <strong>lãi suất zero (<em>zero rates</em>)</strong>. Bằng cách sử dụng một chuỗi các lãi suất giao ngay trong việc tính giá trái phiếu, ta thu được mức giá trái phiếu không có chênh lệch giá (<em>no-arbitrage bond price</em>).</p>
+</li>
+<li>
+<p><strong>Lãi suất ngang giá (<em>par rate</em>)</strong> là lãi suất chiết khấu thị trường cho một kỳ hạn cụ thể dẫn đến việc một trái phiếu được định giá ngang mệnh giá (<em>at par</em>). Lãi suất ngang giá được suy ra từ các lãi suất giao ngay tính đến và bao gồm cả ngày đáo hạn.</p>
+</li>
+<li>
+<p><strong>Lãi suất kỳ hạn hàm ý (<em>implied forward rates</em>)</strong> được tính bằng cách sử dụng lãi suất giao ngay và có thể được diễn giải là tỷ suất sinh lợi tăng thêm, hay cận biên (<em>incremental, or marginal, return</em>), cho việc kéo dài thời gian đáo hạn thêm một kỳ nữa. Do đó, chúng phản ánh một <strong>lãi suất tái đầu tư hòa vốn (<em>breakeven reinvestment rate</em>)</strong>.</p>
+</li>
+<li>
+<p>Vì lãi suất ngang giá và lãi suất kỳ hạn có thể được suy ra từ lãi suất giao ngay, nên hình dạng của đường cong lãi suất giao ngay có mối liên hệ chặt chẽ với hình dạng của đường cong lãi suất ngang giá và đường cong lãi suất kỳ hạn.</p>
+</li>
+<li>
+<p>Trong các cấu trúc kỳ hạn dốc lên (<em>upward-sloping term structures</em>), lãi suất ngang giá sẽ thấp hơn lãi suất giao ngay tương ứng của chúng và lãi suất kỳ hạn sẽ lớn hơn lãi suất giao ngay. Trong các cấu trúc kỳ hạn dốc xuống (<em>downward-sloping term structures</em>), lãi suất ngang giá sẽ lớn hơn lãi suất giao ngay và lãi suất kỳ hạn sẽ thấp hơn lãi suất giao ngay.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE SELF-ASSESSMENT</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỰ ĐÁNH GIÁ HỌC PHẦN (<em>LEARNING MODULE SELF-ASSESSMENT</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các câu hỏi ban đầu này nhằm giúp bạn tự đánh giá mức độ hiểu biết hiện tại của mình về học phần này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Calculate the price and yield-to-maturity (YTM) of a 1% coupon, three-year bond with par value of 100 given the following spot rates:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Tính giá và lợi suất đáo hạn (YTM) của một trái phiếu kỳ hạn 3 năm, lãi suất coupon 1% có mệnh giá là 100 với các lãi suất giao ngay sau đây:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>1-year</th>
+<th>1.0%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2-year</td>
+<td>1.5%</td>
+</tr>
+<tr>
+<td>3-year</td>
+<td>2.0%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>1 năm</th>
+<th>1,0%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 năm</td>
+<td>1,5%</td>
+</tr>
+<tr>
+<td>3 năm</td>
+<td>2,0%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The price is 97.135:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mức giá là 97,135:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0222-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0222-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + Z_1)^1} + \frac{PMT}{(1 + Z_2)^2} + \dots + \frac{PMT + FV}{(1 + Z_N)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{1}{(1 + 0.01)^1} + \frac{1}{(1 + 0.015)^2} + \frac{101}{(1 + 0.02)^3}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = 97.135$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>YTM là 1,993%:</p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + r)^1} + \frac{PMT}{(1 + r)^2} + \dots + \frac{PMT + FV}{(1 + r)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$97.135 = \frac{1}{(1 + r)^1} + \frac{1}{(1 + r)^2} + \frac{101}{(1 + r)^3}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$r = 0.01993 = 1.993\%$$</div></p></div>
+                </div>
+                
+
+                <div id="pdf-page-223" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 223 / Trang PDF 223
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Define what a par rate represents in the context of bond pricing.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Định nghĩa những gì mà lãi suất ngang giá (<em>par rate</em>) đại diện trong bối cảnh định giá trái phiếu.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>The par rate is the yield-to-maturity that makes the present value of a bond’s cash flows (i.e., its price) equal to its par or face value.</li>
+</ul>
+<ol start="3">
+<li>Calculate an implied one-year forward rate two years from now (i.e., 2y1y) given the following spot rates, assuming annual compounding:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Lãi suất ngang giá là lợi suất đáo hạn làm cho giá trị hiện tại của các dòng tiền của một trái phiếu (tức là giá của nó) bằng với mệnh giá (<em>par or face value</em>) của nó.</li>
+</ul>
+<ol start="3">
+<li>Tính lãi suất kỳ hạn 1 năm hàm ý sau hai năm kể từ bây giờ (tức là 2y1y) với các lãi suất giao ngay sau đây, giả định ghép lãi hàng năm:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>1-year</th>
+<th>1.0%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2-year</td>
+<td>1.5%</td>
+</tr>
+<tr>
+<td>3-year</td>
+<td>2.0%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>1 năm</th>
+<th>1,0%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 năm</td>
+<td>1,5%</td>
+</tr>
+<tr>
+<td>3 năm</td>
+<td>2,0%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>(1 + <em>ZA</em> )<sup><em>A</em></sup> × (1 + <em>IFRA,B – A</em> )<sup><em>B</em>−</sup><sup><em>A</em></sup> = (1 + <em>ZB</em> )<sup><em>B</em></sup> .</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><div class="math-display my-3 overflow-x-auto">$$(1 + Z_A)^A \times (1 + IFR_{A,B-A})^{B-A} = (1 + Z_B)^B$$</div></li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>(1 + 0.01)<sup>1</sup> × (1 + <em>IFR</em> 2,1)<sup>2</sup> = (1 + 0.02)<sup>3</sup> . <em>IFR</em> 2,1 = 2.50%.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><div class="math-display my-3 overflow-x-auto">$$(1 + 0.015)^2 \times (1 + IFR_{2,1})^1 = (1 + 0.02)^3 \implies IFR_{2,1} = 3.01\%$$</div>
+<em>(Lưu ý: Bản gốc ở câu 3 viết nhầm phép tính của 1y2y: <span class="math-inline">$(1 + 0.01)^1 \times (1 + IFR_{2,1})^2 = (1 + 0.02)^3 \implies IFR_{2,1} = 2.50\%$</span>, trong khi Câu 4 ngay bên dưới sử dụng kết quả đúng của 2y1y là <span class="math-inline">$3.01\%$</span>).</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Explain the economic meaning of the forward rate result calculated in Question 3.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Giải thích ý nghĩa kinh tế của kết quả lãi suất kỳ hạn được tính trong Câu hỏi 3.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The one-year forward rate two years from now (2y1y) of 3.01% implies that investors expect the one-year interest rate to be 3.01% at the end of two years. This reflects the rate at which reinvestment would yield the same results over a three-year horizon regardless of whether the investor initially bought a two-year bond versus a three-year bond.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lãi suất kỳ hạn 1 năm sau hai năm kể từ bây giờ (2y1y) ở mức 3,01% ngụ ý rằng các nhà đầu tư kỳ vọng lãi suất 1 năm sẽ là 3,01% vào cuối năm thứ hai. Điều này phản ánh mức lãi suất mà tại đó việc tái đầu tư sẽ mang lại kết quả như nhau trong thời hạn đầu tư 3 năm bất kể nhà đầu tư ban đầu mua một trái phiếu kỳ hạn 2 năm hay một trái phiếu kỳ hạn 3 năm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="5">
+<li>Contrast spot and forward rates.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li>Đối chiếu lãi suất giao ngay (<em>spot rates</em>) và lãi suất kỳ hạn (<em>forward rates</em>).</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Spot rates reflect borrowing and investing rates for funds immediately (or in the next few days) over the specified tenor, while forward rates reflect rates applicable to agreements to borrow or invest beginning on a future date for a specified tenor.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lãi suất giao ngay phản ánh lãi suất đi vay và đầu tư đối với nguồn vốn ngay lập tức (hoặc trong vài ngày tới) trong kỳ hạn đã xác định, trong khi lãi suất kỳ hạn phản ánh lãi suất áp dụng cho các thỏa thuận đi vay hoặc đầu tư bắt đầu vào một ngày trong tương lai cho một kỳ hạn đã xác định.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="6">
+<li>True or false: One-year forward rates are higher compared to their corresponding spot rates when the spot rate curve is downward sloping.</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> True</p>
+</li>
+<li>
+<p><strong>B.</strong> False</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="6">
+<li>Đúng hay sai: Lãi suất kỳ hạn 1 năm cao hơn so với lãi suất giao ngay tương ứng của chúng khi đường cong lãi suất giao ngay dốc xuống (<em>downward sloping</em>).</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Đúng (<em>True</em>)</p>
+</li>
+<li>
+<p><strong>B.</strong> Sai (<em>False</em>)</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>False. When the spot curve is downward sloping, the one-year forward rate curve will lie below the spot rate curve. Declining spot rates for longer maturities imply that investors should expect lower rates of reinvestment in future years, and the forward curve reflects these expectations.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sai (<em>False</em>). Khi đường cong lãi suất giao ngay dốc xuống, đường cong lãi suất kỳ hạn 1 năm sẽ nằm bên dưới đường cong lãi suất giao ngay. Lãi suất giao ngay giảm dần đối với các kỳ hạn dài hơn ngụ ý rằng các nhà đầu tư nên kỳ vọng mức lãi suất tái đầu tư thấp hơn trong những năm tương lai, và đường cong lãi suất kỳ hạn phản ánh những kỳ vọng này.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-224" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 224 / Trang PDF 224
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>2</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>2</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>MATURITY STRUCTURE OF INTEREST RATES AND SPOT RATES</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>CẤU TRÚC KỲ HẠN CỦA LÃI SUẤT VÀ LÃI SUẤT GIAO NGAY (<em>MATURITY STRUCTURE OF INTEREST RATES AND SPOT RATES</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>define spot rates and the spot curve, and calculate the price of a bond using spot rates</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>định nghĩa lãi suất giao ngay và đường cong lãi suất giao ngay, đồng thời tính giá của một trái phiếu bằng cách sử dụng lãi suất giao ngay</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Maturity Structure of Interest Rates</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Cấu trúc Kỳ hạn của Lãi suất (<em>Maturity Structure of Interest Rates</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose that the yield-to-maturity is higher on one bond compared to another bond. There are several possible reasons for the difference, including credit risk, different currencies, liquidity, tax differences, and the periodicity assumption used in the yield calculation. Credit risk and currency differences were demonstrated in earlier lessons where Romania’s (Ministry of Finance) 30-year euro-denominated bonds were issued at a 4.657% yield-to-maturity, a 411 bp spread over Federal Republic of Germany bonds. Another reason bonds may have different yields-to-maturity is that they have different times-to-maturity. This factor explaining the differences in yields is called the <strong>maturity structure of interest rates</strong> or <strong>term structure of interest rates</strong> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử lợi suất đáo hạn của một trái phiếu cao hơn so với một trái phiếu khác. Có một số lý do khả dĩ giải thích cho sự khác biệt này, bao gồm rủi ro tín dụng, các đồng tiền khác nhau, tính thanh khoản, sự khác biệt về thuế, và giả định về định kỳ (<em>periodicity</em>) được sử dụng trong phép tính lợi suất. Sự khác biệt về rủi ro tín dụng và tiền tệ đã được chứng minh trong các bài học trước, nơi các trái phiếu định danh bằng đồng euro kỳ hạn 30 năm của Romania (Bộ Tài chính) được phát hành ở mức lợi suất đáo hạn 4,657%, tức mức chênh lệch 411 bp so với trái phiếu của Cộng hòa Liên bang Đức. Một lý do khác khiến các trái phiếu có thể có lợi suất đáo hạn khác nhau là chúng có thời gian đáo hạn khác nhau. Nhân tố giải thích sự khác biệt về lợi suất này được gọi là <strong>cấu trúc đáo hạn của lãi suất (<em>maturity structure of interest rates</em>)</strong> hay <strong>cấu trúc kỳ hạn của lãi suất (<em>term structure of interest rates</em>)</strong>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Term structure is best analyzed using bonds that have all the same properties <em>other than</em> time-to-maturity; that is, the bonds should be denominated in the same currency and have the same credit risk, liquidity, tax status, and periodicity assumption and they should have the same coupon rate so that they each have the same degree of coupon reinvestment risk. This ideal dataset would be yields-to-maturity on a series of default-risk-free <em>zero-coupon</em> bonds, known as <strong>spot rates</strong> , for a full range of maturities. Developed market sovereign bonds are typically used for this purpose, because they represent the lowest default risk among issuers in a given market. Collectively, this dataset is the government bond <strong>spot curve</strong> , sometimes called the zero or “strip” curve (because the coupon payments are “stripped” off the bonds).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cấu trúc kỳ hạn được phân tích tốt nhất bằng cách sử dụng các trái phiếu có tất cả các đặc tính giống nhau <em>ngoại trừ</em> thời gian đáo hạn; nghĩa là, các trái phiếu phải được định danh bằng cùng một đồng tiền và có cùng rủi ro tín dụng, tính thanh khoản, tình trạng thuế, và giả định về định kỳ, đồng thời chúng phải có cùng lãi suất coupon để mỗi trái phiếu có cùng mức độ rủi ro tái đầu tư coupon (<em>coupon reinvestment risk</em>). Bộ dữ liệu lý tưởng này sẽ là lợi suất đáo hạn trên một chuỗi các trái phiếu <em>không trả lãi định kỳ</em> (<em>zero-coupon bonds</em>) phi rủi ro vỡ nợ, được gọi là <strong>lãi suất giao ngay (<em>spot rates</em>)</strong>, cho đầy đủ các kỳ hạn. Trái phiếu chính phủ của các thị trường phát triển thường được sử dụng cho mục đích này, bởi vì chúng đại diện cho mức rủi ro vỡ nợ thấp nhất trong số các tổ chức phát hành trên một thị trường nhất định. Tập hợp lại, bộ dữ liệu này là <strong>đường cong lãi suất giao ngay (<em>spot curve</em>)</strong> của trái phiếu chính phủ, đôi khi được gọi là đường cong zero hoặc đường cong “strip” (bởi vì các khoản thanh toán coupon bị “tách” – <em>“stripped”</em> – ra khỏi trái phiếu).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The government bond spot curve is ideal for analyzing maturity structure because it best meets the “other things being equal” assumption. These government bonds presumably have the same currency, credit risk, liquidity, and tax status. Most importantly, as zero-coupon bonds, they have no coupon reinvestment risk. A government bond spot curve is illustrated in Exhibit 1 for maturities ranging from 1 to 30 years. The annual yields are stated on a semiannual bond basis, which facilitates comparison to coupon-bearing bonds that make semiannual payments, like corporate bonds in many markets.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đường cong lãi suất giao ngay của trái phiếu chính phủ là lý tưởng để phân tích cấu trúc đáo hạn bởi vì nó đáp ứng tốt nhất giả định “các yếu tố khác không đổi” (<em>“other things being equal”</em>). Các trái phiếu chính phủ này được cho là có cùng đồng tiền, rủi ro tín dụng, tính thanh khoản, và tình trạng thuế. Quan trọng nhất, với tư cách là trái phiếu không trả lãi định kỳ, chúng không có rủi ro tái đầu tư coupon. Đường cong lãi suất giao ngay của trái phiếu chính phủ được minh họa trong Bảng 1 cho các kỳ hạn từ 1 đến 30 năm. Lợi suất hàng năm được biểu thị trên cơ sở trái phiếu trả lãi nửa năm một lần (<em>semiannual bond basis</em>), giúp thuận tiện cho việc so sánh với các trái phiếu trả coupon thực hiện thanh toán nửa năm một lần, giống như trái phiếu doanh nghiệp ở nhiều thị trường.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-225" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 225 / Trang PDF 225
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Government Bond Spot (Zero) Curve</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 1: Đường cong Lãi suất Giao ngay (Zero) của Trái phiếu Chính phủ (<em>Exhibit 1: Government Bond Spot (Zero) Curve</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0225-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0225-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Trục tung:</strong> Lợi suất đáo hạn (<em>Yield-to-Maturity</em>) (%) (từ 0 đến 6)
+- <strong>Trục hoành:</strong> Thời gian đáo hạn (<em>Time-to-Maturity</em>) (năm) (từ 0 đến 30)</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The spot curve in Exhibit 1 is upward sloping and flattens for longer times-to-maturity, meaning that the longer-term government bonds have higher yields than the shorter-term bonds. This pattern is typical under normal market conditions. Sometimes, a spot curve is downward sloping in that shorter-term yields are higher than longer-term yields. Such downward-sloping spot curves are called inverted yield curves. Theories that attempt to explain the shape of the yield curve and its implications for future financial market conditions are covered later.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đường cong lãi suất giao ngay trong Bảng 1 dốc lên và phẳng dần ở các thời gian đáo hạn dài hơn, có nghĩa là các trái phiếu chính phủ dài hạn hơn có lợi suất cao hơn so với các trái phiếu ngắn hạn hơn. Mô hình này là điển hình trong các điều kiện thị trường bình thường. Đôi khi, đường cong lãi suất giao ngay lại dốc xuống ở chỗ lợi suất ngắn hạn hơn lại cao hơn lợi suất dài hạn hơn. Những đường cong lãi suất giao ngay dốc xuống như vậy được gọi là <strong>đường cong lợi suất đảo ngược (<em>inverted yield curves</em>)</strong>. Các lý thuyết tìm cách giải thích hình dạng của đường cong lợi suất và những hàm ý của nó đối với các điều kiện thị trường tài chính trong tương lai sẽ được đề cập sau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>While a spot curve comprised of zero-coupon government bonds is ideal for analysis, there are several practical issues to contend with. First, most actively traded government bonds make coupon payments. These coupon bonds might not have the same liquidity and tax status. Older (“seasoned”) bonds tend to be less liquid than newly issued debt because they are owned by “buy-and-hold” institutional and retail investors. Governments issue new debt for regular times-to-maturity—for instance, 5-year and 10-year bonds. The current 6-year bond could be a 10-year bond that was issued four years ago. Also, because interest rates fluctuate, older bonds can be priced at a discount or premium to par value, which can lead to tax differences because some tax jurisdictions distinguish capital gains and losses from interest income.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù một đường cong lãi suất giao ngay bao gồm các trái phiếu chính phủ không trả lãi định kỳ là lý tưởng cho việc phân tích, nhưng có một số vấn đề thực tiễn cần phải giải quyết. Thứ nhất, hầu hết các trái phiếu chính phủ được giao dịch sôi động đều thực hiện thanh toán coupon. Các trái phiếu trả coupon này có thể không có cùng tính thanh khoản và tình trạng thuế. Các trái phiếu cũ hơn (đã lưu hành lâu – <em>“seasoned”</em>) có xu hướng kém thanh khoản hơn so với các khoản nợ mới phát hành bởi vì chúng thuộc sở hữu của các nhà đầu tư tổ chức và cá nhân theo chiến lược “mua và nắm giữ” (<em>“buy-and-hold”</em>). Các chính phủ phát hành nợ mới cho các thời gian đáo hạn định kỳ—chẳng hạn, trái phiếu kỳ hạn 5 năm và 10 năm. Trái phiếu kỳ hạn 6 năm hiện tại có thể là một trái phiếu kỳ hạn 10 năm đã được phát hành cách đây 4 năm. Ngoài ra, bởi vì lãi suất biến động, các trái phiếu cũ hơn có thể được định giá ở mức chiết khấu hoặc phần trội so với mệnh giá, điều này có thể dẫn đến sự khác biệt về thuế bởi vì một số khu vực tài phán thuế phân biệt giữa lãi và lỗ vốn (<em>capital gains and losses</em>) với thu nhập tiền lãi (<em>interest income</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In practice, therefore, only the most recently issued and actively traded government bonds are used to build a yield curve. These bonds have similar liquidity, and because they are priced closer to par value, they have fewer tax effects. Additionally, because there are limited data for the full range of maturities, interpolation is used to complete the curve. Exhibit 2 illustrates a yield curve for a government that issues 2-year, 3-year, 5-year, 7-year, 10-year, and 30-year bonds that make semiannual coupon payments. Straight-line interpolation is used between those points on the yield curve.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó, trên thực tế, chỉ những trái phiếu chính phủ mới được phát hành gần đây nhất và được giao dịch sôi động nhất mới được sử dụng để xây dựng đường cong lợi suất. Những trái phiếu này có tính thanh khoản tương tự nhau, và bởi vì chúng được định giá gần với mệnh giá hơn, nên chúng có ít tác động về thuế hơn. Thêm vào đó, bởi vì có dữ liệu hạn chế cho đầy đủ các kỳ hạn, phương pháp nội suy (<em>interpolation</em>) được sử dụng để hoàn thiện đường cong. Bảng 2 minh họa một đường cong lợi suất cho một chính phủ phát hành các trái phiếu kỳ hạn 2 năm, 3 năm, 5 năm, 7 năm, 10 năm, và 30 năm thực hiện thanh toán coupon nửa năm một lần. Phương pháp nội suy tuyến tính (<em>straight-line interpolation</em>) được sử dụng giữa các điểm đó trên đường cong lợi suất.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-226" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 226 / Trang PDF 226
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Government Coupon Bond Yield Curve</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 2: Đường cong Lợi suất Trái phiếu Chính phủ Trả lãi Coupon (<em>Exhibit 2: Government Coupon Bond Yield Curve</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0226-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0226-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Biểu đồ chính:</strong> Trục tung: Lợi suất đáo hạn (<em>Yield-to-Maturity</em>) (%) (0 đến 3,0); Trục hoành: Thời gian đáo hạn (<em>Time-to-Maturity</em>) (năm) (0 đến 30).
+- <strong>Biểu đồ phóng to (góc dưới):</strong> Trục tung: Lợi suất đáo hạn (<em>Yield-to-Maturity</em>) (%) (0 đến 0,20); Trục hoành: Thời gian đáo hạn (<em>Time-to-Maturity</em>) (tháng) (1, 3, 6, 12).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 2 also includes yields for short-term government securities having 1 month, 3 months, 6 months, and 12 months to maturity. Although these money market instruments are issued and traded on a discount rate basis, they are converted to bond equivalent yields (i.e., add-on rates with a 365-day year). All bonds on the yield curve should also be converted to the same periodicity in order to facilitate comparisons across times-to-maturity. Conversion from discount rates to bond equivalent yields and across periodicities was demonstrated in prior lessons.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng 2 cũng bao gồm lợi suất cho các chứng khoán chính phủ ngắn hạn có thời gian đáo hạn là 1 tháng, 3 tháng, 6 tháng, và 12 tháng. Mặc dù các công cụ thị trường tiền tệ này được phát hành và giao dịch trên cơ sở lãi suất chiết khấu, nhưng chúng được chuyển đổi sang lợi suất tương đương trái phiếu (<em>bond equivalent yields</em> – tức là lãi suất cộng thêm với một năm 365 ngày). Tất cả các trái phiếu trên đường cong lợi suất cũng cần được chuyển đổi sang cùng một định kỳ (<em>periodicity</em>) nhằm tạo thuận lợi cho việc so sánh giữa các thời gian đáo hạn khác nhau. Việc chuyển đổi từ lãi suất chiết khấu sang lợi suất tương đương trái phiếu và giữa các định kỳ đã được trình bày trong các bài học trước.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Bond Pricing Using Spot Rates</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Định giá Trái phiếu Sử dụng Lãi suất Giao ngay (<em>Bond Pricing Using Spot Rates</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Since interest rates vary by maturity and have a term structure, we can price bonds using a sequence of discount rates that correspond to the cash flow dates. One such sequence, representing default-risk-free rates, is the spot curve. Bond prices determined using spot rates establish “no-arbitrage” prices; if a bond’s price differs from its no-arbitrage value, an arbitrage opportunity exists in the absence of transaction costs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Vì lãi suất thay đổi theo kỳ hạn và có cấu trúc kỳ hạn, chúng ta có thể định giá trái phiếu bằng cách sử dụng một chuỗi các lãi suất chiết khấu tương ứng với các ngày phát sinh dòng tiền. Một chuỗi như vậy, đại diện cho các mức lãi suất phi rủi ro vỡ nợ, chính là đường cong lãi suất giao ngay (<em>spot curve</em>). Giá trái phiếu được xác định bằng cách sử dụng lãi suất giao ngay sẽ thiết lập các mức giá “không có chênh lệch giá” (<em>“no-arbitrage” prices</em>); nếu giá của một trái phiếu khác với giá trị không có chênh lệch giá của nó, một cơ hội kinh doanh chênh lệch giá (<em>arbitrage opportunity</em>) sẽ tồn tại trong điều kiện không có chi phí giao dịch.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-227" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 227 / Trang PDF 227
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose that the one-year spot rate is 2%, the two-year spot rate is 3%, and the three-year spot rate is 4%. Then, the price of a three-year bond that makes a 5% annual coupon payment is 102.960:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử lãi suất giao ngay 1 năm là 2%, lãi suất giao ngay 2 năm là 3%, và lãi suất giao ngay 3 năm là 4%. Khi đó, giá của một trái phiếu kỳ hạn 3 năm thanh toán coupon hàng năm ở mức 5% là 102,960:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0227-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0227-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\frac{5}{(1.02)^1} + \frac{5}{(1.03)^2} + \frac{105}{(1.04)^3} =$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6>4.902 + 4.713 + 93.345 = 102.960.</h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><span class="math-inline">$4.902 + 4.713 + 93.345 = 102.960$</span>.</h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This three-year bond is priced at a premium, so its yield-to-maturity must be less than its 5% coupon rate. Using the basic bond pricing formula, the yield-to-maturity is 3.935%:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trái phiếu kỳ hạn 3 năm này được định giá ở mức phần trội (<em>at a premium</em>), vì vậy lợi suất đáo hạn của nó phải thấp hơn mức lãi suất coupon 5% của nó. Sử dụng công thức định giá trái phiếu cơ bản, lợi suất đáo hạn là 3,935%:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0227-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0227-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$102.960 = \frac{5}{(1 + r)^1} + \frac{5}{(1 + r)^2} + \frac{105}{(1 + r)^3}; \quad r = 0.03935$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If the cash flows are discounted using the yield-to-maturity, the same price is obtained:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu các dòng tiền được chiết khấu bằng cách sử dụng lợi suất đáo hạn, ta cũng thu được mức giá tương tự:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0227-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0227-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\frac{5}{(1.03935)^1} + \frac{5}{(1.03935)^2} + \frac{105}{(1.03935)^3} =$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>4.811 + 4.629 + 93.520 = 102.960.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$4.811 + 4.629 + 93.520 = 102.960$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Notice that the present values of the individual cash flows discounted using spot rates differ from those discounted using the yield-to-maturity. The present value of the first coupon payment is 4.902 when discounted at 2%, but it is 4.811 when discounted at 3.935%. The present value of the final cash flow, which includes the redemption of principal, is 93.345 at 4% and 93.520 at 3.935%. Nevertheless, the sum of the present values using either approach is 102.960.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy chú ý rằng giá trị hiện tại của từng dòng tiền riêng lẻ được chiết khấu bằng lãi suất giao ngay khác với khi được chiết khấu bằng lợi suất đáo hạn. Giá trị hiện tại của khoản thanh toán coupon đầu tiên là 4,902 khi được chiết khấu ở mức 2%, nhưng là 4,811 khi được chiết khấu ở mức 3,935%. Giá trị hiện tại của dòng tiền cuối cùng, bao gồm cả khoản hoàn trả tiền gốc, là 93,345 ở mức 4% và 93,520 ở mức 3,935%. Tuy nhiên, tổng giá trị hiện tại khi sử dụng một trong hai phương pháp đều là 102,960.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Equation 1 is a general formula for calculating a bond price given the sequence of spot rates. Note that for pricing a bond with a different risk profile than the spot curve (such as credit risk, as for corporate bonds, for example), a spread would have to be added to the spot rates.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phương trình 1 là một công thức tổng quát để tính giá trái phiếu khi biết chuỗi các lãi suất giao ngay. Lưu ý rằng để định giá một trái phiếu có hồ sơ rủi ro khác với đường cong lãi suất giao ngay (chẳng hạn như rủi ro tín dụng, ví dụ như đối với trái phiếu doanh nghiệp), một mức chênh lệch (<em>spread</em>) sẽ phải được cộng thêm vào các lãi suất giao ngay.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0227-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0227-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + Z_1)^1} + \frac{PMT}{(1 + Z_2)^2} + \dots + \frac{PMT + FV}{(1 + Z_N)^N} \tag{1}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where</p>
+<p><em>Z1</em> is the spot rate, or zero-coupon yield or zero rate, for period 1</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Z</em> 2 is the spot rate, or zero-coupon yield or zero rate, for period 2</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><span class="math-inline">$Z_1$</span> là lãi suất giao ngay (<em>spot rate</em>), hay lợi suất trái phiếu không trả lãi định kỳ (<em>zero-coupon yield</em>) hoặc lãi suất zero (<em>zero rate</em>), cho kỳ 1</p>
+</li>
+<li>
+<p><span class="math-inline">$Z_2$</span> là lãi suất giao ngay, hay lợi suất trái phiếu không trả lãi định kỳ hoặc lãi suất zero, cho kỳ 2</p>
+</li>
+<li>
+<p><span class="math-inline">$Z_N$</span> là lãi suất giao ngay, hay lợi suất trái phiếu không trả lãi định kỳ hoặc lãi suất zero, cho kỳ <span class="math-inline">$N$</span></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>ZN</em> is the spot rate, or zero-coupon yield or zero rate, for period <em>N</em></p>
+<p>We’ll use spot rates on Canadian and Australian government bonds to demonstrate bond pricing with spot rates.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta sẽ sử dụng lãi suất giao ngay trên trái phiếu chính phủ Canada và Úc để minh họa việc định giá trái phiếu bằng lãi suất giao ngay.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-228" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 228 / Trang PDF 228
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 3: Government Bond Spot Rates: Canada and Australia</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 3: Lãi suất Giao ngay của Trái phiếu Chính phủ: Canada và Úc (<em>Exhibit 3: Government Bond Spot Rates: Canada and Australia</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0228-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0228-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Trục tung:</strong> Lãi suất giao ngay (<em>Spot Rates</em>) (%) (từ 0 đến 3,0)
+- <strong>Trục hoành:</strong> Số năm cho đến khi đáo hạn (<em>Years until Maturity</em>) (1, 2, 3, 4, 5, 7, 10, 20, 30)
+- <strong>Đường biểu diễn:</strong> Canada và Úc (<em>Australia</em>)</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0228-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0228-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 1</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kỳ hạn (<em>Maturity</em>) (Năm)</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>7</th>
+<th>10</th>
+<th>20</th>
+<th>30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Canada</strong></td>
+<td>0,31%</td>
+<td>0,57%</td>
+<td>0,80%</td>
+<td>0,96%</td>
+<td>1,11%</td>
+<td>1,30%</td>
+<td>1,58%</td>
+<td>1,98%</td>
+<td>2,06%</td>
+</tr>
+<tr>
+<td><strong>Úc (<em>Australia</em>)</strong></td>
+<td>0,03%</td>
+<td>0,07%</td>
+<td>0,30%</td>
+<td>0,59%</td>
+<td>0,81%</td>
+<td>1,17%</td>
+<td>1,52%</td>
+<td>2,35%</td>
+<td>2,47%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Bond Prices and Yields-to-Maturity Based on Spot Rates</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 1</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Calculate the price (per 100 par value) of a five-year Canadian government bond with a 1.00% coupon given the spot rates shown in Exhibit 3.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Giá Trái phiếu và Lợi suất Đáo hạn Dựa trên Lãi suất Giao ngay (<em>Bond Prices and Yields-to-Maturity Based on Spot Rates</em>)</strong></h6>
+<ol>
+<li>Tính giá (trên mỗi 100 đơn vị mệnh giá) của một trái phiếu chính phủ Canada kỳ hạn 5 năm có lãi suất coupon 1,00% với các lãi suất giao ngay được hiển thị trong Bảng 3.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>99.50. To calculate the price of the bond, we use Equation 1 and the spot rates provided for each cash flow.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>99,50. Để tính giá của trái phiếu, chúng ta sử dụng Phương trình 1 và các lãi suất giao ngay được cung cấp cho từng dòng tiền.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0228-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0228-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + Z_1)^1} + \frac{PMT}{(1 + Z_2)^2} + \dots + \frac{PMT + FV}{(1 + Z_N)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{1}{(1 + 0.0031)^1} + \frac{1}{(1 + 0.0057)^2} + \frac{1}{(1 + 0.0080)^3} + \frac{1}{(1 + 0.0096)^4} + \frac{101}{(1 + 0.0111)^5}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = 99.50$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Calculate the price (per 100 par value) of a five-year Australian government bond with a 0.80% coupon given the spot rates shown in Exhibit 3.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Tính giá (trên mỗi 100 đơn vị mệnh giá) của một trái phiếu chính phủ Úc kỳ hạn 5 năm có lãi suất coupon 0,80% với các lãi suất giao ngay được hiển thị trong Bảng 3.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>99.99. To calculate the price of the bond, we use Equation 1 and the spot rates provided for each cash flow.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>99,99. Để tính giá của trái phiếu, chúng ta sử dụng Phương trình 1 và các lãi suất giao ngay được cung cấp cho từng dòng tiền.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0228-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0228-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + Z_1)^1} + \frac{PMT}{(1 + Z_2)^2} + \dots + \frac{PMT + FV}{(1 + Z_N)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{0.80}{(1 + 0.0003)^1} + \frac{0.80}{(1 + 0.0007)^2} + \frac{0.80}{(1 + 0.0030)^3} + \frac{0.80}{(1 + 0.0059)^4} + \frac{100.80}{(1 + 0.0081)^5}$$</div></p></div>
+                </div>
+                
+
+                <div id="pdf-page-229" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 229 / Trang PDF 229
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><em>PV</em> = 99.99</h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><span class="math-inline">$PV = 99.99$</span></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Calculate the YTM of the five-year Canadian government bond, using the price obtained in Question 1.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Tính YTM của trái phiếu chính phủ Canada kỳ hạn 5 năm, sử dụng mức giá thu được trong Câu hỏi 1.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>1.104%. Instead of solving for the price, we use Equation 1 to solve for the YTM, the IRR that equates the price computed in Question 1 with the present value of future cash flows. In Microsoft Excel or Google Sheets, the RATE or IRR function can be used to solve for <em>r</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>1,104%. Thay vì giải tìm giá, chúng ta sử dụng Phương trình 1 để giải tìm YTM, tức IRR làm cân bằng mức giá được tính trong Câu hỏi 1 với giá trị hiện tại của các dòng tiền tương lai. Trong Microsoft Excel hoặc Google Sheets, hàm RATE hoặc IRR có thể được sử dụng để giải tìm <span class="math-inline">$r$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0229-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0229-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + r)^1} + \frac{PMT}{(1 + r)^2} + \dots + \frac{PMT + FV}{(1 + r)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$99.50 = \frac{1}{(1 + r)^1} + \frac{1}{(1 + r)^2} + \frac{1}{(1 + r)^3} + \frac{1}{(1 + r)^4} + \frac{101}{(1 + r)^5}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$r = 0.011036 = 1.104\%$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Notice that the yield of the coupon bond is slightly below the five-year spot rate.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy chú ý rằng lợi suất của trái phiếu trả coupon thấp hơn một chút so với lãi suất giao ngay 5 năm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>True or false: In practice, a spot curve is created by calculating the yields-to-maturity on recently issued coupon-paying government bonds of varying maturities.</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> True</p>
+</li>
+<li>
+<p><strong>B.</strong> False</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Đúng hay sai: Trên thực tế, đường cong lãi suất giao ngay (<em>spot curve</em>) được tạo ra bằng cách tính lợi suất đáo hạn trên các trái phiếu chính phủ trả coupon mới được phát hành gần đây có các kỳ hạn khác nhau.</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Đúng (<em>True</em>)</p>
+</li>
+<li>
+<p><strong>B.</strong> Sai (<em>False</em>)</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>True. While zero-coupon government risk-free bonds would be preferable, in practice, the spot curve is created using yields on recently issued coupon-paying government bonds and linear interpolation. These bonds best satisfy the conditions for term structure analysis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đúng (<em>True</em>). Mặc dù các trái phiếu chính phủ phi rủi ro không trả lãi định kỳ sẽ được ưu tiên hơn, nhưng trên thực tế, đường cong lãi suất giao ngay được tạo ra bằng cách sử dụng lợi suất trên các trái phiếu chính phủ trả coupon mới được phát hành gần đây và phương pháp nội suy tuyến tính. Những trái phiếu này thỏa mãn tốt nhất các điều kiện cho việc phân tích cấu trúc kỳ hạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Determine the missing word in the following sentence: Because there are usually limited data to calculate yields for the full range of maturities, it is usually necessary to <strong><em>_</em></strong>___ between observed yields to complete curve data.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Xác định từ còn thiếu trong câu sau: Bởi vì thường có dữ liệu hạn chế để tính lợi suất cho đầy đủ các kỳ hạn, nên thông thường cần phải <strong><em>_</em></strong>___ giữa các lợi suất quan sát được để hoàn thiện dữ liệu đường cong.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Because there are usually limited data to calculate yields for the full range of maturities, it is usually necessary to interpolate between observed yields to complete curve data.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bởi vì thường có dữ liệu hạn chế để tính lợi suất cho đầy đủ các kỳ hạn, nên thông thường cần phải <strong>nội suy (<em>interpolate</em>)</strong> giữa các lợi suất quan sát được để hoàn thiện dữ liệu đường cong.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Calculate the price and yield-to-maturity of a 2.5% coupon, five-year bond given the following spot rates. Assume annual compounding.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Tính giá và lợi suất đáo hạn của một trái phiếu kỳ hạn 5 năm, lãi suất coupon 2,5% với các lãi suất giao ngay sau đây. Giả định ghép lãi hàng năm.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>1-year</th>
+<th>3.000%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2-year</td>
+<td>2.800%</td>
+</tr>
+<tr>
+<td>3-year</td>
+<td>2.600%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>1 năm</th>
+<th>3,000%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 năm</td>
+<td>2,800%</td>
+</tr>
+<tr>
+<td>3 năm</td>
+<td>2,600%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-230" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 230 / Trang PDF 230
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0230-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0230-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The price is 101.314.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>4 năm</th>
+<th>2,400%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5 năm</td>
+<td>2,200%</td>
+</tr>
+</tbody>
+</table></div>
+<h6><strong>Lời giải:</strong></h6>
+<p>Mức giá là 101,314 (hoặc 101,34 theo làm tròn bên dưới).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0230-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0230-05.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + Z_1)^1} + \frac{PMT}{(1 + Z_2)^2} + \dots + \frac{PMT + FV}{(1 + Z_N)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{2.50}{(1 + 0.03)^1} + \frac{2.50}{(1 + 0.028)^2} + \frac{2.50}{(1 + 0.026)^3} + \frac{2.50}{(1 + 0.024)^4} + \frac{102.50}{(1 + 0.022)^5}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = 101.34$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Suppose we observed the following term structure for Canadian government bonds. Calculate the price of a 0.50% coupon, three-year Canadian government bond.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>YTM là 2,22%.</p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + r)^1} + \frac{PMT}{(1 + r)^2} + \dots + \frac{PMT + FV}{(1 + r)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$101.34 = \frac{2.50}{(1 + r)^1} + \frac{2.50}{(1 + r)^2} + \frac{2.50}{(1 + r)^3} + \frac{2.50}{(1 + r)^4} + \frac{102.50}{(1 + r)^5}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$r = 0.022195 = 2.22\%$$</div></p>
+<ol start="4">
+<li>Giả sử chúng ta quan sát thấy cấu trúc kỳ hạn sau đây đối với trái phiếu chính phủ Canada. Hãy tính giá của một trái phiếu chính phủ Canada kỳ hạn 3 năm, lãi suất coupon 0,50%.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Maturity</strong></th>
+<th><strong>Yield-to-maturity</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-Year</td>
+<td>1.1000%</td>
+</tr>
+<tr>
+<td>2-Year</td>
+<td>0.9500%</td>
+</tr>
+<tr>
+<td>3-Year</td>
+<td>0.7951%</td>
+</tr>
+<tr>
+<td>4-Year</td>
+<td>0.5700%</td>
+</tr>
+<tr>
+<td>5-Year</td>
+<td>0.3100%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Kỳ hạn (<em>Maturity</em>)</strong></th>
+<th><strong>Lợi suất đáo hạn (<em>Yield-to-maturity</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 năm (<em>1-Year</em>)</td>
+<td>1,1000%</td>
+</tr>
+<tr>
+<td>2 năm (<em>2-Year</em>)</td>
+<td>0,9500%</td>
+</tr>
+<tr>
+<td>3 năm (<em>3-Year</em>)</td>
+<td>0,7951%</td>
+</tr>
+<tr>
+<td>4 năm (<em>4-Year</em>)</td>
+<td>0,5700%</td>
+</tr>
+<tr>
+<td>5 năm (<em>5-Year</em>)</td>
+<td>0,3100%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0230-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0230-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="5">
+<li>Example 1 includes a question for a 0.50% coupon, three-year Canadian government bond, in which the bond’s price is the same as the 99.126 price in Question 4 above. Contrast the Canadian spot curves in Example 1 and Question 4 and explain why these two different yield curves produced the same pricing result.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6>
+<p>Mức giá là 99,126.</p>
+<p><div class="math-display my-3 overflow-x-auto">$$PV = \frac{PMT}{(1 + Z_1)^1} + \frac{PMT}{(1 + Z_2)^2} + \dots + \frac{PMT + FV}{(1 + Z_N)^N}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = \frac{0.50}{(1 + 0.011)^1} + \frac{0.50}{(1 + 0.0095)^2} + \frac{100.50}{(1 + 0.007951)^3}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$PV = 99.126$$</div></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li>Ví dụ 1 (trong sổ làm việc Excel đi kèm) có bao gồm một câu hỏi cho một trái phiếu chính phủ Canada kỳ hạn 3 năm, lãi suất coupon 0,50%, trong đó giá của trái phiếu cũng giống như mức giá 99,126 trong Câu hỏi 4 ở trên. Hãy đối chiếu các đường cong lãi suất giao ngay của Canada trong Ví dụ 1 và Câu hỏi 4, đồng thời giải thích tại sao hai đường cong lợi suất khác nhau này lại tạo ra cùng một kết quả định giá.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Example 1 has an upward-sloping term structure, while in Question 4, the term structure is downward sloping. An important similarity is that, despite the vast difference in starting <u>points (i.e., the one-year spot rates)</u></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6>
+<p>Ví dụ 1 có một cấu trúc kỳ hạn dốc lên (<em>upward-sloping</em>), trong khi ở Câu hỏi 4, cấu trúc kỳ hạn lại dốc xuống (<em>downward sloping</em>). Một điểm tương đồng quan trọng là, bất chấp sự khác biệt rất lớn về <u>điểm xuất phát (tức là lãi suất giao ngay 1 năm)</u></p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM08_Part2_Yield_Measures_for_Money_Market_Instruments</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 6</a>
+      <a href="LM09_Part2_Par_and_Forward_Rates.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM09_Part2_Par_and_Forward_Rates →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('06_Fixed_Income/LM09_Part1_Introduction.html');
+    });
+  </script>
+</body>
+</html>

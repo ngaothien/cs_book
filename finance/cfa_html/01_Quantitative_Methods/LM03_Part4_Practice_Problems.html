@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 3 Statistical Measures of Asset Returns - Part 4: Practice Problems — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 3 Statistical Measures of Asset Returns - Part 4: Practice Problems</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (5 trang)...</option>
+          <option value="134">PDF Page 134</option>
+<option value="135">PDF Page 135</option>
+<option value="136">PDF Page 136</option>
+<option value="137">PDF Page 137</option>
+<option value="138">PDF Page 138</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 3 Statistical Measures of Asset Returns - Part 4: Practice Problems</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM03_Part4_Practice_Problems.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 3 Statistical Measures of Asset Returns</h2>
+<h3>Part 4/4: Practice Problems (PDF Pages 134–138)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 3: Các thước đo Thống kê về Tỷ suất sinh lợi Tài sản (<em>Statistical Measures of Asset Returns</em>)</h2>
+<h3>Phần 4/4: Bài tập Thực hành (<em>Practice Problems</em>) (Trang PDF 134–138)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-134" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 134 / Trang PDF 134
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~PRACTICE PROBLEMS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 1-5</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 1-5</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Consider the results of an analysis focusing on the market capitalizations of a sample of 100 firms:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy xem xét kết quả của một phân tích tập trung vào giá trị vốn hóa thị trường (<em>market capitalizations</em>) của một mẫu gồm 100 công ty:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Exhibit 1: Market Capitalization of a Sample of 100 Firms</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Bảng minh họa 1: Giá trị Vốn hóa Thị trường của một Mẫu gồm 100 Công ty (<em>Market Capitalization of a Sample of 100 Firms</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Cumulative Percentage</strong></th>
+<th><strong>Market Capita</strong><br><strong>billio</strong></th>
+<th><strong>lization (euro</strong><br><strong>ns)</strong></th>
+<th><strong>Number of</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bin</strong></td>
+<td><strong>of Sample (%)</strong></td>
+<td><strong>Lower Bound</strong></td>
+<td><strong>Upper Bound</strong></td>
+<td><strong>Observations</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>5</td>
+<td>0.28</td>
+<td>15.45</td>
+<td>5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10</td>
+<td>15.45</td>
+<td>21.22</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>15</td>
+<td>21.22</td>
+<td>29.37</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td>29.37</td>
+<td>32.57</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>25</td>
+<td>32.57</td>
+<td>34.72</td>
+<td>5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>30</td>
+<td>34.72</td>
+<td>37.58</td>
+<td>5</td>
+</tr>
+<tr>
+<td>7</td>
+<td>35</td>
+<td>37.58</td>
+<td>39.90</td>
+<td>5</td>
+</tr>
+<tr>
+<td>8</td>
+<td>40</td>
+<td>39.90</td>
+<td>41.57</td>
+<td>5</td>
+</tr>
+<tr>
+<td>9</td>
+<td>45</td>
+<td>41.57</td>
+<td>44.86</td>
+<td>5</td>
+</tr>
+<tr>
+<td>10</td>
+<td>50</td>
+<td>44.86</td>
+<td>46.88</td>
+<td>5</td>
+</tr>
+<tr>
+<td>11</td>
+<td>55</td>
+<td>46.88</td>
+<td>49.40</td>
+<td>5</td>
+</tr>
+<tr>
+<td>12</td>
+<td>60</td>
+<td>49.40</td>
+<td>51.27</td>
+<td>5</td>
+</tr>
+<tr>
+<td>13</td>
+<td>65</td>
+<td>51.27</td>
+<td>53.58</td>
+<td>5</td>
+</tr>
+<tr>
+<td>14</td>
+<td>70</td>
+<td>53.58</td>
+<td>56.66</td>
+<td>5</td>
+</tr>
+<tr>
+<td>15</td>
+<td>75</td>
+<td>56.66</td>
+<td>58.34</td>
+<td>5</td>
+</tr>
+<tr>
+<td>16</td>
+<td>80</td>
+<td>58.34</td>
+<td>63.10</td>
+<td>5</td>
+</tr>
+<tr>
+<td>17</td>
+<td>85</td>
+<td>63.10</td>
+<td>67.06</td>
+<td>5</td>
+</tr>
+<tr>
+<td>18</td>
+<td>90</td>
+<td>67.06</td>
+<td>73.00</td>
+<td>5</td>
+</tr>
+<tr>
+<td>19</td>
+<td>95</td>
+<td>73.00</td>
+<td>81.62</td>
+<td>5</td>
+</tr>
+<tr>
+<td>20</td>
+<td>100</td>
+<td>81.62</td>
+<td>96.85</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Khoảng (<em>Bin</em>)</strong></th>
+<th><strong>Tỷ lệ phần trăm tích lũy của mẫu (<em>Cumulative Percentage of Sample</em>) (%)</strong></th>
+<th><strong>Vốn hóa thị trường (tỷ euro) Cận dưới (<em>Lower Bound</em>)</strong></th>
+<th><strong>Vốn hóa thị trường (tỷ euro) Cận trên (<em>Upper Bound</em>)</strong></th>
+<th><strong>Số lượng quan sát (<em>Number of Observations</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5</td>
+<td>0.28</td>
+<td>15.45</td>
+<td>5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10</td>
+<td>15.45</td>
+<td>21.22</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>15</td>
+<td>21.22</td>
+<td>29.37</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td>29.37</td>
+<td>32.57</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>25</td>
+<td>32.57</td>
+<td>34.72</td>
+<td>5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>30</td>
+<td>34.72</td>
+<td>37.58</td>
+<td>5</td>
+</tr>
+<tr>
+<td>7</td>
+<td>35</td>
+<td>37.58</td>
+<td>39.90</td>
+<td>5</td>
+</tr>
+<tr>
+<td>8</td>
+<td>40</td>
+<td>39.90</td>
+<td>41.57</td>
+<td>5</td>
+</tr>
+<tr>
+<td>9</td>
+<td>45</td>
+<td>41.57</td>
+<td>44.86</td>
+<td>5</td>
+</tr>
+<tr>
+<td>10</td>
+<td>50</td>
+<td>44.86</td>
+<td>46.88</td>
+<td>5</td>
+</tr>
+<tr>
+<td>11</td>
+<td>55</td>
+<td>46.88</td>
+<td>49.40</td>
+<td>5</td>
+</tr>
+<tr>
+<td>12</td>
+<td>60</td>
+<td>49.40</td>
+<td>51.27</td>
+<td>5</td>
+</tr>
+<tr>
+<td>13</td>
+<td>65</td>
+<td>51.27</td>
+<td>53.58</td>
+<td>5</td>
+</tr>
+<tr>
+<td>14</td>
+<td>70</td>
+<td>53.58</td>
+<td>56.66</td>
+<td>5</td>
+</tr>
+<tr>
+<td>15</td>
+<td>75</td>
+<td>56.66</td>
+<td>58.34</td>
+<td>5</td>
+</tr>
+<tr>
+<td>16</td>
+<td>80</td>
+<td>58.34</td>
+<td>63.10</td>
+<td>5</td>
+</tr>
+<tr>
+<td>17</td>
+<td>85</td>
+<td>63.10</td>
+<td>67.06</td>
+<td>5</td>
+</tr>
+<tr>
+<td>18</td>
+<td>90</td>
+<td>67.06</td>
+<td>73.00</td>
+<td>5</td>
+</tr>
+<tr>
+<td>19</td>
+<td>95</td>
+<td>73.00</td>
+<td>81.62</td>
+<td>5</td>
+</tr>
+<tr>
+<td>20</td>
+<td>100</td>
+<td>81.62</td>
+<td>96.85</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> The tenth percentile corresponds to observations in bin(s):</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Bách phân vị thứ mười (<em>tenth percentile</em>) tương ứng với các quan sát trong (các) khoảng (<em>bin</em>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 2.</p>
+</li>
+<li>
+<p><strong>B.</strong> 1 and 2.</p>
+</li>
+<li>
+<p><strong>C.</strong> 19 and 20.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 2.</p>
+</li>
+<li>
+<p><strong>B.</strong> 1 và 2.</p>
+</li>
+<li>
+<p><strong>C.</strong> 19 và 20.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> The second quintile corresponds to observations in bin(s):</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Ngũ phân vị thứ hai (<em>second quintile</em>) tương ứng với các quan sát trong (các) khoảng:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>A.</strong> 8.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> 8.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-135" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 135 / Trang PDF 135
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>B.</strong> 5, 6, 7, and 8.</p>
+</li>
+<li>
+<p><strong>C.</strong> 6, 7, 8, 9, and 10.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>B.</strong> 5, 6, 7, và 8.</p>
+</li>
+<li>
+<p><strong>C.</strong> 6, 7, 8, 9, và 10.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> The fourth quartile corresponds to observations in bin(s):</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Tứ phân vị thứ tư (<em>fourth quartile</em>) tương ứng với các quan sát trong (các) khoảng:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 17.</p>
+</li>
+<li>
+<p><strong>B.</strong> 17, 18, 19, and 20.</p>
+</li>
+<li>
+<p><strong>C.</strong> 16, 17, 18, 19, and 20.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 17.</p>
+</li>
+<li>
+<p><strong>B.</strong> 17, 18, 19, và 20.</p>
+</li>
+<li>
+<p><strong>C.</strong> 16, 17, 18, 19, và 20.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>4.</strong> The median is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>4.</strong> Trung vị (<em>median</em>) <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 44.86.</p>
+</li>
+<li>
+<p><strong>B.</strong> 46.88.</p>
+</li>
+<li>
+<p><strong>C.</strong> 49.40.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 44.86.</p>
+</li>
+<li>
+<p><strong>B.</strong> 46.88.</p>
+</li>
+<li>
+<p><strong>C.</strong> 49.40.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>5.</strong> The interquartile range is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>5.</strong> Khoảng tứ phân vị (<em>interquartile range</em>) <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 20.76.</p>
+</li>
+<li>
+<p><strong>B.</strong> 23.62.</p>
+</li>
+<li>
+<p><strong>C.</strong> 25.52.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 20.76.</p>
+</li>
+<li>
+<p><strong>B.</strong> 23.62.</p>
+</li>
+<li>
+<p><strong>C.</strong> 25.52.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>6.</strong> Exhibit 1 shows the annual MSCI World Index total returns for a 10-year period.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>6.</strong> Bảng minh họa 1 cho thấy tổng tỷ suất sinh lợi hàng năm của Chỉ số Thế giới MSCI (MSCI World Index) trong giai đoạn 10 năm.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: MSCI World Index Returns</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 1: Tỷ suất sinh lợi của Chỉ số Thế giới MSCI (<em>MSCI World Index Returns</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Year 1</th>
+<th>15.25%</th>
+<th>Year 6</th>
+<th>30.79%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Year 2</td>
+<td>10.02%</td>
+<td>Year 7</td>
+<td>12.34%</td>
+</tr>
+<tr>
+<td>Year 3</td>
+<td>20.65%</td>
+<td>Year 8</td>
+<td>−5.02%</td>
+</tr>
+<tr>
+<td>Year 4</td>
+<td>9.57%</td>
+<td>Year 9</td>
+<td>16.54%</td>
+</tr>
+<tr>
+<td>Year 5</td>
+<td>−40.33%</td>
+<td>Year 10</td>
+<td>27.37%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Năm 1</th>
+<th>15.25%</th>
+<th>Năm 6</th>
+<th>30.79%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Năm 2</td>
+<td>10.02%</td>
+<td>Năm 7</td>
+<td>12.34%</td>
+</tr>
+<tr>
+<td>Năm 3</td>
+<td>20.65%</td>
+<td>Năm 8</td>
+<td>−5.02%</td>
+</tr>
+<tr>
+<td>Năm 4</td>
+<td>9.57%</td>
+<td>Năm 9</td>
+<td>16.54%</td>
+</tr>
+<tr>
+<td>Năm 5</td>
+<td>−40.33%</td>
+<td>Năm 10</td>
+<td>27.37%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The fourth quintile return for the MSCI World Index is <em>closest</em> to:</p>
+<ul>
+<li><strong>A.</strong> 20.65 percent.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tỷ suất sinh lợi ở ngũ phân vị thứ tư (<em>fourth quintile return</em>) của Chỉ số Thế giới MSCI <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>B.</strong> 26.03 percent.</p>
+<ul>
+<li><strong>C.</strong> 27.37 percent.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 20.65 phần trăm.</p>
+</li>
+<li>
+<p><strong>B.</strong> 26.03 phần trăm.</p>
+</li>
+<li>
+<p><strong>C.</strong> 27.37 phần trăm.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 7-9</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi 7-9</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A fund had the following experience over the past 10 years:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một quỹ đầu tư có kết quả hoạt động sau đây trong 10 năm qua:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-136" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 136 / Trang PDF 136
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Performance over 10 Years</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 1: Hiệu quả hoạt động trong 10 năm (<em>Performance over 10 Years</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Year</strong></th>
+<th><strong>Return</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.0%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−2.0%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.0%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.5%</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2.5%</td>
+</tr>
+<tr>
+<td>9</td>
+<td>5.5%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>4.0%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Năm (<em>Year</em>)</strong></th>
+<th><strong>Tỷ suất sinh lợi (<em>Return</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.0%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−2.0%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.0%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4.5%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.5%</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2.5%</td>
+</tr>
+<tr>
+<td>9</td>
+<td>5.5%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>4.0%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>7.</strong> The fund’s standard deviation of returns over the 10 years is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>7.</strong> Độ lệch chuẩn của tỷ suất sinh lợi (<em>standard deviation of returns</em>) của quỹ trong 10 năm <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 2.40 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> 2.53 percent.</p>
+</li>
+<li>
+<p><strong>C.</strong> 7.58 percent.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 2.40 phần trăm.</p>
+</li>
+<li>
+<p><strong>B.</strong> 2.53 phần trăm.</p>
+</li>
+<li>
+<p><strong>C.</strong> 7.58 phần trăm.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>8.</strong> The target semideviation of the returns over the 10 years, if the target is 2 percent, is <em>closest</em> to:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>8.</strong> Bán độ lệch mục tiêu (<em>target semideviation</em>) của tỷ suất sinh lợi trong 10 năm, nếu mức mục tiêu là 2 phần trăm, <em>gần nhất</em> với:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> 1.42 percent.</p>
+</li>
+<li>
+<p><strong>B.</strong> 1.50 percent.</p>
+</li>
+<li>
+<p><strong>C.</strong> 2.01 percent.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 1.42 phần trăm.</p>
+</li>
+<li>
+<p><strong>B.</strong> 1.50 phần trăm.</p>
+</li>
+<li>
+<p><strong>C.</strong> 2.01 phần trăm.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>9.</strong> Consider the mean monthly return and the standard deviation for three industry sectors, as shown in Exhibit 2:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>9.</strong> Hãy xem xét tỷ suất sinh lợi hàng tháng trung bình và độ lệch chuẩn của ba nhóm ngành, như được thể hiện trong Bảng minh họa 2:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Mean Monthly Return and Standard Deviations</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 2: Tỷ suất sinh lợi Hàng tháng Trung bình và Độ lệch chuẩn (<em>Mean Monthly Return and Standard Deviations</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Mean Monthly Return</strong></th>
+<th><strong>Standard Deviation of Return</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sector</strong></td>
+<td><strong>(%)</strong></td>
+<td><strong>(%)</strong></td>
+</tr>
+<tr>
+<td>Utilities (UTIL)</td>
+<td>2.10</td>
+<td>1.23</td>
+</tr>
+<tr>
+<td>Materials (MATR)</td>
+<td>1.25</td>
+<td>1.35</td>
+</tr>
+<tr>
+<td>Industrials (INDU)</td>
+<td>3.01</td>
+<td>1.52</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Ngành (<em>Sector</em>)</strong></th>
+<th><strong>Tỷ suất sinh lợi hàng tháng trung bình (<em>Mean Monthly Return</em>) (%)</strong></th>
+<th><strong>Độ lệch chuẩn của tỷ suất sinh lợi (<em>Standard Deviation of Return</em>) (%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tiện ích (<em>Utilities</em> – UTIL)</td>
+<td>2.10</td>
+<td>1.23</td>
+</tr>
+<tr>
+<td>Nguyên vật liệu (<em>Materials</em> – MATR)</td>
+<td>1.25</td>
+<td>1.35</td>
+</tr>
+<tr>
+<td>Công nghiệp (<em>Industrials</em> – INDU)</td>
+<td>3.01</td>
+<td>1.52</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Based on the coefficient of variation (CV), the riskiest sector is:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dựa trên hệ số biến thiên (CV), ngành rủi ro nhất là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> utilities.</p>
+</li>
+<li>
+<p><strong>B.</strong> materials.</p>
+</li>
+<li>
+<p><strong>C.</strong> industrials.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> tiện ích (<em>utilities</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> nguyên vật liệu (<em>materials</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> công nghiệp (<em>industrials</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-137" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 137 / Trang PDF 137
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~SOLUTIONS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>B is correct. The tenth percentile corresponds to the lowest 10 percent of the observations in the sample, which are in bins 1 and 2.</p>
+</li>
+<li>
+<p>B is correct. The second quintile corresponds to the second 20 percent of observations. The first 20 percent consists of bins 1 through 4. The second 20 percent of observations consists of bins 5 through 8.</p>
+</li>
+<li>
+<p>C is correct. A quartile consists of 25 percent of the data, and the last 25 percent of the 20 bins are 16 through 20.</p>
+</li>
+<li>
+<p>B is correct. The center of the 20 bins is represented by the market capitalization of the highest value of the 10th bin and the lowest value of the 11th bin, which is 46.88.</p>
+</li>
+<li>
+<p>B is correct. The interquartile range is the difference between the lowest value in the second quartile and the highest value in the third quartile. The lowest value of the second quartile is 34.72, and the highest value of the third quartile is 58.34. Therefore, the interquartile range is 58.34 − 34.72 = 23.62.</p>
+</li>
+<li>
+<p>B is correct. Quintiles divide a distribution into fifths, with the fourth quintile occurring at the point at which 80 percent of the observations lie below it. The fourth quintile is equivalent to the 80th percentile. To find the <em>y</em> th percentile ( <em>Py</em> ), we first must determine its location. The formula for the location ( <em>Ly</em> ) of a <em>y</em> th percentile in an array with <em>n</em> entries sorted in ascending order is Ly = ( <em>n</em> + 1) × ( <em>y</em> /100). In this case, <em>n</em> = 10 and <em>y</em> = 80%, so</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>B là đáp án đúng. Bách phân vị thứ mười tương ứng với 10 phần trăm quan sát thấp nhất trong mẫu, nằm ở khoảng 1 và 2.</p>
+</li>
+<li>
+<p>B là đáp án đúng. Ngũ phân vị thứ hai tương ứng với 20 phần trăm quan sát thứ hai. 20 phần trăm đầu tiên bao gồm các khoảng từ 1 đến 4. 20 phần trăm quan sát thứ hai bao gồm các khoảng từ 5 đến 8.</p>
+</li>
+<li>
+<p>C là đáp án đúng. Một tứ phân vị bao gồm 25 phần trăm dữ liệu, và 25 phần trăm cuối cùng của 20 khoảng là các khoảng từ 16 đến 20.</p>
+</li>
+<li>
+<p>B là đáp án đúng. Điểm chính giữa của 20 khoảng được đại diện bởi giá trị vốn hóa thị trường của giá trị cao nhất thuộc khoảng thứ 10 và giá trị thấp nhất thuộc khoảng thứ 11, tức là 46.88.</p>
+</li>
+<li>
+<p>B là đáp án đúng. Khoảng tứ phân vị là chênh lệch giữa giá trị thấp nhất trong tứ phân vị thứ hai và giá trị cao nhất trong tứ phân vị thứ ba. Giá trị thấp nhất của tứ phân vị thứ hai là 34.72, và giá trị cao nhất của tứ phân vị thứ ba là 58.34. Do đó, khoảng tứ phân vị là <span class="math-inline">$58.34 - 34.72 = 23.62$</span>.</p>
+</li>
+<li>
+<p>B là đáp án đúng. Ngũ phân vị chia một phân phối thành năm phần bằng nhau, với ngũ phân vị thứ tư xuất hiện tại điểm mà 80 phần trăm các quan sát nằm dưới nó. Ngũ phân vị thứ tư tương đương với bách phân vị thứ 80. Để tìm bách phân vị thứ <span class="math-inline">$y$</span> (<span class="math-inline">$P_y$</span>), trước tiên chúng ta phải xác định vị trí của nó. Công thức xác định vị trí (<span class="math-inline">$L_y$</span>) của bách phân vị thứ <span class="math-inline">$y$</span> trong một mảng có <span class="math-inline">$n$</span> phần tử được sắp xếp theo thứ tự tăng dần là <span class="math-inline">$L_y = (n + 1) \times (y / 100)$</span>. Trong trường hợp này, <span class="math-inline">$n = 10$</span> và <span class="math-inline">$y = 80\%$</span>, do đó:</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>L</em> 80 = (10 + 1) × (80/100) = 11 × 0.8 = 8.8.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$L_{80} = (10 + 1) \times (80 / 100) = 11 \times 0.8 = 8.8$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>With the data arranged in ascending order (−40.33 percent, −5.02 percent, 9.57 percent, 10.02 percent, 12.34 percent, 15.25 percent, 16.54 percent, 20.65 percent, 27.37 percent, and 30.79 percent), the 8.8th position would be between the eighth and ninth entries, 20.65 percent and 27.37 percent, respectively. Using linear interpolation, <em>P</em> 80 = <em>X</em> 8 + ( <em>Ly</em> − 8) × ( <em>X</em> 9 − <em>X</em> 8),</p>
+<p><em>P</em> 80 = 20.65 + (8.8 − 8) × (27.37 − 20.65)</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Với dữ liệu được sắp xếp theo thứ tự tăng dần (−40.33 phần trăm, −5.02 phần trăm, 9.57 phần trăm, 10.02 phần trăm, 12.34 phần trăm, 15.25 phần trăm, 16.54 phần trăm, 20.65 phần trăm, 27.37 phần trăm, và 30.79 phần trăm), vị trí thứ 8.8 sẽ nằm giữa phần tử thứ tám và thứ chín, lần lượt là 20.65 phần trăm và 27.37 phần trăm. Sử dụng phép nội suy tuyến tính (<em>linear interpolation</em>), <span class="math-inline">$P_{80} = X_8 + (L_y - 8) \times (X_9 - X_8)$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>= 20.65 + (0.8 × 6.72) = 20.65 + 5.38</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$P_{80} = 20.65 + (8.8 - 8) \times (27.37 - 20.65)$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>= 26.03 percent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$= 20.65 + (0.8 \times 6.72) = 20.65 + 5.38 = 26.03\%$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="7">
+<li>B is correct. The fund’s standard deviation of returns is calculated as follows:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="7">
+<li>B là đáp án đúng. Độ lệch chuẩn của tỷ suất sinh lợi của quỹ được tính như sau:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Year</strong></th>
+<th><strong>Return</strong></th>
+<th><strong>Deviation from Mean</strong></th>
+<th><strong>Deviation Squared</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4.5%</td>
+<td>0.0150</td>
+<td>0.000225</td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.0%</td>
+<td>0.0300</td>
+<td>0.000900</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5%</td>
+<td>−0.0150</td>
+<td>0.000225</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−2.0%</td>
+<td>−0.0500</td>
+<td>0.002500</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.0%</td>
+<td>−0.0300</td>
+<td>0.000900</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4.5%</td>
+<td>0.0150</td>
+<td>0.000225</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.5%</td>
+<td>0.0050</td>
+<td>0.000025</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2.5%</td>
+<td>−0.0050</td>
+<td>0.000025</td>
+</tr>
+<tr>
+<td>9</td>
+<td>5.5%</td>
+<td>0.0250</td>
+<td>0.000625</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Năm (<em>Year</em>)</strong></th>
+<th><strong>Tỷ suất sinh lợi (<em>Return</em>)</strong></th>
+<th><strong>Độ lệch so với giá trị trung bình (<em>Deviation from Mean</em>)</strong></th>
+<th><strong>Bình phương độ lệch (<em>Deviation Squared</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4.5%</td>
+<td>0.0150</td>
+<td>0.000225</td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.0%</td>
+<td>0.0300</td>
+<td>0.000900</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5%</td>
+<td>−0.0150</td>
+<td>0.000225</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−2.0%</td>
+<td>−0.0500</td>
+<td>0.002500</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.0%</td>
+<td>−0.0300</td>
+<td>0.000900</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4.5%</td>
+<td>0.0150</td>
+<td>0.000225</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.5%</td>
+<td>0.0050</td>
+<td>0.000025</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2.5%</td>
+<td>−0.0050</td>
+<td>0.000025</td>
+</tr>
+<tr>
+<td>9</td>
+<td>5.5%</td>
+<td>0.0250</td>
+<td>0.000625</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-138" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 138 / Trang PDF 138
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Year</strong></th>
+<th><strong>Return</strong></th>
+<th><strong>Deviation from Mean</strong></th>
+<th><strong>Deviation Squared</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>4.0%</td>
+<td>0.0100</td>
+<td>0.000100</td>
+</tr>
+<tr>
+<td>Mean</td>
+<td>3.0%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Sum</td>
+<td></td>
+<td></td>
+<td><strong>0.005750</strong></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Năm (<em>Year</em>)</strong></th>
+<th><strong>Tỷ suất sinh lợi (<em>Return</em>)</strong></th>
+<th><strong>Độ lệch so với giá trị trung bình (<em>Deviation from Mean</em>)</strong></th>
+<th><strong>Bình phương độ lệch (<em>Deviation Squared</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>4.0%</td>
+<td>0.0100</td>
+<td>0.000100</td>
+</tr>
+<tr>
+<td>Giá trị trung bình (<em>Mean</em>)</td>
+<td>3.0%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tổng (<em>Sum</em>)</td>
+<td></td>
+<td></td>
+<td><strong>0.005750</strong></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The standard deviation is the square root of the sum of the squared deviations, divided by <em>n</em> − 1:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Độ lệch chuẩn là căn bậc hai của tổng các bình phương độ lệch chia cho <span class="math-inline">$n - 1$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>0.005750 _s</em> =  √<sup>_(</sup> 10 − 1<sup>)  = 2.5276%.</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$s = \sqrt{\frac{0.005750}{10 - 1}} = 2.5276\%$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="8">
+<li>B is correct. The target semideviation of the returns over the 10 years with a target of 2 percent is calculated as follows:</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="8">
+<li>B là đáp án đúng. Bán độ lệch mục tiêu của tỷ suất sinh lợi trong 10 năm với mức mục tiêu 2 phần trăm được tính như sau:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Year</strong></th>
+<th><strong>Return</strong></th>
+<th><strong>Deviation Squared below Target of 2%</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.0%</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5%</td>
+<td>0.000025</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−2.0%</td>
+<td>0.001600</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.0%</td>
+<td>0.000400</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>2.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>5.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>4.0%</td>
+<td></td>
+</tr>
+<tr>
+<td>Sum</td>
+<td></td>
+<td>0.002025</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Năm (<em>Year</em>)</strong></th>
+<th><strong>Tỷ suất sinh lợi (<em>Return</em>)</strong></th>
+<th><strong>Bình phương độ lệch dưới mức mục tiêu 2% (<em>Deviation Squared below Target of 2%</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.0%</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>1.5%</td>
+<td>0.000025</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−2.0%</td>
+<td>0.001600</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.0%</td>
+<td>0.000400</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>3.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>2.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>5.5%</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>4.0%</td>
+<td></td>
+</tr>
+<tr>
+<td>Tổng (<em>Sum</em>)</td>
+<td></td>
+<td>0.002025</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The target semideviation is the square root of the sum of the squared deviations from the target, divided by <em>n</em> − 1:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bán độ lệch mục tiêu là căn bậc hai của tổng các bình phương độ lệch dưới mức mục tiêu chia cho <span class="math-inline">$n - 1$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>0.002025 _s</em> Target =  √<sup>_(</sup> 10 − 1<sup>)  = 1.5%.</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$s_{\text{Target}} = \sqrt{\frac{0.002025}{10 - 1}} = 1.5\%$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="9">
+<li>B is correct. The CV is the ratio of the standard deviation to the mean, where a higher CV implies greater risk per unit of return.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="9">
+<li>B là đáp án đúng. CV là tỷ số giữa độ lệch chuẩn và giá trị trung bình, trong đó CV càng cao hàm ý rủi ro trên mỗi đơn vị tỷ suất sinh lợi càng lớn.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0138-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0138-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\text{CV}_{\text{UTIL}} = \frac{s}{\bar{X}} = \frac{1.23\%}{2.10\%} = 0.59$$</div>
+<div class="math-display my-3 overflow-x-auto">$$\text{CV}_{\text{MATR}} = \frac{s}{\bar{X}} = \frac{1.35\%}{1.25\%} = 1.08$$</div>
+<div class="math-display my-3 overflow-x-auto">$$\text{CV}_{\text{INDU}} = \frac{s}{\bar{X}} = \frac{1.52\%}{3.01\%} = 0.51$$</div></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM03_Part3_Measures_of_Shape_of_a_Distribution</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM04_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM04_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM03_Part4_Practice_Problems.html');
+    });
+  </script>
+</body>
+</html>

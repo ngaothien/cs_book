@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 8 Hypothesis Testing - Part 2: Tests of Return and Risk in Finance — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 8 Hypothesis Testing - Part 2: Tests of Return and Risk in Finance</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM08_Full_Hypothesis_Testing.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (14 trang)...</option>
+          <option value="230">PDF Page 230</option>
+<option value="231">PDF Page 231</option>
+<option value="232">PDF Page 232</option>
+<option value="233">PDF Page 233</option>
+<option value="234">PDF Page 234</option>
+<option value="235">PDF Page 235</option>
+<option value="236">PDF Page 236</option>
+<option value="237">PDF Page 237</option>
+<option value="238">PDF Page 238</option>
+<option value="239">PDF Page 239</option>
+<option value="240">PDF Page 240</option>
+<option value="241">PDF Page 241</option>
+<option value="242">PDF Page 242</option>
+<option value="243">PDF Page 243</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 8 Hypothesis Testing - Part 2: Tests of Return and Risk in Finance</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 8 Hypothesis Testing</h2>
+<h3>Part 2/3: Tests of Return and Risk in Finance (PDF Pages 230–243)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 8: Kiểm định Giả thuyết (<em>Hypothesis Testing</em>)</h2>
+<h3>Phần 2/3: Các Kiểm định Tỷ suất sinh lợi và Rủi ro trong Tài chính (<em>Tests of Return and Risk in Finance</em>) (Trang PDF 230–243)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-230" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 230 / Trang PDF 230
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>For each of the following hypothesis tests concerning the population mean, μ, state the conclusion regarding the test of the hypotheses.</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> <em>H</em> 0: <em>μ</em> = 10 versus <em>Ha</em> : <em>μ</em> ≠ 10, with a calculated <em>t</em> -statistic of 2.05 and critical <em>t</em> -values of ±1.984.</p>
+</li>
+<li>
+<p><strong>B.</strong> <em>H</em> 0: <em>μ</em> ≤ 10 versus <em>Ha</em> : <em>μ</em> &gt; 10, with a calculated <em>t</em> -statistic of 2.35 and a critical <em>t</em> -value of +1.679</p>
+</li>
+<li>
+<p><strong>C.</strong> <em>H</em> 0: <em>μ</em> = 10 versus <em>Ha</em> : <em>μ</em> ≠ 10, with a calculated <em>t</em> -statistic of 2.05, a <em>p</em> -value of 4.6352%, and a level of significance of 5%.</p>
+</li>
+<li>
+<p><strong>D.</strong> <em>H</em> 0: <em>μ</em> ≤ 10 versus <em>Ha</em> : <em>μ</em> &gt; 10, with a 2% level of significance and a calculated test statistic with a <em>p</em> -value of 3%.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Đối với mỗi kiểm định giả thuyết sau đây liên quan đến trung bình tổng thể, <span class="math-inline">$\mu$</span>, hãy nêu kết luận về việc kiểm định các giả thuyết.</li>
+</ol>
+<ul>
+<li><strong>A.</strong> <span class="math-inline">$H_0: \mu = 10$</span> đối lập với <span class="math-inline">$H_a: \mu \ne 10$</span>, với thống kê <span class="math-inline">$t$</span> tính toán được là <span class="math-inline">$2.05$</span> và các giá trị <span class="math-inline">$t$</span> tới hạn là <span class="math-inline">$\pm 1.984$</span>. </li>
+<li><strong>B.</strong> <span class="math-inline">$H_0: \mu \le 10$</span> đối lập với <span class="math-inline">$H_a: \mu &gt; 10$</span>, với thống kê <span class="math-inline">$t$</span> tính toán được là <span class="math-inline">$2.35$</span> và giá trị <span class="math-inline">$t$</span> tới hạn là <span class="math-inline">$+1.679$</span>. </li>
+<li><strong>C.</strong> <span class="math-inline">$H_0: \mu = 10$</span> đối lập với <span class="math-inline">$H_a: \mu \ne 10$</span>, với thống kê <span class="math-inline">$t$</span> tính toán được là <span class="math-inline">$2.05$</span>, giá trị <span class="math-inline">$p$</span> (<em>p-value</em>) là <span class="math-inline">$4.6352\%$</span>, và mức ý nghĩa là <span class="math-inline">$5\%$</span>. </li>
+<li><strong>D.</strong> <span class="math-inline">$H_0: \mu \le 10$</span> đối lập với <span class="math-inline">$H_a: \mu &gt; 10$</span>, với mức ý nghĩa <span class="math-inline">$2\%$</span> và thống kê kiểm định tính toán được có giá trị <span class="math-inline">$p$</span> là <span class="math-inline">$3\%$</span>.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải (<em>Solution</em>):</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We make the decision either by comparing the calculated test statistic with the critical values or by comparing the <em>p</em> -value for the calculated test statistic with the level of significance.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta đưa ra quyết định bằng cách so sánh thống kê kiểm định tính toán được với các giá trị tới hạn hoặc bằng cách so sánh giá trị <span class="math-inline">$p$</span> của thống kê kiểm định tính toán được với mức ý nghĩa.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Reject the null hypothesis because the calculated test statistic of 2.05 is outside the bounds of the critical values of ±1.984.</p>
+</li>
+<li>
+<p><strong>B.</strong> Reject the null hypothesis because the calculated test statistic of 2.35 is outside the bounds of the critical value of +1.679.</p>
+</li>
+<li>
+<p><strong>C.</strong> The p-value corresponding to the calculated test statistic of 4.6352% is less than the level of significance (5%), so we reject the null hypothesis.</p>
+</li>
+<li>
+<p><strong>D.</strong> We fail to reject because the p-value for the calculated test statistic of 3% is greater than the level of significance (2%).</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Bác bỏ giả thuyết không vì thống kê kiểm định tính toán được là <span class="math-inline">$2.05$</span> nằm ngoài giới hạn của các giá trị tới hạn <span class="math-inline">$\pm 1.984$</span>. </li>
+<li><strong>B.</strong> Bác bỏ giả thuyết không vì thống kê kiểm định tính toán được là <span class="math-inline">$2.35$</span> nằm ngoài giới hạn của giá trị tới hạn <span class="math-inline">$+1.679$</span>. </li>
+<li><strong>C.</strong> Giá trị <span class="math-inline">$p$</span> tương ứng với thống kê kiểm định tính toán được là <span class="math-inline">$4.6352\%$</span> nhỏ hơn mức ý nghĩa (<span class="math-inline">$5\%$</span>), vì vậy chúng ta bác bỏ giả thuyết không. </li>
+<li><strong>D.</strong> Chúng ta không bác bỏ giả thuyết không vì giá trị <span class="math-inline">$p$</span> cho thống kê kiểm định tính toán được là <span class="math-inline">$3\%$</span> lớn hơn mức ý nghĩa (<span class="math-inline">$2\%$</span>).</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>3</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>3</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>TESTS OF RETURN AND RISK IN FINANCE</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>CÁC KIỂM ĐỊNH TỶ SUẤT SINH LỢI VÀ RỦI RO TRONG TÀI CHÍNH (<em>TESTS OF RETURN AND RISK IN FINANCE</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>construct hypothesis tests and determine their statistical significance, the associated Type I and Type II errors, and power of the test given a significance level</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Xây dựng các kiểm định giả thuyết và xác định ý nghĩa thống kê của chúng, các sai lầm Loại I và Loại II liên quan, cũng như lực kiểm định khi biết trước một mức ý nghĩa</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Hypothesis tests concerning return and risk are among the most common in finance. The sampling distribution of the mean, when the population standard deviation is unknown, is <em>t</em> -distributed, and when the population standard deviation is known, it is normally distributed, or <em>z</em> -distributed. Since the population standard deviation is unknown in almost all cases, we will focus on the use of a <em>t</em> -distributed test statistic.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các kiểm định giả thuyết liên quan đến tỷ suất sinh lợi và rủi ro nằm trong số những kiểm định phổ biến nhất trong tài chính. Phân phối mẫu của giá trị trung bình, khi độ lệch chuẩn của tổng thể chưa biết, có phân phối <span class="math-inline">$t$</span> (<em>t-distributed</em>), và khi độ lệch chuẩn của tổng thể đã biết, nó có phân phối chuẩn, hay phân phối <span class="math-inline">$z$</span> (<em>z-distributed</em>). Vì độ lệch chuẩn của tổng thể hầu như luôn chưa biết trong mọi trường hợp, chúng ta sẽ tập trung vào việc sử dụng thống kê kiểm định có phân phối <span class="math-inline">$t$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>TEST OF A SINGLE MEAN: RISK AND RETURN CHARACTERISTICS OF AN EQUITY MUTUAL FUND</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>KIỂM ĐỊNH MỘT GIÁ TRỊ TRUNG BÌNH ĐƠN LẺ: ĐẶC ĐIỂM RỦI RO VÀ TỶ SUẤT SINH LỢI CỦA MỘT QUỸ TƯƠNG HỖ CỔ PHIẾU (<em>TEST OF A SINGLE MEAN: RISK AND RETURN CHARACTERISTICS OF AN EQUITY MUTUAL FUND</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose you are analyzing Sendar Equity Fund,. During the past 24 months, it has achieved a mean monthly return of 1.50%, with a sample standard deviation of monthly returns of 3.60 percent. Given its level of market risk and according to a pricing model, this mutual fund was expected to have earned a 1.10 percent mean monthly return during that time period.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử bạn đang phân tích Quỹ Cổ phiếu Sendar (<em>Sendar Equity Fund</em>). Trong 24 tháng qua, quỹ đã đạt được tỷ suất sinh lợi hàng tháng trung bình là <span class="math-inline">$1.50\%$</span>, với độ lệch chuẩn mẫu của tỷ suất sinh lợi hàng tháng là <span class="math-inline">$3.60\%$</span>. Với mức độ rủi ro thị trường của quỹ và theo một mô hình định giá, quỹ tương hỗ này được kỳ vọng đạt tỷ suất sinh lợi hàng tháng trung bình là <span class="math-inline">$1.10\%$</span> trong khoảng thời gian đó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Assuming returns are normally distributed, are the actual results consistent with a population mean monthly return of 1.10 percent?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử tỷ suất sinh lợi có phân phối chuẩn, liệu kết quả thực tế có nhất quán với một trung bình tổng thể của tỷ suất sinh lợi hàng tháng là <span class="math-inline">$1.10\%$</span> hay không?</p></div>
+                </div>
+                
+
+                <div id="pdf-page-231" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 231 / Trang PDF 231
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Formulate and test a hypothesis that the fund's performance was different than the mean return of 1.1 percent inferred from the pricing model. Use a 5 percent level of significance.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy thiết lập và kiểm định giả thuyết rằng kết quả hoạt động của quỹ khác với tỷ suất sinh lợi trung bình <span class="math-inline">$1.1\%$</span> được suy ra từ mô hình định giá. Sử dụng mức ý nghĩa <span class="math-inline">$5\%$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 5: Test of a Single Mean</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 5: Kiểm định Một Giá trị Trung bình Đơn lẻ (<em>Exhibit 5: Test of a Single Mean</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Step 1</strong></th>
+<th>State the hypotheses.</th>
+<th><em>H_0:_μ</em>= 1.1% versus_Ha_:<em>μ</em>≠ 1.1%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 2</strong></td>
+<td>Identify the appropriate test<br>statistic.</td>
+<td><em>t</em>= <sup><em></sup><br>_X</em>−<em>μ</em> 0 <br><em><br>_s </em>⧸ √ <em><br>_n</em><br>with 24 − 1 = 23 degrees of freedom.</td>
+</tr>
+<tr>
+<td><strong>Step 3</strong></td>
+<td>Specify the level of significance.</td>
+<td><em>α</em>= 5% (two tailed).</td>
+</tr>
+<tr>
+<td><strong>Step 4</strong></td>
+<td>State the decision rule.</td>
+<td>Critical_t_-values = ±2.069.<br>Reject the null if the calculated_t_-statistic is less than −2.069, and reject the<br>null if the calculated_t_-statistic is greater than +2.069.<br><strong>Excel</strong><br> <em>Lower:</em> ~~T.INV(0.025,23)~~<br> <em>Upper:</em>~~T.INV(0.975,23)~~<br><strong>R</strong> ~~qt(c(.025,.975),23)~~</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><strong>Python</strong> ~~from scipy.stats import t~~<br> <em>Lower:</em> ~~t.ppf(.025,23)~~<br> <em>Upper:</em> ~~t.ppf(.975,23)~~</td>
+</tr>
+<tr>
+<td><strong>Step 5</strong></td>
+<td>Calculate the test statistic.</td>
+<td><em>t</em>=<sup>1.5 − 1.1</sup><br><em><br> <sup>3.6</sup> ⧸ √ <sup></em></sup><br>24<br>= 0.54433</td>
+</tr>
+<tr>
+<td><strong>Step 6</strong></td>
+<td>Make a decision.</td>
+<td>Fail to reject the null hypothesis because the calculated_t_-statistic falls<br>between the two critical values. There is not sufficient evidence to indicate<br>that the population mean monthly return is different from 1.10%.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 1 (<em>Step 1</em>)</strong></th>
+<th>Phát biểu các giả thuyết.</th>
+<th><div class="math-display my-3 overflow-x-auto">$$H_0: \mu = 1.1\% \text{ đối lập với } H_a: \mu \ne 1.1\%$$</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 2 (<em>Step 2</em>)</strong></td>
+<td>Xác định thống kê kiểm định phù hợp.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}$$</div><br>với <span class="math-inline">$24 - 1 = 23$</span> bậc tự do.</td>
+</tr>
+<tr>
+<td><strong>Bước 3 (<em>Step 3</em>)</strong></td>
+<td>Xác định mức ý nghĩa.</td>
+<td><span class="math-inline">$\alpha = 5\%$</span> (hai phía – <em>two tailed</em>).</td>
+</tr>
+<tr>
+<td><strong>Bước 4 (<em>Step 4</em>)</strong></td>
+<td>Phát biểu quy tắc quyết định.</td>
+<td>Các giá trị <span class="math-inline">$t$</span> tới hạn <span class="math-inline">$= \pm 2.069$</span>.<br>Bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$t$</span> tính toán được nhỏ hơn <span class="math-inline">$-2.069$</span>, và bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$t$</span> tính toán được lớn hơn <span class="math-inline">$+2.069$</span>.<br><strong>Excel</strong><br> <em>Cận dưới (Lower):</em> <code>T.INV(0.025,23)</code><br> <em>Cận trên (Upper):</em> <code>T.INV(0.975,23)</code><br><strong>R</strong> <code>qt(c(.025,.975),23)</code><br><strong>Python</strong> <code>from scipy.stats import t</code><br> <em>Cận dưới (Lower):</em> <code>t.ppf(.025,23)</code><br> <em>Cận trên (Upper):</em> <code>t.ppf(.975,23)</code></td>
+</tr>
+<tr>
+<td><strong>Bước 5 (<em>Step 5</em>)</strong></td>
+<td>Tính toán thống kê kiểm định.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$t = \frac{1.5 - 1.1}{3.6 / \sqrt{24}} = 0.54433$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 6 (<em>Step 6</em>)</strong></td>
+<td>Đưa ra quyết định.</td>
+<td>Không bác bỏ giả thuyết không vì thống kê <span class="math-inline">$t$</span> tính toán được nằm giữa hai giá trị tới hạn. Không có đủ bằng chứng để chỉ ra rằng trung bình tổng thể của tỷ suất sinh lợi hàng tháng khác với <span class="math-inline">$1.10\%$</span>.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Test the hypothesis using the 95 percent confidence interval. The 95 percent confidence interval is <em>X</em><sup><em></sup> ± Critical value (<sup></em></sup> √<sup><em>s__</sup> _n</em> )<sup>, so</sup> {1.5 − 2.069 (<sup>3.6</sup> ⧸√<sup><em></sup> 24<sup>) ,  1.5 + 2.069 (3.6⧸</sup> √<sup></em></sup> 24<sup>)}</sup> {1.5 − 1.5204, 1.5 + 1.5204} {− 0.0204, 3.0204} The hypothesized value of 1.1 percent is within the bounds of the 95 percent confidence interval, so we fail to reject the null hypothesis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Kiểm định giả thuyết bằng cách sử dụng khoảng tin cậy <span class="math-inline">$95\%$</span>. Khoảng tin cậy <span class="math-inline">$95\%$</span> là <span class="math-inline">$\bar{X} \pm \text{Giá trị tới hạn} \times \left(\frac{s}{\sqrt{n}}\right)$</span>, do đó:
+<div class="math-display my-3 overflow-x-auto">$$\left\{1.5 - 2.069 \left(\frac{3.6}{\sqrt{24}}\right), \; 1.5 + 2.069 \left(\frac{3.6}{\sqrt{24}}\right)\right\}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$\{1.5 - 1.5204, \; 1.5 + 1.5204\}$$</div>
+<div class="math-display my-3 overflow-x-auto">$$\{-0.0204, \; 3.0204\}$$</div>
+Giá trị theo giả thuyết là <span class="math-inline">$1.1\%$</span> nằm trong giới hạn của khoảng tin cậy <span class="math-inline">$95\%$</span>, vì vậy chúng ta không bác bỏ giả thuyết không.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>TEST OF A SINGLE VARIANCE: RISK CHARACTERISTICS OF AN EQUITY MUTUAL FUND</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>KIỂM ĐỊNH MỘT PHƯƠNG SAI ĐƠN LẺ: ĐẶC ĐIỂM RỦI RO CỦA MỘT QUỸ TƯƠNG HỖ CỔ PHIẾU (<em>TEST OF A SINGLE VARIANCE: RISK CHARACTERISTICS OF AN EQUITY MUTUAL FUND</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose we want to use the observed sample variance of the fund to test whether the true variance of the fund is less than some trigger level, say 4 percent. Performing a test of a population variance requires specifying the hypothesized value of the variance. We can formulate hypotheses concerning whether the variance is equal to a specific value or whether it is greater than or less than a hypothesized value:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử chúng ta muốn sử dụng phương sai mẫu quan sát được của quỹ để kiểm định xem liệu phương sai thực sự của quỹ có thấp hơn một mức ngưỡng kích hoạt (<em>trigger level</em>) nào đó, chẳng hạn độ lệch chuẩn <span class="math-inline">$4\%$</span>, hay không. Việc thực hiện kiểm định phương sai tổng thể đòi hỏi phải chỉ định giá trị theo giả thuyết của phương sai. Chúng ta có thể thiết lập các giả thuyết liên quan đến việc liệu phương sai có bằng một giá trị cụ thể hay lớn hơn hoặc nhỏ hơn một giá trị theo giả thuyết:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>One-sided alternative (left tail): <em>H</em> 0 : <em>σ</em><sup>2</sup> ≥ <em>σ</em> 0<sup>2</sup> versus <em>Ha</em> : <em>σ</em><sup>2</sup> &lt; <em>σ</em> 0<sup>2</sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả thuyết đối một phía (đuôi bên trái – <em>left tail</em>): <span class="math-inline">$H_0: \sigma^2 \ge \sigma_0^2$</span> đối lập với <span class="math-inline">$H_a: \sigma^2 &lt; \sigma_0^2$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-232" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 232 / Trang PDF 232
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Note that the fund’s variance is less than the trigger level <em>σ</em> 0<sup>2</sup> = 4% if the null hypothesis is rejected in favor of the alternative hypothesis. In tests concerning the variance of a single normally distributed population, we make use of a chisquare test statistic, denoted <em>χ</em><sup>2</sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lưu ý rằng độ lệch chuẩn của quỹ nhỏ hơn mức ngưỡng kích hoạt <span class="math-inline">$\sigma_0 = 4\%$</span> (tức phương sai <span class="math-inline">$\sigma_0^2 = 16(\%^2)$</span> hoặc <span class="math-inline">$0.0016$</span>) nếu giả thuyết không bị bác bỏ để ủng hộ giả thuyết đối. Trong các kiểm định liên quan đến phương sai của một tổng thể đơn lẻ có phân phối chuẩn, chúng ta sử dụng thống kê kiểm định Khi-bình phương (<em>chi-square test statistic</em>), được ký hiệu là <span class="math-inline">$\chi^2$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>You continue with your analysis of Sendar Equity Fund, a midcap growth fund that has been in existence for only 24 months. During this period, Sendar Equity achieved a mean monthly return of 1.50 percent and a standard deviation of monthly returns of 3.60 percent. Using a 5 percent level of significance, test whether the standard deviation of returns is less than 4 percent. Recall that the standard deviation is the square root of the variance, hence a standard deviation of 4 percent or 0.04, is a variance of 0.0016.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bạn tiếp tục phân tích Quỹ Cổ phiếu Sendar, một quỹ tăng trưởng vốn hóa trung bình (<em>midcap growth fund</em>) mới chỉ tồn tại được 24 tháng. Trong giai đoạn này, Quỹ Cổ phiếu Sendar đạt tỷ suất sinh lợi hàng tháng trung bình là <span class="math-inline">$1.50\%$</span> và độ lệch chuẩn của tỷ suất sinh lợi hàng tháng là <span class="math-inline">$3.60\%$</span>. Sử dụng mức ý nghĩa <span class="math-inline">$5\%$</span>, hãy kiểm định xem liệu độ lệch chuẩn của tỷ suất sinh lợi có nhỏ hơn <span class="math-inline">$4\%$</span> hay không. Hãy nhớ lại rằng độ lệch chuẩn là căn bậc hai của phương sai, do đó độ lệch chuẩn <span class="math-inline">$4\%$</span> hay <span class="math-inline">$0.04$</span> tương đương với phương sai là <span class="math-inline">$16(\%^2)$</span> hay <span class="math-inline">$0.0016$</span> (và <span class="math-inline">$s = 3.60\%$</span> tương đương <span class="math-inline">$s^2 = 3.6^2 = 12.96$</span>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 6: Test of Single Variance</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Minh họa 6: Kiểm định Một Phương sai Đơn lẻ (<em>Exhibit 6: Test of Single Variance</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Step 1</strong></th>
+<th>State the hypotheses.</th>
+<th>_H_0: σ<sup>2</sup>≥ 16 versus Ha: σ<sup>2</sup>&lt; 16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 2</strong></td>
+<td>Identify the appropriate test<br>statistic.</td>
+<td><em>χ</em> <sup>2</sup>=<sup>(</sup><sup><em>n</em> − 1 )</sup><sup><em>s</em> 2 </sup><br><em><br> _σ</em> 0 <sup>2</sup></td>
+</tr>
+<tr>
+<td><strong>Step 3</strong></td>
+<td>Specify the level of significance.</td>
+<td>5%</td>
+</tr>
+<tr>
+<td><strong>Step 4</strong></td>
+<td>i<br>State the decision rule.</td>
+<td>With 24 − 1 = 23 degrees of freedom, the critical value is 13.09051.<br>We reject the null hypothesis if the calculated_χ_<sup><em>2</em></sup>statistic is greater than<br>13.09051.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><strong>Excel</strong> ~~CHISQ.INV(0.05,23)~~</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><strong>R</strong> ~~qchisq(.05,23)~~<br><strong>Python</strong><br>~~from scipy.stats import chi2~~<br>~~chi2.ppf(.05,23)~~</td>
+</tr>
+<tr>
+<td><strong>Step 5</strong></td>
+<td>Calculate the test statistic.</td>
+<td><em>χ</em> <sup>2</sup>=<sup>(24 − 1 ) 12.96</sup><br><strong><em>_</em></strong>____<br>16<br>= 18.63000</td>
+</tr>
+<tr>
+<td><strong>Step 6</strong></td>
+<td>Make a decision.</td>
+<td>Reject the null hypothesis because the calculated <sup><em>χ</em> 2 </sup>statistic is greater than<br>the critical value. There is sufficient evidence to indicate that the variance is<br>less than 16% (or, equivalently, that the standard deviation is less than 4%).</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 1 (<em>Step 1</em>)</strong></th>
+<th>Phát biểu các giả thuyết.</th>
+<th><div class="math-display my-3 overflow-x-auto">$$H_0: \sigma^2 \ge 16 \text{ đối lập với } H_a: \sigma^2 &lt; 16$$</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 2 (<em>Step 2</em>)</strong></td>
+<td>Xác định thống kê kiểm định phù hợp.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$\chi^2 = \frac{(n - 1)s^2}{\sigma_0^2}$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 3 (<em>Step 3</em>)</strong></td>
+<td>Xác định mức ý nghĩa.</td>
+<td><span class="math-inline">$5\%$</span></td>
+</tr>
+<tr>
+<td><strong>Bước 4 (<em>Step 4</em>)</strong></td>
+<td>Phát biểu quy tắc quyết định.</td>
+<td>Với <span class="math-inline">$24 - 1 = 23$</span> bậc tự do, giá trị tới hạn là <span class="math-inline">$13.09051$</span>.<br><em>(Lưu ý nguyên bản sách CFA và đính chính chuẩn xác: Kiểm định đuôi trái <span class="math-inline">$H_a: \sigma^2 &lt; 16$</span> có miền bác bỏ ở phía trái, tức bác bỏ <span class="math-inline">$H_0$</span> nếu thống kê <span class="math-inline">$\chi^2$</span> tính được nhỏ hơn <span class="math-inline">$13.09051$</span>; bản gốc in nhầm chữ "greater than").</em><br><strong>Excel</strong> <code>CHISQ.INV(0.05,23)</code><br><strong>R</strong> <code>qchisq(.05,23)</code><br><strong>Python</strong><br><code>from scipy.stats import chi2</code><br><code>chi2.ppf(.05,23)</code></td>
+</tr>
+<tr>
+<td><strong>Bước 5 (<em>Step 5</em>)</strong></td>
+<td>Tính toán thống kê kiểm định.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$\chi^2 = \frac{(24 - 1)12.96}{16} = 18.63000$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 6 (<em>Step 6</em>)</strong></td>
+<td>Đưa ra quyết định.</td>
+<td><em>(Theo văn bản gốc trong sách)</em>: Bác bỏ giả thuyết không bởi vì thống kê <span class="math-inline">$\chi^2$</span> tính toán được lớn hơn giá trị tới hạn. Có đủ bằng chứng để chỉ ra rằng phương sai nhỏ hơn <span class="math-inline">$16\%$</span> (hoặc tương đương là độ lệch chuẩn nhỏ hơn <span class="math-inline">$4\%$</span>). <em>(Lưu ý học thuật: Với <span class="math-inline">$\chi^2 = 18.63 &gt; 13.09051$</span>, thực tế thống kê kiểm định không rơi vào miền bác bỏ đuôi trái nên đúng về mặt toán học là không thể bác bỏ <span class="math-inline">$H_0$</span>).</em></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>TEST CONCERNING DIFFERENCES BETWEEN MEANS WITH INDEPENDENT SAMPLES</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>KIỂM ĐỊNH LIÊN QUAN ĐẾN SỰ KHÁC BIỆT GIỮA HAI GIÁ TRỊ TRUNG BÌNH VỚI CÁC MẪU ĐỘC LẬP (<em>TEST CONCERNING DIFFERENCES BETWEEN MEANS WITH INDEPENDENT SAMPLES</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We often want to know whether a mean value—for example, a mean return— differs for two groups. Is an observed difference due to chance or to different underlying values for the mean? We test this by drawing a sample from each group. When it is reasonable to believe that the samples are from populations that are approximately normally distributed and that the samples are also independent of each other, we use the test of the difference in the means. We may assume that population variances are equal or unequal. However, our focus in discussing the test of the difference of means is using the assumption that the population variances are equal. In the calculation of the test statistic, we combine the observations from both samples to obtain a pooled estimate of the common population variance.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta thường muốn biết liệu một giá trị trung bình—ví dụ, tỷ suất sinh lợi trung bình—có khác nhau giữa hai nhóm hay không. Sự khác biệt quan sát được là do ngẫu nhiên hay do các giá trị cơ sở khác nhau của giá trị trung bình? Chúng ta kiểm định điều này bằng cách rút một mẫu từ mỗi nhóm. Khi có cơ sở hợp lý để tin rằng các mẫu đến từ các tổng thể có phân phối xấp xỉ chuẩn và các mẫu cũng độc lập với nhau, chúng ta sử dụng kiểm định sự khác biệt giữa hai giá trị trung bình (<em>test of the difference in the means</em>). Chúng ta có thể giả định rằng các phương sai tổng thể bằng nhau hoặc không bằng nhau. Tuy nhiên, trọng tâm của chúng ta khi thảo luận về kiểm định sự khác biệt giữa hai giá trị trung bình là sử dụng giả định rằng các phương sai tổng thể bằng nhau. Trong phép tính thống kê kiểm định, chúng ta kết hợp các quan sát từ cả hai mẫu để thu được một ước lượng gộp (<em>pooled estimate</em>) của phương sai tổng thể chung.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Let μ1 and μ2 represent, respectively, the population means of the first and second populations, respectively. Most often we want to test whether the population means are equal or whether one is larger than the other. Thus, we formulate the following hypotheses:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Gọi <span class="math-inline">$\mu_1$</span> và <span class="math-inline">$\mu_2$</span> lần lượt đại diện cho trung bình tổng thể của tổng thể thứ nhất và tổng thể thứ hai. Thường thì chúng ta muốn kiểm định xem các trung bình tổng thể có bằng nhau hay không hoặc liệu có một giá trị lớn hơn giá trị kia hay không. Do đó, chúng ta thiết lập các giả thuyết sau:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-233" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 233 / Trang PDF 233
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>H</em> 0: μ1 − μ2 = 0 versus <em>Ha</em> : μ1 − μ2 ≠ 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$H_0: \mu_1 - \mu_2 = 0 \text{ đối lập với } H_a: \mu_1 - \mu_2 \ne 0$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>EXAMPLE 1</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>VÍ DỤ 1 (<em>EXAMPLE 1</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Comparison of Returns on the ACE High Yield Index for Two Periods</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>So sánh Tỷ suất sinh lợi trên Chỉ số ACE High Yield trong Hai Giai đoạn (<em>Comparison of Returns on the ACE High Yield Index for Two Periods</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose we want to test whether the returns of the ACE High Yield Total Return Index, shown in Exhibit 7, are different for two different time periods, Period 1 and Period 2.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử chúng ta muốn kiểm định xem tỷ suất sinh lợi của Chỉ số Tổng Tỷ suất sinh lợi Lợi suất Cao ACE (<em>ACE High Yield Total Return Index</em>), được trình bày trong Minh họa 7, có khác nhau trong hai giai đoạn thời gian khác nhau là Giai đoạn 1 và Giai đoạn 2 hay không.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 7: Descriptive Statistics for ACE High Yield Total Return Index for Periods 1 and 2</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 7: Thống kê Mô tả cho Chỉ số Tổng Tỷ suất sinh lợi Lợi suất Cao ACE trong Giai đoạn 1 và 2 (<em>Exhibit 7: Descriptive Statistics for ACE High Yield Total Return Index for Periods 1 and 2</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Period 1</strong></th>
+<th><strong>Period 2</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mean</strong></td>
+<td>0.01775%</td>
+<td>0.01134%</td>
+</tr>
+<tr>
+<td><strong>Standard deviation</strong></td>
+<td>0.31580%</td>
+<td>0.38760%</td>
+</tr>
+<tr>
+<td><strong>Sample size</strong></td>
+<td>445 days</td>
+<td>859 days</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Giai đoạn 1 (<em>Period 1</em>)</strong></th>
+<th><strong>Giai đoạn 2 (<em>Period 2</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Giá trị trung bình (<em>Mean</em>)</strong></td>
+<td>0.01775%</td>
+<td>0.01134%</td>
+</tr>
+<tr>
+<td><strong>Độ lệch chuẩn (<em>Standard deviation</em>)</strong></td>
+<td>0.31580%</td>
+<td>0.38760%</td>
+</tr>
+<tr>
+<td><strong>Kích thước mẫu (<em>Sample size</em>)</strong></td>
+<td>445 ngày</td>
+<td>859 ngày</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Note that these periods are of different lengths and the samples are independent; that is, there is no pairing of the days for the two periods.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lưu ý rằng các giai đoạn này có độ dài khác nhau và các mẫu độc lập với nhau; tức là không có sự ghép cặp các ngày giữa hai giai đoạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Is there a difference between the mean daily returns in Period 1 and in Period 2, using a 5% level of significance?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Có sự khác biệt nào giữa tỷ suất sinh lợi hàng ngày trung bình trong Giai đoạn 1 và Giai đoạn 2 hay không, sử dụng mức ý nghĩa <span class="math-inline">$5\%$</span>?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải (<em>Solution</em>):</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Step 1</strong> State the hypotheses. <em>H</em> 0: μ <em>Period</em> 1 = μ <em>Period</em> 2 versus Ha: μ <em>Period</em> 1 ≠ μ <em>Period</em> 2 <strong>Step 2</strong> Identify the appropriate test statistic. <em>t</em> =  <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em><sup>(</sup> </em>X_<sup><em></sup> _Period</em> 1 − <em>X</em><sup>_</sup> √</strong><strong><em>_</em></strong><strong><em>_</em><em> nPeriodperiodsp</em><sup>2</sup> 21 ) − (<sup>+</sup>  nμperiodPeriodsp_<sup>2</sup> 2 1 − <em>μPeriod</em> 2 ) , </strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>___( <em>nperiod</em> 1 − 1 ) <em>sPeriod</em> 2 1 + ( <em>nperiod</em> 2 − 1 ) <em>sPeriod</em> 2 2 <em>sp</em><sup>2</sup> = where <em>nperiod</em> 1 + <em>nperiod</em> 2 − 2 with 445 + 859 − 2 = 1,302 degrees of freedom. <strong>Step 3</strong> Specify the level of significance. <em>α</em> = 5% <strong>Step 4</strong> State the decision rule. Critical <em>t</em> -values = ±1.962 Reject the null if the calculated <em>t</em> -statistic is less than −1.962, and reject the null if the calculated <em>t</em> -statistic is greater than +1.962. <strong>Excel</strong> <em>Lower:</em> ~~T.INV(0.025,1302)~~ <em>Upper:</em> ~~T.INV(0.975,1302)~~ <strong>R</strong> ~~qt(c(.025,.975),1302)~~ <strong>Python</strong> ~~from scipy.stats import t~~ <em>Lower:</em> ~~t.ppf(.025,1302)~~ <em>Upper:</em> ~~t.ppf(.975,1302)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Bước 1:</strong> Phát biểu các giả thuyết.
+  <div class="math-display my-3 overflow-x-auto">$$H_0: \mu_{\text{Period 1}} = \mu_{\text{Period 2}} \text{ đối lập với } H_a: \mu_{\text{Period 1}} \ne \mu_{\text{Period 2}}$$</div></li>
+<li><strong>Bước 2:</strong> Xác định thống kê kiểm định phù hợp.
+  <div class="math-display my-3 overflow-x-auto">$$t = \frac{(\bar{X}_{\text{Period 1}} - \bar{X}_{\text{Period 2}}) - (\mu_{\text{Period 1}} - \mu_{\text{Period 2}})}{\sqrt{\frac{s_p^2}{n_{\text{Period 1}}} + \frac{s_p^2}{n_{\text{Period 2}}}}}$$</div>
+  trong đó:
+  <div class="math-display my-3 overflow-x-auto">$$s_p^2 = \frac{(n_{\text{Period 1}} - 1)s_{\text{Period 1}}^2 + (n_{\text{Period 2}} - 1)s_{\text{Period 2}}^2}{n_{\text{Period 1}} + n_{\text{Period 2}} - 2}$$</div>
+  với <span class="math-inline">$445 + 859 - 2 = 1,302$</span> bậc tự do.</li>
+<li><strong>Bước 3:</strong> Xác định mức ý nghĩa. <span class="math-inline">$\alpha = 5\%$</span>.</li>
+<li><strong>Bước 4:</strong> Phát biểu quy tắc quyết định.
+  Các giá trị <span class="math-inline">$t$</span> tới hạn <span class="math-inline">$= \pm 1.962$</span>.
+  Bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$t$</span> tính toán được nhỏ hơn <span class="math-inline">$-1.962$</span>, và bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$t$</span> tính toán được lớn hơn <span class="math-inline">$+1.962$</span>.</li>
+<li><strong>Excel:</strong> <em>Cận dưới (Lower):</em> <code>T.INV(0.025,1302)</code> | <em>Cận trên (Upper):</em> <code>T.INV(0.975,1302)</code></li>
+<li><strong>R:</strong> <code>qt(c(.025,.975),1302)</code></li>
+<li><strong>Python:</strong> <code>from scipy.stats import t</code> | <em>Cận dưới (Lower):</em> <code>t.ppf(.025,1302)</code> | <em>Cận trên (Upper):</em> <code>t.ppf(.975,1302)</code></li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-234" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 234 / Trang PDF 234
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0234-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0234-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Bước 5:</strong> Tính toán thống kê kiểm định.
+  <div class="math-display my-3 overflow-x-auto">$$s_p^2 = \frac{(445 - 1)0.09973 + (859 - 1)0.15023}{445 + 859 - 2} = 0.1330$$</div>
+  <div class="math-display my-3 overflow-x-auto">$$t = \frac{(0.01775 - 0.01134) - 0}{\sqrt{\frac{0.1330}{445} + \frac{0.1330}{859}}} = \frac{0.0064}{0.0213} = 0.3009$$</div></li>
+<li><strong>Bước 6:</strong> Đưa ra quyết định.
+  Không bác bỏ giả thuyết không bởi vì thống kê <span class="math-inline">$t$</span> tính toán được nằm trong giới hạn của hai giá trị tới hạn. Chúng ta kết luận rằng không có đủ bằng chứng để chỉ ra rằng tỷ suất sinh lợi là khác nhau giữa hai giai đoạn thời gian.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Test Concerning Differences between Means with Dependent Samples</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Kiểm định Liên quan đến Sự khác biệt giữa Hai Giá trị Trung bình với các Mẫu Phụ thuộc (<em>Test Concerning Differences between Means with Dependent Samples</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>When we compare two independent samples, we use a <em>t</em> -distributed test statistic that uses the difference in the means and a pooled variance. An assumption for the validity of those tests is that the samples are independent—that is, unrelated to each other. When we want to conduct tests on two means based on samples that we believe are dependent, we use the <strong>test of the mean of the differences</strong> (a paired comparisons test).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi chúng ta so sánh hai mẫu độc lập, chúng ta sử dụng một thống kê kiểm định có phân phối <span class="math-inline">$t$</span> sử dụng hiệu số giữa hai trung bình mẫu và một phương sai gộp (<em>pooled variance</em>). Một giả định cho tính hợp lệ của các kiểm định đó là các mẫu phải độc lập—tức là không liên quan với nhau. Khi chúng ta muốn tiến hành kiểm định trên hai giá trị trung bình dựa trên các mẫu mà chúng ta tin là phụ thuộc lẫn nhau, chúng ta sử dụng <strong>kiểm định giá trị trung bình của các chênh lệch (<em>test of the mean of the differences</em> – hay kiểm định so sánh cặp, <em>paired comparisons test</em>)</strong>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>How is this test of paired differences different from the test of the difference in means in independent samples? The test of paired comparisons is more powerful than the test of the difference in the means because by using the common element (such as the same periods or companies), we eliminate the variation between the samples that could be caused by something other than what we are testing.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Kiểm định các chênh lệch ghép cặp này khác với kiểm định sự khác biệt giữa hai giá trị trung bình trong các mẫu độc lập như thế nào? Kiểm định so sánh cặp có lực kiểm định mạnh hơn (<em>more powerful</em>) so với kiểm định sự khác biệt giữa hai giá trị trung bình bởi vì bằng cách sử dụng yếu tố chung (chẳng hạn như cùng các giai đoạn thời gian hoặc cùng các công ty), chúng ta loại bỏ được sự biến thiên giữa các mẫu có thể gây ra bởi những yếu tố khác ngoài yếu tố mà chúng ta đang kiểm định.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>EXAMPLE 2</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>VÍ DỤ 2 (<em>EXAMPLE 2</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>A Comparison of the Returns of Two Indexes</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>So sánh Tỷ suất sinh lợi của Hai Chỉ số (<em>A Comparison of the Returns of Two Indexes</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Suppose we want to compare the returns of the ACE High Yield Index with those of the ACE BBB Index. We collect data over the same 1,304 days for both indexes and calculate their means and standard deviations as shown in Exhibit 8.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử chúng ta muốn so sánh tỷ suất sinh lợi của Chỉ số ACE High Yield với tỷ suất sinh lợi của Chỉ số ACE BBB. Chúng ta thu thập dữ liệu trong cùng 1,304 ngày cho cả hai chỉ số và tính giá trị trung bình cũng như độ lệch chuẩn của chúng như được trình bày trong Minh họa 8.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 8: Mean and Standard Deviations for the ACE High Yield Index and the ACE BBB Index</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 8: Giá trị Trung bình và Độ lệch chuẩn của Chỉ số ACE High Yield và Chỉ số ACE BBB (<em>Exhibit 8: Mean and Standard Deviations for the ACE High Yield Index and the ACE BBB Index</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>ACE High Yield</strong><br><strong>Index (%)</strong></th>
+<th><strong>ACE BBB Index</strong><br><strong>(%)</strong></th>
+<th><strong>Difference (%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean return</td>
+<td>0.0157</td>
+<td>0.0135</td>
+<td>−0.0021</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>0.3157</td>
+<td>0.3645</td>
+<td>0.3622</td>
+</tr>
+<tr>
+<td>deviation</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Chỉ số ACE High Yield (%)</strong></th>
+<th><strong>Chỉ số ACE BBB (%)</strong></th>
+<th><strong>Chênh lệch (<em>Difference</em>) (%)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tỷ suất sinh lợi trung bình (<em>Mean return</em>)</td>
+<td>0.0157</td>
+<td>0.0135</td>
+<td>−0.0021</td>
+</tr>
+<tr>
+<td>Độ lệch chuẩn (<em>Standard deviation</em>)</td>
+<td>0.3157</td>
+<td>0.3645</td>
+<td>0.3622</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Using a 5 percent level of significance, is the mean of the differences is different from zero?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Sử dụng mức ý nghĩa <span class="math-inline">$5\%$</span>, liệu giá trị trung bình của các chênh lệch có khác <span class="math-inline">$0$</span> hay không?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Solution:</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Lời giải (<em>Solution</em>):</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Step 1</strong> State the hypotheses. <em>H</em> 0: μd0 = 0 versus Ha: μd0 ≠ 0 <strong>Step 2</strong> Identify the appropriate test statistic. <em>t</em> = <mark><em></mark> _d</em> _ − <em>sd</em>  μd_ 0 <strong>Step 3</strong> Specify the level of significance. 5%</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Bước 1:</strong> Phát biểu các giả thuyết. <span class="math-inline">$H_0: \mu_{d0} = 0$</span> đối lập với <span class="math-inline">$H_a: \mu_{d0} \ne 0$</span>.</li>
+<li><strong>Bước 2:</strong> Xác định thống kê kiểm định phù hợp.
+  <div class="math-display my-3 overflow-x-auto">$$t = \frac{\bar{d} - \mu_{d0}}{s_{\bar{d}}}$$</div></li>
+<li><strong>Bước 3:</strong> Xác định mức ý nghĩa. <span class="math-inline">$5\%$</span>.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-235" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 235 / Trang PDF 235
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Step 4</strong></th>
+<th>State the decision rule.</th>
+<th>With 1,304 − 1 = 1,303 degrees of freedom, the critical values are ±1.962.<br>We reject the null hypothesis if the calculated_t_-statistic is less than −1.962<br>or greater than +1.962.<br><strong>Excel</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td><em>Lower:</em> ~~T.INV(0.025,1303)~~</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><em>Upper:</em> ~~T.INV(0.975,1303)~~<br><strong>R</strong> ~~qt(c(.025,.975),1303~~</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><strong>Python</strong> ~~from scipy.stats import t~~<br> <em>Lower:</em> ~~t.ppf(.025,1303)~~<br> <em>Upper:</em> ~~t.ppf(.975,1303)~~</td>
+</tr>
+<tr>
+<td><strong>Step 5</strong></td>
+<td>Calculate the test statistic.</td>
+<td><em><br>_d</em>= − 0.0021%<br> <em>s</em> <br><em><br>_d</em><sup>= </sup><sup><em>s</em> </sup><sup><em>d</em> </sup><br><em><br> √ <sup></em></sup><br><em>n</em><sup>=0.3622</sup><br><em><br> √ <sup></em></sup><br>1, 304<sup>= 0.01003%</sup><br><em>t</em>=<sup>− 0.00210 − 0</sup><br>_<br>0.01003<br>= − 0.20937</td>
+</tr>
+<tr>
+<td><strong>Step 6</strong></td>
+<td>Make a decision.</td>
+<td>Fail to reject the null hypothesis because the calculated_t_-statistic falls within<br>the bounds of the two critical values. There is insufficient evidence to indi-<br>cate that the mean of the differences of returns is different from zero.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 4 (<em>Step 4</em>)</strong></th>
+<th>Phát biểu quy tắc quyết định.</th>
+<th>Với <span class="math-inline">$1,304 - 1 = 1,303$</span> bậc tự do, các giá trị tới hạn là <span class="math-inline">$\pm 1.962$</span>.<br>Chúng ta bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$t$</span> tính toán được nhỏ hơn <span class="math-inline">$-1.962$</span> hoặc lớn hơn <span class="math-inline">$+1.962$</span>.<br><strong>Excel</strong><br><em>Cận dưới (Lower):</em> <code>T.INV(0.025,1303)</code><br><em>Cận trên (Upper):</em> <code>T.INV(0.975,1303)</code><br><strong>R</strong> <code>qt(c(.025,.975),1303)</code><br><strong>Python</strong> <code>from scipy.stats import t</code><br><em>Cận dưới (Lower):</em> <code>t.ppf(.025,1303)</code><br><em>Cận trên (Upper):</em> <code>t.ppf(.975,1303)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 5 (<em>Step 5</em>)</strong></td>
+<td>Tính toán thống kê kiểm định.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$\bar{d} = -0.0021\%$$</div><br><div class="math-display my-3 overflow-x-auto">$$s_{\bar{d}} = \frac{s_d}{\sqrt{n}} = \frac{0.3622}{\sqrt{1,304}} = 0.01003\%$$</div><br><div class="math-display my-3 overflow-x-auto">$$t = \frac{-0.00210 - 0}{0.01003} = -0.20937$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 6 (<em>Step 6</em>)</strong></td>
+<td>Đưa ra quyết định.</td>
+<td>Không bác bỏ giả thuyết không bởi vì thống kê <span class="math-inline">$t$</span> tính toán được nằm trong giới hạn của hai giá trị tới hạn. Không có đủ bằng chứng để chỉ ra rằng giá trị trung bình của các chênh lệch tỷ suất sinh lợi là khác <span class="math-inline">$0$</span>.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Test Concerning the Equality of Two Variances</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Kiểm định Liên quan đến Sự Bằng nhau của Hai Phương sai (<em>Test Concerning the Equality of Two Variances</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>There are many instances in which we want to compare the volatility of two samples, in which case we can test for the equality of two variances. Examples include comparisons of baskets of securities against indexes or benchmarks, as well as comparisons of volatility in different periods.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Có nhiều trường hợp chúng ta muốn so sánh độ biến động (<em>volatility</em>) của hai mẫu, khi đó chúng ta có thể kiểm định sự bằng nhau của hai phương sai. Các ví dụ bao gồm so sánh các rổ chứng khoán với các chỉ số hoặc chỉ số chuẩn (<em>benchmarks</em>), cũng như so sánh độ biến động trong các giai đoạn khác nhau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>EXAMPLE 3</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>VÍ DỤ 3 (<em>EXAMPLE 3</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Volatility and Regulation</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Độ biến động và Quy định Quản lý (<em>Volatility and Regulation</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>You are investigating whether the population variance of returns on a stock market index changed after a change in market regulation. The first 418 weeks occurred before the regulation change, and the second 418 weeks occurred after the regulation change. You gather the data in Exhibit 9 for 418 weeks of returns both before and after the change in regulation. You have specified a 5 percent level of significance.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bạn đang khảo sát xem liệu phương sai tổng thể của tỷ suất sinh lợi trên một chỉ số thị trường chứng khoán có thay đổi sau một sự thay đổi trong quy định quản lý thị trường hay không. 418 tuần đầu tiên diễn ra trước khi thay đổi quy định, và 418 tuần thứ hai diễn ra sau khi thay đổi quy định. Bạn thu thập dữ liệu trong Minh họa 9 cho 418 tuần tỷ suất sinh lợi cả trước và sau khi thay đổi quy định. Bạn đã chỉ định mức ý nghĩa là <span class="math-inline">$5\%$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 9: Index Returns and Variances before and after the Market Regulation Change</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Minh họa 9: Tỷ suất sinh lợi và Phương sai Chỉ số Trước và Sau khi Thay đổi Quy định Thị trường (<em>Exhibit 9: Index Returns and Variances before and after the Market Regulation Change</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>N</strong></th>
+<th><strong>Mean Weekly</strong><br><strong>Return (%)</strong></th>
+<th><strong>Variance of Returns</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before regulation change</td>
+<td>418</td>
+<td>0.250</td>
+<td>4.644</td>
+</tr>
+<tr>
+<td>After regulation change</td>
+<td>418</td>
+<td>0.110</td>
+<td>3.919</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong><span class="math-inline">$N$</span></strong></th>
+<th><strong>Tỷ suất sinh lợi Hàng tuần Trung bình (<em>Mean Weekly Return</em>) (%)</strong></th>
+<th><strong>Phương sai của Tỷ suất sinh lợi (<em>Variance of Returns</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trước khi thay đổi quy định (<em>Before regulation change</em>)</td>
+<td>418</td>
+<td>0.250</td>
+<td>4.644</td>
+</tr>
+<tr>
+<td>Sau khi thay đổi quy định (<em>After regulation change</em>)</td>
+<td>418</td>
+<td>0.110</td>
+<td>3.919</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Are the variance of returns different before the regulation change versus after the regulation change?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Phương sai của tỷ suất sinh lợi trước khi thay đổi quy định có khác với sau khi thay đổi quy định hay không?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Solution:</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Lời giải (<em>Solution</em>):</strong></p></div>
+                </div>
+                
+
+                <div id="pdf-page-236" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 236 / Trang PDF 236
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Step 1</strong></th>
+<th>State the hypotheses.</th>
+<th><em>H</em> 0:<em>σ</em> <em>Before</em><br>2<br>=<em>σ</em> <em>After</em><br>2<br>versus_H_ <em>a</em>:<em>σ</em> <em>Before</em><br>2<br>≠<em>σ</em> <em>After</em><br>2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 2</strong></td>
+<td>Identify the appropriate test<br>statistic.</td>
+<td><em>F</em>=<br> <em>s</em> <em>Before</em><br>2 <br><em><br> _s</em> <em>After</em><br>2</td>
+</tr>
+<tr>
+<td><strong>Step 3</strong></td>
+<td>Specify the level of significance.</td>
+<td>5%</td>
+</tr>
+<tr>
+<td><strong>Step 4</strong><br><strong>Step 5</strong></td>
+<td>State the decision rule.<br>Calculate the test statistic.</td>
+<td>With 418 − 1 = 417 and 418 − 1 = 417 degrees of freedom, the critical<br>values are 0.82512 and 1.21194.<br>Reject the null if the calculated_F_-statistic is less than 0.82512 or greater<br>than 1.21194.<br><strong>Excel</strong><br> <em>Left side:</em> ~~F.INV(0.025,417,417)~~<br> <em>Right side:</em> ~~F.INV(0.975,417,417)~~<br><strong>R</strong> ~~qf(c(.025,.975),417,417)~~<br><strong>Python</strong> ~~from scipy.stats import f~~<br> <em>Left side:</em> ~~f.ppf(.025,417,417)~~<br> <em>Right side:</em> ~~f.ppf(.975,417,417)~~<br> <em>F</em>=<sup>4.644</sup><br>_<br>3.919 <sup>= 1.18500</sup></td>
+</tr>
+<tr>
+<td><strong>Step 6</strong><br></td>
+<td>Make a decision.<br>2. Is the v<br>the reg<br><strong>Solutio</strong><br></td>
+<td>Fail to reject the null hypothesis since the calculated_F_-statistic falls within<br>the bounds of the two critical values. There is not sufficient evidence to<br>indicate that the weekly variances of returns are different in the periods<br>before and after the regulation change.<br>ariance of returns greater before the regulation change versus after<br>ulation change?<br><strong>n:</strong><br><br><br><br></td>
+</tr>
+<tr>
+<td><strong>Step 1</strong></td>
+<td>State the hypotheses.</td>
+<td><em>H</em> 0:<em>σ</em> <em>Before</em><br>2<br>≤<em>σ</em> <em>After</em><br>2<br>versus_H_ <em>a</em>:<em>σ</em> <em>Before</em><br>2<br>&gt;<em>σ</em> <em>After</em><br>2</td>
+</tr>
+<tr>
+<td><strong>Step 2</strong></td>
+<td>Identify the appropriate test<br>statistic.</td>
+<td><em>F</em>=<br> <em>s</em> <em>Before</em><br>2 <br><em><br> _s</em> <em>After</em><br>2</td>
+</tr>
+<tr>
+<td><strong>Step 3</strong></td>
+<td>Specify the level of significance.</td>
+<td>5%</td>
+</tr>
+<tr>
+<td><strong>Step 4</strong></td>
+<td>State the decision rule.</td>
+<td>With 418 − 1 = 417 and 418 − 1 = 417 degrees of freedom, the critical<br>value is 1.17502.<br>We reject the null hypothesis if the calculated_F_-statistic is greater than<br>1.17502.<br><strong>Excel</strong> ~~F.INV(0.95,417,417)~~<br><strong>R</strong> ~~qf(.95,417,417)~~<br><strong>Python</strong><br>~~from scipy.stats import f~~<br>~~f.ppf(.95,417,417)~~</td>
+</tr>
+<tr>
+<td><strong>Step 5</strong></td>
+<td>Calculate the test statistic.</td>
+<td><em>F</em>=<sup>4.644</sup><br>_<br>3.919 <sup>= 1.18500</sup></td>
+</tr>
+<tr>
+<td><strong>Step 6</strong></td>
+<td>Make a decision.</td>
+<td>Reject the null hypothesis since the calculated_F_-statistic is greater than<br>1.17502. There is sufficient evidence to indicate that the weekly variances<br>of returns before the regulation change are greater than the variances after<br>the regulation change.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 1 (<em>Step 1</em>)</strong></th>
+<th>Phát biểu các giả thuyết.</th>
+<th><div class="math-display my-3 overflow-x-auto">$$H_0: \sigma_{\text{Before}}^2 = \sigma_{\text{After}}^2 \text{ đối lập với } H_a: \sigma_{\text{Before}}^2 \ne \sigma_{\text{After}}^2$$</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 2 (<em>Step 2</em>)</strong></td>
+<td>Xác định thống kê kiểm định phù hợp.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$F = \frac{s_{\text{Before}}^2}{s_{\text{After}}^2}$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 3 (<em>Step 3</em>)</strong></td>
+<td>Xác định mức ý nghĩa.</td>
+<td><span class="math-inline">$5\%$</span></td>
+</tr>
+<tr>
+<td><strong>Bước 4 (<em>Step 4</em>)</strong></td>
+<td>Phát biểu quy tắc quyết định.</td>
+<td>Với <span class="math-inline">$418 - 1 = 417$</span> và <span class="math-inline">$418 - 1 = 417$</span> bậc tự do, các giá trị tới hạn là <span class="math-inline">$0.82512$</span> và <span class="math-inline">$1.21194$</span>.<br>Bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$F$</span> tính toán được nhỏ hơn <span class="math-inline">$0.82512$</span> hoặc lớn hơn <span class="math-inline">$1.21194$</span>.<br><strong>Excel</strong><br> <em>Phía trái (Left side):</em> <code>F.INV(0.025,417,417)</code><br> <em>Phía phải (Right side):</em> <code>F.INV(0.975,417,417)</code><br><strong>R</strong> <code>qf(c(.025,.975),417,417)</code><br><strong>Python</strong> <code>from scipy.stats import f</code><br> <em>Phía trái (Left side):</em> <code>f.ppf(.025,417,417)</code><br> <em>Phía phải (Right side):</em> <code>f.ppf(.975,417,417)</code></td>
+</tr>
+<tr>
+<td><strong>Bước 5 (<em>Step 5</em>)</strong></td>
+<td>Tính toán thống kê kiểm định.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$F = \frac{4.644}{3.919} = 1.18500$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 6 (<em>Step 6</em>)</strong></td>
+<td>Đưa ra quyết định.</td>
+<td>Không bác bỏ giả thuyết không vì thống kê <span class="math-inline">$F$</span> tính toán được nằm trong giới hạn của hai giá trị tới hạn. Không có đủ bằng chứng để chỉ ra rằng phương sai hàng tuần của tỷ suất sinh lợi là khác nhau trong giai đoạn trước và sau khi thay đổi quy định.</td>
+</tr>
+</tbody>
+</table></div>
+<ol start="2">
+<li>Phương sai của tỷ suất sinh lợi trước khi thay đổi quy định có lớn hơn so với sau khi thay đổi quy định hay không?</li>
+</ol>
+<p><strong>Lời giải (<em>Solution</em>):</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 1 (<em>Step 1</em>)</strong></th>
+<th>Phát biểu các giả thuyết.</th>
+<th><div class="math-display my-3 overflow-x-auto">$$H_0: \sigma_{\text{Before}}^2 \le \sigma_{\text{After}}^2 \text{ đối lập với } H_a: \sigma_{\text{Before}}^2 &gt; \sigma_{\text{After}}^2$$</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 2 (<em>Step 2</em>)</strong></td>
+<td>Xác định thống kê kiểm định phù hợp.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$F = \frac{s_{\text{Before}}^2}{s_{\text{After}}^2}$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 3 (<em>Step 3</em>)</strong></td>
+<td>Xác định mức ý nghĩa.</td>
+<td><span class="math-inline">$5\%$</span></td>
+</tr>
+<tr>
+<td><strong>Bước 4 (<em>Step 4</em>)</strong></td>
+<td>Phát biểu quy tắc quyết định.</td>
+<td>Với <span class="math-inline">$418 - 1 = 417$</span> và <span class="math-inline">$418 - 1 = 417$</span> bậc tự do, giá trị tới hạn là <span class="math-inline">$1.17502$</span>.<br>Chúng ta bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$F$</span> tính toán được lớn hơn <span class="math-inline">$1.17502$</span>.<br><strong>Excel</strong> <code>F.INV(0.95,417,417)</code><br><strong>R</strong> <code>qf(.95,417,417)</code><br><strong>Python</strong><br><code>from scipy.stats import f</code><br><code>f.ppf(.95,417,417)</code></td>
+</tr>
+<tr>
+<td><strong>Bước 5 (<em>Step 5</em>)</strong></td>
+<td>Tính toán thống kê kiểm định.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$F = \frac{4.644}{3.919} = 1.18500$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 6 (<em>Step 6</em>)</strong></td>
+<td>Đưa ra quyết định.</td>
+<td>Bác bỏ giả thuyết không vì thống kê <span class="math-inline">$F$</span> tính toán được lớn hơn <span class="math-inline">$1.17502$</span>. Có đủ bằng chứng để chỉ ra rằng phương sai hàng tuần của tỷ suất sinh lợi trước khi thay đổi quy định lớn hơn phương sai sau khi thay đổi quy định.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-237" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 237 / Trang PDF 237
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>QUESTION SET</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Investment analysts often use earnings per share (EPS) forecasts. One test of forecasting quality is the zero-mean test, which states that optimal forecasts should have a mean forecasting error of zero. The forecasting error is the difference between the predicted value of a variable and the actual value of the variable.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các nhà phân tích đầu tư thường sử dụng các dự báo thu nhập trên mỗi cổ phiếu (<em>earnings per share</em> – EPS). Một kiểm định về chất lượng dự báo là kiểm định trung bình bằng không (<em>zero-mean test</em>), phát biểu rằng các dự báo tối ưu phải có sai số dự báo trung bình bằng 0. Sai số dự báo (<em>forecasting error</em>) là chênh lệch giữa giá trị dự đoán của một biến số và giá trị thực tế của biến số đó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>You have collected data (shown in Exhibit 10) for two analysts who cover two different industries: Analyst A covers the telecom industry; Analyst B covers automotive parts and suppliers.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bạn đã thu thập dữ liệu (được hiển thị trong Minh họa 10) của hai nhà phân tích phụ trách hai ngành khác nhau: Nhà phân tích A phụ trách ngành viễn thông; Nhà phân tích B phụ trách ngành phụ tùng và nhà cung cấp ô tô.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 10: Test of Return and Risk</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 10: Kiểm định Tỷ suất sinh lợi và Rủi ro – Hiệu quả Dự báo Thu nhập trên mỗi Cổ phiếu Hàng quý (<em>Exhibit 10: Test of Return and Risk – Performance in Forecasting Quarterly Earnings per Share</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Pe</strong></th>
+<th><strong>rformance in Fo</strong></th>
+<th><strong>recasting Quarterly Earnin</strong></th>
+<th><strong>gs per Share</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td><strong>Number of</strong><br><strong>Forecasts</strong></td>
+<td><strong>Mean Forecast Error</strong><br><strong>(Predicted − Actual)</strong></td>
+<td><strong>Standard Deviation</strong><br><strong>of Forecast Errors</strong></td>
+</tr>
+<tr>
+<td>Analyst A</td>
+<td>10</td>
+<td>0.05</td>
+<td>0.10</td>
+</tr>
+<tr>
+<td>Analyst B</td>
+<td>15</td>
+<td>0.02</td>
+<td>0.09</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Số lượng Dự báo (<em>Number of Forecasts</em>)</strong></th>
+<th><strong>Sai số Dự báo Trung bình (Dự đoán − Thực tế) (<em>Mean Forecast Error: Predicted − Actual</em>)</strong></th>
+<th><strong>Độ lệch chuẩn của Sai số Dự báo (<em>Standard Deviation of Forecast Errors</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nhà phân tích A (<em>Analyst A</em>)</td>
+<td>10</td>
+<td>0.05</td>
+<td>0.10</td>
+</tr>
+<tr>
+<td>Nhà phân tích B (<em>Analyst B</em>)</td>
+<td>15</td>
+<td>0.02</td>
+<td>0.09</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Critical <em>t</em> -values:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các giá trị <span class="math-inline">$t$</span> tới hạn (<em>Critical t-values</em>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Degrees of</strong></th>
+<th><strong>Area in the Right-</strong></th>
+<th><strong>Side Rejection Area</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Freedom</strong></td>
+<td><strong><em>p</em> = 0.05</strong></td>
+<td><strong><em>p</em> = 0.025</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>1.860</td>
+<td>2.306</td>
+</tr>
+<tr>
+<td>9</td>
+<td>1.833</td>
+<td>2.262</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1.812</td>
+<td>2.228</td>
+</tr>
+<tr>
+<td>11</td>
+<td>1.796</td>
+<td>2.201</td>
+</tr>
+<tr>
+<td>12</td>
+<td>1.782</td>
+<td>2.179</td>
+</tr>
+<tr>
+<td>13</td>
+<td>1.771</td>
+<td>2.160</td>
+</tr>
+<tr>
+<td>14</td>
+<td>1.761</td>
+<td>2.145</td>
+</tr>
+<tr>
+<td>15</td>
+<td>1.753</td>
+<td>2.131</td>
+</tr>
+<tr>
+<td>16</td>
+<td>1.746</td>
+<td>2.120</td>
+</tr>
+<tr>
+<td>17</td>
+<td>1.740</td>
+<td>2.110</td>
+</tr>
+<tr>
+<td>18</td>
+<td>1.734</td>
+<td>2.101</td>
+</tr>
+<tr>
+<td>19</td>
+<td>1.729</td>
+<td>2.093</td>
+</tr>
+<tr>
+<td>20</td>
+<td>1.725</td>
+<td>2.086</td>
+</tr>
+<tr>
+<td>21</td>
+<td>1.721</td>
+<td>2.080</td>
+</tr>
+<tr>
+<td>22</td>
+<td>1.717</td>
+<td>2.074</td>
+</tr>
+<tr>
+<td>23</td>
+<td>1.714</td>
+<td>2.069</td>
+</tr>
+<tr>
+<td>24</td>
+<td>1.711</td>
+<td>2.064</td>
+</tr>
+<tr>
+<td>25</td>
+<td>1.708</td>
+<td>2.060</td>
+</tr>
+<tr>
+<td>26</td>
+<td>1.706</td>
+<td>2.056</td>
+</tr>
+<tr>
+<td>27</td>
+<td>1.703</td>
+<td>2.052</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bậc Tự do (<em>Degrees of Freedom</em>)</strong></th>
+<th><strong>Diện tích Miền Bác bỏ Phía Bên phải (<em>Area in the Right-Side Rejection Area</em>): <span class="math-inline">$p = 0.05$</span></strong></th>
+<th><strong>Diện tích Miền Bác bỏ Phía Bên phải (<em>Area in the Right-Side Rejection Area</em>): <span class="math-inline">$p = 0.025$</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>1.860</td>
+<td>2.306</td>
+</tr>
+<tr>
+<td>9</td>
+<td>1.833</td>
+<td>2.262</td>
+</tr>
+<tr>
+<td>10</td>
+<td>1.812</td>
+<td>2.228</td>
+</tr>
+<tr>
+<td>11</td>
+<td>1.796</td>
+<td>2.201</td>
+</tr>
+<tr>
+<td>12</td>
+<td>1.782</td>
+<td>2.179</td>
+</tr>
+<tr>
+<td>13</td>
+<td>1.771</td>
+<td>2.160</td>
+</tr>
+<tr>
+<td>14</td>
+<td>1.761</td>
+<td>2.145</td>
+</tr>
+<tr>
+<td>15</td>
+<td>1.753</td>
+<td>2.131</td>
+</tr>
+<tr>
+<td>16</td>
+<td>1.746</td>
+<td>2.120</td>
+</tr>
+<tr>
+<td>17</td>
+<td>1.740</td>
+<td>2.110</td>
+</tr>
+<tr>
+<td>18</td>
+<td>1.734</td>
+<td>2.101</td>
+</tr>
+<tr>
+<td>19</td>
+<td>1.729</td>
+<td>2.093</td>
+</tr>
+<tr>
+<td>20</td>
+<td>1.725</td>
+<td>2.086</td>
+</tr>
+<tr>
+<td>21</td>
+<td>1.721</td>
+<td>2.080</td>
+</tr>
+<tr>
+<td>22</td>
+<td>1.717</td>
+<td>2.074</td>
+</tr>
+<tr>
+<td>23</td>
+<td>1.714</td>
+<td>2.069</td>
+</tr>
+<tr>
+<td>24</td>
+<td>1.711</td>
+<td>2.064</td>
+</tr>
+<tr>
+<td>25</td>
+<td>1.708</td>
+<td>2.060</td>
+</tr>
+<tr>
+<td>26</td>
+<td>1.706</td>
+<td>2.056</td>
+</tr>
+<tr>
+<td>27</td>
+<td>1.703</td>
+<td>2.052</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-238" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 238 / Trang PDF 238
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>With μ as the population mean forecasting error, formulate null and alternative hypotheses for a zero-mean test of forecasting quality.</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> For Analyst A, determine whether to reject the null at the 0.05 level of significance.</p>
+</li>
+<li>
+<p><strong>B.</strong> For Analyst B, determine whether to reject the null at the 0.05 level of significance.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Với <span class="math-inline">$\mu$</span> là sai số dự báo trung bình của tổng thể, hãy thiết lập giả thuyết không và giả thuyết đối cho kiểm định trung bình bằng không về chất lượng dự báo.</li>
+</ol>
+<ul>
+<li><strong>A.</strong> Đối với Nhà phân tích A, hãy xác định xem có bác bỏ giả thuyết không ở mức ý nghĩa <span class="math-inline">$0.05$</span> hay không. </li>
+<li><strong>B.</strong> Đối với Nhà phân tích B, hãy xác định xem có bác bỏ giả thuyết không ở mức ý nghĩa <span class="math-inline">$0.05$</span> hay không.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Solution:</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Lời giải (<em>Solution</em>):</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>H</em> 0: μ = 0 versus Ha: μ ≠ 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$H_0: \mu = 0 \text{ đối lập với } H_a: \mu \ne 0$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>X_ − <em>μ</em> 0 <strong>A.</strong> The t-test is based on <em>t</em> =<sup><em></sup> _s</em> / √<sup><em></sup> _n</em><sup>with n − 1 = 10 − 1 = 9 degrees of</sup> freedom. At the 0.05 significance level, we reject the null if the calculated t-statistic is outside the bounds of ±2.262 (from the table for 9 degrees of freedom and 0.025 in the right side of the distribution). For Analyst A, we have a calculated test statistic of</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Kiểm định <span class="math-inline">$t$</span> dựa trên <span class="math-inline">$t = \frac{\bar{X} - \mu_0}{s / \sqrt{n}}$</span> với <span class="math-inline">$n - 1 = 10 - 1 = 9$</span> bậc tự do. Ở mức ý nghĩa <span class="math-inline">$0.05$</span>, chúng ta bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$t$</span> tính toán được nằm ngoài giới hạn <span class="math-inline">$\pm 2.262$</span> (tra từ bảng với 9 bậc tự do và <span class="math-inline">$0.025$</span> ở phía bên phải của phân phối). Đối với Nhà phân tích A, chúng ta có thống kê kiểm định tính toán được là:</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>t_ =<sup>0.05 − 0</sup> = 1.58114 .<sup>0.10</sup> ⧸√<sup>_</sup> 10</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$t = \frac{0.05 - 0}{0.10 / \sqrt{10}} = 1.58114$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We, therefore, fail to reject the null hypothesis at the 0.05 level.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó, chúng ta không bác bỏ giả thuyết không ở mức ý nghĩa <span class="math-inline">$0.05$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>B.</strong> For Analyst B, the t-test is based on t with 15 − 1 = 14 degrees of freedom. At the 0.05 significance level, we reject the null if the calculated t-statistic is outside the bounds of ±2.145 (from the table for 14 degrees of freedom). The calculated test statistic is</p>
+</li>
+<li>
+<p>_</p>
+</li>
+<li>
+<p><em>t</em> =<sup>0.02 − 0</sup> = 0.86066 .<sup>0.09</sup> ⧸√<sup>_</sup> 15</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>B.</strong> Đối với Nhà phân tích B, kiểm định <span class="math-inline">$t$</span> dựa trên <span class="math-inline">$t$</span> với <span class="math-inline">$15 - 1 = 14$</span> bậc tự do. Ở mức ý nghĩa <span class="math-inline">$0.05$</span>, chúng ta bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$t$</span> tính toán được nằm ngoài giới hạn <span class="math-inline">$\pm 2.145$</span> (tra từ bảng với 14 bậc tự do). Thống kê kiểm định tính toán được là:</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Because 0.86066 is within the range of ±2.145, we fail to reject the null at the 0.05 level.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$t = \frac{0.02 - 0}{0.09 / \sqrt{15}} = 0.86066$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Reviewing the EPS forecasting performance data for Analysts A and B, you want to investigate whether the larger average forecast errors of Analyst A relative to Analyst B are due to chance or to a higher underlying mean value for Analyst A. Assume that the forecast errors of both analysts are normally distributed and that the samples are independent.</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Formulate null and alternative hypotheses consistent with determining whether the population mean value of Analyst A’s forecast errors (μ1) are larger than Analyst B’s (μ2).</p>
+</li>
+<li>
+<p><strong>B.</strong> Identify the test statistic for conducting a test of the null hypothesis formulated in Part A.</p>
+</li>
+<li>
+<p><strong>C.</strong> Identify the rejection point or points for the hypotheses tested in Part A at the 0.05 level of significance.</p>
+</li>
+<li>
+<p><strong>D.</strong> Determine whether to reject the null hypothesis at the 0.05 level of significance.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bởi vì <span class="math-inline">$0.86066$</span> nằm trong phạm vi <span class="math-inline">$\pm 2.145$</span>, chúng ta không bác bỏ giả thuyết không ở mức ý nghĩa <span class="math-inline">$0.05$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Solution:</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Khi xem xét dữ liệu hiệu quả dự báo EPS của Nhà phân tích A và B, bạn muốn khảo sát xem liệu sai số dự báo trung bình lớn hơn của Nhà phân tích A so với Nhà phân tích B là do ngẫu nhiên hay do giá trị trung bình cơ sở cao hơn của Nhà phân tích A. Giả sử rằng sai số dự báo của cả hai nhà phân tích đều có phân phối chuẩn và các mẫu độc lập với nhau.</li>
+</ol>
+<ul>
+<li><strong>A.</strong> Thiết lập giả thuyết không và giả thuyết đối nhất quán với việc xác định xem giá trị trung bình tổng thể của sai số dự báo của Nhà phân tích A (<span class="math-inline">$\mu_1$</span> hay <span class="math-inline">$\mu_A$</span>) có lớn hơn của Nhà phân tích B (<span class="math-inline">$\mu_2$</span> hay <span class="math-inline">$\mu_B$</span>) hay không. </li>
+<li><strong>B.</strong> Xác định thống kê kiểm định để tiến hành kiểm định giả thuyết không đã thiết lập ở Phần A. </li>
+<li><strong>C.</strong> Xác định (các) điểm bác bỏ cho các giả thuyết được kiểm định ở Phần A tại mức ý nghĩa <span class="math-inline">$0.05$</span>. </li>
+<li><strong>D.</strong> Xác định xem có bác bỏ giả thuyết không ở mức ý nghĩa <span class="math-inline">$0.05$</span> hay không.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>A.</strong> Stating the suspected condition as the alternative hypothesis, we have</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Lời giải (<em>Solution</em>):</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>H</em> 0: μ <em>A</em> − μ <em>B</em> ≤ 0 versus <em>Ha</em> : μ <em>A</em> − μ <em>B</em> &gt; 0,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Phát biểu điều kiện nghi ngờ làm giả thuyết đối, ta có:</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$H_0: \mu_A - \mu_B \le 0 \text{ đối lập với } H_a: \mu_A - \mu_B &gt; 0$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>μ <em>A</em> = the population mean value of Analyst A’s forecast errors <u>μ</u> <em><u>B</u></em> = the population mean value of Analyst B’s forecast errors</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó: 
+- <span class="math-inline">$\mu_A =$</span> giá trị trung bình tổng thể của sai số dự báo của Nhà phân tích A
+- <span class="math-inline">$\mu_B =$</span> giá trị trung bình tổng thể của sai số dự báo của Nhà phân tích B</p></div>
+                </div>
+                
+
+                <div id="pdf-page-239" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 239 / Trang PDF 239
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>B.</strong> We have two normally distributed populations with unknown variances. Based on the samples, it is reasonable to assume that the population variances are equal. The samples are assumed to be independent; this assumption is reasonable because the analysts cover different industries. The appropriate test statistic is <em>t</em> using a pooled estimate of the common variance:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>B.</strong> Chúng ta có hai tổng thể có phân phối chuẩn với phương sai chưa biết. Dựa trên các mẫu, có cơ sở hợp lý để giả định rằng các phương sai tổng thể bằng nhau. Các mẫu được giả định là độc lập; giả định này hợp lý vì các nhà phân tích phụ trách các ngành khác nhau. Thống kê kiểm định phù hợp là <span class="math-inline">$t$</span> sử dụng ước lượng gộp của phương sai chung:</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0239-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0239-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<p><div class="math-display my-3 overflow-x-auto">$$t = \frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}{\sqrt{\frac{s_p^2}{n_1} + \frac{s_p^2}{n_2}}}, \quad \text{trong đó } s_p^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}$$</div>
+Số bậc tự do là <span class="math-inline">$n_A + n_B - 2 = 10 + 15 - 2 = 23$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>C.</strong> Với <span class="math-inline">$df = 23$</span>, theo bảng tra, điểm bác bỏ cho kiểm định một phía (phía bên phải) ở mức ý nghĩa <span class="math-inline">$0.05$</span> là <span class="math-inline">$1.714$</span>.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0239-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0239-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We then calculate the <em>t</em> -distributed test statistic:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>D.</strong> Trước tiên chúng ta tính ước lượng phương sai gộp:
+<div class="math-display my-3 overflow-x-auto">$$s_p^2 = \frac{(10 - 1)0.01 + (15 - 1)0.0081}{10 + 15 - 2} = 0.0088435$$</div></li>
+</ul>
+<p>Sau đó chúng ta tính thống kê kiểm định có phân phối <span class="math-inline">$t$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0239-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0239-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{(0.05 - 0.02) - 0}{\sqrt{\frac{0.0088435}{10} + \frac{0.0088435}{15}}} = \frac{0.03}{0.0383916} = 0.78142$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Because 0.78142 &lt; 1.714, we fail to reject the null hypothesis. There is not sufficient evidence to indicate that the mean for Analyst A exceeds that for Analyst B.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bởi vì <span class="math-inline">$0.78142 &lt; 1.714$</span>, chúng ta không bác bỏ giả thuyết không. Không có đủ bằng chứng để chỉ ra rằng giá trị trung bình của Nhà phân tích A vượt quá giá trị trung bình của Nhà phân tích B.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An investment consultant gathers two independent random samples of fiveyear performance data for US and European absolute return hedge funds. Noting a return advantage of 50 bps for US managers, the consultant decides to test whether the two means are different from one another at a 0.05 level of significance. The two populations are assumed to be normally distributed with unknown but equal variances. Results of the hypothesis test are contained in the Exhibit 11.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một nhà tư vấn đầu tư thu thập hai mẫu ngẫu nhiên độc lập về dữ liệu hiệu quả hoạt động 5 năm của các quỹ phòng hộ tỷ suất sinh lợi tuyệt đối (<em>absolute return hedge funds</em>) tại Hoa Kỳ và Châu Âu. Nhận thấy lợi thế tỷ suất sinh lợi <span class="math-inline">$50\text{ bps}$</span> nghiêng về các nhà quản lý Hoa Kỳ, nhà tư vấn quyết định kiểm định xem liệu hai giá trị trung bình có khác nhau hay không ở mức ý nghĩa <span class="math-inline">$0.05$</span>. Hai tổng thể được giả định là có phân phối chuẩn với phương sai chưa biết nhưng bằng nhau. Kết quả của kiểm định giả thuyết được trình bày trong Minh họa 11.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 11: Hypothesis Test Results</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Minh họa 11: Kết quả Kiểm định Giả thuyết (<em>Exhibit 11: Hypothesis Test Results</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Sample Size</strong></th>
+<th><strong>Mean Return (%)</strong></th>
+<th><strong>Standard</strong><br><strong>Deviation</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US managers<br>50</td>
+<td>4.7</td>
+<td>5.4</td>
+</tr>
+<tr>
+<td>European<br>50</td>
+<td>4.2</td>
+<td>4.8</td>
+</tr>
+<tr>
+<td>managers</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Null and alternative hypotheses</td>
+<td><em>H_0: μ_US</em>− μE= 0;<em>Ha</em>:</td>
+<td>μ_US_− μE≠ 0</td>
+</tr>
+<tr>
+<td>Calculated test statistic</td>
+<td>0.4893</td>
+<td></td>
+</tr>
+<tr>
+<td>Critical value rejection points</td>
+<td>±1.984</td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nhóm / Chỉ tiêu</strong></th>
+<th><strong>Kích thước Mẫu (<em>Sample Size</em>)</strong></th>
+<th><strong>Tỷ suất sinh lợi Trung bình (<em>Mean Return</em>) (%)</strong></th>
+<th><strong>Độ lệch chuẩn (<em>Standard Deviation</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Các nhà quản lý Hoa Kỳ (<em>US managers</em>)</td>
+<td>50</td>
+<td>4.7</td>
+<td>5.4</td>
+</tr>
+<tr>
+<td>Các nhà quản lý Châu Âu (<em>European managers</em>)</td>
+<td>50</td>
+<td>4.2</td>
+<td>4.8</td>
+</tr>
+<tr>
+<td>Giả thuyết không và giả thuyết đối (<em>Null and alternative hypotheses</em>)</td>
+<td><span class="math-inline">$H_0: \mu_{\text{US}} - \mu_{\text{E}} = 0$</span>;</td>
+<td><span class="math-inline">$H_a: \mu_{\text{US}} - \mu_{\text{E}} \ne 0$</span></td>
+<td></td>
+</tr>
+<tr>
+<td>Thống kê kiểm định tính toán được (<em>Calculated test statistic</em>)</td>
+<td><span class="math-inline">$0.4893$</span></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Các điểm bác bỏ giá trị tới hạn (<em>Critical value rejection points</em>)</td>
+<td><span class="math-inline">$\pm 1.984$</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Note:</em> The mean return for US funds is μUS, and μE is the mean return for European funds.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Lưu ý:</em> Tỷ suất sinh lợi trung bình của các quỹ Hoa Kỳ là <span class="math-inline">$\mu_{\text{US}}$</span>, và <span class="math-inline">$\mu_{\text{E}}$</span> là tỷ suất sinh lợi trung bình của các quỹ Châu Âu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>The consultant should conclude that the:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> null hypothesis is not rejected.</p>
+</li>
+<li>
+<p><strong>B.</strong> alternative hypothesis is statistically confirmed.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Nhà tư vấn nên kết luận rằng:</li>
+</ol>
+<ul>
+<li><strong>A.</strong> giả thuyết không không bị bác bỏ (<em>null hypothesis is not rejected</em>). </li>
+<li><strong>B.</strong> giả thuyết đối được xác nhận có ý nghĩa thống kê.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-240" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 240 / Trang PDF 240
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>C.</strong> difference in mean returns is statistically different from zero.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>C.</strong> sự khác biệt trong tỷ suất sinh lợi trung bình là khác <span class="math-inline">$0$</span> có ý nghĩa thống kê.</li>
+</ul>
+<h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A is correct. The calculated <em>t</em> -statistic value of 0.4893 falls within the bounds of the critical <em>t</em> -values of ±1.984. Thus, <em>H</em> 0 cannot be rejected; the result is not statistically significant at the 0.05 level.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>A đúng. Giá trị thống kê <span class="math-inline">$t$</span> tính toán được là <span class="math-inline">$0.4893$</span> nằm trong giới hạn của các giá trị <span class="math-inline">$t$</span> tới hạn là <span class="math-inline">$\pm 1.984$</span>. Do đó, không thể bác bỏ <span class="math-inline">$H_0$</span>; kết quả không có ý nghĩa thống kê ở mức <span class="math-inline">$0.05$</span>.</p>
+<ol start="4">
+<li>Trong giai đoạn 10 năm, độ lệch chuẩn của tỷ suất sinh lợi hàng năm trên một danh mục đầu tư mà bạn đang phân tích là <span class="math-inline">$15\%$</span> một năm. Bạn muốn xem liệu hồ sơ này có phải là bằng chứng đủ để ủng hộ kết luận rằng phương sai tỷ suất sinh lợi cơ sở của danh mục đầu tư nhỏ hơn <span class="math-inline">$400$</span>, tức phương sai tỷ suất sinh lợi của chỉ số chuẩn (<em>benchmark</em>) của danh mục đầu tư hay không.</li>
+</ol>
+<ul>
+<li><strong>A.</strong> Thiết lập giả thuyết không và giả thuyết đối nhất quán với mục tiêu của bạn. </li>
+<li><strong>B.</strong> Xác định thống kê kiểm định để tiến hành kiểm định các giả thuyết ở Phần A, và tính bậc tự do. </li>
+<li><strong>C.</strong> Xác định xem giả thuyết không bị bác bỏ hay không bị bác bỏ ở mức ý nghĩa <span class="math-inline">$0.05$</span> bằng cách sử dụng giá trị tới hạn là <span class="math-inline">$3.325$</span>.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>During a 10-year period, the standard deviation of annual returns on a portfolio you are analyzing was 15 percent a year. You want to see whether this record is sufficient evidence to support the conclusion that the portfolio’s underlying variance of return was less than 400, the return variance of the portfolio’s benchmark.</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Formulate null and alternative hypotheses consistent with your objective.</p>
+</li>
+<li>
+<p><strong>B.</strong> Identify the test statistic for conducting a test of the hypotheses in Part A, and calculate the degrees of freedom.</p>
+</li>
+<li>
+<p><strong>C.</strong> Determine whether the null hypothesis is rejected or not rejected at the 0.05 level of significance using a critical value of 3.325.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+<li>
+<p><strong>A.</strong> We have a “less than” alternative hypothesis, where σ<sup>2</sup> is the variance of return on the portfolio. The hypotheses are <em>H</em> 0: σ<sup>2</sup> ≥ 400 versus Ha: σ<sup>2</sup> &lt; 400, where 400 is the hypothesized value of variance. This means that the rejection region is on the left side of the distribution.</p>
+</li>
+<li>
+<p><strong>B.</strong> The test statistic is chi-square distributed with 10 − 1 = 9 degrees of freedom.</p>
+</li>
+<li>
+<p><strong>C.</strong> The test statistic is calculated as</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6>
+<ul>
+<li><strong>A.</strong> Chúng ta có một giả thuyết đối dạng “nhỏ hơn”, trong đó <span class="math-inline">$\sigma^2$</span> là phương sai tỷ suất sinh lợi của danh mục đầu tư. Các giả thuyết là <span class="math-inline">$H_0: \sigma^2 \ge 400$</span> đối lập với <span class="math-inline">$H_a: \sigma^2 &lt; 400$</span>, trong đó <span class="math-inline">$400$</span> là giá trị phương sai theo giả thuyết. Điều này có nghĩa là miền bác bỏ nằm ở phía bên trái của phân phối. </li>
+<li><strong>B.</strong> Thống kê kiểm định có phân phối Khi-bình phương (<em>chi-square distributed</em>) với <span class="math-inline">$10 - 1 = 9$</span> bậc tự do. </li>
+<li><strong>C.</strong> Thống kê kiểm định được tính như sau:</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0240-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0240-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\chi^2 = \frac{(n - 1)s^2}{\sigma_0^2} = \frac{9 \times 15^2}{400} = \frac{2,025}{400} = 5.0625, \text{ hay } 5.06$$</div>
+<p><em>(Lưu ý nguyên bản sách CFA và đính chính chuẩn xác)</em>: Văn bản gốc ghi "Bởi vì <span class="math-inline">$5.06$</span> lớn hơn <span class="math-inline">$3.325$</span>, chúng ta bác bỏ giả thuyết không; thống kê kiểm định tính toán được rơi về phía bên phải của giá trị tới hạn, nơi giá trị tới hạn ngăn cách vùng phía bên trái với vùng chúng ta bác bỏ giả thuyết không." <em>(Đính chính toán học: Vì <span class="math-inline">$H_a: \sigma^2 &lt; 400$</span> là kiểm định đuôi trái với giá trị tới hạn đuôi trái <span class="math-inline">$\chi^2_{0.05, 9} = 3.325$</span>, miền bác bỏ là <span class="math-inline">$\chi^2 &lt; 3.325$</span>. Vì <span class="math-inline">$5.06 &gt; 3.325$</span> và <span class="math-inline">$p\text{-value} = 17.0953\% &gt; 5\%$</span>, kết luận chuẩn xác về mặt toán học là </em><em>không bác bỏ</em><em> <span class="math-inline">$H_0$</span>).</em> Chúng ta có thể xác định giá trị tới hạn cho kiểm định này bằng phần mềm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Because 5.06 is greater than 3.325, we reject the null hypothesis; the calculated test statistic falls to the right of the critical value, where the critical value separates the left-side region from the region where we reject the null. We can determine the critical value for this test using software:</p>
+<p><strong>Excel</strong> ~~[CHISQ.INV(0.05,9)]~~</p>
+<p>~~[qchisq(.05,9)]~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Excel:</strong> <code>[CHISQ.INV(0.05,9)]</code> </li>
+<li><strong>R:</strong> <code>[qchisq(.05,9)]</code> </li>
+<li><strong>Python:</strong> <code>[from scipy.stats import chi2 and chi2.ppf(.05,9)]</code></li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Python</strong></h4>
+<p>~~[from scipy.stats import chi2 and chi2.ppf(.05,9)]~~ We can determine the <em>p</em> -value for the calculated test statistic of 17.0953 using software:</p>
+<p><strong>Excel</strong> ~~[CHISQ.DIST(5.06,9,TRUE)]~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể xác định giá trị <span class="math-inline">$p$</span> (<em>p-value</em>) cho thống kê kiểm định tính toán được là <span class="math-inline">$17.0953\%$</span> bằng phần mềm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>~~[pchisq(5.06,9,lower.tail=TRUE)]~~</p>
+<p><strong>Python</strong></p>
+<p>~~[from scipy.stats import chi2 and chi2. cdf(5.06,9)]~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Excel:</strong> <code>[CHISQ.DIST(5.06,9,TRUE)]</code> </li>
+<li><strong>R:</strong> <code>[pchisq(5.06,9,lower.tail=TRUE)]</code> </li>
+<li><strong>Python:</strong> <code>[from scipy.stats import chi2 and chi2.cdf(5.06,9)]</code></li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-241" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 241 / Trang PDF 241
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="5">
+<li>You are investigating whether the population variance of returns on an index changed subsequent to a market disruption. You gather the following data for 120 months of returns before the disruption and for 120 months of returns after the disruption. You have specified a 0.05 level of significance.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li>Bạn đang khảo sát xem liệu phương sai tổng thể của tỷ suất sinh lợi trên một chỉ số có thay đổi sau một sự kiện gián đoạn thị trường (<em>market disruption</em>) hay không. Bạn thu thập dữ liệu sau đây cho 120 tháng tỷ suất sinh lợi trước khi gián đoạn và 120 tháng tỷ suất sinh lợi sau khi gián đoạn. Bạn đã chỉ định mức ý nghĩa là <span class="math-inline">$0.05$</span>.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Exhibit 12: Data for 120 Months of Returns</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Minh họa 12: Dữ liệu cho 120 Tháng Tỷ suất sinh lợi (<em>Exhibit 12: Data for 120 Months of Returns</em>)</strong></h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Giai đoạn Thời gian (<em>Time Period</em>)</strong></th>
+<th><strong><span class="math-inline">$N$</span></strong></th>
+<th><strong>Tỷ suất sinh lợi Hàng tháng Trung bình (<em>Mean Monthly Return</em>) (%)</strong></th>
+<th><strong>Phương sai của Tỷ suất sinh lợi (<em>Variance of Returns</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trước gián đoạn (<em>Before disruption</em>)</td>
+<td>120</td>
+<td>1.416</td>
+<td>22.367</td>
+</tr>
+<tr>
+<td>Sau gián đoạn (<em>After disruption</em>)</td>
+<td>120</td>
+<td>1.436</td>
+<td>15.795</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Time Period</strong></th>
+<th><strong><em>N</em></strong></th>
+<th><strong>Mean Monthly Return (%)</strong></th>
+<th><strong>Variance of Returns</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before disruption</td>
+<td>120</td>
+<td>1.416</td>
+<td>22.367</td>
+</tr>
+<tr>
+<td>After disruption</td>
+<td>120</td>
+<td>1.436</td>
+<td>15.795</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Thiết lập giả thuyết không và giả thuyết đối nhất quán với mục tiêu nghiên cứu. </li>
+<li><strong>B.</strong> Xác định thống kê kiểm định để tiến hành kiểm định các giả thuyết ở Phần A, và tính bậc tự do. </li>
+<li><strong>C.</strong> Xác định xem có bác bỏ giả thuyết không ở mức ý nghĩa <span class="math-inline">$0.05$</span> hay không nếu các giá trị tới hạn là <span class="math-inline">$0.6969$</span> và <span class="math-inline">$1.4349$</span>.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Formulate null and alternative hypotheses consistent with the research goal.</p>
+</li>
+<li>
+<p><strong>B.</strong> Identify the test statistic for conducting a test of the hypotheses in Part A, and calculate the degrees of freedom.</p>
+</li>
+<li>
+<p><strong>C.</strong> Determine whether to reject the null hypothesis at the 0.05 level of significance if the critical values are 0.6969 and 1.4349.</p>
+</li>
+<li>
+<p><strong>Solution: A.</strong> We have a “not equal to” alternative hypothesis: 2 2 2 2 .</p>
+</li>
+<li>
+<p><em>H</em> 0  : <em>σBefore</em> = <em>σAfter</em> versus <em>Ha</em> : <em>σBefore</em> ≠ <em>σAfter</em> <strong>B.</strong> To test a null hypothesis of the equality of two variances, we use an <em>F</em> -test:  s_ 1<sup>2</sup></p>
+</li>
+<li>
+<p><em>F</em> = <em>s</em> 2<sup>2 .</sup></p>
+</li>
+<li>
+<p><em>F</em> = 22.367/15.795 = 1.416, with 120 − 1 = 119 numerator and 120 − 1 = 119 denominator degrees of freedom.</p>
+</li>
+<li>
+<p><strong>C.</strong> Because this is a two-tailed test, we use critical values for the 0.05/2 = 0.025 level. The calculated test statistic falls within the bounds of the critical values (i.e., between 0.6969 and 1.4349), so we fail to reject the null hypothesis; there is not enough evidence to indicate that the variances are different before and after the disruption. Note that we could also have formed the F-statistic as 15.796/22.367 = 0.706 and draw the same conclusion.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We could also use software to calculate the critical values:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Chúng ta có một giả thuyết đối dạng “khác” (<em>not equal to</em>): 
+  <div class="math-display my-3 overflow-x-auto">$$H_0: \sigma_{\text{Before}}^2 = \sigma_{\text{After}}^2 \text{ đối lập với } H_a: \sigma_{\text{Before}}^2 \ne \sigma_{\text{After}}^2$$</div></li>
+<li><strong>B.</strong> Để kiểm định giả thuyết không về sự bằng nhau của hai phương sai, chúng ta sử dụng kiểm định <span class="math-inline">$F$</span> (<em>F-test</em>): 
+  <div class="math-display my-3 overflow-x-auto">$$F = \frac{s_1^2}{s_2^2}$$</div>
+  <div class="math-display my-3 overflow-x-auto">$$F = \frac{22.367}{15.795} = 1.416$$</div>
+  với <span class="math-inline">$120 - 1 = 119$</span> bậc tự do ở tử số và <span class="math-inline">$120 - 1 = 119$</span> bậc tự do ở mẫu số. </li>
+<li><strong>C.</strong> Bởi vì đây là kiểm định hai phía (<em>two-tailed test</em>), chúng ta sử dụng các giá trị tới hạn cho mức <span class="math-inline">$0.05 / 2 = 0.025$</span>. Thống kê kiểm định tính toán được nằm trong giới hạn của các giá trị tới hạn (tức là nằm giữa <span class="math-inline">$0.6969$</span> và <span class="math-inline">$1.4349$</span>), vì vậy chúng ta không bác bỏ giả thuyết không; không có đủ bằng chứng để chỉ ra rằng phương sai là khác nhau trước và sau khi gián đoạn. Lưu ý rằng chúng ta cũng có thể lập thống kê <span class="math-inline">$F$</span> dưới dạng <span class="math-inline">$15.795 / 22.367 = 0.706$</span> và rút ra cùng một kết luận.</li>
+</ul>
+<p>Chúng ta cũng có thể sử dụng phần mềm để tính các giá trị tới hạn:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Excel</strong> ~~[F.INV(0.025,119,119)~~ and ~~F.INV(0.975,119,119)] [qf(c(.025,.975),119,119)]~~ <strong>Python</strong> ~~from scipy.stats import f and f.ppf [(.025,119,119) and f.ppf(.975,119,119)]~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Excel:</strong> <code>[F.INV(0.025,119,119) and F.INV(0.975,119,119)]</code></li>
+<li><strong>R:</strong> <code>[qf(c(.025,.975),119,119)]</code></li>
+<li><strong>Python:</strong> <code>from scipy.stats import f and f.ppf[(.025,119,119) and f.ppf(.975,119,119)]</code></li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-242" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 242 / Trang PDF 242
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Additionally, we could use software to calculate the <em>p</em> -value of the calculated test statistic, which is 5.896 percent, and then compare it with the level of significance:</p>
+<p><strong>Excel</strong></p>
+<p>~~[(1-F.DIST(22.367/15.796,119,119,TRUE))<em>2~~ or ~~F.DIST(15.796/22.367,119,119,TRUE)</em>2]~~ <strong>R</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ngoài ra, chúng ta có thể sử dụng phần mềm để tính giá trị <span class="math-inline">$p$</span> của thống kê kiểm định tính toán được, có kết quả là <span class="math-inline">$5.896\%$</span>, và sau đó so sánh nó với mức ý nghĩa:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>~~[(1-pf(22.367/15.796,119,119))<em>2~~ or ~~pf(15.796/22.367,119,119)</em>2]~~</p>
+<p><strong>Python</strong></p>
+<p>~~from scipy.stats import f and f.cdf [(15.796/22.367,119,119)<em>2~~ or ~~(1-f.cdf(22.367/15.796,119,119))</em>2]~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Excel:</strong> <code>[(1-F.DIST(22.367/15.796,119,119,TRUE))*2 or F.DIST(15.796/22.367,119,119,TRUE)*2]</code></li>
+<li><strong>R:</strong> <code>[(1-pf(22.367/15.796,119,119))*2 or pf(15.796/22.367,119,119)*2]</code> </li>
+<li><strong>Python:</strong> <code>from scipy.stats import f and f.cdf[(15.796/22.367,119,119)*2 or (1-f.cdf(22.367/15.796,119,119))*2]</code></li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>4</mark> PARAMETRIC VERSUS NONPARAMETRIC TESTS</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>4</mark> KIỂM ĐỊNH THAM SỐ SO VỚI KIỂM ĐỊNH PHI THAM SỐ (<em>PARAMETRIC VERSUS NONPARAMETRIC TESTS</em>)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>compare and contrast parametric and nonparametric tests, and describe situations where each is the more appropriate type of test</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>So sánh và đối chiếu các kiểm định tham số và phi tham số, đồng thời mô tả các tình huống mà mỗi loại kiểm định là phù hợp hơn</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The hypothesis testing procedures we have discussed up to this point have two characteristics in common. First, they are concerned with parameters, and second, their validity depends on a definite set of assumptions. Mean and variance, for example, are two parameters, or defining quantities, of a normal distribution. The tests also make specific assumptions—in particular, assumptions about the distribution of the population producing the sample. Any test or procedure with either of these two characteristics is a <strong>parametric test</strong> or procedure.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các thủ tục kiểm định giả thuyết mà chúng ta đã thảo luận cho đến thời điểm này có hai đặc điểm chung. Thứ nhất, chúng liên quan đến các tham số (<em>parameters</em>), và thứ hai, tính hợp lệ của chúng phụ thuộc vào một tập hợp các giả định xác định. Ví dụ, giá trị trung bình và phương sai là hai tham số, hay hai đại lượng xác định, của một phân phối chuẩn. Các kiểm định này cũng đưa ra các giả định cụ thể—đặc biệt là các giả định về phân phối của tổng thể tạo ra mẫu. Bất kỳ kiểm định hoặc thủ tục nào có một trong hai đặc điểm này đều là <strong>kiểm định tham số (<em>parametric test</em>)</strong> hoặc thủ tục tham số.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In some cases, however, we are concerned about quantities other than parameters of distributions. In other cases, we may believe that the assumptions of parametric tests do not hold. In cases where we are examining quantities other than population parameters or where assumptions of the parameters are not satisfied, a nonparametric test or procedure can be useful.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tuy nhiên, trong một số trường hợp, chúng ta quan tâm đến các đại lượng khác ngoài các tham số của phân phối. Trong các trường hợp khác, chúng ta có thể tin rằng các giả định của kiểm định tham số không được thỏa mãn. Trong những trường hợp chúng ta đang xem xét các đại lượng khác ngoài tham số tổng thể hoặc nơi các giả định về tham số không được thỏa mãn, một kiểm định hoặc thủ tục phi tham số có thể rất hữu ích.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A <strong>nonparametric test</strong> is a test that is not concerned with a parameter or a test that makes minimal assumptions about the population from which the sample comes. Exhibit 13 presents examples of nonparametric alternatives to the parametric, <em>t</em> -distributed tests concerning means.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Kiểm định phi tham số (<em>nonparametric test</em>)</strong> là một kiểm định không liên quan đến một tham số hoặc một kiểm định đưa ra các giả định tối thiểu về tổng thể mà từ đó mẫu được rút ra. Minh họa 13 trình bày các ví dụ về các phương pháp thay thế phi tham số cho các kiểm định tham số có phân phối <span class="math-inline">$t$</span> liên quan đến giá trị trung bình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 13: Nonparametric Alternatives to Parametric Tests Concerning Means</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 13: Các Phương pháp Thay thế Phi tham số cho các Kiểm định Tham số Liên quan đến Giá trị Trung bình (<em>Exhibit 13: Nonparametric Alternatives to Parametric Tests Concerning Means</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Parametric</strong></th>
+<th><strong>Nonparametric</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tests concerning a single mean</td>
+<td><em>t</em>-distributed test<br><em>z</em>-distributed test</td>
+<td>Wilcoxon signed-rank test</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Tham số (<em>Parametric</em>)</strong></th>
+<th><strong>Phi tham số (<em>Nonparametric</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Các kiểm định liên quan đến một giá trị trung bình đơn lẻ (<em>Tests concerning a single mean</em>)</td>
+<td>Kiểm định phân phối <span class="math-inline">$t$</span> (<em>t-distributed test</em>)<br>Kiểm định phân phối <span class="math-inline">$z$</span> (<em>z-distributed test</em>)</td>
+<td>Kiểm định thứ hạng có dấu Wilcoxon (<em>Wilcoxon signed-rank test</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-243" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 243 / Trang PDF 243
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Tests concerning differences between</th>
+<th><em>t</em>-distributed test</th>
+<th>Mann–Whitney_U_test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f<br>means</td>
+<td></td>
+<td>(Wilcoxon rank sum test)</td>
+</tr>
+<tr>
+<td>Tests concerning mean differences</td>
+<td><em>t</em>-distributed test</td>
+<td>Wilcoxon signed-rank test</td>
+</tr>
+<tr>
+<td>f<br>(paired comparisons tests)</td>
+<td></td>
+<td>Sign test</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Tham số (<em>Parametric</em>)</strong></th>
+<th><strong>Phi tham số (<em>Nonparametric</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Các kiểm định liên quan đến sự khác biệt giữa hai giá trị trung bình (<em>Tests concerning differences between means</em>)</td>
+<td>Kiểm định phân phối <span class="math-inline">$t$</span> (<em>t-distributed test</em>)</td>
+<td>Kiểm định <span class="math-inline">$U$</span> Mann–Whitney (<em>Mann–Whitney U test</em>)<br>(Kiểm định tổng thứ hạng Wilcoxon – <em>Wilcoxon rank sum test</em>)</td>
+</tr>
+<tr>
+<td>Các kiểm định liên quan đến trung bình của các chênh lệch – kiểm định so sánh cặp (<em>Tests concerning mean differences – paired comparisons tests</em>)</td>
+<td>Kiểm định phân phối <span class="math-inline">$t$</span> (<em>t-distributed test</em>)</td>
+<td>Kiểm định thứ hạng có dấu Wilcoxon (<em>Wilcoxon signed-rank test</em>)<br>Kiểm định dấu (<em>Sign test</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Uses of Nonparametric Tests</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Ứng dụng của các Kiểm định Phi tham số (<em>Uses of Nonparametric Tests</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Nonparametric procedures are primarily used in four situations: (1) when the data do not meet distributional assumptions, (2) when there are outliers, (3) when the data are given in ranks or use an ordinal scale, or (4) when the relevant hypotheses do not concern a parameter.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các thủ tục phi tham số chủ yếu được sử dụng trong bốn tình huống: (1) khi dữ liệu không đáp ứng các giả định về phân phối, (2) khi có các giá trị ngoại lai (<em>outliers</em>), (3) khi dữ liệu được cho dưới dạng thứ hạng (<em>ranks</em>) hoặc sử dụng thang đo thứ bậc (<em>ordinal scale</em>), hoặc (4) khi các giả thuyết có liên quan không đề cập đến một tham số.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The first situation occurs when the data available for analysis suggest that the distributional assumptions of the parametric test are not satisfied. For example, we may want to test a hypothesis concerning the mean of a population but believe that neither <em>t</em> - nor <em>z</em> -distributed tests are appropriate because the sample is small and may come from a markedly non-normally distributed population. In that case, we may use a nonparametric test. The nonparametric test will frequently involve the conversion of observations (or a function of observations) into ranks according to magnitude, and sometimes it will involve working with only “greater than” or “less than” relationships (using the + and − signs to denote those relationships). Characteristically, one must refer to specialized statistical tables to determine the rejection points of the test statistic, at least for small samples. Such tests, then, typically interpret the null hypothesis as a hypothesis about ranks or signs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tình huống thứ nhất xảy ra khi dữ liệu sẵn có để phân tích cho thấy rằng các giả định về phân phối của kiểm định tham số không được thỏa mãn. Ví dụ, chúng ta có thể muốn kiểm định một giả thuyết liên quan đến giá trị trung bình của một tổng thể nhưng tin rằng cả kiểm định phân phối <span class="math-inline">$t$</span> lẫn phân phối <span class="math-inline">$z$</span> đều không phù hợp bởi vì mẫu nhỏ và có thể đến từ một tổng thể có phân phối lệch chuẩn rõ rệt (<em>markedly non-normally distributed</em>). Trong trường hợp đó, chúng ta có thể sử dụng một kiểm định phi tham số. Kiểm định phi tham số sẽ thường xuyên bao gồm việc chuyển đổi các quan sát (hoặc một hàm của các quan sát) thành các thứ hạng (<em>ranks</em>) theo độ lớn, và đôi khi nó sẽ chỉ làm việc với các mối quan hệ “lớn hơn” hoặc “nhỏ hơn” (sử dụng các dấu <span class="math-inline">$+$</span> và <span class="math-inline">$-$</span> để biểu thị các mối quan hệ đó). Về mặt đặc trưng, người ta phải tham khảo các bảng thống kê chuyên biệt để xác định các điểm bác bỏ của thống kê kiểm định, ít nhất là đối với các mẫu nhỏ. Khi đó, các kiểm định như vậy thường diễn giải giả thuyết không thành một giả thuyết về thứ hạng hoặc dấu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Second, whereas the underlying distribution of the population may be normal, there may be extreme values or outliers that influence the parametric statistics but not the nonparametric statistics. For example, we may want to use a nonparametric test of the median, in the case of outliers, instead of a test of the mean.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thứ hai, trong khi phân phối cơ sở của tổng thể có thể là chuẩn, có thể có các giá trị cực đoan hoặc giá trị ngoại lai (<em>outliers</em>) gây ảnh hưởng đến các thống kê tham số nhưng không ảnh hưởng đến các thống kê phi tham số. Ví dụ, chúng ta có thể muốn sử dụng một kiểm định phi tham số về trung vị (<em>median</em>), trong trường hợp có các giá trị ngoại lai, thay vì kiểm định về giá trị trung bình (<em>mean</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Third, we may have a sample in which observations are ranked. In those cases, we also use nonparametric tests because parametric tests generally require a stronger measurement scale than ranks. For example, if our data were the rankings of investment managers, we would use nonparametric procedures to test the hypotheses concerning those rankings.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thứ ba, chúng ta có thể có một mẫu trong đó các quan sát được xếp hạng (<em>ranked</em>). Trong những trường hợp đó, chúng ta cũng sử dụng các kiểm định phi tham số bởi vì các kiểm định tham số thường đòi hỏi một thang đo mạnh hơn thang đo thứ hạng. Ví dụ, nếu dữ liệu của chúng ta là bảng xếp hạng các nhà quản lý đầu tư, chúng ta sẽ sử dụng các thủ tục phi tham số để kiểm định các giả thuyết liên quan đến các bảng xếp hạng đó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A fourth situation in which we use nonparametric procedures occurs when our question does not concern a parameter. For example, if the question concerns whether a sample is random or not, we use the appropriate nonparametric test (a “runs test”). The nonparametric runs test is used to test whether stock price changes can be used to forecast future stock price changes—in other words, a test of the random walk theory. Another type of question that nonparametric methods can address is whether a sample came from a population following a particular probability distribution.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tình huống thứ tư mà chúng ta sử dụng các thủ tục phi tham số xảy ra khi câu hỏi của chúng ta không liên quan đến một tham số. Ví dụ, nếu câu hỏi liên quan đến việc liệu một mẫu có ngẫu nhiên hay không, chúng ta sử dụng kiểm định phi tham số phù hợp (kiểm định mạch – “<em>runs test</em>”). Kiểm định mạch phi tham số được sử dụng để kiểm định xem liệu các thay đổi giá cổ phiếu có thể được dùng để dự báo các thay đổi giá cổ phiếu trong tương lai hay không—nói cách khác, một kiểm định về lý thuyết bước đi ngẫu nhiên (<em>random walk theory</em>). Một loại câu hỏi khác mà các phương pháp phi tham số có thể giải quyết là liệu một mẫu có đến từ một tổng thể tuân theo một phân phối xác suất cụ thể nào đó hay không.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Nonparametric Inference: Summary</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Suy luận Phi tham số: Tóm tắt (<em>Nonparametric Inference: Summary</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Nonparametric statistical procedures extend the reach of inference because they make few assumptions, can be used on ranked data, and may address questions unrelated to parameters. Quite frequently, nonparametric tests are reported alongside parametric tests; the user can then assess how sensitive the statistical conclusion is to the assumptions underlying the parametric test. However, if the assumptions of the parametric test are met, the parametric test (where available) is generally preferred over the nonparametric test because the parametric test may have more power—that is, a greater ability to reject a false null hypothesis.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các thủ tục thống kê phi tham số mở rộng phạm vi của suy luận bởi vì chúng đưa ra rất ít giả định, có thể được sử dụng trên dữ liệu xếp hạng, và có thể giải quyết các câu hỏi không liên quan đến tham số. Khá thường xuyên, các kiểm định phi tham số được báo cáo song song với các kiểm định tham số; khi đó người dùng có thể đánh giá mức độ nhạy cảm của kết luận thống kê đối với các giả định cơ sở của kiểm định tham số. Tuy nhiên, nếu các giả định của kiểm định tham số được đáp ứng, kiểm định tham số (khi có sẵn) nhìn chung được ưu tiên hơn so với kiểm định phi tham số bởi vì kiểm định tham số có thể có lực kiểm định lớn hơn (<em>more power</em>)—tức là khả năng lớn hơn trong việc bác bỏ một giả thuyết không đang sai.</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM08_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM08_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM08_Part3_Practice_Problems.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM08_Part3_Practice_Problems →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html');
+    });
+  </script>
+</body>
+</html>

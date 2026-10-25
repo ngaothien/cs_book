@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 4 Analyzing Statements of Cash Flows I - Part 3: Solutions — Volume 4: Financial Statement Analysis | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 4: Phân Tích Báo Cáo Tài Chính
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 4 Analyzing Statements of Cash Flows I - Part 3: Solutions</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM04_Full_Analyzing_Statements_of_Cash_Flows_I.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (2 trang)...</option>
+          <option value="165">PDF Page 165</option>
+<option value="166">PDF Page 166</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 4</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Phân Tích Báo Cáo Tài Chính</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 4</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Introduction_to_Financial_Statement_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Introduction to Financial Statement Analysis</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Regulated_Sources_of_Information.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Regulated Sources of Information</a>
+<a href="LM01_Part3_Comparison_of_IFRS_with_Alternative_Financial.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Comparison of IFRS with Alternative Financial Reporting Systems</a>
+<a href="LM02_Full_Analyzing_Income_Statements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Analyzing Income Statements</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Expense_Recognition.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Expense Recognition</a>
+<a href="LM02_Part3_Non_Recurring_Items.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Non-Recurring Items</a>
+<a href="LM02_Part4_Income_Statement_Ratios_and_Common_Size_Analy.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Income Statement Ratios and Common-Size Analysis</a>
+<a href="LM03_Full_Analyzing_Balance_Sheets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Analyzing Balance Sheets</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Ratios_and_Common_Size_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Ratios and Common-Size Analysis</a>
+<a href="LM04_Full_Analyzing_Statements_of_Cash_Flows_I.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Analyzing Statements of Cash Flows I</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_The_Indirect_Method_for_Cash_Flows_from_Opera.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Indirect Method for Cash Flows from Operating Activities</a>
+<a href="LM04_Part3_Solutions.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 3: Solutions</a>
+<a href="LM05_Full_Analyzing_Statements_of_Cash_Flows_II.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Analyzing Statements of Cash Flows II</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM06_Full_Analysis_of_Inventories.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Analysis of Inventories</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Presentation_and_Disclosure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Presentation and Disclosure</a>
+<a href="LM06_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM06_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM07_Full_Analysis_of_Long_Term_Assets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Analysis of Long-Term Assets</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Presentation_and_Disclosure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Presentation and Disclosure</a>
+<a href="LM07_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM08_Full_Topics_in_Long_Term_Liabilities_and_Equity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Topics in Long-Term Liabilities and Equity</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Financial_Reporting_for_Postemployment_and_Sh.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Reporting for Postemployment and Share-Based Compensation Plans</a>
+<a href="LM08_Part3_Presentation_and_Disclosure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Presentation and Disclosure</a>
+<a href="LM09_Full_Analysis_of_Income_Taxes.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Analysis of Income Taxes</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Corporate_Income_Tax_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Corporate Income Tax Rates</a>
+<a href="LM09_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM10_Full_Financial_Reporting_Quality.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Financial Reporting Quality</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Differentiate_between_Conservative_and_Aggres.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Differentiate between Conservative and Aggressive Accounting</a>
+<a href="LM10_Part3_Detection_of_Financial_Reporting_Quality_Issu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Detection of Financial Reporting Quality Issues: Introduction and Presentation Choices</a>
+<a href="LM10_Part4_Accounting_Choices_and_Estimates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Accounting Choices and Estimates</a>
+<a href="LM10_Part5_Accounting_Choices_that_Affect_Financial_Repo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Accounting Choices that Affect Financial Reporting</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full_Financial_Analysis_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Financial Analysis Techniques</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Cross_Sectional_Trend_Analysis_and_Relationsh.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Cross-Sectional, Trend Analysis, and Relationships in Financial Statements</a>
+<a href="LM11_Part3_Liquidity_Ratios.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Liquidity Ratios</a>
+<a href="LM11_Part4_DuPont_Analysis_The_Decomposition_of_ROE.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: DuPont Analysis—The Decomposition of ROE</a>
+<a href="LM11_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM12_Full_Introduction_to_Financial_Statement_Modeling.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Introduction to Financial Statement Modeling</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Behavioral_Finance_and_Analyst_Forecasts.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Behavioral Finance and Analyst Forecasts</a>
+<a href="LM12_Part3_Modeling_Inflation_and_Deflation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Modeling Inflation and Deflation</a>
+<a href="LM12_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 4 • Financial Statement Analysis (Phân Tích Báo Cáo Tài Chính)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 4 Analyzing Statements of Cash Flows I - Part 3: Solutions</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('04_Financial_Statement_Analysis/LM04_Part3_Solutions.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 4: Financial Statement Analysis</h1>
+<h2>Learning Module 4 Analyzing Statements of Cash Flows I</h2>
+<h3>Part 3/3: Solutions (PDF Pages 165–166)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 4: Phân tích Báo cáo Tài chính (Volume 4: Financial Statement Analysis)</h1>
+<h2>Học phần 4: Phân tích Báo cáo Lưu chuyển Tiền tệ I (Learning Module 4: Analyzing Statements of Cash Flows I)</h2>
+<h3>Phần 3/3: Lời giải (Solutions) (Trang PDF 165–166)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-165" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 165 / Trang PDF 165
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~SOLUTIONS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>LỜI GIẢI (SOLUTIONS)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>A is correct. To derive operating cash flow, the company would make the following adjustments to net income: add depreciation (a non-cash expense) of USD7 million; add the decrease in inventory of USD3 million; add the increase in accounts payable of USD10 million; and subtract the increase in accounts receivable of USD15 million. Total additions of USD20 million and total subtractions of USD15 million result in net total additions of USD5 million.</p>
+</li>
+<li>
+<p>B is correct. An addition to net income is made when there is a loss on the retirement of debt, which is a non-operating loss. A gain on the sale of an asset and a decrease in deferred tax liability are both subtracted from net-income.</p>
+</li>
+<li>
+<p>B is correct. All dollar amounts are in millions. Net income (NI) for 2018 is USD35. This amount is the increase in retained earnings, USD25, plus the dividends paid, USD10. Depreciation of USD25 is added back to net income, and the increases in accounts receivable, USD5, and in inventory, USD3, are subtracted from net income because they are uses of cash. The decrease in accounts payable is also a use of cash and, therefore, a subtraction from net income. Thus, cash flow from operations is USD25 + USD10 + USD25 – USD5 – USD3 – USD7 = USD45.</p>
+</li>
+<li>
+<p>B is correct. To derive operating cash flow, the company would make the following adjustments to net income: Add depreciation (a non-cash expense) of USD2 million; add the decrease in accounts receivable of USD3 million; add the increase in accounts payable of USD5 million; and subtract the increase in inventory of USD4 million. Total additions would be USD10 million, and total subtractions would be USD4 million, which gives net additions of USD6 million.</p>
+</li>
+<li>
+<p>A is correct.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>A là đáp án đúng. Để tính ra dòng tiền từ hoạt động kinh doanh (<em>operating cash flow</em>), công ty sẽ thực hiện các điều chỉnh sau đây đối với lợi nhuận ròng (<em>net income</em>): cộng chi phí khấu hao (một chi phí phi tiền tệ) là 7 triệu USD; cộng mức giảm hàng tồn kho là 3 triệu USD; cộng mức tăng khoản phải trả người bán là 10 triệu USD; và trừ đi mức tăng khoản phải thu khách hàng là 15 triệu USD. Tổng các khoản cộng thêm là 20 triệu USD và tổng các khoản trừ đi là 15 triệu USD dẫn đến tổng mức cộng thêm ròng là 5 triệu USD.</p>
+</li>
+<li>
+<p>B là đáp án đúng. Một khoản cộng thêm vào lợi nhuận ròng được thực hiện khi có một khoản lỗ từ việc tất toán nợ trước hạn (<em>loss on the retirement of debt</em>), vốn là một khoản lỗ phi hoạt động kinh doanh (<em>non-operating loss</em>). Một khoản lãi từ việc bán tài sản và sự sụt giảm trong thuế thu nhập hoãn lại phải trả đều được trừ khỏi lợi nhuận ròng.</p>
+</li>
+<li>
+<p>B là đáp án đúng. Tất cả các số tiền đô la đều tính bằng triệu. Lợi nhuận ròng (NI) cho năm 2018 là 35 USD. Số tiền này bằng mức tăng lợi nhuận giữ lại, 25 USD, cộng với cổ tức đã trả, 10 USD. Khấu hao 25 USD được cộng ngược trở lại vào lợi nhuận ròng, và mức tăng trong khoản phải thu khách hàng, 5 USD, cùng mức tăng trong hàng tồn kho, 3 USD, được trừ khỏi lợi nhuận ròng bởi vì chúng là các khoản sử dụng tiền mặt (<em>uses of cash</em>). Sự sụt giảm trong khoản phải trả người bán (7 USD) cũng là một khoản sử dụng tiền mặt và do đó là một khoản trừ khỏi lợi nhuận ròng. Như vậy, dòng tiền từ hoạt động kinh doanh là <span class="math-inline">$\text{USD}25 + \text{USD}10 + \text{USD}25 - \text{USD}5 - \text{USD}3 - \text{USD}7 = \text{USD}45$</span>.</p>
+</li>
+<li>
+<p>B là đáp án đúng. Để tính ra dòng tiền từ hoạt động kinh doanh, công ty sẽ thực hiện các điều chỉnh sau đây đối với lợi nhuận ròng: Cộng khấu hao (một chi phí phi tiền tệ) là 2 triệu USD; cộng mức giảm khoản phải thu khách hàng là 3 triệu USD; cộng mức tăng khoản phải trả người bán là 5 triệu USD; và trừ đi mức tăng hàng tồn kho là 4 triệu USD. Tổng các khoản cộng thêm sẽ là 10 triệu USD, và tổng các khoản trừ đi sẽ là 4 triệu USD, mang lại mức cộng thêm ròng là 6 triệu USD.</p>
+</li>
+<li>
+<p>A là đáp án đúng.</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Operating cash flows</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dòng tiền từ hoạt động kinh doanh (<em>Operating cash flows</em>)</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>= Cash received from customers – (Cash paid to suppliers + Cash paid to employees + Cash paid for other operating expenses + Cash paid for interest + Cash paid for income taxes)</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$= \text{Tiền thu từ khách hàng} - (\text{Tiền trả cho nhà cung cấp} + \text{Tiền trả cho người lao động} + \text{Tiền trả cho chi phí hoạt động khác} + \text{Tiền trả lãi vay} + \text{Tiền nộp thuế thu nhập})$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Cash received from customers = Revenue + Decrease in accounts receivable</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$\text{Tiền thu từ khách hàng} = \text{Doanh thu} + \text{Mức giảm khoản phải thu khách hàng}$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>= USD37 + USD3 = USD40 million</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$= \text{USD}37 + \text{USD}3 = 40\text{ triệu USD}$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Cash paid to suppliers</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$\text{Tiền trả cho nhà cung cấp}$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>= Cost of goods sold + Increase in inventory + Decrease in accounts payable</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$= \text{Giá vốn hàng bán} + \text{Mức tăng hàng tồn kho} + \text{Mức giảm khoản phải trả người bán}$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>= USD16 + USD4 + USD2 = USD22 million</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><span class="math-inline">$= \text{USD}16 + \text{USD}4 + \text{USD}2 = 22\text{ triệu USD}$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Therefore, the company’s operating cash flow = USD40 – USD22 – Cash paid for salaries – Cash paid for interest – Cash paid for taxes = USD40 – USD22 – USD6 – USD2 – USD4 = USD6 million.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó, dòng tiền từ hoạt động kinh doanh của công ty <span class="math-inline">$= \text{USD}40 - \text{USD}22 - \text{Tiền trả lương} - \text{Tiền trả lãi vay} - \text{Tiền nộp thuế} = \text{USD}40 - \text{USD}22 - \text{USD}6 - \text{USD}2 - \text{USD}4 = 6\text{ triệu USD}$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="6">
+<li>
+<p>C is correct. Cost of goods sold of USD80 million plus the increase in inventory of USD5 million equals purchases from suppliers of USD85 million. The increase in accounts payable of USD2 million means that the company paid USD83 million in cash (USD85 million minus USD2 million) to its suppliers.</p>
+</li>
+<li>
+<p>A is correct. Cost of goods sold of USD75 million less the decrease in inventory of USD6 million equals purchases from suppliers of USD69 million. The increase</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="6">
+<li>
+<p>C là đáp án đúng. Giá vốn hàng bán 80 triệu USD cộng với mức tăng hàng tồn kho 5 triệu USD bằng giá trị mua hàng từ các nhà cung cấp là 85 triệu USD. Mức tăng trong khoản phải trả người bán 2 triệu USD có nghĩa là công ty đã trả 83 triệu USD bằng tiền mặt (85 triệu USD trừ 2 triệu USD) cho các nhà cung cấp của mình.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Giá vốn hàng bán 75 triệu USD trừ đi mức giảm hàng tồn kho 6 triệu USD bằng giá trị mua hàng từ các nhà cung cấp là 69 triệu USD. Mức tăng</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-166" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 166 / Trang PDF 166
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>in accounts payable of USD2 million means that the company paid USD67 million in cash (USD69 million minus USD2 million).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong khoản phải trả người bán 2 triệu USD có nghĩa là công ty đã trả 67 triệu USD bằng tiền mặt (69 triệu USD trừ 2 triệu USD).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="8">
+<li>
+<p>C is correct. Beginning salaries payable of USD3 million plus salaries expense of USD20 million minus ending salaries payable of USD1 million equals USD22 million. Alternatively, the expense of USD20 million plus the USD2 million decrease in salaries payable equals USD22 million.</p>
+</li>
+<li>
+<p>C is correct. Cash received from customers = Sales + Decrease in accounts receivable = 254.6 + 4.9 = 259.5. Cash paid to suppliers = Cost of goods sold + Increase in inventory – Increase in accounts payable = 175.9 + 8.8 – 2.6 = 182.1.</p>
+</li>
+<li>
+<p>C is correct. Interest expense of USD19 million less the increase in interest payable of USD3 million equals interest paid of USD16 million. Tax expense of USD6 million plus the decrease in taxes payable of USD4 million equals taxes paid of USD10 million.</p>
+</li>
+<li>
+<p>A is correct. The amount of cash paid to suppliers is calculated as follows:</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>= Cost of goods sold – Decrease in inventory – Increase in accounts payable</p>
+</li>
+<li>
+<p>= USD27,264 – USD501 – USD1,063</p>
+</li>
+<li>
+<p>= USD25,700.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="8">
+<li>
+<p>C là đáp án đúng. Tiền lương phải trả đầu kỳ 3 triệu USD cộng với chi phí tiền lương 20 triệu USD trừ đi tiền lương phải trả cuối kỳ 1 triệu USD bằng 22 triệu USD. Hoặc theo cách khác, chi phí 20 triệu USD cộng với mức giảm 2 triệu USD của tiền lương phải trả bằng 22 triệu USD.</p>
+</li>
+<li>
+<p>C là đáp án đúng. <span class="math-inline">$\text{Tiền thu từ khách hàng} = \text{Doanh thu bán hàng} + \text{Mức giảm khoản phải thu khách hàng} = 254,6 + 4,9 = 259,5$</span>. <span class="math-inline">$\text{Tiền trả cho nhà cung cấp} = \text{Giá vốn hàng bán} + \text{Mức tăng hàng tồn kho} - \text{Mức tăng khoản phải trả người bán} = 175,9 + 8,8 - 2,6 = 182,1$</span>.</p>
+</li>
+<li>
+<p>C là đáp án đúng. Chi phí lãi vay 19 triệu USD trừ đi mức tăng lãi vay phải trả 3 triệu USD bằng tiền lãi đã trả là 16 triệu USD. Chi phí thuế 6 triệu USD cộng với mức giảm thuế phải nộp 4 triệu USD bằng tiền thuế đã nộp là 10 triệu USD.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Số tiền mặt đã trả cho các nhà cung cấp được tính như sau:</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><span class="math-inline">$= \text{Giá vốn hàng bán} - \text{Mức giảm hàng tồn kho} - \text{Mức tăng khoản phải trả người bán}$</span></p>
+</li>
+<li>
+<p><span class="math-inline">$= \text{USD}27.264 - \text{USD}501 - \text{USD}1.063$</span></p>
+</li>
+<li>
+<p><span class="math-inline">$= \text{USD}25.700$</span>.</p>
+</li>
+</ul></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM04_Part2_The_Indirect_Method_for_Cash_Flows_from_Opera.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM04_Part2_The_Indirect_Method_for_Cash_Flows_from_Opera</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 4</a>
+      <a href="LM05_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM05_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('04_Financial_Statement_Analysis/LM04_Part3_Solutions.html');
+    });
+  </script>
+</body>
+</html>

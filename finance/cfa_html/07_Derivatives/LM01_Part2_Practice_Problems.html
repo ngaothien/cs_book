@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 1 Derivative Instrument and Derivative Market Features - Part 2: Practice Problems — Volume 7: Derivatives | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 7: Công Cụ Phái Sinh
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 1 Derivative Instrument and Derivative Market Features - Part 2: Practice Problems</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM01_Full_Derivative_Instrument_and_Derivative_Market_F.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (3 trang)...</option>
+          <option value="27">PDF Page 27</option>
+<option value="28">PDF Page 28</option>
+<option value="29">PDF Page 29</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 7</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Công Cụ Phái Sinh</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 7</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Derivative_Instrument_and_Derivative_Market_F.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Derivative Instrument and Derivative Market Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Practice_Problems.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Practice Problems</a>
+<a href="LM02_Full_Forward_Commitment_and_Contingent_Claim_Featu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Forward Commitment and Contingent Claim Features and Instruments</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Options.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Options</a>
+<a href="LM03_Full_Derivative_Benefits_Risks_and_Issuer_and_Inve.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Derivative Benefits, Risks, and Issuer and Investor Uses</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Issuer_Use_of_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Issuer Use of Derivatives</a>
+<a href="LM04_Full_Arbitrage_Replication_and_the_Cost_of_Carry_i.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Arbitrage, Replication, and the Cost of Carry in Pricing Derivatives</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Costs_and_Benefits_Associated_with_Owning_the.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Costs and Benefits Associated with Owning the Underlying</a>
+<a href="LM05_Full_Pricing_and_Valuation_of_Forward_Contracts_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Pricing and Valuation of Forward Contracts and for an Underlying with Varying Maturities</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Pricing_and_Valuation_of_Interest_Rate_Forwar.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Pricing and Valuation of Interest Rate Forward Contracts</a>
+<a href="LM06_Full_Pricing_and_Valuation_of_Futures_Contracts.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Pricing and Valuation of Futures Contracts</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Effect_of_Central_Clearing_of_OTC_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Effect of Central Clearing of OTC Derivatives</a>
+<a href="LM07_Full_Pricing_and_Valuation_of_Interest_Rates_and_O.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Pricing and Valuation of Interest Rates and Other Swaps</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Swap_Values_and_Prices.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Swap Values and Prices</a>
+<a href="LM08_Full_Pricing_and_Valuation_of_Options.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Pricing and Valuation of Options</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Factors_Affecting_Option_Value.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Factors Affecting Option Value</a>
+<a href="LM09_Full_Option_Replication_Using_Put_Call_Parity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Option Replication Using Put–Call Parity</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Option_Put_Call_Parity_Applications_Firm_Valu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Option Put–Call Parity Applications: Firm Value</a>
+<a href="LM10_Full_Valuing_a_Derivative_Using_a_One_Period_Binom.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Valuing a Derivative Using a One-Period Binomial Model</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 7 • Derivatives (Công Cụ Phái Sinh)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 1 Derivative Instrument and Derivative Market Features - Part 2: Practice Problems</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('07_Derivatives/LM01_Part2_Practice_Problems.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 7: Derivatives</h1>
+<h2>Learning Module 1 Derivative Instrument and Derivative Market Features</h2>
+<h3>Part 2/2: Practice Problems (PDF Pages 27–30)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 7: Công cụ Phái sinh (<em>Derivatives</em>)</h1>
+<h2>Học phần 1: Đặc điểm của Công cụ Phái sinh và Thị trường Phái sinh (<em>Derivative Instrument and Derivative Market Features</em>)</h2>
+<h3>Phần 2/2: Bài tập Thực hành (<em>Practice Problems</em>) (Trang PDF 27–30)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-27" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 27 / Trang PDF 27
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~PRACTICE PROBLEMS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>The following information relates to questions 1-5</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>Thông tin sau đây liên quan đến các câu hỏi từ 1 đến 5</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Montau AG is a German capital goods producer that manufactures its products domestically and delivers its products to clients globally. Montau’s global sales manager shares the following draft commercial contract with his Treasury team:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Montau AG là một nhà sản xuất tư liệu sản xuất (<em>capital goods producer</em>) của Đức, chuyên sản xuất sản phẩm trong nước và giao sản phẩm cho khách hàng trên toàn cầu. Giám đốc bán hàng toàn cầu của Montau chia sẻ bản dự thảo hợp đồng thương mại sau đây với đội ngũ Quản lý Ngân quỹ (<em>Treasury team</em>) của mình:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Montau AG Commercial Export Contract</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Hợp đồng Xuất khẩu Thương mại của Montau AG (<em>Montau AG Commercial Export Contract</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Contract Date:</strong></th>
+<th>[Today]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Goods Seller:</strong></td>
+<td>Montau AG, Frankfurt, Germany</td>
+</tr>
+<tr>
+<td><strong>Goods Buyer:</strong></td>
+<td>Jeon Inc., Seoul, Korea</td>
+</tr>
+<tr>
+<td><strong>Description of Goods:</strong></td>
+<td>A-Series Laser Cutting Machine</td>
+</tr>
+<tr>
+<td><strong>Quantity:</strong></td>
+<td>One</td>
+</tr>
+<tr>
+<td><strong>Delivery Terms:</strong></td>
+<td>Freight on Board (FOB), Busan Korea with all shipping, tax<br>and delivery costs payable by Goods Buyer</td>
+</tr>
+<tr>
+<td><strong>Delivery Date:</strong></td>
+<td>[75 Days from Contract Date]</td>
+</tr>
+<tr>
+<td><strong>Payment Terms:</strong></td>
+<td>100% of Contract Price payable by Goods Buyer to Good<br>Seller on Delivery Date</td>
+</tr>
+<tr>
+<td><strong>Contract Price:</strong></td>
+<td>KRW650,000,000</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Ngày ký hợp đồng (<em>Contract Date</em>):</strong></th>
+<th>[Hôm nay]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bên bán hàng (<em>Goods Seller</em>):</strong></td>
+<td>Montau AG, Frankfurt, Đức</td>
+</tr>
+<tr>
+<td><strong>Bên mua hàng (<em>Goods Buyer</em>):</strong></td>
+<td>Jeon Inc., Seoul, Hàn Quốc</td>
+</tr>
+<tr>
+<td><strong>Mô tả hàng hóa (<em>Description of Goods</em>):</strong></td>
+<td>Máy cắt Laser dòng A (<em>A-Series Laser Cutting Machine</em>)</td>
+</tr>
+<tr>
+<td><strong>Số lượng (<em>Quantity</em>):</strong></td>
+<td>Một (01)</td>
+</tr>
+<tr>
+<td><strong>Điều khoản giao hàng (<em>Delivery Terms</em>):</strong></td>
+<td>Giao hàng lên tàu (<em>Freight on Board</em> – FOB), Busan, Hàn Quốc với toàn bộ chi phí vận chuyển, thuế và giao hàng do Bên mua hàng thanh toán</td>
+</tr>
+<tr>
+<td><strong>Ngày giao hàng (<em>Delivery Date</em>):</strong></td>
+<td>[75 ngày kể từ Ngày ký hợp đồng]</td>
+</tr>
+<tr>
+<td><strong>Điều khoản thanh toán (<em>Payment Terms</em>):</strong></td>
+<td>100% Giá hợp đồng do Bên mua hàng thanh toán cho Bên bán hàng vào Ngày giao hàng</td>
+</tr>
+<tr>
+<td><strong>Giá hợp đồng (<em>Contract Price</em>):</strong></td>
+<td>KRW650.000.000</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Montau AG’s Treasury manager is tasked with addressing the financial risk of this prospective transaction.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giám đốc Ngân quỹ của Montau AG được giao nhiệm vụ xử lý rủi ro tài chính của giao dịch tiềm năng này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> Which of the following statements best describes why Montau AG should consider a derivative rather than a spot market transaction to manage the financial risk of this commercial contract?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Phát biểu nào sau đây mô tả đúng nhất lý do tại sao Montau AG nên cân nhắc sử dụng một công cụ phái sinh thay vì một giao dịch trên thị trường giao ngay (<em>spot market transaction</em>) để quản lý rủi ro tài chính của hợp đồng thương mại này?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Montau AG is selling a machine at a contract price in KRW and incurs costs based in EUR.</p>
+</li>
+<li>
+<p><strong>B.</strong> Montau AG faces a 75-day timing difference between the commercial contract date and the delivery date when Montau AG is paid for the machine in KRW.</p>
+</li>
+<li>
+<p><strong>C.</strong> Montau AG is unable to sell KRW today in order to offset the contract price of machinery delivered to Jeon Inc.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Montau AG đang bán một cỗ máy tại mức giá hợp đồng tính bằng KRW và phát sinh các chi phí tính bằng EUR.</p>
+</li>
+<li>
+<p><strong>B.</strong> Montau AG phải đối mặt với khoảng chênh lệch thời gian 75 ngày giữa ngày ký hợp đồng thương mại và ngày giao hàng khi Montau AG được thanh toán tiền máy bằng KRW.</p>
+</li>
+<li>
+<p><strong>C.</strong> Montau AG không thể bán KRW ngày hôm nay để bù đắp cho giá hợp đồng của máy móc được giao cho Jeon Inc.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> Which of the following types of derivative and underlyings are best suited to hedge Montau’s financial risk under the commercial transaction?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Loại công cụ phái sinh và tài sản cơ sở nào sau đây là phù hợp nhất để phòng vệ rủi ro tài chính của Montau theo giao dịch thương mại này?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Montau AG should consider a firm commitment derivative with currency as an underlying, specifically the sale of KRW at a fixed EUR price.</p>
+</li>
+<li>
+<p><strong>B.</strong> Montau AG should consider a contingent claim derivative with the price of the machine as its underlying, specifically an A-series laser cutting machine.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Montau AG nên cân nhắc một công cụ phái sinh cam kết chắc chắn (<em>firm commitment derivative</em>) với tiền tệ là tài sản cơ sở, cụ thể là việc bán KRW tại một mức giá EUR cố định.</p>
+</li>
+<li>
+<p><strong>B.</strong> Montau AG nên cân nhắc một công cụ phái sinh quyền đòi hỏi có điều kiện (<em>contingent claim derivative</em>) với giá của cỗ máy là tài sản cơ sở, cụ thể là máy cắt laser dòng A.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-28" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 28 / Trang PDF 28
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>C.</strong> Montau AG should consider a contingent claim derivative with currency as an underlying, specifically the sale of EUR at a fixed KRW price.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>C.</strong> Montau AG nên cân nhắc một công cụ phái sinh quyền đòi hỏi có điều kiện (<em>contingent claim derivative</em>) với tiền tệ là tài sản cơ sở, cụ thể là việc bán EUR tại một mức giá KRW cố định.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> Identify A, B, and C in the correct order in the following diagram, as in Exhibit 1, for the derivative to hedge Montau's financial risk under the commercial transaction.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Xác định A, B, và C theo đúng thứ tự trong sơ đồ sau đây, giống như trong Bảng minh họa 1 (<em>Exhibit 1</em>), đối với công cụ phái sinh nhằm phòng vệ rủi ro tài chính của Montau theo giao dịch thương mại này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Exhibit 1</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Bảng minh họa 1 (<em>Exhibit 1</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0028-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0028-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- Sơ đồ giao dịch giữa <strong>Montau AG</strong> và đối tác <strong>A</strong>, với dòng đi xuống <strong>B</strong> và dòng đi lên <strong>C</strong>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> A: Financial intermediary, B: KRW650,000,000, C: Fixed EUR amount</p>
+</li>
+<li>
+<p><strong>B.</strong> A: Jeon Inc., B: KRW650,000,000, C: Fixed EUR amount</p>
+</li>
+<li>
+<p><strong>C.</strong> A: Financial intermediary, B: Fixed EUR amount, C: KRW650,000,000.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> A: Định chế tài chính trung gian (<em>Financial intermediary</em>), B: KRW650.000.000, C: Khoản tiền EUR cố định (<em>Fixed EUR amount</em>)</p>
+</li>
+<li>
+<p><strong>B.</strong> A: Jeon Inc., B: KRW650.000.000, C: Khoản tiền EUR cố định (<em>Fixed EUR amount</em>)</p>
+</li>
+<li>
+<p><strong>C.</strong> A: Định chế tài chính trung gian (<em>Financial intermediary</em>), B: Khoản tiền EUR cố định (<em>Fixed EUR amount</em>), C: KRW650.000.000.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>4.</strong> Which of the following statements about the most appropriate derivative market to hedge Montau AG’s financial risk under the commercial contract is most accurate?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>4.</strong> Phát biểu nào sau đây về thị trường phái sinh phù hợp nhất để phòng vệ rủi ro tài chính của Montau AG theo hợp đồng thương mại là chính xác nhất?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> The OTC market is most appropriate for Montau, as it is able to customize the contract to match its desired risk exposure profile.</p>
+</li>
+<li>
+<p><strong>B.</strong> The ETD market is most appropriate for Montau, as it offers a standardized and transparent contract to match its desired risk exposure profile.</p>
+</li>
+<li>
+<p><strong>C.</strong> Both the ETD and OTC markets are appropriate for Montau AG to hedge its financial risk under the transaction, so it should choose the market with the best price.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Thị trường OTC là phù hợp nhất đối với Montau, vì công ty có thể tùy chỉnh hợp đồng để khớp với cấu trúc tiếp xúc rủi ro mong muốn của mình.</p>
+</li>
+<li>
+<p><strong>B.</strong> Thị trường ETD là phù hợp nhất đối với Montau, vì thị trường này cung cấp một hợp đồng được tiêu chuẩn hóa và minh bạch để khớp với cấu trúc tiếp xúc rủi ro mong muốn của công ty.</p>
+</li>
+<li>
+<p><strong>C.</strong> Cả hai thị trường ETD và OTC đều phù hợp để Montau AG phòng vệ rủi ro tài chính theo giao dịch này, vì vậy công ty nên chọn thị trường có mức giá tốt nhất.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>5.</strong> If Montau enters into a centrally cleared derivative contract on the OTC market, which of the following statements about credit risk associated with the derivative is most likely correct?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>5.</strong> Nếu Montau tham gia vào một hợp đồng phái sinh được bù trừ tập trung (<em>centrally cleared derivative contract</em>) trên thị trường OTC, phát biểu nào sau đây về rủi ro tín dụng gắn liền với công cụ phái sinh này là có khả năng đúng nhất?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Montau faces credit risk associated with the possibility that its counterparty to the contract may not fulfill its contractual obligation.</p>
+</li>
+<li>
+<p><strong>B.</strong> Montau poses a credit risk to its counterparty because it may fail to fulfill its contractual obligation.</p>
+</li>
+<li>
+<p><strong>C.</strong> Montau poses a credit risk to a derivative contract end user holding a contract with the opposite features of Montau’s.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Montau phải đối mặt với rủi ro tín dụng gắn liền với khả năng đối tác trong hợp đồng của mình có thể không thực hiện nghĩa vụ theo hợp đồng.</p>
+</li>
+<li>
+<p><strong>B.</strong> Montau tạo ra rủi ro tín dụng đối với đối tác của mình bởi vì công ty có thể không thực hiện được nghĩa vụ theo hợp đồng.</p>
+</li>
+<li>
+<p><strong>C.</strong> Montau tạo ra rủi ro tín dụng đối với một người sử dụng cuối cùng khác đang nắm giữ một hợp đồng phái sinh có các đặc điểm ngược lại với hợp đồng của Montau.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-29" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 29 / Trang PDF 29
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~SOLUTIONS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>B is correct. A 75-day timing difference exists between the commercial contract date and the delivery date when Montau AG is paid for the machine in KRW. A is true but does not explain why the use of a derivative is preferable to a spot market transaction. If as in C Montau were to sell the KRW it receives and buy EUR in a spot market transaction on the delivery date, it would be exposed to unfavorable changes in the KRW/EUR exchange rate over the 75-day period. A derivative contract in which the underlying KRW/EUR forward rate is agreed today and exchanged on the delivery date allows Montau to hedge or offset the EUR value of the future KRW payment. The derivative is therefore a more suitable contract to address the financial risk of the commercial transaction than a spot market sale of KRW.</p>
+</li>
+<li>
+<p>A is correct. The derivative best suited to hedge Montau’s financial risk is a firm commitment derivative in which a pre-determined amount is exchanged at settlement. The derivative underlying should be currencies, specifically the sale of KRW at a fixed EUR price in the future to offset or hedge the financial risk of the commercial contract. The machine price referenced under B is not considered an underlying, and C hedges the opposite of Montau’s underlying exposure.</p>
+</li>
+<li>
+<p>C is correct as per the following diagram:</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>B là đáp án đúng. Tồn tại một khoảng chênh lệch thời gian 75 ngày giữa ngày ký hợp đồng thương mại và ngày giao hàng khi Montau AG được thanh toán tiền máy bằng KRW. Phát biểu A là đúng nhưng không giải thích được tại sao việc sử dụng công cụ phái sinh lại được ưu tiên hơn so với giao dịch trên thị trường giao ngay. Nếu như trong câu C, Montau bán số KRW mà công ty nhận được và mua EUR trong một giao dịch trên thị trường giao ngay vào ngày giao hàng, công ty sẽ phải chịu rủi ro trước những biến động bất lợi của tỷ giá hối đoái KRW/EUR trong suốt khoảng thời gian 75 ngày đó. Một hợp đồng phái sinh trong đó tỷ giá kỳ hạn KRW/EUR cơ sở được thỏa thuận ngày hôm nay và được trao đổi vào ngày giao hàng cho phép Montau phòng vệ hoặc bù đắp giá trị tính bằng EUR của khoản thanh toán bằng KRW trong tương lai. Do đó, công cụ phái sinh là một hợp đồng phù hợp hơn để xử lý rủi ro tài chính của giao dịch thương mại này so với việc bán KRW trên thị trường giao ngay.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Công cụ phái sinh phù hợp nhất để phòng vệ rủi ro tài chính của Montau là một công cụ phái sinh cam kết chắc chắn (<em>firm commitment derivative</em>), trong đó một khoản tiền xác định trước được trao đổi khi thanh toán. Tài sản cơ sở của công cụ phái sinh nên là tiền tệ (<em>currencies</em>), cụ thể là việc bán KRW tại một mức giá EUR cố định trong tương lai để bù đắp hoặc phòng vệ rủi ro tài chính của hợp đồng thương mại. Giá cỗ máy được đề cập ở câu B không được coi là một tài sản cơ sở phái sinh, và câu C lại phòng vệ theo chiều ngược lại với mức độ tiếp xúc rủi ro cơ sở của Montau.</p>
+</li>
+<li>
+<p>C là đáp án đúng theo sơ đồ dưới đây:</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Exhibit 1</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Bảng minh họa 1 (<em>Exhibit 1</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0029-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0029-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Montau AG</strong> giao <strong>KRW 650.000.000</strong> (C - mũi tên đi lên từ góc nhìn thanh toán hoặc luồng trao đổi theo sơ đồ gốc) và nhận <strong>Khoản tiền EUR cố định (<em>Fixed EUR amount</em>)</strong> (B) theo <strong>[Tỷ giá kỳ hạn KRW/EUR (<em>KRW/EUR forward rate</em>)]</strong> với đối tác <strong>Định chế tài chính trung gian (<em>Financial intermediary</em>)</strong> (A).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>
+<p>A is correct. The OTC market is most appropriate for Montau, as OTC contracts may be customized to match Montau’s desired risk exposure profile. This is important to end users seeking to hedge a specific underlying exposure based upon non-standard terms. Montau would be unlikely to find an ETD contract under B that matches the exact size and maturity date of its desired hedge, which also makes C incorrect.</p>
+</li>
+<li>
+<p>B is correct. In a centrally cleared OTC derivative contract, the central counterparty becomes the counterparty in all contracts and assumes the credit risk associated with individual derivative contracts. A is likely incorrect because the CCP takes actions to ensure that it can fulfill its obligations to its counterparties. C is incorrect because the CCP inserts itself between parties with opposite positions.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>
+<p>A là đáp án đúng. Thị trường OTC là phù hợp nhất đối với Montau, vì các hợp đồng OTC có thể được tùy chỉnh để khớp với cấu trúc tiếp xúc rủi ro mong muốn của Montau. Điều này rất quan trọng đối với những người sử dụng cuối cùng đang tìm cách phòng vệ một mức độ tiếp xúc rủi ro cơ sở cụ thể dựa trên các điều khoản phi tiêu chuẩn. Montau sẽ khó có khả năng tìm thấy một hợp đồng ETD như ở câu B khớp chính xác với quy mô và ngày đáo hạn của giao dịch phòng vệ mà công ty mong muốn, điều này cũng làm cho câu C không chính xác.</p>
+</li>
+<li>
+<p>B là đáp án đúng. Trong một hợp đồng phái sinh OTC được bù trừ tập trung, đối tác trung tâm (<em>central counterparty</em> – CCP) trở thành đối tác trong tất cả các hợp đồng và gánh chịu rủi ro tín dụng gắn liền với từng hợp đồng phái sinh riêng lẻ (tức là đối tác trực tiếp hoặc CCP vẫn phải chịu rủi ro nếu Montau không thực hiện nghĩa vụ của mình). A có khả năng không đúng vì CCP thực hiện các biện pháp để đảm bảo rằng họ có thể hoàn thành các nghĩa vụ của mình đối với các đối tác. C không đúng vì CCP đứng chèn vào giữa các bên có vị thế đối nghịch nhau.</p>
+</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM01_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM01_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 7</a>
+      <a href="LM02_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM02_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('07_Derivatives/LM01_Part2_Practice_Problems.html');
+    });
+  </script>
+</body>
+</html>

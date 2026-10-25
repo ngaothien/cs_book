@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 7 Pricing and Valuation of Interest Rates and Other Swaps - Part 2: Swap Values and Prices — Volume 7: Derivatives | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 7: Công Cụ Phái Sinh
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 7 Pricing and Valuation of Interest Rates and Other Swaps - Part 2: Swap Values and Prices</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM07_Full_Pricing_and_Valuation_of_Interest_Rates_and_O.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (12 trang)...</option>
+          <option value="167">PDF Page 167</option>
+<option value="168">PDF Page 168</option>
+<option value="169">PDF Page 169</option>
+<option value="170">PDF Page 170</option>
+<option value="171">PDF Page 171</option>
+<option value="172">PDF Page 172</option>
+<option value="173">PDF Page 173</option>
+<option value="174">PDF Page 174</option>
+<option value="175">PDF Page 175</option>
+<option value="176">PDF Page 176</option>
+<option value="177">PDF Page 177</option>
+<option value="178">PDF Page 178</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 7</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Công Cụ Phái Sinh</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 7</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Derivative_Instrument_and_Derivative_Market_F.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Derivative Instrument and Derivative Market Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM02_Full_Forward_Commitment_and_Contingent_Claim_Featu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Forward Commitment and Contingent Claim Features and Instruments</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Options.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Options</a>
+<a href="LM03_Full_Derivative_Benefits_Risks_and_Issuer_and_Inve.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Derivative Benefits, Risks, and Issuer and Investor Uses</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Issuer_Use_of_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Issuer Use of Derivatives</a>
+<a href="LM04_Full_Arbitrage_Replication_and_the_Cost_of_Carry_i.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Arbitrage, Replication, and the Cost of Carry in Pricing Derivatives</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Costs_and_Benefits_Associated_with_Owning_the.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Costs and Benefits Associated with Owning the Underlying</a>
+<a href="LM05_Full_Pricing_and_Valuation_of_Forward_Contracts_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Pricing and Valuation of Forward Contracts and for an Underlying with Varying Maturities</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Pricing_and_Valuation_of_Interest_Rate_Forwar.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Pricing and Valuation of Interest Rate Forward Contracts</a>
+<a href="LM06_Full_Pricing_and_Valuation_of_Futures_Contracts.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Pricing and Valuation of Futures Contracts</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Effect_of_Central_Clearing_of_OTC_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Effect of Central Clearing of OTC Derivatives</a>
+<a href="LM07_Full_Pricing_and_Valuation_of_Interest_Rates_and_O.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Pricing and Valuation of Interest Rates and Other Swaps</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Swap_Values_and_Prices.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Swap Values and Prices</a>
+<a href="LM08_Full_Pricing_and_Valuation_of_Options.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Pricing and Valuation of Options</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Factors_Affecting_Option_Value.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Factors Affecting Option Value</a>
+<a href="LM09_Full_Option_Replication_Using_Put_Call_Parity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Option Replication Using Put–Call Parity</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Option_Put_Call_Parity_Applications_Firm_Valu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Option Put–Call Parity Applications: Firm Value</a>
+<a href="LM10_Full_Valuing_a_Derivative_Using_a_One_Period_Binom.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Valuing a Derivative Using a One-Period Binomial Model</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 7 • Derivatives (Công Cụ Phái Sinh)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 7 Pricing and Valuation of Interest Rates and Other Swaps - Part 2: Swap Values and Prices</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('07_Derivatives/LM07_Part2_Swap_Values_and_Prices.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 7: Derivatives</h1>
+<h2>Learning Module 7 Pricing and Valuation of Interest Rates and Other Swaps</h2>
+<h3>Part 2/2: Swap Values and Prices (PDF Pages 167–178)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 7: Công cụ Phái sinh (<em>Derivatives</em>)</h1>
+<h2>Học phần 7: Định giá và Xác định giá trị của Hợp đồng Hoán đổi Lãi suất và Các Hợp đồng Hoán đổi Khác (<em>Pricing and Valuation of Interest Rates and Other Swaps</em>)</h2>
+<h3>Phần 2/2: Giá trị và Mức giá của Hợp đồng Hoán đổi (Trang PDF 167–178)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-167" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 167 / Trang PDF 167
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>
+<p>Identify which of the following benefits of using swaps over forwards are most applicable to which derivative end users.</p>
+</li>
+<li>
+<p>Swaps allow these end users to match the periA. Both issuers and odic cash flows of a specific balance sheet liability to investors transform their interest rate exposure profile. 2. Swaps enable these end users to actively adjust B. Issuers their interest rate exposure profile without buying or selling underlying securities 3. Swaps involving a series of cash flows enable C. Investors these end users to avoid the administrative burden of entering into and managing multiple forward contracts. <strong>Solution: 1.</strong> B is correct. Swaps allow issuers to match the periodic cash flows of a specific balance sheet liability to transform their interest rate exposure profile, as shown in Example 2.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Xác định lợi ích nào sau đây của việc sử dụng hợp đồng hoán đổi thay vì hợp đồng kỳ hạn được áp dụng phù hợp nhất cho đối tượng người sử dụng cuối cùng (<em>derivative end users</em>) nào.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lợi ích của hợp đồng hoán đổi</th>
+<th>Người sử dụng cuối cùng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Hợp đồng hoán đổi cho phép những người sử dụng cuối cùng này khớp các dòng tiền định kỳ của một khoản nợ phải trả cụ thể trên bảng cân đối kế toán để chuyển đổi hồ sơ phơi nhiễm rủi ro lãi suất của họ.</td>
+<td>A. Cả tổ chức phát hành (<em>issuers</em>) và nhà đầu tư (<em>investors</em>)</td>
+</tr>
+<tr>
+<td>2. Hợp đồng hoán đổi cho phép những người sử dụng cuối cùng này chủ động điều chỉnh hồ sơ phơi nhiễm rủi ro lãi suất của họ mà không cần mua hoặc bán các chứng khoán cơ sở.</td>
+<td>B. Tổ chức phát hành (<em>Issuers</em>)</td>
+</tr>
+<tr>
+<td>3. Hợp đồng hoán đổi liên quan đến một chuỗi các dòng tiền giúp những người sử dụng cuối cùng này tránh được gánh nặng hành chính của việc tham gia và quản lý nhiều hợp đồng kỳ hạn.</td>
+<td>C. Nhà đầu tư (<em>Investors</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> C is correct. Swaps enable investors to actively adjust their interest rate exposure profile without buying or selling underlying securities.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6>
+<p><strong>1.</strong> B là đáp án đúng. Hợp đồng hoán đổi cho phép các tổ chức phát hành khớp các dòng tiền định kỳ của một khoản nợ phải trả cụ thể trên bảng cân đối kế toán để chuyển đổi hồ sơ phơi nhiễm rủi ro lãi suất của họ, như đã trình bày trong Ví dụ 2.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> A is correct. Both issuers and investors benefit from a reduced administrative burden of entering one interest rate swap for a series of cash flows rather than multiple individual forward contracts.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> C là đáp án đúng. Hợp đồng hoán đổi cho phép các nhà đầu tư chủ động điều chỉnh hồ sơ phơi nhiễm rủi ro lãi suất của họ mà không cần mua hoặc bán các chứng khoán cơ sở.</p>
+<p><strong>3.</strong> A là đáp án đúng. Cả các tổ chức phát hành và các nhà đầu tư đều hưởng lợi từ việc giảm bớt gánh nặng hành chính khi chỉ tham gia một hợp đồng hoán đổi lãi suất cho một chuỗi các dòng tiền thay vì nhiều hợp đồng kỳ hạn riêng lẻ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>
+<p>Identify the following statement as true or false, and justify your response: The market reference rate (MRR) is the internal rate of return on the implied forward rates over the life of an interest rate swap. <strong>Solution:</strong> False. The fixed swap rate is the internal rate of return on the implied forward rates over the life of an interest rate swap.</p>
+</li>
+<li>
+<p>Explain how an active fixed-income portfolio manager might use an interest rate swap rather than underlying bonds to realize a gain in a lower–interest rate environment, and justify your response. <strong>Solution:</strong> A manager may choose to receive fixed, pay floating on an interest rate swap, with the fixed cash flow stream being similar to owning a fixed-coupon bond. If interest rates are expected to fall, the manager will realize an MTM gain in a lower-rate environment.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Xác định phát biểu sau đây là đúng hay sai, và giải thích câu trả lời của bạn: Lãi suất tham chiếu thị trường (<em>market reference rate</em> – MRR) là tỷ suất hoàn vốn nội bộ (<em>internal rate of return</em> – IRR) đối với các mức lãi suất kỳ hạn hàm ý trong suốt vòng đời của một hợp đồng hoán đổi lãi suất.</li>
+</ol>
+<h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>SWAP VALUES AND PRICES</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sai. Lãi suất hoán đổi cố định (<em>fixed swap rate</em>) mới là tỷ suất hoàn vốn nội bộ đối với các mức lãi suất kỳ hạn hàm ý trong suốt vòng đời của một hợp đồng hoán đổi lãi suất.</p>
+<ol start="5">
+<li>Giải thích cách thức một nhà quản lý danh mục đầu tư thu nhập cố định chủ động (<em>active fixed-income portfolio manager</em>) có thể sử dụng hợp đồng hoán đổi lãi suất thay vì các trái phiếu cơ sở để hiện thực hóa khoản lãi trong môi trường lãi suất thấp hơn, và giải thích lý do cho câu trả lời của bạn.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>3</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6>
+<p>Một nhà quản lý có thể chọn vị thế nhận lãi cố định, trả lãi thả nổi (<em>receive fixed, pay floating</em>) trong một hợp đồng hoán đổi lãi suất, với luồng dòng tiền cố định tương tự như việc sở hữu một trái phiếu trả lãi coupon cố định. Nếu lãi suất được dự báo sẽ giảm, nhà quản lý sẽ thực hiện được một khoản lãi định giá theo thị trường (<em>MTM gain</em>) trong môi trường lãi suất thấp hơn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>contrast the value and price of swaps</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>GIÁ TRỊ VÀ MỨC GIÁ CỦA HỢP ĐỒNG HOÁN ĐỔI (<em>SWAP VALUES AND PRICES</em>)</strong></h4>
+<h1><strong><mark>3</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In the prior lesson, we showed a swap price (or par swap rate) to be a periodic fixed rate that equates the present value of all future expected floating cash flows to the present value of fixed cash flows. The swap rate ( <em>sN</em> for <em>N</em> periods) is equivalent to a</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>đối chiếu giá trị (<em>value</em>) và mức giá (<em>price</em>) của các hợp đồng hoán đổi</p>
+<p>Trong bài học trước, chúng ta đã chỉ ra rằng mức giá của một hợp đồng hoán đổi (<em>swap price</em>, hay lãi suất hoán đổi ngang giá – <em>par swap rate</em>) là một mức lãi suất cố định định kỳ làm cân bằng giá trị hiện tại của tất cả các dòng tiền thả nổi dự kiến trong tương lai với giá trị hiện tại của các dòng tiền cố định. Lãi suất hoán đổi (<span class="math-inline">$s_N$</span> cho <span class="math-inline">$N$</span> kỳ) tương đương với một</p></div>
+                </div>
+                
+
+                <div id="pdf-page-168" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 168 / Trang PDF 168
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>forward rate, <em>F</em> 0( <em>T</em> ), that satisfies the no-arbitrage condition. Similar to other forwards, the initial contract value (ignoring transaction and counterparty credit costs) is zero ( <em>V</em> 0( <em>T</em> ) = 0).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>mức lãi suất kỳ hạn, <span class="math-inline">$F_0(T)$</span>, thỏa mãn điều kiện không có kinh doanh chênh lệch giá (<em>no-arbitrage condition</em>). Tương tự như các hợp đồng kỳ hạn khác, giá trị hợp đồng ban đầu (bỏ qua chi phí giao dịch và chi phí tín dụng đối tác) bằng không (<span class="math-inline">$V_0(T) = 0$</span>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In contrast to other forward commitments, which involve a <em>single</em> settlement at maturity, a swap contract involves a <em>series</em> of periodic settlements with a final settlement at contract maturity. Recall from an earlier lesson that the value of a forward contract at maturity from the long forward (or forward buyer’s) perspective is <em>VT</em> ( <em>T</em> ) = <em>ST</em> – <em>F</em> 0( <em>T</em> ), where <em>ST</em> is the spot price at maturity and <em>F</em> 0( <em>T</em> ) is the forward price. For a swap with periodic exchanges, the current MRR is the “spot” price and the fixed swap rate, <em>sN</em> , is the forward price. Restating this result for the fixed-rate payer on a swap, the periodic settlement value is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trái ngược với các cam kết kỳ hạn khác vốn chỉ liên quan đến một lần thanh toán <em>duy nhất</em> (<em>single settlement</em>) khi đáo hạn, một hợp đồng hoán đổi liên quan đến một <em>chuỗi</em> các khoản thanh toán định kỳ (<em>series of periodic settlements</em>) cùng với một lần thanh toán cuối cùng khi hợp đồng đáo hạn. Hãy nhớ lại từ bài học trước rằng giá trị của một hợp đồng kỳ hạn khi đáo hạn dưới góc độ của bên mua kỳ hạn (<em>long forward</em>) là <span class="math-inline">$V_T(T) = S_T - F_0(T)$</span>, trong đó <span class="math-inline">$S_T$</span> là giá giao ngay khi đáo hạn và <span class="math-inline">$F_0(T)$</span> là giá kỳ hạn. Đối với một hợp đồng hoán đổi có các lần trao đổi định kỳ, lãi suất MRR hiện hành đóng vai trò là mức giá “giao ngay” (<em>“spot” price</em>) và lãi suất hoán đổi cố định, <span class="math-inline">$s_N$</span>, là mức giá kỳ hạn (<em>forward price</em>). Phát biểu lại kết quả này cho bên trả lãi cố định (<em>fixed-rate payer</em>) trong một hợp đồng hoán đổi, giá trị thanh toán định kỳ (<em>periodic settlement value</em>) là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Periodic settlement value = (MRR – <em>sN</em> ) × Notional amount × Period. ~~(4)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\text{Giá trị thanh toán định kỳ (Periodic settlement value)} = (\text{MRR} - s_N) \times \text{Vốn danh nghĩa (Notional amount)} \times \text{Kỳ hạn (Period)} \tag{4}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The value of a swap on any settlement date equals the current settlement value in Equation 4 <em>plus</em> the present value of all remaining future swap settlements. Although swap market conventions vary, for purposes of this lesson we will assume the MRR sets at the beginning of each interest period, with the same periodicity and day count convention as the swap rate. The fixed versus floating difference is exchanged at the end of each period.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá trị của một hợp đồng hoán đổi vào bất kỳ ngày thanh toán nào bằng giá trị thanh toán hiện tại trong Phương trình 4 <em>cộng với</em> giá trị hiện tại của tất cả các khoản thanh toán hoán đổi trong tương lai còn lại. Mặc dù thông lệ thị trường hoán đổi có sự khác nhau, cho mục đích của bài học này, chúng ta sẽ giả định rằng MRR được ấn định vào đầu mỗi kỳ tính lãi, với cùng tần suất kỳ hạn (<em>periodicity</em>) và quy ước đếm ngày (<em>day count convention</em>) như lãi suất hoán đổi. Khoản chênh lệch giữa lãi cố định và lãi thả nổi được trao đổi vào cuối mỗi kỳ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 3</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 3 (<em>EXAMPLE 3</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Esterr Inc. Swap Value and Price</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Giá trị và Mức giá Hợp đồng Hoán đổi của Esterr Inc. (<em>Esterr Inc. Swap Value and Price</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Esterr entered a 3.5-year CAD250 million interest rate swap contract under which it pays a fixed quarterly swap rate of 2.05% and receives three-month CAD MRR. The fixed swap <em>price</em> of 2.05% paid by Esterr remains constant over the life of the contract. While the first three-month CAD MRR is <em>known</em> at <em>t</em> = 0, the remaining 13 MRR settings are <em>unknown</em> but are <em>expected</em> to equal the respective implied forward rates (IFRs) for each period through maturity. A prior lesson showed how IFRs are derived from zero rates, which were then used to solve for the fixed swap rate by setting the present value of fixed payments equal to the present value of floating payments.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Esterr đã tham gia vào một hợp đồng hoán đổi lãi suất kỳ hạn 3,5 năm trị giá 250 triệu CAD, theo đó công ty trả lãi suất hoán đổi cố định hàng quý là 2,05% và nhận lãi suất MRR đồng CAD kỳ hạn 3 tháng. <em>Mức giá</em> hoán đổi cố định (<em>fixed swap price</em>) 2,05% do Esterr trả giữ nguyên không đổi trong suốt vòng đời của hợp đồng. Trong khi lãi suất MRR đồng CAD kỳ hạn 3 tháng đầu tiên <em>đã được biết</em> tại thời điểm <span class="math-inline">$t = 0$</span>, 13 lần ấn định MRR còn lại vẫn <em>chưa được biết</em> nhưng được <em>kỳ vọng</em> sẽ bằng với các mức lãi suất kỳ hạn hàm ý (<em>implied forward rates</em> – IFRs) tương ứng cho mỗi kỳ cho đến khi đáo hạn. Một bài học trước đã chỉ ra cách thức các mức IFR được suy ra từ lãi suất zero, sau đó được sử dụng để giải tìm lãi suất hoán đổi cố định bằng cách đặt giá trị hiện tại của các khoản thanh toán cố định bằng với giá trị hiện tại của các khoản thanh toán thả nổi.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The <em>value</em> of Esterr’s swap contract will change as time passes and interest rates change. We first consider the passage of time with no change to expected interest rates. That is, the MRR sets each period based on the implied forward rates at trade inception. Assume the following implied forward rates apply to Esterr’s swap at <em>t</em> = 0:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Giá trị</em> (<em>value</em>) hợp đồng hoán đổi của Esterr sẽ thay đổi khi thời gian trôi qua và lãi suất thay đổi. Trước tiên, chúng ta xem xét sự trôi qua của thời gian mà không có sự thay đổi nào đối với lãi suất kỳ vọng. Nghĩa là, MRR được ấn định trong mỗi kỳ dựa đúng theo các mức lãi suất kỳ hạn hàm ý tại thời điểm khởi tạo giao dịch. Giả sử các mức lãi suất kỳ hạn hàm ý sau đây được áp dụng cho hợp đồng hoán đổi của Esterr tại thời điểm <span class="math-inline">$t = 0$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Period</strong></th>
+<th><strong>IFR</strong></th>
+<th><strong>Rate</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>IFR0,3_m_</td>
+<td>0.50%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>IFR3_m_,3_m_</td>
+<td>0.74%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>IFR6_m_,3_m_</td>
+<td>0.98%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>IFR9_m_,3_m_</td>
+<td>1.22%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>IFR12_m_,3_m_</td>
+<td>1.46%</td>
+</tr>
+<tr>
+<td>6</td>
+<td>IFR15_m_,3_m_</td>
+<td>1.70%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>IFR18_m_,3_m_</td>
+<td>1.94%</td>
+</tr>
+<tr>
+<td>8</td>
+<td>IFR21_m_,3_m_</td>
+<td>2.18%</td>
+</tr>
+<tr>
+<td>9</td>
+<td>IFR24_m_,3_m_</td>
+<td>2.43%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>IFR27_m_,3_m_</td>
+<td>2.67%</td>
+</tr>
+<tr>
+<td>11</td>
+<td>IFR30_m_,3_m_</td>
+<td>2.91%</td>
+</tr>
+<tr>
+<td>12</td>
+<td>IFR33_m_,3_m_</td>
+<td>3.15%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Kỳ (<em>Period</em>)</strong></th>
+<th><strong>Lãi suất kỳ hạn hàm ý (<em>IFR</em>)</strong></th>
+<th><strong>Mức lãi suất (<em>Rate</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><span class="math-inline">$\text{IFR}_{0,3m}$</span></td>
+<td>0,50%</td>
+</tr>
+<tr>
+<td>2</td>
+<td><span class="math-inline">$\text{IFR}_{3m,3m}$</span></td>
+<td>0,74%</td>
+</tr>
+<tr>
+<td>3</td>
+<td><span class="math-inline">$\text{IFR}_{6m,3m}$</span></td>
+<td>0,98%</td>
+</tr>
+<tr>
+<td>4</td>
+<td><span class="math-inline">$\text{IFR}_{9m,3m}$</span></td>
+<td>1,22%</td>
+</tr>
+<tr>
+<td>5</td>
+<td><span class="math-inline">$\text{IFR}_{12m,3m}$</span></td>
+<td>1,46%</td>
+</tr>
+<tr>
+<td>6</td>
+<td><span class="math-inline">$\text{IFR}_{15m,3m}$</span></td>
+<td>1,70%</td>
+</tr>
+<tr>
+<td>7</td>
+<td><span class="math-inline">$\text{IFR}_{18m,3m}$</span></td>
+<td>1,94%</td>
+</tr>
+<tr>
+<td>8</td>
+<td><span class="math-inline">$\text{IFR}_{21m,3m}$</span></td>
+<td>2,18%</td>
+</tr>
+<tr>
+<td>9</td>
+<td><span class="math-inline">$\text{IFR}_{24m,3m}$</span></td>
+<td>2,43%</td>
+</tr>
+<tr>
+<td>10</td>
+<td><span class="math-inline">$\text{IFR}_{27m,3m}$</span></td>
+<td>2,67%</td>
+</tr>
+<tr>
+<td>11</td>
+<td><span class="math-inline">$\text{IFR}_{30m,3m}$</span></td>
+<td>2,91%</td>
+</tr>
+<tr>
+<td>12</td>
+<td><span class="math-inline">$\text{IFR}_{33m,3m}$</span></td>
+<td>3,15%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-169" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 169 / Trang PDF 169
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Period</strong></th>
+<th><strong>IFR</strong></th>
+<th><strong>Rate</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td>IFR36_m_,3_m_</td>
+<td>3.39%</td>
+</tr>
+<tr>
+<td>14</td>
+<td>IFR39_m_,3_m_</td>
+<td>3.78%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Kỳ (<em>Period</em>)</strong></th>
+<th><strong>Lãi suất kỳ hạn hàm ý (<em>IFR</em>)</strong></th>
+<th><strong>Mức lãi suất (<em>Rate</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td><span class="math-inline">$\text{IFR}_{36m,3m}$</span></td>
+<td>3,39%</td>
+</tr>
+<tr>
+<td>14</td>
+<td><span class="math-inline">$\text{IFR}_{39m,3m}$</span></td>
+<td>3,78%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Based on these forward rates, Esterr expects to <em>make</em> a net swap payment each quarter through the seventh period—since (MRR – <em>sN</em> ) = (1.94% – 2.05%) &lt; 0—and <em>receive</em> a net quarterly swap payment starting in the eighth period, where (MRR – <em>sN</em> ) = (2.18% – 2.05%) &gt; 0. Using Equation 1, consider the periodic settlement values for the first two periods from Esterr’s perspective as the fixed-rate payer:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dựa trên các mức lãi suất kỳ hạn này, Esterr kỳ vọng sẽ <em>thực hiện (chi trả)</em> một khoản thanh toán hoán đổi ròng mỗi quý cho đến hết kỳ thứ bảy—vì <span class="math-inline">$(\text{MRR} - s_N) = (1,94\% - 2,05\%) &lt; 0$</span>—và <em>nhận</em> một khoản thanh toán hoán đổi ròng hàng quý bắt đầu từ kỳ thứ tám, nơi <span class="math-inline">$(\text{MRR} - s_N) = (2,18\% - 2,05\%) &gt; 0$</span>. Sử dụng Phương trình 4 (trong nguyên bản ghi Equation 1), hãy xem xét các giá trị thanh toán định kỳ cho hai kỳ đầu tiên dưới góc độ của Esterr là bên trả lãi cố định:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>Period 1:</strong> –CAD968,750 = (0.5% – 2.05%) × CAD250 million × 0.25.</p>
+</li>
+<li>
+<p><strong>Period 2:</strong> –CAD818,750 = (0.74% – 2.05%) × CAD250 million × 0.25.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>Kỳ 1:</strong> <span class="math-inline">$-968.750\text{ CAD} = (0,5\% - 2,05\%) \times 250\text{ triệu CAD} \times 0,25$</span>.</p>
+</li>
+<li>
+<p><strong>Kỳ 2:</strong> <span class="math-inline">$-818.750\text{ CAD} = (0,74\% - 2,05\%) \times 250\text{ triệu CAD} \times 0,25$</span>.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>What is the swap MTM <em>value</em> from Esterr’s perspective immediately after the second periodic settlement if forward rates remain unchanged? Note that the swap <em>price</em> (the fixed swap rate of 2.05%) was set at inception to equate the present value of fixed versus floating payments.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Giá trị</em> định giá theo thị trường (<em>MTM value</em>) của hợp đồng hoán đổi dưới góc độ của Esterr ngay sau lần thanh toán định kỳ thứ hai là bao nhiêu nếu lãi suất kỳ hạn không thay đổi? Lưu ý rằng <em>mức giá</em> của hợp đồng hoán đổi (lãi suất hoán đổi cố định 2,05%) đã được thiết lập tại thời điểm khởi tạo để làm cân bằng giá trị hiện tại của các khoản thanh toán cố định so với thả nổi.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0169-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0169-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Trục tung:</strong> Lãi suất (<em>Rate</em>) từ <span class="math-inline">$0,00\%$</span> đến <span class="math-inline">$4,00\%$</span>; <strong>Trục hoành:</strong> Kỳ hàng quý (<em>Quarterly period</em>) từ 1 đến 14.
+- <strong>Forward curve:</strong> Đường cong lãi suất kỳ hạn dốc lên.
+- <strong>Swap rate:</strong> Lãi suất hoán đổi cố định ban đầu (<span class="math-inline">$2,05\%$</span>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As we move forward in time with <em>no</em> change to interest rate expectations, the present value of remaining floating payments rises above the present value of fixed payments at 2.05%, as Esterr has made a net settlement payment in the first two periods.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi chúng ta tiến về phía trước theo thời gian mà <em>không</em> có sự thay đổi nào đối với kỳ vọng lãi suất, giá trị hiện tại của các khoản thanh toán thả nổi còn lại sẽ tăng lên cao hơn giá trị hiện tại của các khoản thanh toán cố định ở mức 2,05%, bởi vì Esterr đã thực hiện chi trả khoản thanh toán ròng trong hai kỳ đầu tiên.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0169-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0169-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>New swap rate (3y):</strong> Lãi suất hoán đổi mới cho 3 năm còn lại (từ kỳ 3 đến kỳ 14), nằm cao hơn <strong>Original swap rate</strong> (Lãi suất hoán đổi ban đầu <span class="math-inline">$2,05\%$</span>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Quarterly period</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Kỳ hàng quý (<em>Quarterly period</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As the diagram shows, as time progresses, Esterr realizes an MTM gain on the swap, since</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Như sơ đồ cho thấy, khi thời gian trôi qua, Esterr thực hiện được một khoản lãi định giá theo thị trường (<em>MTM gain</em>) trên hợp đồng hoán đổi, bởi vì:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-170" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 170 / Trang PDF 170
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6>Σ PV(Floating payments received) &gt; Σ PV(Fixed payments paid).</h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\sum \text{PV}(\text{Các khoản thanh toán thả nổi nhận được – Floating payments received}) &gt; \sum \text{PV}(\text{Các khoản thanh toán cố định phải trả – Fixed payments paid}).$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Note that this result depends on the relative level of IFRs and shape of the forward curve, which in this case is upward sloping.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lưu ý rằng kết quả này phụ thuộc vào mức độ tương đối của các mức IFR và hình dạng của đường cong lãi suất kỳ hạn (<em>forward curve</em>), mà trong trường hợp này là dốc lên (<em>upward sloping</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If we instead consider interest rate changes only, from Esterr’s perspective as the fixed-rate payer (and floating-rate receiver), we can show the conditions under which Esterr has a swap MTM gain or loss:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu thay vào đó chúng ta chỉ xem xét những thay đổi về lãi suất, dưới góc độ của Esterr là bên trả lãi cố định (và là bên nhận lãi thả nổi), chúng ta có thể chỉ ra các điều kiện mà theo đó Esterr có khoản lãi hoặc lỗ MTM trên hợp đồng hoán đổi:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Esterr realizes an MTM <em>gain</em> on the swap as the fixed-rate payer if</p>
+</li>
+<li>
+<p>Σ PV(Floating payments received) &gt; Σ PV(Fixed payments paid).</p>
+</li>
+<li>
+<p>Esterr realizes an MTM <em>loss</em> on the swap as the fixed-rate payer if</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Esterr thực hiện được một khoản <em>lãi</em> MTM (<em>MTM gain</em>) trên hợp đồng hoán đổi với tư cách là bên trả lãi cố định nếu:</li>
+</ul>
+<div class="math-display my-3 overflow-x-auto">$$\sum \text{PV}(\text{Các khoản thanh toán thả nổi nhận được}) &gt; \sum \text{PV}(\text{Các khoản thanh toán cố định phải trả}).$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Σ PV(Floating payments received) &lt; Σ PV(Fixed payments paid).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Esterr thực hiện một khoản <em>lỗ</em> MTM (<em>MTM loss</em>) trên hợp đồng hoán đổi với tư cách là bên trả lãi cố định nếu:</li>
+</ul>
+<div class="math-display my-3 overflow-x-auto">$$\sum \text{PV}(\text{Các khoản thanh toán thả nổi nhận được}) &lt; \sum \text{PV}(\text{Các khoản thanh toán cố định phải trả}).$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A rise in the expected forward rates after inception will increase the present value of floating payments, while the fixed swap rate will remain the same. We show the effect of an immediate change in interest rates following trade inception in the following diagram:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sự gia tăng của các mức lãi suất kỳ hạn dự kiến sau khi khởi tạo sẽ làm tăng giá trị hiện tại của các khoản thanh toán thả nổi, trong khi lãi suất hoán đổi cố định vẫn giữ nguyên như cũ. Chúng ta thể hiện tác động của một sự thay đổi tức thời trong lãi suất ngay sau khi khởi tạo giao dịch trong sơ đồ dưới đây:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0170-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0170-11.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>New forward curve:</strong> Đường cong lãi suất kỳ hạn mới (dịch chuyển lên trên <strong>Original forward curve</strong> – Đường cong lãi suất kỳ hạn ban đầu).
+- <strong>New swap rate:</strong> Lãi suất hoán đổi mới (cao hơn <strong>Original swap rate</strong> – Lãi suất hoán đổi ban đầu).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The new forward curve in this diagram is composed of higher IFRs. If we were to now solve for a fixed swap rate using these higher IFRs by setting floating and fixed cash flows equal to one another, the new swap rate would be above the original swap rate. However, since Esterr has locked in future fixed payments at the <em>lower</em> original swap rate while receiving higher expected future MRRs, the swap has a positive MTM value to Esterr.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đường cong lãi suất kỳ hạn mới trong sơ đồ này bao gồm các mức IFR cao hơn. Nếu bây giờ chúng ta giải tìm một mức lãi suất hoán đổi cố định bằng cách sử dụng các mức IFR cao hơn này thông qua việc đặt các dòng tiền thả nổi và cố định bằng nhau, thì lãi suất hoán đổi mới sẽ nằm trên mức lãi suất hoán đổi ban đầu. Tuy nhiên, vì Esterr đã khóa chặt (<em>locked in</em>) các khoản thanh toán cố định trong tương lai ở mức lãi suất hoán đổi ban đầu <em>thấp hơn</em> trong khi lại nhận được các mức MRR dự kiến trong tương lai cao hơn, nên hợp đồng hoán đổi có giá trị MTM dương đối với Esterr.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Another interpretation of an interest rate swap is that the fixed-rate payer (floating-rate receiver) is <em>long</em> a floating-rate note (FRN) priced at the MRR and <em>short</em> a fixed-rate bond with a coupon equal to the fixed swap rate. Note that the combination of long and short bond positions causes both the purchase and sale prices of the two bonds at inception and the return of principal at maturity cancel one another out, and only the fixed versus variable coupon payments remain. The following example shows how the change in an interest rate swap’s value is similar to that of a fixed-income security using an earlier investor swap example.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một cách diễn giải khác về hợp đồng hoán đổi lãi suất là bên trả lãi cố định (bên nhận lãi thả nổi) đang giữ vị thế <em>mua (long)</em> một trái phiếu lãi suất thả nổi (<em>floating-rate note</em> – FRN) được định giá theo MRR và vị thế <em>bán (short)</em> một trái phiếu lãi suất cố định có lãi suất coupon bằng với lãi suất hoán đổi cố định. Lưu ý rằng sự kết hợp của vị thế mua và bán trái phiếu làm cho cả giá mua và giá bán của hai trái phiếu tại thời điểm khởi tạo cũng như việc hoàn trả vốn gốc khi đáo hạn triệt tiêu lẫn nhau, và chỉ còn lại các khoản thanh toán coupon cố định so với biến đổi. Ví dụ sau đây cho thấy sự thay đổi trong giá trị của một hợp đồng hoán đổi lãi suất tương tự như sự thay đổi của một chứng khoán thu nhập cố định như thế nào bằng cách sử dụng một ví dụ về hợp đồng hoán đổi của nhà đầu tư trước đó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 4</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 4 (<em>EXAMPLE 4</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Fyleton Investments</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Fyleton Investments</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Fyleton Investments entered a five-year, receive-fixed GBP200 million interest rate swap in an example from an earlier lesson to increase the duration of its fixed-income portfolio. Assume in this case that Fyleton receives a fixed swap</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong một ví dụ ở bài học trước, Fyleton Investments đã tham gia vào một hợp đồng hoán đổi lãi suất kỳ hạn 5 năm, nhận lãi cố định (<em>receive-fixed</em>) trị giá 200 triệu GBP nhằm làm tăng thời lượng (<em>duration</em>) cho danh mục đầu tư thu nhập cố định của mình. Giả sử trong trường hợp này, Fyleton nhận lãi suất hoán đổi cố định</p></div>
+                </div>
+                
+
+                <div id="pdf-page-171" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 171 / Trang PDF 171
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>rate of 2.38% on a semiannual basis versus six-month GBP MRR. Further assume that initial six-month GBP MRR sets at 0.71% and, as in the case of Esterr, the MRR forward curve is upward sloping. How will the value of Fyleton’s swap change as time passes and interest rates change?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>ở mức 2,38% trên cơ sở nửa năm một lần (<em>semiannual basis</em>) đổi lấy lãi suất MRR đồng GBP kỳ hạn 6 tháng. Giả sử thêm rằng lãi suất MRR đồng GBP kỳ hạn 6 tháng ban đầu được ấn định ở mức 0,71% và, giống như trong trường hợp của Esterr, đường cong lãi suất kỳ hạn MRR có hình dạng dốc lên (<em>upward sloping</em>). Giá trị hợp đồng hoán đổi của Fyleton sẽ thay đổi như thế nào khi thời gian trôi qua và lãi suất thay đổi?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>First, consider the passage of time with no rate changes. The first-p ~~e~~ riod swap settlement value (in six months) from Fyleton’s perspective as the fixedrate receiver is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trước tiên, hãy xem xét sự trôi qua của thời gian mà không có sự thay đổi nào về lãi suất. Giá trị thanh toán hợp đồng hoán đổi kỳ đầu tiên (sau 6 tháng) dưới góc độ của Fyleton là bên nhận lãi cố định (<em>fixed-rate receiver</em>) là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>GBP1,670,000 = (2.38% – 0.71%) × GBP200 million × 0.5.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$1.670.000\text{ GBP} = (2,38\% - 0,71\%) \times 200\text{ triệu GBP} \times 0,5.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>What is the MTM value from Fyleton’s perspective immediately following the first settlement if implied forward rates remain the same as at trade inception?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá trị MTM dưới góc độ của Fyleton ngay sau lần thanh toán đầu tiên là bao nhiêu nếu các mức lãi suất kỳ hạn hàm ý vẫn giữ nguyên như tại thời điểm khởi tạo giao dịch?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As the fixed-rate <em>receiver</em> , Fyleton will realize an MTM <em>loss</em> on the swap, since</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Với tư cách là bên <em>nhận</em> lãi cố định, Fyleton sẽ thực hiện một khoản <em>lỗ</em> MTM (<em>MTM loss</em>) trên hợp đồng hoán đổi, bởi vì:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Σ PV(Floating payments paid) &gt; Σ PV(Fixed payments received).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\sum \text{PV}(\text{Các khoản thanh toán thả nổi phải trả – Floating payments paid}) &gt; \sum \text{PV}(\text{Các khoản thanh toán cố định nhận được – Fixed payments received}).$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Second, consider a change in forward rates. A <em>decline</em> in expected forward rates immediately following trade inception will <em>reduce</em> the present value of floating payments, while the fixed swap rate will remain the same. Fyleton will realize an MTM gain as the fixed-rate receiver, since</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thứ hai, hãy xem xét sự thay đổi trong lãi suất kỳ hạn. Sự <em>sụt giảm</em> của các mức lãi suất kỳ hạn dự kiến ngay sau khi khởi tạo giao dịch sẽ <em>làm giảm</em> giá trị hiện tại của các khoản thanh toán thả nổi, trong khi lãi suất hoán đổi cố định vẫn giữ nguyên. Fyleton sẽ thực hiện được một khoản lãi MTM (<em>MTM gain</em>) với tư cách là bên nhận lãi cố định, bởi vì:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6>Σ PV(Fixed payments received) &gt; Σ PV(Floating payments paid).</h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$\sum \text{PV}(\text{Các khoản thanh toán cố định nhận được}) &gt; \sum \text{PV}(\text{Các khoản thanh toán thả nổi phải trả}).$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This MTM gain is shown by the different size of the shaded areas under the original swap rate using the new forward curve in the following diagram.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khoản lãi MTM này được thể hiện qua kích thước khác nhau của các vùng được tô bóng dưới mức lãi suất hoán đổi ban đầu khi sử dụng đường cong lãi suất kỳ hạn mới trong sơ đồ dưới đây.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0171-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0171-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>PV(Fixed) &gt; PV(Floating):</strong> Giá trị hiện tại của dòng tiền cố định lớn hơn Giá trị hiện tại của dòng tiền thả nổi.
+- <strong>Original forward curve:</strong> Đường cong lãi suất kỳ hạn ban đầu; <strong>New forward curve:</strong> Đường cong lãi suất kỳ hạn mới (dịch chuyển xuống dưới).
+- <strong>Original swap rate:</strong> Lãi suất hoán đổi ban đầu (cao hơn <strong>New swap rate</strong> – Lãi suất hoán đổi mới).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Note the similarity between the receive-fixed swap exposure profile and that of a long cash fixed-rate bond position. In the first instance, we would expect a fixed-rate par bond to be priced at a <em>discount</em> as time passes if rates rise as per an upward-sloping forward curve, while an FRN priced at the MRR would remain at par. In the second instance, a decline in implied forward rates (or downward shift in the forward curve) would cause a fixed-rate par bond to be priced at a <em>premium</em> , while the FRN price would not change. We will explore how term structure and yield curve changes affect swap values and bond prices in greater detail later in the curriculum.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy lưu ý sự tương đồng giữa hồ sơ phơi nhiễm rủi ro của hợp đồng hoán đổi nhận lãi cố định (<em>receive-fixed swap</em>) và hồ sơ của một vị thế mua trái phiếu tiền mặt lãi suất cố định (<em>long cash fixed-rate bond position</em>). Trong trường hợp thứ nhất, chúng ta kỳ vọng một trái phiếu ngang giá lãi suất cố định sẽ được định giá ở mức <em>chiết khấu</em> (<em>discount</em>) khi thời gian trôi qua nếu lãi suất tăng lên theo đường cong lãi suất kỳ hạn dốc lên, trong khi một trái phiếu FRN được định giá theo MRR sẽ vẫn giữ ở mức ngang giá (<em>par</em>). Trong trường hợp thứ hai, sự sụt giảm của lãi suất kỳ hạn hàm ý (hay sự dịch chuyển xuống dưới của đường cong lãi suất kỳ hạn) sẽ làm cho một trái phiếu ngang giá lãi suất cố định được định giá ở mức <em>thặng dư</em> (<em>premium</em>), trong khi giá trái phiếu FRN sẽ không thay đổi. Chúng ta sẽ khám phá cách thức những thay đổi của cấu trúc kỳ hạn và đường cong lợi suất ảnh hưởng đến giá trị hợp đồng hoán đổi và giá trái phiếu một cách chi tiết hơn ở phần sau của chương trình học.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-172" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 172 / Trang PDF 172
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Swap Prices and Values</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Mức giá và Giá trị của Hợp đồng Hoán đổi (<em>Swap Prices and Values</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Determine the correct answers to fill in the blanks: A rise in the expected forward rates after inception will <strong><em>_</em>_ the present value of floating payments, causing a fixed-rate receiver to realize a(n) </strong>____ in MTM value on the swap contract.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Xác định các câu trả lời đúng để điền vào chỗ trống: Sự gia tăng của các mức lãi suất kỳ hạn dự kiến sau khi khởi tạo sẽ <strong><em>_</em>_ giá trị hiện tại của các khoản thanh toán thả nổi, làm cho bên nhận lãi cố định (<em>fixed-rate receiver</em>) thực hiện một sự </strong>____ trong giá trị MTM của hợp đồng hoán đổi.</li>
+</ol>
+<h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sự gia tăng của các mức lãi suất kỳ hạn dự kiến sau khi khởi tạo sẽ <em>làm tăng (increase)</em> giá trị hiện tại của các khoản thanh toán thả nổi, làm cho bên nhận lãi cố định thực hiện một sự <em>sụt giảm (decline)</em> trong giá trị MTM của hợp đồng hoán đổi.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A rise in the expected forward rates after inception will <em>increase</em> the present value of floating payments, causing a fixed-rate receiver to realize a <em>decline</em> in MTM value on the swap contract.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Xác định phát biểu sau đây là đúng hay sai, và giải thích câu trả lời của bạn: Lãi suất cố định trong một hợp đồng hoán đổi lãi suất được định giá sao cho giá trị hiện tại của các khoản thanh toán thả nổi (dựa trên các mức lãi suất kỳ hạn hàm ý tương ứng cho mỗi kỳ) bằng với giá trị hiện tại của các khoản thanh toán cố định tại thời điểm <span class="math-inline">$t = 0$</span>.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Identify the following statement as true or false, and justify your response: The fixed rate on an interest rate swap is priced such that the present value of the floating payments (based on respective implied forward rates for each period) is equal to the present value of the fixed payments at <em>t</em> = 0.</li>
+</ol>
+<ul>
+<li><strong>Solution:</strong></li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This statement is true. The fixed rate on an interest rate swap may be solved by setting the present value of floating payments equal to the present value of fixed payments. We use zero rates to derive implied forward rates, or breakeven reinvestment rates, between a shorter and a longer zero rate. These IFRs represent the respective floating rates that are expected to apply for each future period at time <em>t</em> = 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phát biểu này là đúng. Lãi suất cố định trong một hợp đồng hoán đổi lãi suất có thể được giải tìm bằng cách đặt giá trị hiện tại của các khoản thanh toán thả nổi bằng với giá trị hiện tại của các khoản thanh toán cố định. Chúng ta sử dụng lãi suất zero (<em>zero rates</em>) để suy ra lãi suất kỳ hạn hàm ý (<em>implied forward rates</em> – IFRs), hay lãi suất tái đầu tư hòa vốn, giữa một mức lãi suất zero ngắn hạn hơn và một mức lãi suất zero dài hạn hơn. Các mức IFR này đại diện cho các mức lãi suất thả nổi tương ứng được kỳ vọng sẽ áp dụng cho từng kỳ tương lai tính tại thời điểm <span class="math-inline">$t = 0$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>
+<p>Identify which of the following statements is associated with which position in an interest rate swap contract.</p>
+</li>
+<li>
+<p>Establishes a set of certain net A. Fixed-rate payer (Floating-rate receiver) future cash flows on a swap contract at inception</p>
+</li>
+<li>
+<p>Realizes an MTM gain on a swap B. Fixed-rate receiver (Floating-rate contract if the expected future payer) floating-rate payments increase</p>
+</li>
+<li>
+<p>An investor may increase portfolio C. Neither a fixed-rate payer nor a duration by entering this position in a fixed-rate receiver swap contract</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Xác định phát biểu nào sau đây gắn liền với vị thế nào trong một hợp đồng hoán đổi lãi suất.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phát biểu</th>
+<th>Vị thế trong hợp đồng hoán đổi lãi suất</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Thiết lập một tập hợp các dòng tiền tương lai ròng chắc chắn (<em>certain net future cash flows</em>) trên một hợp đồng hoán đổi tại thời điểm khởi tạo</td>
+<td>A. Bên trả lãi cố định (Bên nhận lãi thả nổi) (<em>Fixed-rate payer / Floating-rate receiver</em>)</td>
+</tr>
+<tr>
+<td>2. Thực hiện được một khoản lãi MTM trên hợp đồng hoán đổi nếu các khoản thanh toán lãi suất thả nổi dự kiến trong tương lai tăng lên</td>
+<td>B. Bên nhận lãi cố định (Bên trả lãi thả nổi) (<em>Fixed-rate receiver / Floating-rate payer</em>)</td>
+</tr>
+<tr>
+<td>3. Một nhà đầu tư có thể làm tăng thời lượng (<em>duration</em>) của danh mục đầu tư bằng cách tham gia vị thế này trong một hợp đồng hoán đổi</td>
+<td>C. Không phải bên trả lãi cố định cũng không phải bên nhận lãi cố định (<em>Neither a fixed-rate payer nor a fixed-rate receiver</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> C is correct. A swap contract establishes a set of <em>certain</em> fixed future cash flows that are exchanged for a set of <em>expected</em> ( <em>uncertain</em> ) floating future cash flows. Therefore, <em>neither</em> a fixed-rate payer nor a fixed-rate receiver knows the <em>net</em> future cash flows of a swap at inception.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6>
+<p><strong>1.</strong> C là đáp án đúng. Một hợp đồng hoán đổi thiết lập một tập hợp các dòng tiền tương lai cố định <em>chắc chắn</em> (<em>certain</em>) được đem trao đổi lấy một tập hợp các dòng tiền tương lai thả nổi <em>dự kiến</em> (<em>không chắc chắn</em> – <em>uncertain</em>). Do đó, <em>không</em> bên nào (cả bên trả lãi cố định lẫn bên nhận lãi cố định) biết trước được các dòng tiền tương lai <em>ròng</em> (<em>net future cash flows</em>) của hợp đồng hoán đổi tại thời điểm khởi tạo.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> A is correct. A fixed-rate payer realizes an MTM gain on a swap contract if the expected future floating-rate payments increase.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> A là đáp án đúng. Bên trả lãi cố định thực hiện được một khoản lãi MTM trên hợp đồng hoán đổi nếu các khoản thanh toán lãi suất thả nổi dự kiến trong tương lai tăng lên.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> B is correct. A fixed-rate receiver may increase portfolio duration by entering this position on a swap, because receiving fixed is similar to a long bond position.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> B là đáp án đúng. Bên nhận lãi cố định có thể làm tăng thời lượng (<em>duration</em>) của danh mục đầu tư bằng cách tham gia vị thế này trong hợp đồng hoán đổi, bởi vì việc nhận lãi cố định tương tự như một vị thế mua trái phiếu (<em>long bond position</em>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-173" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 173 / Trang PDF 173
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>
+<p>Determine the correct answers to fill in the blanks: The value of a swap on any settlement date equals the <strong><em>_</em>_ settlement value plus the present value of all remaining </strong>____ swap settlements. <strong>Solution:</strong> The value of a swap on any settlement date equals the <em>current</em> settlement value plus the present value of all remaining <em>future</em> swap settlements.</p>
+</li>
+<li>
+<p>Describe how an investor may use an interest rate swap to reduce the duration of a fixed-income portfolio, and justify your response. <strong>Solution:</strong> A pay-fixed swap is similar to a short bond position that reduces duration, because the fixed-rate payer (floating-rate receiver) is effectively long a floating-rate note priced at the MRR and short a fixed-rate bond with a coupon equal to the fixed swap rate.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Xác định các câu trả lời đúng để điền vào chỗ trống: Giá trị của một hợp đồng hoán đổi vào bất kỳ ngày thanh toán nào bằng giá trị thanh toán <strong><em>_</em>_ cộng với giá trị hiện tại của tất cả các khoản thanh toán hoán đổi </strong>____ còn lại.</li>
+</ol>
+<h6><strong>Lời giải:</strong></h6>
+<p>Giá trị của một hợp đồng hoán đổi vào bất kỳ ngày thanh toán nào bằng giá trị thanh toán <em>hiện tại (current)</em> cộng với giá trị hiện tại của tất cả các khoản thanh toán hoán đổi <em>tương lai (future)</em> còn lại.</p>
+<ol start="5">
+<li>Mô tả cách thức một nhà đầu tư có thể sử dụng hợp đồng hoán đổi lãi suất để làm giảm thời lượng (<em>duration</em>) của một danh mục đầu tư thu nhập cố định, và giải thích lý do cho câu trả lời của bạn.</li>
+</ol>
+<h6><strong>Lời giải:</strong></h6>
+<p>Một hợp đồng hoán đổi trả lãi cố định (<em>pay-fixed swap</em>) tương tự như một vị thế bán trái phiếu (<em>short bond position</em>) giúp làm giảm thời lượng (<em>duration</em>), bởi vì bên trả lãi cố định (bên nhận lãi thả nổi) về thực chất đang giữ vị thế mua (<em>long</em>) một trái phiếu lãi suất thả nổi được định giá theo MRR và giữ vị thế bán (<em>short</em>) một trái phiếu lãi suất cố định có lãi suất coupon bằng với lãi suất hoán đổi cố định.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-174" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 174 / Trang PDF 174
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~PRACTICE PROBLEMS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>The following information relates to questions 1-6</strong></h3>
+<p>Ace Limited is a financial intermediary that is active in forward and swap markets with its issuer and investor clients. You have been asked to consult on a number of client situations to determine the best course of action.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Thông tin sau đây liên quan đến các câu hỏi từ 1 đến 6</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> Identify which of the following statements is associated with which Ace counterparty swap position.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ace Limited là một định chế tài chính trung gian hoạt động tích cực trên thị trường kỳ hạn và hoán đổi với các khách hàng là tổ chức phát hành và nhà đầu tư. Bạn được yêu cầu tư vấn về một số tình huống của khách hàng để xác định hướng hành động tốt nhất.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>Ace’s counterparty with this swap position will realize an MTM gain if implied forward rates rise.</p>
+</li>
+<li>
+<p>Ace’s counterparty with this swap position will make a net payment if the initial market reference rate sets above the fixed swap rate.</p>
+</li>
+<li>
+<p>Ace’s counterparty with this position will face an initial swap contract value (ignoring transaction and counterparty credit costs) of zero.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Xác định phát biểu nào sau đây gắn liền với vị thế hoán đổi nào của đối tác giao dịch với Ace.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A. A receive-fixed interest rate swap</p>
+<p>B. A pay-fixed interest rate swap</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phát biểu</th>
+<th>Vị thế hoán đổi của đối tác</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Đối tác của Ace giữ vị thế hoán đổi này sẽ thực hiện được một khoản lãi MTM nếu các mức lãi suất kỳ hạn hàm ý tăng lên.</td>
+<td>A. Hợp đồng hoán đổi lãi suất nhận cố định (<em>A receive-fixed interest rate swap</em>)</td>
+</tr>
+<tr>
+<td>2. Đối tác của Ace giữ vị thế hoán đổi này sẽ phải thực hiện một khoản thanh toán ròng nếu lãi suất tham chiếu thị trường (MRR) ban đầu được ấn định cao hơn lãi suất hoán đổi cố định.</td>
+<td>B. Hợp đồng hoán đổi lãi suất trả cố định (<em>A pay-fixed interest rate swap</em>)</td>
+</tr>
+<tr>
+<td>3. Đối tác của Ace giữ vị thế này sẽ có giá trị hợp đồng hoán đổi ban đầu (bỏ qua chi phí giao dịch và chi phí tín dụng đối tác) bằng không.</td>
+<td>C. Cả hợp đồng hoán đổi lãi suất nhận cố định và trả cố định (<em>Both a receive-fixed and a pay-fixed interest rate swap</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C. Both a receive-fixed and a pay-fixed interest rate swap</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Khách hàng của Ace là một công ty quản lý tài sản có một phần đáng kể danh mục đầu tư trái phiếu lãi suất cố định sắp đáo hạn. Khách hàng của Ace dự định tái đầu tư số tiền thu được vào các trái phiếu có kỳ hạn 5 năm. Phương án nào sau đây mô tả hướng hành động <em>tốt nhất</em> trên thị trường công cụ phái sinh để khách hàng của Ace giải quyết rủi ro tái đầu tư trái phiếu (<em>bond reinvestment risk</em>) của mình?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> Ace’s client is an asset manager with a significant portion of its fixed-rate bond investment portfolio maturing soon. Ace intends to reinvest the proceeds in five-year bond maturities. Which of the following describes the <em>best</em> course of action in the derivatives market for Ace’s client to address its bond reinvestment risk?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Khách hàng của Ace nên cân nhắc việc <em>nhận</em> lãi cố định trong một hợp đồng hoán đổi kỳ hạn 5 năm bắt đầu trong tương lai (<em>forward-starting swap</em>) được thanh toán bằng tiền mặt, bắt đầu và thanh toán sau 3 tháng nữa nhằm giải quyết tốt nhất rủi ro tái đầu tư trái phiếu của mình.</p>
+</li>
+<li>
+<p><strong>B.</strong> Khách hàng của Ace nên cân nhắc việc <em>trả</em> lãi cố định trong một hợp đồng hoán đổi kỳ hạn 5 năm bắt đầu trong tương lai được thanh toán bằng tiền mặt, bắt đầu sau 3 tháng nữa nhằm giải quyết tốt nhất rủi ro tái đầu tư trái phiếu của mình.</p>
+</li>
+<li>
+<p><strong>C.</strong> Khách hàng của Ace nên cân nhắc việc tham gia vào một <em>chuỗi</em> các hợp đồng kỳ hạn lãi suất (FRAs) từ hôm nay cho đến 5 năm sau, theo đó họ trả lãi suất cố định và nhận lãi suất thả nổi mỗi kỳ kết thúc sau 5 năm để giải quyết rủi ro tái đầu tư trái phiếu của mình.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Ace’s client should consider <em>receiving</em> fixed on a cash-settled five-year forward-starting swap that starts and settles in three months in order to best address its bond reinvestment risk.</p>
+</li>
+<li>
+<p><strong>B.</strong> Ace’s client should consider <em>paying</em> fixed on a cash-settled five-year forward-starting swap starting in three months in order to best address its bond reinvestment risk.</p>
+</li>
+<li>
+<p><strong>C.</strong> Ace’s client should consider entering a <em>series</em> of forward rate agreements (FRAs) from today until five years from now under which it pays a fixed rate and receives a floating rate each period ending in five years to address its bond reinvestment risk.</p>
+</li>
+</ul>
+<p><strong>3.</strong> Ace enters a 10-year GBP interest rate swap with a client in which Ace receives an initial six-month GBP MRR of 1.75% and pays a fixed GBP swap rate of 3.10% for the first semiannual period. Which of the following statements best describes the value of the swap from Ace’s perspective three months after the inception of the trade?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Ace tham gia vào một hợp đồng hoán đổi lãi suất đồng GBP kỳ hạn 10 năm với một khách hàng, trong đó Ace nhận lãi suất MRR đồng GBP kỳ hạn 6 tháng ban đầu là 1,75% và trả lãi suất hoán đổi cố định đồng GBP là 3,10% cho kỳ nửa năm đầu tiên. Phát biểu nào sau đây mô tả đúng nhất giá trị của hợp đồng hoán đổi dưới góc độ của Ace vào thời điểm 3 tháng sau khi khởi tạo giao dịch?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>A.</strong> Ace has an MTM <em>loss</em> on the swap, because it owes a net settlement payment to its counterparty equal to 1.35% multiplied by the notional and period.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Ace có một khoản <em>lỗ</em> MTM trên hợp đồng hoán đổi, bởi vì công ty nợ đối tác một khoản thanh toán ròng bằng 1,35% nhân với vốn danh nghĩa và kỳ hạn.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-175" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 175 / Trang PDF 175
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>B.</strong> Ace has an MTM <em>gain</em> on the swap, because once it makes the first known net payment to its counterparty, the remainder of the future net fixed versus floating cash flows must have a positive present value from Ace’s perspective.</p>
+</li>
+<li>
+<p><strong>C.</strong> While the present value of fixed and future cash flows was set to zero by solving for the swap rate at inception, we do not have enough information to determine whether the swap currently has a positive or negative value from Ace’s perspective following inception.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>B.</strong> Ace có một khoản <em>lãi</em> MTM trên hợp đồng hoán đổi, bởi vì một khi công ty thực hiện khoản thanh toán ròng đầu tiên đã biết cho đối tác của mình, phần còn lại của các dòng tiền cố định so với thả nổi ròng trong tương lai phải có giá trị hiện tại dương dưới góc độ của Ace.</p>
+</li>
+<li>
+<p><strong>C.</strong> Mặc dù giá trị hiện tại của các dòng tiền cố định và tương lai đã được thiết lập bằng không thông qua việc giải tìm lãi suất hoán đổi tại thời điểm khởi tạo, chúng ta không có đủ thông tin để xác định liệu hợp đồng hoán đổi hiện đang có giá trị dương hay âm dưới góc độ của Ace sau khi khởi tạo.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>4.</strong> Ace enters a 10-year GBP interest rate swap with a client in which Ace receives an initial six-month GBP MRR of 1.75% and pays a fixed GBP swap rate of 3.10% for the first semiannual period. Six months later, Ace and its counterparty settle the first swap payment, and no change has occurred in terms of future interest rate expectations. Which of the following statements best describes the value of the swap from Ace’s perspective?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>4.</strong> Ace tham gia vào một hợp đồng hoán đổi lãi suất đồng GBP kỳ hạn 10 năm với một khách hàng, trong đó Ace nhận lãi suất MRR đồng GBP kỳ hạn 6 tháng ban đầu là 1,75% và trả lãi suất hoán đổi cố định đồng GBP là 3,10% cho kỳ nửa năm đầu tiên. Sáu tháng sau, Ace và đối tác của mình thanh toán khoản tiền hoán đổi đầu tiên, và không có sự thay đổi nào xảy ra đối với kỳ vọng lãi suất trong tương lai. Phát biểu nào sau đây mô tả đúng nhất giá trị của hợp đồng hoán đổi dưới góc độ của Ace?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Ace has an MTM gain on the swap, because once it makes the first known net payment to its counterparty, the remainder of the future net fixed versus floating cash flows must have a positive present value from Ace’s perspective.</p>
+</li>
+<li>
+<p><strong>B.</strong> Ace has an MTM loss on the swap, because once it receives the first known payment from its counterparty, the remainder of the future net fixed versus floating cash flows must have a negative present value from Ace’s perspective.</p>
+</li>
+<li>
+<p><strong>C.</strong> While the present value of fixed and future cash flows was set to zero by solving for the swap rate at inception, we do not have enough information to determine whether the swap currently has a positive or negative value from Ace’s perspective following inception.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Ace có một khoản lãi MTM trên hợp đồng hoán đổi, bởi vì một khi công ty thực hiện khoản thanh toán ròng đầu tiên đã biết cho đối tác của mình, phần còn lại của các dòng tiền cố định so với thả nổi ròng trong tương lai phải có giá trị hiện tại dương dưới góc độ của Ace.</p>
+</li>
+<li>
+<p><strong>B.</strong> Ace có một khoản lỗ MTM trên hợp đồng hoán đổi, bởi vì một khi công ty nhận được khoản thanh toán đầu tiên đã biết từ đối tác của mình, phần còn lại của các dòng tiền cố định so với thả nổi ròng trong tương lai phải có giá trị hiện tại âm dưới góc độ của Ace.</p>
+</li>
+<li>
+<p><strong>C.</strong> Mặc dù giá trị hiện tại của các dòng tiền cố định và tương lai đã được thiết lập bằng không thông qua việc giải tìm lãi suất hoán đổi tại thời điểm khởi tạo, chúng ta không có đủ thông tin để xác định liệu hợp đồng hoán đổi hiện đang có giá trị dương hay âm dưới góc độ của Ace sau khi khởi tạo.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>5.</strong> At time <em>t</em> = 0, Ace observes the following zero rates over three periods:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>5.</strong> Tại thời điểm <span class="math-inline">$t = 0$</span>, Ace quan sát thấy các mức lãi suất zero sau đây qua ba kỳ:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Periods</strong></th>
+<th><strong>Zero Rates</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2.2727%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3.0323%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3.6355%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Kỳ (<em>Periods</em>)</strong></th>
+<th><strong>Lãi suất Zero (<em>Zero Rates</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2,2727%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3,0323%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3,6355%</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Which of the following best describes how Ace arrives at a three-period par swap rate ( <em>s</em> 3)?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phương án nào sau đây mô tả đúng nhất cách thức Ace tính ra lãi suất hoán đổi ngang giá ba kỳ (<span class="math-inline">$s_3$</span>)?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Since the par swap rate represents the fixed rate at which the present value of fixed and future cash flows equal one another, we discount each zero rate back to the present using zero rates and solve for <em>s</em> 3 to get 2.961%.</p>
+</li>
+<li>
+<p><strong>B.</strong> Since the par swap rate represents the fixed rate at which the present value of fixed and future cash flows equal one another, we first solve for the implied forward rate per period using zero rates, then discount each implied forward rate back to the present using zero rates, and solve for <em>s</em> 3 to get 3.605%.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Vì lãi suất hoán đổi ngang giá đại diện cho mức lãi suất cố định mà tại đó giá trị hiện tại của các dòng tiền cố định và tương lai bằng nhau, chúng ta chiết khấu từng mức lãi suất zero về hiện tại bằng cách sử dụng các mức lãi suất zero và giải tìm <span class="math-inline">$s_3$</span> để có được 2,961%.</p>
+</li>
+<li>
+<p><strong>B.</strong> Vì lãi suất hoán đổi ngang giá đại diện cho mức lãi suất cố định mà tại đó giá trị hiện tại của các dòng tiền cố định và tương lai bằng nhau, trước tiên chúng ta giải tìm lãi suất kỳ hạn hàm ý cho mỗi kỳ bằng cách sử dụng các mức lãi suất zero, sau đó chiết khấu từng mức lãi suất kỳ hạn hàm ý về hiện tại bằng cách sử dụng các mức lãi suất zero, và giải tìm <span class="math-inline">$s_3$</span> để có được 3,605%.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-176" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 176 / Trang PDF 176
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><strong>C.</strong> Since the par swap rate represents the fixed rate at which the present value of fixed and future cash flows equal one another, we first solve for the implied forward rate per period using zero rates, then discount each zero rate back to the present using implied forward rates, and solve for <em>s</em> 3 to get 3.009%.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>C.</strong> Vì lãi suất hoán đổi ngang giá đại diện cho mức lãi suất cố định mà tại đó giá trị hiện tại của các dòng tiền cố định và tương lai bằng nhau, trước tiên chúng ta giải tìm lãi suất kỳ hạn hàm ý cho mỗi kỳ bằng cách sử dụng các mức lãi suất zero, sau đó chiết khấu từng mức lãi suất zero về hiện tại bằng cách sử dụng các mức lãi suất kỳ hạn hàm ý, và giải tìm <span class="math-inline">$s_3$</span> để có được 3,009%.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>6.</strong> Ace’s issuer client has swapped its outstanding fixed-rate debt to floating to match asset portfolio cash flows that generate an MRR-based return. Which of the following statements <em>best</em> describes how Ace’s MTM credit exposure to the issuer changes if interest rates rise immediately following trade inception?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>6.</strong> Khách hàng tổ chức phát hành của Ace đã hoán đổi khoản nợ lãi suất cố định đang lưu hành của mình sang lãi suất thả nổi để khớp với các dòng tiền từ danh mục tài sản vốn tạo ra tỷ suất sinh lợi dựa trên MRR. Phát biểu nào sau đây mô tả <em>đúng nhất</em> mức phơi nhiễm rủi ro tín dụng MTM (<em>MTM credit exposure</em>) của Ace đối với tổ chức phát hành thay đổi như thế nào nếu lãi suất tăng lên ngay sau khi khởi tạo giao dịch?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Since the client receives fixed and pays floating swap, it faces an MTM loss on the transaction as rates rise, <em>increasing</em> Ace’s MTM exposure to the client.</p>
+</li>
+<li>
+<p><strong>B.</strong> Since the client receives fixed and pays floating swap, it faces an MTM gain on the transaction as rates rise, <em>decreasing</em> Ace’s MTM exposure to the client.</p>
+</li>
+<li>
+<p><strong>C.</strong> Since the swap’s value is equal to the current settlement plus future expected settlement amounts, we do not have enough information to determine whether Ace’s MTM exposure to the client increases or decreases.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Vì khách hàng nhận lãi cố định và trả lãi thả nổi trên hợp đồng hoán đổi, khách hàng phải đối mặt với một khoản lỗ MTM trên giao dịch khi lãi suất tăng lên, làm <em>tăng</em> mức phơi nhiễm rủi ro MTM của Ace đối với khách hàng.</p>
+</li>
+<li>
+<p><strong>B.</strong> Vì khách hàng nhận lãi cố định và trả lãi thả nổi trên hợp đồng hoán đổi, khách hàng có được một khoản lãi MTM trên giao dịch khi lãi suất tăng lên, làm <em>giảm</em> mức phơi nhiễm rủi ro MTM của Ace đối với khách hàng.</p>
+</li>
+<li>
+<p><strong>C.</strong> Vì giá trị của hợp đồng hoán đổi bằng khoản thanh toán hiện tại cộng với các khoản thanh toán dự kiến trong tương lai, chúng ta không có đủ thông tin để xác định liệu mức phơi nhiễm rủi ro MTM của Ace đối với khách hàng tăng hay giảm.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-177" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 177 / Trang PDF 177
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~SOLUTIONS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<ol>
+<li>B is correct. A pay-fixed swap counterparty will realize an MTM gain if implied forward rates rise.</li>
+</ol>
+</li>
+<li>
+<p>A is correct. A receive-fixed swap counterparty will make a net payment if the initial market reference rate sets above the fixed swap rate.</p>
+</li>
+<li>
+<p>C is correct. Both a receive-fixed and a pay-fixed swap counterparty will face an initial swap contract value (ignoring transaction and counterparty credit costs) of zero.</p>
+</li>
+<li>
+<p>A is correct. Ace’s client should consider <em>receiving</em> fixed on a five-year swap. A receive-fixed swap has a risk and return profile similar to that of a <em>long</em> fixed-rate bond position. Ace’s client would therefore expect to have a similar MTM gain or loss on the swap position as if it had purchased a five-year bond at inception.</p>
+</li>
+<li>
+<p>C is correct. At time <em>t</em> = 0, the present value of fixed and future cash flows was set to zero by solving for the swap rate at inception. Although the current settlement value is known, we cannot determine whether the swap has a positive or negative value from Ace’s perspective three months later without further information— specifically, the current level of future forward rates.</p>
+</li>
+<li>
+<p>A is correct. Ace makes the first net payment because the fixed-rate payment is greater than the floating rate received. Given no change in forward interest rates, this implies that the remaining net cash flows must have positive present value to Ace. B is incorrect as this response states the opposite compared to the prior response. C is incorrect because we have information about forward rate expectations.</p>
+</li>
+<li>
+<p>B is correct. Since the expected floating cash flows on the swap are the implied forward rates, we first use zero rates to solve for IFRs using Equation 1:</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<ol>
+<li>B là đáp án đúng. Một đối tác tham gia hợp đồng hoán đổi trả lãi cố định (<em>pay-fixed swap</em>) sẽ thực hiện được một khoản lãi MTM nếu các mức lãi suất kỳ hạn hàm ý tăng lên.</li>
+</ol>
+</li>
+<li>
+<p>A là đáp án đúng. Một đối tác tham gia hợp đồng hoán đổi nhận lãi cố định (<em>receive-fixed swap</em>) sẽ phải thực hiện một khoản thanh toán ròng nếu lãi suất tham chiếu thị trường (MRR) ban đầu được ấn định cao hơn lãi suất hoán đổi cố định.</p>
+</li>
+<li>
+<p>C là đáp án đúng. Cả đối tác tham gia hợp đồng hoán đổi nhận lãi cố định và trả lãi cố định đều sẽ đứng trước giá trị hợp đồng hoán đổi ban đầu (bỏ qua chi phí giao dịch và chi phí tín dụng đối tác) bằng không.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Khách hàng của Ace nên cân nhắc việc <em>nhận</em> lãi cố định trên một hợp đồng hoán đổi kỳ hạn 5 năm. Một hợp đồng hoán đổi nhận lãi cố định có hồ sơ rủi ro và tỷ suất sinh lợi tương tự như một vị thế <em>mua</em> trái phiếu lãi suất cố định (<em>long fixed-rate bond position</em>). Do đó, khách hàng của Ace sẽ kỳ vọng có được một khoản lãi hoặc lỗ MTM tương tự trên vị thế hoán đổi giống như thể họ đã mua một trái phiếu kỳ hạn 5 năm tại thời điểm khởi tạo.</p>
+</li>
+<li>
+<p>C là đáp án đúng. Tại thời điểm <span class="math-inline">$t = 0$</span>, giá trị hiện tại của các dòng tiền cố định và tương lai đã được thiết lập bằng không thông qua việc giải tìm lãi suất hoán đổi tại thời điểm khởi tạo. Mặc dù giá trị thanh toán hiện tại đã được biết, chúng ta không thể xác định liệu hợp đồng hoán đổi có giá trị dương hay âm dưới góc độ của Ace vào thời điểm 3 tháng sau nếu không có thêm thông tin—cụ thể là mức lãi suất kỳ hạn tương lai hiện hành.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Ace thực hiện chi trả khoản thanh toán ròng đầu tiên bởi vì khoản thanh toán lãi suất cố định lớn hơn mức lãi suất thả nổi nhận được. Với giả định không có sự thay đổi nào trong lãi suất kỳ hạn tương lai, điều này hàm ý rằng các dòng tiền ròng còn lại phải có giá trị hiện tại dương đối với Ace. B không đúng vì câu trả lời này phát biểu ngược lại so với câu trả lời trước. C không đúng vì chúng ta đã có thông tin về kỳ vọng lãi suất kỳ hạn.</p>
+</li>
+<li>
+<p>B là đáp án đúng. Vì các dòng tiền thả nổi dự kiến trên hợp đồng hoán đổi là các mức lãi suất kỳ hạn hàm ý (IFRs), trước tiên chúng ta sử dụng lãi suất zero để giải tìm các mức IFR bằng Phương trình 1:</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>(1 + <em>zA</em> )<sup><em>A</em></sup> × (1 + IFR <em>A</em> , <em>B</em> – <em>A</em> )<sup><em>B</em>–</sup><sup><em>A</em></sup> = (1 + <em>zB</em> )<sup><em>B</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$(1 + z_A)^A \times (1 + \text{IFR}_{A, B-A})^{B-A} = (1 + z_B)^B.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We may solve for these rates as IFR0,1 = 2.2727%, IFR1,1 = 3.7975%, and IFR2,1 = 4.8525%. We then substitute the respective IFRs discounted by zero rates into the following equation to solve for <em>s</em> 3:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể giải tìm các mức lãi suất này lần lượt là <span class="math-inline">$\text{IFR}_{0,1} = 2,2727\%$</span>, <span class="math-inline">$\text{IFR}_{1,1} = 3,7975\%$</span>, và <span class="math-inline">$\text{IFR}_{2,1} = 4,8525\%$</span>. Sau đó, chúng ta thay thế các mức IFR tương ứng được chiết khấu bằng lãi suất zero vào phương trình sau đây để giải tìm <span class="math-inline">$s_3$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0177-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0177-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\frac{\text{IFR}_{0,1}}{(1 + z_1)} + \frac{\text{IFR}_{1,1}}{(1 + z_2)^2} + \frac{\text{IFR}_{2,1}}{(1 + z_3)^3} = \frac{s_3}{(1 + z_1)} + \frac{s_3}{(1 + z_2)^2} + \frac{s_3}{(1 + z_3)^3}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Solving for the left-hand side of the equation, we get</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giải vế trái của phương trình, chúng ta có được:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0177-15.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0177-15.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$0,10159 = \frac{2,2727\%}{1,022727} + \frac{3,7975\%}{(1,030323)^2} + \frac{4,8525\%}{(1,036355)^3}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Solving for the right-hand side, we get</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giải vế phải, chúng ta có được:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0177-17.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0177-17.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$2,81819 s_3 = \left[ \frac{1}{1,022727} + \frac{1}{(1,030323)^2} + \frac{1}{(1,036355)^3} \right] \times s_3$$</div>
+<div class="math-display my-3 overflow-x-auto">$$s_3 = 3,605\% = 0,10159 \div 2,81819.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>s</em> 3 = 3.605% = 0.10159 ÷ 2.81819.</p>
+<p>A is incorrect, because it discounts zero rates, not IFRs, back to the present using zero rates, while C incorrectly discounts zero rates by the respective IFRs.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>A không đúng vì phương án này chiết khấu lãi suất zero chứ không phải các mức IFR về hiện tại bằng lãi suất zero, trong khi C chiết khấu sai các mức lãi suất zero bằng các mức IFR tương ứng.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="6">
+<li>A is correct. Since the client receives fixed and pays floating swap, in a rising-rate environment, Σ PV(Floating payments) &gt; Σ PV(Fixed payments), and it will</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="6">
+<li>A là đáp án đúng. Vì khách hàng nhận lãi cố định và trả lãi thả nổi trên hợp đồng hoán đổi, trong môi trường lãi suất tăng lên, <span class="math-inline">$\sum \text{PV}(\text{Các khoản thanh toán thả nổi}) &gt; \sum \text{PV}(\text{Các khoản thanh toán cố định})$</span>, và do đó khách hàng sẽ</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-178" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 178 / Trang PDF 178
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>therefore owe more in future floating-rate settlements than it will receive in fixed-rate settlements, resulting in an MTM loss for the client and an <em>increase</em> in Ace’s MTM exposure.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>nợ nhiều hơn trong các khoản thanh toán lãi suất thả nổi tương lai so với số tiền họ sẽ nhận được trong các khoản thanh toán lãi suất cố định, dẫn đến một khoản lỗ MTM cho khách hàng và làm <em>tăng</em> mức phơi nhiễm rủi ro tín dụng MTM của Ace (vì hợp đồng có giá trị dương đối với Ace).</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM07_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM07_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 7</a>
+      <a href="LM08_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM08_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('07_Derivatives/LM07_Part2_Swap_Values_and_Prices.html');
+    });
+  </script>
+</body>
+</html>

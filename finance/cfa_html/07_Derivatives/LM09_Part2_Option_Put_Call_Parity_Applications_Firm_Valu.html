@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 9 Option Replication Using Put–Call Parity - Part 2: Option Put–Call Parity Applications: Firm Value — Volume 7: Derivatives | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 7: Công Cụ Phái Sinh
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 9 Option Replication Using Put–Call Parity - Part 2: Option Put–Call Parity Applications: Firm Value</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM09_Full_Option_Replication_Using_Put_Call_Parity.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (9 trang)...</option>
+          <option value="217">PDF Page 217</option>
+<option value="218">PDF Page 218</option>
+<option value="219">PDF Page 219</option>
+<option value="220">PDF Page 220</option>
+<option value="221">PDF Page 221</option>
+<option value="222">PDF Page 222</option>
+<option value="223">PDF Page 223</option>
+<option value="224">PDF Page 224</option>
+<option value="225">PDF Page 225</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 7</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Công Cụ Phái Sinh</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 7</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Derivative_Instrument_and_Derivative_Market_F.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Derivative Instrument and Derivative Market Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM02_Full_Forward_Commitment_and_Contingent_Claim_Featu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Forward Commitment and Contingent Claim Features and Instruments</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Options.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Options</a>
+<a href="LM03_Full_Derivative_Benefits_Risks_and_Issuer_and_Inve.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Derivative Benefits, Risks, and Issuer and Investor Uses</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Issuer_Use_of_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Issuer Use of Derivatives</a>
+<a href="LM04_Full_Arbitrage_Replication_and_the_Cost_of_Carry_i.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Arbitrage, Replication, and the Cost of Carry in Pricing Derivatives</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Costs_and_Benefits_Associated_with_Owning_the.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Costs and Benefits Associated with Owning the Underlying</a>
+<a href="LM05_Full_Pricing_and_Valuation_of_Forward_Contracts_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Pricing and Valuation of Forward Contracts and for an Underlying with Varying Maturities</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Pricing_and_Valuation_of_Interest_Rate_Forwar.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Pricing and Valuation of Interest Rate Forward Contracts</a>
+<a href="LM06_Full_Pricing_and_Valuation_of_Futures_Contracts.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Pricing and Valuation of Futures Contracts</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Effect_of_Central_Clearing_of_OTC_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Effect of Central Clearing of OTC Derivatives</a>
+<a href="LM07_Full_Pricing_and_Valuation_of_Interest_Rates_and_O.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Pricing and Valuation of Interest Rates and Other Swaps</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Swap_Values_and_Prices.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Swap Values and Prices</a>
+<a href="LM08_Full_Pricing_and_Valuation_of_Options.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Pricing and Valuation of Options</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Factors_Affecting_Option_Value.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Factors Affecting Option Value</a>
+<a href="LM09_Full_Option_Replication_Using_Put_Call_Parity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Option Replication Using Put–Call Parity</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Option_Put_Call_Parity_Applications_Firm_Valu.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Option Put–Call Parity Applications: Firm Value</a>
+<a href="LM10_Full_Valuing_a_Derivative_Using_a_One_Period_Binom.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Valuing a Derivative Using a One-Period Binomial Model</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 7 • Derivatives (Công Cụ Phái Sinh)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 9 Option Replication Using Put–Call Parity - Part 2: Option Put–Call Parity Applications: Firm Value</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('07_Derivatives/LM09_Part2_Option_Put_Call_Parity_Applications_Firm_Valu.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 7: Derivatives</h1>
+<h2>Learning Module 9 Option Replication Using Put–Call Parity</h2>
+<h3>Part 2/2: Option Put–Call Parity Applications: Firm Value (PDF Pages 217–226)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 7: Công cụ Phái sinh (<em>Derivatives</em>)</h1>
+<h2>Học phần 9: Mô phỏng Quyền chọn Sử dụng Ngang giá Quyền chọn Bán–Quyền chọn Mua (<em>Option Replication Using Put–Call Parity</em>)</h2>
+<h3>Phần 2/2: Các Ứng dụng Ngang giá Quyền chọn Bán–Quyền chọn Mua: Giá trị Doanh nghiệp (Trang PDF 217–226)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-217" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 217 / Trang PDF 217
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 4</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 4 (<em>EXAMPLE 4</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>VFO Put–Call Forward Parity</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Ngang giá Kỳ hạn Quyền chọn Bán–Quyền chọn Mua của VFO (<em>VFO Put–Call Forward Parity</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Consider the Viswan Family Office example using a long forward and a risk-free bond, rather than a cash underlying position as in the prior example. Biomian shares trade at a price ( <em>S</em> 0) of INR295 per share. VFO is considering the purchase of a six-month put on Biomian shares at an exercise price ( <em>X</em> ) of INR265. If VFO’s chief investment officer observes a traded six-month call option price of INR59 per share for the same INR265 exercise price, what should he expect to pay for the put option per share if the relevant risk-free rate is 4%?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy xem xét ví dụ về Văn phòng Quản lý Gia sản Viswan (VFO) sử dụng một hợp đồng mua kỳ hạn và một trái phiếu phi rủi ro, thay vì một vị thế tài sản cơ sở tiền mặt như trong ví dụ trước. Cổ phiếu Biomian giao dịch ở mức giá (<span class="math-inline">$S_0$</span>) là 295 INR mỗi cổ phiếu. VFO đang cân nhắc việc mua một quyền chọn bán kỳ hạn 6 tháng trên cổ phiếu Biomian tại mức giá thực hiện (<span class="math-inline">$X$</span>) là 265 INR. Nếu giám đốc đầu tư của VFO quan sát thấy một quyền chọn mua kỳ hạn 6 tháng đang giao dịch ở mức giá 59 INR mỗi cổ phiếu cho cùng mức giá thực hiện 265 INR, ông ấy nên kỳ vọng trả bao nhiêu cho quyền chọn bán trên mỗi cổ phiếu nếu lãi suất phi rủi ro có liên quan là 4%?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>From Equation 5, the put–call forward parity relationship is <em>p</em> 0 – <em>c</em> 0 = [ <em>X</em> – <em>F</em> 0( <em>T</em> )](1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Từ phương trình ngang giá kỳ hạn quyền chọn bán–quyền chọn mua, mối quan hệ là:</p>
+<div class="math-display my-3 overflow-x-auto">$$p_0 - c_0 = [X - F_0(T)](1 + r)^{-T}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Substituting terms and solving for <em>F</em> 0( <em>T</em> ) = INR300.84 (= INR295(1.04)<sup>0.5</sup> ), <em>p</em> 0 – INR59 = (INR265 – INR300.84)(1.04)<sup>–0.5</sup> . <em>p</em> 0 = INR23.86.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thay thế các số hạng và giải tìm <span class="math-inline">$F_0(T) = 300,84\text{ INR} \ (= 295\text{ INR}(1,04)^{0,5})$</span>:</p>
+<div class="math-display my-3 overflow-x-auto">$$p_0 - 59\text{ INR} = (265\text{ INR} - 300,84\text{ INR})(1,04)^{-0,5}.$$</div>
+<div class="math-display my-3 overflow-x-auto">$$p_0 = 23,86\text{ INR}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>VFO should expect to pay a six-month put option premium of <em>p</em> 0 = INR23.86.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>VFO nên kỳ vọng trả mức phí quyền chọn bán kỳ hạn 6 tháng là <span class="math-inline">$p_0 = 23,86\text{ INR}$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>OPTION PUT–CALL PARITY APPLICATIONS: FIRM VALUE</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>CÁC ỨNG DỤNG NGANG GIÁ QUYỀN CHỌN BÁN–QUYỀN CHỌN MUA: GIÁ TRỊ DOANH NGHIỆP (<em>OPTION PUT–CALL PARITY APPLICATIONS: FIRM VALUE</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>6</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>6</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain put–call parity for European options</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích ngang giá quyền chọn bán–quyền chọn mua (<em>put–call parity</em>) đối với quyền chọn kiểu châu Âu</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain put–call <em>forward</em> parity for European options</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích ngang giá <em>kỳ hạn</em> quyền chọn bán–quyền chọn mua (<em>put–call forward parity</em>) đối với quyền chọn kiểu châu Âu</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The insights established by the put–call parity relationship go well beyond option trading strategies, extending to modeling the value of a firm to describe the interests and financial claims of capital providers—namely, the owners of a firm’s equity and the owners of its debt.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Những góc nhìn sâu sắc được thiết lập bởi mối quan hệ ngang giá quyền chọn bán–quyền chọn mua còn vượt xa các chiến lược giao dịch quyền chọn, mở rộng sang việc mô hình hóa giá trị của một doanh nghiệp nhằm mô tả lợi ích và các quyền đòi nợ tài chính (<em>financial claims</em>) của những nhà cung cấp vốn—cụ thể là những người sở hữu vốn cổ phần (<em>equity</em>) của doanh nghiệp và những người sở hữu khoản nợ (<em>debt</em>) của doanh nghiệp đó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Assume that at time <em>t</em> = 0, a firm with a market value of <em>V</em> 0 has access to borrowed capital in the form of zero-coupon debt with a face value of <em>D</em> . The market value of the firm’s assets, <em>V</em> 0, is equal to the present value of its outstanding debt obligation, PV( <em>D</em> ), and equity, <em>E</em> 0: <em>V</em> 0 = <em>E</em> 0 + PV( <em>D</em> ).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giả sử rằng tại thời điểm <span class="math-inline">$t = 0$</span>, một doanh nghiệp có giá trị thị trường là <span class="math-inline">$V_0$</span> có khả năng tiếp cận nguồn vốn vay dưới hình thức khoản nợ zero-coupon (<em>zero-coupon debt</em>) có mệnh giá là <span class="math-inline">$D$</span>. Giá trị thị trường của các tài sản thuộc doanh nghiệp, <span class="math-inline">$V_0$</span>, bằng giá trị hiện tại của nghĩa vụ nợ đang lưu hành của nó, <span class="math-inline">$\text{PV}(D)$</span>, cộng với vốn cổ phần, <span class="math-inline">$E_0$</span>: <span class="math-inline">$V_0 = E_0 + \text{PV}(D)$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>When the debt matures at <em>T</em> , the firm’s debt and assets are distributed between shareholders and debtholders with two possible outcomes depending on the firm’s value at time <em>T</em> ( <em>VT</em> ):</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi khoản nợ đáo hạn tại thời điểm <span class="math-inline">$T$</span>, khoản nợ và tài sản của doanh nghiệp được phân bổ giữa các cổ đông (<em>shareholders</em>) và các chủ nợ (<em>debtholders</em>) với hai kết quả có thể xảy ra tùy thuộc vào giá trị của doanh nghiệp tại thời điểm <span class="math-inline">$T$</span> (<span class="math-inline">$V_T$</span>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1. Solvency (</strong> <strong><em>VT</em> &gt;</strong> <strong><em>D</em> )</strong> : If the value of the firm ( <em>VT</em> ) <em>exceeds</em> the face value of the debt, or <em>VT</em> &gt; <em>D</em> , at time T, we say the firm is <em>solvent</em> and able to return capital to <em>both</em> its shareholders and debtholders.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1. Có khả năng thanh toán (<em>Solvency</em> – <span class="math-inline">$V_T &gt; D$</span>):</strong> Nếu giá trị của doanh nghiệp (<span class="math-inline">$V_T$</span>) <em>vượt quá</em> mệnh giá của khoản nợ, hay <span class="math-inline">$V_T &gt; D$</span>, tại thời điểm <span class="math-inline">$T$</span>, chúng ta nói rằng doanh nghiệp <em>có khả năng thanh toán</em> (<em>solvent</em>) và có thể hoàn trả vốn cho <em>cả</em> các cổ đông lẫn các chủ nợ của mình.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Debtholders receive <em>D</em> and are repaid in full.</p>
+</li>
+<li>
+<p>Shareholders receive the residual: <em>ET</em> = <em>VT</em> – <em>D</em> .</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Các chủ nợ nhận được <span class="math-inline">$D$</span> và được hoàn trả đầy đủ.</p>
+</li>
+<li>
+<p>Các cổ đông nhận được phần còn lại (<em>residual</em>): <span class="math-inline">$E_T = V_T - D$</span>.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-218" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 218 / Trang PDF 218
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2. Insolvency (</strong> <strong><em>VT</em> &lt;</strong> <strong><em>D</em> )</strong> : If the value of the firm ( <em>VT</em> ) is <em>below</em> the face value of the debt, or <em>VT</em> &lt; <em>D</em> , at time <em>T</em> , we say the firm is <em>insolvent.</em> In the event of insolvency, shareholders receive nothing and debtholders are owed more than the value of the firm’s assets. Debtholders therefore receive <em>VT</em> to settle their debt claim of <em>D</em> at time <em>T</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2. Mất khả năng thanh toán (<em>Insolvency</em> – <span class="math-inline">$V_T &lt; D$</span>):</strong> Nếu giá trị của doanh nghiệp (<span class="math-inline">$V_T$</span>) <em>thấp hơn</em> mệnh giá của khoản nợ, hay <span class="math-inline">$V_T &lt; D$</span>, tại thời điểm <span class="math-inline">$T$</span>, chúng ta nói rằng doanh nghiệp <em>mất khả năng thanh toán</em> (<em>insolvent</em>). Trong trường hợp mất khả năng thanh toán, các cổ đông không nhận được gì và các chủ nợ đang được nợ nhiều hơn giá trị tài sản của doanh nghiệp. Do đó, các chủ nợ nhận được <span class="math-inline">$V_T$</span> để thanh toán cho quyền đòi nợ trị giá <span class="math-inline">$D$</span> của họ tại thời điểm <span class="math-inline">$T$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Debtholders have a priority claim on assets and receive <em>VT</em> &lt; <em>D</em> .</p>
+</li>
+<li>
+<p>Shareholders receive the residual, <em>ET</em> = 0.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Các chủ nợ có quyền đòi nợ ưu tiên (<em>priority claim</em>) đối với tài sản và nhận được <span class="math-inline">$V_T &lt; D$</span>.</p>
+</li>
+<li>
+<p>Các cổ đông nhận được phần còn lại, <span class="math-inline">$E_T = 0$</span>.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Unlike the <em>risk-free</em> bond shown in the prior put–call parity lesson, the firm has <em>risky</em> debt, because the bondholders receive <em>D only</em> in the case of solvency (when <em>VT</em> &gt; <em>D</em> ). Debtholders therefore demand a premium similar to a put option premium from shareholders in order to assume the risk of insolvency.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Không giống như trái phiếu <em>phi rủi ro</em> được trình bày trong bài học ngang giá quyền chọn bán–quyền chọn mua trước đó, doanh nghiệp có khoản nợ <em>rủi ro</em> (<em>risky debt</em>), bởi vì các trái chủ <em>chỉ</em> nhận được <span class="math-inline">$D$</span> trong trường hợp doanh nghiệp có khả năng thanh toán (khi <span class="math-inline">$V_T &gt; D$</span>). Do đó, các chủ nợ đòi hỏi một khoản phần bù tương tự như phí quyền chọn bán (<em>put option premium</em>) từ các cổ đông để gánh chịu rủi ro mất khả năng thanh toán.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Shareholders retain <em>unlimited</em> upside potential (if the firm remains solvent and can pay off its debt) and <em>limited</em> downside potential (if the firm becomes insolvent). In contrast, debtholder upside is <em>limited</em> to receiving debt repayment in the event of solvency, and principal and interest are at risk in the downside event of insolvency.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các cổ đông giữ được tiềm năng tăng giá <em>không giới hạn</em> (<em>unlimited upside potential</em> – nếu doanh nghiệp duy trì được khả năng thanh toán và có thể trả hết nợ) và rủi ro tổn thất phía dưới <em>có giới hạn</em> (<em>limited downside potential</em> – nếu doanh nghiệp mất khả năng thanh toán). Ngược lại, tiềm năng phía trên của chủ nợ bị <em>giới hạn</em> ở việc nhận lại khoản hoàn trả nợ trong trường hợp doanh nghiệp có khả năng thanh toán, còn tiền gốc và tiền lãi đều gặp rủi ro trong sự kiện bất lợi khi doanh nghiệp mất khả năng thanh toán.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Next, we examine the respective payoff profiles at maturity more closely. At <em>t</em> = <em>T</em> ,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tiếp theo, chúng ta xem xét kỹ hơn hồ sơ kết quả thanh toán tương ứng khi đáo hạn. Tại thời điểm <span class="math-inline">$t = T$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>shareholder payoff is max(0, <em>VT</em> – <em>D</em> ) and</p>
+</li>
+<li>
+<p>debtholder payoff is min( <em>VT</em> , <em>D</em> ).</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>kết quả thanh toán của cổ đông (<em>shareholder payoff</em>) là <span class="math-inline">$\max(0, V_T - D)$</span> và</p>
+</li>
+<li>
+<p>kết quả thanh toán của chủ nợ (<em>debtholder payoff</em>) là <span class="math-inline">$\min(V_T, D)$</span>.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Consider these payoff profiles in terms of options:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy xem xét các hồ sơ kết quả thanh toán này dưới góc độ quyền chọn:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Shareholders hold a long position in the underlying firm’s assets ( <em>VT</em> ) and have purchased a put option on firm value ( <em>VT</em> ) with an exercise price of <em>D</em> ; that is, max(0, <em>D</em> – <em>VT</em> ).</p>
+</li>
+<li>
+<p>Debtholders hold a long position in a risk-free bond ( <em>D</em> ) and have sold a put option to shareholders on firm value ( <em>VT</em> ) with an exercise price of <em>D</em> .</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Các cổ đông nắm giữ một vị thế mua đối với tài sản cơ sở của doanh nghiệp (<span class="math-inline">$V_T$</span>) và đã mua một quyền chọn bán trên giá trị doanh nghiệp (<span class="math-inline">$V_T$</span>) với giá thực hiện là <span class="math-inline">$D$</span>; nghĩa là <span class="math-inline">$\max(0, D - V_T)$</span>.</p>
+</li>
+<li>
+<p>Các chủ nợ nắm giữ một vị thế mua một trái phiếu phi rủi ro (<span class="math-inline">$D$</span>) và đã bán một quyền chọn bán cho các cổ đông trên giá trị doanh nghiệp (<span class="math-inline">$V_T$</span>) với giá thực hiện là <span class="math-inline">$D$</span>.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The payoff profiles for shareholders versus debtholders is shown in Exhibit 9.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hồ sơ kết quả thanh toán của các cổ đông so với các chủ nợ được thể hiện trong Bảng 9 (<em>Exhibit 9</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 9: Shareholder and Debtholder Payoff at Time</strong> <strong><em>T</em></strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 9: Kết quả Thanh toán của Cổ đông và Chủ nợ tại Thời điểm <span class="math-inline">$T$</span> (<em>Exhibit 9: Shareholder and Debtholder Payoff at Time <span class="math-inline">$T$</span></em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Construction of Shareholder and Debtholder Payoffs</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Xây dựng Kết quả Thanh toán của Cổ đông và Chủ nợ (<em>Construction of Shareholder and Debtholder Payoffs</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0218-17.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0218-17.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Hàng trên (Cổ đông):</strong> <strong>Purchased put option</strong> (Quyền chọn bán đã mua) + <strong>Long firm assets</strong> (Mua tài sản doanh nghiệp) = <strong>Shareholder payoff</strong> (Kết quả thanh toán của cổ đông: nhận <span class="math-inline">$0$</span> nếu <span class="math-inline">$V_T &lt; D$</span>, nhận <span class="math-inline">$V_T - D$</span> nếu <span class="math-inline">$V_T &gt; D$</span>).
+- <strong>Hàng dưới (Chủ nợ):</strong> <strong>Sold put option</strong> (Quyền chọn bán đã bán) + <strong>Long risk-free debt</strong> (Mua khoản nợ phi rủi ro) = <strong>Debtholder payoff</strong> (Kết quả thanh toán của chủ nợ: nhận <span class="math-inline">$V_T$</span> nếu <span class="math-inline">$V_T &lt; D$</span>, nhận <span class="math-inline">$D$</span> nếu <span class="math-inline">$V_T &gt; D$</span>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-219" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 219 / Trang PDF 219
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Firm Value Distribution Between Shareholders and Debtholders</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Phân bổ Giá trị Doanh nghiệp Giữa Cổ đông và Chủ nợ (<em>Firm Value Distribution Between Shareholders and Debtholders</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0219-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0219-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Insolvent (<span class="math-inline">$V_T &lt; D$</span>):</strong> Mất khả năng thanh toán (Cổ đông nhận <span class="math-inline">$0$</span>, Chủ nợ nhận <span class="math-inline">$V_T$</span>).
+- <strong>Solvent (<span class="math-inline">$V_T &gt; D$</span>):</strong> Có khả năng thanh toán (Cổ đông nhận <span class="math-inline">$V_T - D$</span>, Chủ nợ nhận <span class="math-inline">$D$</span>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Note that the shareholder’s combination of a purchased put option and a long position in the firm’s assets is equivalent to a <em>call</em> option on the firm’s assets. The risky debt held by the debtholders is a combination of the risk-free debt, <em>D</em> , and the put option sold to shareholders.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lưu ý rằng sự kết hợp của cổ đông giữa một quyền chọn bán đã mua và một vị thế mua đối với tài sản của doanh nghiệp tương đương với một quyền chọn <em>mua</em> (<em>call option</em>) trên tài sản của doanh nghiệp. Khoản nợ rủi ro do các chủ nợ nắm giữ là sự kết hợp giữa khoản nợ phi rủi ro, <span class="math-inline">$D$</span>, và quyền chọn bán đã bán cho các cổ đông.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Revisiting the put–call parity relationship, <em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + PV( <em>X</em> ), from Equation 1, we may substitute the value of the firm at time 0 ( <em>V</em> 0) for the underlying asset ( <em>S</em> 0), substitute the debt ( <em>D</em> ) for the risk-free bond ( <em>X</em> ), and solve for <em>V</em> 0 as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Xem xét lại mối quan hệ ngang giá quyền chọn bán–quyền chọn mua, <span class="math-inline">$S_0 + p_0 = c_0 + \text{PV}(X)$</span>, từ Phương trình 1, chúng ta có thể thay thế giá trị của doanh nghiệp tại thời điểm 0 (<span class="math-inline">$V_0$</span>) cho tài sản cơ sở (<span class="math-inline">$S_0$</span>), thay thế khoản nợ (<span class="math-inline">$D$</span>) cho trái phiếu phi rủi ro (<span class="math-inline">$X$</span>), và giải tìm <span class="math-inline">$V_0$</span> như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>V</em> 0 + <em>p</em> 0 = <em>c</em> 0 + PV( <em>D</em> ).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$V_0 + p_0 = c_0 + \text{PV}(D).$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>V</em> 0 = <em>c</em> 0 + PV( <em>D</em> ) – <em>p</em> 0. ~~(5)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$V_0 = c_0 + \text{PV}(D) - p_0 \tag{5}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Equation 6 captures the value of the firm’s assets at <em>t</em> = 0 from a shareholder and debtholder perspective. The <em>shareholder</em> has a position with a payoff similar to that of a call option on firm value ( <em>c</em> 0). The <em>debtholder</em> has a position of PV( <em>D</em> ) – <em>p</em> 0, or risk-free debt of the firm <em>plus</em> a sold put option on firm value. The put option ( <em>p</em> 0) may be interpreted as the <em>credit spread</em> on the firm’s debt, or the premium above the risk-free rate the firm must pay to debtholders to assume insolvency risk. This put option increases in value to shareholders as the likelihood of insolvency increases. From a debtholder’s perspective, the more valuable the sold put, the more credit risk is present in the firm’s debt.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phương trình trên (trong nguyên bản gọi là Equation 6) nắm bắt giá trị tài sản của doanh nghiệp tại thời điểm <span class="math-inline">$t = 0$</span> dưới góc độ của cổ đông và chủ nợ. <em>Cổ đông</em> có một vị thế với kết quả thanh toán tương tự như của một quyền chọn mua trên giá trị doanh nghiệp (<span class="math-inline">$c_0$</span>). <em>Chủ nợ</em> có một vị thế là <span class="math-inline">$\text{PV}(D) - p_0$</span>, hay khoản nợ phi rủi ro của doanh nghiệp <em>cộng với</em> một quyền chọn bán đã bán (<em>sold put option</em>) trên giá trị doanh nghiệp. Quyền chọn bán (<span class="math-inline">$p_0$</span>) có thể được diễn giải là <em>mức chênh lệch tín dụng</em> (<em>credit spread</em>) đối với khoản nợ của doanh nghiệp, hay phần bù cao hơn mức lãi suất phi rủi ro mà doanh nghiệp phải trả cho các chủ nợ để họ gánh chịu rủi ro mất khả năng thanh toán. Quyền chọn bán này tăng giá trị đối với các cổ đông khi xác suất mất khả năng thanh toán tăng lên. Dưới góc độ của chủ nợ, quyền chọn bán đã bán càng có giá trị lớn thì rủi ro tín dụng hiện diện trong khoản nợ của doanh nghiệp càng nhiều.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-220" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 220 / Trang PDF 220
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Put–Call Forward Parity and Option Applications</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Ngang giá Kỳ hạn Quyền chọn Bán–Quyền chọn Mua và Các Ứng dụng Quyền chọn (<em>Put–Call Forward Parity and Option Applications</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Identify the following statement as true or false, and justify your answer: A key link between put–call parity and put–call forward parity is that the cash underlying position is replaced by a synthetic underlying position using a forward purchase and a risk-free bond.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Xác định phát biểu sau đây là đúng hay sai, và giải thích câu trả lời của bạn: Một mối liên kết then chốt giữa ngang giá quyền chọn bán–quyền chọn mua và ngang giá kỳ hạn quyền chọn bán–quyền chọn mua là vị thế tài sản cơ sở tiền mặt được thay thế bằng một vị thế tài sản cơ sở tổng hợp (<em>synthetic underlying position</em>) sử dụng một giao dịch mua kỳ hạn và một trái phiếu phi rủi ro.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The statement is true. The replacement of the cash underlying position by a synthetic underlying position using a forward purchase and a risk-free bond links call option, put option, and forward prices under put–call forward parity.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phát biểu này là đúng. Việc thay thế vị thế tài sản cơ sở tiền mặt bằng một vị thế tài sản cơ sở tổng hợp sử dụng một giao dịch mua kỳ hạn và một trái phiếu phi rủi ro đã liên kết giá quyền chọn mua, giá quyền chọn bán, và giá kỳ hạn theo ngang giá kỳ hạn quyền chọn bán–quyền chọn mua (<em>put–call forward parity</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>
+<p>Identify which of the following positions has the same no-arbitrage value as which portfolio under put–call forward parity:</p>
+</li>
+<li>
+<p>Long call option ( <em>c</em> 0) A. Forward sale, long risk-free bond, and long call option</p>
+</li>
+<li>
+<p>Long risk-free bond ( <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> )</p>
+</li>
+<li>
+<p>Long put option ( <em>p</em> 0)</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>B. Forward purchase, long put option, and short risk-free bond</p>
+</li>
+<li>
+<p>C. Long forward purchase, short call option, and long put option</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Xác định vị thế nào sau đây có cùng giá trị không kinh doanh chênh lệch giá với danh mục đầu tư nào theo ngang giá kỳ hạn quyền chọn bán–quyền chọn mua:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Vị thế</th>
+<th>Danh mục đầu tư tương đương</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Mua quyền chọn mua (<span class="math-inline">$c_0$</span>)</td>
+<td>A. Bán kỳ hạn (<em>forward sale</em>), mua trái phiếu phi rủi ro, và mua quyền chọn mua</td>
+</tr>
+<tr>
+<td>2. Mua trái phiếu phi rủi ro (<span class="math-inline">$X(1 + r)^{-T}$</span>)</td>
+<td>B. Mua kỳ hạn (<em>forward purchase</em>), mua quyền chọn bán, và bán trái phiếu phi rủi ro</td>
+</tr>
+<tr>
+<td>3. Mua quyền chọn bán (<span class="math-inline">$p_0$</span>)</td>
+<td>C. Mua hợp đồng kỳ hạn (<em>long forward purchase</em>), bán quyền chọn mua, và mua quyền chọn bán</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Recall that the put–call forward parity relationship may be expressed as</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6>
+<p>Hãy nhớ lại rằng mối quan hệ ngang giá kỳ hạn quyền chọn bán–quyền chọn mua có thể được biểu diễn là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><em>F</em> 0( <em>T</em> )(1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</li>
+</ul>
+<ol>
+<li>
+<p>B is correct. A long call option position is the no-arbitrage equivalent of a forward purchase, a long put option, and a short risk-free bond position.</p>
+</li>
+<li>
+<p>C is correct. A long risk-free bond position is equivalent to a long forward purchase, a short call option, and a long put option.</p>
+</li>
+<li>
+<p>A is correct. A long put option is equivalent to a forward sale, a long riskfree bond, and a long call option.</p>
+</li>
+<li>
+<p>Describe the cash flows at the time of option expiration for a synthetic protective put.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><span class="math-inline">$F_0(T)(1 + r)^{-T} + p_0 = c_0 + X(1 + r)^{-T}$</span>.</li>
+</ul>
+<ol>
+<li>
+<p>B là đáp án đúng. Một vị thế mua quyền chọn mua là tương đương không kinh doanh chênh lệch giá với một giao dịch mua kỳ hạn, mua quyền chọn bán, và bán trái phiếu phi rủi ro.</p>
+</li>
+<li>
+<p>C là đáp án đúng. Một vị thế mua trái phiếu phi rủi ro tương đương với một vị thế mua hợp đồng kỳ hạn, bán quyền chọn mua, và mua quyền chọn bán.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Một vị thế mua quyền chọn bán tương đương với một giao dịch bán kỳ hạn, mua trái phiếu phi rủi ro, và mua quyền chọn mua.</p>
+</li>
+<li>
+<p>Mô tả các dòng tiền vào thời điểm đáo hạn quyền chọn đối với một quyền chọn bán bảo vệ tổng hợp (<em>synthetic protective put</em>).</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A synthetic protective put is the combination of a <em>synthetic</em> underlying position (using a forward purchase and a long risk-free bond position equal to the exercise price) and a purchased put.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một quyền chọn bán bảo vệ tổng hợp là sự kết hợp giữa một vị thế tài sản cơ sở <em>tổng hợp</em> (sử dụng một giao dịch mua kỳ hạn và một vị thế mua trái phiếu phi rủi ro có mệnh giá bằng giá kỳ hạn/giá thực hiện) và một quyền chọn bán đã mua.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>At the time of option expiration, time <em>T</em> , there are two possible scenarios:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tại thời điểm quyền chọn đáo hạn, thời điểm <span class="math-inline">$T$</span>, có hai kịch bản có thể xảy ra:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Put option exercised (</strong> <strong><em>X</em> &gt;</strong> <strong><em>ST</em> ):</strong> If the put option is exercised, an investor receives ( <em>X</em> – <em>ST</em> ). The risk-free asset returns F0(T), and the forward purchase returns <em>ST</em> – <em>F</em> 0( <em>T</em> ).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Quyền chọn bán được thực hiện (<span class="math-inline">$X &gt; S_T$</span>):</strong> Nếu quyền chọn bán được thực hiện, nhà đầu tư nhận được <span class="math-inline">$(X - S_T)$</span>. Tài sản phi rủi ro mang lại <span class="math-inline">$F_0(T)$</span>, và giao dịch mua kỳ hạn mang lại <span class="math-inline">$S_T - F_0(T)$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The total return equals ( <em>X</em> – <em>ST</em> ) + [ <em>ST</em> – <em>F</em> 0( <em>T</em> )] + <em>F</em> 0( <em>T</em> ) = <em>X</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tổng số tiền thu về bằng <span class="math-inline">$(X - S_T) + [S_T - F_0(T)] + F_0(T) = X$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Put option unexercised (</strong> <strong><em>X</em> ≤</strong> <strong><em>ST</em> ):</strong> If the put option is unexercised, it will expire worthless. The risk-free asset returns <em>F</em> 0( <em>T</em> ), and the forward purchase returns <em>ST</em> – <em>F</em> <u>0(</u> <em>T</em> <u>).</u></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Quyền chọn bán không được thực hiện (<span class="math-inline">$X \le S_T$</span>):</strong> Nếu quyền chọn bán không được thực hiện, nó sẽ hết hạn mà không có giá trị. Tài sản phi rủi ro mang lại <span class="math-inline">$F_0(T)$</span>, và giao dịch mua kỳ hạn mang lại <u><span class="math-inline">$S_T - F_0(T)$</span>.</u></p></div>
+                </div>
+                
+
+                <div id="pdf-page-221" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 221 / Trang PDF 221
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The total return equals [ <em>ST</em> – <em>F</em> 0( <em>T</em> )] + F0( <em>T</em> ) = <em>ST</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tổng số tiền thu về bằng <span class="math-inline">$[S_T - F_0(T)] + F_0(T) = S_T$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Describe how a debtholder’s position may be considered similar to the sale of a put option on firm value.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Mô tả cách thức vị thế của một chủ nợ (<em>debtholder’s position</em>) có thể được coi là tương tự như việc bán một quyền chọn bán trên giá trị doanh nghiệp.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>If the value of the firm ( <em>VT</em> ) is <em>below</em> the face value of its debt outstanding, or <em>VT</em> &lt; <em>D</em> at time <em>T</em> , we say the firm is <em>insolvent</em> and debtholders receive less than the face value ( <em>D</em> ) to settle their debt claim. Stated differently, a debtholder’s payoff is min( <em>D</em> , <em>VT</em> ) = <em>D</em> – max(0, <em>D</em> – <em>VT</em> ) and equals the debt face value ( <em>D</em> ) minus a put option on firm value ( <em>VT</em> ) with an exercise price of <em>D</em> , which represents a <em>sold</em> put on firm value.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>Nếu giá trị của doanh nghiệp (<span class="math-inline">$V_T$</span>) <em>thấp hơn</em> mệnh giá khoản nợ đang lưu hành của nó, hay <span class="math-inline">$V_T &lt; D$</span> tại thời điểm <span class="math-inline">$T$</span>, chúng ta nói rằng doanh nghiệp <em>mất khả năng thanh toán</em> (<em>insolvent</em>) và các chủ nợ nhận được ít hơn mệnh giá (<span class="math-inline">$D$</span>) để thanh toán cho quyền đòi nợ của họ. Nói cách khác, kết quả thanh toán của chủ nợ là <span class="math-inline">$\min(D, V_T) = D - \max(0, D - V_T)$</span> và bằng mệnh giá khoản nợ (<span class="math-inline">$D$</span>) trừ đi một quyền chọn bán trên giá trị doanh nghiệp (<span class="math-inline">$V_T$</span>) với giá thực hiện là <span class="math-inline">$D$</span>, đại diện cho một quyền chọn bán <em>đã bán</em> (<em>sold put</em>) trên giá trị doanh nghiệp.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-222" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 222 / Trang PDF 222
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~PRACTICE PROBLEMS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>The following information relates to questions 1-6</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Thông tin sau đây liên quan đến các câu hỏi từ 1 đến 6</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>South China Sprintwyck Investments (SCSI)</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>South China Sprintwyck Investments (SCSI)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>South China Sprintwyck Investments (SCSI) has a Chinese equity portfolio that has outperformed in the first half of the year due to an overweight position in health care industry shares. SCSI is considering option-based alternatives for one of its current overweight positions, ChinaWell Inc. (CWI). CWI has a current price ( <em>S</em> 0) of CNY127.50 and pays no dividends. The current risk-free rate is 4%. You are a new SCSI analyst hired to evaluate several alternatives for CWI stock.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>South China Sprintwyck Investments (SCSI) có một danh mục đầu tư cổ phiếu Trung Quốc đã đạt hiệu quả vượt trội trong nửa đầu năm nhờ vị thế tỷ trọng cao (<em>overweight position</em>) ở các cổ phiếu ngành chăm sóc sức khỏe. SCSI đang cân nhắc các phương án dựa trên quyền chọn cho một trong những vị thế tỷ trọng cao hiện tại của mình là ChinaWell Inc. (CWI). CWI có mức giá hiện tại (<span class="math-inline">$S_0$</span>) là 127,50 CNY và không trả cổ tức. Lãi suất phi rủi ro hiện tại là 4%. Bạn là một chuyên viên phân tích mới của SCSI được tuyển dụng để đánh giá một số phương án cho cổ phiếu CWI.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> SCSI is considering the sale of a three-month call on CWI shares. If you observe a traded put price with the same underlying details, which of the following statements best describes how to derive the no-arbitrage call price?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> SCSI đang cân nhắc việc bán một quyền chọn mua kỳ hạn 3 tháng trên cổ phiếu CWI. Nếu bạn quan sát thấy một mức giá quyền chọn bán đang được giao dịch có cùng các thông số tài sản cơ sở, phát biểu nào sau đây mô tả đúng nhất cách thức suy ra mức giá quyền chọn mua không kinh doanh chênh lệch giá?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Using put–call parity, the call price may be derived by <em>subtracting</em> the traded put price from the underlying price less the present value of the exercise price.</p>
+</li>
+<li>
+<p><strong>B.</strong> Using put–call parity, the call price may be derived by <em>adding</em> the traded put price to the underlying price less the present value of the exercise price.</p>
+</li>
+<li>
+<p><strong>C.</strong> Using put–call parity, the call price may be derived by <em>adding</em> the traded put price to the present value of the exercise price minus the underlying price.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Sử dụng ngang giá quyền chọn bán–quyền chọn mua, giá quyền chọn mua có thể được suy ra bằng cách <em>lấy</em> giá tài sản cơ sở trừ đi giá trị hiện tại của giá thực hiện rồi <em>trừ đi</em> giá quyền chọn bán đang giao dịch.</p>
+</li>
+<li>
+<p><strong>B.</strong> Sử dụng ngang giá quyền chọn bán–quyền chọn mua, giá quyền chọn mua có thể được suy ra bằng cách <em>cộng</em> giá quyền chọn bán đang giao dịch vào phần chênh lệch giữa giá tài sản cơ sở trừ đi giá trị hiện tại của giá thực hiện.</p>
+</li>
+<li>
+<p><strong>C.</strong> Sử dụng ngang giá quyền chọn bán–quyền chọn mua, giá quyền chọn mua có thể được suy ra bằng cách <em>cộng</em> giá quyền chọn bán đang giao dịch vào phần chênh lệch giữa giá trị hiện tại của giá thực hiện trừ đi giá tài sản cơ sở.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> Due to the recent sharp rise in CWI’s share price, SCSI is recommending that clients consider protective put strategies for three- to six-month tenors. If you observe that a six-month CWI call option at an exercise price of CNY120 is trading at a price of CNY22.60, which answer is closest to what you would expect to pay for a six-month put option with the same underlying terms?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Do sự tăng vọt gần đây của giá cổ phiếu CWI, SCSI đang khuyến nghị khách hàng cân nhắc các chiến lược quyền chọn bán bảo vệ (<em>protective put strategies</em>) cho các kỳ hạn từ 3 đến 6 tháng. Nếu bạn quan sát thấy một quyền chọn mua cổ phiếu CWI kỳ hạn 6 tháng tại mức giá thực hiện 120 CNY đang giao dịch ở mức giá 22,60 CNY, đáp án nào gần nhất với mức giá bạn kỳ vọng sẽ trả cho một quyền chọn bán kỳ hạn 6 tháng có cùng các điều khoản cơ sở?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> CNY15.10</p>
+</li>
+<li>
+<p><strong>B.</strong> CNY9.83</p>
+</li>
+<li>
+<p><strong>C.</strong> CNY12.77</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 15,10 CNY</p>
+</li>
+<li>
+<p><strong>B.</strong> 9,83 CNY</p>
+</li>
+<li>
+<p><strong>C.</strong> 12,77 CNY</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> You realize that the six-month put option on CWI shares is overpriced relative to the no-arbitrage price from Question 2. Which of the following statements best describes the steps you would take to earn a riskless arbitrage profit under this scenario?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Bạn nhận ra rằng quyền chọn bán kỳ hạn 6 tháng trên cổ phiếu CWI đang bị định giá cao (<em>overpriced</em>) so với mức giá không kinh doanh chênh lệch giá từ Câu hỏi 2. Phát biểu nào sau đây mô tả đúng nhất các bước bạn sẽ thực hiện để kiếm được một khoản lợi nhuận kinh doanh chênh lệch giá phi rủi ro dưới kịch bản này?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Sell the six-month put option and sell CWI short, investing the proceeds in a call option and a risk-free bond.</p>
+</li>
+<li>
+<p><strong>B.</strong> Sell the six-month put option, buy a call option, and borrow at the risk-free rate to buy CWI shares.</p>
+</li>
+<li>
+<p><strong>C.</strong> Sell the six-month put option, buy a call option, enter a forward purchase of CWI, and invest in a risk-free bond.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Bán quyền chọn bán kỳ hạn 6 tháng và bán khống cổ phiếu CWI, đầu tư số tiền thu được vào một quyền chọn mua và một trái phiếu phi rủi ro.</p>
+</li>
+<li>
+<p><strong>B.</strong> Bán quyền chọn bán kỳ hạn 6 tháng, mua một quyền chọn mua, và đi vay ở mức lãi suất phi rủi ro để mua cổ phiếu CWI.</p>
+</li>
+<li>
+<p><strong>C.</strong> Bán quyền chọn bán kỳ hạn 6 tháng, mua một quyền chọn mua, tham gia vào một giao dịch mua kỳ hạn cổ phiếu CWI, và đầu tư vào một trái phiếu phi rủi ro.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-223" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 223 / Trang PDF 223
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>4.</strong> In her most recent research note on CWI, SCSI’s equity analyst specifically mentions an increase in CWI’s leverage ratio as a reason for her bearish outlook on the stock. Applying the put–call parity relationship to the value of the firm, which of the following statements most accurately describes the CWI outlook in terms of option pricing?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>4.</strong> Trong bản ghi chú nghiên cứu gần đây nhất của mình về CWI, chuyên viên phân tích cổ phiếu của SCSI đặc biệt đề cập đến sự gia tăng trong tỷ số đòn bẩy (<em>leverage ratio</em>) của CWI như một lý do cho triển vọng bi quan (<em>bearish outlook</em>) của cô ấy đối với cổ phiếu này. Áp dụng mối quan hệ ngang giá quyền chọn bán–quyền chọn mua cho giá trị của doanh nghiệp, phát biểu nào sau đây mô tả chính xác nhất triển vọng của CWI dưới góc độ định giá quyền chọn?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> The shareholder payoff has improved versus debtholders, because they have sold a put option on the firm value that has appreciated.</p>
+</li>
+<li>
+<p><strong>B.</strong> The debtholder payoff has deteriorated versus the shareholders, because they are effectively short a put option on the value of the firm equal to the value of debt, which has appreciated in value.</p>
+</li>
+<li>
+<p><strong>C.</strong> The shareholder payoff has improved versus the debtholders, because the debtholders have sold a call option on the firm’s assets to the shareholders.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Kết quả thanh toán của cổ đông đã được cải thiện so với các chủ nợ, bởi vì họ đã bán một quyền chọn bán trên giá trị doanh nghiệp vốn đã tăng giá trị.</p>
+</li>
+<li>
+<p><strong>B.</strong> Kết quả thanh toán của chủ nợ đã xấu đi so với các cổ đông, bởi vì về thực chất họ đang giữ vị thế bán một quyền chọn bán trên giá trị của doanh nghiệp với giá thực hiện bằng giá trị khoản nợ, và quyền chọn bán này đã tăng giá trị.</p>
+</li>
+<li>
+<p><strong>C.</strong> Kết quả thanh toán của cổ đông đã được cải thiện so với các chủ nợ, bởi vì các chủ nợ đã bán một quyền chọn mua trên tài sản của doanh nghiệp cho các cổ đông.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>5.</strong> Which of the following choices best describes how SCSI could replicate a long risk-free bond return using a forward contract on CWI and call and put options on CWI?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>5.</strong> Lựa chọn nào sau đây mô tả đúng nhất cách thức SCSI có thể mô phỏng tỷ suất sinh lợi của một vị thế mua trái phiếu phi rủi ro bằng cách sử dụng một hợp đồng kỳ hạn trên cổ phiếu CWI cùng với các quyền chọn mua và quyền chọn bán trên cổ phiếu CWI?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> Short a forward contract on CWI, short a put option on CWI, and long a call option on CWI</p>
+</li>
+<li>
+<p><strong>B.</strong> Long a forward contract on CWI, long a put option on CWI, and short a call option on CWI</p>
+</li>
+<li>
+<p><strong>C.</strong> Long a forward contract on CWI, long a put option on CWI, and long a call option on CWI</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> Bán một hợp đồng kỳ hạn trên CWI, bán một quyền chọn bán trên CWI, và mua một quyền chọn mua trên CWI</p>
+</li>
+<li>
+<p><strong>B.</strong> Mua một hợp đồng kỳ hạn trên CWI, mua một quyền chọn bán trên CWI, và bán một quyền chọn mua trên CWI</p>
+</li>
+<li>
+<p><strong>C.</strong> Mua một hợp đồng kỳ hạn trên CWI, mua một quyền chọn bán trên CWI, và mua một quyền chọn mua trên CWI</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>6.</strong> SCSI observes that a 3-month call option on CWI with an exercise price of CNY 130 trades at a premium of CNY 3. A 3-month forward contract on CWI trades at a forward price of CNY 128.76. Which of the following choices is closest to the correct premium for a 3-month put option with an exercise price of CNY 130 on CWI?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>6.</strong> SCSI quan sát thấy một quyền chọn mua kỳ hạn 3 tháng trên CWI với giá thực hiện 130 CNY giao dịch ở mức phí quyền chọn là 3 CNY. Một hợp đồng kỳ hạn 3 tháng trên CWI giao dịch ở mức giá kỳ hạn là 128,76 CNY. Lựa chọn nào sau đây gần nhất với mức phí quyền chọn đúng cho một quyền chọn bán kỳ hạn 3 tháng có giá thực hiện 130 CNY trên CWI?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> CNY 4.20</p>
+</li>
+<li>
+<p><strong>B.</strong> CNY 1.20</p>
+</li>
+<li>
+<p><strong>C.</strong> CNY 0.50</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> 4,20 CNY</p>
+</li>
+<li>
+<p><strong>B.</strong> 1,20 CNY</p>
+</li>
+<li>
+<p><strong>C.</strong> 0,50 CNY</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-224" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 224 / Trang PDF 224
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~SOLUTIONS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>The correct answer is B. From Equation 1, the put–call parity relationship is <em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Đáp án đúng là B. Từ Phương trình 1, mối quan hệ ngang giá quyền chọn bán–quyền chọn mua là:</li>
+</ol>
+<div class="math-display my-3 overflow-x-auto">$$S_0 + p_0 = c_0 + X(1 + r)^{-T}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can rearrange these terms to solve for <em>c</em> 0: <em>c</em> 0 = <em>S</em> 0 + <em>p</em> 0 – <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> , which shows that the call price may be derived by <em>adding</em> the traded put price to the underlying price less the present value of the exercise price.</p>
+<ol start="2">
+<li>The correct answer is C. If <em>c</em> 0 = CNY22.60, <em>S</em> 0 = CNY127.50, and PV( <em>X</em> ) = CNY117.67 (= 120(1.04)<sup>–0.5</sup> ), we can solve for <em>p</em> 0 using put–call parity: <em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể sắp xếp lại các số hạng này để giải tìm <span class="math-inline">$c_0$</span>: <span class="math-inline">$c_0 = S_0 + p_0 - X(1 + r)^{-T}$</span>, điều này cho thấy giá quyền chọn mua có thể được suy ra bằng cách <em>cộng</em> giá quyền chọn bán đang giao dịch vào phần chênh lệch giữa giá tài sản cơ sở trừ đi giá trị hiện tại của giá thực hiện.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> – <em>S</em> 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Đáp án đúng là C. Nếu <span class="math-inline">$c_0 = 22,60\text{ CNY}$</span>, <span class="math-inline">$S_0 = 127,50\text{ CNY}$</span>, và <span class="math-inline">$\text{PV}(X) = 117,67\text{ CNY} \ (= 120(1,04)^{-0,5})$</span>, chúng ta có thể giải tìm <span class="math-inline">$p_0$</span> bằng cách sử dụng ngang giá quyền chọn bán–quyền chọn mua:</li>
+</ol>
+<div class="math-display my-3 overflow-x-auto">$$S_0 + p_0 = c_0 + X(1 + r)^{-T}.$$</div>
+<div class="math-display my-3 overflow-x-auto">$$p_0 = c_0 + X(1 + r)^{-T} - S_0.$$</div>
+<div class="math-display my-3 overflow-x-auto">$$12,77\text{ CNY} = 22,60 + 117,67 - 127,50.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>CNY12.77 = 22.60 + 117.67 – 127.50.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Đáp án đúng là A. Vì quyền chọn bán đang bị định giá cao (<em>overpriced</em>), chúng ta sẽ bán nó để thu phần chênh lệch giữa mức giá bán và mức giá không kinh doanh chênh lệch giá. Mối quan hệ ngang giá quyền chọn bán–quyền chọn mua, từ Phương trình 1, là:</li>
+</ol>
+<ul>
+<li><span class="math-inline">$S_0 + p_0 = c_0 + X(1 + r)^{-T}$</span>.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>The correct answer is A. Since the put option is overpriced, we would sell it to earn the difference between the price at which it is sold and the no-arbitrage price. The put–call parity relationship, from Equation 1, is</li>
+</ol>
+<ul>
+<li><em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể sắp xếp lại phương trình này để chứng minh rằng giá trị quyền chọn bán tương đương với một vị thế mua quyền chọn mua, một vị thế mua trái phiếu phi rủi ro, và một vị thế bán khống cổ phiếu CWI:</p>
+<div class="math-display my-3 overflow-x-auto">$$p_0 = c_0 + X(1 + r)^{-T} - S_0.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can rearrange this to demonstrate that the put option value is equivalent to a long call option, a long risk-free bond, and a short position in CWI shares:</p>
+<p><em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> – <em>S</em> 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đáp án A phản ánh sự kết hợp giữa mua trái phiếu phi rủi ro, mua quyền chọn mua và bán khống cổ phiếu CWI này, vốn có kết quả thanh toán tổng hợp khớp với kết quả thanh toán của quyền chọn bán khi đáo hạn, trong khi Đáp án B liên quan đến vị thế mua tiền mặt đối với CWI và Đáp án C liên quan đến vị thế mua tổng hợp (mua kỳ hạn) đối với cổ phiếu CWI.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Answer A reflects this long risk-free bond and short CWI combination, which has a payoff of <em>X</em> – <em>ST</em> at expiration matching that of the put payoff, whereas Answer B involves a long cash position in CWI and Answer C involves a long synthetic (forward purchase) position in CWI stock.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Đáp án đúng là B. Kết quả thanh toán của chủ nợ đã xấu đi so với các cổ đông, bởi vì về thực chất họ đang giữ vị thế bán một quyền chọn bán trên giá trị của doanh nghiệp với giá thực hiện bằng giá trị khoản nợ, và quyền chọn bán này đã tăng giá trị (khi đòn bẩy nợ tăng lên làm tăng rủi ro mất khả năng thanh toán).</li>
+</ol>
+<ul>
+<li>Kết quả thanh toán của chủ nợ là <span class="math-inline">$\min(D, V_T) = D - \max(0, D - V_T)$</span> và bằng mệnh giá khoản nợ (<span class="math-inline">$D$</span>) <em>trừ đi</em> một quyền chọn bán trên giá trị doanh nghiệp (<span class="math-inline">$V_T$</span>) với giá thực hiện là <span class="math-inline">$D$</span>. Đáp án A không đúng vì các chủ nợ, chứ không phải các cổ đông, mới là người đã bán quyền chọn bán. C không đúng vì các cổ đông sở hữu một quyền chọn mua, nhưng nó không phải do các chủ nợ bán theo cấu trúc vị thế riêng của chủ nợ.</li>
+</ul>
+<ol start="5">
+<li>B là đáp án đúng. Sử dụng phương trình ngang giá kỳ hạn quyền chọn bán–quyền chọn mua như sau:</li>
+</ol>
+<div class="math-display my-3 overflow-x-auto">$$F_0(T)(1 + r)^{-T} + p_0 = c_0 + X(1 + r)^{-T}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>The correct answer is B. The debtholder payoff has deteriorated versus the shareholders, because they are effectively short a put option on the value of the firm equal to the value of debt, which has appreciated in value.</li>
+</ol>
+<ul>
+<li>The debtholder payoff is min( <em>D</em> , <em>VT</em> ) = <em>D</em> – max(0, <em>D</em> – <em>VT</em> ) and equals the debt face value ( <em>D</em> ) <em>minus</em> a put option on firm value ( <em>VT</em> ) with an exercise price of <em>D</em> . Answer A is incorrect because the debtholders, not the shareholders, have sold a put option. C is incorrect, because the shareholders own a call option, but it is not sold by the debtholders.</li>
+</ul>
+<ol start="5">
+<li>B is correct. Using the put–call forward parity equation as follows: <em>F</em> 0( <em>T</em> )(1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup></li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Và sắp xếp lại để giải tìm trái phiếu phi rủi ro mang lại kết quả sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>And rearranging to solve for the risk-free bond gives the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><span class="math-inline">$F_0(T)(1 + r)^{-T} + p_0 - c_0 = X(1 + r)^{-T}$</span>.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><em>F</em> 0( <em>T</em> )(1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> + <em>p</em> 0 – <em>c</em> 0 = <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</li>
+</ul>
+<p>The signs on the forward contract and put option positions are both positive, indicating long positions. The negative sign on the call option indicates a short position.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dấu của vị thế hợp đồng kỳ hạn và vị thế quyền chọn bán đều là dấu dương, biểu thị các vị thế mua (<em>long positions</em>). Dấu âm ở quyền chọn mua biểu thị một vị thế bán (<em>short position</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="6">
+<li>A is correct. The solution can be derived through either put–call parity or put– call forward parity. You can demonstrate the solution using put–call forward parity:</li>
+</ol>
+<ul>
+<li><em>F</em> 0( <em>T</em> )(1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> 128.76(1.04)<sup>–0.25</sup> + <em>p</em> 0 = 3 + 130(1.04)<sup>–0.25</sup></li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="6">
+<li>A là đáp án đúng. Lời giải có thể được suy ra thông qua ngang giá quyền chọn bán–quyền chọn mua hoặc ngang giá kỳ hạn quyền chọn bán–quyền chọn mua. Bạn có thể chứng minh lời giải bằng cách sử dụng ngang giá kỳ hạn quyền chọn bán–quyền chọn mua:</li>
+</ol>
+<ul>
+<li><span class="math-inline">$F_0(T)(1 + r)^{-T} + p_0 = c_0 + X(1 + r)^{-T}$</span> </li>
+<li><span class="math-inline">$128,76(1,04)^{-0,25} + p_0 = 3 + 130(1,04)^{-0,25}$</span></li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-225" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 225 / Trang PDF 225
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>127.50 + <em>p</em> 0 = 131.73 <em>p</em> 0 = 4.23.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><span class="math-inline">$127,50 + p_0 = 131,73 \implies p_0 = 4,23\text{ CNY}$</span> (gần nhất với 4,20 CNY).</li>
+</ul></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM09_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM09_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 7</a>
+      <a href="LM10_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM10_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('07_Derivatives/LM09_Part2_Option_Put_Call_Parity_Applications_Firm_Valu.html');
+    });
+  </script>
+</body>
+</html>

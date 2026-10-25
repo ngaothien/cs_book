@@ -1,0 +1,11 @@
+# Tập 8: Đầu tư Thay thế (Alternative Investments)
+
+| Mã Chương | Tên Chương (Learning Module) | Trang PDF | File Nguyên Chương (Full) | Các File Tách Phần (Parts) | Số Từ (VI) |
+| :---: | :--- | :---: | :--- | :--- | :---: |
+| **LM01** | Alternative Investment Features, Methods, and Structures | tr. 11–40 | [LM01_Full_Alternative_Investment_Features_Methods_and_S.md](LM01_Full_Alternative_Investment_Features_Methods_and_S.md) | [Part 1](LM01_Part1_Introduction.md), [Part 2](LM01_Part2_Alternative_Investment_Structures.md) | 20,057 |
+| **LM02** | Alternative Investment Performance and Returns | tr. 41–72 | [LM02_Full_Alternative_Investment_Performance_and_Return.md](LM02_Full_Alternative_Investment_Performance_and_Return.md) | [Part 1](LM02_Part1_Introduction.md), [Part 2](LM02_Part2_Alternative_Investment_Returns.md), [Part 3](LM02_Part3_Practice_Problems.md) | 18,992 |
+| **LM03** | Investments in Private Capital: Equity and Debt | tr. 73–100 | [LM03_Full_Investments_in_Private_Capital_Equity_and_Deb.md](LM03_Full_Investments_in_Private_Capital_Equity_and_Deb.md) | [Part 1](LM03_Part1_Introduction.md), [Part 2](LM03_Part2_Private_Debt_Investment_Characteristics.md) | 19,805 |
+| **LM04** | Real Estate and Infrastructure | tr. 101–128 | [LM04_Full_Real_Estate_and_Infrastructure.md](LM04_Full_Real_Estate_and_Infrastructure.md) | [Part 1](LM04_Part1_Introduction.md), [Part 2](LM04_Part2_Infrastructure_Investment_Features.md) | 20,208 |
+| **LM05** | Natural Resources | tr. 129–154 | [LM05_Full_Natural_Resources.md](LM05_Full_Natural_Resources.md) | [Part 1](LM05_Part1_Introduction.md), [Part 2](LM05_Part2_Natural_Resource_Investment_Risk_Return_and_D.md) | 17,128 |
+| **LM06** | Hedge Funds | tr. 155–186 | [LM06_Full_Hedge_Funds.md](LM06_Full_Hedge_Funds.md) | [Part 1](LM06_Part1_Introduction.md), [Part 2](LM06_Part2_Hedge_Fund_Investment_Forms.md), [Part 3](LM06_Part3_Practice_Problems.md) | 22,622 |
+| **LM07** | Introduction to Digital Assets | tr. 187–220 | [LM07_Full_Introduction_to_Digital_Assets.md](LM07_Full_Introduction_to_Digital_Assets.md) | [Part 1](LM07_Part1_Introduction.md), [Part 2](LM07_Part2_Digital_Asset_Investment_Features.md), [Part 3](LM07_Part3_Digital_Asset_Investment_Risk_Return_and_Dive.md) | 24,853 |

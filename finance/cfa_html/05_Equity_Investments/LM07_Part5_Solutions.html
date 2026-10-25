@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 7 Company Analysis: Forecasting - Part 5: Solutions — Volume 5: Equity Investments | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 5: Đầu Tư Vốn Cổ Phần
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 7 Company Analysis: Forecasting - Part 5: Solutions</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM07_Full_Company_Analysis_Forecasting.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (1 trang)...</option>
+          <option value="344">PDF Page 344</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 5</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Đầu Tư Vốn Cổ Phần</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 5</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Market_Organization_and_Structure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Market Organization and Structure</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Currencies_Commodities_and_Real_Assets.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Currencies, Commodities, and Real Assets</a>
+<a href="LM01_Part3_Securitizers_Depository_Institutions_and_Insu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Securitizers, Depository Institutions and Insurance Companies</a>
+<a href="LM01_Part4_Orders_and_Execution_Instructions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Orders and Execution Instructions</a>
+<a href="LM01_Part5_Well_functioning_Financial_Systems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Well-functioning Financial Systems</a>
+<a href="LM01_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM02_Full_Security_Market_Indexes.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Security Market Indexes</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Uses_of_Market_Indexes.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Uses of Market Indexes</a>
+<a href="LM02_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM03_Full_Market_Efficiency.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Market Efficiency</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Market_Pricing_Anomalies_Time_Series_and_Cros.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Market Pricing Anomalies - Time Series and Cross-Sectional</a>
+<a href="LM03_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM04_Full_Overview_of_Equity_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Overview of Equity Securities</a>
+<a href="LM04_Part1_Importance_of_Equity_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Importance of Equity Securities</a>
+<a href="LM04_Part2_Non_Domestic_Equity_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Domestic Equity Securities</a>
+<a href="LM04_Part3_Summary.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Summary</a>
+<a href="LM05_Full_Company_Analysis_Past_and_Present.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Company Analysis: Past and Present</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Determining_the_Business_Model.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Determining the Business Model</a>
+<a href="LM05_Part3_Revenue_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Revenue Analysis</a>
+<a href="LM05_Part4_Operating_Profitability_and_Working_Capital_A.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Operating Profitability and Working Capital Analysis</a>
+<a href="LM05_Part5_Capital_Investments_and_Capital_Structure.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Capital Investments and Capital Structure</a>
+<a href="LM06_Full_Industry_and_Competitive_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Industry and Competitive Analysis</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Industry_Survey.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Industry Survey</a>
+<a href="LM06_Part3_Industry_Structure_and_External_Influences.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Industry Structure and External Influences</a>
+<a href="LM06_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM07_Full_Company_Analysis_Forecasting.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Company Analysis: Forecasting</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Forecasting_Operating_Expenses_and_Working_Ca.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Forecasting Operating Expenses and Working Capital</a>
+<a href="LM07_Part3_Forecasting_Capital_Investments_and_Capital_S.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Forecasting Capital Investments and Capital Structure</a>
+<a href="LM07_Part4_Scenario_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Scenario Analysis</a>
+<a href="LM07_Part5_Solutions.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 5: Solutions</a>
+<a href="LM08_Full_Equity_Valuation_Concepts_and_Basic_Tools.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Equity Valuation: Concepts and Basic Tools</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_The_Gordon_Growth_Model.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Gordon Growth Model</a>
+<a href="LM08_Part3_Method_of_Comparables_and_Valuation_Based_on.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Method of Comparables and Valuation Based on Price Multiples</a>
+<a href="LM08_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 5 • Equity Investments (Đầu Tư Vốn Cổ Phần)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 7 Company Analysis: Forecasting - Part 5: Solutions</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('05_Equity_Investments/LM07_Part5_Solutions.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 5: Equity Investments</h1>
+<h2>Learning Module 7 Company Analysis: Forecasting</h2>
+<h3>Part 5/5: Solutions (PDF Pages 344–344)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 5: Đầu tư Cổ phần (Volume 5: Equity Investments)</h1>
+<h2>Học phần 7: Phân tích Công ty: Dự báo (Learning Module 7: Company Analysis: Forecasting)</h2>
+<h3>Phần 5/5: Lời giải (Trang PDF 344–344)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-344" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 344 / Trang PDF 344
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>~~SOLUTIONS~~</strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>
+<p>C is correct. Forecast objects should either be disclosed regularly or be directly calculable using what is disclosed regularly. Information that is <em>not</em> disclosed regularly (such as a third-party consultancy’s report) is suitable to <em>inform</em> forecasts but can be problematic for direct use, because forecasts cannot be confirmed in a timely manner. While it may be intuitive to forecast individual discrete items, such as sales and gross margin by individual product line, if gross margin is disclosed only on a consolidated basis, it will be difficult for analysts to verify their product-line gross margin estimates.</p>
+</li>
+<li>
+<p>A is correct. Management has an advantage at the firm level and tends to make more accurate forecasts for objects that are subject to management actions, such as capital expenditures. Management does <em>not</em> have an informational advantage over investors in forecasting macroeconomic variables, such as GDP, the business cycle, or the prices of commodities. Hutton et al. (2012) found that investors have an informational advantage over management at the macroeconomic level.</p>
+</li>
+<li>
+<p>A is correct. Market share of routes is a top-down driver of revenues and can be used to estimate an airline’s market share. The number of planes in fleet and the average ticket price per mile flown are bottom-up drivers of revenues.</p>
+</li>
+<li>
+<p>B is correct. Management has a tendency to pad its guidance to make it easier to achieve the forecast results for which management will be rewarded. Management does not have an informational advantage at the macroeconomic level.</p>
+</li>
+<li>
+<p>A is correct. Historical results is least appropriate, because the company has changed its competitive strategy. Analyst’s discretionary forecast may be appropriate, because the company is undergoing a fundamental change. The company is growing and may be transitioning to be more like the industry, in which case historical base rates and convergence may be an appropriate approach.</p>
+</li>
+<li>
+<p>C is correct. Management has an advantage in forecasting for objects that are subject to its actions (such as capital expenditures and inventories, which affect fixed costs). The analyst is likely to have an informational advantage when it comes to forecasting economic conditions and commodity prices, which affect revenues and variable costs.</p>
+</li>
+<li>
+<p>A is correct. Based on the company’s spending pattern, it most likely makes capital expenditures based on capacity needs as it grows. If it is approaching full usage of existing capacity, it will expand.</p>
+</li>
+<li>
+<p>B is correct.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<p>C là đáp án đúng. Các đối tượng dự báo (<em>forecast objects</em>) phải được công bố định kỳ thường xuyên hoặc có thể tính toán trực tiếp bằng cách sử dụng những gì được công bố thường xuyên. Thông tin <em>không</em> được công bố thường xuyên (chẳng hạn như báo cáo của một công ty tư vấn bên thứ ba) phù hợp để <em>cung cấp thông tin bổ trợ</em> cho các dự báo nhưng có thể gây rắc rối nếu sử dụng trực tiếp, bởi vì các dự báo không thể được xác nhận một cách kịp thời. Mặc dù việc dự báo các khoản mục rời rạc riêng lẻ, chẳng hạn như doanh thu và biên lợi nhuận gộp theo từng dòng sản phẩm riêng lẻ, có vẻ trực quan, nhưng nếu biên lợi nhuận gộp chỉ được công bố trên cơ sở hợp nhất, các nhà phân tích sẽ rất khó kiểm chứng các ước tính biên lợi nhuận gộp theo dòng sản phẩm của mình.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Ban điều hành có lợi thế ở cấp độ công ty và có xu hướng đưa ra các dự báo chính xác hơn cho các đối tượng chịu sự chi phối bởi hành động của ban điều hành, chẳng hạn như chi tiêu vốn (<em>capital expenditures</em>). Ban điều hành <em>không</em> có lợi thế thông tin hơn các nhà đầu tư trong việc dự báo các biến số kinh tế vĩ mô, chẳng hạn như GDP, chu kỳ kinh doanh, hoặc giá cả hàng hóa cơ bản. Hutton và cộng sự (2012) nhận thấy rằng các nhà đầu tư có lợi thế thông tin hơn ban điều hành ở cấp độ kinh tế vĩ mô.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Thị phần các tuyến bay (<em>market share of routes</em>) là một động lực doanh thu từ trên xuống (<em>top-down driver</em>) và có thể được sử dụng để ước tính thị phần của một hãng hàng không. Số lượng máy bay trong đội bay và giá vé bình quân trên mỗi dặm bay là các động lực doanh thu từ dưới lên (<em>bottom-up drivers</em>).</p>
+</li>
+<li>
+<p>B là đáp án đúng. Ban điều hành có xu hướng tạo bước đệm an toàn (<em>pad</em>) cho định hướng của mình để giúp việc đạt được các kết quả dự báo—mà nhờ đó ban điều hành sẽ được khen thưởng—trở nên dễ dàng hơn. Ban điều hành không có lợi thế thông tin ở cấp độ kinh tế vĩ mô.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Phương pháp kết quả lịch sử (<em>historical results</em>) là kém phù hợp nhất, bởi vì công ty đã thay đổi chiến lược cạnh tranh của mình. Dự báo chủ quan của nhà phân tích (<em>analyst’s discretionary forecast</em>) có thể phù hợp, bởi vì công ty đang trải qua một sự thay đổi căn bản. Công ty đang tăng trưởng và có thể đang chuyển dịch để trở nên giống với toàn ngành hơn, trong trường hợp đó phương pháp tỷ suất cơ sở lịch sử và sự hội tụ (<em>historical base rates and convergence</em>) có thể là một phương pháp tiếp cận phù hợp.</p>
+</li>
+<li>
+<p>C là đáp án đúng. Ban điều hành có lợi thế trong việc dự báo các đối tượng chịu sự chi phối bởi hành động của mình (chẳng hạn như chi tiêu vốn và hàng tồn kho, vốn ảnh hưởng đến chi phí cố định). Nhà phân tích nhiều khả năng có lợi thế thông tin khi dự báo các điều kiện kinh tế và giá cả hàng hóa cơ bản, vốn ảnh hưởng đến doanh thu và chi phí biến đổi.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Dựa trên mô hình chi tiêu của công ty, nhiều khả năng công ty thực hiện chi tiêu vốn dựa trên nhu cầu công suất (<em>capacity needs</em>) khi công ty tăng trưởng. Nếu công ty đang tiến gần đến mức sử dụng tối đa công suất hiện có, công ty sẽ tiến hành mở rộng.</p>
+</li>
+<li>
+<p>B là đáp án đúng.</p>
+</li>
+</ol>
+<p>Giả sử Doanh thu ban đầu <span class="math-inline">$= 100$</span> và Giá vốn hàng bán ban đầu <span class="math-inline">$= 60$</span> (do biên lợi nhuận gộp hiện tại là <span class="math-inline">$40\%$</span>).</p>
+<p>Doanh thu mới (<em>Sales</em>) <span class="math-inline">$= 100 \times (0.95) \times (1.08) = 102.6$</span></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Sales = 100(0.95)(1.08) = 102.6 Cost of sales = 60(0.85)(1.08) = 55.1 Gross profit = 102.2 − 55.1 = 47.5 Gross profit margin = 47.5/102.6 = 46.3%</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giá vốn hàng bán mới (<em>Cost of sales</em>) <span class="math-inline">$= 60 \times (0.85) \times (1.08) = 55.1$</span></p>
+<p>Lợi nhuận gộp mới (<em>Gross profit</em>) <span class="math-inline">$= 102.6 - 55.1 = 47.5$</span> (Lưu ý: trong bản gốc tiếng Anh ghi nhầm chữ số <span class="math-inline">$102.2 - 55.1 = 47.5$</span>, nhưng kết quả <span class="math-inline">$47.5$</span> là chính xác từ <span class="math-inline">$102.6 - 55.1$</span>).</p>
+<p>Biên lợi nhuận gộp mới (<em>Gross profit margin</em>) <span class="math-inline">$= 47.5 / 102.6 = 46.3\%$</span></p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM07_Part4_Scenario_Analysis.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM07_Part4_Scenario_Analysis</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 5</a>
+      <a href="LM08_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM08_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('05_Equity_Investments/LM07_Part5_Solutions.html');
+    });
+  </script>
+</body>
+</html>

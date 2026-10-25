@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 9 Option Replication Using Put–Call Parity - Part 1: Introduction — Volume 7: Derivatives | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 7: Công Cụ Phái Sinh
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 9 Option Replication Using Put–Call Parity - Part 1: Introduction</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM09_Full_Option_Replication_Using_Put_Call_Parity.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (12 trang)...</option>
+          <option value="205">PDF Page 205</option>
+<option value="206">PDF Page 206</option>
+<option value="207">PDF Page 207</option>
+<option value="208">PDF Page 208</option>
+<option value="209">PDF Page 209</option>
+<option value="210">PDF Page 210</option>
+<option value="211">PDF Page 211</option>
+<option value="212">PDF Page 212</option>
+<option value="213">PDF Page 213</option>
+<option value="214">PDF Page 214</option>
+<option value="215">PDF Page 215</option>
+<option value="216">PDF Page 216</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 7</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Công Cụ Phái Sinh</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 7</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Derivative_Instrument_and_Derivative_Market_F.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Derivative Instrument and Derivative Market Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM02_Full_Forward_Commitment_and_Contingent_Claim_Featu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Forward Commitment and Contingent Claim Features and Instruments</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Options.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Options</a>
+<a href="LM03_Full_Derivative_Benefits_Risks_and_Issuer_and_Inve.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Derivative Benefits, Risks, and Issuer and Investor Uses</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Issuer_Use_of_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Issuer Use of Derivatives</a>
+<a href="LM04_Full_Arbitrage_Replication_and_the_Cost_of_Carry_i.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Arbitrage, Replication, and the Cost of Carry in Pricing Derivatives</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Costs_and_Benefits_Associated_with_Owning_the.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Costs and Benefits Associated with Owning the Underlying</a>
+<a href="LM05_Full_Pricing_and_Valuation_of_Forward_Contracts_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Pricing and Valuation of Forward Contracts and for an Underlying with Varying Maturities</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Pricing_and_Valuation_of_Interest_Rate_Forwar.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Pricing and Valuation of Interest Rate Forward Contracts</a>
+<a href="LM06_Full_Pricing_and_Valuation_of_Futures_Contracts.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Pricing and Valuation of Futures Contracts</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Effect_of_Central_Clearing_of_OTC_Derivatives.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Effect of Central Clearing of OTC Derivatives</a>
+<a href="LM07_Full_Pricing_and_Valuation_of_Interest_Rates_and_O.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Pricing and Valuation of Interest Rates and Other Swaps</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Swap_Values_and_Prices.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Swap Values and Prices</a>
+<a href="LM08_Full_Pricing_and_Valuation_of_Options.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Pricing and Valuation of Options</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Factors_Affecting_Option_Value.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Factors Affecting Option Value</a>
+<a href="LM09_Full_Option_Replication_Using_Put_Call_Parity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Option Replication Using Put–Call Parity</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Option_Put_Call_Parity_Applications_Firm_Valu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Option Put–Call Parity Applications: Firm Value</a>
+<a href="LM10_Full_Valuing_a_Derivative_Using_a_One_Period_Binom.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Valuing a Derivative Using a One-Period Binomial Model</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 7 • Derivatives (Công Cụ Phái Sinh)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 9 Option Replication Using Put–Call Parity - Part 1: Introduction</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('07_Derivatives/LM09_Part1_Introduction.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 7: Derivatives</h1>
+<h2>Learning Module 9 Option Replication Using Put–Call Parity</h2>
+<h3>Part 1/2: Introduction (PDF Pages 205–216)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 7: Công cụ Phái sinh (<em>Derivatives</em>)</h1>
+<h2>Học phần 9: Mô phỏng Quyền chọn Sử dụng Ngang giá Quyền chọn Bán–Quyền chọn Mua (<em>Option Replication Using Put–Call Parity</em>)</h2>
+<h3>Phần 1/2: Giới thiệu (Trang PDF 205–216)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-205" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 205 / Trang PDF 205
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4>L E A R N I N G M O D U L E</h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4>H Ọ C P H Ầ N</h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>9</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>9</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Option Replication Using Put–Call Parity</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Mô phỏng Quyền chọn Sử dụng Ngang giá Quyền chọn Bán–Quyền chọn Mua (<em>Option Replication Using Put–Call Parity</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong><mark>LEARNING OUTCOMES</mark></strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong><mark>MỤC TIÊU HỌC TẬP (<em>LEARNING OUTCOMES</em>)</mark></strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><em>Mastery The candidate should be able to:</em></strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong><em>Mức độ thành thạo</em></strong><br><strong><em>Ứng viên cần có khả năng:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>giải thích ngang giá quyền chọn bán–quyền chọn mua (<em>put–call parity</em>) đối với quyền chọn kiểu châu Âu</td>
+</tr>
+<tr>
+<td>giải thích ngang giá <em>kỳ hạn</em> quyền chọn bán–quyền chọn mua (<em>put–call forward parity</em>) đối với quyền chọn kiểu châu Âu</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain put–call parity for European options explain put–call <em>forward</em> parity for European options</p>
+<h5><strong>INTRODUCTION</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>GIỚI THIỆU (<em>INTRODUCTION</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>1</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>1</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Previous lessons examined the payoff and profit profiles of call options and put options, the upper and lower bounds of an option’s value, and the factors impacting option values. In doing so, we contrasted the asymmetry of one-sided option payoffs with the linear or symmetric payoff of forwards and underlying assets.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các bài học trước đã xem xét hồ sơ kết quả thanh toán (<em>payoff</em>) và lợi nhuận (<em>profit</em>) của quyền chọn mua và quyền chọn bán, các cận trên và cận dưới đối với giá trị của một quyền chọn, và các nhân tố tác động đến giá trị quyền chọn. Qua đó, chúng ta đã đối chiếu tính bất đối xứng của các kết quả thanh toán quyền chọn một phía (<em>one-sided option payoffs</em>) với kết quả thanh toán tuyến tính hay đối xứng của các hợp đồng kỳ hạn và các tài sản cơ sở.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We now extend this analysis further to show that there are ways to <em>combine</em> options to have an equivalent payoff to that of the underlying and a risk-free asset as well as a forward commitment. In the first lesson, we demonstrate that the value of a European call may be used to derive the value of a European put option with the same underlying details, and vice versa, under a no-arbitrage condition referred to as put–call parity. In the second lesson, we show how this may be extended to forward commitments and how the put–call parity relationship may be applied to option and other investment strategies. We will focus on European options on underlying assets with no income or benefit.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bây giờ chúng ta mở rộng phân tích này xa hơn để chỉ ra rằng có những cách thức <em>kết hợp</em> các quyền chọn nhằm tạo ra kết quả thanh toán tương đương với kết quả thanh toán của tài sản cơ sở và một tài sản phi rủi ro cũng như của một cam kết kỳ hạn. Trong bài học đầu tiên, chúng ta chứng minh rằng giá trị của một quyền chọn mua kiểu châu Âu có thể được sử dụng để suy ra giá trị của một quyền chọn bán kiểu châu Âu có cùng các thông số tài sản cơ sở, và ngược lại, theo một điều kiện không kinh doanh chênh lệch giá được gọi là ngang giá quyền chọn bán–quyền chọn mua (<em>put–call parity</em>). Trong bài học thứ hai, chúng ta chỉ ra cách thức mối quan hệ này có thể được mở rộng sang các cam kết kỳ hạn và cách thức mối quan hệ ngang giá quyền chọn bán–quyền chọn mua có thể được áp dụng cho các chiến lược quyền chọn và các chiến lược đầu tư khác. Chúng ta sẽ tập trung vào các quyền chọn kiểu châu Âu trên các tài sản cơ sở không có thu nhập hay lợi ích.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE OVERVIEW</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỔNG QUAN HỌC PHẦN (<em>LEARNING MODULE OVERVIEW</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Put–call parity establishes a relationship that allows the price of a call option to be derived from the price of a put option with the same underlying details and vice versa.</p>
+</li>
+<li>
+<p>Put–call parity holds for European options with the same exercise price and expiration date, representing a no-arbitrage relationship between put option, call option, underlying asset, and risk-free asset prices.</p>
+</li>
+<li>
+<p>If put–call parity does not hold, then riskless arbitrage profit opportunities may be available to investors.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Ngang giá quyền chọn bán–quyền chọn mua (<em>put–call parity</em>) thiết lập một mối quan hệ cho phép mức giá của một quyền chọn mua được suy ra từ mức giá của một quyền chọn bán có cùng các thông số tài sản cơ sở và ngược lại.</p>
+</li>
+<li>
+<p>Ngang giá quyền chọn bán–quyền chọn mua áp dụng cho các quyền chọn kiểu châu Âu có cùng giá thực hiện và ngày đáo hạn, đại diện cho một mối quan hệ không kinh doanh chênh lệch giá giữa giá quyền chọn bán, giá quyền chọn mua, giá tài sản cơ sở, và giá tài sản phi rủi ro.</p>
+</li>
+<li>
+<p>Nếu ngang giá quyền chọn bán–quyền chọn mua không được duy trì, thì các cơ hội thu lợi nhuận kinh doanh chênh lệch giá phi rủi ro (<em>riskless arbitrage profit opportunities</em>) có thể xuất hiện cho các nhà đầu tư.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-206" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 206 / Trang PDF 206
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>Put–call forward parity extends the put–call parity relationship to forward contracts given the equivalence of an underlying asset position and a long forward contract plus a risk-free bond.</p>
+</li>
+<li>
+<p>Under put–call forward parity, we may demonstrate that a purchased put option and a sold call option are equivalent to a long risk-free bond and short forward position, and a sold put and purchased call are equivalent to a long forward and short risk-free bond.</p>
+</li>
+<li>
+<p>Put–call parity may be applied beyond option-based strategies in finance—for example, to demonstrate that equity holders have a position equivalent to a purchased call option on the value of the firm with unlimited upside, while debtholders have a sold put option position on firm value with limited upside.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>Ngang giá kỳ hạn quyền chọn bán–quyền chọn mua (<em>put–call forward parity</em>) mở rộng mối quan hệ ngang giá quyền chọn bán–quyền chọn mua sang các hợp đồng kỳ hạn dựa trên sự tương đương giữa một vị thế tài sản cơ sở và một hợp đồng mua kỳ hạn cộng với một trái phiếu phi rủi ro.</p>
+</li>
+<li>
+<p>Theo ngang giá kỳ hạn quyền chọn bán–quyền chọn mua, chúng ta có thể chứng minh rằng một quyền chọn bán đã mua (<em>purchased put option</em>) và một quyền chọn mua đã bán (<em>sold call option</em>) tương đương với một vị thế mua trái phiếu phi rủi ro và bán kỳ hạn, còn một quyền chọn bán đã bán và một quyền chọn mua đã mua tương đương với một vị thế mua kỳ hạn và bán trái phiếu phi rủi ro.</p>
+</li>
+<li>
+<p>Ngang giá quyền chọn bán–quyền chọn mua có thể được áp dụng vượt ra ngoài phạm vi các chiến lược dựa trên quyền chọn trong tài chính—ví dụ, để chứng minh rằng các cổ đông nắm giữ một vị thế tương đương với một quyền chọn mua đã mua (<em>purchased call option</em>) trên giá trị của doanh nghiệp với tiềm năng tăng giá không giới hạn, trong khi các chủ nợ nắm giữ một vị thế quyền chọn bán đã bán (<em>sold put option</em>) trên giá trị doanh nghiệp với tiềm năng tăng giá có giới hạn (cùng với một trái phiếu phi rủi ro).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>LEARNING MODULE SELF-ASSESSMENT</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>TỰ ĐÁNH GIÁ HỌC PHẦN (<em>LEARNING MODULE SELF-ASSESSMENT</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>These initial questions are intended to help you gauge your current level of understanding of this learning module.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Những câu hỏi ban đầu này nhằm giúp bạn tự đánh giá mức độ hiểu biết hiện tại của mình về học phần này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Which of the following statements correctly describes the equivalent to a long position in an underlying according to put–call parity?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Long a put option on the underlying, short a call option on the underlying, and long a risk-free bond</p>
+</li>
+<li>
+<p><strong>B.</strong> Short a put option on the underlying, long a call option on the underlying, and long a risk-free bond</p>
+</li>
+<li>
+<p><strong>C.</strong> Short a put option on the underlying, long a call option on the underlying, and short a risk-free bond</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Phát biểu nào sau đây mô tả đúng về vị thế tương đương với một vị thế mua tài sản cơ sở (<em>long position in an underlying</em>) theo ngang giá quyền chọn bán–quyền chọn mua (<em>put–call parity</em>)?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Mua một quyền chọn bán trên tài sản cơ sở, bán một quyền chọn mua trên tài sản cơ sở, và mua một trái phiếu phi rủi ro</p>
+</li>
+<li>
+<p><strong>B.</strong> Bán một quyền chọn bán trên tài sản cơ sở, mua một quyền chọn mua trên tài sản cơ sở, và mua một trái phiếu phi rủi ro</p>
+</li>
+<li>
+<p><strong>C.</strong> Bán một quyền chọn bán trên tài sản cơ sở, mua một quyền chọn mua trên tài sản cơ sở, và bán một trái phiếu phi rủi ro</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is correct. Put–call parity demonstrates that a long underlying position is equivalent to a sold put option, a purchased call option, and a long risk-free bond. This is shown in the following equation:</p>
+<p>Put–call parity: <em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> implies <em>S</em> 0 = – <em>p</em> 0 + <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em>.</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B là đáp án đúng. Ngang giá quyền chọn bán–quyền chọn mua chứng minh rằng một vị thế mua tài sản cơ sở tương đương với một quyền chọn bán đã bán (<em>sold put option</em>), một quyền chọn mua đã mua (<em>purchased call option</em>), và một vị thế mua trái phiếu phi rủi ro (<em>long risk-free bond</em>). Điều này được thể hiện trong phương trình sau:</p>
+<div class="math-display my-3 overflow-x-auto">$$\text{Ngang giá quyền chọn bán–quyền chọn mua (Put–call parity): } S_0 + p_0 = c_0 + X(1 + r)^{-T} \implies S_0 = -p_0 + c_0 + X(1 + r)^{-T}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>
+<p>Identify which of the following positions has the same no-arbitrage value as which portfolio under put–call parity:</p>
+</li>
+<li>
+<p>Long call option ( <em>c</em> 0) A. Long underlying, short risk-free bond, and short call option</p>
+</li>
+<li>
+<p>Short risk-free bond (– <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> ) B. Long underlying, long put option, and short risk-free bond</p>
+</li>
+<li>
+<p>Short put option (– <em>p</em> 0) C. Short underlying, long call option, and short put option</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Xác định vị thế nào sau đây có cùng giá trị không kinh doanh chênh lệch giá với danh mục đầu tư nào theo ngang giá quyền chọn bán–quyền chọn mua:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Vị thế</th>
+<th>Danh mục đầu tư tương đương</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Mua quyền chọn mua (<span class="math-inline">$c_0$</span>)</td>
+<td>A. Mua tài sản cơ sở, bán trái phiếu phi rủi ro, và bán quyền chọn mua</td>
+</tr>
+<tr>
+<td>2. Bán trái phiếu phi rủi ro (<span class="math-inline">$-X(1 + r)^{-T}$</span>)</td>
+<td>B. Mua tài sản cơ sở, mua quyền chọn bán, và bán trái phiếu phi rủi ro</td>
+</tr>
+<tr>
+<td>3. Bán quyền chọn bán (<span class="math-inline">$-p_0$</span>)</td>
+<td>C. Bán tài sản cơ sở, mua quyền chọn mua, và bán quyền chọn bán</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Recall that the put–call parity relationship may be expressed as</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy nhớ lại rằng mối quan hệ ngang giá quyền chọn bán–quyền chọn mua có thể được biểu diễn là:</p>
+<div class="math-display my-3 overflow-x-auto">$$S_0 + p_0 = c_0 + X(1 + r)^{-T}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>B is correct. A long call option position is the no-arbitrage equivalent of a long underlying position, a long put option, and a short risk-free bond <u>position.</u></li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>B là đáp án đúng. Một vị thế mua quyền chọn mua là tương đương không kinh doanh chênh lệch giá với một vị thế mua tài sản cơ sở, mua quyền chọn bán, và <u>vị thế</u> bán trái phiếu phi rủi ro.</li>
+</ol></div>
+                </div>
+                
+
+                <div id="pdf-page-207" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 207 / Trang PDF 207
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>
+<p>C is correct. A short risk-free bond position is equivalent to a short underlying position, a long call option, and a short put option. 3. A is correct. A short put option is equivalent to a long underlying position, a short risk-free bond, and a short call option.</p>
+</li>
+<li>
+<p>Which of the following statements correctly describes a synthetic protective put position according to put–call forward parity? <strong>A.</strong> A long forward contract on the underlying, a long put option on the underlying, and short a risk-free bond</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>C là đáp án đúng. Một vị thế bán trái phiếu phi rủi ro tương đương với một vị thế bán tài sản cơ sở, mua quyền chọn mua, và bán quyền chọn bán. </li>
+<li>
+<p>A là đáp án đúng. Một vị thế bán quyền chọn bán tương đương với một vị thế mua tài sản cơ sở, bán trái phiếu phi rủi ro, và bán quyền chọn mua.</p>
+</li>
+<li>
+<p>Phát biểu nào sau đây mô tả đúng về một vị thế quyền chọn bán bảo vệ tổng hợp (<em>synthetic protective put position</em>) theo ngang giá kỳ hạn quyền chọn bán–quyền chọn mua (<em>put–call forward parity</em>)?</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Một hợp đồng mua kỳ hạn trên tài sản cơ sở, một vị thế mua quyền chọn bán trên tài sản cơ sở, và bán một trái phiếu phi rủi ro</p>
+</li>
+<li>
+<p><strong>B.</strong> Một hợp đồng bán kỳ hạn trên tài sản cơ sở, một vị thế mua quyền chọn bán trên tài sản cơ sở, và bán một trái phiếu phi rủi ro</p>
+</li>
+<li>
+<p><strong>C.</strong> Một hợp đồng bán kỳ hạn trên tài sản cơ sở, một vị thế bán quyền chọn bán trên tài sản cơ sở, và bán một trái phiếu phi rủi ro</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>B.</strong> A short forward contract on the underlying, a long put option on the underlying, and short a risk-free bond</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> A short forward contract on the underlying, a short put option on the underlying, and short a risk-free bond</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>A là đáp án đúng. Công thức cho ngang giá kỳ hạn quyền chọn bán–quyền chọn mua như sau:</p>
+<div class="math-display my-3 overflow-x-auto">$$F_0(T)(1 + r)^{-T} + p_0 = c_0 + X(1 + r)^{-T}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Solution:</strong> A is correct. The formula for put–call forward parity is as follows: <em>F</em> 0( <em>T</em> )(1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> . Rearranging the terms as follows shows the synthetic protective put position on the left-hand side of the equation: <em>F</em> 0( <em>T</em> )(1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> + <em>p</em> 0 – <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> = <em>c</em> 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lưu ý: Một vị thế quyền chọn bán bảo vệ tổng hợp (<em>synthetic protective put</em>) bao gồm mua hợp đồng kỳ hạn, mua trái phiếu phi rủi ro mệnh giá <span class="math-inline">$F_0(T)$</span> (tức <span class="math-inline">$F_0(T)(1+r)^{-T}$</span>), và mua quyền chọn bán (<span class="math-inline">$p_0$</span>). Nếu xét phương trình <span class="math-inline">$F_0(T)(1 + r)^{-T} + p_0 - X(1 + r)^{-T} = c_0$</span> như trong lời giải gốc của giáo trình khi biểu diễn vế trái tương đương với <span class="math-inline">$c_0$</span>, các thành phần ở vế trái gồm mua hợp đồng kỳ hạn trên tài sản cơ sở, mua quyền chọn bán trên tài sản cơ sở, và bán một trái phiếu phi rủi ro (mệnh giá <span class="math-inline">$X$</span>).</p>
+<ol start="4">
+<li>Phát biểu nào sau đây mô tả đúng nhất quyền đòi nợ của cổ đông (<em>shareholder's claim</em>) xét dưới góc độ kết quả thanh toán của một quyền chọn?</li>
+</ol>
+<ul>
+<li><strong>A.</strong> Kết quả thanh toán của cổ đông giống với kết quả thanh toán của một quyền chọn bán trên giá trị doanh nghiệp. </li>
+<li><strong>B.</strong> Kết quả thanh toán của cổ đông giống với kết quả thanh toán của một quyền chọn mua có bảo đảm (<em>covered call option</em>) trên giá trị doanh nghiệp. </li>
+<li><strong>C.</strong> Kết quả thanh toán của cổ đông giống với kết quả thanh toán của một quyền chọn mua trên giá trị doanh nghiệp.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Which of the following statements best describes a shareholder’s claim in terms of an option payoff?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Shareholder payoff resembles the payoff of a put option on firm value. <strong>B.</strong> Shareholder payoff resembles the payoff of a covered call option on firm value.</p>
+</li>
+<li>
+<p><strong>C.</strong> Shareholder payoff resembles the payoff of a call option on firm value.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. When considering shareholder claims in option terms, the shareholder payoff resembles a call option on firm value.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Khi xem xét quyền đòi nợ của cổ đông dưới góc độ quyền chọn, kết quả thanh toán của cổ đông giống với một quyền chọn mua trên giá trị doanh nghiệp (<em>call option on firm value</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>PUT–CALL PARITY</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>NGANG GIÁ QUYỀN CHỌN BÁN–QUYỀN CHỌN MUA (<em>PUT–CALL PARITY</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0207-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0207-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain put–call parity for European options</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích ngang giá quyền chọn bán–quyền chọn mua (<em>put–call parity</em>) đối với quyền chọn kiểu châu Âu</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A prior lesson contrasted no-arbitrage pricing conditions and the replication of cash flows for forward commitments and contingent claims. Forwards have zero initial value and their <em>certain</em> payoff, which is replicated at inception by borrowing to purchase the underlying or selling the underlying and lending the sale proceeds. Option buyers pay an upfront premium, and their <em>contingent</em> payoff profiles lead us to establish upper and lower no-arbitrage price bounds. Option replication is similar to that of a forward but involves borrowing or lending to buy or sell a <em>proportion</em> of the underlying, which is adjusted as the moneyness of an option changes. We now extend this analysis using a combination of positions.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một bài học trước đã đối chiếu các điều kiện định giá không kinh doanh chênh lệch giá và việc mô phỏng các dòng tiền đối với các cam kết kỳ hạn và các quyền đòi nợ có điều kiện. Các hợp đồng kỳ hạn có giá trị ban đầu bằng không và kết quả thanh toán <em>chắc chắn</em> (<em>certain payoff</em>) của chúng được mô phỏng tại thời điểm khởi tạo bằng cách đi vay để mua tài sản cơ sở hoặc bán tài sản cơ sở và đem cho vay số tiền thu được từ việc bán. Người mua quyền chọn trả một khoản phí quyền chọn trả trước (<em>upfront premium</em>), và hồ sơ kết quả thanh toán <em>có điều kiện</em> (<em>contingent payoff profiles</em>) của chúng dẫn chúng ta đến việc thiết lập các cận giá trên và cận giá dưới không có kinh doanh chênh lệch giá. Việc mô phỏng quyền chọn tương tự như của hợp đồng kỳ hạn nhưng liên quan đến việc đi vay hoặc cho vay để mua hoặc bán một <em>tỷ lệ</em> (<em>proportion</em>) của tài sản cơ sở, tỷ lệ này được điều chỉnh khi trạng thái giá trị (<em>moneyness</em>) của quyền chọn thay đổi. Bây giờ chúng ta mở rộng phân tích này bằng cách sử dụng sự kết hợp của các vị thế.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-208" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 208 / Trang PDF 208
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In this section, we show how combining cash and derivative instruments into a portfolio in a certain way enables us to price and value these positions without directly modeling them using no-arbitrage conditions. Consider an investor whose goal is to benefit from upward movements in the value of an underlying but who wants to protect her investment from downward movements in the underlying’s value. Consider the following two portfolios, shown in Exhibit 1:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong phần này, chúng ta sẽ chỉ ra cách thức việc kết hợp các công cụ tiền mặt và công cụ phái sinh vào một danh mục đầu tư theo một cách nhất định cho phép chúng ta định giá và xác định giá trị các vị thế này mà không cần trực tiếp mô hình hóa chúng bằng cách sử dụng các điều kiện không kinh doanh chênh lệch giá. Hãy xem xét một nhà đầu tư có mục tiêu là hưởng lợi từ các biến động tăng lên trong giá trị của một tài sản cơ sở nhưng lại muốn bảo vệ khoản đầu tư của mình khỏi các biến động giảm xuống trong giá trị của tài sản cơ sở đó. Hãy xem xét hai danh mục đầu tư sau đây, được thể hiện trong Bảng 1 (<em>Exhibit 1</em>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> At <em>t</em> = 0, an investor purchases a call option ( <em>c</em> 0) on an underlying with an exercise price of <em>X</em> and a risk-free bond today that pays <em>X</em> at <em>t</em> = <em>T</em> . The cost of this strategy is <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> , where we assume the option expires at time <em>T</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Tại thời điểm <span class="math-inline">$t = 0$</span>, một nhà đầu tư mua một quyền chọn mua (<span class="math-inline">$c_0$</span>) trên một tài sản cơ sở với giá thực hiện là <span class="math-inline">$X$</span> và mua một trái phiếu phi rủi ro ngày hôm nay sẽ trả số tiền <span class="math-inline">$X$</span> tại thời điểm <span class="math-inline">$t = T$</span>. Chi phí của chiến lược này là <span class="math-inline">$c_0 + X(1 + r)^{-T}$</span>, trong đó chúng ta giả định quyền chọn đáo hạn tại thời điểm <span class="math-inline">$T$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> At <em>t</em> = 0, an investor purchases an underlying unit ( <em>S</em> 0) and a put option on the underlying ( <em>p</em> 0) with an exercise price of <em>X</em> at <em>t</em> = <em>T</em> . The cost of this strategy is <em>p</em> 0 + <em>S</em> 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Tại thời điểm <span class="math-inline">$t = 0$</span>, một nhà đầu tư mua một đơn vị tài sản cơ sở (<span class="math-inline">$S_0$</span>) và mua một quyền chọn bán trên tài sản cơ sở đó (<span class="math-inline">$p_0$</span>) với giá thực hiện là <span class="math-inline">$X$</span> tại thời điểm <span class="math-inline">$t = T$</span>. Chi phí của chiến lược này là <span class="math-inline">$p_0 + S_0$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 1 shows the payoff of the individual components of these two portfolios.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng 1 thể hiện kết quả thanh toán (<em>payoff</em>) của từng thành phần riêng lẻ thuộc hai danh mục đầu tư này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 1: Payoffs at Time</strong> <strong><em>T</em> for Two Portfolios</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 1: Kết quả Thanh toán tại Thời điểm <span class="math-inline">$T$</span> đối với Hai Danh mục Đầu tư (<em>Exhibit 1: Payoffs at Time <span class="math-inline">$T$</span> for Two Portfolios</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0208-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0208-08.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Danh mục 1 (bên trái):</strong> Kết hợp giữa <strong>Mua quyền chọn mua (<em>Long call option</em>)</strong> có kết quả thanh toán <span class="math-inline">$\max(0, S_T - X)$</span> và <strong>Mua trái phiếu phi rủi ro (<em>Long risk-free bond</em>)</strong> có kết quả thanh toán không đổi bằng <span class="math-inline">$X$</span>.
+- <strong>Danh mục 2 (bên phải):</strong> Kết hợp giữa <strong>Mua quyền chọn bán (<em>Long put option</em>)</strong> có kết quả thanh toán <span class="math-inline">$\max(0, X - S_T)$</span> và <strong>Mua tài sản cơ sở (<em>Long underlying</em>)</strong> có kết quả thanh toán bằng <span class="math-inline">$S_T$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>At first glance, these portfolios appear to offer the investor a similar opportunity to benefit from underlying asset appreciation without exposure to an underlying price decline below the exercise price.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thoạt nhìn, các danh mục đầu tư này dường như mang lại cho nhà đầu tư một cơ hội tương tự nhau để hưởng lợi từ sự tăng giá của tài sản cơ sở mà không phải chịu rủi ro khi giá tài sản cơ sở giảm xuống dưới mức giá thực hiện.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In the first case (Portfolio 1), the investor buys a call option with a positive payoff if the underlying asset price rises above the exercise price ( <em>ST</em> &gt; <em>X</em> ) and invests cash in a risk-free bond. Since the risk-free asset pays <em>X</em> at time <em>T</em> , the investor pays <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> at time <em>t</em> = 0. This combination of a purchased call and a risk-free bond is known as a <strong>fiduciary call</strong> and is shown in Exhibit 2.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong trường hợp thứ nhất (Danh mục 1), nhà đầu tư mua một quyền chọn mua có kết quả thanh toán dương nếu giá tài sản cơ sở tăng lên trên mức giá thực hiện (<span class="math-inline">$S_T &gt; X$</span>) và đầu tư tiền mặt vào một trái phiếu phi rủi ro. Vì tài sản phi rủi ro trả số tiền <span class="math-inline">$X$</span> tại thời điểm <span class="math-inline">$T$</span>, nhà đầu tư trả <span class="math-inline">$c_0 + X(1 + r)^{-T}$</span> tại thời điểm <span class="math-inline">$t = 0$</span>. Sự kết hợp giữa một quyền chọn mua đã mua và một trái phiếu phi rủi ro này được gọi là <strong>quyền chọn mua ủy thác (<em>fiduciary call</em>)</strong> và được thể hiện trong Bảng 2 (<em>Exhibit 2</em>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-209" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 209 / Trang PDF 209
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 2: Portfolio 1 (Fiduciary Call) Payoff at Time</strong> <strong><em>T</em></strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 2: Kết quả Thanh toán của Danh mục 1 (Quyền chọn Mua Ủy thác – <em>Fiduciary Call</em>) tại Thời điểm <span class="math-inline">$T$</span> (<em>Exhibit 2: Portfolio 1 (Fiduciary Call) Payoff at Time <span class="math-inline">$T$</span></em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0209-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0209-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Long call option:</strong> Mua quyền chọn mua (nhận <span class="math-inline">$0$</span> nếu <span class="math-inline">$S_T &lt; X$</span>, nhận <span class="math-inline">$S_T - X$</span> nếu <span class="math-inline">$S_T &gt; X$</span>).
+- <strong>Long risk-free bond:</strong> Mua trái phiếu phi rủi ro (luôn nhận <span class="math-inline">$X$</span>).
+- <strong>Combined payoff (Kết quả thanh toán kết hợp):</strong> Nhận <span class="math-inline">$X$</span> nếu <span class="math-inline">$S_T &lt; X$</span>; nhận <span class="math-inline">$S_T$</span> nếu <span class="math-inline">$S_T &gt; X$</span>.</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In the second instance (Portfolio 2) in Exhibit 1, the investor pays <em>S</em> 0 + <em>p</em> 0 at inception and is hedged if the underlying price falls below <em>X</em> . This strategy of holding an underlying asset and purchasing a put on the same asset is sometimes called a <strong>protective put</strong> . The payoff for Portfolio 2 at time <em>T</em> is shown in Exhibit 3.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong trường hợp thứ hai (Danh mục 2) ở Bảng 1, nhà đầu tư trả <span class="math-inline">$S_0 + p_0$</span> tại thời điểm khởi tạo và được phòng ngừa rủi ro (<em>hedged</em>) nếu giá tài sản cơ sở giảm xuống dưới mức <span class="math-inline">$X$</span>. Chiến lược nắm giữ một tài sản cơ sở và mua một quyền chọn bán trên cùng tài sản đó đôi khi được gọi là <strong>quyền chọn bán bảo vệ (<em>protective put</em>)</strong>. Kết quả thanh toán của Danh mục 2 tại thời điểm <span class="math-inline">$T$</span> được thể hiện trong Bảng 3 (<em>Exhibit 3</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 3: Portfolio 2 (Protective Put) Payoff at Time</strong> <strong><em>T</em></strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 3: Kết quả Thanh toán của Danh mục 2 (Quyền chọn Bán Bảo vệ – <em>Protective Put</em>) tại Thời điểm <span class="math-inline">$T$</span> (<em>Exhibit 3: Portfolio 2 (Protective Put) Payoff at Time <span class="math-inline">$T$</span></em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0209-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0209-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- Biểu đồ minh họa sự tương đương của kết quả thanh toán tại thời điểm <span class="math-inline">$T$</span> (lưu ý: hình ảnh gốc từ PDF hiển thị biểu đồ của <em>Covered call</em> và <em>Sold put + long risk-free bond</em>, còn đối với <em>Protective put</em> thì kết quả thanh toán kết hợp của <em>Long put option</em> + <em>Long underlying</em> bằng <span class="math-inline">$X$</span> khi <span class="math-inline">$S_T &lt; X$</span> và bằng <span class="math-inline">$S_T$</span> khi <span class="math-inline">$S_T &gt; X$</span>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-210" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 210 / Trang PDF 210
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Despite their differences, these two portfolios have identical payoff profiles, as evidenced by Exhibit 2 and Exhibit 3. Recall that no-arbitrage conditions require two assets with identical future cash flows to trade at the same price, ignoring transaction costs. In Exhibit 4, we evaluate this in the case of the two portfolios by comparing their cash flows under all possible scenarios at time <em>t</em> = <em>T</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bất chấp những điểm khác biệt về cấu phần, hai danh mục đầu tư này có hồ sơ kết quả thanh toán giống hệt nhau, như được chứng minh bởi Bảng 2 và Bảng 3. Hãy nhớ lại rằng các điều kiện không kinh doanh chênh lệch giá đòi hỏi hai tài sản có các dòng tiền tương lai giống hệt nhau phải được giao dịch tại cùng một mức giá, khi bỏ qua chi phí giao dịch. Trong Bảng 4 (<em>Exhibit 4</em>), chúng ta đánh giá điều này trong trường hợp của hai danh mục đầu tư bằng cách so sánh các dòng tiền của chúng dưới tất cả các kịch bản có thể xảy ra tại thời điểm <span class="math-inline">$t = T$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 4: Protective Put vs. Fiduciary Call at Expiration</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 4: Quyền chọn Bán Bảo vệ (<em>Protective Put</em>) so với Quyền chọn Mua Ủy thác (<em>Fiduciary Call</em>) khi Đáo hạn (<em>Exhibit 4: Protective Put vs. Fiduciary Call at Expiration</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Portfolio Position</strong></th>
+<th><strong>Put Exercised (</strong><strong><em>ST</em></strong><br><strong>&lt;</strong><strong><em>X</em>)</strong></th>
+<th><strong>No Exercise</strong><br><strong>(</strong><strong><em>ST</em> =</strong><strong><em>X</em>)</strong></th>
+<th><strong>Call Exercised</strong><br><strong>(</strong><strong><em>ST</em> &gt;</strong><strong><em>X</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Protective Put:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Underlying Asset</td>
+<td><em>ST</em></td>
+<td><em>ST</em></td>
+<td><em>ST</em></td>
+</tr>
+<tr>
+<td>Put Option</td>
+<td><em>X</em>–<em>ST</em></td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Total:</strong></td>
+<td><em>X</em></td>
+<td><em>ST</em>(=<em>X</em>)</td>
+<td><em>ST</em></td>
+</tr>
+<tr>
+<td><strong>Fiduciary Call:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Call Option</td>
+<td>0</td>
+<td>0</td>
+<td><em>ST</em>–<em>X</em></td>
+</tr>
+<tr>
+<td>Risk-Free Asset</td>
+<td><em>X</em></td>
+<td><em>X</em></td>
+<td><em>X</em></td>
+</tr>
+<tr>
+<td><strong>Total:</strong></td>
+<td><em>X</em></td>
+<td><em>X</em>(=<em>ST</em>)</td>
+<td><em>ST</em></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Vị thế Danh mục (<em>Portfolio Position</em>)</strong></th>
+<th><strong>Thực hiện Quyền chọn Bán (<span class="math-inline">$S_T &lt; X$</span>)</strong></th>
+<th><strong>Không Thực hiện (<span class="math-inline">$S_T = X$</span>)</strong></th>
+<th><strong>Thực hiện Quyền chọn Mua (<span class="math-inline">$S_T &gt; X$</span>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quyền chọn Bán Bảo vệ (<em>Protective Put</em>):</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tài sản cơ sở (<em>Underlying Asset</em>)</td>
+<td><span class="math-inline">$S_T$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+</tr>
+<tr>
+<td>Quyền chọn bán (<em>Put Option</em>)</td>
+<td><span class="math-inline">$X - S_T$</span></td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$0$</span></td>
+</tr>
+<tr>
+<td><strong>Tổng cộng (<em>Total</em>):</strong></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$S_T \ (= X)$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+</tr>
+<tr>
+<td><strong>Quyền chọn Mua Ủy thác (<em>Fiduciary Call</em>):</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quyền chọn mua (<em>Call Option</em>)</td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$S_T - X$</span></td>
+</tr>
+<tr>
+<td>Tài sản phi rủi ro (<em>Risk-Free Asset</em>)</td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$X$</span></td>
+</tr>
+<tr>
+<td><strong>Tổng cộng (<em>Total</em>):</strong></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$X \ (= S_T)$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>These two portfolios have cash flows that are identical at time <em>T</em> under each scenario, and the prices of these portfolios must be equal at <em>t</em> = 0 to satisfy the no-arbitrage condition in a relationship commonly referred to as <strong>put–call parity</strong> :</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hai danh mục đầu tư này có các dòng tiền giống hệt nhau tại thời điểm <span class="math-inline">$T$</span> dưới mỗi kịch bản, và mức giá của các danh mục đầu tư này phải bằng nhau tại thời điểm <span class="math-inline">$t = 0$</span> để thỏa mãn điều kiện không kinh doanh chênh lệch giá trong một mối quan hệ thường được gọi là <strong>ngang giá quyền chọn bán–quyền chọn mua (<em>put–call parity</em>)</strong>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$S_0 + p_0 = c_0 + X(1 + r)^{-T}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In other words, under put–call parity, at <em>t</em> = 0 the price of the long underlying asset plus the long put must equal the price of the long call plus the risk-free asset.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nói cách khác, theo ngang giá quyền chọn bán–quyền chọn mua, tại thời điểm <span class="math-inline">$t = 0$</span>, giá của vị thế mua tài sản cơ sở cộng với vị thế mua quyền chọn bán phải bằng với giá của vị thế mua quyền chọn mua cộng với tài sản phi rủi ro.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 1</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 1 (<em>EXAMPLE 1</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Biomian Put–Call Parity</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Ngang giá Quyền chọn Bán–Quyền chọn Mua đối với Cổ phiếu Biomian (<em>Biomian Put–Call Parity</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In an earlier example, the Viswan Family Office (VFO) held non-dividend-paying Biomian shares currently priced ( <em>S</em> 0) at INR295 per share. VFO is considering the purchase of a six-month put on Biomian shares at an exercise price, <em>X</em> , of INR265. If VFO’s chief investment officer observes a traded six-month call option price of INR59 per share for the same INR265 exercise price, what should he expect to pay for the put per share if the relevant risk-free rate is 4%?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong một ví dụ trước đó, Văn phòng Quản lý Gia sản Viswan (VFO) nắm giữ cổ phiếu Biomian không trả cổ tức hiện đang có giá (<span class="math-inline">$S_0$</span>) là 295 INR mỗi cổ phiếu. VFO đang cân nhắc việc mua một quyền chọn bán kỳ hạn 6 tháng trên cổ phiếu Biomian tại mức giá thực hiện, <span class="math-inline">$X$</span>, là 265 INR. Nếu giám đốc đầu tư (CIO) của VFO quan sát thấy một quyền chọn mua kỳ hạn 6 tháng đang được giao dịch ở mức giá 59 INR mỗi cổ phiếu cho cùng mức giá thực hiện 265 INR, ông ấy nên kỳ vọng trả bao nhiêu cho quyền chọn bán trên mỗi cổ phiếu nếu lãi suất phi rủi ro có liên quan là 4%?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>From Equation 1, the put–call parity relationship was shown as</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Từ Phương trình 1, mối quan hệ ngang giá quyền chọn bán–quyền chọn mua được thể hiện là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$S_0 + p_0 = c_0 + X(1 + r)^{-T}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can solve for the risk-free bond price as INR259.85 (= INR265(1.04)<sup>–0.5</sup> ) and substitute into Equation 1:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể giải tìm giá trái phiếu phi rủi ro là <span class="math-inline">$259,85\text{ INR} \ (= 265\text{ INR}(1,04)^{-0,5})$</span> và thay thế vào Phương trình 1:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>INR295 + <em>p</em> 0 = INR59 + INR259.85.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$295\text{ INR} + p_0 = 59\text{ INR} + 259,85\text{ INR}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>p</em> 0 = INR23.85.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$p_0 = 23,85\text{ INR}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>VFO should expect to pay a six-month put option premium of <em>p</em> 0 = INR23.85.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>VFO nên kỳ vọng trả mức phí quyền chọn bán kỳ hạn 6 tháng là <span class="math-inline">$p_0 = 23,85\text{ INR}$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Arbitrage profit opportunities arise if these portfolios trade at different prices. As in the case of individual assets, an investor able to borrow and lend at the risk-free rate can earn a riskless profit if either portfolio is mispriced, as shown in the following example.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các cơ hội thu lợi nhuận kinh doanh chênh lệch giá (<em>arbitrage profit opportunities</em>) sẽ phát sinh nếu các danh mục đầu tư này giao dịch tại các mức giá khác nhau. Giống như trong trường hợp của các tài sản riêng lẻ, một nhà đầu tư có khả năng đi vay và cho vay ở mức lãi suất phi rủi ro có thể kiếm được một khoản lợi nhuận phi rủi ro nếu một trong hai danh mục đầu tư bị định giá sai (<em>mispriced</em>), như được trình bày trong ví dụ sau đây.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-211" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 211 / Trang PDF 211
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 2</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 2 (<em>EXAMPLE 2</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>VFO Put–Call Parity Arbitrage Opportunity</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Cơ hội Kinh doanh Chênh lệch giá theo Ngang giá Quyền chọn Bán–Quyền chọn Mua của VFO (<em>VFO Put–Call Parity Arbitrage Opportunity</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>As in Example 1, the Viswan Family Office holds non-dividend-paying Biomian shares at a price ( <em>S</em> 0) of INR295 per share. VFO is considering the purchase of a put for which it expects to pay INR23.85 but which is instead currently priced at INR30. Assuming a risk-free rate of 4%, identify the arbitrage opportunity and the steps VFO might take to earn a riskless profit.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Giống như trong Ví dụ 1, Văn phòng Quản lý Gia sản Viswan (VFO) nắm giữ cổ phiếu Biomian không trả cổ tức tại mức giá (<span class="math-inline">$S_0$</span>) là 295 INR mỗi cổ phiếu. VFO đang cân nhắc việc mua một quyền chọn bán mà họ kỳ vọng trả 23,85 INR nhưng thay vào đó hiện đang được định giá ở mức 30 INR. Giả sử lãi suất phi rủi ro là 4%, hãy xác định cơ hội kinh doanh chênh lệch giá và các bước mà VFO có thể thực hiện để kiếm được một khoản lợi nhuận phi rủi ro.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>From Equation 1, the put–call parity relationship is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Từ Phương trình 1, mối quan hệ ngang giá quyền chọn bán–quyền chọn mua là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$S_0 + p_0 = c_0 + X(1 + r)^{-T}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Substituting the values from Example 1 and the current put price into Equation 1 gives us the following result:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thay thế các giá trị từ Ví dụ 1 và mức giá quyền chọn bán hiện tại vào Phương trình 1 mang lại cho chúng ta kết quả sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>INR295 + INR30 &gt; INR59 + INR259.85,</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$295\text{ INR} + 30\text{ INR} &gt; 59\text{ INR} + 259,85\text{ INR},$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>so, <em>S</em> 0 + <em>p</em> 0 &gt; <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>vì vậy, <span class="math-inline">$S_0 + p_0 &gt; c_0 + X(1 + r)^{-T}$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>By selling the put and the shares and purchasing the call and the risk-free asset at <em>t</em> = 0, VFO has a positive cash flow of INR6.15 (= INR295 + INR30 – INR59 – INR259.85), or <em>S</em> 0 + <em>p</em> 0 – <em>c</em> 0 – <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> , as shown in the following diagram.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bằng cách bán quyền chọn bán và bán cổ phiếu đồng thời mua quyền chọn mua và tài sản phi rủi ro tại thời điểm <span class="math-inline">$t = 0$</span>, VFO có được một dòng tiền dương là <span class="math-inline">$6,15\text{ INR} \ (= 295\text{ INR} + 30\text{ INR} - 59\text{ INR} - 259,85\text{ INR})$</span>, hay <span class="math-inline">$S_0 + p_0 - c_0 - X(1 + r)^{-T}$</span>, như được thể hiện trong bảng dưới đây.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Arbitrage Position</strong></th>
+<th><strong>Cash Flow</strong><br><strong>at</strong><strong><em>t</em> = 0</strong></th>
+<th><strong>Put Exer-</strong><br><strong>cised (</strong><strong><em>ST</em> &lt;</strong><strong><em>X</em>)</strong></th>
+<th><strong>No Exercise</strong><br><strong>(</strong><strong><em>ST</em> =</strong><strong><em>X</em>)</strong></th>
+<th><strong>Call Exercised</strong><br><strong>(</strong><strong><em>ST</em> &gt;</strong><strong><em>X</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Protective Put:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Sell Underlying<br>Asset</td>
+<td>_S_0</td>
+<td>–<em>ST</em></td>
+<td>–<em>ST</em></td>
+<td>–<em>ST</em></td>
+</tr>
+<tr>
+<td>Sell Put Option</td>
+<td>_p_0</td>
+<td>–(<em>X</em>–<em>ST</em>)</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Total:</strong></td>
+<td>_S_0+_p_0</td>
+<td>–<em>X</em></td>
+<td>–<em>ST</em>(=<em>X</em>)</td>
+<td>–<em>ST</em></td>
+</tr>
+<tr>
+<td><strong>Fiduciary Call:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Buy Call Option</td>
+<td>–_c_0</td>
+<td>0</td>
+<td>0</td>
+<td>(<em>ST</em>–<em>X</em>)</td>
+</tr>
+<tr>
+<td>Buy Risk-Free Asset</td>
+<td>–<em>X</em>(1 +<em>r</em>)<sup>–</sup><sup><em>T</em></sup></td>
+<td><em>X</em></td>
+<td><em>X</em></td>
+<td><em>X</em></td>
+</tr>
+<tr>
+<td><strong>Total:</strong></td>
+<td>–<em>c_0–_X</em>(1 +<br><em>r</em>)<sup>–</sup><sup><em>T</em></sup></td>
+<td><em>X</em></td>
+<td><em>X</em>(=<em>ST</em>)</td>
+<td><em>ST</em></td>
+</tr>
+<tr>
+<td><strong>Overall Portfolio:</strong></td>
+<td><em>S_0+_p_0–_c_0<br>–_X</em>(1 +<em>r</em>)<sup>–</sup><sup><em>T</em></sup></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Vị thế Kinh doanh Chênh lệch giá (<em>Arbitrage Position</em>)</strong></th>
+<th><strong>Dòng tiền tại <span class="math-inline">$t = 0$</span></strong></th>
+<th><strong>Thực hiện Quyền chọn Bán (<span class="math-inline">$S_T &lt; X$</span>)</strong></th>
+<th><strong>Không Thực hiện (<span class="math-inline">$S_T = X$</span>)</strong></th>
+<th><strong>Thực hiện Quyền chọn Mua (<span class="math-inline">$S_T &gt; X$</span>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quyền chọn Bán Bảo vệ (<em>Protective Put</em>):</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Bán Tài sản cơ sở (<em>Sell Underlying Asset</em>)</td>
+<td><span class="math-inline">$S_0$</span></td>
+<td><span class="math-inline">$-S_T$</span></td>
+<td><span class="math-inline">$-S_T$</span></td>
+<td><span class="math-inline">$-S_T$</span></td>
+</tr>
+<tr>
+<td>Bán Quyền chọn bán (<em>Sell Put Option</em>)</td>
+<td><span class="math-inline">$p_0$</span></td>
+<td><span class="math-inline">$-(X - S_T)$</span></td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$0$</span></td>
+</tr>
+<tr>
+<td><strong>Tổng cộng (<em>Total</em>):</strong></td>
+<td><span class="math-inline">$S_0 + p_0$</span></td>
+<td><span class="math-inline">$-X$</span></td>
+<td><span class="math-inline">$-S_T \ (= -X)$</span></td>
+<td><span class="math-inline">$-S_T$</span></td>
+</tr>
+<tr>
+<td><strong>Quyền chọn Mua Ủy thác (<em>Fiduciary Call</em>):</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Mua Quyền chọn mua (<em>Buy Call Option</em>)</td>
+<td><span class="math-inline">$-c_0$</span></td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$(S_T - X)$</span></td>
+</tr>
+<tr>
+<td>Mua Tài sản phi rủi ro (<em>Buy Risk-Free Asset</em>)</td>
+<td><span class="math-inline">$-X(1 + r)^{-T}$</span></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$X$</span></td>
+</tr>
+<tr>
+<td><strong>Tổng cộng (<em>Total</em>):</strong></td>
+<td><span class="math-inline">$-c_0 - X(1 + r)^{-T}$</span></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$X \ (= S_T)$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+</tr>
+<tr>
+<td>** Danh mục Tổng thể (<em>Overall Portfolio</em>):**</td>
+<td><span class="math-inline">$S_0 + p_0 - c_0 - X(1 + r)^{-T}$</span></td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$0$</span></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Note that the combined cash flows of the two portfolios are equal to zero under each scenario at time <em>t</em> = <em>T</em> , leaving VFO with an arbitrage profit of INR6.15.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lưu ý rằng các dòng tiền kết hợp của hai danh mục đầu tư bằng không dưới mỗi kịch bản tại thời điểm <span class="math-inline">$t = T$</span>, để lại cho VFO một khoản lợi nhuận kinh doanh chênh lệch giá là 6,15 INR.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>OPTION STRATEGIES BASED ON PUT–CALL PARITY</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>CÁC CHIẾN LƯỢC QUYỀN CHỌN DỰA TRÊN NGANG GIÁ QUYỀN CHỌN BÁN–QUYỀN CHỌN MUA (<em>OPTION STRATEGIES BASED ON PUT–CALL PARITY</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>3</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>3</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain put–call parity for European options</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích ngang giá quyền chọn bán–quyền chọn mua (<em>put–call parity</em>) đối với quyền chọn kiểu châu Âu</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The put–call parity relationship established between call option, put option, underlying asset, and risk-free asset pricing in the previous section provides the foundation for thinking about replication and pricing of individual derivative positions, cash positions, and option-based strategies.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mối quan hệ ngang giá quyền chọn bán–quyền chọn mua được thiết lập giữa việc định giá quyền chọn mua, quyền chọn bán, tài sản cơ sở, và tài sản phi rủi ro trong phần trước cung cấp nền tảng cho việc tư duy về mô phỏng và định giá các vị thế phái sinh riêng lẻ, các vị thế tiền mặt, và các chiến lược dựa trên quyền chọn.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-212" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 212 / Trang PDF 212
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For example, if we rearrange Equation 1 to solve for the put option premium, <em>p</em> 0, we find that it may be derived from a combination of a long call option ( <em>c</em> 0), a long risk-free bond ( <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> ), and a short position in the underlying (– <em>S</em> 0), as shown in Equation 2 and Exhibit 5.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ, nếu chúng ta sắp xếp lại Phương trình 1 để giải tìm phí quyền chọn bán, <span class="math-inline">$p_0$</span>, chúng ta thấy rằng nó có thể được suy ra từ sự kết hợp giữa một vị thế mua quyền chọn mua (<span class="math-inline">$c_0$</span>), một vị thế mua trái phiếu phi rủi ro (<span class="math-inline">$X(1 + r)^{-T}$</span>), và một vị thế bán trên tài sản cơ sở (<span class="math-inline">$-S_0$</span>), như được thể hiện trong Phương trình (1) dưới đây và Bảng 5 (<em>Exhibit 5</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> – <em>S</em> 0. ~~(1)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$p_0 = c_0 + X(1 + r)^{-T} - S_0 \tag{1}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Note that Equation 2 is both a statement of what the price of the put option should be and also sets out a replicating portfolio for that put option using a call option, the underlying, and a risk-free bond, as shown in Exhibit 5.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Lưu ý rằng phương trình trên vừa là một phát biểu về mức giá mà quyền chọn bán nên có, vừa thiết lập một danh mục đầu tư mô phỏng (<em>replicating portfolio</em>) cho quyền chọn bán đó bằng cách sử dụng một quyền chọn mua, tài sản cơ sở, và một trái phiếu phi rủi ro, như được thể hiện trong Bảng 5.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 5: Put Option as a Long Call, Long Bond, and Short Underlying</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 5: Quyền chọn Bán dưới dạng Mua Quyền chọn Mua, Mua Trái phiếu, và Bán Tài sản Cơ sở (<em>Exhibit 5: Put Option as a Long Call, Long Bond, and Short Underlying</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0212-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0212-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Long call option:</strong> Mua quyền chọn mua (<span class="math-inline">$\max(0, S_T - X)$</span>) + <strong>Long risk-free bond:</strong> Mua trái phiếu phi rủi ro (<span class="math-inline">$X$</span>) + <strong>Short underlying:</strong> Bán tài sản cơ sở (<span class="math-inline">$-S_T$</span>) = <strong>Long put option:</strong> Mua quyền chọn bán (nhận <span class="math-inline">$X - S_T$</span> nếu <span class="math-inline">$S_T &lt; X$</span>, nhận <span class="math-inline">$0$</span> nếu <span class="math-inline">$S_T &gt; X$</span>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>What is more, we may also demonstrate that the asymmetric payoff profiles of put and call options effectively offset one another in a no-arbitrage condition when combined to solve for the price of the underlying, as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hơn thế nữa, chúng ta cũng có thể chứng minh rằng các hồ sơ kết quả thanh toán bất đối xứng của quyền chọn bán và quyền chọn mua về thực chất triệt tiêu lẫn nhau trong một điều kiện không kinh doanh chênh lệch giá khi được kết hợp để giải tìm mức giá của tài sản cơ sở, như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>S</em> 0 = <em>c</em> 0 - <em>p</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> . ~~(2)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$S_0 = c_0 - p_0 + X(1 + r)^{-T} \tag{2}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 6 summarizes the equivalence of these individual positions in terms of replicating positions using other cash and derivative positions.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng 6 (<em>Exhibit 6</em>) tóm tắt sự tương đương của các vị thế riêng lẻ này xét về mặt các vị thế mô phỏng sử dụng các vị thế tiền mặt và phái sinh khác.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-213" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 213 / Trang PDF 213
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 6: Replication of Individual Positions under Put–Call Parity</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 6: Mô phỏng các Vị thế Riêng lẻ theo Ngang giá Quyền chọn Bán–Quyền chọn Mua (<em>Exhibit 6: Replication of Individual Positions under Put–Call Parity</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Position</strong></th>
+<th><strong>Underlying</strong><br><strong>(</strong><strong>_S_0)</strong></th>
+<th><strong>Risk-Free Bond</strong><br><strong>(</strong><strong><em>X</em>(1 +</strong><strong><em>r</em>)</strong><sup><strong>–</strong></sup><sup><strong><em>T</em></strong></sup><strong>)</strong></th>
+<th><strong>Call Option</strong><br><strong>(</strong><strong>_c_0)</strong></th>
+<th><strong>Put Option (</strong><strong>_p_0)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Underlying (_S_0)</td>
+<td>—</td>
+<td>Long</td>
+<td>Long</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>Risk-free bond<br>(<em>X</em>(1 +<em>r</em>)<sup>–</sup><sup><em>T</em></sup>)</td>
+<td>Long</td>
+<td>—</td>
+<td>Short</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>Call option (_c_0)</td>
+<td>Long</td>
+<td>Short</td>
+<td>—</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>Put option<br>(_p_0)</td>
+<td>Short</td>
+<td>Long</td>
+<td>Long</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Vị thế cần mô phỏng (<em>Position</em>)</strong></th>
+<th><strong>Tài sản cơ sở (<span class="math-inline">$S_0$</span>)</strong></th>
+<th><strong>Trái phiếu phi rủi ro (<span class="math-inline">$X(1 + r)^{-T}$</span>)</strong></th>
+<th><strong>Quyền chọn mua (<span class="math-inline">$c_0$</span>)</strong></th>
+<th><strong>Quyền chọn bán (<span class="math-inline">$p_0$</span>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tài sản cơ sở (<span class="math-inline">$S_0$</span>)</td>
+<td>—</td>
+<td>Mua (<em>Long</em>)</td>
+<td>Mua (<em>Long</em>)</td>
+<td>Bán (<em>Short</em>)</td>
+</tr>
+<tr>
+<td>Trái phiếu phi rủi ro (<span class="math-inline">$X(1 + r)^{-T}$</span>)</td>
+<td>Mua (<em>Long</em>)</td>
+<td>—</td>
+<td>Bán (<em>Short</em>)</td>
+<td>Mua (<em>Long</em>)</td>
+</tr>
+<tr>
+<td>Quyền chọn mua (<span class="math-inline">$c_0$</span>)</td>
+<td>Mua (<em>Long</em>)</td>
+<td>Bán (<em>Short</em>)</td>
+<td>—</td>
+<td>Mua (<em>Long</em>)</td>
+</tr>
+<tr>
+<td>Quyền chọn bán (<span class="math-inline">$p_0$</span>)</td>
+<td>Bán (<em>Short</em>)</td>
+<td>Mua (<em>Long</em>)</td>
+<td>Mua (<em>Long</em>)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>These building blocks are used not only to generate riskless profits in the case of mispricing but also to create other option-based strategies, such as in the following example.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các cấu phần nền tảng này không chỉ được sử dụng để tạo ra lợi nhuận phi rủi ro trong trường hợp định giá sai mà còn để tạo ra các chiến lược dựa trên quyền chọn khác, chẳng hạn như trong ví dụ sau đây.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>EXAMPLE 3</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>VÍ DỤ 3 (<em>EXAMPLE 3</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>VFO Covered Call Strategy</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Chiến lược Quyền chọn Mua Có Bảo đảm của VFO (<em>VFO Covered Call Strategy</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Recall from an earlier example that the Viswan Family Office holds non-dividend-paying Biomian shares currently priced ( <em>S</em> 0) at INR295 per share. Since VFO’s chief investment officer believes Biomian’s share price will appreciate over the long term but remain relatively unchanged for the next six months, he would like to <em>sell</em> a six-month call option at a INR325 exercise price ( <em>X</em> ) to generate short-term income in what is known as a covered call strategy.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy nhớ lại từ một ví dụ trước rằng Văn phòng Quản lý Gia sản Viswan (VFO) nắm giữ cổ phiếu Biomian không trả cổ tức hiện đang có giá (<span class="math-inline">$S_0$</span>) là 295 INR mỗi cổ phiếu. Vì giám đốc đầu tư của VFO tin rằng giá cổ phiếu của Biomian sẽ tăng lên trong dài hạn nhưng vẫn giữ tương đối không đổi trong 6 tháng tới, ông ấy muốn <em>bán</em> một quyền chọn mua kỳ hạn 6 tháng tại mức giá thực hiện (<span class="math-inline">$X$</span>) là 325 INR để tạo ra thu nhập ngắn hạn trong một chiến lược được gọi là quyền chọn mua có bảo đảm (<em>covered call strategy</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using put–call parity, how can he replicate this position using a risk-free bond (the risk-free rate is 4%) and a put option, and what is the expected call option premium if the put option has a price of INR56?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng ngang giá quyền chọn bán–quyền chọn mua, làm thế nào ông ấy có thể mô phỏng vị thế này bằng cách sử dụng một trái phiếu phi rủi ro (lãi suất phi rủi ro là 4%) và một quyền chọn bán, và mức phí quyền chọn mua dự kiến là bao nhiêu nếu quyền chọn bán có giá là 56 INR?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The covered call strategy consists of a <em>long</em> position in the underlying and a <em>short</em> call option, or ( <em>S</em> 0 – <em>c</em> 0) at inception. Recall from Equation 1 that put–call parity is shown as</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chiến lược quyền chọn mua có bảo đảm (<em>covered call strategy</em>) bao gồm một vị thế <em>mua</em> (<em>long</em>) đối với tài sản cơ sở và một vị thế <em>bán</em> (<em>short</em>) quyền chọn mua, hay <span class="math-inline">$(S_0 - c_0)$</span> tại thời điểm khởi tạo. Hãy nhớ lại từ Phương trình 1 rằng ngang giá quyền chọn bán–quyền chọn mua được thể hiện là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0213-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0213-10.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$S_0 + p_0 = c_0 + X(1 + r)^{-T}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We may rearrange these terms to solve for ( <em>S</em> 0 – <em>c</em> 0):</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể sắp xếp lại các số hạng này để giải tìm <span class="math-inline">$(S_0 - c_0)$</span>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0213-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0213-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$S_0 - c_0 = X(1 + r)^{-T} - p_0$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The covered call position is therefore equivalent to a <em>long</em> risk-free bond and a <em>short</em> put option, as shown in the following diagram.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Do đó, vị thế quyền chọn mua có bảo đảm tương đương với một vị thế <em>mua</em> trái phiếu phi rủi ro và một vị thế <em>bán</em> quyền chọn bán, như được thể hiện trong sơ đồ dưới đây.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Derivatives.pdf-0213-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Derivatives.pdf-0213-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+- <strong>Hàng trên:</strong> <strong>Sold call option</strong> (Bán quyền chọn mua) + <strong>Long underlying</strong> (Mua tài sản cơ sở) = <strong>Covered call</strong> (Quyền chọn mua có bảo đảm: nhận <span class="math-inline">$S_T$</span> nếu <span class="math-inline">$S_T &lt; X$</span>, nhận <span class="math-inline">$X$</span> nếu <span class="math-inline">$S_T &gt; X$</span>).
+- <strong>Hàng dưới:</strong> <strong>Sold put option</strong> (Bán quyền chọn bán) + <strong>Long risk-free bond</strong> (Mua trái phiếu phi rủi ro) = <strong>Sold put + long risk-free bond</strong> (nhận <span class="math-inline">$S_T$</span> nếu <span class="math-inline">$S_T &lt; X$</span>, nhận <span class="math-inline">$X$</span> nếu <span class="math-inline">$S_T &gt; X$</span>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div id="pdf-page-214" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 214 / Trang PDF 214
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We may solve for the no-arbitrage call price, <em>c</em> 0, using put–call parity by substituting terms into the following equation:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể giải tìm mức giá quyền chọn mua không kinh doanh chênh lệch giá, <span class="math-inline">$c_0$</span>, bằng cách sử dụng ngang giá quyền chọn bán–quyền chọn mua thông qua việc thay thế các số hạng vào phương trình sau:</p>
+<div class="math-display my-3 overflow-x-auto">$$S_0 - c_0 = X(1 + r)^{-T} - p_0.$$</div>
+<div class="math-display my-3 overflow-x-auto">$$295\text{ INR} - c_0 = 325\text{ INR}(1,04)^{-0,5} - 56\text{ INR}.$$</div>
+<div class="math-display my-3 overflow-x-auto">$$c_0 = 32,31\text{ INR}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>S</em> 0 – <em>c</em> 0 = <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> – <em>p</em> 0.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>INR295 – c0 = INR325(1.04)<sup>–0.5</sup> – INR56.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Ngang giá Quyền chọn Bán–Quyền chọn Mua (<em>Put–Call Parity</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>c</em> 0 = INR32.31.</p>
+<h6><strong>QUESTION SET</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Xác định các câu trả lời đúng để hoàn thành câu sau đây: Nếu hai danh mục đầu tư có các dòng tiền <strong><em>_</em></strong><em> tại thời điểm <span class="math-inline">$T$</span> dưới mỗi kịch bản, thì mức giá không kinh doanh chênh lệch giá của các danh mục đầu tư đó phải <strong><em>_</em></strong></em> nhau tại thời điểm <span class="math-inline">$t = 0$</span> trong một mối quan hệ thường được gọi là ngang giá quyền chọn bán–quyền chọn mua.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Put–Call Parity</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>Determine the correct answers to complete the following sentence: If two portfolios have cash flows that are <strong><em>_</em></strong><em> at time _T</em> under each scenario, then the no-arbitrage prices of those portfolios must <strong><em>_</em></strong><em> one another at _t</em> = 0 in a relationship commonly referred to as put–call parity.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu hai danh mục đầu tư có các dòng tiền <em>giống hệt nhau (identical)</em> tại thời điểm <span class="math-inline">$T$</span> dưới mỗi kịch bản, thì mức giá không kinh doanh chênh lệch giá của các danh mục đầu tư đó phải <em>bằng (equal)</em> nhau tại thời điểm <span class="math-inline">$t = 0$</span> trong một mối quan hệ thường được gọi là ngang giá quyền chọn bán–quyền chọn mua.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Xác định vị thế nào sau đây có cùng giá trị không kinh doanh chênh lệch giá với danh mục đầu tư nào theo ngang giá quyền chọn bán–quyền chọn mua:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If two portfolios have cash flows that are <em>identical</em> at time <em>T</em> under each scenario, then the no-arbitrage prices of those portfolios must <em>equal</em> one another at <em>t</em> = 0 in a relationship commonly referred to as put–call parity.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Vị thế</th>
+<th>Danh mục đầu tư tương đương</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Bán quyền chọn mua (<span class="math-inline">$-c_0$</span>)</td>
+<td>A. Bán tài sản cơ sở, mua trái phiếu phi rủi ro, và mua quyền chọn mua</td>
+</tr>
+<tr>
+<td>2. Mua trái phiếu phi rủi ro (<span class="math-inline">$X(1 + r)^{-T}$</span>)</td>
+<td>B. Bán tài sản cơ sở, bán quyền chọn bán, và mua trái phiếu phi rủi ro</td>
+</tr>
+<tr>
+<td>3. Mua quyền chọn bán (<span class="math-inline">$p_0$</span>)</td>
+<td>C. Mua tài sản cơ sở, bán quyền chọn mua, và mua quyền chọn bán</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>
+<p>Identify which of the following positions has the same no-arbitrage value as which portfolio under put–call parity:</p>
+</li>
+<li>
+<p>Short call option (– <em>c</em> 0)</p>
+</li>
+<li>
+<p>Long risk-free bond ( <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> )</p>
+</li>
+<li>
+<p>Long put option ( <em>p</em> 0)</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>A. Short underlying, long risk-free bond, and long call option</p>
+</li>
+<li>
+<p>B. Short underlying, short put option, and long risk-free bond</p>
+</li>
+<li>
+<p>C. Long underlying, short call option, and long put option</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6>
+<p>Recall that the put-call parity relationship may be expressed as</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy nhớ lại rằng mối quan hệ ngang giá quyền chọn bán–quyền chọn mua có thể được biểu diễn là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li><em>S</em> 0 + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</li>
+</ul>
+<ol>
+<li>
+<p>B is correct. A short call option position is the no-arbitrage equivalent of a short underlying position, a short put option, and a long risk-free bond position.</p>
+</li>
+<li>
+<p>C is correct. A long risk-free bond position is equivalent to a long underlying position, a short call option, and a long put option.</p>
+</li>
+<li>
+<p>A is correct. A long put option is equivalent to a short underlying position, a long risk-free bond, and a long call option.</p>
+</li>
+<li>
+<p>Determine the correct answer to complete the following sentence: The combination of a <strong><em>_</em></strong>_ call and a risk-free bond position is known as a fiduciary call.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><span class="math-inline">$S_0 + p_0 = c_0 + X(1 + r)^{-T}$</span>.</li>
+</ul>
+<ol>
+<li>
+<p>B là đáp án đúng. Một vị thế bán quyền chọn mua là tương đương không kinh doanh chênh lệch giá với một vị thế bán tài sản cơ sở, bán quyền chọn bán, và mua trái phiếu phi rủi ro.</p>
+</li>
+<li>
+<p>C là đáp án đúng. Một vị thế mua trái phiếu phi rủi ro tương đương với một vị thế mua tài sản cơ sở, bán quyền chọn mua, và mua quyền chọn bán.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Một vị thế mua quyền chọn bán tương đương với một vị thế bán tài sản cơ sở, mua trái phiếu phi rủi ro, và mua quyền chọn mua.</p>
+</li>
+<li>
+<p>Xác định câu trả lời đúng để hoàn thành câu sau đây: Sự kết hợp giữa một quyền chọn mua <strong><em>_</em></strong>_ và một vị thế trái phiếu phi rủi ro được gọi là quyền chọn mua ủy thác (<em>fiduciary call</em>).</p>
+</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The combination of a <em>purchased</em> call and a risk-free bond position is known as a fiduciary call.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sự kết hợp giữa một quyền chọn mua <em>đã mua (purchased)</em> và một vị thế trái phiếu phi rủi ro được gọi là quyền chọn mua ủy thác (<em>fiduciary call</em>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-215" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 215 / Trang PDF 215
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Identify the following statement as true or false, and justify your answer: The covered call strategy consists of a long position in the underlying and a long call option, or ( <em>S</em> 0 + <em>c</em> 0) at inception.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Xác định phát biểu sau đây là đúng hay sai, và giải thích câu trả lời của bạn: Chiến lược quyền chọn mua có bảo đảm (<em>covered call strategy</em>) bao gồm một vị thế mua đối với tài sản cơ sở và một vị thế mua quyền chọn mua, hay <span class="math-inline">$(S_0 + c_0)$</span> tại thời điểm khởi tạo.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>Solution:</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải:</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The statement is false. The covered call strategy consists of a <em>long</em> position in the underlying and a <em>short</em> call option, or ( <em>S</em> 0 – <em>c</em> 0) at inception.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Phát biểu này là sai. Chiến lược quyền chọn mua có bảo đảm bao gồm một vị thế <em>mua</em> đối với tài sản cơ sở và một vị thế <em>bán</em> quyền chọn mua, hay <span class="math-inline">$(S_0 - c_0)$</span> tại thời điểm khởi tạo.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>PUT–CALL FORWARD PARITY AND OPTION APPLICATIONS</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>NGANG GIÁ KỲ HẠN QUYỀN CHỌN BÁN–QUYỀN CHỌN MUA VÀ CÁC ỨNG DỤNG QUYỀN CHỌN (<em>PUT–CALL FORWARD PARITY AND OPTION APPLICATIONS</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong><mark>4</mark></strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong><mark>4</mark></strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain put–call <em>forward</em> parity for European options</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích ngang giá <em>kỳ hạn</em> quyền chọn bán–quyền chọn mua (<em>put–call forward parity</em>) đối với quyền chọn kiểu châu Âu</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Forward commitment replication was shown in earlier lessons to involve borrowing at the risk-free rate to purchase the underlying in the case of a long position or selling the underlying short and lending the proceeds at the risk-free rate for a short position. We also showed that a long underlying position combined with a short forward resulted in a risk-free return. We now incorporate these forward commitment building blocks into the put–call parity relationship shown in the prior lesson.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc mô phỏng cam kết kỳ hạn (<em>forward commitment replication</em>) đã được chỉ ra trong các bài học trước là bao gồm việc đi vay ở mức lãi suất phi rủi ro để mua tài sản cơ sở trong trường hợp vị thế mua (<em>long position</em>) hoặc bán khống tài sản cơ sở và đem số tiền thu được cho vay ở mức lãi suất phi rủi ro đối với vị thế bán (<em>short position</em>). Chúng ta cũng đã chỉ ra rằng một vị thế mua tài sản cơ sở kết hợp với một vị thế bán kỳ hạn sẽ mang lại tỷ suất sinh lợi phi rủi ro. Bây giờ chúng ta kết hợp các cấu phần nền tảng của cam kết kỳ hạn này vào mối quan hệ ngang giá quyền chọn bán–quyền chọn mua đã được trình bày trong bài học trước.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>PUT–CALL FORWARD PARITY</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>NGANG GIÁ KỲ HẠN QUYỀN CHỌN BÁN–QUYỀN CHỌN MUA (<em>PUT–CALL FORWARD PARITY</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong><mark>5</mark></strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong><mark>5</mark></strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain put–call <em>forward</em> parity for European options</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>giải thích ngang giá <em>kỳ hạn</em> quyền chọn bán–quyền chọn mua (<em>put–call forward parity</em>) đối với quyền chọn kiểu châu Âu</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In an earlier lesson, we learned that a long underlying asset position can be replicated by entering a long forward contract and purchasing the risk-free asset. Combining the synthetic asset with the put–call parity relationship—so, substituting the present value of <em>F</em> 0( <em>T</em> ) for <em>S</em> 0 in Equation 1—we have what is referred to as <strong>put–call forward parity</strong> :</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong một bài học trước, chúng ta đã học được rằng một vị thế mua tài sản cơ sở có thể được mô phỏng bằng cách tham gia vào một hợp đồng mua kỳ hạn (<em>long forward contract</em>) và mua tài sản phi rủi ro. Kết hợp tài sản tổng hợp (<em>synthetic asset</em>) này với mối quan hệ ngang giá quyền chọn bán–quyền chọn mua—nghĩa là thay thế giá trị hiện tại của <span class="math-inline">$F_0(T)$</span> cho <span class="math-inline">$S_0$</span> trong Phương trình 1—chúng ta có được mối quan hệ được gọi là <strong>ngang giá kỳ hạn quyền chọn bán–quyền chọn mua (<em>put–call forward parity</em>)</strong>:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>F</em> 0( <em>T</em> )(1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> . ~~(3)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$F_0(T)(1 + r)^{-T} + p_0 = c_0 + X(1 + r)^{-T} \tag{3}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can demonstrate put–call forward parity by comparing a synthetic protective put position to the protective put and fiduciary call positions. Consider a modification of the portfolios used earlier to demonstrate put–call parity, as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể chứng minh ngang giá kỳ hạn quyền chọn bán–quyền chọn mua bằng cách so sánh một vị thế quyền chọn bán bảo vệ tổng hợp (<em>synthetic protective put position</em>) với vị thế quyền chọn bán bảo vệ (<em>protective put</em>) và quyền chọn mua ủy thác (<em>fiduciary call</em>). Hãy xem xét sự điều chỉnh đối với các danh mục đầu tư đã sử dụng trước đó để chứng minh ngang giá quyền chọn bán–quyền chọn mua, như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> At <em>t</em> = 0, an investor purchases a forward contract and a risk-free bond with a face value equal to the forward price, <em>F</em> 0( <em>T</em> ), and a put option on the underlying ( <em>p</em> 0) with an exercise price of <em>X</em> at <em>t</em> = <em>T</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Tại thời điểm <span class="math-inline">$t = 0$</span>, một nhà đầu tư mua một hợp đồng kỳ hạn và một trái phiếu phi rủi ro có mệnh giá bằng với giá kỳ hạn, <span class="math-inline">$F_0(T)$</span>, cùng với một quyền chọn bán trên tài sản cơ sở (<span class="math-inline">$p_0$</span>) có giá thực hiện là <span class="math-inline">$X$</span> tại thời điểm <span class="math-inline">$t = T$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> At <em>t</em> = 0, an investor purchases a call option ( <em>c</em> 0) on the same underlying with an exercise price of <em>X</em> and a risk-free bond that pays <em>X</em> at <em>t</em> = <em>T</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Tại thời điểm <span class="math-inline">$t = 0$</span>, một nhà đầu tư mua một quyền chọn mua (<span class="math-inline">$c_0$</span>) trên cùng tài sản cơ sở đó có giá thực hiện là <span class="math-inline">$X$</span> và một trái phiếu phi rủi ro sẽ trả số tiền <span class="math-inline">$X$</span> tại thời điểm <span class="math-inline">$t = T$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The first portfolio has replaced the <em>cash</em> underlying position with a <em>synthetic</em> underlying position using a forward purchase and a risk-free bond. The combination of the synthetic underlying position and a purchased put on the underlying is known as a <strong>synthetic protective put</strong> . Exhibit 7 demonstrates the equivalence of the protective and synthetic protective puts by comparing their cash flows at both <em>t</em> = 0 and contract maturity, <em>T</em> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Danh mục đầu tư thứ nhất đã thay thế vị thế tài sản cơ sở <em>tiền mặt</em> (<em>cash underlying position</em>) bằng một vị thế tài sản cơ sở <em>tổng hợp</em> (<em>synthetic underlying position</em>) sử dụng một giao dịch mua kỳ hạn và một trái phiếu phi rủi ro. Sự kết hợp giữa vị thế tài sản cơ sở tổng hợp và một quyền chọn bán đã mua trên tài sản cơ sở được gọi là <strong>quyền chọn bán bảo vệ tổng hợp (<em>synthetic protective put</em>)</strong>. Bảng 7 (<em>Exhibit 7</em>) chứng minh sự tương đương giữa quyền chọn bán bảo vệ và quyền chọn bán bảo vệ tổng hợp bằng cách so sánh các dòng tiền của chúng tại cả thời điểm <span class="math-inline">$t = 0$</span> và khi hợp đồng đáo hạn, <span class="math-inline">$T$</span>.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-216" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 216 / Trang PDF 216
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 7: Protective Put vs. Synthetic Protective Put</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 7: Quyền chọn Bán Bảo vệ (<em>Protective Put</em>) so với Quyền chọn Bán Bảo vệ Tổng hợp (<em>Synthetic Protective Put</em>) (<em>Exhibit 7: Protective Put vs. Synthetic Protective Put</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Position</strong></th>
+<th><strong>Cash Flow</strong><br><strong>at</strong><strong><em>t</em> = 0</strong></th>
+<th><strong>Put Exercised</strong><br><strong>(</strong><strong><em>ST</em> &lt;</strong><strong><em>X</em>)</strong></th>
+<th><strong>No Exercise</strong><br><strong>(</strong><strong><em>ST</em> ≥</strong><strong><em>X</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Protective Put:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Purchased Put (_p_0)</td>
+<td>_p_0</td>
+<td><em>X</em>–<em>ST</em></td>
+<td>0</td>
+</tr>
+<tr>
+<td>Cash Underlying (_S_0)</td>
+<td>_S_0</td>
+<td><em>ST</em></td>
+<td><em>ST</em></td>
+</tr>
+<tr>
+<td><strong>Total:</strong></td>
+<td>_p_0+_S_0</td>
+<td><em>X</em></td>
+<td><em>ST</em></td>
+</tr>
+<tr>
+<td><strong>Synthetic Protective Put:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Purchased Put (_p_0)</td>
+<td>_p_0</td>
+<td><em>X</em>–<em>ST</em></td>
+<td>0</td>
+</tr>
+<tr>
+<td>Forward Purchase</td>
+<td>0</td>
+<td>ST– F0(T)</td>
+<td>ST– F0(T)</td>
+</tr>
+<tr>
+<td>Risk-Free Bond<br><em>F_0(_T</em>)(1 +<em>r</em>)<sup>–</sup><sup><em>T</em></sup></td>
+<td><em>F_0(_T</em>)(1 +<em>r</em>)<sup>–</sup><sup><em>T</em></sup></td>
+<td><em>F_0(_T</em>)</td>
+<td><em>F_0(_T</em>)</td>
+</tr>
+<tr>
+<td><strong>Total:</strong></td>
+<td><em>p_0+_F_0(_T</em>)(1 +<em>r</em>)<sup>–</sup><sup><em>T</em></sup><br>(=_p_0+_S_0)</td>
+<td><em>X</em></td>
+<td><em>ST</em></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Vị thế (<em>Position</em>)</strong></th>
+<th><strong>Dòng tiền chi trả tại <span class="math-inline">$t = 0$</span></strong></th>
+<th><strong>Thực hiện Quyền chọn Bán (<span class="math-inline">$S_T &lt; X$</span>)</strong></th>
+<th><strong>Không Thực hiện (<span class="math-inline">$S_T \ge X$</span>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quyền chọn Bán Bảo vệ (<em>Protective Put</em>):</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quyền chọn bán đã mua (<span class="math-inline">$p_0$</span>)</td>
+<td><span class="math-inline">$p_0$</span></td>
+<td><span class="math-inline">$X - S_T$</span></td>
+<td><span class="math-inline">$0$</span></td>
+</tr>
+<tr>
+<td>Tài sản cơ sở tiền mặt (<span class="math-inline">$S_0$</span>)</td>
+<td><span class="math-inline">$S_0$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+</tr>
+<tr>
+<td><strong>Tổng cộng (<em>Total</em>):</strong></td>
+<td><span class="math-inline">$p_0 + S_0$</span></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+</tr>
+<tr>
+<td><strong>Quyền chọn Bán Bảo vệ Tổng hợp (<em>Synthetic Protective Put</em>):</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quyền chọn bán đã mua (<span class="math-inline">$p_0$</span>)</td>
+<td><span class="math-inline">$p_0$</span></td>
+<td><span class="math-inline">$X - S_T$</span></td>
+<td><span class="math-inline">$0$</span></td>
+</tr>
+<tr>
+<td>Mua kỳ hạn (<em>Forward Purchase</em>)</td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$S_T - F_0(T)$</span></td>
+<td><span class="math-inline">$S_T - F_0(T)$</span></td>
+</tr>
+<tr>
+<td>Trái phiếu phi rủi ro <span class="math-inline">$F_0(T)(1 + r)^{-T}$</span></td>
+<td><span class="math-inline">$F_0(T)(1 + r)^{-T}$</span></td>
+<td><span class="math-inline">$F_0(T)$</span></td>
+<td><span class="math-inline">$F_0(T)$</span></td>
+</tr>
+<tr>
+<td><strong>Tổng cộng (<em>Total</em>):</strong></td>
+<td><span class="math-inline">$p_0 + F_0(T)(1 + r)^{-T} \ (= p_0 + S_0)$</span></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 8 compares the future cash flows of the synthetic protective put with the fiduciary call under all possible scenarios at expiration.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng 8 (<em>Exhibit 8</em>) so sánh các dòng tiền tương lai của quyền chọn bán bảo vệ tổng hợp với quyền chọn mua ủy thác dưới tất cả các kịch bản có thể xảy ra khi đáo hạn.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 8: Synthetic Protective Put vs. Fiduciary Call</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng 8: Quyền chọn Bán Bảo vệ Tổng hợp (<em>Synthetic Protective Put</em>) so với Quyền chọn Mua Ủy thác (<em>Fiduciary Call</em>) (<em>Exhibit 8: Synthetic Protective Put vs. Fiduciary Call</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Portfolio Position</strong></th>
+<th><strong>Put Exercised (</strong><strong><em>ST</em></strong><br><strong>&lt;</strong><strong><em>X</em>)</strong></th>
+<th><strong>No Exercise</strong><br><strong>(</strong><strong><em>ST</em> =</strong><strong><em>X</em>)</strong></th>
+<th><strong>Call Exercised</strong><br><strong>(</strong><strong><em>ST</em> &gt;</strong><strong><em>X</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Synthetic Protective Put:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Purchased Put (_p_0)</td>
+<td><em>X</em>–<em>ST</em></td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Forward Purchase</td>
+<td><em>ST</em>–<em>F_0(_T</em>)</td>
+<td><em>ST</em>–<em>F_0(_T</em>)</td>
+<td><em>ST</em>–<em>F_0(_T</em>)</td>
+</tr>
+<tr>
+<td>Risk-Free Bond_F_0(<em>T</em>)(1 +<br><em>r</em>)<sup>–</sup><sup><em>T</em></sup></td>
+<td><em>F_0(_T</em>)</td>
+<td><em>F_0(_T</em>)</td>
+<td><em>F_0(_T</em>)</td>
+</tr>
+<tr>
+<td><strong>Total:</strong></td>
+<td><em>X</em></td>
+<td><em>ST</em>(=<em>X</em>)</td>
+<td><em>ST</em></td>
+</tr>
+<tr>
+<td><strong>Fiduciary Call:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Purchased Call (c0)</td>
+<td>0</td>
+<td>0</td>
+<td><em>ST</em>–<em>X</em></td>
+</tr>
+<tr>
+<td>Risk-Free Asset</td>
+<td><em>X</em></td>
+<td><em>X</em></td>
+<td><em>X</em></td>
+</tr>
+<tr>
+<td><strong>Total:</strong></td>
+<td><em>X</em></td>
+<td><em>X</em>(=<em>ST</em>)</td>
+<td><em>ST</em></td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Vị thế Danh mục (<em>Portfolio Position</em>)</strong></th>
+<th><strong>Thực hiện Quyền chọn Bán (<span class="math-inline">$S_T &lt; X$</span>)</strong></th>
+<th><strong>Không Thực hiện (<span class="math-inline">$S_T = X$</span>)</strong></th>
+<th><strong>Thực hiện Quyền chọn Mua (<span class="math-inline">$S_T &gt; X$</span>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quyền chọn Bán Bảo vệ Tổng hợp (<em>Synthetic Protective Put</em>):</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quyền chọn bán đã mua (<span class="math-inline">$p_0$</span>)</td>
+<td><span class="math-inline">$X - S_T$</span></td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$0$</span></td>
+</tr>
+<tr>
+<td>Mua kỳ hạn (<em>Forward Purchase</em>)</td>
+<td><span class="math-inline">$S_T - F_0(T)$</span></td>
+<td><span class="math-inline">$S_T - F_0(T)$</span></td>
+<td><span class="math-inline">$S_T - F_0(T)$</span></td>
+</tr>
+<tr>
+<td>Trái phiếu phi rủi ro <span class="math-inline">$F_0(T)(1 + r)^{-T}$</span></td>
+<td><span class="math-inline">$F_0(T)$</span></td>
+<td><span class="math-inline">$F_0(T)$</span></td>
+<td><span class="math-inline">$F_0(T)$</span></td>
+</tr>
+<tr>
+<td><strong>Tổng cộng (<em>Total</em>):</strong></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$S_T \ (= X)$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+</tr>
+<tr>
+<td><strong>Quyền chọn Mua Ủy thác (<em>Fiduciary Call</em>):</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quyền chọn mua đã mua (<span class="math-inline">$c_0$</span>)</td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$0$</span></td>
+<td><span class="math-inline">$S_T - X$</span></td>
+</tr>
+<tr>
+<td>Tài sản phi rủi ro (<em>Risk-Free Asset</em>)</td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$X$</span></td>
+</tr>
+<tr>
+<td><strong>Tổng cộng (<em>Total</em>):</strong></td>
+<td><span class="math-inline">$X$</span></td>
+<td><span class="math-inline">$X \ (= S_T)$</span></td>
+<td><span class="math-inline">$S_T$</span></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>It follows that the cost of the fiduciary call must equal the cost of the synthetic protective put, thereby demonstrating the put–call forward parity relationship:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Từ đó suy ra rằng chi phí của quyền chọn mua ủy thác phải bằng với chi phí của quyền chọn bán bảo vệ tổng hợp, qua đó chứng minh mối quan hệ ngang giá kỳ hạn quyền chọn bán–quyền chọn mua:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>F</em> 0( <em>T</em> )(1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> + <em>p</em> 0 = <em>c</em> 0 + <em>X</em> (1+ <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$F_0(T)(1 + r)^{-T} + p_0 = c_0 + X(1 + r)^{-T}.$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If we rearrange these terms, we can demonstrate that a long put and a short call are equivalent to a long risk-free bond and short forward position:</p>
+<p><em>p</em> 0 – <em>c</em> 0 = [ <em>X</em> – <em>F</em> 0( <em>T</em> )](1 + <em>r</em> )<sup>–</sup><sup><em>T</em></sup> .</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu chúng ta sắp xếp lại các số hạng này, chúng ta có thể chứng minh rằng một vị thế mua quyền chọn bán và bán quyền chọn mua tương đương với một vị thế mua trái phiếu phi rủi ro và bán kỳ hạn:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>~~(4)~~</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="math-display my-3 overflow-x-auto">$$p_0 - c_0 = [X - F_0(T)](1 + r)^{-T} \tag{4}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Consider the earlier put–call parity example using a synthetic underlying position, as in the following example.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy xem xét ví dụ ngang giá quyền chọn bán–quyền chọn mua trước đó nhưng sử dụng một vị thế tài sản cơ sở tổng hợp, như trong ví dụ tiếp theo ( ở Phần 2).</p></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM08_Part2_Factors_Affecting_Option_Value.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM08_Part2_Factors_Affecting_Option_Value</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 7</a>
+      <a href="LM09_Part2_Option_Put_Call_Parity_Applications_Firm_Valu.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM09_Part2_Option_Put_Call_Parity_Applications_Firm_Valu →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('07_Derivatives/LM09_Part1_Introduction.html');
+    });
+  </script>
+</body>
+</html>

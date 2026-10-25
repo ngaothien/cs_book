@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 9 Parametric and Non-Parametric Tests of Independence - Part 2: Tests of Independence Using Contingency Table Data — Volume 1: Quantitative Methods | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 1: Các Phương Pháp Định Lượng
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 9 Parametric and Non-Parametric Tests of Independence - Part 2: Tests of Independence Using Contingency Table Data</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (10 trang)...</option>
+          <option value="261">PDF Page 261</option>
+<option value="262">PDF Page 262</option>
+<option value="263">PDF Page 263</option>
+<option value="264">PDF Page 264</option>
+<option value="265">PDF Page 265</option>
+<option value="266">PDF Page 266</option>
+<option value="267">PDF Page 267</option>
+<option value="268">PDF Page 268</option>
+<option value="269">PDF Page 269</option>
+<option value="270">PDF Page 270</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 1</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Các Phương Pháp Định Lượng</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 1</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Rates_and_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Rates and Returns</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Money_Weighted_and_Time_Weighted_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money-Weighted and Time-Weighted Return</a>
+<a href="LM01_Part3_Other_Major_Return_Measures_and_Their_Applica.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Other Major Return Measures and Their Applications</a>
+<a href="LM02_Full_Time_Value_of_Money_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Time Value of Money in Finance</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Implied_Return_and_Growth.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Implied Return and Growth</a>
+<a href="LM02_Part3_Cash_Flow_Additivity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Cash Flow Additivity</a>
+<a href="LM02_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM03_Full_Statistical_Measures_of_Asset_Returns.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Statistical Measures of Asset Returns</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Measures_of_Dispersion.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Measures of Dispersion</a>
+<a href="LM03_Part3_Measures_of_Shape_of_a_Distribution.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Measures of Shape of a Distribution</a>
+<a href="LM03_Part4_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Practice Problems</a>
+<a href="LM04_Full_Probability_Trees_and_Conditional_Expectation.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Probability Trees and Conditional Expectations</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Bayes_Formula_and_Updating_Probability_Estima.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bayes&#x27; Formula and Updating Probability Estimates</a>
+<a href="LM05_Full_Portfolio_Mathematics.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Portfolio Mathematics</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Portfolio_Risk_Measures_Applications_of_the_N.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Risk Measures: Applications of the Normal Distribution</a>
+<a href="LM06_Full_Simulation_Methods.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Simulation Methods</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Practice Problems</a>
+<a href="LM07_Full_Estimation_and_Inference.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Estimation and Inference</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Bootstrapping_and_Empirical_Sampling_Distribu.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bootstrapping and Empirical Sampling Distributions</a>
+<a href="LM08_Full_Hypothesis_Testing.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Hypothesis Testing</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Tests_of_Return_and_Risk_in_Finance.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Tests of Return and Risk in Finance</a>
+<a href="LM08_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM09_Full_Parametric_and_Non_Parametric_Tests_of_Indepe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 Parametric and Non-Parametric Tests of Independence</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Tests of Independence Using Contingency Table Data</a>
+<a href="LM10_Full_Simple_Linear_Regression.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Simple Linear Regression</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Assumptions_of_the_Simple_Linear_Regression_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Assumptions of the Simple Linear Regression Model</a>
+<a href="LM10_Part3_Hypothesis_Tests_in_the_Simple_Linear_Regress.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Hypothesis Tests in the Simple Linear Regression Model</a>
+<a href="LM10_Part4_Prediction_in_the_Simple_Linear_Regression_Mo.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Prediction in the Simple Linear Regression Model</a>
+<a href="LM10_Part5_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 5: Practice Problems</a>
+<a href="LM10_Part6_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 6: Solutions</a>
+<a href="LM11_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Introduction to Big Data Techniques</a>
+<a href="LM11_Introduction_to_Big_Data_Techniques.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction to Big Data Techniques</a>
+<a href="LM12_Full.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Appendices A-E</a>
+<a href="LM12_Appendices_A_E.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Appendices A-E</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 1 • Quantitative Methods (Các Phương Pháp Định Lượng)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 9 Parametric and Non-Parametric Tests of Independence - Part 2: Tests of Independence Using Contingency Table Data</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('01_Quantitative_Methods/LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 1: Quantitative Methods</h1>
+<h2>Learning Module 9 Parametric and Non-Parametric Tests of Independence</h2>
+<h3>Part 2/2: Tests of Independence Using Contingency Table Data (PDF Pages 261–270)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 1: Phương pháp Định lượng (<em>Quantitative Methods</em>)</h1>
+<h2>Học phần 9: Các Kiểm định Tính Độc lập Tham số và Phi tham số (<em>Parametric and Non-Parametric Tests of Independence</em>)</h2>
+<h3>Phần 2/2: Các Kiểm định Tính Độc lập Sử dụng Dữ liệu Bảng Tiếp liên (<em>Tests of Independence Using Contingency Table Data</em>) (Trang PDF 261–270)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-261" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 261 / Trang PDF 261
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Mutual</strong><br><strong>Fund</strong></th>
+<th><strong>Alpha</strong></th>
+<th><strong>Expense</strong><br><strong>Ratio</strong></th>
+<th><strong>Rank</strong><br><strong>by</strong><br><strong>Alpha</strong></th>
+<th><strong>Rank by</strong><br><strong>Expense</strong><br><strong>Ratio</strong></th>
+<th><strong>Difference</strong><br><strong>in Rank</strong></th>
+<th><strong>Difference</strong><br><strong>Squared</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>−0.52</td>
+<td>1.34</td>
+<td>6</td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>−0.13</td>
+<td>0.40</td>
+<td>1</td>
+<td>9</td>
+<td>−8</td>
+<td>64</td>
+</tr>
+<tr>
+<td>3</td>
+<td>−0.50</td>
+<td>1.90</td>
+<td>5</td>
+<td>1</td>
+<td>4</td>
+<td>16</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−1.01</td>
+<td>1.50</td>
+<td>9</td>
+<td>2.5</td>
+<td>6.5</td>
+<td>42.25</td>
+</tr>
+<tr>
+<td>5</td>
+<td>−0.26</td>
+<td>1.35</td>
+<td>3</td>
+<td>5</td>
+<td>−2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>−0.89</td>
+<td>0.50</td>
+<td>8</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>−0.42</td>
+<td>1.00</td>
+<td>4</td>
+<td>7</td>
+<td>−3</td>
+<td>9</td>
+</tr>
+<tr>
+<td>8</td>
+<td>−0.23</td>
+<td>1.50</td>
+<td>2</td>
+<td>2.5</td>
+<td>–0.5</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>9</td>
+<td>−0.60</td>
+<td>1.45</td>
+<td>7</td>
+<td>4</td>
+<td>3</td>
+<td>9<br>144.5</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>(Tiếp theo Lời giải Câu 2 của Bộ Câu hỏi cuối Phần 1:)</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>rs_ = 1 −<sup>6(144.5)</sup> 9(80)<sup>= − 0.20417.</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Quỹ Tương hỗ (<em>Mutual Fund</em>)</strong></th>
+<th><strong>Alpha</strong></th>
+<th><strong>Tỷ lệ Chi phí (<em>Expense Ratio</em>)</strong></th>
+<th><strong>Thứ hạng theo Alpha (<em>Rank by Alpha</em>)</strong></th>
+<th><strong>Thứ hạng theo Tỷ lệ Chi phí (<em>Rank by Expense Ratio</em>)</strong></th>
+<th><strong>Chênh lệch Thứ hạng (<em>Difference in Rank</em>)</strong></th>
+<th><strong>Bình phương Chênh lệch (<em>Difference Squared</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>−0.52</td>
+<td>1.34</td>
+<td>6</td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>−0.13</td>
+<td>0.40</td>
+<td>1</td>
+<td>9</td>
+<td>−8</td>
+<td>64</td>
+</tr>
+<tr>
+<td>3</td>
+<td>−0.50</td>
+<td>1.90</td>
+<td>5</td>
+<td>1</td>
+<td>4</td>
+<td>16</td>
+</tr>
+<tr>
+<td>4</td>
+<td>−1.01</td>
+<td>1.50</td>
+<td>9</td>
+<td>2.5</td>
+<td>6.5</td>
+<td>42.25</td>
+</tr>
+<tr>
+<td>5</td>
+<td>−0.26</td>
+<td>1.35</td>
+<td>3</td>
+<td>5</td>
+<td>−2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>−0.89</td>
+<td>0.50</td>
+<td>8</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>−0.42</td>
+<td>1.00</td>
+<td>4</td>
+<td>7</td>
+<td>−3</td>
+<td>9</td>
+</tr>
+<tr>
+<td>8</td>
+<td>−0.23</td>
+<td>1.50</td>
+<td>2</td>
+<td>2.5</td>
+<td>−0.5</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>9</td>
+<td>−0.60</td>
+<td>1.45</td>
+<td>7</td>
+<td>4</td>
+<td>3</td>
+<td>9</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>Tổng (<em>Sum</em>)</strong></td>
+<td>144.5</td>
+</tr>
+</tbody>
+</table></div>
+<div class="math-display my-3 overflow-x-auto">$$r_S = 1 - \frac{6(144.5)}{9(80)} = -0.20417$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Determine whether to reject the null hypothesis at the 0.05 level of significance if the critical values are ±2.306.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Xác định xem có bác bỏ giả thuyết không ở mức ý nghĩa <span class="math-inline">$0.05$</span> hay không nếu các giá trị tới hạn là <span class="math-inline">$\pm 2.306$</span>.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The calculated test statistic, using the <em>t</em> -distributed test statistic</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>t</em> =  <em><sup>_r</em>√<em></sup> _n</em> − 2 <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>__7 _ √<sup><em></sup> 1 − _r</em><sup>2 is</sup><sup><em>t</em>=</sup> √<sup>− 0.20417</sup> 1 − 0.041681<sup>√=  − 0.540183</sup> 0.978937<sup>= − 0.55181 .</sup></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thống kê kiểm định tính toán được, sử dụng thống kê kiểm định có phân phối <span class="math-inline">$t$</span>:</p>
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}} \quad \text{là} \quad t = \frac{-0.20417\sqrt{7}}{\sqrt{1 - 0.041681}} = \frac{-0.540183}{0.978937} = -0.55181$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>On the basis of this value falling within the range of +2.306, we fail to reject the null hypothesis that the Spearman rank correlation coefficient is zero.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Dựa trên việc giá trị này nằm trong phạm vi <span class="math-inline">$\pm 2.306$</span>, chúng ta không bác bỏ giả thuyết không rằng hệ số tương quan hạng Spearman bằng <span class="math-inline">$0$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>TESTS OF INDEPENDENCE USING CONTINGENCY TABLE DATA</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>CÁC KIỂM ĐỊNH TÍNH ĐỘC LẬP SỬ DỤNG DỮ LIỆU BẢNG TIẾP LIÊN (<em>TESTS OF INDEPENDENCE USING CONTINGENCY TABLE DATA</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong><mark>3</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong><mark>3</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>explain tests of independence based on contingency table data</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Giải thích các kiểm định tính độc lập dựa trên dữ liệu bảng tiếp liên</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>When faced with categorical or discrete data, we cannot use the methods that we have discussed up to this point to test whether the classifications of such data are independent. Suppose we observe the following <strong>frequency table</strong> of 1,594 exchange-traded funds (ETFs) based on two classifications: size (i.e., market capitalization) and investment type (value, growth, or blend), as shown in Exhibit 7. The classification of the investment type is discrete, so we cannot use correlation to assess the relationship between size and investment type.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Khi đối mặt với dữ liệu phân loại (<em>categorical data</em>) hoặc dữ liệu rời rạc (<em>discrete data</em>), chúng ta không thể sử dụng các phương pháp đã thảo luận cho đến thời điểm này để kiểm định xem các phân loại của dữ liệu đó có độc lập với nhau hay không. Giả sử chúng ta quan sát <strong>bảng tần số (<em>frequency table</em>)</strong> sau đây của 1,594 quỹ hoán đổi danh mục (<em>exchange-traded funds</em> – ETFs) dựa trên hai phân loại: quy mô (tức giá trị vốn hóa thị trường) và loại hình đầu tư (giá trị, tăng trưởng hoặc hỗn hợp – <em>value, growth, or blend</em>), như được hiển thị trong Minh họa 7. Phân loại loại hình đầu tư là rời rạc, vì vậy chúng ta không thể sử dụng hệ số tương quan để đánh giá mối quan hệ giữa quy mô và loại hình đầu tư.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-262" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 262 / Trang PDF 262
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 7: Size and Investment Type Classifications of 1,594 ETFs</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 7: Phân loại Quy mô và Loại hình Đầu tư của 1,594 Quỹ ETF (<em>Exhibit 7: Size and Investment Type Classifications of 1,594 ETFs</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Size Bas</strong></th>
+<th><strong>ed on Market Capita</strong></th>
+<th><strong>lization</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Investment Type</strong></td>
+<td><strong>Small</strong></td>
+<td><strong>Medium</strong></td>
+<td><strong>Large</strong></td>
+<td><strong>Total</strong></td>
+</tr>
+<tr>
+<td>Value</td>
+<td>50</td>
+<td>110</td>
+<td>343</td>
+<td>503</td>
+</tr>
+<tr>
+<td>Growth</td>
+<td>42</td>
+<td>122</td>
+<td>202</td>
+<td>366</td>
+</tr>
+<tr>
+<td>Blend</td>
+<td>56</td>
+<td>149</td>
+<td>520</td>
+<td>725</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>148</td>
+<td>381</td>
+<td>1,065</td>
+<td>1,594</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Loại hình Đầu tư (<em>Investment Type</em>)</strong></th>
+<th><strong>Quy mô theo Vốn hóa Thị trường: Nhỏ (<em>Small</em>)</strong></th>
+<th><strong>Quy mô theo Vốn hóa Thị trường: Vừa (<em>Medium</em>)</strong></th>
+<th><strong>Quy mô theo Vốn hóa Thị trường: Lớn (<em>Large</em>)</strong></th>
+<th><strong>Tổng (<em>Total</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Giá trị (<em>Value</em>)</td>
+<td>50</td>
+<td>110</td>
+<td>343</td>
+<td>503</td>
+</tr>
+<tr>
+<td>Tăng trưởng (<em>Growth</em>)</td>
+<td>42</td>
+<td>122</td>
+<td>202</td>
+<td>366</td>
+</tr>
+<tr>
+<td>Hỗn hợp (<em>Blend</em>)</td>
+<td>56</td>
+<td>149</td>
+<td>520</td>
+<td>725</td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td>148</td>
+<td>381</td>
+<td>1,065</td>
+<td>1,594</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 7 is called a <strong>contingency table</strong> or a <strong>two-way table</strong> (because there are two classifications, or classes—size and investment type).</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Minh họa 7 được gọi là <strong>bảng tiếp liên (<em>contingency table</em>)</strong> hoặc <strong>bảng hai chiều (<em>two-way table</em>)</strong> (bởi vì có hai phân loại, hoặc hai lớp—quy mô và loại hình đầu tư).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>If we want to test whether a relationship exists between the size and investment type, we can perform a test of independence using a nonparametric test statistic that is chi-square distributed:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Nếu chúng ta muốn kiểm định xem liệu có tồn tại mối quan hệ giữa quy mô và loại hình đầu tư hay không, chúng ta có thể thực hiện một kiểm định tính độc lập bằng cách sử dụng một thống kê kiểm định phi tham số có phân phối Khi-bình phương (<em>chi-square distributed</em>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0262-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0262-06.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\chi^2 = \sum_{i=1}^{m} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} \tag{4}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><em>m</em> = the number of cells in the table, which is the number of groups in the first class multiplied by the number of groups in the second class;</p>
+</li>
+<li>
+<p><em>Oij</em> = the number of observations in each cell of row <em>i</em> and column <em>j</em> (i.e., observed frequency); and</p>
+</li>
+<li>
+<p><em>Eij</em> = the expected number of observations in each cell of row <em>i</em> and column <em>j</em> , assuming independence (i.e., expected frequency).</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><span class="math-inline">$m =$</span> số lượng ô (<em>cells</em>) trong bảng, bằng số nhóm trong phân loại thứ nhất nhân với số nhóm trong phân loại thứ hai; </li>
+<li><span class="math-inline">$O_{ij} =$</span> số lượng quan sát trong mỗi ô ở hàng <span class="math-inline">$i$</span> và cột <span class="math-inline">$j$</span> (tức là tần số quan sát được – <em>observed frequency</em>); và </li>
+<li><span class="math-inline">$E_{ij} =$</span> số lượng quan sát kỳ vọng trong mỗi ô ở hàng <span class="math-inline">$i$</span> và cột <span class="math-inline">$j$</span>, giả định tính độc lập (tức là tần số kỳ vọng – <em>expected frequency</em>).</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>This test statistic has ( <em>r</em> − 1)( <em>c</em> − 1) degrees of freedom, where <em>r</em> is the number of rows and <em>c</em> is the number of columns.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thống kê kiểm định này có <span class="math-inline">$(r - 1)(c - 1)$</span> bậc tự do, trong đó <span class="math-inline">$r$</span> là số hàng và <span class="math-inline">$c$</span> là số cột.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In Exhibit 7, size class has three groups (small, medium, and large) and investment type class has three groups (value, growth, and blend), so <em>m</em> is 9 (= 3 × 3). The number of ETFs in each cell ( <em>Oij</em> ), the observed frequency, is given, so to calculate the chi-square test statistic, we need to estimate <em>Eij</em> , the expected frequency, which is the number of ETFs we would expect to be in each cell if size and investment type are completely independent. The expected number of ETFs ( <em>Eij</em> ) is calculated using the following:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong Minh họa 7, lớp quy mô có ba nhóm (nhỏ, vừa và lớn) và lớp loại hình đầu tư có ba nhóm (giá trị, tăng trưởng và hỗn hợp), vì vậy <span class="math-inline">$m$</span> bằng <span class="math-inline">$9$</span> (<span class="math-inline">$= 3 \times 3$</span>). Số lượng quỹ ETF trong mỗi ô (<span class="math-inline">$O_{ij}$</span>), tức tần số quan sát được, đã được cho trước, vì vậy để tính thống kê kiểm định Khi-bình phương, chúng ta cần ước tính <span class="math-inline">$E_{ij}$</span>, tần số kỳ vọng, tức là số lượng quỹ ETF mà chúng ta kỳ vọng sẽ có trong mỗi ô nếu quy mô và loại hình đầu tư hoàn toàn độc lập với nhau. Số lượng quỹ ETF kỳ vọng (<span class="math-inline">$E_{ij}$</span>) được tính bằng công thức sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0262-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0262-13.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$E_{ij} = \frac{(\text{Tổng hàng } i) \times (\text{Tổng cột } j)}{\text{Tổng chung toàn bảng}} \tag{5}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Consider one combination of size and investment type, small-cap value:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy xem xét một sự kết hợp giữa quy mô và loại hình đầu tư, nhóm giá trị vốn hóa nhỏ (<em>small-cap value</em>):</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0262-15.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0262-15.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$E_{ij} = \frac{503 \times 148}{1,594} = 46.703$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We repeat this calculation for each combination of size and investment type (i.e., <em>m</em> = 9 pairs) to arrive at the expected frequencies, shown in Panel A of Exhibit 8. Next, we calculate</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta lặp lại phép tính này cho từng sự kết hợp giữa quy mô và loại hình đầu tư (tức là <span class="math-inline">$m = 9$</span> cặp) để thu được các tần số kỳ vọng, được trình bày trong Bảng A của Minh họa 8. Tiếp theo, chúng ta tính:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0262-17.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0262-17.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>the squared difference between observed and expected frequencies scaled by expected frequency, for each cell as shown in Panel B of Exhibit 8. Finally, by summing the values of</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>tức bình phương chênh lệch giữa tần số quan sát được và tần số kỳ vọng được chuẩn hóa theo tần số kỳ vọng, cho mỗi ô như được hiển thị trong Bảng B của Minh họa 8. Cuối cùng, bằng cách cộng tổng các giá trị của:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0262-19.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0262-19.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$</div></div>
+                </div>
+                
+
+                <div id="pdf-page-263" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 263 / Trang PDF 263
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>for each of the <em>m</em> cells, we calculate the chi-square statistic as 32.08025.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>cho mỗi ô trong số <span class="math-inline">$m$</span> ô, chúng ta tính được thống kê Khi-bình phương là <span class="math-inline">$32.08025$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Exhibit 8: Inputs to Chi-Square Test Statistic Calculation for 1,594 ETFs Assuming Independence of Size and Investment Type</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Minh họa 8: Các Đầu vào cho Phép tính Thống kê Kiểm định Khi-bình phương cho 1,594 Quỹ ETF Giả định Tính Độc lập giữa Quy mô và Loại hình Đầu tư (<em>Exhibit 8: Inputs to Chi-Square Test Statistic Calculation for 1,594 ETFs Assuming Independence of Size and Investment Type</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>A. Expected Frequency of ETFs by Size and Investment Type</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>A. Tần số Kỳ vọng của các Quỹ ETF theo Quy mô và Loại hình Đầu tư (<em>Expected Frequency of ETFs by Size and Investment Type</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Size B</strong></th>
+<th><strong>ased on Market Capita</strong></th>
+<th><strong>lization</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Investment Type</strong></td>
+<td><strong>Small</strong></td>
+<td><strong>Medium</strong></td>
+<td><strong>Large</strong></td>
+</tr>
+<tr>
+<td>Value</td>
+<td>46.703</td>
+<td>120.228</td>
+<td>336.070</td>
+</tr>
+<tr>
+<td>Growth</td>
+<td>33.982</td>
+<td>87.482</td>
+<td>244.536</td>
+</tr>
+<tr>
+<td>Blend</td>
+<td>67.315</td>
+<td>173.290</td>
+<td>484.395</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>148.000</td>
+<td>381.000</td>
+<td>1,065.000</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Loại hình Đầu tư (<em>Investment Type</em>)</strong></th>
+<th><strong>Quy mô theo Vốn hóa: Nhỏ (<em>Small</em>)</strong></th>
+<th><strong>Quy mô theo Vốn hóa: Vừa (<em>Medium</em>)</strong></th>
+<th><strong>Quy mô theo Vốn hóa: Lớn (<em>Large</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Giá trị (<em>Value</em>)</td>
+<td>46.703</td>
+<td>120.228</td>
+<td>336.070</td>
+</tr>
+<tr>
+<td>Tăng trưởng (<em>Growth</em>)</td>
+<td>33.982</td>
+<td>87.482</td>
+<td>244.536</td>
+</tr>
+<tr>
+<td>Hỗn hợp (<em>Blend</em>)</td>
+<td>67.315</td>
+<td>173.290</td>
+<td>484.395</td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td>148.000</td>
+<td>381.000</td>
+<td>1,065.000</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h6><strong>B. Scaled Squared Deviation for Each Combination of Size and Investment Type</strong></h6></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>B. Độ lệch Bình phương Chuẩn hóa cho Mỗi Sự kết hợp giữa Quy mô và Loại hình Đầu tư (<em>Scaled Squared Deviation for Each Combination of Size and Investment Type</em>)</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Size B</strong></th>
+<th><strong>ased on Market Capita</strong></th>
+<th><strong>lization</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Investment Type</strong></td>
+<td><strong>Small</strong></td>
+<td><strong>Medium</strong></td>
+<td><strong>Large</strong></td>
+</tr>
+<tr>
+<td>Value</td>
+<td>0.233</td>
+<td>0.870</td>
+<td>0.143</td>
+</tr>
+<tr>
+<td>Growth</td>
+<td>1.892</td>
+<td>13.620</td>
+<td>7.399</td>
+</tr>
+<tr>
+<td>Blend</td>
+<td>1.902</td>
+<td>3.405</td>
+<td>2.617</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Loại hình Đầu tư (<em>Investment Type</em>)</strong></th>
+<th><strong>Quy mô theo Vốn hóa: Nhỏ (<em>Small</em>)</strong></th>
+<th><strong>Quy mô theo Vốn hóa: Vừa (<em>Medium</em>)</strong></th>
+<th><strong>Quy mô theo Vốn hóa: Lớn (<em>Large</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Giá trị (<em>Value</em>)</td>
+<td>0.233</td>
+<td>0.870</td>
+<td>0.143</td>
+</tr>
+<tr>
+<td>Tăng trưởng (<em>Growth</em>)</td>
+<td>1.892</td>
+<td>13.620</td>
+<td>7.399</td>
+</tr>
+<tr>
+<td>Hỗn hợp (<em>Blend</em>)</td>
+<td>1.902</td>
+<td>3.405</td>
+<td>2.617</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In our ETF example, we test the null hypothesis of independence between the two classes (i.e., no relationship between size and investment type) versus the alternative hypothesis of dependence (i.e., a relationship between size and investment type) using a 5 percent level of significance, as shown in Exhibit 9. If the observed values are equal to the expected values, the calculated test statistic would be zero. If, however, the observed and expected values are different, these differences are squared, so the calculated chi-square statistic will be positive. Therefore, for the test of independence using a contingency table, there is only one rejection region, on the right side.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong ví dụ về quỹ ETF của chúng ta, chúng ta kiểm định giả thuyết không về tính độc lập giữa hai lớp (tức là không có mối quan hệ giữa quy mô và loại hình đầu tư) đối lập với giả thuyết đối về sự phụ thuộc (tức là có mối quan hệ giữa quy mô và loại hình đầu tư) bằng cách sử dụng mức ý nghĩa <span class="math-inline">$5\%$</span>, như được hiển thị trong Minh họa 9. Nếu các giá trị quan sát được bằng với các giá trị kỳ vọng, thống kê kiểm định tính toán được sẽ bằng <span class="math-inline">$0$</span>. Tuy nhiên, nếu các giá trị quan sát được và kỳ vọng khác nhau, những chênh lệch này được bình phương lên, vì vậy thống kê Khi-bình phương tính toán được sẽ mang giá trị dương. Do đó, đối với kiểm định tính độc lập sử dụng bảng tiếp liên, chỉ có duy nhất một miền bác bỏ nằm ở phía bên phải (<em>right side</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 9: Test of Independence of Size and Investment Type for 1,594 ETFs</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 9: Kiểm định Tính Độc lập của Quy mô và Loại hình Đầu tư cho 1,594 Quỹ ETF (<em>Exhibit 9: Test of Independence of Size and Investment Type for 1,594 ETFs</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Step 1</strong></th>
+<th>State the hypotheses.</th>
+<th><em>H_0: ETF size and investment type are not<br>related, so these classifications are inde-<br>pendent;_Ha</em>: ETF size and investment type<br>are related, so these classifications are not<br>independent.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 2</strong></td>
+<td>Identify the appropriate test<br>statistic.</td>
+<td><em>χ</em> <sup>2</sup>=∑<br><em>i</em>=1<br><em>m</em><br> ( <em>O</em> <em>ij</em>−<em>E</em> <em>ij</em> ) <sup>2</sup> <br><em><br> _E</em> <em>ij</em></td>
+</tr>
+<tr>
+<td><strong>Step 3</strong></td>
+<td>Specify the level of significance.</td>
+<td>5%</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 1 (<em>Step 1</em>)</strong></th>
+<th>Phát biểu các giả thuyết.</th>
+<th><span class="math-inline">$H_0$</span>: Quy mô ETF và loại hình đầu tư không có liên hệ với nhau, vì vậy các phân loại này độc lập với nhau; <span class="math-inline">$H_a$</span>: Quy mô ETF và loại hình đầu tư có liên hệ với nhau, vì vậy các phân loại này không độc lập với nhau.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 2 (<em>Step 2</em>)</strong></td>
+<td>Xác định thống kê kiểm định phù hợp.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$\chi^2 = \sum_{i=1}^{m} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 3 (<em>Step 3</em>)</strong></td>
+<td>Xác định mức ý nghĩa.</td>
+<td><span class="math-inline">$5\%$</span></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-264" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 264 / Trang PDF 264
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Step 4</strong> State the decision rule.</p>
+<p>With (3 − 1) × (3 − 1) = 4 degrees of freedom and a one-sided test with a 5% level of significance, the critical value is 9.4877.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>We reject the null hypothesis if the calculated<br><em>χ</em><sup><em>2</em></sup>statistic is greater than 9.4877.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td><strong>Excel</strong><br>~~CHISQ.INV(0.95,4)~~</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><strong>R</strong><br>~~qchisq(.95,4)~~</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><strong>Python</strong><br>~~from scipy.stats import~~<br>~~chi2~~</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>~~chi2.ppf(.95,4)~~</td>
+</tr>
+<tr>
+<td><strong>Step 5</strong></td>
+<td>Calculate the test statistic.</td>
+<td><em>χ</em><sup><em>2</em></sup>= 32.08025</td>
+</tr>
+<tr>
+<td><strong>Step 6</strong></td>
+<td>Make a decision.</td>
+<td>Reject the null hypothesis of independence<br>because the calculated_χ_<sup><em>2</em></sup>test statistic is<br>greater than 9.4877. Evidence is sufficient to<br>conclude that ETF size and investment type<br>are related (i.e., not independent).</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 4 (<em>Step 4</em>)</strong></th>
+<th>Phát biểu quy tắc quyết định.</th>
+<th>Với <span class="math-inline">$(3 - 1) \times (3 - 1) = 4$</span> bậc tự do và kiểm định một phía với mức ý nghĩa <span class="math-inline">$5\%$</span>, giá trị tới hạn là <span class="math-inline">$9.4877$</span>.<br>Chúng ta bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$\chi^2$</span> tính toán được lớn hơn <span class="math-inline">$9.4877$</span>.<br><strong>Excel:</strong> <code>CHISQ.INV(0.95,4)</code><br><strong>R:</strong> <code>qchisq(.95,4)</code><br><strong>Python:</strong> <code>from scipy.stats import chi2</code> / <code>chi2.ppf(.95,4)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 5 (<em>Step 5</em>)</strong></td>
+<td>Tính toán thống kê kiểm định.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$\chi^2 = 32.08025$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 6 (<em>Step 6</em>)</strong></td>
+<td>Đưa ra quyết định.</td>
+<td>Bác bỏ giả thuyết không về tính độc lập bởi vì thống kê kiểm định <span class="math-inline">$\chi^2$</span> tính toán được lớn hơn <span class="math-inline">$9.4877$</span>. Có đủ bằng chứng để kết luận rằng quy mô ETF và loại hình đầu tư có liên hệ với nhau (tức là không độc lập).</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>We can visualize the contingency table in a graphic referred to as a mosaic. In a mosaic, a grid reflects the comparison between the observed and expected frequencies. Consider Exhibit 10, which represents the ETF contingency table.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chúng ta có thể trực quan hóa bảng tiếp liên trong một đồ họa được gọi là biểu đồ khảm (<em>mosaic</em>). Trong biểu đồ khảm, một lưới các ô phản ánh sự so sánh giữa tần số quan sát được và tần số kỳ vọng. Hãy xem xét Minh họa 10, biểu diễn bảng tiếp liên của quỹ ETF.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 10: Mosaic of the ETF Contingency Table</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 10: Biểu đồ Khảm của Bảng Tiếp liên ETF (<em>Exhibit 10: Mosaic of the ETF Contingency Table</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0264-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0264-07.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong> Biểu đồ khảm (<em>Mosaic plot</em>) chia theo Quy mô (<em>Size</em>: <em>Small, Medium, Large</em>) và Loại hình đầu tư (<em>Investment Type</em>: <em>Value, Growth, Blend</em>) cùng thang màu của Phần dư chuẩn hóa (<em>Standardized Residuals</em> từ <span class="math-inline">$&lt;-4$</span> đến <span class="math-inline">$&gt;4$</span>).</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The width of the rectangles in Exhibit 10 reflect the proportion of ETFs that are small, medium, and large, whereas the height reflects the proportion that are value, growth, and blend. The darker shading indicates whether the number of observations is more than expected under the null hypothesis of independence, whereas the lighter shading indicates that the number of observations is less than expected, with “more than” and “less than” determined by reference to the standardized residual boxes. The standardized residual, also referred to as a Pearson residual, is as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Chiều rộng của các hình chữ nhật trong Minh họa 10 phản ánh tỷ trọng của các quỹ ETF có quy mô nhỏ, vừa và lớn, trong khi chiều cao phản ánh tỷ trọng thuộc nhóm giá trị, tăng trưởng và hỗn hợp. Độ tô bóng đậm hơn cho biết số lượng quan sát nhiều hơn mức kỳ vọng dưới giả thuyết không về tính độc lập, trong khi độ tô bóng nhạt hơn cho biết số lượng quan sát ít hơn mức kỳ vọng, với mức “nhiều hơn” và “ít hơn” được xác định bằng cách tham chiếu đến các ô phần dư chuẩn hóa (<em>standardized residuals</em>). Phần dư chuẩn hóa, còn được gọi là phần dư Pearson (<em>Pearson residual</em>), được tính như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0264-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0264-09.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\text{Phần dư chuẩn hóa (Standardized residual)} = \frac{O_{ij} - E_{ij}}{\sqrt{E_{ij}}}$$</div></div>
+                </div>
+                
+
+                <div id="pdf-page-265" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 265 / Trang PDF 265
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The interpretation for this ETF example is that there are more medium-size growth ETFs (standardized residual of 3.69) and fewer large-size growth ETFs (standardized residual of −2.72) than would be expected if size and investment type were independent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cách diễn giải cho ví dụ ETF này là có nhiều quỹ ETF tăng trưởng quy mô vừa hơn (phần dư chuẩn hóa là <span class="math-inline">$3.69$</span>) và ít quỹ ETF tăng trưởng quy mô lớn hơn (phần dư chuẩn hóa là <span class="math-inline">$-2.72$</span>) so với mức được kỳ vọng nếu quy mô và loại hình đầu tư độc lập với nhau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>EXAMPLE 4</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>VÍ DỤ 4 (<em>EXAMPLE 4</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>Using Contingency Tables to Test for Independence</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>Sử dụng Bảng Tiếp liên để Kiểm định Tính Độc lập (<em>Using Contingency Tables to Test for Independence</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Consider the contingency table in Exhibit 11, which classifies 500 randomly selected companies on the basis of two environmental, social, and governance (ESG) rating dimensions: environmental rating and governance rating.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hãy xem xét bảng tiếp liên trong Minh họa 11, phân loại 500 công ty được chọn ngẫu nhiên trên cơ sở hai chiều kích xếp hạng môi trường, xã hội và quản trị (ESG): xếp hạng môi trường (<em>environmental rating</em>) và xếp hạng quản trị (<em>governance rating</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 11: Classification of 500 Randomly Selected Companies Based on Environmental and Governance Ratings</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Minh họa 11: Phân loại 500 Công ty Được Chọn Ngẫu nhiên Dựa trên Xếp hạng Môi trường và Quản trị (<em>Exhibit 11: Classification of 500 Randomly Selected Companies Based on Environmental and Governance Ratings</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Govern</strong></th>
+<th><strong>ance Rating</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Environmental Rating</strong></td>
+<td><strong>Progressive</strong></td>
+<td><strong>Average</strong></td>
+<td><strong>Poor</strong></td>
+<td><strong>Total</strong></td>
+</tr>
+<tr>
+<td>Progressive</td>
+<td>35</td>
+<td>40</td>
+<td>5</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>80</td>
+<td>130</td>
+<td>50</td>
+<td>260</td>
+</tr>
+<tr>
+<td>Poor</td>
+<td>40</td>
+<td>60</td>
+<td>60</td>
+<td>160</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>155</td>
+<td>230</td>
+<td>115</td>
+<td>500</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Xếp hạng Môi trường (<em>Environmental Rating</em>)</strong></th>
+<th><strong>Xếp hạng Quản trị: Tiến bộ (<em>Progressive</em>)</strong></th>
+<th><strong>Xếp hạng Quản trị: Trung bình (<em>Average</em>)</strong></th>
+<th><strong>Xếp hạng Quản trị: Kém (<em>Poor</em>)</strong></th>
+<th><strong>Tổng (<em>Total</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tiến bộ (<em>Progressive</em>)</td>
+<td>35</td>
+<td>40</td>
+<td>5</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Trung bình (<em>Average</em>)</td>
+<td>80</td>
+<td>130</td>
+<td>50</td>
+<td>260</td>
+</tr>
+<tr>
+<td>Kém (<em>Poor</em>)</td>
+<td>40</td>
+<td>60</td>
+<td>60</td>
+<td>160</td>
+</tr>
+<tr>
+<td>Tổng (<em>Total</em>)</td>
+<td>155</td>
+<td>230</td>
+<td>115</td>
+<td>500</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>What are the expected frequencies for these two ESG rating dimensions if these categories are independent?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Các tần số kỳ vọng cho hai chiều kích xếp hạng ESG này là bao nhiêu nếu các danh mục này độc lập với nhau?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải (<em>Solution</em>):</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The expected frequencies based on independence of the governance rating and the environmental rating are shown in Panel A of Exhibit 12. For example, using Equation 5, the expected frequency for the combination of progressive governance and progressive environmental ratings is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các tần số kỳ vọng dựa trên tính độc lập của xếp hạng quản trị và xếp hạng môi trường được hiển thị trong Bảng A của Minh họa 12. Ví dụ, sử dụng Phương trình 5, tần số kỳ vọng cho sự kết hợp giữa xếp hạng quản trị tiến bộ và xếp hạng môi trường tiến bộ là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0265-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0265-12.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$E_{ij} = \frac{155 \times 80}{500} = 24.80$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The scaled squared deviations for each combination of environmental and governance rating are shown in Panel B of Exhibit 12. For example, using Equation 4, the scaled squared deviation for the combination of progressive governance and progressive environmental ratings is as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các độ lệch bình phương chuẩn hóa (<em>scaled squared deviations</em>) cho mỗi sự kết hợp giữa xếp hạng môi trường và quản trị được hiển thị trong Bảng B của Minh họa 12. Ví dụ, sử dụng Phương trình 4, độ lệch bình phương chuẩn hóa cho sự kết hợp giữa xếp hạng quản trị tiến bộ và xếp hạng môi trường tiến bộ như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0265-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0265-14.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\frac{(35 - 24.8)^2}{24.8} = 4.195$$</div></div>
+                </div>
+                
+
+                <div id="pdf-page-266" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 266 / Trang PDF 266
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Exhibit 12: Inputs to Chi-Square Test Statistic Calculation Assuming Independence of Environmental and Governance Ratings</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Minh họa 12: Các Đầu vào cho Phép tính Thống kê Kiểm định Khi-bình phương Giả định Tính Độc lập của Xếp hạng Môi trường và Quản trị (<em>Exhibit 12: Inputs to Chi-Square Test Statistic Calculation Assuming Independence of Environmental and Governance Ratings</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>A. Expected Frequencies of Environmental and Governance Ratings Assuming Independence</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>A. Tần số Kỳ vọng của Xếp hạng Môi trường và Quản trị Giả định Tính Độc lập (<em>Expected Frequencies of Environmental and Governance Ratings Assuming Independence</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>G</strong></th>
+<th><strong>overnance Rati</strong></th>
+<th><strong>ng</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Environmental Rating</strong></td>
+<td><strong>Progressive</strong></td>
+<td><strong>Average</strong></td>
+<td><strong>Poor</strong></td>
+</tr>
+<tr>
+<td>Progressive</td>
+<td>24.8</td>
+<td>36.8</td>
+<td>18.4</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>80.6</td>
+<td>119.6</td>
+<td>59.8</td>
+</tr>
+<tr>
+<td>Poor</td>
+<td>49.6</td>
+<td>73.6</td>
+<td>36.8</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Xếp hạng Môi trường (<em>Environmental Rating</em>)</strong></th>
+<th><strong>Xếp hạng Quản trị: Tiến bộ (<em>Progressive</em>)</strong></th>
+<th><strong>Xếp hạng Quản trị: Trung bình (<em>Average</em>)</strong></th>
+<th><strong>Xếp hạng Quản trị: Kém (<em>Poor</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tiến bộ (<em>Progressive</em>)</td>
+<td>24.8</td>
+<td>36.8</td>
+<td>18.4</td>
+</tr>
+<tr>
+<td>Trung bình (<em>Average</em>)</td>
+<td>80.6</td>
+<td>119.6</td>
+<td>59.8</td>
+</tr>
+<tr>
+<td>Kém (<em>Poor</em>)</td>
+<td>49.6</td>
+<td>73.6</td>
+<td>36.8</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>B. Scaled Squared Deviation for Each Combination of Environmental and Governance Ratings</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>B. Độ lệch Bình phương Chuẩn hóa cho Mỗi Sự kết hợp giữa Xếp hạng Môi trường và Quản trị (<em>Scaled Squared Deviation for Each Combination of Environmental and Governance Ratings</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>G</strong></th>
+<th><strong>overnance Rati</strong></th>
+<th><strong>ng</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Environmental Rating</strong></td>
+<td><strong>Progressive</strong></td>
+<td><strong>Average</strong></td>
+<td><strong>Poor</strong></td>
+</tr>
+<tr>
+<td>Progressive</td>
+<td>4.195</td>
+<td>0.278</td>
+<td>9.759</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>0.004</td>
+<td>0.904</td>
+<td>1.606</td>
+</tr>
+<tr>
+<td>Poor</td>
+<td>1.858</td>
+<td>2.513</td>
+<td>14.626</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Xếp hạng Môi trường (<em>Environmental Rating</em>)</strong></th>
+<th><strong>Xếp hạng Quản trị: Tiến bộ (<em>Progressive</em>)</strong></th>
+<th><strong>Xếp hạng Quản trị: Trung bình (<em>Average</em>)</strong></th>
+<th><strong>Xếp hạng Quản trị: Kém (<em>Poor</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tiến bộ (<em>Progressive</em>)</td>
+<td>4.195</td>
+<td>0.278</td>
+<td>9.759</td>
+</tr>
+<tr>
+<td>Trung bình (<em>Average</em>)</td>
+<td>0.004</td>
+<td>0.904</td>
+<td>1.606</td>
+</tr>
+<tr>
+<td>Kém (<em>Poor</em>)</td>
+<td>1.858</td>
+<td>2.513</td>
+<td>14.626</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Using a 5 percent level of significance, determine whether these two ESG rating dimensions are independent of one another.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Sử dụng mức ý nghĩa <span class="math-inline">$5\%$</span>, hãy xác định xem hai chiều kích xếp hạng ESG này có độc lập với nhau hay không.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải (<em>Solution</em>):</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Step 1</strong></th>
+<th>State the<br>hypotheses.</th>
+<th><em>H_0: Governance and environmental ratings are<br>not related, so these ratings are independent;<br>_Ha</em>: Governance and environmental ratings are<br>related, so these ratings are not independent.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 2</strong></td>
+<td>Identify the appro-<br>priate test statistic.</td>
+<td><em>χ</em> <sup>2</sup>=∑ <em>i</em>=1<br><em>m</em><br> <br> ( <em>O</em> <em>ij</em>−<em>E</em> <em>ij</em> ) <sup>2</sup> <br><em><br> _E</em> <em>ij</em></td>
+</tr>
+<tr>
+<td><strong>Step 3</strong></td>
+<td>Specify the level of<br>significance.</td>
+<td>5%</td>
+</tr>
+<tr>
+<td><strong>Step 4</strong></td>
+<td>State the decision<br>rule.</td>
+<td>With (3 − 1) × (3 − 1) = 4 degrees of freedom and<br>a one-sided test with a 5% level of significance,<br>the critical value is 9.487729.<br>We reject the null hypothesis if the calculated_χ_<sup><em>2</em></sup><br>statistic is greater than 9.487729.<br><strong>Excel</strong><br>~~CHISQ.INV(0.95,4)~~<br><strong>R</strong></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>~~qchisq(.95,4)~~<br><strong>Python</strong></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>~~from scipy.stats import chi2~~<br>~~chi2.ppf(.95,4)~~</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 1 (<em>Step 1</em>)</strong></th>
+<th>Phát biểu các giả thuyết.</th>
+<th><span class="math-inline">$H_0$</span>: Xếp hạng quản trị và môi trường không có liên hệ với nhau, vì vậy các xếp hạng này độc lập với nhau;<br><span class="math-inline">$H_a$</span>: Xếp hạng quản trị và môi trường có liên hệ với nhau, vì vậy các xếp hạng này không độc lập với nhau.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 2 (<em>Step 2</em>)</strong></td>
+<td>Xác định thống kê kiểm định phù hợp.</td>
+<td><div class="math-display my-3 overflow-x-auto">$$\chi^2 = \sum_{i=1}^{m} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$</div></td>
+</tr>
+<tr>
+<td><strong>Bước 3 (<em>Step 3</em>)</strong></td>
+<td>Xác định mức ý nghĩa.</td>
+<td><span class="math-inline">$5\%$</span></td>
+</tr>
+<tr>
+<td><strong>Bước 4 (<em>Step 4</em>)</strong></td>
+<td>Phát biểu quy tắc quyết định.</td>
+<td>Với <span class="math-inline">$(3 - 1) \times (3 - 1) = 4$</span> bậc tự do và kiểm định một phía với mức ý nghĩa <span class="math-inline">$5\%$</span>, giá trị tới hạn là <span class="math-inline">$9.487729$</span>.<br>Chúng ta bác bỏ giả thuyết không nếu thống kê <span class="math-inline">$\chi^2$</span> tính toán được lớn hơn <span class="math-inline">$9.487729$</span>.<br><strong>Excel:</strong> <code>CHISQ.INV(0.95,4)</code><br><strong>R:</strong> <code>qchisq(.95,4)</code><br><strong>Python:</strong> <code>from scipy.stats import chi2</code> / <code>chi2.ppf(.95,4)</code></td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div id="pdf-page-267" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 267 / Trang PDF 267
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Step 5</strong></th>
+<th>Calculate the test<br>statistic.</th>
+<th><em>χ</em><sup><em>2</em></sup>= 35.74415<br>To calculate the test statistic, we first calcu-<br>late the squared difference between observed<br>and expected frequencies scaled by expected<br>frequency for each cell, as shown in Panel B of<br>Exhibit 12. Then, summing the values in each<br>of the_m_cells (see Equation 4), we calculate the<br>chi-square statistic as 35.74415.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step 6</strong></td>
+<td>Make a decision.</td>
+<td>Reject the null hypothesis because the calculated<br><em>χ</em><sup><em>2</em></sup>test statistic is greater than 9.487729. Evidence<br>is sufficient to indicate that the environmental<br>and governance ratings are related, so they are<br>not independent.</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Bước 5 (<em>Step 5</em>)</strong></th>
+<th>Tính toán thống kê kiểm định.</th>
+<th><span class="math-inline">$\chi^2 = 35.74415$</span><br>Để tính thống kê kiểm định, trước tiên chúng ta tính bình phương chênh lệch giữa tần số quan sát được và tần số kỳ vọng được chuẩn hóa theo tần số kỳ vọng cho mỗi ô, như được hiển thị trong Bảng B của Minh họa 12. Sau đó, cộng tổng các giá trị trong mỗi ô của <span class="math-inline">$m$</span> ô (xem Phương trình 4), chúng ta tính được thống kê Khi-bình phương là <span class="math-inline">$35.74415$</span>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bước 6 (<em>Step 6</em>)</strong></td>
+<td>Đưa ra quyết định.</td>
+<td>Bác bỏ giả thuyết không bởi vì thống kê kiểm định <span class="math-inline">$\chi^2$</span> tính toán được lớn hơn <span class="math-inline">$9.487729$</span>. Có đủ bằng chứng để chỉ ra rằng xếp hạng môi trường và quản trị có liên hệ với nhau, vì vậy chúng không độc lập với nhau.</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>QUESTION SET</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>An analyst group follows 250 firms and classifies them in two dimensions. First, they use dividend payment history and earnings forecasts to classify firms into one of three groups, with 1 indicating the dividend stars and 3 the dividend laggards. Second, they classify firms on the basis of financial leverage, using debt ratios, debt features, and corporate governance to classify the firms into three groups, with 1 indicating the least risky firms based on financial leverage and 3 indicating the riskiest. The classification of the 250 firms is as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Một nhóm phân tích theo dõi 250 công ty và phân loại chúng theo hai chiều kích. Thứ nhất, họ sử dụng lịch sử chi trả cổ tức và dự báo thu nhập để phân loại các công ty vào một trong ba nhóm, với nhóm 1 biểu thị các ngôi sao cổ tức (<em>dividend stars</em>) và nhóm 3 biểu thị các công ty tụt hậu về cổ tức (<em>dividend laggards</em>). Thứ hai, họ phân loại các công ty trên cơ sở đòn bẩy tài chính (<em>financial leverage</em>), sử dụng các tỷ số nợ, đặc điểm khoản nợ và quản trị doanh nghiệp để phân loại các công ty thành ba nhóm, với nhóm 1 biểu thị các công ty ít rủi ro nhất dựa trên đòn bẩy tài chính và nhóm 3 biểu thị các công ty rủi ro nhất. Phân loại của 250 công ty như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Financial Leverage</strong></th>
+<th></th>
+<th><strong>Dividend Group</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Group</strong></td>
+<td><strong>1</strong></td>
+<td><strong>2</strong><br><strong>3</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>40</td>
+<td>40<br>40</td>
+</tr>
+<tr>
+<td>2</td>
+<td>30</td>
+<td>10<br>20</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10</td>
+<td>50<br>10</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nhóm Đòn bẩy Tài chính (<em>Financial Leverage Group</em>)</strong></th>
+<th><strong>Nhóm Cổ tức (<em>Dividend Group</em>): 1</strong></th>
+<th><strong>Nhóm Cổ tức (<em>Dividend Group</em>): 2</strong></th>
+<th><strong>Nhóm Cổ tức (<em>Dividend Group</em>): 3</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>40</td>
+<td>40</td>
+<td>40</td>
+</tr>
+<tr>
+<td>2</td>
+<td>30</td>
+<td>10</td>
+<td>20</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10</td>
+<td>50</td>
+<td>10</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Using the classification of the 250 firms, answer the following questions:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Sử dụng bảng phân loại của 250 công ty này, hãy trả lời các câu hỏi sau:</p>
+<ol>
+<li>Giả thuyết không và giả thuyết đối để kiểm định xem các nhóm cổ tức và nhóm đòn bẩy tài chính có độc lập với nhau hay không là gì?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>What are the null and alternative hypotheses to test whether the dividend and financial leverage groups are independent of one another?</li>
+</ol>
+<ul>
+<li><strong>Solution:</strong></li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The hypotheses are as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các giả thuyết như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>H</em> 0: Dividend and financial leverage ratings are not related, so these groupings are independent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><span class="math-inline">$H_0$</span>: Xếp hạng cổ tức và đòn bẩy tài chính không có liên hệ với nhau, vì vậy các cách phân nhóm này độc lập với nhau. </li>
+<li><span class="math-inline">$H_a$</span>: Xếp hạng cổ tức và đòn bẩy tài chính có liên hệ với nhau, vì vậy các cách phân nhóm này không độc lập với nhau.</li>
+</ul>
+<ol start="2">
+<li>Thống kê kiểm định phù hợp để sử dụng trong loại kiểm định này là gì?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>Ha: Dividend and financial leverage ratings are related, so these groupings are not independent.</li>
+</ul>
+<ol start="2">
+<li>What is the appropriate test statistic to use in this type of test? <strong>Solution:</strong></li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h6><strong>Lời giải (<em>Solution</em>):</strong></h6></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The appropriate test statistic is</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thống kê kiểm định phù hợp là:</p></div>
+                </div>
+                
+
+                <div id="pdf-page-268" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 268 / Trang PDF 268
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0268-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0268-03.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$\chi^2 = \sum_{i=1}^{m} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>where <em>Oij</em> represents the observed frequency for the <em>i</em> and <em>j</em> group and <em>Eij</em> represents the expected frequency for the <em>i</em> and <em>j</em> group if the groupings are independent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>trong đó <span class="math-inline">$O_{ij}$</span> đại diện cho tần số quan sát được đối với nhóm <span class="math-inline">$i$</span> và <span class="math-inline">$j$</span>, còn <span class="math-inline">$E_{ij}$</span> đại diện cho tần số kỳ vọng đối với nhóm <span class="math-inline">$i$</span> và <span class="math-inline">$j$</span> nếu các cách phân nhóm là độc lập với nhau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The expected frequencies based on independence are as follows:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các tần số kỳ vọng dựa trên tính độc lập như sau:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Financial Leverage</strong></th>
+<th><strong>Di</strong></th>
+<th><strong>vidend Gro</strong></th>
+<th><strong>up</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Group</strong></td>
+<td><strong>1</strong></td>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+<td><strong>Sum</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>38.4</td>
+<td>48</td>
+<td>33.6</td>
+<td>120</td>
+</tr>
+<tr>
+<td>2</td>
+<td>19.2</td>
+<td>24</td>
+<td>16.8</td>
+<td>60</td>
+</tr>
+<tr>
+<td>3</td>
+<td>22.4</td>
+<td>28</td>
+<td>19.6</td>
+<td>70</td>
+</tr>
+<tr>
+<td>Sum</td>
+<td>80</td>
+<td>100</td>
+<td>70</td>
+<td>250</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nhóm Đòn bẩy Tài chính (<em>Financial Leverage Group</em>)</strong></th>
+<th><strong>Nhóm Cổ tức: 1</strong></th>
+<th><strong>Nhóm Cổ tức: 2</strong></th>
+<th><strong>Nhóm Cổ tức: 3</strong></th>
+<th><strong>Tổng (<em>Sum</em>)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>38.4</td>
+<td>48</td>
+<td>33.6</td>
+<td>120</td>
+</tr>
+<tr>
+<td>2</td>
+<td>19.2</td>
+<td>24</td>
+<td>16.8</td>
+<td>60</td>
+</tr>
+<tr>
+<td>3</td>
+<td>22.4</td>
+<td>28</td>
+<td>19.6</td>
+<td>70</td>
+</tr>
+<tr>
+<td>Tổng (<em>Sum</em>)</td>
+<td>80</td>
+<td>100</td>
+<td>70</td>
+<td>250</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The scaled squared deviations for each combination of financial leverage and dividend grouping are:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các độ lệch bình phương chuẩn hóa cho mỗi sự kết hợp giữa nhóm đòn bẩy tài chính và nhóm cổ tức là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Financial Lever-</strong></th>
+<th></th>
+<th><strong>Dividend Group</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>age Group</strong></td>
+<td><strong>1</strong></td>
+<td><strong>2</strong></td>
+<td><strong>3</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0.06667</td>
+<td>1.33333</td>
+<td>1.21905</td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.07500</td>
+<td>8.16667</td>
+<td>0.60952</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6.86429</td>
+<td>17.28571</td>
+<td>4.70204</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th><strong>Nhóm Đòn bẩy Tài chính (<em>Financial Leverage Group</em>)</strong></th>
+<th><strong>Nhóm Cổ tức: 1</strong></th>
+<th><strong>Nhóm Cổ tức: 2</strong></th>
+<th><strong>Nhóm Cổ tức: 3</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.06667</td>
+<td>1.33333</td>
+<td>1.21905</td>
+</tr>
+<tr>
+<td>2</td>
+<td>6.07500</td>
+<td>8.16667</td>
+<td>0.60952</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6.86429</td>
+<td>17.28571</td>
+<td>4.70204</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>If the critical value for the 0.05 level of significance is 9.4877, what is your conclusion?</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>Nếu giá trị tới hạn cho mức ý nghĩa <span class="math-inline">$0.05$</span> là <span class="math-inline">$9.4877$</span>, kết luận của bạn là gì?</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h5><strong>Solution:</strong></h5></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h5><strong>Lời giải (<em>Solution</em>):</strong></h5></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The sum of these scaled squared deviations is the calculated chi-square statistic of 46.3223. Because this calculated value exceeds the critical value of 9.4877, we reject the null hypothesis that these groupings are independent.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tổng của các độ lệch bình phương chuẩn hóa này là thống kê Khi-bình phương tính toán được bằng <span class="math-inline">$46.3223$</span>. Bởi vì giá trị tính toán được này vượt quá giá trị tới hạn là <span class="math-inline">$9.4877$</span>, chúng ta bác bỏ giả thuyết không rằng các cách phân nhóm này độc lập với nhau.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-269" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 269 / Trang PDF 269
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~PRACTICE PROBLEMS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> Jill Batten is analyzing how the returns on the stock of Stellar Energy Corp. are related with the previous month’s percentage change in the US Consumer Price Index for Energy (CPIENG). Based on 248 observations, she has computed the sample correlation between the Stellar and CPIENG variables to be −0.1452. She also wants to determine whether the sample correlation is significantly different from zero. The critical value for the test statistic at the 0.05 level of significance is approximately 1.96. Batten should conclude that the statistical relationship between Stellar and CPIENG is:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Jill Batten đang phân tích xem tỷ suất sinh lợi trên cổ phiếu của Stellar Energy Corp. có liên hệ như thế nào với thay đổi phần trăm của tháng trước đó trong Chỉ số Giá Tiêu dùng Hoa Kỳ ngành Năng lượng (CPIENG). Dựa trên 248 quan sát, cô đã tính được tương quan mẫu giữa hai biến Stellar và CPIENG là <span class="math-inline">$-0.1452$</span>. Cô cũng muốn xác định xem liệu tương quan mẫu có khác <span class="math-inline">$0$</span> một cách có ý nghĩa thống kê hay không. Giá trị tới hạn cho thống kê kiểm định ở mức ý nghĩa <span class="math-inline">$0.05$</span> là xấp xỉ <span class="math-inline">$1.96$</span>. Batten nên kết luận rằng mối quan hệ thống kê giữa Stellar và CPIENG là:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> significant, because the calculated test statistic is outside the bounds of the critical values for the test statistic.</p>
+</li>
+<li>
+<p><strong>B.</strong> significant, because the calculated test statistic has a lower absolute value than the critical value for the test statistic.</p>
+</li>
+<li>
+<p><strong>C.</strong> insignificant, because the calculated test statistic is outside the bounds of the critical values for the test statistic.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> có ý nghĩa thống kê, bởi vì thống kê kiểm định tính toán được nằm ngoài giới hạn của các giá trị tới hạn cho thống kê kiểm định. </li>
+<li><strong>B.</strong> có ý nghĩa thống kê, bởi vì thống kê kiểm định tính toán được có giá trị tuyệt đối thấp hơn giá trị tới hạn cho thống kê kiểm định. </li>
+<li><strong>C.</strong> không có ý nghĩa thống kê, bởi vì thống kê kiểm định tính toán được nằm ngoài giới hạn của các giá trị tới hạn cho thống kê kiểm định.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> Which of the following statements is correct regarding the chi-square test of independence?</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Phát biểu nào sau đây là đúng liên quan đến kiểm định Khi-bình phương về tính độc lập (<em>chi-square test of independence</em>)?</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> The test has a one-sided rejection region.</p>
+</li>
+<li>
+<p><strong>B.</strong> The null hypothesis is that the two groups are dependent.</p>
+</li>
+<li>
+<p><strong>C.</strong> If there are two categories, each with three levels or groups, there are six degrees of freedom.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>A.</strong> Kiểm định có miền bác bỏ một phía (<em>one-sided rejection region</em>). </li>
+<li><strong>B.</strong> Giả thuyết không là hai nhóm phụ thuộc lẫn nhau. </li>
+<li><strong>C.</strong> Nếu có hai danh mục, mỗi danh mục có ba mức độ hoặc nhóm, thì có sáu bậc tự do.</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-270" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 270 / Trang PDF 270
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~SOLUTIONS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>A is correct. The calculated test statistic is</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li><strong>A đúng.</strong> Thống kê kiểm định tính toán được là:</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Quantitative_method.pdf-0270-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Quantitative_method.pdf-0270-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<div class="math-display my-3 overflow-x-auto">$$t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}} = \frac{-0.1452\sqrt{248 - 2}}{\sqrt{1 - (-0.1452)^2}} = -2.30177$$</div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Because the value of <em>t</em> = −2.30177 is outside the bounds of ±1.96, we reject the null hypothesis of no correlation and conclude that evidence is sufficient to indicate that the correlation is different from zero.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bởi vì giá trị của <span class="math-inline">$t = -2.30177$</span> nằm ngoài giới hạn của <span class="math-inline">$\pm 1.96$</span>, chúng ta bác bỏ giả thuyết không về việc không có tương quan và kết luận rằng có đủ bằng chứng để chỉ ra rằng tương quan là khác <span class="math-inline">$0$</span>.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>A is correct. The test statistic includes squared differences between the observed and expected values, so the test involves only one side, the right side. B is incorrect because the null hypothesis is that the groups are independent, and C is incorrect because with three levels of groups for the two categorical variables, there are four degrees of freedom.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li><strong>A đúng.</strong> Thống kê kiểm định bao gồm bình phương các chênh lệch giữa giá trị quan sát được và giá trị kỳ vọng, vì vậy kiểm định chỉ bao gồm một phía là phía bên phải (<em>right side</em>). B sai bởi vì giả thuyết không là các nhóm độc lập với nhau, và C sai bởi vì với ba mức độ nhóm cho hai biến phân loại, có <span class="math-inline">$(3 - 1)(3 - 1) = 4$</span> bậc tự do.</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM09_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM09_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 1</a>
+      <a href="LM10_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM10_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('01_Quantitative_Methods/LM09_Part2_Tests_of_Independence_Using_Contingency_Table.html');
+    });
+  </script>
+</body>
+</html>

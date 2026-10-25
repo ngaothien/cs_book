@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Module 3 Fixed-Income Issuance and Trading - Part 2: Primary and Secondary Fixed-Income Markets — Volume 6: Fixed Income | CFA 2026 Level I</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="../assets_shared/styles.css" />
+</head>
+<body class="mode-bilingual bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-2xs">
+    <div class="max-w-[1800px] mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="Mục lục chương">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <a href="../index.html" class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 transition">
+          CFA 2026
+        </a>
+        <span class="text-slate-400 hidden md:inline">/</span>
+        <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 truncate">
+          Volume 6: Thu Nhập Cố Định
+        </a>
+        <span class="text-slate-400">/</span>
+        <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">Learning Module 3 Fixed-Income Issuance and Trading - Part 2: Primary and Secondary Fixed-Income Markets</span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition">Đọc Gộp Nguyên Chương (Full LM)</a>
+        <select onchange="jumpToPdfPage(this.value)" class="hidden sm:block text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 text-slate-700 dark:text-slate-200">
+          <option value="">Trang PDF (7 trang)...</option>
+          <option value="81">PDF Page 81</option>
+<option value="82">PDF Page 82</option>
+<option value="83">PDF Page 83</option>
+<option value="84">PDF Page 84</option>
+<option value="85">PDF Page 85</option>
+<option value="86">PDF Page 86</option>
+<option value="87">PDF Page 87</option>
+        </select>
+
+        <!-- View Mode Switcher (Default: Side-by-Side EN Left | VI Right) -->
+        <div class="inline-flex items-center rounded-lg bg-slate-100 dark:bg-slate-800 p-0.5 border border-slate-200 dark:border-slate-700">
+          <button data-mode-btn="mode-bilingual" onclick="setViewMode('mode-bilingual')" class="px-2.5 py-1 rounded-md text-xs font-semibold transition" title="Hiển thị 2 cột: Tiếng Anh bên trái | Tiếng Việt bên phải">
+            🇬🇧 EN | 🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-vi-only" onclick="setViewMode('mode-vi-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Việt">
+            🇻🇳 VI
+          </button>
+          <button data-mode-btn="mode-en-only" onclick="setViewMode('mode-en-only')" class="px-2 py-1 rounded-md text-xs font-semibold transition" title="Chỉ hiển thị Tiếng Anh">
+            🇬🇧 EN
+          </button>
+        </div>
+
+        <button onclick="changeFontSize(-1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Giảm cỡ chữ">A-</button>
+        <button onclick="changeFontSize(1)" class="hidden sm:inline-flex px-2 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" title="Tăng cỡ chữ">A+</button>
+        <button onclick="toggleDark()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300" title="Chế độ Sáng / Tối">
+          🌓
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky Column Banner for Side-by-Side Mode -->
+    <div id="column-header-banner" class="hidden lg:grid grid-cols-2 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="max-w-[900px] w-full ml-auto px-6 py-1.5 flex items-center justify-between border-r border-slate-200 dark:border-slate-800">
+        <span>🇬🇧 NỬA BÊN TRÁI — ENGLISH ORIGINAL (CFA® CURRICULUM 2026)</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Left Column</span>
+      </div>
+      <div class="max-w-[900px] w-full mr-auto px-6 py-1.5 flex items-center justify-between">
+        <span>🇻🇳 NỬA BÊN PHẢI — BẢN DỊCH TIẾNG VIỆT CHUYÊN SÂU</span>
+        <span class="text-[10px] font-normal text-slate-400">50% Right Column</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-over Sidebar Drawer -->
+  <div id="cfa-sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 hidden"></div>
+  <aside id="cfa-sidebar" class="fixed top-0 left-0 bottom-0 w-84 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-200 flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div>
+        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Volume 6</div>
+        <div class="text-sm font-bold text-slate-900 dark:text-white">Thu Nhập Cố Định</div>
+      </div>
+      <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">✕</button>
+    </div>
+    <div class="p-3 border-b border-slate-200 dark:border-slate-800 flex gap-2">
+      <a href="../index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 text-slate-700 dark:text-slate-200">⌂ Tất cả 10 Volumes</a>
+      <a href="index.html" class="flex-1 text-center py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Mục lục Volume 6</a>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 space-y-1">
+      <a href="LM01_Full_Fixed_Income_Instrument_Features.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 1 Fixed-Income Instrument Features</a>
+<a href="LM01_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM01_Part2_Bond_Indentures_and_Covenants.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Bond Indentures and Covenants</a>
+<a href="LM02_Full_Fixed_Income_Cash_Flows_and_Types.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 2 Fixed-Income Cash Flows and Types</a>
+<a href="LM02_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM02_Part2_Fixed_Income_Contingency_Provisions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Fixed-Income Contingency Provisions</a>
+<a href="LM03_Full_Fixed_Income_Issuance_and_Trading.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 3 Fixed-Income Issuance and Trading</a>
+<a href="LM03_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html" class="block px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-2xs">  • Part 2: Primary and Secondary Fixed-Income Markets</a>
+<a href="LM04_Full_Fixed_Income_Markets_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 4 Fixed-Income Markets for Corporate Issuers</a>
+<a href="LM04_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM04_Part2_Repurchase_Agreements.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Repurchase Agreements</a>
+<a href="LM04_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM05_Full_Fixed_Income_Markets_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 5 Fixed-Income Markets for Government Issuers</a>
+<a href="LM05_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM05_Part2_Non_Sovereign_Quasi_Government_and_Supranatio.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign, Quasi-Government, and Supranational Agency Debt</a>
+<a href="LM06_Full_Fixed_Income_Bond_Valuation_Prices_and_Yields.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 6 Fixed-Income Bond Valuation: Prices and Yields</a>
+<a href="LM06_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM06_Part2_Relationships_between_Bond_Prices_and_Bond_Fe.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Relationships between Bond Prices and Bond Features</a>
+<a href="LM07_Full_Yield_and_Yield_Spread_Measures_for_Fixed_Rat.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 7 Yield and Yield Spread Measures for Fixed-Rate Bonds</a>
+<a href="LM07_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM07_Part2_Yield_Spread_Measures_for_Fixed_Rate_Bonds_an.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Spread Measures for Fixed-Rate Bonds and Matrix Pricing</a>
+<a href="LM08_Full_Yield_and_Yield_Spread_Measures_for_Floating.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 8 Yield and Yield Spread Measures for Floating-Rate Instruments</a>
+<a href="LM08_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM08_Part2_Yield_Measures_for_Money_Market_Instruments.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Yield Measures for Money Market Instruments</a>
+<a href="LM09_Full_The_Term_Structure_of_Interest_Rates_Spot_Par.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 9 The Term Structure of Interest Rates: Spot, Par, and Forward Curves</a>
+<a href="LM09_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM09_Part2_Par_and_Forward_Rates.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Par and Forward Rates</a>
+<a href="LM09_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM10_Full_Interest_Rate_Risk_and_Return.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 10 Interest Rate Risk and Return</a>
+<a href="LM10_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM10_Part2_Macaulay_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Macaulay Duration</a>
+<a href="LM11_Full_Yield_Based_Bond_Duration_Measures_and_Proper.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 11 Yield-Based Bond Duration Measures and Properties</a>
+<a href="LM11_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM11_Part2_Money_Duration_and_Price_Value_of_a_Basis_Poi.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Money Duration and Price Value of a Basis Point</a>
+<a href="LM12_Full_Yield_Based_Bond_Convexity_and_Portfolio_Prop.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 12 Yield-Based Bond Convexity and Portfolio Properties</a>
+<a href="LM12_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM12_Part2_Portfolio_Duration_and_Convexity.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Portfolio Duration and Convexity</a>
+<a href="LM13_Full_Curve_Based_and_Empirical_Fixed_Income_Risk_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 13 Curve-Based and Empirical Fixed-Income Risk Measures</a>
+<a href="LM13_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM13_Part2_Empirical_Duration.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Empirical Duration</a>
+<a href="LM14_Full_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 14 Credit Risk</a>
+<a href="LM14_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM14_Part2_Credit_Rating_Agencies_and_Credit_Ratings.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Credit Rating Agencies and Credit Ratings</a>
+<a href="LM14_Part3_Factors_Impacting_Yield_Spreads.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Factors Impacting Yield Spreads</a>
+<a href="LM14_Part4_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 4: Solutions</a>
+<a href="LM15_Full_Credit_Analysis_for_Government_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 15 Credit Analysis for Government Issuers</a>
+<a href="LM15_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM15_Part2_Non_Sovereign_Credit_Risk.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Sovereign Credit Risk</a>
+<a href="LM16_Full_Credit_Analysis_for_Corporate_Issuers.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 16 Credit Analysis for Corporate Issuers</a>
+<a href="LM16_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM16_Part2_Financial_Ratios_in_Corporate_Credit_Analysis.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Financial Ratios in Corporate Credit Analysis</a>
+<a href="LM16_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+<a href="LM17_Full_Fixed_Income_Securitization.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 17 Fixed-Income Securitization</a>
+<a href="LM17_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM17_Part2_The_Securitization_Process.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: The Securitization Process</a>
+<a href="LM18_Full_Asset_Backed_Security_ABS_Instrument_and_Mark.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 18 Asset-Backed Security (ABS) Instrument and Market Features</a>
+<a href="LM18_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM18_Part2_Non_Mortgage_Asset_Backed_Securities.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Non-Mortgage Asset-Backed Securities</a>
+<a href="LM18_Part3_Solutions.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Solutions</a>
+<a href="LM19_Full_Mortgage_Backed_Security_MBS_Instrument_and_M.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><span class="inline-block px-1.5 py-0.5 mr-1 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold text-[10px]">FULL</span>Learning Module 19 Mortgage-Backed Security (MBS) Instrument and Market Features</a>
+<a href="LM19_Part1_Introduction.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 1: Introduction</a>
+<a href="LM19_Part2_Residential_Mortgage_Backed_Securities_RMBS.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 2: Residential Mortgage-Backed Securities (RMBS)</a>
+<a href="LM19_Part3_Practice_Problems.html" class="block px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">  • Part 3: Practice Problems</a>
+    </div>
+  </aside>
+
+  <!-- Main Bilingual Content Container -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+          Volume 6 • Fixed Income (Thu Nhập Cố Định)
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white mt-0.5">Learning Module 3 Fixed-Income Issuance and Trading - Part 2: Primary and Secondary Fixed-Income Markets</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="btn-complete" onclick="toggleCompleted('06_Fixed_Income/LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition">
+          ○ Đánh dấu hoàn thành
+        </button>
+      </div>
+    </div>
+
+    <!-- Synchronized EN (Left) | VI (Right) Rows -->
+    <div class="space-y-1">
+      
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1>Volume 6: Fixed Income</h1>
+<h2>Learning Module 3 Fixed-Income Issuance and Trading</h2>
+<h3>Part 2/2: Primary and Secondary Fixed-Income Markets (PDF Pages 81–88)</h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1>Tập 6: Chứng Khoán Thu Nhập Cố Định (<em>Fixed Income</em>)</h1>
+<h2>Học Phần 3: Phát Hành và Giao Dịch Chứng Khoán Thu Nhập Cố Định (<em>Fixed-Income Issuance and Trading</em>)</h2>
+<h3>Phần 2/2: Thị Trường Thu Nhập Cố Định Sơ Cấp và Thứ Cấp (Trang PDF 81–88)</h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><hr /></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><hr /></div>
+                </div>
+                
+
+                <div id="pdf-page-81" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 81 / Trang PDF 81
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h1><strong>PRIMARY AND SECONDARY FIXED-INCOME MARKETS</strong> <strong><mark>4</mark></strong></h1></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h1><strong>THỊ TRƯỜNG THU NHẬP CỐ ĐỊNH SƠ CẤP VÀ THỨ CẤP (<em>PRIMARY AND SECONDARY FIXED-INCOME MARKETS</em>)</strong> <strong><mark>4</mark></strong></h1></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>compare primary and secondary fixed-income markets to equity markets</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Mục tiêu: So sánh thị trường thu nhập cố định sơ cấp và thứ cấp với thị trường vốn cổ phần.</em></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Primary Fixed-Income Markets</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Thị trường Thu nhập Cố định Sơ cấp (<em>Primary Fixed-Income Markets</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Primary bond markets</strong> are markets in which an issuer sells a new bond or bonds to investors to raise capital. In contrast, <strong>secondary bond markets</strong> are markets in which existing bonds are traded among investors. As in the case of an IPO for equity investors, an issuer approaching the bond market for the first time (often referred to as a <strong>debut issuer</strong> ) represents the first opportunity for a fixed-income investor to purchase an issuer’s bonds. Bonds can be sold via a public offering, in which any member of the public may buy the bonds, or via a private placement, in which only a selected investor or group of investors may buy the bonds. Similar to primary equity issuance, which typically involves a transfer from private to public ownership, a debut issuer is often replacing private debt, such as a bank loan, with bonds. Examples of debut bond issuers include</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Thị trường trái phiếu sơ cấp (<em>primary bond markets<em>)</em><em> là thị trường trong đó một tổ chức phát hành bán một hoặc nhiều trái phiếu mới cho các nhà đầu tư để huy động vốn. Ngược lại, </em><em>thị trường trái phiếu thứ cấp (</em>secondary bond markets<em>)</em><em> là thị trường trong đó các trái phiếu hiện hành được giao dịch giữa các nhà đầu tư. Giống như trường hợp phát hành cổ phiếu lần đầu ra công chúng (IPO) đối với các nhà đầu tư vốn cổ phần, một tổ chức phát hành tiếp cận thị trường trái phiếu lần đầu tiên (thường được gọi là </em><em>tổ chức phát hành lần đầu – </em>debut issuer</em></strong>) đại diện cho cơ hội đầu tiên để một nhà đầu tư thu nhập cố định mua trái phiếu của tổ chức phát hành đó. Trái phiếu có thể được bán thông qua một đợt chào bán ra công chúng (<em>public offering</em>), trong đó bất kỳ thành viên nào của công chúng cũng có thể mua trái phiếu, hoặc thông qua một đợt phát hành riêng lẻ (<em>private placement</em>), trong đó chỉ một nhà đầu tư hoặc một nhóm nhà đầu tư được lựa chọn mới có thể mua trái phiếu. Tương tự như việc phát hành cổ phiếu trên thị trường sơ cấp vốn thường bao gồm sự chuyển giao từ sở hữu tư nhân sang sở hữu đại chúng, một tổ chức phát hành trái phiếu lần đầu thường thay thế khoản nợ tư nhân (<em>private debt</em>), chẳng hạn như một khoản vay ngân hàng, bằng trái phiếu. Các ví dụ về tổ chức phát hành trái phiếu lần đầu bao gồm:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>new corporate legal entities formed after a merger, acquisition, or divestiture, which usually refinance <em>all</em> existing debt outstanding;</p>
+</li>
+<li>
+<p>companies that reach a more mature stage of the life cycle with more predictable cash flows and begin issuing debt; and</p>
+</li>
+<li>
+<p>sovereign governments that raise external foreign currency debt for the first time.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p>các thực thể pháp lý doanh nghiệp mới được hình thành sau một vụ sáp nhập, mua lại hoặc thoái vốn (<em>merger, acquisition, or divestiture</em>), thường tái tài trợ cho <em>tất cả</em> các khoản nợ hiện đang lưu hành;</p>
+</li>
+<li>
+<p>các công ty đạt đến giai đoạn trưởng thành hơn trong chu kỳ sống với các dòng tiền dễ dự đoán hơn và bắt đầu phát hành nợ; và</p>
+</li>
+<li>
+<p>các chính phủ quốc gia huy động nợ nước ngoài bằng ngoại tệ lần đầu tiên.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For debut issuers that must complete the respective domestic market or Eurobond registration process, the underwriters usually conduct roadshows and other information sessions for a period of several weeks prior to issuance to familiarize potential investors with the new entity and its uses of and sources for repayment for the new bond.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với các tổ chức phát hành lần đầu phải hoàn tất quy trình đăng ký tại thị trường nội địa tương ứng hoặc thị trường Eurobond, các tổ chức bảo lãnh phát hành (<em>underwriters</em>) thường tiến hành các buổi giới thiệu (<em>roadshows</em>) và các phiên cung cấp thông tin khác trong khoảng thời gian vài tuần trước khi phát hành để giúp các nhà đầu tư tiềm năng làm quen với thực thể mới cũng như mục đích sử dụng vốn và các nguồn trả nợ cho trái phiếu mới.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For <em>repeat</em> issuers of fixed-income securities, the process is far more abbreviated than for debut issuers and for follow-on offerings of equities. Whereas publicly traded companies that return to the equity market to increase their shares outstanding do so under an identical instrument, fixed-income issuers usually issue a new security priced at or close to par. A less common strategy is to increase the size of an <em>existing</em> bond with a price significantly <em>different</em> from par, which is referred to as the <strong>reopening</strong> of an existing bond.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đối với các tổ chức phát hành <em>lặp lại / thường xuyên</em> (<em>repeat issuers</em>) chứng khoán thu nhập cố định, quy trình này được rút gọn hơn rất nhiều so với các tổ chức phát hành lần đầu và so với các đợt chào bán cổ phiếu bổ sung (<em>follow-on offerings of equities</em>). Trong khi các công ty đại chúng quay trở lại thị trường vốn cổ phần để tăng số lượng cổ phiếu đang lưu hành đều thực hiện điều đó dưới cùng một công cụ giống hệt nhau, thì các tổ chức phát hành thu nhập cố định thường phát hành một chứng khoán mới được định giá bằng hoặc gần bằng mệnh giá (<em>at or close to par</em>). Một chiến lược ít phổ biến hơn là tăng quy mô của một trái phiếu <em>hiện hành</em> có mức giá <em>khác biệt</em> đáng kể so với mệnh giá, được gọi là <strong>phát hành bổ sung / mở lại (<em>reopening</em>)</strong> một trái phiếu hiện hành.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>For example, unsecured investment-grade issuance of new corporate bonds usually takes place within a several-hour period, as shown in the diagram and timeline in Exhibit 6.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Ví dụ, việc phát hành trái phiếu doanh nghiệp mới thuộc hạng đầu tư không có đảm bảo thường diễn ra trong vòng vài giờ đồng hồ, như được hiển thị trong sơ đồ và lộ trình thời gian tại Bảng minh họa 6 (<em>Exhibit 6</em>).</p></div>
+                </div>
+                
+
+                <div id="pdf-page-82" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 82 / Trang PDF 82
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>Exhibit 6: Investment-Grade Corporate Bond Issuance Timeline</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>Bảng minh họa 6: Lộ trình Thời gian Phát hành Trái phiếu Doanh nghiệp Hạng Đầu tư (<em>Investment-Grade Corporate Bond Issuance Timeline</em>)</strong></p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><img alt="" src="assets/Fixed_Income.pdf-0082-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><img alt="" src="assets/Fixed_Income.pdf-0082-04.png" loading="lazy" onclick="openLightbox(this.src)" class="cfa-img" /></p>
+<blockquote>
+<p><strong>Chú thích hình ảnh:</strong>
+Biểu đồ Quy mô sổ lệnh (<em>Order Book Size</em>) tăng dần theo Thời gian trong ngày (<em>Time of Day</em>) từ 9:00 sáng đến 3:00 chiều:
+- <strong>9:15 sáng</strong>: Công bố giao dịch (<em>Transaction Announced</em>)
+- <strong>10:30 sáng</strong>: Cuộc gọi hội nghị với nhà đầu tư (<em>Investor Conference Call</em>)
+- <strong>12:00 trưa</strong>: Công bố định hướng giá (<em>Price Guidance Announced</em>)
+- <strong>1:00 chiều</strong>: Chính thức triển khai giao dịch (<em>Transaction Launched</em>)
+- <strong>3:00 chiều</strong>: Định giá giao dịch (<em>Transaction Priced</em>)</p>
+</blockquote></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Illustrative Timeline:</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Lộ trình thời gian minh họa (<em>Illustrative Timeline</em>):</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p>9:00 a.m. Underwriters and issuer agree to launch transaction 9:15 a.m. Transaction announced (size, spread, and maturities TBD) Electronic roadshow released Order book opens to investors</p>
+</li>
+<li>
+<p>10:30 a.m. Investor conference call with issuer and underwriters 12:00 p.m. Price guidance, size, and maturities subject to change Order book closed to investors</p>
+</li>
+<li>
+<p>1:00 p.m. Transaction launched with final size, pricing, and maturities 1:00–3:00 p.m. Underwriters allocate transaction to investors 3:00 p.m. Transaction priced (government benchmark and coupon set) 4:00 p.m. Final term sheet delivered, bonds free to trade same or next day</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>9:00 sáng</strong>: Các tổ chức bảo lãnh phát hành và tổ chức phát hành đồng ý triển khai giao dịch.</li>
+<li><strong>9:15 sáng</strong>: Giao dịch được công bố (quy mô, mức chênh lệch <em>spread</em> và kỳ hạn sẽ được xác định sau – <em>TBD</em>). Bản giới thiệu điện tử (<em>electronic roadshow</em>) được phát hành. Sổ lệnh (<em>order book</em>) mở cho các nhà đầu tư. </li>
+<li><strong>10:30 sáng</strong>: Cuộc gọi hội nghị với nhà đầu tư (<em>investor conference call</em>) cùng tổ chức phát hành và các tổ chức bảo lãnh phát hành.</li>
+<li><strong>12:00 trưa</strong>: Định hướng giá (<em>price guidance</em>), quy mô và kỳ hạn có thể thay đổi. Sổ lệnh đóng lại đối với các nhà đầu tư. </li>
+<li><strong>1:00 chiều</strong>: Giao dịch được triển khai với quy mô, mức định giá và kỳ hạn cuối cùng.</li>
+<li><strong>1:00–3:00 chiều</strong>: Các tổ chức bảo lãnh phát hành phân bổ giao dịch cho các nhà đầu tư.</li>
+<li><strong>3:00 chiều</strong>: Giao dịch được định giá (xác lập chuẩn tham chiếu chính phủ và lãi suất coupon).</li>
+<li><strong>4:00 chiều</strong>: Bản điều khoản cuối cùng (<em>final term sheet</em>) được chuyển giao, trái phiếu tự do giao dịch trong cùng ngày hoặc ngày hôm sau.</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Exhibit 6 is an example of an underwritten bond offering in which one or more financial intermediaries (or underwriters) guarantee the sale of the bond issue at an offering price that is negotiated with the issuer. Investors in such bonds (e.g., Baywhite) are usually very familiar with the bond indenture and financial statements of these frequent issuers. As in the case of BRWA earlier in this module, issuers of such bonds have ready access to the bond market and often choose issuance timing on an opportunistic basis when market conditions are most favorable. Underwriters seek to manage the bond order book to ensure the greatest availability to large institutional investors at the lowest possible spread across maturities. Frequent bond issuers use a shelf registration or a broad, all-encompassing offering circular that is updated regularly and may be used for a range of future bond issuances.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Bảng minh họa 6 là một ví dụ về một đợt chào bán trái phiếu có bảo lãnh phát hành (<em>underwritten bond offering</em>), trong đó một hoặc nhiều định chế tài chính trung gian (hay tổ chức bảo lãnh phát hành – <em>underwriters</em>) đảm bảo việc bán đợt phát hành trái phiếu ở một mức giá chào bán đã được đàm phán với tổ chức phát hành. Các nhà đầu tư vào những trái phiếu như vậy (ví dụ: Baywhite) thường rất quen thuộc với khế ước trái phiếu và báo cáo tài chính của những tổ chức phát hành thường xuyên này. Giống như trường hợp của BRWA ở phần trước của học phần này, các tổ chức phát hành những trái phiếu như vậy có khả năng tiếp cận sẵn sàng với thị trường trái phiếu và thường chọn thời điểm phát hành trên cơ sở chớp thời cơ khi điều kiện thị trường thuận lợi nhất. Các tổ chức bảo lãnh phát hành tìm cách quản lý sổ lệnh trái phiếu để đảm bảo mức độ phân phối lớn nhất cho các nhà đầu tư tổ chức quy mô lớn ở mức chênh lệch (<em>spread</em>) thấp nhất có thể qua các kỳ hạn. Các tổ chức phát hành trái phiếu thường xuyên sử dụng hình thức đăng ký phát hành khung (<em>shelf registration</em>) hay một bản thông tư chào bán bao quát rộng khắp được cập nhật định kỳ và có thể được sử dụng cho một loạt các đợt phát hành trái phiếu trong tương lai.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Secured bond issuance among corporate high-yield, some special purpose entities, and other issuers (e.g., VIVU) is usually a longer and more involved process than for unsecured investment-grade bonds. Investors must familiarize themselves with unique and more complex covenants, as well as the use of <em>both</em> operating cash flows <em>and</em> collateral as sources of bond repayment. For bonds of lower credit quality, the financial intermediary does not guarantee the sale and may serve only as a broker in a best-efforts offering. That is, it tries to sell the bond issue on a commission basis at the negotiated price only if it can do so.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc phát hành trái phiếu có đảm bảo ở nhóm doanh nghiệp lợi suất cao, một số thực thể có mục đích đặc biệt (SPE) và các tổ chức phát hành khác (ví dụ: VIVU) thường là một quy trình dài hơn và phức tạp hơn so với trái phiếu hạng đầu tư không có đảm bảo. Các nhà đầu tư phải tự làm quen với các điều khoản cam kết đặc thù và phức tạp hơn, cũng như việc sử dụng <em>cả</em> dòng tiền hoạt động <em>lẫn</em> tài sản thế chấp làm nguồn trả nợ trái phiếu. Đối với các trái phiếu có chất lượng tín dụng thấp hơn, định chế tài chính trung gian không đảm bảo việc bán được toàn bộ mà có thể chỉ đóng vai trò là nhà môi giới (<em>broker</em>) trong một đợt chào bán cố gắng tối đa (<em>best-efforts offering</em>). Nghĩa là, họ chỉ cố gắng bán đợt phát hành trái phiếu trên cơ sở hưởng hoa hồng ở mức giá đã đàm phán nếu họ có thể làm được điều đó.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>In instances where the bond size is small, the issuer is less well known, or the terms are more customized, a bond might take the form of a private placement or non-underwritten, unregistered offering of bonds sold only to a small group of investors.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trong những trường hợp quy mô trái phiếu nhỏ, tổ chức phát hành ít được biết đến hơn, hoặc các điều khoản được tùy chỉnh riêng biệt nhiều hơn, một trái phiếu có thể mang hình thức phát hành riêng lẻ (<em>private placement</em>) hoặc chào bán không có bảo lãnh phát hành, không đăng ký (<em>non-underwritten, unregistered offering</em>) gồm các trái phiếu chỉ được bán cho một nhóm nhỏ các nhà đầu tư.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Primary market issuance of sovereign debt usually takes the form of a public auction led by the national treasury or finance ministry, which are discussed in detail in a later module.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Việc phát hành nợ chính phủ trên thị trường sơ cấp thường mang hình thức một cuộc đấu giá công khai (<em>public auction</em>) do kho bạc quốc gia hoặc bộ tài chính chủ trì, nội dung này sẽ được thảo luận chi tiết trong một học phần sau.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-83" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 83 / Trang PDF 83
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Secondary Fixed-Income Markets</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Thị trường Thu nhập Cố định Thứ cấp (<em>Secondary Fixed-Income Markets</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>While progress continues to be made by various electronic marketplace platforms, such as MarketAxess and Tradeweb, fixed-income markets are mostly quote-driven or over-the-counter (OTC) markets. Major participants in secondary bond market trading include institutional investors (such as the Baywhite funds introduced earlier), financial intermediaries, and central banks.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Mặc dù những bước tiến vẫn tiếp tục được thực hiện bởi nhiều nền tảng thị trường giao dịch điện tử khác nhau, chẳng hạn như MarketAxess và Tradeweb, thị trường thu nhập cố định phần lớn vẫn là thị trường định hướng theo báo giá (<em>quote-driven</em>) hay thị trường phi tập trung (<em>over-the-counter</em> – OTC). Các thành viên tham gia chính trong giao dịch thị trường trái phiếu thứ cấp bao gồm các nhà đầu tư tổ chức (chẳng hạn như các quỹ Baywhite đã được giới thiệu trước đó), các định chế tài chính trung gian, và các ngân hàng trung ương.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Secondary bond market liquidity varies widely across fixed-income market segments and even among bonds outstanding from a single issuer. The bid–offer spread or difference in price at which a dealer will buy (or bid) from a customer and sell (or offer) to a customer is a key liquidity measure. This spread is often quoted in basis points in fixed-income markets.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Tính thanh khoản của thị trường trái phiếu thứ cấp rất khác nhau giữa các phân khúc thị trường thu nhập cố định và thậm chí giữa các trái phiếu đang lưu hành của cùng một tổ chức phát hành đơn lẻ. Chênh lệch giá chào mua – chào bán (<em>bid–offer spread</em>), hay phần chênh lệch giá mà tại đó một nhà tạo lập thị trường (<em>dealer</em>) sẽ mua (hay <em>bid</em>) từ khách hàng và bán (hay <em>offer</em>) cho khách hàng, là một thước đo thanh khoản then chốt. Mức chênh lệch này thường được yết bằng điểm cơ bản (<em>basis points</em>) trên thị trường thu nhập cố định.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>The most recently issued, or on-the-run, developed market sovereign bonds are typically the most liquid fixed-income securities, with primary dealers making active markets in large size with bid–offer spreads equal to a fraction of a basis point. In some markets, such as Australia, domestic sovereign government bonds are traded on an exchange. Among corporate issuers, recently issued corporate bonds from frequent issuers of higher credit quality usually exhibit the greatest liquidity and tightest bid–offer spreads. Underwriters and other dealers are more likely to hold trading inventory in recent issues and may therefore quote bid-offer spreads of a few basis points. Bonds of less frequent corporate issuers or more seasoned bonds of frequent issuers are rarely traded, leading dealers to quote bid–offer spreads of at least 10–20 basis points or more for small sizes. One exception that can increase trading frequency of a seasoned issue is a significant deterioration in a bond’s credit quality, as in the following example.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Các trái phiếu chính phủ tại thị trường phát triển vừa mới được phát hành gần nhất, hay còn gọi là trái phiếu đang trong đợt phát hành mới (<em>on-the-run</em>), thường là các chứng khoán thu nhập cố định có tính thanh khoản cao nhất, với các nhà tạo lập thị trường sơ cấp (<em>primary dealers</em>) tích cực tạo lập thị trường ở quy mô lớn với mức chênh lệch giá chào mua – chào bán chỉ bằng một phần nhỏ của một điểm cơ bản. Tại một số thị trường, chẳng hạn như Úc, trái phiếu chính phủ nội địa được giao dịch trên một sở giao dịch tập trung (<em>exchange</em>). Trong số các tổ chức phát hành doanh nghiệp, các trái phiếu doanh nghiệp mới được phát hành gần đây từ các tổ chức phát hành thường xuyên có chất lượng tín dụng cao hơn thường thể hiện tính thanh khoản lớn nhất và chênh lệch giá chào mua – chào bán hẹp nhất. Các tổ chức bảo lãnh phát hành và các nhà tạo lập thị trường khác có nhiều khả năng nắm giữ hàng tồn kho giao dịch (<em>trading inventory</em>) đối với các đợt phát hành gần đây và do đó có thể yết mức chênh lệch giá chào mua – chào bán chỉ vài điểm cơ bản. Trái phiếu của các tổ chức phát hành doanh nghiệp ít phát hành hơn hoặc các trái phiếu đã phát hành lâu năm hơn (<em>more seasoned bonds</em>) của các tổ chức phát hành thường xuyên hiếm khi được giao dịch, dẫn đến việc các nhà tạo lập thị trường yết mức chênh lệch giá chào mua – chào bán ít nhất từ 10–20 điểm cơ bản trở lên cho các quy mô giao dịch nhỏ. Một ngoại lệ có thể làm tăng tần suất giao dịch của một đợt phát hành lâu năm là sự suy giảm nghiêm trọng về chất lượng tín dụng của trái phiếu, như trong ví dụ sau đây.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>EXAMPLE 4</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>VÍ DỤ 4</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h3><strong>Hertz Corporation</strong></h3></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h3><strong>Tập đoàn Hertz (<em>Hertz Corporation</em>)</strong></h3></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Hertz Global Holdings Inc. (Hertz) is a US-based car rental company that filed for Chapter 11 bankruptcy protection in May 2020 amid the initial outbreak of COVID-19 in the United States. Hertz’s bonds maturing in 2022 and 2028 were trading at an average of less than 10% of par value, a decline of more than 90% from three months earlier. However, a year later, the bonds rose back to their pre-pandemic price as the company exited bankruptcy through a reorganization with outside investors that kept these bonds intact.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Hertz Global Holdings Inc. (Hertz) là một công ty cho thuê xe hơi có trụ sở tại Hoa Kỳ đã đệ đơn xin bảo hộ phá sản theo Chương 11 (<em>Chapter 11 bankruptcy protection</em>) vào tháng 5 năm 2020 giữa đợt bùng phát dịch COVID-19 ban đầu tại Hoa Kỳ. Các trái phiếu đáo hạn vào năm 2022 và 2028 của Hertz được giao dịch ở mức trung bình chưa đến 10% mệnh giá, giảm hơn 90% so với ba tháng trước đó. Tuy nhiên, một năm sau, các trái phiếu này đã tăng trở lại mức giá trước đại dịch khi công ty thoát khỏi tình trạng phá sản thông qua một đợt tái cơ cấu với các nhà đầu tư bên ngoài mà vẫn giữ nguyên vẹn các trái phiếu này.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><em>Source:</em> Bloomberg News</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><em>Nguồn:</em> Bloomberg News</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Bonds of issuers believed to be very close to or in bankruptcy, as in the previous example, are referred to as <strong>distressed debt</strong> . Distressed debt typically trades in the secondary market at a price well below par, because bondholders are unlikely to receive all promised future interest and principal payments. Investors with policies limiting their bond investments to highly rated securities may be forced to sell distressed debt, while hedge funds and other opportunistic investors seeking more equity-like returns (from price appreciation) are often the buyers of distressed bonds. Distressed debt is traded until either the corporate issuer has liquidated its assets or its outstanding bonds have been restructured. In contrast, an equity security may be removed or delisted from secondary trading on an exchange if it fails to meet the listing requirements of the exchange, which often include minimum share prices, net worth, and free float. By the time an issuer’s debt has become distressed, its equity securities will likely have already been delisted.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Trái phiếu của các tổ chức phát hành được cho là đang ở rất gần hoặc đang trong tình trạng phá sản, như trong ví dụ trước, được gọi là <strong>nợ xấu / nợ gặp khó khăn tài chính (<em>distressed debt</em>)</strong>. Nợ gặp khó khăn tài chính thường được giao dịch trên thị trường thứ cấp ở mức giá thấp hơn nhiều so với mệnh giá, bởi vì các trái chủ khó có khả năng nhận được toàn bộ các khoản thanh toán lãi và vốn gốc đã cam kết trong tương lai. Các nhà đầu tư có chính sách giới hạn khoản đầu tư trái phiếu của mình ở các chứng khoán có xếp hạng cao có thể buộc phải bán các khoản nợ gặp khó khăn tài chính, trong khi các quỹ phòng hộ (<em>hedge funds</em>) và các nhà đầu tư săn tìm cơ hội (<em>opportunistic investors</em>) khác đang tìm kiếm tỷ suất sinh lợi giống như cổ phiếu hơn (từ sự tăng giá) thường là người mua các trái phiếu đang gặp khó khăn này. Nợ gặp khó khăn tài chính được giao dịch cho đến khi tổ chức phát hành doanh nghiệp đã thanh lý xong tài sản của mình hoặc các trái phiếu đang lưu hành của họ đã được tái cơ cấu (<em>restructured</em>). Ngược lại, một chứng khoán vốn cổ phần có thể bị hủy bỏ hoặc hủy niêm yết (<em>delisted</em>) khỏi giao dịch thứ cấp trên một sở giao dịch nếu nó không đáp ứng được các yêu cầu niêm yết của sở giao dịch, vốn thường bao gồm mức giá cổ phiếu tối thiểu, giá trị tài sản ròng (<em>net worth</em>) và tỷ lệ cổ phiếu tự do chuyển nhượng (<em>free float</em>). Vào thời điểm khoản nợ của một tổ chức phát hành trở thành nợ gặp khó khăn tài chính, chứng khoán vốn cổ phần của công ty đó nhiều khả năng đã bị hủy niêm yết từ trước rồi.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-84" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 84 / Trang PDF 84
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Finally, many bond issues do not trade at all on a regular basis. Price quotes from dealers or on platforms such as Bloomberg for illiquid bonds often rely on estimates derived from more liquid bonds of similar credit quality and maturity, a process covered in a later module.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Cuối cùng, nhiều đợt phát hành trái phiếu hoàn toàn không được giao dịch một cách thường xuyên. Các báo giá từ các nhà tạo lập thị trường hoặc trên các nền tảng như Bloomberg đối với các trái phiếu kém thanh khoản thường dựa vào các ước tính được suy ra từ các trái phiếu có tính thanh khoản cao hơn có cùng chất lượng tín dụng và kỳ hạn, một quy trình sẽ được trình bày trong một học phần sau.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h4><strong>QUESTION SET</strong></h4></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h4><strong>BỘ CÂU HỎI (<em>QUESTION SET</em>)</strong></h4></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol>
+<li>A bond issuance by a company after it has reached a more mature stage of the life cycle with more predictable cash flows would be <em>best</em> considered a:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> private placement.</p>
+</li>
+<li>
+<p><strong>B.</strong> primary fixed-income market transaction.</p>
+</li>
+<li>
+<p><strong>C.</strong> secondary fixed-income market transaction.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>Một đợt phát hành trái phiếu bởi một công ty sau khi công ty đó đã đạt đến giai đoạn trưởng thành hơn trong chu kỳ sống với các dòng tiền dễ dự đoán hơn sẽ được coi <em>đúng nhất</em> là một:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> đợt phát hành riêng lẻ (<em>private placement</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> giao dịch thị trường thu nhập cố định sơ cấp (<em>primary fixed-income market transaction</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> giao dịch thị trường thu nhập cố định thứ cấp (<em>secondary fixed-income market transaction</em>).</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is correct. Primary bond markets are markets in which an issuer sells a new bond or bonds to investors to raise capital. Secondary bond markets are markets in which existing bonds are traded among investors. Bonds can be sold via a private placement, in which only a selected investor or group of investors may buy the bonds.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B là đáp án đúng. Thị trường trái phiếu sơ cấp là thị trường trong đó một tổ chức phát hành bán một hoặc nhiều trái phiếu mới cho các nhà đầu tư để huy động vốn. Thị trường trái phiếu thứ cấp là thị trường trong đó các trái phiếu hiện hành được giao dịch giữa các nhà đầu tư. Trái phiếu có thể được bán thông qua phát hành riêng lẻ, trong đó chỉ một nhà đầu tư hoặc một nhóm nhà đầu tư được lựa chọn mới có thể mua trái phiếu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="2">
+<li>Which of the following statements about debut issuers is <em>correct</em> ?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> A debut issuer typically replaces bank loans with bonds.</p>
+</li>
+<li>
+<p><strong>B.</strong> Debut issuers transfer ownership from public to private markets.</p>
+</li>
+<li>
+<p><strong>C.</strong> Debut issuers offer bonds in a public offering, not a private placement.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="2">
+<li>Phát biểu nào sau đây về các tổ chức phát hành lần đầu (<em>debut issuers</em>) là <em>đúng</em>?</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> Một tổ chức phát hành lần đầu thường thay thế các khoản vay ngân hàng bằng trái phiếu.</p>
+</li>
+<li>
+<p><strong>B.</strong> Các tổ chức phát hành lần đầu chuyển giao quyền sở hữu từ thị trường đại chúng sang thị trường tư nhân.</p>
+</li>
+<li>
+<p><strong>C.</strong> Các tổ chức phát hành lần đầu chào bán trái phiếu trong một đợt chào bán ra công chúng, chứ không phải phát hành riêng lẻ.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>A is correct. Similar to primary equity issuance, which typically involves a transfer from private to public ownership, a first-time bond issuer is often replacing private debt, such as a bank loan, with bonds.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>A là đáp án đúng. Tương tự như việc phát hành cổ phiếu trên thị trường sơ cấp vốn thường bao gồm sự chuyển giao từ sở hữu tư nhân sang sở hữu đại chúng, một tổ chức phát hành trái phiếu lần đầu tiên thường thay thế khoản nợ tư nhân, chẳng hạn như khoản vay ngân hàng, bằng trái phiếu.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>B is incorrect. Fixed-income securities have no voting or control rights, and debut issues represent a private to public (not public to private) transition. C is incorrect. A debut issuer can offer bonds in either a public offering or a private placement.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>B không đúng. Chứng khoán thu nhập cố định không có quyền biểu quyết hay quyền kiểm soát, và các đợt phát hành lần đầu thể hiện sự chuyển dịch từ tư nhân sang đại chúng (chứ không phải từ đại chúng sang tư nhân). C không đúng. Một tổ chức phát hành lần đầu có thể chào bán trái phiếu trong một đợt chào bán ra công chúng hoặc một đợt phát hành riêng lẻ.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="3">
+<li>Relative to unsecured issuers, secured issuers <em>most likely</em> experience an issuance timeline that is:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> shorter.</p>
+</li>
+<li>
+<p><strong>B.</strong> the same.</p>
+</li>
+<li>
+<p><strong>C.</strong> longer.</p>
+</li>
+<li>
+<p><strong>Solution:</strong></p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="3">
+<li>So với các tổ chức phát hành không có đảm bảo (<em>unsecured issuers</em>), các tổ chức phát hành có đảm bảo (<em>secured issuers</em>) <em>nhiều khả năng nhất</em> trải qua một lộ trình thời gian phát hành:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> ngắn hơn.</p>
+</li>
+<li>
+<p><strong>B.</strong> bằng nhau.</p>
+</li>
+<li>
+<p><strong>C.</strong> dài hơn.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. Secured bond issuance among corporate high-yield, some special purpose entities, and other issuers (e.g., VIVU) is usually a longer and more involved process than for unsecured investment-grade bonds. Investors must familiarize themselves with unique and more complex covenants, as well as the use of <em>both</em> operating cash flows <em>and</em> collateral as sources of bond repayment.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Việc phát hành trái phiếu có đảm bảo ở nhóm doanh nghiệp lợi suất cao, một số thực thể có mục đích đặc biệt và các tổ chức phát hành khác (ví dụ: VIVU) thường là một quy trình dài hơn và phức tạp hơn so với trái phiếu hạng đầu tư không có đảm bảo. Các nhà đầu tư phải tự làm quen với các điều khoản cam kết đặc thù và phức tạp hơn, cũng như việc sử dụng <em>cả</em> dòng tiền hoạt động <em>lẫn</em> tài sản thế chấp làm nguồn trả nợ trái phiếu.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-85" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 85 / Trang PDF 85
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ol start="4">
+<li>Identify the following statement as true or false. Justify your answer.</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="4">
+<li>Xác định phát biểu sau đây là đúng hay sai. Giải thích câu trả lời của bạn.</li>
+</ol></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>Secondary fixed-income markets consist mostly of quote-driven or overthe-counter markets, while secondary trading for listed equity markets primarily occurs on an electronic exchange. <strong>Solution:</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Thị trường thu nhập cố định thứ cấp bao gồm chủ yếu là các thị trường định hướng theo báo giá (<em>quote-driven</em>) hoặc thị trường phi tập trung (<em>over-the-counter</em>), trong khi giao dịch thứ cấp đối với các thị trường vốn cổ phần niêm yết chủ yếu diễn ra trên một sở giao dịch điện tử (<em>electronic exchange</em>).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>True. Unlike listed equities, for which secondary trading largely occurs on an electronic exchange, fixed-income markets consist mostly of quote-driven or over-the-counter markets.</p>
+<ol start="5">
+<li>For a firm in distress, its bonds will <em>most likely</em> stop trading:</li>
+</ol>
+<ul>
+<li><strong>A.</strong> before the firm’s equity.</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li><strong>Lời giải:</strong></li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>B.</strong> at the same time as the firm’s equity.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>Đúng (<em>True</em>). Không giống như cổ phiếu niêm yết mà giao dịch thứ cấp phần lớn diễn ra trên một sở giao dịch điện tử, các thị trường thu nhập cố định bao gồm chủ yếu là các thị trường định hướng theo báo giá hoặc thị trường phi tập trung (OTC).</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>C.</strong> after the firm’s equity. <strong>Solution:</strong></p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol start="5">
+<li>Đối với một doanh nghiệp đang gặp khó khăn tài chính (<em>in distress</em>), trái phiếu của công ty đó sẽ <em>nhiều khả năng nhất</em> ngừng giao dịch:</li>
+</ol>
+<ul>
+<li>
+<p><strong>A.</strong> trước cổ phiếu của doanh nghiệp.</p>
+</li>
+<li>
+<p><strong>B.</strong> cùng lúc với cổ phiếu của doanh nghiệp.</p>
+</li>
+<li>
+<p><strong>C.</strong> sau cổ phiếu của doanh nghiệp.</p>
+</li>
+<li>
+<p><strong>Lời giải:</strong></p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>C is correct. Distressed debt is traded until either the corporate issuer has liquidated its assets or its outstanding bonds have been restructured. In contrast, an equity security may be removed or delisted from secondary trading on an exchange if it fails to meet the listing requirements of the exchange, which often include minimum share prices, net worth, and free float. By the time an issuer’s debt has become distressed, its equity securities will likely have already been delisted.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p>C là đáp án đúng. Nợ gặp khó khăn tài chính (<em>distressed debt</em>) được giao dịch cho đến khi tổ chức phát hành doanh nghiệp đã thanh lý xong tài sản của mình hoặc các trái phiếu đang lưu hành của họ đã được tái cơ cấu. Ngược lại, một chứng khoán vốn cổ phần có thể bị hủy bỏ hoặc hủy niêm yết khỏi giao dịch thứ cấp trên một sở giao dịch nếu nó không đáp ứng được các yêu cầu niêm yết của sở giao dịch, vốn thường bao gồm mức giá cổ phiếu tối thiểu, giá trị tài sản ròng và tỷ lệ cổ phiếu tự do chuyển nhượng. Vào thời điểm khoản nợ của một tổ chức phát hành trở thành nợ gặp khó khăn tài chính, chứng khoán vốn cổ phần của công ty đó nhiều khả năng đã bị hủy niêm yết từ trước rồi.</p></div>
+                </div>
+                
+
+                <div id="pdf-page-86" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 86 / Trang PDF 86
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~PRACTICE PROBLEMS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>BÀI TẬP THỰC HÀNH (<em>PRACTICE PROBLEMS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>1.</strong> Match the instrument type on the left with its typical investor on the right.</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>1.</strong> Hãy ghép loại công cụ ở bên trái với nhà đầu tư điển hình của nó ở bên phải.</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>A. Commercialpaper</th>
+<th>I. Insurance companies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B. Unsecured corporate bonds</td>
+<td>II. Hedge funds</td>
+</tr>
+<tr>
+<td>C. Secured corporate bonds</td>
+<td>III. Money market funds</td>
+</tr>
+</tbody>
+</table></div></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Loại công cụ</th>
+<th>Nhà đầu tư điển hình</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. Thương phiếu (<em>Commercial paper</em>)</td>
+<td>I. Các công ty bảo hiểm (<em>Insurance companies</em>)</td>
+</tr>
+<tr>
+<td>B. Trái phiếu doanh nghiệp không có đảm bảo (<em>Unsecured corporate bonds</em>)</td>
+<td>II. Các quỹ phòng hộ (<em>Hedge funds</em>)</td>
+</tr>
+<tr>
+<td>C. Trái phiếu doanh nghiệp có đảm bảo (<em>Secured corporate bonds</em>)</td>
+<td>III. Các quỹ thị trường tiền tệ (<em>Money market funds</em>)</td>
+</tr>
+</tbody>
+</table></div></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>2.</strong> An issuer with a AAA credit rating would <em>most likely</em> be a:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>2.</strong> Một tổ chức phát hành có xếp hạng tín dụng AAA sẽ <em>nhiều khả năng nhất</em> là một:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> distressed issuer.</p>
+</li>
+<li>
+<p><strong>B.</strong> high-yield issuer.</p>
+</li>
+<li>
+<p><strong>C.</strong> sovereign issuer.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> tổ chức phát hành đang gặp khó khăn tài chính (<em>distressed issuer</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> tổ chức phát hành lợi suất cao (<em>high-yield issuer</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> tổ chức phát hành chính phủ quốc gia (<em>sovereign issuer</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>3.</strong> An index tracking the Bloomberg Barclays Global Aggregate Index would <em>most likely</em> have:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>3.</strong> Một quỹ chỉ số bám sát Chỉ số Tổng hợp Toàn cầu Bloomberg Barclays (<em>Bloomberg Barclays Global Aggregate Index</em>) sẽ <em>nhiều khả năng nhất</em> có:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> limited security selection.</p>
+</li>
+<li>
+<p><strong>B.</strong> modest turnover due to changes in market values.</p>
+</li>
+<li>
+<p><strong>C.</strong> comprehensive exposure to fixed-income markets.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> sự lựa chọn chứng khoán hạn chế (<em>limited security selection</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> tỷ lệ thay đổi danh mục vừa phải do những thay đổi về giá trị thị trường.</p>
+</li>
+<li>
+<p><strong>C.</strong> khả năng tiếp cận toàn diện tới các thị trường thu nhập cố định (<em>comprehensive exposure to fixed-income markets</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>4.</strong> A firm that increases the size of an existing bond issue with a price significantly different from par is conducting a:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>4.</strong> Một doanh nghiệp tăng quy mô của một đợt phát hành trái phiếu hiện hành có mức giá khác biệt đáng kể so với mệnh giá là đang tiến hành một đợt:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> reopening.</p>
+</li>
+<li>
+<p><strong>B.</strong> private placement.</p>
+</li>
+<li>
+<p><strong>C.</strong> distressed debt issuance.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> phát hành bổ sung / mở lại (<em>reopening</em>).</p>
+</li>
+<li>
+<p><strong>B.</strong> phát hành riêng lẻ (<em>private placement</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> phát hành nợ gặp khó khăn tài chính (<em>distressed debt issuance</em>).</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p><strong>5.</strong> The bond issue trading at the highest bid–offer spread is <em>most likely</em> a:</p></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><p><strong>5.</strong> Đợt phát hành trái phiếu giao dịch ở mức chênh lệch giá chào mua – chào bán (<em>bid–offer spread</em>) cao nhất <em>nhiều khả năng nhất</em> là một:</p></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><ul>
+<li>
+<p><strong>A.</strong> recently issued sovereign bond.</p>
+</li>
+<li>
+<p><strong>B.</strong> seasoned investment-grade corporate bond.</p>
+</li>
+<li>
+<p><strong>C.</strong> recently issued investment-grade corporate bond.</p>
+</li>
+</ul></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ul>
+<li>
+<p><strong>A.</strong> trái phiếu chính phủ mới phát hành gần đây.</p>
+</li>
+<li>
+<p><strong>B.</strong> trái phiếu doanh nghiệp hạng đầu tư đã phát hành lâu năm (<em>seasoned investment-grade corporate bond</em>).</p>
+</li>
+<li>
+<p><strong>C.</strong> trái phiếu doanh nghiệp hạng đầu tư mới phát hành gần đây.</p>
+</li>
+</ul></div>
+                </div>
+                
+
+                <div id="pdf-page-87" class="pdf-page-divider my-6 flex items-center gap-4 scroll-mt-20">
+                    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-slate-300 dark:to-slate-700"></div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shadow-2xs">
+                        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        PDF Page 87 / Trang PDF 87
+                    </span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-300 dark:via-slate-700 via-slate-300 to-transparent"></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start bg-slate-50/70 dark:bg-slate-800/40 rounded-xl border border-slate-200/70 dark:border-slate-700/60 p-4 my-3">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><h2><strong>~~SOLUTIONS~~</strong></h2></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><h2><strong>LỜI GIẢI (<em>SOLUTIONS</em>)</strong></h2></div>
+                </div>
+                
+
+                <div class="bilingual-row grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start py-2.5 border-b border-slate-100 dark:border-slate-800/70">
+                    <div class="col-en prose-cfa min-w-0 pr-0 lg:pr-4 lg:border-r border-slate-200/80 dark:border-slate-800"><p>1.</p>
+<ul>
+<li>
+<p><strong>A.</strong> III</p>
+</li>
+<li>
+<p><strong>B.</strong> I</p>
+</li>
+<li>
+<p><strong>C.</strong> II</p>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>C is correct. Sovereign government issuers typically have the lowest credit risk (highest credit rating) in each market, due to sovereign governments’ right to tax economic activity. High-yield issuers have below-investment-grade credit ratings (BBB- or below), while distressed issuers typically have high-yield ratings or are in default.</p>
+</li>
+<li>
+<p>C is correct. Mutual funds and ETFs that track this benchmark index offer <em>comprehensive</em> exposure to many fixed-income markets with <em>no</em> active security selection and portfolio turnover limited solely to either new issuance or issues no longer meeting inclusion criteria.</p>
+</li>
+<li>
+<p>A is correct. Increasing the size of an existing bond with a price significantly different from par is referred to as the reopening of an existing bond. A private placement refers to bonds being sold to a selected investor or group of investors, versus a sale to the public. Bonds of issuers believed to be very close to or in bankruptcy are referred to as distressed.</p>
+</li>
+<li>
+<p>B is correct. Bonds of less frequent corporate issuers or more seasoned bonds of frequent issuers are rarely traded, leading dealers to quote bid–offer spreads of at least 10–20 basis points or more for small sizes. The most recently issued, or on-the-run, developed market sovereign bonds are typically the most liquid fixed-income securities, with primary dealers making active markets in large size with bid–offer spreads equal to a fraction of a basis point. Among corporate issuers, recently issued corporate bonds from frequent issuers of higher credit quality usually exhibit the greatest liquidity and tightest bid–offer spreads.</p>
+</li>
+</ol></div>
+                    <div class="col-vi prose-cfa min-w-0 pl-0 lg:pl-2"><ol>
+<li>
+<ul>
+<li><strong>A.</strong> III (Thương phiếu – Các quỹ thị trường tiền tệ)</li>
+<li><strong>B.</strong> I (Trái phiếu doanh nghiệp không có đảm bảo – Các công ty bảo hiểm)</li>
+<li><strong>C.</strong> II (Trái phiếu doanh nghiệp có đảm bảo – Các quỹ phòng hộ)</li>
+</ul>
+</li>
+<li>
+<p>C là đáp án đúng. Các tổ chức phát hành chính phủ quốc gia (<em>sovereign government issuers</em>) thường có rủi ro tín dụng thấp nhất (xếp hạng tín dụng cao nhất) tại mỗi thị trường, do quyền đánh thuế hoạt động kinh tế của chính phủ có chủ quyền. Các tổ chức phát hành lợi suất cao có xếp hạng tín dụng dưới hạng đầu tư (từ BB+ trở xuống; BBB- là mức thấp nhất của hạng đầu tư), trong khi các tổ chức phát hành đang gặp khó khăn tài chính thường có xếp hạng lợi suất cao hoặc đang trong tình trạng vỡ nợ.</p>
+</li>
+<li>
+<p>C là đáp án đúng. Các quỹ tương hỗ và quỹ ETF bám sát chỉ số chuẩn này mang lại khả năng tiếp cận <em>toàn diện</em> tới nhiều thị trường thu nhập cố định mà <em>không có</em> sự lựa chọn chứng khoán chủ động nào và tỷ lệ thay đổi danh mục chỉ giới hạn ở các đợt phát hành mới hoặc các đợt phát hành không còn đáp ứng tiêu chí đưa vào chỉ số.</p>
+</li>
+<li>
+<p>A là đáp án đúng. Việc tăng quy mô của một trái phiếu hiện hành có mức giá khác biệt đáng kể so với mệnh giá được gọi là phát hành bổ sung / mở lại (<em>reopening</em>) một trái phiếu hiện hành. Phát hành riêng lẻ (<em>private placement</em>) đề cập đến việc trái phiếu được bán cho một nhà đầu tư hoặc một nhóm nhà đầu tư được lựa chọn, so với việc bán ra công chúng. Trái phiếu của các tổ chức phát hành được cho là đang ở rất gần hoặc đang trong tình trạng phá sản được gọi là nợ gặp khó khăn tài chính (<em>distressed</em>).</p>
+</li>
+<li>
+<p>B là đáp án đúng. Trái phiếu của các tổ chức phát hành doanh nghiệp ít phát hành hơn hoặc các trái phiếu đã phát hành lâu năm hơn (<em>more seasoned bonds</em>) của các tổ chức phát hành thường xuyên hiếm khi được giao dịch, dẫn đến việc các nhà tạo lập thị trường yết mức chênh lệch giá chào mua – chào bán ít nhất từ 10–20 điểm cơ bản trở lên cho các quy mô giao dịch nhỏ. Các trái phiếu chính phủ tại thị trường phát triển vừa mới được phát hành gần nhất (<em>on-the-run</em>) thường là các chứng khoán thu nhập cố định có tính thanh khoản cao nhất, với các nhà tạo lập thị trường sơ cấp tích cực tạo lập thị trường ở quy mô lớn với mức chênh lệch giá chào mua – chào bán chỉ bằng một phần nhỏ của một điểm cơ bản. Trong số các tổ chức phát hành doanh nghiệp, các trái phiếu doanh nghiệp mới được phát hành gần đây từ các tổ chức phát hành thường xuyên có chất lượng tín dụng cao hơn thường thể hiện tính thanh khoản lớn nhất và chênh lệch giá chào mua – chào bán hẹp nhất.</p>
+</li>
+</ol></div>
+                </div>
+                
+    </div>
+
+    <!-- Bottom Prev/Next Navigation -->
+    <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+      <a href="LM03_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-indigo-500 transition shadow-2xs">← LM03_Part1_Introduction</a>
+      <a href="index.html" class="text-xs font-semibold text-slate-500 hover:text-indigo-600">Quay lại Mục lục Volume 6</a>
+      <a href="LM04_Part1_Introduction.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 transition shadow-xs">LM04_Part1_Introduction →</a>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal for High-Res PNG Charts/Formulas -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xs hidden items-center justify-center p-4 cursor-zoom-out">
+    <img id="lightbox-img" src="" alt="Zoomed view" class="max-w-[95vw] max-h-[92vh] bg-white p-2 rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <script src="../assets_shared/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCompletedUI('06_Fixed_Income/LM03_Part2_Primary_and_Secondary_Fixed_Income_Markets.html');
+    });
+  </script>
+</body>
+</html>

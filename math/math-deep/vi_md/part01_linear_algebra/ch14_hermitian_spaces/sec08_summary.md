@@ -1,0 +1,8 @@
+# Tóm tắt
+
+
+<!-- PAGE 563 -->
+
+## 14.8 Tóm tắt
+
+Chính các khái niệm và các kết quả của điều này chương được liệt kê ở dưới: $\bullet$ Nửa tuyến tính (semilinear) các ánh xạ. $\bullet$ Các dạng nửa tuyến tính; Hermite các dạng. $\bullet$ Dạng toàn phương (quadratic form) liên kết với dạng nửa tuyến tính (sesquilinear form). $\bullet$ Phân cực các đồng nhất thức. $\bullet$ Dương và xác định dương (positive definite) Hermite các dạng; pre-Các không gian Hilbert, Các không gian Hermite. $\bullet$ Gram ma trận liên kết với Hermite tích. $\bullet$ Cauchy–Schwarz bất đẳng thức và Minkowski bất đẳng thức. $\bullet$ Hermite tích vô hướng (inner product), Hermite chuẩn (norm). $\bullet$ hình bình hành luật. $\bullet$ musical các đẳng cấu $\flat$: $\overline{E} \to E^{*}$ và $\sharp$: $E^{*} \to \overline{E}$; Định lý 14.6 $(E$ là hữu hạn chiều). $\bullet$ liên hợp (adjoint) của ánh xạ tuyến tính (linear map) (đối với Hermite tích vô hướng (inner product)). $\bullet$ Sự tồn tại của các cơ sở trực chuẩn trong Không gian Hermite (Hermitian space) (Mệnh đề 14.11). $\bullet$ Gram–Schmidt trực chuẩn hóa quy trình. $\bullet$ Tuyến tính các phép đẳng cự (unita các phép biến đổi). $\bullet$ unita nhóm, các ma trận unita. $\bullet$ unita nhóm U(n). $\bullet$ đặc biệt unita nhóm SU(n). $\bullet$ Phân rã QR (QR-decomposition) cho tùy ý phức các ma trận. $\bullet$ Hadamard bất đẳng thức cho phức các ma trận. $\bullet$ Hadamard bất đẳng thức cho Hermite nửa xác định dương (positive semidefinite) các ma trận. $\bullet$ Trực giao các phép chiếu và các phép đối hợp; trực giao các phép đối xứng. $\bullet$ Đối ngẫu (dual) các chuẩn. $\bullet$ Nuclear chuẩn (norm) (cũng được gọi là vết (trace) chuẩn (norm)). $\bullet$ Ma trận đầy đủ hóa.
